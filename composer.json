@@ -9,13 +9,22 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "bensampo/laravel-enum": "^3.3",
+        "calebporzio/parental": "^0.11.0",
+        "elasticsearch/elasticsearch": "^7.11",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/horizon": "^5.7",
         "laravel/telescope": "^4.4",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "prettus/l5-repository": "^2.7",
+        "spatie/laravel-json-api-paginate": "^1.10",
+        "spatie/laravel-query-builder": "^3.3",
+        "spatie/laravel-ray": "^1.17",
+        "spatie/laravel-sitemap": "^5.9",
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
