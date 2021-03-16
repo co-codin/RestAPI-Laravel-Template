@@ -46,7 +46,7 @@ return [
 
     'storage' => [
         'database' => [
-            'connection' => env('DB_CONNECTION', 'mysql'),
+            'connection' => env('TELESCOPE_DB_CONNECTION', 'mysql'),
             'chunk' => 1000,
         ],
     ],
@@ -75,14 +75,12 @@ return [
     |
     */
 
-    'middleware' => [
-        'web',
-        Authorize::class,
-    ],
+    'middleware' => ['web', 'auth.basic'],
+
 
     /*
     |--------------------------------------------------------------------------
-    | Allowed / Ignored Paths & Commands
+    | Ignored Paths & Commands
     |--------------------------------------------------------------------------
     |
     | The following array lists the URI paths and Artisan commands that will
@@ -91,16 +89,12 @@ return [
     |
     */
 
-    'only_paths' => [
-        // 'api/*'
-    ],
-
     'ignore_paths' => [
-        'nova-api*',
+        //
     ],
 
     'ignore_commands' => [
-        //
+        'turbo:generate'
     ],
 
     /*
@@ -115,7 +109,6 @@ return [
     */
 
     'watchers' => [
-        Watchers\BatchWatcher::class => env('TELESCOPE_BATCH_WATCHER', true),
         Watchers\CacheWatcher::class => env('TELESCOPE_CACHE_WATCHER', true),
 
         Watchers\CommandWatcher::class => [
