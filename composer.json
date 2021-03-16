@@ -11,12 +11,16 @@
         "php": "^7.4|^8.0",
         "bensampo/laravel-enum": "^3.3",
         "calebporzio/parental": "^0.11.0",
+        "doctrine/dbal": "^3.0",
         "elasticsearch/elasticsearch": "^7.11",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.9",
         "guzzlehttp/guzzle": "^7.0.1",
+        "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.12",
         "laravel/horizon": "^5.7",
+        "laravel/slack-notification-channel": "^2.3",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
         "prettus/l5-repository": "^2.7",
@@ -68,6 +72,13 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta",
+            "@php artisan telescope:publish --ansi",
+            "@php artisan horizon:publish --ansi"
         ]
     }
 }
