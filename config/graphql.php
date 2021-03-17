@@ -100,6 +100,9 @@ return [
     //
     'schemas' => [
         'achievement' => [
+            'types' => [
+                'achievement' => \Modules\Achievement\GraphQL\Types\AchievementType::class,
+            ],
             'query' => [
                 // 'example_query' => ExampleQuery::class,
             ],
