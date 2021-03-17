@@ -1,12 +1,18 @@
 type Query {
-    achievements: [Achievement!]! @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
-    achievements: [Achievement!]! @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    achievements(
+        where: _ @whereConditions(columns: ["id", "name", "image", "status", "position"])
+        orderBy: _ @orderBy(columns: ["id", "title", "position"])
+    ): [Achievement!]!
+        @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+        @orderBy(column: "id", direction: "ASC")
+
+    achievement(id: ID! @eq): Achievement @find
 }
 
 type Achievement {
     id: ID!
     name: String!
     image: String!
-    status: Int!
+    status: AchievementStatus!
     position: Int!
 }
