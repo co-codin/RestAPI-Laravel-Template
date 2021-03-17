@@ -26,7 +26,6 @@
         "prettus/l5-repository": "^2.7",
         "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-query-builder": "^3.3",
-        "spatie/laravel-ray": "^1.17",
         "spatie/laravel-sitemap": "^5.9",
         "wildbit/swiftmailer-postmark": "^3.3"
     },
@@ -51,6 +50,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Modules\\": "Modules/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
@@ -75,8 +75,6 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
             "@php artisan telescope:publish --ansi",
             "@php artisan horizon:publish --ansi"
         ]
