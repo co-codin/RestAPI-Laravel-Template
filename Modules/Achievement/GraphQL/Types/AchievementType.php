@@ -35,7 +35,7 @@ class AchievementType extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Статус достижения',
                 'resolve' => function($root, $args) {
-                    return AchievementStatus::getValue($root->status);
+                    return AchievementStatus::getKey($root->status);
                 },
             ],
             'position' => [
