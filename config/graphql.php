@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use example\Mutation\ExampleMutation;
-use example\Query\ExampleQuery;
-use example\Type\ExampleRelationType;
-use example\Type\ExampleType;
+//use example\Mutation\ExampleMutation;
+//use example\Query\ExampleQuery;
+//use example\Type\ExampleRelationType;
+//use example\Type\ExampleType;
 
 return [
 
@@ -99,15 +99,12 @@ return [
     //  ]
     //
     'schemas' => [
-        'default' => [
+        'achievement' => [
             'query' => [
                 // 'example_query' => ExampleQuery::class,
             ],
-            'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
-            ],
             'middleware' => [],
-            'method' => ['get', 'post'],
+            'method' => ['get'],
         ],
     ],
 
