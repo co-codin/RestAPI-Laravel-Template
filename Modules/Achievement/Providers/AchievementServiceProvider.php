@@ -2,10 +2,7 @@
 
 namespace Modules\Achievement\Providers;
 
-use Modules\Achievement\Enums\AchievementStatus;
-use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Illuminate\Support\ServiceProvider;
-use Nuwave\Lighthouse\Schema\Types\LaravelEnumType;
 
 class AchievementServiceProvider extends ServiceProvider
 {
@@ -22,15 +19,10 @@ class AchievementServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param  \Nuwave\Lighthouse\Schema\TypeRegistry  $typeRegistry
      * @return void
      */
-    public function boot(TypeRegistry $typeRegistry)
+    public function boot()
     {
-        $typeRegistry->register(
-            new LaravelEnumType(AchievementStatus::class)
-        );
-
         $this->registerTranslations();
         $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));

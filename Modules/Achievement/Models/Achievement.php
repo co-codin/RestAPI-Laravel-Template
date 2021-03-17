@@ -5,7 +5,7 @@ namespace Modules\Achievement\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Achievement\Enums\AchievementStatus;
+use Modules\Achievement\Database\factories\AchievementFactory;
 
 class Achievement extends Model
 {
@@ -14,17 +14,17 @@ class Achievement extends Model
     protected $fillable = [
         'name',
         'image',
-        'status',
+        'is_enabled',
         'position',
     ];
 
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('status', AchievementStatus::OPEN);
+        return $query->where('is_enabled', '=', true);
     }
 
     protected static function newFactory()
     {
-        return \Modules\Achievement\Database\factories\AchievementFactory::new();
+        return AchievementFactory::new();
     }
 }
