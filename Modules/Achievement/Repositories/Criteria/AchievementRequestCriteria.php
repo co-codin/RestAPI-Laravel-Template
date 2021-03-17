@@ -3,9 +3,9 @@
 
 namespace Modules\Achievement\Repositories\Criteria;
 
+use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class AchievementRequestCriteria implements CriteriaInterface
@@ -27,10 +27,12 @@ class AchievementRequestCriteria implements CriteriaInterface
 
     public function apply($model, RepositoryInterface $repository)
     {
-        dd(
-            $this->data
-        );
-        $query = QueryBuilder::for($model::query());
+        $filters = array_intersect_key($this->data, array_flip($this->allowedFilterFields));
+        $sorts = array_intersect_key($this->data['sortBy'], array_flip($this->allowedSortFields));
+
+        $query = QueryBuilder::for($model)
+            ->where($filters)
+            ;
 
 //        return QueryBuilder::for($model::query())
 //            ->defaultSort('position')

@@ -4,7 +4,7 @@
 namespace Modules\Achievement\GraphQL\Queries;
 
 use Closure;
-use Modules\Achievement\Models\Achievement;
+use GraphQL\Type\Definition\InputObjectType;
 use Modules\Achievement\Repositories\AchievementRepository;
 use Modules\Achievement\Repositories\Criteria\AchievementRequestCriteria;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -18,6 +18,7 @@ class AchievementQuery extends Query
 
     protected $attributes = [
         'name' => 'achievements',
+        'description' => 'An achievements query'
     ];
 
     public function __construct(AchievementRepository $achievementRepository)
@@ -33,10 +34,20 @@ class AchievementQuery extends Query
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::int()],
-            'name' => ['name' => 'name', 'type' => Type::string()],
-            'image' => ['name' => 'image', 'type' => Type::string()],
-            'status' => ['name' => 'status', 'type' => Type::int()],
+            'filter' => [
+                'name' => 'filter',
+                'type' => new InputObjectType([
+                    'name' => 'AchievementsFilterInput',
+                    'fields' => function () {
+                        return [
+                            'id' => ['name' => 'id', 'type' => Type::int()],
+                            'name' => ['name' => 'name', 'type' => Type::string()],
+                            'image' => ['name' => 'image', 'type' => Type::string()],
+                            'status' => ['name' => 'status', 'type' => Type::int()],
+                        ];
+                    }
+                ]),
+            ],
 
             'limit' => ['name' => 'limit', 'type' => Type::int()],
             'page' => ['name' => 'page', 'type' => Type::int()],
@@ -46,6 +57,9 @@ class AchievementQuery extends Query
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
+        dd(
+            $args
+        );
         $this->achievementRepository->pushCriteria(new AchievementRequestCriteria($args));
 
         return $this->achievementRepository->paginate(

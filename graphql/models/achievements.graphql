@@ -1,0 +1,12 @@
+type Query {
+    achievements: [Achievement!]! @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    achievements: [Achievement!]! @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+}
+
+type Achievement {
+    id: ID!
+    name: String!
+    image: String!
+    status: Int!
+    position: Int!
+}
