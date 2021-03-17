@@ -2,11 +2,6 @@
 
 declare(strict_types=1);
 
-//use example\Mutation\ExampleMutation;
-//use example\Query\ExampleQuery;
-//use example\Type\ExampleRelationType;
-//use example\Type\ExampleType;
-
 return [
 
     // The prefix for routes
@@ -67,7 +62,7 @@ return [
     //
     // Example:
     //
-    //  'schema' => 'default',
+      'schema' => 'default',
     //
     //  'schemas' => [
     //      'default' => [
@@ -99,12 +94,9 @@ return [
     //  ]
     //
     'schemas' => [
-        'achievement' => [
-            'types' => [
-                'achievement' => \Modules\Achievement\GraphQL\Types\AchievementType::class,
-            ],
+        'default' => [
             'query' => [
-                // 'example_query' => ExampleQuery::class,
+                'achievements' => \Modules\Achievement\GraphQL\Queries\AchievementQuery::class,
             ],
             'middleware' => [],
             'method' => ['get'],
@@ -121,8 +113,7 @@ return [
     // ]
     //
     'types' => [
-        // 'example'           => ExampleType::class,
-        // 'relation_example'  => ExampleRelationType::class,
+        'achievement' => \Modules\Achievement\GraphQL\Types\AchievementType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
     ],
 

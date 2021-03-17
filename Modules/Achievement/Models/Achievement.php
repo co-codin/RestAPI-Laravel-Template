@@ -9,7 +9,12 @@ class Achievement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'image',
+        'status',
+        'position',
+    ];
 
     protected static function newFactory()
     {
