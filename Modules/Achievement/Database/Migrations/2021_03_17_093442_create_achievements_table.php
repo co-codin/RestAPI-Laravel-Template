@@ -17,7 +17,7 @@ class CreateAchievementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->boolean('is_enabled');
+            $table->boolean('is_enabled')->default(true);
             $table->unsignedInteger('position')->nullable();
             $table->timestamps();
         });

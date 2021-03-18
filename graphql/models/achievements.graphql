@@ -9,10 +9,24 @@ type Query {
     achievement(id: ID! @eq): Achievement @find
 }
 
+type Mutation {
+    createAchievement(input: AchievementInput! @spread): Achievement! @create @guard
+    updateAchievement(id: ID!, input: AchievementInput! @spread): Achievement! @update @guard
+    deleteAchievement(id: ID!): Achievement @delete @guard
+}
+
 type Achievement {
     id: ID!
     name: String!
     image: String!
     is_enabled: Boolean!
-    position: Int!
+    position: Int
+    created_at: String @auth(guard: "api")
+    updated_at: String @auth(guard: "api")
+}
+
+input AchievementInput {
+    name: String @rules(apply: ["required"])
+    image: String @rules(apply: ["required"])
+    is_enabled: String @rules(apply: ["sometimes", "boolean"])
 }

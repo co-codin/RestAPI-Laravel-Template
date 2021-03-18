@@ -11,12 +11,7 @@ class Achievement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'image',
-        'is_enabled',
-        'position',
-    ];
+    protected $guarded = ['id'];
 
     public function scopeActive(Builder $query): Builder
     {

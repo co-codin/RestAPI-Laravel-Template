@@ -30,7 +30,7 @@ return [
          */
         'middleware' => [
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
-
+            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
             // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
         ],
 
