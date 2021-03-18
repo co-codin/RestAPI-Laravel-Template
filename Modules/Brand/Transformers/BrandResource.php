@@ -2,25 +2,12 @@
 
 namespace Modules\Brand\Transformers;
 
-use App\Enums\Status;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Transformers\BaseJsonResource;
 
-class BrandResource extends JsonResource
+class BrandResource extends BaseJsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        $statusDescription = Status::getValue($this->status);
-        return array_merge(parent::toArray($request), [
-            'status' => [
-                'label' => $this->status,
-                'description' => $statusDescription,
-            ],
-        ]);
+        return parent::toArray($request);
     }
 }
