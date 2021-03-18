@@ -1,0 +1,13 @@
+{
+    "name": "Achievement",
+    "alias": "achievement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Achievement\\Providers\\AchievementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
