@@ -27,16 +27,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Auth::viaRequest('jwt', function (Request $request) {
-            return $this->verifyToken($request->bearerToken());
-        });
-    }
-
-    protected function verifyToken($token)
-    {
-        $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
-
-        return $response->successful();
     }
 }

@@ -1,20 +1,3 @@
-type Query {
-    brands(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-    ): [Achievement!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
-    @orderBy(column: "id", direction: "ASC")
-
-    brands_admin(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-    ): [Achievement!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
-    @orderBy(column: "id", direction: "ASC")
-    @auth(guard: "api")
-}
-
 type Brand {
     id: ID!
     name: String!
