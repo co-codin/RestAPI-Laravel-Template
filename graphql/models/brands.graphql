@@ -1,0 +1,26 @@
+type Query {
+    brands(
+        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
+    ): [Achievement!]!
+    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @orderBy(column: "id", direction: "ASC")
+
+    achievement(id: ID! @eq): Achievement @find
+}
+
+type Brand {
+    id: ID!
+    name: String!
+    slug: String!
+    image: String
+    website: String
+    full_description: String
+    status: Int!
+    in_home: Boolean!
+    position: Int
+    country: String
+    short_description: String
+    created_at: String
+    updated_at: String
+}

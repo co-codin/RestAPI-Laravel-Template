@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Auth::viaRequest('jwt', function (Request $request) {
+            return $this->verifyToken($request->bearerToken());
+        });
+    }
+
+    protected function verifyToken($token)
+    {
+        $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
+
+        return $response->successful();
     }
 }

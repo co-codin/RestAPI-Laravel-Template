@@ -26,17 +26,19 @@ class BrandController extends Controller
         return new BrandResource($brand);
     }
 
-    public function update(int $brand,BrandRequest $request)
+    public function update(int $brandId,BrandRequest $request)
     {
-        $brand = $this->brandStorage->update($brand, BrandDto::fromFormRequest($request));
+        $brand = $this->brandStorage->update($brandId, BrandDto::fromFormRequest($request));
 
         return new BrandResource($brand);
     }
 
-    public function destroy(int $brand)
+    public function destroy(int $brandId)
     {
-        if ($this->brandStorage->delete($brand)) {
+        if ($this->brandStorage->delete($brandId)) {
             return response()->json([], 204);
+        } else {
+            return response()->json([], 400);
         }
     }
 

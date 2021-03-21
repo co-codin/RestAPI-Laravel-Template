@@ -1,7 +1,7 @@
 type Query {
     achievements(
         where: _ @whereConditions(columns: ["id", "name", "image", "is_enabled", "position"])
-        orderBy: _ @orderBy(columns: ["id", "title", "position"])
+        orderBy: _ @orderBy(columns: ["id", "name", "image", "position", "created_at", "updated_at"])
     ): [Achievement!]!
         @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
         @orderBy(column: "id", direction: "ASC")
@@ -15,6 +15,6 @@ type Achievement {
     image: String!
     is_enabled: Boolean!
     position: Int
-    created_at: String @auth(guard: "api")
-    updated_at: String @auth(guard: "api")
+    created_at: String!
+    updated_at: String!
 }
