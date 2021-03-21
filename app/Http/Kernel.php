@@ -47,7 +47,6 @@ class Kernel extends HttpKernel
 
         'admin' => [
             'jwt.auth',
-
         ],
     ];
 
