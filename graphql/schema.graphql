@@ -13,22 +13,7 @@ type Query {
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
 
-    achievements_admin(
-        where: _ @whereConditions(columns: ["id", "name", "image", "is_enabled", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "image", "position", "created_at", "updated_at"])
-    ): [Achievement!]!
-    @jwt
-    @paginate(defaultCount: 15, maxCount: 200, builder: "Modules\\Achievement\\Builders\\AchievementBuilder@admin")
-    @orderBy(column: "id", direction: "ASC")
-
     brands(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
-    ): [Achievement!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
-    @orderBy(column: "id", direction: "ASC")
-
-    brands_admin(
         where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
     ): [Achievement!]!

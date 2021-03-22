@@ -124,7 +124,7 @@ return [
 //        'interfaces' => 'App\\GraphQL\\Interfaces',
 //        'unions' => 'App\\GraphQL\\Unions',
 //        'scalars' => 'App\\GraphQL\\Scalars',
-        'directives' => [\App\GraphQL\Directives\JwtDirective::class],
+        'directives' => ['App\\GraphQL\\Directives'],
 //        'validators' => ['App\\GraphQL\\Validators'],
     ],
 

@@ -8,6 +8,7 @@ use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Dto\AchievementPositionDto;
 use Modules\Achievement\Http\Requests\AchievementPositionRequest;
 use Modules\Achievement\Http\Requests\AchievementRequest;
+use Modules\Achievement\Repositories\AchievementRepository;
 use Modules\Achievement\Services\AchievementPositionService;
 use Modules\Achievement\Services\AchievementStorage;
 use Modules\Achievement\Transformers\AchievementResource;
@@ -16,11 +17,31 @@ class AchievementController extends Controller
 {
     protected AchievementStorage $achievementStorage;
     protected AchievementPositionService $achievementPositionService;
+    protected AchievementRepository $achievementRepository;
 
-    public function __construct(AchievementStorage $achievementStorage, AchievementPositionService $achievementPositionService)
+    public function __construct(
+        AchievementStorage $achievementStorage,
+        AchievementPositionService $achievementPositionService,
+        AchievementRepository $achievementRepository
+    )
     {
         $this->achievementStorage = $achievementStorage;
         $this->achievementPositionService = $achievementPositionService;
+        $this->achievementRepository = $achievementRepository;
+    }
+
+    public function index()
+    {
+        $achievements = $this->achievementRepository->all();
+
+        return AchievementResource::collection($achievements);
+    }
+
+    public function show(int $achievement)
+    {
+        $achievementModel = $this->achievementRepository->find($achievement);
+
+        return new AchievementResource($achievement);
     }
 
     public function store(AchievementRequest $request)
@@ -30,16 +51,16 @@ class AchievementController extends Controller
         return new AchievementResource($achievement);
     }
 
-    public function update(int $achievementId, AchievementRequest $request)
+    public function update(int $achievement, AchievementRequest $request)
     {
-        $achievement = $this->achievementStorage->update($achievementId, AchievementDto::fromFormRequest($request));
+        $achievementModel = $this->achievementStorage->update($achievement, AchievementDto::fromFormRequest($request));
 
-        return new AchievementResource($achievement);
+        return new AchievementResource($achievementModel);
     }
 
-    public function destroy(int $achievementId)
+    public function destroy(int $achievement)
     {
-        if ($this->achievementStorage->delete($achievementId)) {
+        if ($this->achievementStorage->delete($achievement)) {
             return response()->json([], 204);
         } else {
             return response()->json([], 400);

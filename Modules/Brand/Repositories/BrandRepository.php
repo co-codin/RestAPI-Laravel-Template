@@ -4,13 +4,14 @@
 namespace Modules\Brand\Repositories;
 
 use Modules\Brand\Models\Brand;
+use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class BrandRepository extends BaseRepository
 {
-    public function getActiveBrands()
+    public function boot()
     {
-        return $this->model->where('status', 1)->get();
+        $this->pushCriteria(BrandRequestCriteria::class);
     }
 
     public function model()
