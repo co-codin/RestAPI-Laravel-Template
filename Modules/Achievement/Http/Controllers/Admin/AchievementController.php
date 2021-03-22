@@ -18,17 +18,14 @@ use Modules\Achievement\Transformers\AchievementResource;
 class AchievementController extends Controller
 {
     protected AchievementStorage $achievementStorage;
-    protected AchievementPositionService $achievementPositionService;
     protected AchievementRepository $achievementRepository;
 
     public function __construct(
         AchievementStorage $achievementStorage,
-        AchievementPositionService $achievementPositionService,
         AchievementRepository $achievementRepository
     )
     {
         $this->achievementStorage = $achievementStorage;
-        $this->achievementPositionService = $achievementPositionService;
         $this->achievementRepository = $achievementRepository;
     }
 
@@ -43,7 +40,7 @@ class AchievementController extends Controller
     {
         $achievementModel = $this->achievementRepository->find($achievement);
 
-        return new AchievementResource($achievement);
+        return new AchievementResource($achievementModel);
     }
 
     public function store(AchievementCreateRequest $request)
@@ -71,9 +68,9 @@ class AchievementController extends Controller
         return response()->noContent();
     }
 
-    public function modifyPosition(AchievementPositionRequest $request)
+    public function modifyPosition(AchievementPositionRequest $request, AchievementPositionService $achievementPositionService)
     {
-        $this->achievementPositionService->modifyPosition(AchievementPositionDto::fromFormRequest($request));
+        $achievementPositionService->modifyPosition($request->get('ids'));
 
         return response()->json([], 200);
     }
