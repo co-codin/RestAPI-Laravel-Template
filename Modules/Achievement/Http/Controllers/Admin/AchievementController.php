@@ -7,7 +7,8 @@ use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Dto\AchievementPositionDto;
 use Modules\Achievement\Http\Requests\AchievementPositionRequest;
-use Modules\Achievement\Http\Requests\AchievementRequest;
+use Modules\Achievement\Http\Requests\AchievementCreateRequest;
+use Modules\Achievement\Http\Requests\AchievementUpdateRequest;
 use Modules\Achievement\Repositories\AchievementRepository;
 use Modules\Achievement\Services\AchievementPositionService;
 use Modules\Achievement\Services\AchievementStorage;
@@ -44,14 +45,14 @@ class AchievementController extends Controller
         return new AchievementResource($achievement);
     }
 
-    public function store(AchievementRequest $request)
+    public function store(AchievementCreateRequest $request)
     {
         $achievement = $this->achievementStorage->store(AchievementDto::fromFormRequest($request));
 
         return new AchievementResource($achievement);
     }
 
-    public function update(int $achievement, AchievementRequest $request)
+    public function update(int $achievement, AchievementUpdateRequest $request)
     {
         $achievementModel = $this->achievementStorage->update($achievement, AchievementDto::fromFormRequest($request));
 
