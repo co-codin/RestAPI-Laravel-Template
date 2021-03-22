@@ -9,6 +9,7 @@ use Modules\Achievement\Dto\AchievementPositionDto;
 use Modules\Achievement\Http\Requests\AchievementPositionRequest;
 use Modules\Achievement\Http\Requests\AchievementCreateRequest;
 use Modules\Achievement\Http\Requests\AchievementUpdateRequest;
+use Modules\Achievement\Models\Achievement;
 use Modules\Achievement\Repositories\AchievementRepository;
 use Modules\Achievement\Services\AchievementPositionService;
 use Modules\Achievement\Services\AchievementStorage;
@@ -54,14 +55,18 @@ class AchievementController extends Controller
 
     public function update(int $achievement, AchievementUpdateRequest $request)
     {
-        $achievementModel = $this->achievementStorage->update($achievement, AchievementDto::fromFormRequest($request));
+        $achievementModel = Achievement::query()->firstOrFail($achievement);
 
-        return new AchievementResource($achievementModel);
+        $item = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
+
+        return new AchievementResource($item);
     }
 
     public function destroy(int $achievement)
     {
-        abort_unless($this->achievementStorage->delete($achievement), 500, 'Не удалось удалить достижения');
+        $achievementModel = Achievement::query()->firstOrFail($achievement);
+
+        abort_unless($this->achievementStorage->delete($achievementModel), 500, 'Не удалось удалить достижения');
 
         return response()->noContent();
     }

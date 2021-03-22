@@ -14,13 +14,13 @@ class BrandStorage
         return Brand::query()->create($brandDto->toArray());
     }
 
-    public function update(int $brand, BrandDto $brandDto)
+    public function update($brand, BrandDto $brandDto)
     {
-        return Brand::query()->find($brand)->update($brandDto->toArray());
+        return $brand->update($brandDto->toArray());
     }
 
-    public function delete(int $brand)
+    public function delete($brand)
     {
-        return Brand::query()->find($brand)->delete();
+        return $brand->delete();
     }
 }

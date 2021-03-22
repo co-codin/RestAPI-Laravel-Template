@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Modules\Achievement\Services;
-
 
 use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Models\Achievement;
@@ -14,13 +12,13 @@ class AchievementStorage
         return Achievement::query()->create($achievementDto->toArray());
     }
 
-    public function update(int $achievementId, AchievementDto $achievementDto)
+    public function update($achievement, AchievementDto $achievementDto)
     {
-        return Achievement::query()->find($achievementId)->update($achievementDto->toArray());
+        return $achievement->update($achievementDto->toArray());
     }
 
-    public function delete(int $achievementId)
+    public function delete($achievement)
     {
-        return Achievement::query()->find($achievementId)->delete();
+        return $achievement->delete();
     }
 }

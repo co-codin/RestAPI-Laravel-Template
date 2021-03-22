@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
+use Modules\Brand\Models\Brand;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Brand\Services\BrandStorage;
 use Modules\Brand\Transformers\BrandResource;
@@ -46,14 +47,18 @@ class BrandController extends Controller
 
     public function update(int $brand, BrandUpdateRequest $request)
     {
-        $brandModel = $this->brandStorage->update($brand, BrandDto::fromFormRequest($request));
+        $brandModel = Brand::query()->firstOrFail($brand);
 
-        return new BrandResource($brandModel);
+        $item = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
+
+        return new BrandResource($item);
     }
 
     public function destroy(int $brand)
     {
-        abort_unless($this->brandStorage->delete($brand), 500, 'Не удалось удалить производителя');
+        $brandModel = Brand::query()->firstOrFail($brand);
+
+        abort_unless($this->brandStorage->delete($brandModel), 500, 'Не удалось удалить производителя');
 
         return response()->noContent();
     }
