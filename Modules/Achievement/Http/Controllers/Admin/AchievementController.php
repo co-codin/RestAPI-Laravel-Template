@@ -60,11 +60,9 @@ class AchievementController extends Controller
 
     public function destroy(int $achievement)
     {
-        if ($this->achievementStorage->delete($achievement)) {
-            return response()->json([], 204);
-        } else {
-            return response()->json([], 400);
-        }
+        abort_unless($this->achievementStorage->delete($achievement), 500, 'Не удалось удалить достижения');
+
+        return response()->noContent();
     }
 
     public function modifyPosition(AchievementPositionRequest $request)

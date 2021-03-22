@@ -20,7 +20,9 @@ class BrandFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->company,
+            'website' => $this->faker->url,
+            'full_description' => $this->faker->paragraph,
         ];
     }
 }

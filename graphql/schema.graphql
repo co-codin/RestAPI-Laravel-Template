@@ -13,6 +13,8 @@ type Query {
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
 
+    
+
     brands(
         where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "in_home", "position"])

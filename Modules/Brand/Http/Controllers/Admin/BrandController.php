@@ -52,11 +52,9 @@ class BrandController extends Controller
 
     public function destroy(int $brand)
     {
-        if ($this->brandStorage->delete($brand)) {
-            return response()->json([], 204);
-        } else {
-            return response()->json([], 400);
-        }
+        abort_unless($this->brandStorage->delete($brand), 500, 'Не удалось удалить производителя');
+
+        return response()->noContent();
     }
 
 }
