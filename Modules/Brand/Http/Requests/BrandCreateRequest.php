@@ -6,7 +6,7 @@ use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandRequest extends FormRequest
+class BrandCreateRequest extends FormRequest
 {
     public function rules()
     {

@@ -2,4 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::resource('brands', 'BrandController');
+Route::group(['namespace' => 'Admin'], function () {
+    Route::resource('brands', 'BrandController');
+});

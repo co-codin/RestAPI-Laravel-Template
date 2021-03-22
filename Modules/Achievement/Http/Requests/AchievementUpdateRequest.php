@@ -14,9 +14,9 @@ class AchievementUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'image' => 'required|string',
-            'is_enabled' => 'sometimes|boolean',
+            'name' => 'sometimes|required|string',
+            'image' => 'sometimes|required|string',
+            'is_enabled' => 'sometimes|sometimes|boolean',
         ];
     }
 

@@ -11,16 +11,12 @@ class BrandStorage
 {
     public function store(BrandDto $brandDto)
     {
-        $brand = Brand::query()->create($brandDto->toArray());
-
-        return $brand;
+        return Brand::query()->create($brandDto->toArray());
     }
 
     public function update(int $brand, BrandDto $brandDto)
     {
-        $brand = Brand::query()->find($brand)->update($brandDto->toArray());
-
-        return $brand;
+        return Brand::query()->find($brand)->update($brandDto->toArray());
     }
 
     public function delete(int $brand)
