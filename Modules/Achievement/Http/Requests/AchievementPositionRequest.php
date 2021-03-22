@@ -24,8 +24,16 @@ class AchievementPositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'ids' => 'required|array',
-            'ids.*' => 'required|exists:achievements,id',
+            'positions' => 'required|array',
+            'positions.*.id' => 'required|exists:achievements,id',
+            'positions.*.position' => 'required|integer',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'positions' => 'Позиции достижений',
         ];
     }
 }

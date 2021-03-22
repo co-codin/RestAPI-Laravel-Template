@@ -20,6 +20,15 @@ class AchievementUpdateRequest extends FormRequest
         ];
     }
 
+    public function attributes()
+    {
+        return [
+            'name' => 'Название',
+            'image' => 'Ссылка картинки',
+            'is_enabled' => 'Статус',
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *

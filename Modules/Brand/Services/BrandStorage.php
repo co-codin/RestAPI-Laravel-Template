@@ -16,7 +16,10 @@ class BrandStorage
 
     public function update($brand, BrandDto $brandDto)
     {
-        return $brand->update($brandDto->toArray());
+        if (!$brand->update($brandDto->toArray())) {
+            throw new \LogicException('can not update brand');
+        }
+        return $brand;
     }
 
     public function delete($brand)

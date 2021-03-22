@@ -47,7 +47,7 @@ class BrandController extends Controller
 
     public function update(int $brand, BrandUpdateRequest $request)
     {
-        $brandModel = Brand::query()->firstOrFail($brand);
+        $brandModel = $this->brandRepository->find($brand);
 
         $item = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
 
@@ -56,7 +56,7 @@ class BrandController extends Controller
 
     public function destroy(int $brand)
     {
-        $brandModel = Brand::query()->firstOrFail($brand);
+        $brandModel = $this->brandRepository->find($brand);
 
         abort_unless($this->brandStorage->delete($brandModel), 500, 'Не удалось удалить производителя');
 

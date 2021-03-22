@@ -52,7 +52,7 @@ class AchievementController extends Controller
 
     public function update(int $achievement, AchievementUpdateRequest $request)
     {
-        $achievementModel = Achievement::query()->firstOrFail($achievement);
+        $achievementModel = $this->achievementRepository->find($achievement);
 
         $item = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
 
@@ -61,7 +61,7 @@ class AchievementController extends Controller
 
     public function destroy(int $achievement)
     {
-        $achievementModel = Achievement::query()->firstOrFail($achievement);
+        $achievementModel = $this->achievementRepository->find($achievement);
 
         abort_unless($this->achievementStorage->delete($achievementModel), 500, 'Не удалось удалить достижения');
 
@@ -70,7 +70,7 @@ class AchievementController extends Controller
 
     public function modifyPosition(AchievementPositionRequest $request, AchievementPositionService $achievementPositionService)
     {
-        $achievementPositionService->modifyPosition($request->get('ids'));
+        $achievementPositionService->modifyPosition($request->get('positions'));
 
         return response()->json([], 200);
     }

@@ -14,7 +14,10 @@ class AchievementStorage
 
     public function update($achievement, AchievementDto $achievementDto)
     {
-        return $achievement->update($achievementDto->toArray());
+        if (!$achievement->update($achievementDto->toArray())) {
+            throw new \LogicException('can not update achievement');
+        }
+        return $achievement;
     }
 
     public function delete($achievement)
