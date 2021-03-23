@@ -17,7 +17,6 @@ class BrandCreateRequest extends FormRequest
             'short_description' => 'sometimes|nullable|string',
             'country' => 'sometimes|nullable|string',
             'website' => 'sometimes|nullable|string',
-            'benefits' => 'nullable|string',
             'full_description' => 'sometimes|nullable|string|external_links',
             'status' => [
                 'required',

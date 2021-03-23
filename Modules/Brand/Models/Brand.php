@@ -14,6 +14,19 @@ class Brand extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'name' => 'string',
+        'slug' => 'string',
+        'image' => 'string',
+        'short_description' => 'string',
+        'country' => 'string',
+        'website' => 'string',
+        'full_description' => 'string',
+        'status' => 'integer',
+        'is_in_home' => 'boolean',
+        'position' => 'integer',
+    ];
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', '=', 1);

@@ -34,6 +34,8 @@ class AchievementPositionRequest extends FormRequest
     {
         return [
             'positions' => 'Позиции достижений',
+            'positions.*.id' => 'ID достижения',
+            'positions.*.position' => 'Позиция достижения',
         ];
     }
 }

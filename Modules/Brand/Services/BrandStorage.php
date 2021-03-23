@@ -24,6 +24,8 @@ class BrandStorage
 
     public function delete($brand)
     {
-        abort_unless($brand->delete(), 500, 'Не удалось удалить производителя');
+        if (!$brand->delete()) {
+            throw new \LogicException('can not delete brand');
+        }
     }
 }

@@ -13,6 +13,7 @@ class BrandRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model::query())
             ->defaultSort('id')
+            ->allowedFields(['id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),

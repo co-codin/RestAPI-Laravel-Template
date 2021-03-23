@@ -22,6 +22,8 @@ class AchievementStorage
 
     public function delete($achievement)
     {
-        abort_unless($achievement->delete(), 500, 'Не удалось удалить достижения');
+        if (!$achievement->delete()) {
+            throw new \LogicException('can not delete achievement');
+        }
     }
 }

@@ -21,7 +21,7 @@ class AchievementController extends Controller
 
     public function index()
     {
-        $achievements = $this->achievementRepository->all();
+        $achievements = $this->achievementRepository->jsonPaginate();
 
         return AchievementResource::collection($achievements);
     }
@@ -44,9 +44,9 @@ class AchievementController extends Controller
     {
         $achievementModel = $this->achievementRepository->find($achievement);
 
-        $item = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
+        $achievementModel = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
 
-        return new AchievementResource($item);
+        return new AchievementResource($achievementModel);
     }
 
     public function destroy(int $achievement)
@@ -62,6 +62,6 @@ class AchievementController extends Controller
     {
         $achievementPositionService->modifyPosition($request->get('positions'));
 
-        return response()->json([], 200);
+        return response()->noContent();
     }
 }

@@ -7,9 +7,9 @@ use App\Dto\Dto;
 
 class AchievementDto extends Dto
 {
-    public string|null $name;
+    public ?string $name;
 
-    public string|null $image;
+    public ?string $image;
 
-    public bool|null $is_enabled;
+    public ?bool $is_enabled;
 }

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
-use Modules\Brand\Models\Brand;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Brand\Services\BrandStorage;
 use Modules\Brand\Transformers\BrandResource;
@@ -45,9 +44,9 @@ class BrandController extends Controller
     {
         $brandModel = $this->brandRepository->find($brand);
 
-        $item = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
+        $brandModel = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
 
-        return new BrandResource($item);
+        return new BrandResource($brandModel);
     }
 
     public function destroy(int $brand)

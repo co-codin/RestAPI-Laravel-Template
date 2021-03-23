@@ -10,7 +10,7 @@ class JwtMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->verifyToken(request()->bearerToken())) {
+        if (!$this->verifyToken($request->bearerToken())) {
             return response()->json([
                 'message' => 'Unauthenticated User.'
             ], 401);

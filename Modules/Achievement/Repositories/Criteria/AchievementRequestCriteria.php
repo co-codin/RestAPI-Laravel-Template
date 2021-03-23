@@ -14,6 +14,7 @@ class AchievementRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model::query())
             ->defaultSort('position')
+            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),

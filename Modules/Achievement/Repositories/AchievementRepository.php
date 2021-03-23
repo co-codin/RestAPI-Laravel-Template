@@ -2,9 +2,9 @@
 
 namespace Modules\Achievement\Repositories;
 
+use App\Repositories\BaseRepository;
 use Modules\Achievement\Models\Achievement;
 use Modules\Achievement\Repositories\Criteria\AchievementRequestCriteria;
-use Prettus\Repository\Eloquent\BaseRepository;
 
 class AchievementRepository extends BaseRepository
 {

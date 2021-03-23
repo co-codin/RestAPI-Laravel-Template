@@ -14,7 +14,7 @@ class AchievementCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'image' => 'required|string',
             'is_enabled' => 'sometimes|boolean',
         ];
