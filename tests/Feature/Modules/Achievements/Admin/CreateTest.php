@@ -19,12 +19,12 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
 
-        $response->status(201);
-        $response->assertJson([
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
             'data' => [
-                'name' => $achievementData['name'],
-                'image' => $achievementData['image'],
-                'is_enabled' => $achievementData['is_enabled']
+                'name',
+                'image',
+                'is_enabled',
             ]
         ]);
         $this->assertDatabaseHas('achievements', [
