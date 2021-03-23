@@ -29,8 +29,6 @@ class ReadTest extends TestCase
             }
         ');
 
-        $response->assertStatus(200);
-
         $response->assertJson([
             'data' => [
                 'achievements' => [
@@ -50,7 +48,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                achievements(where: { column: ID, operator: EQ, value: 1 }) {
+                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id .'  }) {
                     data {
                         id
                         name
@@ -59,7 +57,6 @@ class ReadTest extends TestCase
             }
         ');
 
-        $response->assertStatus(200);
         $response->assertJson([
             'data' => [
                 'achievements' => [
@@ -75,9 +72,95 @@ class ReadTest extends TestCase
 
     }
 
-    public function test_achievements_can_be_filter()
+    public function test_inactive_achievements_cannot_be_viewed()
     {
+        $achievement = Achievement::factory()->create([
+            'is_enabled' => 1,
+        ]);
 
+        $anotherAchievement = Achievement::factory()->create([
+            'is_enabled' => 0,
+        ]);
+
+        $response = $this->graphQL('
+            {
+                achievements {
+                    data {
+                        id
+                        name
+                    }
+                    paginatorInfo {
+                        currentPage
+                        lastPage
+                    }
+                }
+            }
+        ');
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'data' => [
+                'achievements' => [
+                    'data' => [
+                        [
+                            'id' => $achievement->id,
+                            'name' => $achievement->name,
+                        ]
+                    ],
+                    'paginatorInfo' => [
+                        'currentPage' => 1,
+                        'lastPage' => 1,
+                    ]
+                ]
+            ],
+        ]);
+
+        $this->assertNotContains($anotherAchievement->id, $response->json());
+
+
+        $response = $this->graphQL('
+            {
+                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id . ' }) {
+                    data {
+                        id
+                        name
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'achievements' => [
+                    'data' => [
+                        [
+                            'id' => $achievement->id,
+                            'name' => $achievement->name,
+                        ]
+                    ],
+                ]
+            ],
+        ]);
+
+        $response = $this->graphQL('
+            {
+                achievements(where: { column: ID, operator: EQ, value: ' . $anotherAchievement->id . ' }) {
+                    data {
+                        id
+                        name
+                    }
+                }
+            }
+        ');
+        
+        $response->assertJson([
+            'data' => [
+                'achievements' => [
+                    'data' => [],
+                ]
+            ],
+        ]);
     }
 
 }
