@@ -48,14 +48,30 @@ class ReadTest extends TestCase
             ],
         ]);
 
-        $this->graphQL('
+        $response = $this->graphQL('
             {
-                achievements(id: 1) {
-                    id,
-                    name
+                achievements(where: { column: ID, operator: EQ, value: 1 }) {
+                    data {
+                        id
+                        name
+                    }
                 }
             }
-        ')->assertStatus(200);
+        ');
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => [
+                'achievements' => [
+                    'data' => [
+                        [
+                            'id' => $achievement->id,
+                            'name' => $achievement->name,
+                        ]
+                    ],
+                ]
+            ],
+        ]);
 
     }
 

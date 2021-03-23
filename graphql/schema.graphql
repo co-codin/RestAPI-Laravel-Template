@@ -13,16 +13,12 @@ type Query {
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
 
-    achievement(id: ID! @eq): Achievement @find
-
     brands(
         where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "is_in_home", "position"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "is_in_home", "position"])
     ): [Brand!]!
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
-
-    brand(slug: String! @eq): Brand @find
 }
 
 #import models/achievements.graphql
