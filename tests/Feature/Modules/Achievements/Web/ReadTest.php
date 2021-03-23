@@ -97,8 +97,6 @@ class ReadTest extends TestCase
             }
         ');
 
-        $response->assertStatus(200);
-
         $response->assertJson([
             'data' => [
                 'achievements' => [
@@ -117,7 +115,6 @@ class ReadTest extends TestCase
         ]);
 
         $this->assertNotContains($anotherAchievement->id, $response->json());
-
 
         $response = $this->graphQL('
             {
@@ -153,7 +150,7 @@ class ReadTest extends TestCase
                 }
             }
         ');
-        
+
         $response->assertJson([
             'data' => [
                 'achievements' => [

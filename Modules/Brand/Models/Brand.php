@@ -24,7 +24,7 @@ class Brand extends Model
         return BrandFactory::new();
     }
 
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
