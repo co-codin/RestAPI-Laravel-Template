@@ -30,6 +30,6 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'auth' => [
-        'url' => env('AUTH_URL', 'http://localhost:8003'),
+        'url' => env('AUTH_URL'),
     ]
 ];

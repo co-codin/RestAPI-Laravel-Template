@@ -50,6 +50,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('admin')
             ->as('admin.')
             ->prefix('admin')
+            ->namespace($this->moduleNamespace)
             ->group(module_path('Brand', '/Routes/admin.php'));
     }
 
@@ -63,6 +64,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::middleware('api')
+            ->namespace($this->moduleNamespace)
             ->group(module_path('Brand', '/Routes/api.php'));
     }
 }
