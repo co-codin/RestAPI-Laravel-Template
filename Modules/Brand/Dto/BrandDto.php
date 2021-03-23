@@ -18,7 +18,7 @@ class BrandDto extends Dto
 
     public ?int $status;
 
-    public ?int $is_in_home;
+    public ?bool $is_in_home;
 
     public ?int $position;
 

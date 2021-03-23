@@ -18,7 +18,7 @@ class BrandUpdateRequest extends FormRequest
             'country' => 'sometimes|nullable|string',
             'website' => 'sometimes|nullable|string',
             'benefits' => 'sometimes|nullable|string',
-            'full_description' => 'sometimes|nullable|string|external_links',
+            'full_description' => 'sometimes|nullable|string',
             'status' => [
                 'sometimes',
                 'required',

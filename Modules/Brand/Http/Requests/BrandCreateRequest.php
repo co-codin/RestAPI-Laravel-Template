@@ -12,12 +12,11 @@ class BrandCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255',
             'image' => 'nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string',
             'country' => 'sometimes|nullable|string',
             'website' => 'sometimes|nullable|string',
-            'full_description' => 'sometimes|nullable|string|external_links',
+            'full_description' => 'sometimes|nullable|string',
             'status' => [
                 'required',
                 'integer',

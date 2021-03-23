@@ -12,7 +12,7 @@ class Brand extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'slug'];
 
     protected $casts = [
         'name' => 'string',
