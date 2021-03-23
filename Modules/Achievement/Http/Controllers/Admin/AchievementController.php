@@ -44,7 +44,7 @@ class AchievementController extends Controller
     {
         $achievementModel = $this->achievementRepository->find($achievement);
 
-        $achievementModel = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
+        $achievementModel = $this->achievementStorage->update($achievementModel, (new AchievementDto($request->validated()))->only(...$request->keys()));
 
         return new AchievementResource($achievementModel);
     }

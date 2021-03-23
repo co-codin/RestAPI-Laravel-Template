@@ -44,7 +44,7 @@ class BrandController extends Controller
     {
         $brandModel = $this->brandRepository->find($brand);
 
-        $brandModel = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
+        $brandModel = $this->brandStorage->update($brandModel, (new BrandDto($request->validated()))->only(...$request->keys()));
 
         return new BrandResource($brandModel);
     }
