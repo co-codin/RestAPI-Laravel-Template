@@ -24,6 +24,10 @@ class SpatieQueryBuilderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        QueryBuilderRequest::setArrayDelimiter('|');
+        QueryBuilderRequest::setIncludesArrayValueDelimiter('|'); // Includes
+        QueryBuilderRequest::setAppendsArrayValueDelimiter('|');  // Appends
+        QueryBuilderRequest::setFieldsArrayValueDelimiter('|');   // Fields
+        QueryBuilderRequest::setSortsArrayValueDelimiter('|');    // Sorts
+        QueryBuilderRequest::setFilterArrayValueDelimiter('|');   // Filter
     }
 }

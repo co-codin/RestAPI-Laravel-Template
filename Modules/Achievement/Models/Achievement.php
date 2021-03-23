@@ -14,8 +14,6 @@ class Achievement extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'name' => 'string',
-        'image' => 'string',
         'is_enabled' => 'boolean',
     ];
 

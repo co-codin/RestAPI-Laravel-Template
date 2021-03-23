@@ -15,13 +15,6 @@ class Brand extends Model
     protected $guarded = ['id', 'slug'];
 
     protected $casts = [
-        'name' => 'string',
-        'slug' => 'string',
-        'image' => 'string',
-        'short_description' => 'string',
-        'country' => 'string',
-        'website' => 'string',
-        'full_description' => 'string',
         'status' => 'integer',
         'is_in_home' => 'boolean',
         'position' => 'integer',

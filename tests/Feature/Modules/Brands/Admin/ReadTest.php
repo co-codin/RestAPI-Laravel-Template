@@ -16,7 +16,7 @@ class ReadTest extends TestCase
     public function test_authenticated_user_can_view_brands()
     {
         $this->withoutExceptionHandling();
-        
+
         Brand::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('admin.brands.index'));
@@ -63,22 +63,25 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_view_single_achievement()
+    public function test_authenticated_user_can_view_single_brand()
     {
-        $achievement = Achievement::factory()->create();
+        $brand = Brand::factory()->create();
 
-        $response = $this->json('GET', route('admin.achievements.show', ['achievement' => $achievement->id]));
+        $response = $this->json('GET', route('admin.brands.show', ['brand' => $brand->id]));
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
-                'id',
                 'name',
+                'slug',
                 'image',
-                'is_enabled',
+                'short_description',
+                'country',
+                'website',
+                'full_description',
+                'status',
+                'is_in_home',
                 'position',
-                'created_at',
-                'updated_at',
             ]
         ]);
     }

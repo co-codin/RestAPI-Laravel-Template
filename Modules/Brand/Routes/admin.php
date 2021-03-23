@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Brand\Http\Controllers\Admin\BrandController;
 
-Route::group(['namespace' => 'Admin'], function () {
-    Route::resource('brands', 'BrandController');
-});
+Route::resource('brands', BrandController::class);

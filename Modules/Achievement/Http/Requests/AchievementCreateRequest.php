@@ -15,7 +15,7 @@ class AchievementCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'required|string',
+            'image' => 'required|string|max:255',
             'is_enabled' => 'sometimes|boolean',
         ];
     }
