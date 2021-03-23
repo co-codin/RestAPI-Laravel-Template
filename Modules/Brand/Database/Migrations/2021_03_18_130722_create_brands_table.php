@@ -21,7 +21,7 @@ class CreateBrandsTable extends Migration
             $table->string('website')->nullable();
             $table->text('full_description')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
-            $table->boolean('in_home')->default(false);
+            $table->boolean('is_in_home')->default(false);
             $table->integer('position')->nullable();
             $table->string('country')->nullable(true);
             $table->string('short_description')->nullable(true);

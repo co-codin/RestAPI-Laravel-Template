@@ -23,15 +23,15 @@ class BrandUpdateRequest extends FormRequest
                 'sometimes',
                 'required',
                 'integer',
-                new EnumValue(Status::class),
+                new EnumValue(Status::class, false),
             ],
-            'in_home' => 'sometimes|boolean|',
+            'is_in_home' => 'sometimes|boolean',
             'position' => 'sometimes|nullable|integer',
         ];
     }
 
     public function authorize()
     {
-        return auth('api')->check();
+        return true;
     }
 }

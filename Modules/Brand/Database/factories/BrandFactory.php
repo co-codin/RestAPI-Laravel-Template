@@ -1,6 +1,8 @@
 <?php
+
 namespace Modules\Brand\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BrandFactory extends Factory
@@ -23,6 +25,12 @@ class BrandFactory extends Factory
             'name' => $this->faker->company,
             'website' => $this->faker->url,
             'full_description' => $this->faker->paragraph,
+            'image' => $this->faker->imageUrl(),
+            'short_description' => $this->faker->paragraph,
+            'status' => Status::getRandomValue(),
+            'is_in_home' => $this->faker->randomElement([true, false]),
+            'position' => $this->faker->randomDigit,
+            'country' => $this->faker->word,
         ];
     }
 }

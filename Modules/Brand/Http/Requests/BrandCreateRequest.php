@@ -12,7 +12,7 @@ class BrandCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255|unique:brands,slug,' . $this->get('id'),
+            'slug' => 'sometimes|nullable|string|max:255',
             'image' => 'nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string',
             'country' => 'sometimes|nullable|string',
@@ -22,15 +22,15 @@ class BrandCreateRequest extends FormRequest
             'status' => [
                 'required',
                 'integer',
-                new EnumValue(Status::class),
+                new EnumValue(Status::class, false),
             ],
-            'in_home' => 'sometimes|boolean|',
+            'is_in_home' => 'sometimes|boolean',
             'position' => 'sometimes|nullable|integer',
         ];
     }
 
     public function authorize()
     {
-        return auth('api')->check();
+        return true;
     }
 }

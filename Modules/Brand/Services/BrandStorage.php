@@ -24,6 +24,6 @@ class BrandStorage
 
     public function delete($brand)
     {
-        return $brand->delete();
+        abort_unless($brand->delete(), 500, 'Не удалось удалить производителя');
     }
 }

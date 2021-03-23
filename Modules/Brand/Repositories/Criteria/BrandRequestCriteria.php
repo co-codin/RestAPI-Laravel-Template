@@ -21,7 +21,7 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('website'),
                 AllowedFilter::exact('country'),
                 AllowedFilter::exact('status'),
-                AllowedFilter::exact('in_home'),
+                AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('position'),
             ])
             ->allowedSorts('id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position')

@@ -6,53 +6,23 @@ use App\Dto\Dto;
 
 class BrandDto extends Dto
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string|null $name;
 
-    /**
-     * @var string
-     */
-    public $slug;
+    public string|null $slug;
 
-    /**
-     * @var string
-     */
-    public $image;
+    public string|null $image;
 
-    /**
-     * @var string
-     */
-    public $website;
+    public string|null $website;
 
-    /**
-     * @var string
-     */
-    public $full_description;
+    public string|null $full_description;
 
-    /**
-     * @var int
-     */
-    public $status;
+    public int|null $status;
 
-    /**
-     * @var int
-     */
-    public $in_home;
+    public int|null $is_in_home;
 
-    /**
-     * @var int
-     */
-    public $position;
+    public int|null $position;
 
-    /**
-     * @var string
-     */
-    public $country;
+    public string|null $country;
 
-    /**
-     * @var string
-     */
-    public $short_description;
+    public string|null $short_description;
 }

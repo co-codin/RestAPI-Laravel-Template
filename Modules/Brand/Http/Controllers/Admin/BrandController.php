@@ -15,14 +15,10 @@ use Modules\Brand\Transformers\BrandResource;
 
 class BrandController extends Controller
 {
-    protected BrandStorage $brandStorage;
-
-    protected BrandRepository $brandRepository;
-
-    public function __construct(BrandStorage $brandStorage)
-    {
-        $this->brandStorage = $brandStorage;
-    }
+    public function __construct(
+        protected BrandStorage $brandStorage,
+        protected BrandRepository $brandRepository
+    ) {}
 
     public function index()
     {
@@ -58,7 +54,7 @@ class BrandController extends Controller
     {
         $brandModel = $this->brandRepository->find($brand);
 
-        abort_unless($this->brandStorage->delete($brandModel), 500, 'Не удалось удалить производителя');
+        $this->brandStorage->delete($brandModel);
 
         return response()->noContent();
     }
