@@ -12,14 +12,8 @@ type Query {
     ): [Achievement!]!
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
-
-    brands(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "status", "is_in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "status", "is_in_home", "position"])
-    ): [Brand!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
-    @orderBy(column: "id", direction: "ASC")
 }
 
-#import models/achievements.graphql
-#import models/brands.graphql
+#import models/*.graphql
+
+#import queries/*.graphql
