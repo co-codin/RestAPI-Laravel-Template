@@ -11,9 +11,7 @@ class BrandController extends Controller
 {
     public function __construct(
         protected BrandRepository $brandRepository
-    ) {
-        $brandRepository->pushCriteria(IsActiveCriteria::class);
-    }
+    ) {}
 
     public function index()
     {

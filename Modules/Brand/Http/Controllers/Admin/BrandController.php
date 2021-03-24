@@ -17,7 +17,9 @@ class BrandController extends Controller
     public function __construct(
         protected BrandStorage $brandStorage,
         protected BrandRepository $brandRepository
-    ) {}
+    ) {
+        $this->brandRepository->skipCriteria();
+    }
 
     public function index()
     {
