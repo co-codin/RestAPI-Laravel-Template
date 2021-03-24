@@ -17,7 +17,9 @@ class AchievementController extends Controller
     public function __construct(
         protected AchievementStorage $achievementStorage,
         protected AchievementRepository $achievementRepository
-    ){}
+    ){
+        $this->achievementRepository->skipCriteria();
+    }
 
     public function index()
     {

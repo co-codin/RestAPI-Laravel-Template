@@ -17,7 +17,7 @@ class AchievementController extends Controller
 
     public function index()
     {
-        $achievements = $this->achievementRepository->pushCriteria(IsEnabledCriteria::class)->jsonPaginate();
+        $achievements = $this->achievementRepository->jsonPaginate();
 
         return AchievementResource::collection($achievements);
     }
