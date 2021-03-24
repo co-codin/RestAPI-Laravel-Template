@@ -1,0 +1,13 @@
+type Brand {
+    id: ID!
+    name: String!
+    slug: String!
+    image: String
+    website: String
+    full_description: String
+    status: Int!
+    is_in_home: Boolean!
+    position: Int
+    country: String
+    short_description: String
+}

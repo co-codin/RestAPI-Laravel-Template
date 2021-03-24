@@ -178,6 +178,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
 
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
+        \App\Providers\SpatieQueryBuilderServiceProvider::class,
     ],
 
     /*

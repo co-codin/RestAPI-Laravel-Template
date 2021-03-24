@@ -4,4 +4,16 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+
+type Query {
+    achievements(
+        where: _ @whereConditions(columns: ["id", "name", "image", "is_enabled", "position"])
+        orderBy: _ @orderBy(columns: ["id", "name", "image", "position", "created_at", "updated_at"])
+    ): [Achievement!]!
+    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @orderBy(column: "id", direction: "ASC")
+}
+
 #import models/*.graphql
+
+#import queries/*.graphql

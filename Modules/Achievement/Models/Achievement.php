@@ -13,6 +13,10 @@ class Achievement extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_enabled' => 'boolean',
+    ];
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_enabled', '=', true);

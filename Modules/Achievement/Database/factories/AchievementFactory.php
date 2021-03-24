@@ -22,7 +22,7 @@ class AchievementFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->string,
+            'name' => $this->faker->sentence(4),
             'image' => $this->faker->imageUrl(),
             'is_enabled' => $this->faker->boolean,
         ];

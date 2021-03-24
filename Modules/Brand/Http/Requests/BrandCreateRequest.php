@@ -1,0 +1,34 @@
+<?php
+
+namespace Modules\Brand\Http\Requests;
+
+use App\Enums\Status;
+use BenSampo\Enum\Rules\EnumValue;
+use Illuminate\Foundation\Http\FormRequest;
+
+class BrandCreateRequest extends FormRequest
+{
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|string|max:255',
+            'short_description' => 'sometimes|nullable|string',
+            'country' => 'sometimes|nullable|string',
+            'website' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string',
+            'status' => [
+                'required',
+                'integer',
+                new EnumValue(Status::class, false),
+            ],
+            'is_in_home' => 'sometimes|boolean',
+            'position' => 'sometimes|nullable|integer',
+        ];
+    }
+
+    public function authorize()
+    {
+        return true;
+    }
+}

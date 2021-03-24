@@ -30,8 +30,8 @@ return [
          */
         'middleware' => [
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
-            // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
+
+//             \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
         ],
 
         /*
@@ -83,7 +83,7 @@ return [
         /*
          * Setting to true enables schema caching.
          */
-        'enable' => env('LIGHTHOUSE_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+        'enable' => env('LIGHTHOUSE_CACHE_ENABLE', false),
 
         /*
          * The name of the cache item for the schema cache.
@@ -116,6 +116,7 @@ return [
         'models' => [
             'App\\Models',
             'Modules\\Achievement\\Models',
+            'Modules\\Brand\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',
@@ -123,7 +124,7 @@ return [
 //        'interfaces' => 'App\\GraphQL\\Interfaces',
 //        'unions' => 'App\\GraphQL\\Unions',
 //        'scalars' => 'App\\GraphQL\\Scalars',
-//        'directives' => ['App\\GraphQL\\Directives'],
+        'directives' => ['App\\GraphQL\\Directives'],
 //        'validators' => ['App\\GraphQL\\Validators'],
     ],
 
