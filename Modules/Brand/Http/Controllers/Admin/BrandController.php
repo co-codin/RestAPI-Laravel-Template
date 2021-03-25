@@ -10,9 +10,9 @@ use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
+use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Brand\Services\BrandStorage;
-use Modules\Brand\Transformers\BrandResource;
 
 class BrandController extends Controller
 {

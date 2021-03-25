@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Achievement\Transformers;
+namespace Modules\Achievement\Http\Resources;
 
 use App\Transformers\BaseJsonResource;
 

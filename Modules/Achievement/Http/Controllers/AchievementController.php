@@ -4,10 +4,9 @@
 namespace Modules\Achievement\Http\Controllers;
 
 
-use App\Repositories\Criteria\IsEnabledCriteria;
 use Illuminate\Routing\Controller;
+use Modules\Achievement\Http\Resources\AchievementResource;
 use Modules\Achievement\Repositories\AchievementRepository;
-use Modules\Achievement\Transformers\AchievementResource;
 
 class AchievementController extends Controller
 {
