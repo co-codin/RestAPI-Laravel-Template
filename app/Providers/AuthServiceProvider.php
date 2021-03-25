@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 
@@ -28,8 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth::viaRequest('custom-token', function (Request $request) {
-            return request()->session()->get('access_token');
+        Auth::extend('custom-token', function (Request $request) {
+            $token = session()->get('access_token');
+            return Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
         });
     }
 }
