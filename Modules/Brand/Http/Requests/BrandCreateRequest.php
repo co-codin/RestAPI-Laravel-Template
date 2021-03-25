@@ -12,23 +12,18 @@ class BrandCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'nullable|string|max:255',
-            'short_description' => 'sometimes|nullable|string',
-            'country' => 'sometimes|nullable|string',
-            'website' => 'sometimes|nullable|string',
-            'full_description' => 'sometimes|nullable|string',
+            'slug' => 'sometimes|nullable|max:255|unique:brands,slug',
             'status' => [
                 'required',
-                'integer',
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'sometimes|boolean',
+            'image' => 'nullable|string|max:255',
+            'country' => 'sometimes|nullable|string|max:255',
+            'website' => 'sometimes|nullable|string|max:255',
+            'short_description' => 'sometimes|nullable|string|max:255',
+            'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
         ];
-    }
-
-    public function authorize()
-    {
-        return true;
     }
 }

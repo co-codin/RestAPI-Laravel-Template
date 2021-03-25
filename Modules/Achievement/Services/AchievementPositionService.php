@@ -6,12 +6,12 @@ use Modules\Achievement\Models\Achievement;
 
 class AchievementPositionService
 {
-    public function modifyPosition($postions)
+    public function modifyPosition($positions)
     {
-        foreach ($postions as $position) {
-            Achievement::query()->find($position['id'])->update([
-                'position' => $position['position']
-            ]);
+        foreach ($positions as $position) {
+            Achievement::query()
+                ->where('id', $position['id'])
+                ->update(['position' => $position['position']]);
         }
     }
 }

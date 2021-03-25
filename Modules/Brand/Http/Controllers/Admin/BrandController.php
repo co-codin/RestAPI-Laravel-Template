@@ -4,7 +4,9 @@
 namespace Modules\Brand\Http\Controllers\Admin;
 
 
+use App\Dto\Dto;
 use App\Http\Controllers\Controller;
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
@@ -18,7 +20,7 @@ class BrandController extends Controller
         protected BrandStorage $brandStorage,
         protected BrandRepository $brandRepository
     ) {
-        $this->brandRepository->skipCriteria();
+        $this->brandRepository->popCriteria(ActiveStatusCriteria::class);
     }
 
     public function index()

@@ -5,6 +5,7 @@ namespace Modules\Brand\Http\Requests;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class BrandUpdateRequest extends FormRequest
 {
@@ -12,26 +13,24 @@ class BrandUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255|unique:brands,slug,' . $this->get('id'),
-            'image' => 'sometimes|nullable|string|max:255',
-            'short_description' => 'sometimes|nullable|string',
-            'country' => 'sometimes|nullable|string',
-            'website' => 'sometimes|nullable|string',
-            'benefits' => 'sometimes|nullable|string',
-            'full_description' => 'sometimes|nullable|string',
+            'slug' => 'sometimes|nullable|string|max:255|unique:brands,slug,' . $this->route('brand'),
             'status' => [
                 'sometimes',
                 'required',
-                'integer',
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'sometimes|boolean',
+            'image' => 'sometimes|nullable|string|max:255',
+            'country' => 'sometimes|nullable|string|max:255',
+            'website' => 'sometimes|nullable|string|url|max:255',
+            'short_description' => 'sometimes|nullable|string|max:255',
+            'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
         ];
     }
 
-    public function authorize()
+    protected function passedValidation()
     {
-        return true;
+        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }
