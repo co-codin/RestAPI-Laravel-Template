@@ -27,21 +27,13 @@ class AuthController extends Controller
 
     public function logout()
     {
+        Http::post()
+//        session()->remove('access_token');
 
     }
 
     public function user()
     {
-//        return auth('custom-token')->user();
-//        dd(
-//            session()->get('access_token')
-//        );
-//        if ($token = session()->get('access_token')) {
-//            $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
-//
-//            return $response->json();
-//        } else {
-//            return response()->json(['Unauthenticated user.'], 404);
-//        }
+        return auth('api')->user();
     }
 }

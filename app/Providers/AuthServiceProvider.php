@@ -28,9 +28,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth::extend('custom-token', function (Request $request) {
+        Auth::viaRequest('custom-token', function (Request $request) {
             $token = session()->get('access_token');
-            return Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
+
+            $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
+
+            return $response->json();
         });
     }
 }

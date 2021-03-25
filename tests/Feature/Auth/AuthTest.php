@@ -44,19 +44,22 @@ class AuthTest extends TestCase
 
         $response = $this->json('GET', route('auth.user'));
 
-        dd(
-            $response->content()
-        );
-//        $response->assertStatus(200);
+        $response->assertStatus(200);
 
-//        dd(
-//            $response->json()
-//        );
-//        $this->assertEquals($response->status(), 200);
+        $this->assertNotEmpty($response->json());
+    }
+
+    public function test_me_endpoint_opposite()
+    {
+        $response = $this->json('GET', route('auth.user'));
+
+        $response->assertStatus(401);
     }
 
     public function logout()
     {
+        $this->json('POST', route('auth.login'), $this->getRightData());
+
 
     }
 
