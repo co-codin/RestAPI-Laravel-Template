@@ -3,7 +3,7 @@
 namespace Modules\Brand\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\IsActiveCriteria;
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Brand\Transformers\BrandResource;
 

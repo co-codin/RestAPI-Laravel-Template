@@ -14,15 +14,16 @@ class BrandStorage
         return Brand::query()->create($brandDto->toArray());
     }
 
-    public function update($brand, BrandDto $brandDto)
+    public function update(Brand $brand, BrandDto $brandDto)
     {
         if (!$brand->update($brandDto->toArray())) {
             throw new \LogicException('can not update brand');
         }
+
         return $brand;
     }
 
-    public function delete($brand)
+    public function delete(Brand $brand)
     {
         if (!$brand->delete()) {
             throw new \LogicException('can not delete brand');

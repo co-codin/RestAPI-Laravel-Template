@@ -6,7 +6,7 @@ use App\Enums\Status;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
-class IsActiveCriteria implements CriteriaInterface
+class ActiveStatusCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {

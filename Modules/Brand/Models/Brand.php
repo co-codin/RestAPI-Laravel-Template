@@ -2,9 +2,11 @@
 
 namespace Modules\Brand\Models;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use JetBrains\PhpStorm\ArrayShape;
 use Modules\Brand\Database\factories\BrandFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -12,7 +14,7 @@ class Brand extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $guarded = ['id', 'slug'];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'status' => 'integer',
@@ -22,7 +24,7 @@ class Brand extends Model
 
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('status', '=', 1);
+        return $query->where('status', '=', Status::ACTIVE);
     }
 
     protected static function newFactory()
@@ -34,7 +36,7 @@ class Brand extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'name',
             ]
         ];
     }

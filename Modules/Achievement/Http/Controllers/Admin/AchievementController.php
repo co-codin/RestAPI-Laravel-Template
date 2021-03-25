@@ -63,6 +63,7 @@ class AchievementController extends Controller
 
     public function modifyPosition(AchievementPositionRequest $request, AchievementPositionService $achievementPositionService)
     {
+        dd(1);
         $achievementPositionService->modifyPosition($request->get('positions'));
 
         return response()->noContent();

@@ -3,14 +3,15 @@
 namespace Modules\Achievement\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class AchievementUpdateRequest extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    public function authorize()
+    {
+        return true;
+    }
+
     public function rules()
     {
         return [
@@ -29,13 +30,8 @@ class AchievementUpdateRequest extends FormRequest
         ];
     }
 
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    protected function passedValidation()
     {
-        return true;
+        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }
