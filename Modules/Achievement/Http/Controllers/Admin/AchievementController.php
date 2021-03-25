@@ -2,6 +2,7 @@
 
 namespace Modules\Achievement\Http\Controllers\Admin;
 
+use App\Repositories\Criteria\IsEnabledCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Http\Requests\AchievementPositionRequest;
@@ -18,7 +19,7 @@ class AchievementController extends Controller
         protected AchievementStorage $achievementStorage,
         protected AchievementRepository $achievementRepository
     ){
-        $this->achievementRepository->skipCriteria();
+        $this->achievementRepository->popCriteria(IsEnabledCriteria::class);
     }
 
     public function index()
