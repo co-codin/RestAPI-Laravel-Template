@@ -3,9 +3,8 @@
 namespace Modules\Brand\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Repositories\BrandRepository;
-use Modules\Brand\Transformers\BrandResource;
+use Modules\Brand\Http\Resources\BrandResource;
 
 class BrandController extends Controller
 {
@@ -20,11 +19,9 @@ class BrandController extends Controller
         return BrandResource::collection($brands);
     }
 
-    public function show(string $brand)
+    public function show(string $slug)
     {
-        $brand = $this->brandRepository->findWhere([
-            'slug' => $brand
-        ]);
+        $brand = $this->brandRepository->findBySlug($slug) ?? abort(404);
 
         return new BrandResource($brand);
     }

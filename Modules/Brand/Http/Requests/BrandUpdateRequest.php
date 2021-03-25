@@ -9,11 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BrandUpdateRequest extends FormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
@@ -31,22 +26,6 @@ class BrandUpdateRequest extends FormRequest
             'short_description' => 'sometimes|nullable|string|max:255',
             'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'name' => 'Название',
-            'slug' => 'Ссылка',
-            'status' => 'Статус',
-            'is_in_home' => 'Отображать на главной',
-            'image' => 'Ссылка на логотип',
-            'website' => 'Сайт',
-            'country' => 'Страна',
-            'short_description' => 'Краткое описание',
-            'full_description' => 'Подробное описание',
-            'position' => 'Позиция',
         ];
     }
 

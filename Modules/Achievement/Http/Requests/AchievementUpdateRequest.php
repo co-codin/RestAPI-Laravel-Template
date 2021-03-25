@@ -7,26 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AchievementUpdateRequest extends FormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
             'name' => 'sometimes|required|string|max:255',
             'image' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|boolean',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'name' => 'Название',
-            'image' => 'Ссылка картинки',
-            'is_enabled' => 'Статус',
         ];
     }
 

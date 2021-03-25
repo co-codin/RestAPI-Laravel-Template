@@ -1,10 +1,16 @@
 <?php
 
-namespace Modules\Brand\Transformers;
+namespace Modules\Brand\Http\Resources;
 
 use App\Enums\Status;
 use App\Transformers\BaseJsonResource;
+use Modules\Brand\Models\Brand;
 
+/**
+ * Class BrandResource
+ * @package Modules\Brand\Transformers
+ * @mixin Brand
+ */
 class BrandResource extends BaseJsonResource
 {
     public function toArray($request): array
