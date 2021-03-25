@@ -56,11 +56,14 @@ class AuthTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function logout()
+    public function test_logout()
     {
         $this->json('POST', route('auth.login'), $this->getRightData());
 
+        $response = $this->json('POST', route('auth.logout'), $this->getRightData());
 
+        $response->assertStatus(200);
+        $this->assertEmpty(session()->get('access_token'));
     }
 
     protected function getRightData()

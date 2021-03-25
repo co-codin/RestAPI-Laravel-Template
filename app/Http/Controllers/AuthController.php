@@ -27,9 +27,14 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Http::post()
-//        session()->remove('access_token');
+        $response = Http::withToken(session()->get('access_token'))->post(config('services.auth.url') . '/api/auth/logout');
 
+        if ($response->ok()) {
+            session()->remove('access_token');
+            return response()->json(['Logged out.'], 200);
+        } else {
+            return response()->json([], 401);
+        }
     }
 
     public function user()
