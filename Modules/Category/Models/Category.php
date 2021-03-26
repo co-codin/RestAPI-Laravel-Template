@@ -9,6 +9,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 
+/**
+ * Class Category
+ * @package Modules\Category\Models
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $product_name
+ * @property string $full_description
+ * @property int $status
+ * @property int $hide_in_parents
+ * @property boolean $is_in_home
+ * @property string $image
+ * @property array $links
+ * @property array $short_properties
+ * @property int $new_structure
+ * @property int $is_finished
+ */
 class Category extends Model
 {
     use HasFactory, Sluggable, NodeTrait {

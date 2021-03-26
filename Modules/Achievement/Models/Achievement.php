@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Achievement\Database\factories\AchievementFactory;
 
+/**
+ * Class Brand
+ * @package Modules\Achievement\Models
+ * @property int $id
+ * @property string $name
+ * @property string|null $image
+ * @property boolean $is_enabled
+ * @property int $position
+ */
 class Achievement extends Model
 {
     use HasFactory;
