@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Models;
 
+use App\Traits\IsActive;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ use Modules\Category\Database\factories\CategoryFactory;
  */
 class Category extends Model
 {
-    use HasFactory, Sluggable, NodeTrait, SoftDeletes {
+    use HasFactory, Sluggable, NodeTrait, SoftDeletes, IsActive {
         NodeTrait::replicate as replicateNode;
         Sluggable::replicate as replicateSlug;
     }

@@ -3,6 +3,7 @@
 namespace Modules\Brand\Models;
 
 use App\Enums\Status;
+use App\Traits\IsActive;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,7 +27,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  */
 class Brand extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, IsActive;
 
     protected $guarded = ['id'];
 
@@ -43,11 +44,6 @@ class Brand extends Model
                 'source' => 'name',
             ]
         ];
-    }
-
-    public function scopeActive(Builder $query): Builder
-    {
-        return $query->where('status', '=', Status::ACTIVE);
     }
 
     protected static function newFactory()
