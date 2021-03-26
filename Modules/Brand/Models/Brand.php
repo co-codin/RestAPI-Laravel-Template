@@ -12,7 +12,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 /**
  * Class Brand
  * @package Modules\Brand\Models
- * @property int|null $id
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property string|null $image

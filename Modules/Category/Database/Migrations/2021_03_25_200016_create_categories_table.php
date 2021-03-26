@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,22 @@ class CreateBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('image')->nullable();
-            $table->string('website')->nullable();
+            $table->string('product_name')->nullable();
             $table->text('full_description')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
+            $table->unsignedTinyInteger('hide_in_parents')->default(1);
             $table->boolean('is_in_home')->default(false);
-            $table->integer('position')->nullable();
-            $table->string('country')->nullable();
-            $table->string('short_description')->nullable();
+            $table->string('image')->nullable();
+            $table->json('links')->nullable();
+            $table->nestedSet();
+            $table->json('short_properties')->nullable();
+            $table->tinyInteger('new_structure')->default(0);
+            $table->unsignedTinyInteger('is_finished')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -37,6 +39,6 @@ class CreateBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('categories');
     }
 }
