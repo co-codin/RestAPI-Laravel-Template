@@ -228,20 +228,6 @@ class CategoryDatabaseSeeder extends Seeder
 
         foreach($categories as $category)
         {
-            $links = [
-                [
-                    'icon' => 'img/types/touch.svg',
-                    'link' => 'http://medeq.localhost/catalog/uzi/filters/hot?sort=popular',
-                    'name' => 'Восстановленный',
-                ],
-                [
-                    'icon' => 'img/types/touch.svg',
-                    'link' => 'http://medeq.localhost/catalog/uzi/filters/hot?sort=popular',
-                    'name' => 'Демо',
-                ],
-            ];
-
-            $category['links'] = $links;
             $category['is_in_home'] = true;
 
             Category::create($category);
