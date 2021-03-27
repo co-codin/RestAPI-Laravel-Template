@@ -20,15 +20,13 @@ class CreateCategoriesTable extends Migration
             $table->string('product_name')->nullable();
             $table->text('full_description')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
-            $table->unsignedTinyInteger('hide_in_parents')->default(1);
+            $table->boolean(' is_hidden_in_parents')->default(true);
             $table->boolean('is_in_home')->default(false);
             $table->string('image')->nullable();
-            $table->json('links')->nullable();
             $table->nestedSet();
             $table->json('short_properties')->nullable();
-            $table->tinyInteger('new_structure')->default(0);
-            $table->unsignedTinyInteger('is_finished')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

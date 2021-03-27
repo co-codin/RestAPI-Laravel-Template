@@ -2,10 +2,12 @@
 
 namespace Modules\Category\Models;
 
+use App\Traits\IsActive;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 
@@ -18,17 +20,14 @@ use Modules\Category\Database\factories\CategoryFactory;
  * @property string $product_name
  * @property string $full_description
  * @property int $status
- * @property int $hide_in_parents
+ * @property boolean $is_hidden_in_parents
  * @property boolean $is_in_home
  * @property string $image
- * @property array $links
  * @property array $short_properties
- * @property int $new_structure
- * @property int $is_finished
  */
 class Category extends Model
 {
-    use HasFactory, Sluggable, NodeTrait {
+    use HasFactory, Sluggable, NodeTrait, SoftDeletes, IsActive {
         NodeTrait::replicate as replicateNode;
         Sluggable::replicate as replicateSlug;
     }

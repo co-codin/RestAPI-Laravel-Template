@@ -21,13 +21,4 @@ class BrandRepository extends BaseRepository
         $this->pushCriteria(ActiveStatusCriteria::class);
         $this->pushCriteria(BrandRequestCriteria::class);
     }
-
-    public function findBySlug(string $slug)
-    {
-        return $this
-            ->popCriteria(ActiveStatusCriteria::class)
-            ->pushCriteria(NoInactiveCriteria::class)
-            ->scopeQuery(fn($q) => $q->where('slug', $slug))
-            ->first();
-    }
 }
