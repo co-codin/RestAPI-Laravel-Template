@@ -31,5 +31,18 @@ class CategoryController extends Controller
         return new CategoryResource($categoryModel);
     }
 
+    public function store()
+    {
 
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy(int $category)
+    {
+        
+    }
 }

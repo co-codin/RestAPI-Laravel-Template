@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('product_name')->nullable();
             $table->text('full_description')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
-            $table->boolean(' is_hide_in_parents')->default(true);
+            $table->boolean(' is_hidden_in_parents')->default(true);
             $table->boolean('is_in_home')->default(false);
             $table->string('image')->nullable();
             $table->nestedSet();

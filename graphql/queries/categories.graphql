@@ -1,7 +1,7 @@
 extend type Query {
     categories(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "product_name", "full_description", "is_hide_in_parents", "is_in_home", "image", "parent_id", "short_properties"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "product_name", "full_description", "is_hide_in_parents", "is_in_home", "image", "parent_id", "short_properties"])
+        where: _ @whereConditions(columns: ["id", "name", "slug", "product_name", "full_description", "is_hidden_in_parents", "is_in_home", "image", "parent_id", "short_properties"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "product_name", "full_description", "is_hidden_in_parents", "is_in_home", "image", "parent_id", "short_properties"])
     ): [Category!]!
     @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")

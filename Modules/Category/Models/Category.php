@@ -20,7 +20,7 @@ use Modules\Category\Database\factories\CategoryFactory;
  * @property string $product_name
  * @property string $full_description
  * @property int $status
- * @property boolean $is_hide_in_parents
+ * @property boolean $is_hidden_in_parents
  * @property boolean $is_in_home
  * @property string $image
  * @property array $short_properties
