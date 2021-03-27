@@ -4,7 +4,6 @@
 namespace Modules\Brand\Http\Controllers\Admin;
 
 
-use App\Dto\Dto;
 use App\Http\Controllers\Controller;
 use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Dto\BrandDto;
