@@ -11,5 +11,6 @@ class AchievementDto extends Dto
 
     public ?string $image;
 
-    public $is_enabled;
+    /** @var mixed */
+    public $is_enabled = true;
 }

@@ -16,10 +16,11 @@ class BrandDto extends Dto
 
     public ?string $full_description;
 
-    /** @var string|int|null */
+    /** @var mixed */
     public $status;
 
-    public ?bool $is_in_home;
+    /** @var mixed */
+    public $is_in_home = false;
 
     public ?int $position;
 

@@ -11,7 +11,7 @@ class BrandRequestCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
-        return QueryBuilder::for($model::query())
+        return QueryBuilder::for($model)
             ->defaultSort('id')
             ->allowedFields(['id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position', 'created_at', 'updated_at', 'deleted_at'])
             ->allowedFilters([
