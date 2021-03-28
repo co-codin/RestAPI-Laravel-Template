@@ -11,6 +11,5 @@ class AchievementDto extends Dto
 
     public ?string $image;
 
-    /** @var bool|integer|null */
     public $is_enabled;
 }
