@@ -13,7 +13,7 @@ class BrandRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model::query())
             ->defaultSort('id')
-            ->allowedFields(['id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'])
+            ->allowedFields(['id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position', 'created_at', 'updated_at', 'deleted_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
@@ -25,7 +25,7 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('position'),
             ])
-            ->allowedSorts('id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position')
+            ->allowedSorts('id', 'created_at', 'updated_at', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position')
             ;
     }
 }
