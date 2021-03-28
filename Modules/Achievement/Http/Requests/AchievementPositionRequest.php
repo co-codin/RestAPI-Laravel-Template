@@ -25,8 +25,8 @@ class AchievementPositionRequest extends FormRequest
     {
         return [
             'positions' => 'required|array',
-            'positions.*.id' => 'required|exists:achievements,id',
-            'positions.*.position' => 'required|integer',
+            'positions.*.id' => 'required|distinct|exists:achievements,id',
+            'positions.*.position' => 'required|distinct|integer',
         ];
     }
 
