@@ -41,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::middleware('admin')
+            ->as('admin.')
             ->group(module_path('Category', '/Routes/admin.php'));
     }
 
