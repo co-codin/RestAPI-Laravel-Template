@@ -64,14 +64,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-        ],
+//        'users' => [
+//            'driver' => 'eloquent',
+//        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'users' => [
+             'driver' => 'database',
+             'table' => 'users',
+         ],
     ],
 
     /*

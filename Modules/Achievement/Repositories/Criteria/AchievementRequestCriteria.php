@@ -12,7 +12,7 @@ class AchievementRequestCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
-        return QueryBuilder::for($model::query())
+        return QueryBuilder::for($model)
             ->defaultSort('position')
             ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
             ->allowedFilters([
