@@ -11,7 +11,13 @@ class BrandStorage
 {
     public function store(BrandDto $brandDto)
     {
-        return Brand::query()->create($brandDto->toArray());
+        $brand = new Brand($brandDto->toArray());
+
+        if (!$brand->save()) {
+            throw new \LogicException('can not create brand.');
+        }
+
+        return $brand;
     }
 
     public function update(Brand $brand, BrandDto $brandDto)
