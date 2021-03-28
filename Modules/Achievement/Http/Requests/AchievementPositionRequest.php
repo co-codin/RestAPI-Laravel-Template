@@ -11,7 +11,7 @@ class AchievementPositionRequest extends FormRequest
         return [
             'positions' => 'required|array',
             'positions.*.id' => 'required|distinct|exists:achievements,id',
-            'positions.*.position' => 'required|distinct|integer',
+            'positions.*.position' => 'required|distinct|integer|min:0',
         ];
     }
 
