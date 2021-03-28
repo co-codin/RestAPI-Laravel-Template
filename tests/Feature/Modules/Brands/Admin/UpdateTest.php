@@ -31,4 +31,19 @@ class UpdateTest extends TestCase
             'status' => Status::ACTIVE,
         ]);
     }
+
+    public function test_brand_slug_should_be_unique()
+    {
+        $brand = Brand::factory()->create([
+            'slug' => 'slug'
+        ]);
+
+        $anotherBrand = Brand::factory()->create();
+
+        $response = $this->json('PATCH', route('admin.brands.update', ['brand' => $anotherBrand->id]), [
+            'slug' => 'slug',
+        ]);
+
+        $response->assertStatus(422);
+    }
 }
