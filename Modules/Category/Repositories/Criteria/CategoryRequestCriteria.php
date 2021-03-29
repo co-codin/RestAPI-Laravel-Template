@@ -12,12 +12,11 @@ class CategoryRequestCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return QueryBuilder::for($model::query())
-            ->defaultSort('id')
+            ->defaultSort('-id')
             ->allowedFields([
                 'id', 'name', 'slug', 'product_name', 'full_description', 'image',
                 'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
                 'created_at', 'updated_at', 'deleted_at',
-
             ])
             ->allowedFilters([
                 AllowedFilter::exact('id'),

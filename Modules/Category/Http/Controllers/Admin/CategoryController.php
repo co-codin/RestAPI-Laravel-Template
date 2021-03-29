@@ -29,7 +29,6 @@ class CategoryController extends Controller
 
     public function show(int $category)
     {
-
         $categoryModel = $this->categoryRepository->find($category);
 
         return new CategoryResource($categoryModel);

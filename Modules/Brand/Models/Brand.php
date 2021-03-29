@@ -7,6 +7,7 @@ use App\Traits\IsActive;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Database\factories\BrandFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -27,7 +28,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  */
 class Brand extends Model
 {
-    use HasFactory, Sluggable, IsActive;
+    use HasFactory, Sluggable, IsActive, SoftDeletes;
 
     protected $guarded = ['id'];
 

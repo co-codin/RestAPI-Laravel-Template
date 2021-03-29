@@ -21,7 +21,7 @@ class DeleteTest extends TestCase
 
         $response->assertStatus(204);
 
-        $this->assertDatabaseMissing('brands', [
+        $this->assertSoftDeleted('brands', [
             'name' => $brand->name,
         ]);
     }
