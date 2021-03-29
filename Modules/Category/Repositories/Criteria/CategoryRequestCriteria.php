@@ -2,10 +2,10 @@
 
 namespace Modules\Category\Repositories\Criteria;
 
-use Kalnoy\Nestedset\QueryBuilder;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryRequestCriteria implements CriteriaInterface
 {
@@ -16,7 +16,7 @@ class CategoryRequestCriteria implements CriteriaInterface
             ->allowedFields([
                 'id', 'name', 'slug', 'product_name', 'full_description', 'image',
                 'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
-                'created_at', 'updated_at', 'deleted_at', 'is_root',
+                'created_at', 'updated_at', 'deleted_at',
 
             ])
             ->allowedFilters([
@@ -31,7 +31,6 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_hidden_in_parents'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('parent_id'),
-                AllowedFilter::exact('is_root'),
             ])
             ->allowedIncludes(['trashed', 'parent', 'ancestors', 'descendants'])
             ->allowedSorts('id', 'name', 'slug', 'product_name', '_lft')
