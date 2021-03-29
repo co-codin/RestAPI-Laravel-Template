@@ -24,7 +24,6 @@ class CategoryFactory extends Factory
             'name' => $this->faker->word,
             'product_name' => $this->faker->name,
             'image' => $this->faker->imageUrl(),
-            'website' => $this->faker->word,
             'full_description' => $this->faker->paragraph,
         ];
     }

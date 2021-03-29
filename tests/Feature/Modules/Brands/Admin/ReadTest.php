@@ -15,8 +15,6 @@ class ReadTest extends TestCase
 
     public function test_authenticated_user_can_view_brands()
     {
-        $this->withoutExceptionHandling();
-
         Brand::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('admin.brands.index'));

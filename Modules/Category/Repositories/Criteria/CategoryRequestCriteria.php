@@ -1,11 +1,11 @@
 <?php
 
-
 namespace Modules\Category\Repositories\Criteria;
 
-
+use Kalnoy\Nestedset\QueryBuilder;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class CategoryRequestCriteria implements CriteriaInterface
 {
@@ -13,19 +13,28 @@ class CategoryRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model::query())
             ->defaultSort('id')
-            ->allowedFields(['id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'])
+            ->allowedFields([
+                'id', 'name', 'slug', 'product_name', 'full_description', 'image',
+                'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
+                'created_at', 'updated_at', 'deleted_at', 'is_root',
+
+            ])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
-                AllowedFilter::exact('slug'),
-                AllowedFilter::exact('image'),
-                AllowedFilter::partial('website'),
-                AllowedFilter::exact('country'),
+                AllowedFilter::partial('slug'),
+                AllowedFilter::partial('product_name'),
+                AllowedFilter::partial('full_description'),
+                AllowedFilter::partial('short_properties'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('is_in_home'),
-                AllowedFilter::exact('position'),
+                AllowedFilter::exact('is_hidden_in_parents'),
+                AllowedFilter::exact('image'),
+                AllowedFilter::exact('parent_id'),
+                AllowedFilter::exact('is_root'),
             ])
-            ->allowedSorts('id', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position')
+            ->allowedIncludes(['trashed', 'parent', 'ancestors', 'descendants'])
+            ->allowedSorts('id', 'name', 'slug', 'product_name', '_lft')
             ;
     }
 }
