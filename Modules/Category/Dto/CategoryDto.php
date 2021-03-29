@@ -19,9 +19,9 @@ class CategoryDto extends Dto
 
     public ?int $status;
 
-    public ?bool $is_hidden_in_parents;
+    public ?bool $is_hidden_in_parents = true;
 
-    public ?bool $is_in_home;
+    public ?bool $is_in_home = false;
 
     public ?string $image;
 

@@ -21,8 +21,8 @@ class CategoryCreateRequest extends FormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'is_hidden_in_parents' => 'sometimes|nullable|boolean',
-            'is_in_home' => 'sometimes|nullable|boolean|',
+            'is_hidden_in_parents' => 'sometimes|boolean',
+            'is_in_home' => 'sometimes|boolean',
             'image' => [
                 Rule::requiredIf(function() {
                     return !$this->input('parent_id');
