@@ -35,13 +35,10 @@ class Category extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'links' => 'array',
         'short_properties' => 'array',
         'status' => 'integer',
-        'hide_in_parents' => 'integer',
+        'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',
-        'position' => 'integer',
-        'new_structure' => 'integer',
     ];
 
     public function replicate(array $except = null)
