@@ -11,7 +11,7 @@ class CategoryRequestCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
-        return QueryBuilder::for($model::query())
+        return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'name', 'slug', 'product_name', 'full_description', 'image',
@@ -30,9 +30,12 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_hidden_in_parents'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('parent_id'),
+                AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['trashed', 'parent', 'ancestors', 'descendants'])
-            ->allowedSorts('id', 'name', 'slug', 'product_name', '_lft')
+            ->allowedIncludes(['parent', 'ancestors', 'descendants'])
+            ->allowedSorts([
+                'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
+            ])
             ;
     }
 }
