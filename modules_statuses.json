@@ -1,5 +1,6 @@
 {
     "Achievement": true,
     "Brand": true,
-    "Category": true
+    "Category": true,
+    "Seo": true
 }
