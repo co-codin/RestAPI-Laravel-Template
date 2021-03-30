@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('admin')
             ->as('admin.')
+            ->prefix('admin')
             ->group(module_path('Category', '/Routes/admin.php'));
     }
 
