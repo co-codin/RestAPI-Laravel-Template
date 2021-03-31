@@ -17,6 +17,7 @@ class CreateSeoRulesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('url')->unique();
+            $table->text('text')->nullable();
             $table->timestamps();
         });
     }

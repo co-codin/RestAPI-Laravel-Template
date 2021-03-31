@@ -27,13 +27,4 @@ class SeoRuleDto extends Dto
      * @var string|null
      */
     public $text;
-
-    /**
-     * @param FormRequest $request
-     * @return self
-     */
-    public static function fromFormRequest(FormRequest $request): self
-    {
-        return new static($request->except('seo'));
-    }
 }
