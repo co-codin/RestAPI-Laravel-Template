@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeosTable extends Migration
+class CreateSeoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSeosTable extends Migration
      */
     public function up()
     {
-        Schema::create('seos', function (Blueprint $table) {
+        Schema::create('seo', function (Blueprint $table) {
             $table->id();
             $table->nullableMorphs('seoable');
             $table->boolean('is_enabled')->default(true);
-            $table->string('name', 1000)->nullable();
+            $table->string('title', 1000)->nullable();
             $table->string('description', 1000)->nullable();
             $table->string('h1', 1000)->nullable();
             $table->json('meta_tags')->nullable();

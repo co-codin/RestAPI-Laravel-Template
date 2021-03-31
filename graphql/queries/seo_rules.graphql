@@ -1,7 +1,7 @@
 extend type Query {
     seo_rules(
-        where: _ @whereConditions(columns: ["id", "name", "url"])
-        orderBy: _ @orderBy(columns: ["id", "name", "url"])
+        where: _ @whereConditions(columns: ["id", "title", "url"])
+        orderBy: _ @orderBy(columns: ["id", "title", "url"])
     ): [SeoRule!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

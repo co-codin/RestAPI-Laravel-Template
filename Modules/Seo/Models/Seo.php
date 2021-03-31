@@ -12,6 +12,8 @@ class Seo extends Model
 
     protected $guarded = ['id'];
 
+    protected $table = 'seo';
+
     protected static function newFactory()
     {
         return SeoFactory::new();

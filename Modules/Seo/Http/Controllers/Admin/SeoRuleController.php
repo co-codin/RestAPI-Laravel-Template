@@ -3,6 +3,7 @@
 namespace Modules\Seo\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
+use Modules\Seo\Http\Requests\SeoRuleCreateRequest;
 use Modules\Seo\Http\Resources\SeoRuleResource;
 use Modules\Seo\Repositories\SeoRuleRepository;
 use Modules\Seo\Services\SeoRuleStorage;
@@ -28,9 +29,9 @@ class SeoRuleController extends Controller
         return new SeoRuleResource($seoRule);
     }
 
-    public function store()
+    public function store(SeoRuleCreateRequest $request)
     {
-
+        $seoRule = $this->seoRuleStorage->store();
     }
 
     public function update()
