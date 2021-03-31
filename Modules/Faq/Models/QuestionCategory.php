@@ -2,6 +2,8 @@
 
 namespace Modules\Faq\Models;
 
+use App\Enums\Status;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +14,11 @@ class QuestionCategory extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', '=', true);
+    }
 
     protected static function newFactory()
     {
