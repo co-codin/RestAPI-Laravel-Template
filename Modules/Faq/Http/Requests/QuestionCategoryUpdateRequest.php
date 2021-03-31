@@ -15,7 +15,8 @@ class QuestionCategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:question_categories,name,' . $this->get('id'),
+            'name' => 'required|string|unique:question_categories,name,' . $this->route('question_category'),
+            'slug' => 'required|string|unique:question_categories,slug,' . $this->route('question_category'),
             'status' => 'required|boolean'
         ];
     }
