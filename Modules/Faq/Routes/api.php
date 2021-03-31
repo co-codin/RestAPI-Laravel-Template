@@ -1,18 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Faq\Http\Controllers\QuestionCategoryController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/faq', function (Request $request) {
-    return $request->user();
-});
+Route::get('/question_categories', [QuestionCategoryController::class, 'index'])->name('question_categories.index');
+Route::get('/question_categories/{slug}', [QuestionCategoryController::class, 'show'])->name('question_categories.show');

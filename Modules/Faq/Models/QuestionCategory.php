@@ -15,6 +15,11 @@ class QuestionCategory extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'position' => 'integer',
+        'status' => 'boolean',
+    ];
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', '=', true);
