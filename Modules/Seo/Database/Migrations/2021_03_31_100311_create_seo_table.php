@@ -17,11 +17,10 @@ class CreateSeoTable extends Migration
             $table->id();
             $table->nullableMorphs('seoable');
             $table->boolean('is_enabled')->default(true);
-            $table->string('title', 1000)->nullable();
-            $table->string('description', 1000)->nullable();
-            $table->string('h1', 1000)->nullable();
+            $table->string('title', 1000);
+            $table->string('description', 1000);
+            $table->string('h1', 1000);
             $table->json('meta_tags')->nullable();
-            $table->json('texts')->nullable();
             $table->unsignedTinyInteger('type')->default(1);
             $table->timestamps();
         });

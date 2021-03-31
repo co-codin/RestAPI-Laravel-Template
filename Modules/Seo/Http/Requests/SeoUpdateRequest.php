@@ -25,19 +25,14 @@ class SeoUpdateRequest extends FormRequest
 
         if ($dto->is_enabled) {
             $rules = array_merge($rules, [
-                $seoArrName . '.title' => 'required_without_all:' . self::exceptField($seoArrName . '.title') . '|nullable|string|max:500',
-                $seoArrName . '.h1' => 'required_without_all:' . self::exceptField($seoArrName . '.h1') . '|nullable|string|max:500',
-                $seoArrName . '.description' => 'required_without_all:' . self::exceptField($seoArrName . '.description') . '|nullable|string|max:500',
+                $seoArrName . '.title' => 'required_without_all:' . self::exceptField($seoArrName . '.title') . '|string|max:500',
+                $seoArrName . '.h1' => 'required_without_all:' . self::exceptField($seoArrName . '.h1') . '|string|max:500',
+                $seoArrName . '.description' => 'required_without_all:' . self::exceptField($seoArrName . '.description') . '|string|max:500',
                 $seoArrName . '.type' => 'sometimes|enum_value:' . SeoType::class,
                 $seoArrName . '.meta_tags' => 'required_without_all:' . self::exceptField($seoArrName . '.meta_tags') . '|nullable|array|max:255',
                 $seoArrName . '.meta_tags.*' => 'required|array',
                 $seoArrName . '.meta_tags.*.name' => 'required|string|max:255',
                 $seoArrName . '.meta_tags.*.content' => 'required|string|max:255',
-                $seoArrName . '.texts' => 'nullable|array',
-                $seoArrName . '.texts.*' => 'required|array',
-                $seoArrName . '.texts.*.name' => 'required|string',
-                $seoArrName . '.texts.*.key' => 'nullable|string',
-                $seoArrName . '.texts.*.text' => 'required|string',
             ]);
         }
 
@@ -63,10 +58,6 @@ class SeoUpdateRequest extends FormRequest
             $seoArrName . '.meta_tags' => 'Мета тэги',
             $seoArrName . '.meta_tags.*.title' => 'Название',
             $seoArrName . '.meta_tags.*.content' => 'Контент',
-            $seoArrName . '.texts' => 'Тексты',
-            $seoArrName . '.texts.*.name' => 'Название',
-            $seoArrName . '.texts.*.key' => 'Ключ',
-            $seoArrName . '.texts.*.text' => 'Текст',
         ];
     }
 

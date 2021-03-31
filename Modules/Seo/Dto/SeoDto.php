@@ -20,24 +20,19 @@ class SeoDto extends Dto
     public $is_enabled;
 
     /**
-     * @var string|null
+     * @var string
      */
     public $title;
 
     /**
-     * @var string|null
+     * @var string
      */
     public $h1;
 
     /**
-     * @var string|null
+     * @var string
      */
     public $description;
-
-    /**
-     * @var string|null
-     */
-    public $canonical;
 
     public int $type = SeoType::Self;
 
@@ -45,11 +40,6 @@ class SeoDto extends Dto
      * @var string|array|null
      */
     public $meta_tags;
-
-    /**
-     * @var object|array|null
-     */
-    public $texts;
 
     /**
      * @param FormRequest $request
