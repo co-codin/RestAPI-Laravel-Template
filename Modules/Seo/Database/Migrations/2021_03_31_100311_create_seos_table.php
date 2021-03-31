@@ -16,8 +16,8 @@ class CreateSeosTable extends Migration
         Schema::create('seos', function (Blueprint $table) {
             $table->id();
             $table->nullableMorphs('seoable');
-            $table->unsignedTinyInteger('is_enabled')->default(2);
-            $table->string('title', 1000)->nullable();
+            $table->boolean('is_enabled')->default(true);
+            $table->string('name', 1000)->nullable();
             $table->string('description', 1000)->nullable();
             $table->string('h1', 1000)->nullable();
             $table->json('meta_tags')->nullable();
