@@ -53,7 +53,7 @@ class FaqServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         );
     }
-    
+
     /**
      * Register translations.
      *
