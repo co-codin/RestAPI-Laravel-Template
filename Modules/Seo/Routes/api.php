@@ -1,18 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Seo\Http\Controllers\SeoRuleController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/seo', function (Request $request) {
-    return $request->user();
-});
+Route::get('seo-rules', [SeoRuleController::class, 'index'])->name('seo_rules.index');
+Route::get('seo-rules/{seo_rule}', [SeoRuleController::class, 'show'])->name('seo_rules.show');
