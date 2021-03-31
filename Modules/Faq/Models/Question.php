@@ -5,9 +5,9 @@ namespace Modules\Faq\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Faq\Database\factories\QuestionCategoryFactory;
+use Modules\Faq\Database\factories\QuestionFactory;
 
-class QuestionCategory extends Model
+class Question extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,6 +15,6 @@ class QuestionCategory extends Model
 
     protected static function newFactory()
     {
-        return QuestionCategoryFactory::new();
+        return QuestionFactory::new();
     }
 }
