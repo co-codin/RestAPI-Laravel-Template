@@ -1,0 +1,8 @@
+extend type Query {
+    seo_rules(
+        where: _ @whereConditions(columns: ["id", "name", "url"])
+        orderBy: _ @orderBy(columns: ["id", "name", "url"])
+    ): [Category!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+}
