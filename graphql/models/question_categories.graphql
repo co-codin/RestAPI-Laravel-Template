@@ -4,4 +4,5 @@ type QuestionCategory {
     slug: String!
     status: Boolean!
     position: Int
+    questions: [Question!] @hasMany
 }
