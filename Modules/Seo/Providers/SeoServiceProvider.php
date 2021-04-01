@@ -1,21 +1,20 @@
 <?php
 
-namespace Modules\Brand\Providers;
+namespace Modules\Seo\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
-class BrandServiceProvider extends ServiceProvider
+class SeoServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Brand';
+    protected $moduleName = 'Seo';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'brand';
+    protected $moduleNameLower = 'seo';
 
     /**
      * Boot the application events.
