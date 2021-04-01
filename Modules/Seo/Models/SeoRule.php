@@ -13,10 +13,6 @@ class SeoRule extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'texts' => 'array'
-    ];
-
     protected static function newFactory()
     {
         return SeoRuleFactory::new();

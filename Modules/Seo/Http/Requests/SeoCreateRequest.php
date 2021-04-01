@@ -6,7 +6,7 @@ use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Seo\Enums\SeoType;
 
-class SeoUpdateRequest extends FormRequest
+class SeoCreateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -14,6 +14,10 @@ use Modules\Seo\Enums\SeoType;
  */
 class SeoDto extends Dto
 {
+    public string $seoable_type;
+
+    public int $seoable_int;
+
     public bool $is_enabled;
 
     public string $title;
