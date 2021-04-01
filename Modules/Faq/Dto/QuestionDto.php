@@ -10,6 +10,8 @@ class QuestionDto extends Dto
 {
     public string $question;
 
+    public string $slug;
+
     public string $answer;
 
     public $status;
