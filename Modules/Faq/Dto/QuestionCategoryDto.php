@@ -10,5 +10,7 @@ class QuestionCategoryDto extends Dto
 {
     public string $name;
 
-    public $status;
+    public string $slug;
+
+    public bool $status;
 }
