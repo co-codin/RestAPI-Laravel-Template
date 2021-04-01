@@ -3,6 +3,7 @@
 namespace Modules\Faq\Services;
 
 use Modules\Faq\Dto\QuestionDto;
+use Modules\Faq\Dto\QuestionSortDto;
 use Modules\Faq\Models\Question;
 
 class QuestionStorage
@@ -31,6 +32,16 @@ class QuestionStorage
     {
         if (!$question->delete()) {
             throw new \LogicException('can not delete question.');
+        }
+    }
+
+    public function sort(QuestionSortDto $dto)
+    {
+        $counter = 1;
+        foreach ($dto->questions as $questionId) {
+            Question::query()->find($questionId)->update([
+                'position' => $counter++
+            ]);
         }
     }
 }

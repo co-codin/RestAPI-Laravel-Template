@@ -5,6 +5,7 @@ namespace Modules\Faq\Services;
 
 
 use Modules\Faq\Dto\QuestionCategoryDto;
+use Modules\Faq\Dto\QuestionCategorySortDto;
 use Modules\Faq\Models\QuestionCategory;
 
 class QuestionCategoryStorage
@@ -33,6 +34,16 @@ class QuestionCategoryStorage
     {
         if (!$questionCategory->delete()) {
             throw new \LogicException('can not delete question category.');
+        }
+    }
+
+    public function sort(QuestionCategorySortDto $dto)
+    {
+        $counter = 1;
+        foreach ($dto->categories as $categoryId) {
+            QuestionCategory::query()->find($categoryId)->update([
+                'position' => $counter++
+            ]);
         }
     }
 }

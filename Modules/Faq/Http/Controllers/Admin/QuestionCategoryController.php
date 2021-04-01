@@ -4,7 +4,9 @@ namespace Modules\Faq\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
+use Modules\Faq\Dto\QuestionCategorySortDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
+use Modules\Faq\Http\Requests\QuestionCategorySortRequest;
 use Modules\Faq\Http\Requests\QuestionCategoryUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
 use Modules\Faq\Repositories\Criteria\ActiveStatusCriteria;
@@ -55,6 +57,13 @@ class QuestionCategoryController extends Controller
         $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
 
         $this->questionCategoryStorage->delete($questionCategoryModel);
+
+        return response()->noContent();
+    }
+
+    public function sort(QuestionCategorySortRequest $request)
+    {
+        $this->questionCategoryStorage->sort(QuestionCategorySortDto::fromFormRequest($request));
 
         return response()->noContent();
     }
