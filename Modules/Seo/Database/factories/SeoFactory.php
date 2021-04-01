@@ -1,7 +1,10 @@
 <?php
+
 namespace Modules\Seo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Seo\Enums\SeoType;
+use Modules\Seo\Models\SeoRule;
 
 class SeoFactory extends Factory
 {
@@ -20,7 +23,18 @@ class SeoFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(4)
+            'title' => $this->faker->sentence(4),
+            'seoable_type' => get_class($seoRule = SeoRule::factory()->create()),
+            'seoable_id' => $seoRule->id,
+            'is_enabled' => $this->faker->boolean,
+            'description' => $this->faker->sentence(10),
+            'h1' => $this->faker->sentence(4),
+            'meta_tags' => [
+                [
+                    'content' => $this->faker->sentence(10)
+                ]
+            ],
+            'type' => SeoType::getRandomValue(),
         ];
     }
 }

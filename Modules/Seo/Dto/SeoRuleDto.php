@@ -5,7 +5,6 @@ namespace Modules\Seo\Dto;
 
 
 use App\Dto\Dto;
-use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class SeoRuleDto
@@ -13,13 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class SeoRuleDto extends Dto
 {
-    /**
-     * @var string
-     */
-    public $title;
+    public string $title;
 
-    /**
-     * @var string
-     */
-    public $url;
+    public string $url;
 }

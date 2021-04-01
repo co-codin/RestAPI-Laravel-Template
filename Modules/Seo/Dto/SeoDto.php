@@ -14,59 +14,15 @@ use Modules\Seo\Enums\SeoType;
  */
 class SeoDto extends Dto
 {
-    /**
-     * @var int
-     */
-    public $is_enabled;
+    public bool $is_enabled;
 
-    /**
-     * @var string
-     */
-    public $title;
+    public string $title;
 
-    /**
-     * @var string
-     */
-    public $h1;
+    public string $h1;
 
-    /**
-     * @var string
-     */
-    public $description;
+    public string $description;
 
     public int $type = SeoType::Self;
 
-    /**
-     * @var string|array|null
-     */
-    public $meta_tags;
-
-    /**
-     * @param FormRequest $request
-     * @return self
-     */
-    public static function fromFormRequest(FormRequest $request): self
-    {
-        $validated = $request->validated()['seo'];
-
-        return static::create($validated);
-    }
-
-    /**
-     * @param array $data
-     * @return static
-     */
-    public static function create(array $data)
-    {
-        return new static([
-            'is_enabled' => (int)$data['is_enabled'],
-            'title' => $data['title'] ?? null,
-            'h1' => $data['h1'] ?? null,
-            'description' => $data['description'] ?? null,
-            'canonical' => $data['canonical'] ?? null,
-            'type' => $data['type'] ?? null,
-            'meta_tags' => $data['meta_tags'] ?? null,
-            'texts' => $data['texts'] ?? null,
-        ]);
-    }
+    public ?array $meta_tags;
 }
