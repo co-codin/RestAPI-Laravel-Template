@@ -1,7 +1,7 @@
 type Seo {
     id: ID!
-    seoable_type: String
-    seoable_id: String
+    seoable_type: String!
+    seoable_id: String!
     is_enabled: Boolean!
     title: String
     description: String

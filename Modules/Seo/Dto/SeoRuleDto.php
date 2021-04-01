@@ -22,9 +22,4 @@ class SeoRuleDto extends Dto
      * @var string
      */
     public $url;
-
-    /**
-     * @var string|null
-     */
-    public $text;
 }
