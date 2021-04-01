@@ -3,4 +3,4 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Seo\Http\Controllers\Admin\SeoRuleController;
 
-Route::resource('seo_rules', SeoRuleController::class);
+Route::resource('seo-rules', SeoRuleController::class);

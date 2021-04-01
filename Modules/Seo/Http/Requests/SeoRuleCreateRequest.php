@@ -10,7 +10,7 @@ class SeoRuleCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'url' => [
                 'required',
                 'string',
@@ -27,7 +27,6 @@ class SeoRuleCreateRequest extends FormRequest
                     ]
                 ])
             ],
-            'text' => 'sometimes|nullable|string',
         ];
     }
 }

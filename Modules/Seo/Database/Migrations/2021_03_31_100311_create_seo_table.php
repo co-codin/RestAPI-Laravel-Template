@@ -15,7 +15,7 @@ class CreateSeoTable extends Migration
     {
         Schema::create('seo', function (Blueprint $table) {
             $table->id();
-            $table->nullableMorphs('seoable');
+            $table->morphs('seoable');
             $table->boolean('is_enabled')->default(true);
             $table->string('title', 1000);
             $table->string('description', 1000);
@@ -33,6 +33,6 @@ class CreateSeoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seos');
+        Schema::dropIfExists('seo');
     }
 }

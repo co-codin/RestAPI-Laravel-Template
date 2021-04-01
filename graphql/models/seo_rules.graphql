@@ -1,6 +1,5 @@
 type SeoRule {
     id: ID!
-    title: String!
+    name: String!
     url: String!
-    text: String
 }

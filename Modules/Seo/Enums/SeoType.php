@@ -13,5 +13,5 @@ use App\Enums\Enum;
 final class SeoType extends Enum
 {
     const Self = 1;
-    const CategoryProducts = 2;
+    const Children = 2;
 }
