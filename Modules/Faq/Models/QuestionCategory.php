@@ -20,6 +20,11 @@ class QuestionCategory extends Model
         'status' => 'boolean',
     ];
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', '=', true);
