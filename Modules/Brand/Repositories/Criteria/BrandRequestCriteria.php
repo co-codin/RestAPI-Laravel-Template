@@ -29,7 +29,7 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
-                'id', 'created_at', 'updated_at', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'
+                'id', 'created_at', 'deleted_at', 'updated_at', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'
             ]);
     }
 }
