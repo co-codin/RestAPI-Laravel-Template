@@ -1,0 +1,5 @@
+type SeoRule {
+    id: ID!
+    name: String!
+    url: String!
+}

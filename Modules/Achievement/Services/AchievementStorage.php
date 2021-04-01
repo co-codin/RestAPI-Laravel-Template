@@ -12,7 +12,7 @@ class AchievementStorage
         return Achievement::query()->create($achievementDto->toArray());
     }
 
-    public function update($achievement, AchievementDto $achievementDto)
+    public function update(Achievement $achievement, AchievementDto $achievementDto)
     {
         if (!$achievement->update($achievementDto->toArray())) {
             throw new \LogicException('can not update achievement');
@@ -20,7 +20,7 @@ class AchievementStorage
         return $achievement;
     }
 
-    public function delete($achievement)
+    public function delete(Achievement $achievement)
     {
         if (!$achievement->delete()) {
             throw new \LogicException('can not delete achievement');

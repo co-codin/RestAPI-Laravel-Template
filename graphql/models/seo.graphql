@@ -1,0 +1,23 @@
+type Seo {
+    id: ID!
+    seoable_type: String!
+    seoable_id: String!
+    is_enabled: Boolean!
+    title: String
+    description: String
+    h1: String
+    meta_tags: [[MetaTagField]]
+    texts: [[TextField]]
+    type: Int!
+}
+
+type MetaTagField {
+    name: String
+    content: String
+}
+
+type TextField {
+    name: String
+    key: String
+    text: String
+}

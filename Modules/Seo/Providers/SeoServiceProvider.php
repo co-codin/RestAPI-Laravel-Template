@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Brand\Providers;
+namespace Modules\Seo\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class BrandServiceProvider extends ServiceProvider
+class SeoServiceProvider extends ServiceProvider
 {
-    protected $moduleName = 'Brand';
+    protected $moduleName = 'Seo';
 
-    protected $moduleNameLower = 'brand';
+    protected $moduleNameLower = 'seo';
 
     public function boot()
     {
