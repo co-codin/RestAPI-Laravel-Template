@@ -8,13 +8,13 @@ use App\Dto\Dto;
 
 class QuestionDto extends Dto
 {
-    public string $question;
+    public ?string $question;
 
-    public string $slug;
+    public ?string $slug;
 
-    public string $answer;
+    public ?string $answer;
 
-    public $status;
+    public ?int $status;
 
-    public int $question_category_id;
+    public ?int $question_category_id;
 }

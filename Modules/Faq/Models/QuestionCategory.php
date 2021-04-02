@@ -2,15 +2,16 @@
 
 namespace Modules\Faq\Models;
 
+use App\Traits\IsActive;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Faq\Database\factories\QuestionCategoryFactory;
-use Modules\Faq\Models\Traits\IsActive;
 
 class QuestionCategory extends Model
 {
-    use HasFactory, SoftDeletes, IsActive;
+    use HasFactory, SoftDeletes, IsActive, Sluggable;
 
     protected $guarded = ['id'];
 
@@ -22,6 +23,15 @@ class QuestionCategory extends Model
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
     }
 
     protected static function newFactory()

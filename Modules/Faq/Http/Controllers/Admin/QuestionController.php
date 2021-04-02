@@ -4,7 +4,6 @@ namespace Modules\Faq\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionDto;
-use Modules\Faq\Dto\QuestionSortDto;
 use Modules\Faq\Http\Requests\QuestionCreateRequest;
 use Modules\Faq\Http\Requests\QuestionSortRequest;
 use Modules\Faq\Http\Requests\QuestionUpdateRequest;
@@ -63,7 +62,7 @@ class QuestionController extends Controller
 
     public function sort(QuestionSortRequest $request)
     {
-        $this->questionStorage->sort(QuestionSortDto::fromFormRequest($request));
+        $this->questionStorage->sort($request->get('questions'));
 
         return response()->noContent();
     }

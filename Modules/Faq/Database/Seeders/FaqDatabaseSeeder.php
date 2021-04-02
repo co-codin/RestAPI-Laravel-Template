@@ -7,15 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class FaqDatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        $this->call(QuestionCategoryTableSeeder::class);
+        $this->call(QuestionTableSeeder::class);
     }
 }

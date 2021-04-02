@@ -37,10 +37,10 @@ class QuestionCategoryStorage
         }
     }
 
-    public function sort(QuestionCategorySortDto $dto)
+    public function sort(array $categories)
     {
         $counter = 1;
-        foreach ($dto->categories as $categoryId) {
+        foreach ($categories as $categoryId) {
             QuestionCategory::query()->find($categoryId)->update([
                 'position' => $counter++
             ]);

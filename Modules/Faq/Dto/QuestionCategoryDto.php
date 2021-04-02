@@ -8,9 +8,9 @@ use App\Dto\Dto;
 
 class QuestionCategoryDto extends Dto
 {
-    public string $name;
+    public ?string $name;
 
-    public string $slug;
+    public ?string $slug;
 
-    public bool $status;
+    public ?bool $status;
 }

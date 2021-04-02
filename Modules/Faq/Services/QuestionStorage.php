@@ -35,10 +35,10 @@ class QuestionStorage
         }
     }
 
-    public function sort(QuestionSortDto $dto)
+    public function sort(array $questions)
     {
         $counter = 1;
-        foreach ($dto->questions as $questionId) {
+        foreach ($questions as $questionId) {
             Question::query()->find($questionId)->update([
                 'position' => $counter++
             ]);

@@ -4,7 +4,6 @@ namespace Modules\Faq\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
-use Modules\Faq\Dto\QuestionCategorySortDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
 use Modules\Faq\Http\Requests\QuestionCategorySortRequest;
 use Modules\Faq\Http\Requests\QuestionCategoryUpdateRequest;
@@ -63,7 +62,7 @@ class QuestionCategoryController extends Controller
 
     public function sort(QuestionCategorySortRequest $request)
     {
-        $this->questionCategoryStorage->sort(QuestionCategorySortDto::fromFormRequest($request));
+        $this->questionCategoryStorage->sort($request->get('categories'));
 
         return response()->noContent();
     }
