@@ -178,7 +178,7 @@ return [
         'hour' => 'Час',
         'minute' => 'Минута',
         'second' => 'Секунда',
-        'title' => 'Наименование',
+        'title' => 'Заголовок',
         'content' => 'Контент',
         'description' => 'Описание',
         'excerpt' => 'Выдержка',
@@ -194,5 +194,6 @@ return [
         'full_description' => 'Подробное описание',
         'position' => 'Позиция',
         'is_enabled' => 'Статус',
+        'type' => 'Тип',
     ],
 ];

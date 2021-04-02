@@ -5,12 +5,11 @@ namespace Modules\Achievement\Http\Controllers\Admin;
 use App\Repositories\Criteria\IsEnabledCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;
-use Modules\Achievement\Http\Requests\AchievementPositionRequest;
+use Modules\Achievement\Http\Requests\AchievementSortRequest;
 use Modules\Achievement\Http\Requests\AchievementCreateRequest;
 use Modules\Achievement\Http\Requests\AchievementUpdateRequest;
 use Modules\Achievement\Http\Resources\AchievementResource;
 use Modules\Achievement\Repositories\AchievementRepository;
-use Modules\Achievement\Services\AchievementPositionService;
 use Modules\Achievement\Services\AchievementStorage;
 
 class AchievementController extends Controller
@@ -61,9 +60,9 @@ class AchievementController extends Controller
         return response()->noContent();
     }
 
-    public function modifyPosition(AchievementPositionRequest $request, AchievementPositionService $achievementPositionService)
+    public function sort(AchievementSortRequest $request)
     {
-        $achievementPositionService->modifyPosition($request->get('positions'));
+        $this->achievementStorage->sort($request->input('achievements'));
 
         return response()->noContent();
     }

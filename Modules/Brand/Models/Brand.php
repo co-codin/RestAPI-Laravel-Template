@@ -2,14 +2,13 @@
 
 namespace Modules\Brand\Models;
 
-use App\Enums\Status;
 use App\Traits\IsActive;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Database\factories\BrandFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Modules\Seo\Models\Seo;
 
 /**
  * Class Brand
@@ -50,5 +49,10 @@ class Brand extends Model
     protected static function newFactory()
     {
         return BrandFactory::new();
+    }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
     }
 }

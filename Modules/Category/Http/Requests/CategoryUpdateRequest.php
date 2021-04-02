@@ -26,8 +26,9 @@ class CategoryUpdateRequest extends FormRequest
             'is_hidden_in_parents' => 'sometimes|boolean',
             'is_in_home' => 'sometimes|boolean',
             'image' => [
+                'sometimes',
                 Rule::requiredIf(function() {
-                    return !$this->input('parent_id');
+                    return ! $this->input('parent_id');
                 }),
                 'nullable',
                 'string',

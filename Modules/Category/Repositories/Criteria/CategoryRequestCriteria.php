@@ -13,11 +13,12 @@ class CategoryRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields([
-                'id', 'name', 'slug', 'product_name', 'full_description', 'image',
-                'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
-                'created_at', 'updated_at', 'deleted_at',
-            ])
+            ->allowedFields(array_merge(
+                $this->allowedCategoryFields(),
+                $this->allowedCategoryFields('descendants'),
+                $this->allowedCategoryFields('ancestors'),
+                $this->allowedCategoryFields('parent'),
+            ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
@@ -37,5 +38,20 @@ class CategoryRequestCriteria implements CriteriaInterface
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
             ])
             ;
+    }
+
+    protected function allowedCategoryFields($prefix = null): array
+    {
+        $fields = [
+            'id', 'name', 'slug', 'product_name', 'full_description', 'image', '_lft', '_rgt',
+            'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
+            'created_at', 'updated_at', 'deleted_at',
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
     }
 }
