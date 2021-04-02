@@ -19,8 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->string('question');
             $table->string('slug')->unique();
             $table->text('answer');
-            $table->boolean('status');
-            $table->integer('position')->nullable();
+            $table->unsignedTinyInteger('status')->default(1);
+            $table->unsignedInteger('position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

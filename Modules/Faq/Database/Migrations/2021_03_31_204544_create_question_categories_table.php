@@ -17,8 +17,8 @@ class CreateQuestionCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->boolean('status');
-            $table->integer('position')->nullable();
+            $table->unsignedTinyInteger('status')->default(1);
+            $table->unsignedInteger('position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

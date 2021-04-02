@@ -2,18 +2,19 @@
 
 namespace Modules\Faq\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Enums\Status;
+use App\Transformers\BaseJsonResource;
 
-class QuestionCategoryResource extends JsonResource
+class QuestionCategoryResource extends BaseJsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return array_merge(parent::toArray($request), [
+            'status' => $this->whenRequested('status', [
+                'value' => $this->status,
+                'description' => Status::getDescription($this->status),
+            ]),
+            'questions' => QuestionResource::collection($this->whenLoaded('questions')),
+        ]);
     }
 }
