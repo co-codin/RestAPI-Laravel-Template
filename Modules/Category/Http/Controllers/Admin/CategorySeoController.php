@@ -18,7 +18,7 @@ class CategorySeoController extends Controller
         protected CategoryRepository $categoryRepository,
     ) {}
 
-    public function parentUpdate(SeoUpdateRequest $request, int $category)
+    public function update(SeoUpdateRequest $request, int $category)
     {
         $category = $this->categoryRepository->skipCriteria()->find($category);
 
