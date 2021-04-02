@@ -14,10 +14,10 @@ class CategoryRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
-                $this->allowedFields(),
-                $this->allowedFields('descendants'),
-                $this->allowedFields('ancestors'),
-                $this->allowedFields('parent'),
+                $this->allowedCategoryFields(),
+                $this->allowedCategoryFields('descendants'),
+                $this->allowedCategoryFields('ancestors'),
+                $this->allowedCategoryFields('parent'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -40,7 +40,7 @@ class CategoryRequestCriteria implements CriteriaInterface
             ;
     }
 
-    protected function allowedFields($prefix = null): array
+    protected function allowedCategoryFields($prefix = null): array
     {
         $fields = [
             'id', 'name', 'slug', 'product_name', 'full_description', 'image', '_lft', '_rgt',
