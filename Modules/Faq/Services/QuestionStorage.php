@@ -37,11 +37,10 @@ class QuestionStorage
 
     public function sort(array $questions)
     {
-        $counter = 1;
-        foreach ($questions as $questionId) {
-            Question::query()->find($questionId)->update([
-                'position' => $counter++
-            ]);
+        foreach ($questions as $question) {
+            Question::query()
+                ->where('id', $question['id'])
+                ->update(['position' => $question['position']]);
         }
     }
 }

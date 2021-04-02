@@ -15,7 +15,8 @@ class QuestionCategorySortRequest extends FormRequest
     {
         return [
             'categories' => 'required|array',
-            'categories.*' => 'required|integer|exists:question_categories,id',
+            'categories.*.id' => 'required|distinct|exists:question_categories,id',
+            'categories.*.position' => 'required|distinct|integer|min:0',
         ];
     }
 }

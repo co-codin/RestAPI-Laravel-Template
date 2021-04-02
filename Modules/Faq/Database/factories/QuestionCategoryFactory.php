@@ -1,6 +1,8 @@
 <?php
+
 namespace Modules\Faq\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuestionCategoryFactory extends Factory
@@ -20,7 +22,8 @@ class QuestionCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'status' => Status::getRandomValue(),
         ];
     }
 }

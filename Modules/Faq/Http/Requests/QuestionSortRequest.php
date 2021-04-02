@@ -15,17 +15,8 @@ class QuestionSortRequest extends FormRequest
     {
         return [
             'questions' => 'required|array',
-            'questions.*' => 'required|integer|exists:questions,id',
+            'questions.*.id' => 'required|distinct|exists:questions,id',
+            'questions.*.position' => 'required|distinct|integer|min:0',
         ];
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 }

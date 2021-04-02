@@ -5,7 +5,6 @@ namespace Modules\Faq\Services;
 
 
 use Modules\Faq\Dto\QuestionCategoryDto;
-use Modules\Faq\Dto\QuestionCategorySortDto;
 use Modules\Faq\Models\QuestionCategory;
 
 class QuestionCategoryStorage
@@ -39,11 +38,10 @@ class QuestionCategoryStorage
 
     public function sort(array $categories)
     {
-        $counter = 1;
-        foreach ($categories as $categoryId) {
-            QuestionCategory::query()->find($categoryId)->update([
-                'position' => $counter++
-            ]);
+        foreach ($categories as $category) {
+            QuestionCategory::query()
+                ->where('id', $category['id'])
+                ->update(['position' => $category['position']]);
         }
     }
 }

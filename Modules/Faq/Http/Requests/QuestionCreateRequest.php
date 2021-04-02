@@ -2,6 +2,8 @@
 
 namespace Modules\Faq\Http\Requests;
 
+use App\Enums\Status;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class QuestionCreateRequest extends FormRequest
@@ -14,10 +16,13 @@ class QuestionCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'question' => 'required|string',
+            'question' => 'required|string|max:255',
             'slug' => 'required|string|unique:questions,slug',
             'answer' => 'required|string|max:255',
-            'status' => 'required|boolean',
+            'status' => [
+                'required',
+                new EnumValue(Status::class, false),
+            ],
             'question_category_id' => 'required|integer|exists:question_categories,id'
         ];
     }
