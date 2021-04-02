@@ -194,5 +194,6 @@ return [
         'full_description' => 'Подробное описание',
         'position' => 'Позиция',
         'is_enabled' => 'Статус',
+        'type' => 'Тип',
     ],
 ];
