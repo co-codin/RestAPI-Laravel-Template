@@ -15,7 +15,11 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
+            $table->string('url')->unique();
+            $table->string('source');
+            $table->boolean('is_enabled')->default(true);
+            $table->date('published_at')->nullable();
             $table->timestamps();
         });
     }

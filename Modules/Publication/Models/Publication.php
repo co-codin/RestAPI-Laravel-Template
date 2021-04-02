@@ -12,6 +12,11 @@ class Publication extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'published_at' => 'date',
+        'is_enabled' => 'boolean',
+    ];
+
     protected static function newFactory()
     {
         return PublicationFactory::new();
