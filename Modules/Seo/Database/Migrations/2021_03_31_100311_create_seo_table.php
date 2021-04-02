@@ -21,7 +21,6 @@ class CreateSeoTable extends Migration
             $table->string('description', 1000);
             $table->string('h1', 1000);
             $table->json('meta_tags')->nullable();
-            $table->unsignedTinyInteger('type')->default(1);
             $table->timestamps();
         });
     }
