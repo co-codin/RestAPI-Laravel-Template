@@ -6,7 +6,6 @@ namespace Modules\Seo\Models\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Modules\Seo\Enums\SeoType;
 use Modules\Seo\Models\Seo;
 
 /**
@@ -34,8 +33,7 @@ trait SeoBaseRelations
     public function seoSelf(): MorphOne
     {
         /** @var Model $this */
-        return $this->morphOne(Seo::class, 'seoable')
-            ->where('type', SeoType::Self);
+        return $this->morphOne(Seo::class, 'seoable');
     }
 
     /**
@@ -45,7 +43,6 @@ trait SeoBaseRelations
     {
         /** @var Model $this */
         return $this->morphOne(Seo::class, 'seoable')
-            ->where('type', SeoType::Self)
             ->where('is_enabled', '=', true);
     }
 

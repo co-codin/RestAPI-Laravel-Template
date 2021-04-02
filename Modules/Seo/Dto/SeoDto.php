@@ -5,8 +5,6 @@ namespace Modules\Seo\Dto;
 
 
 use App\Dto\Dto;
-use Illuminate\Foundation\Http\FormRequest;
-use Modules\Seo\Enums\SeoType;
 
 /**
  * Class SeoDto
@@ -21,8 +19,6 @@ class SeoDto extends Dto
     public string $h1;
 
     public string $description;
-
-    public int $type = SeoType::Self;
 
     public ?array $meta_tags;
 }
