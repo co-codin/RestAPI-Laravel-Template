@@ -63,7 +63,7 @@ class AchievementController extends Controller
 
     public function sort(AchievementSortRequest $request)
     {
-        $this->achievementStorage->sort($request->get('achievements'));
+        $this->achievementStorage->sort($request->input('achievements'));
 
         return response()->noContent();
     }
