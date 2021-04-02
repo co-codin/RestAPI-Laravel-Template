@@ -24,6 +24,7 @@ class QuestionCategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
             ])
             ->allowedSorts('id', 'name', 'slug', 'status', 'position', 'created_at', 'updated_at', 'deleted_at')
+            ->allowedIncludes('questions')
             ;
     }
 }
