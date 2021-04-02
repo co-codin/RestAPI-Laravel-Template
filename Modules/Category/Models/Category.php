@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
+use Modules\Seo\Models\Seo;
 
 /**
  * Class Category
@@ -24,6 +25,10 @@ use Modules\Category\Database\factories\CategoryFactory;
  * @property boolean $is_in_home
  * @property string $image
  * @property array $short_properties
+ * @property Category|null $parent
+ * @property Category[] $ancestors
+ * @property Category[] $descendants
+ * @property Seo|null $seo
  */
 class Category extends Model
 {
