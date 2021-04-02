@@ -28,6 +28,7 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
                 AllowedFilter::trashed(),
             ])
+            ->allowedIncludes('seo')
             ->allowedSorts([
                 'id', 'created_at', 'deleted_at', 'updated_at', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'
             ]);
