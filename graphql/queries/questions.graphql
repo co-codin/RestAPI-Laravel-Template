@@ -1,0 +1,8 @@
+extend type Query {
+    questions(
+        where: _ @whereConditions(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
+        orderBy: _ @orderBy(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
+    ): [QuestionCategory!]!
+    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @orderBy(column: "id", direction: "ASC")
+}

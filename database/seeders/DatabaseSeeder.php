@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Modules\Achievement\Database\Seeders\AchievementDatabaseSeeder;
 use Modules\Brand\Database\Seeders\BrandDatabaseSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
+use Modules\Faq\Database\Seeders\FaqDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandDatabaseSeeder::class);
         $this->call(CategoryDatabaseSeeder::class);
         $this->call(SeoDatabaseSeeder::class);
+        $this->call(FaqDatabaseSeeder::class);
     }
 }
