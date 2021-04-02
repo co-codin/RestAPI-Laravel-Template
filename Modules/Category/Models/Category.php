@@ -63,6 +63,11 @@ class Category extends Model
         ];
     }
 
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
+    }
+
     protected static function newFactory()
     {
         return CategoryFactory::new();
