@@ -21,10 +21,10 @@ class CategoryResource extends BaseJsonResource
                 'value' => $this->status,
                 'description' => Status::getDescription($this->status),
             ]),
-            'seo' => $this->whenLoaded('seo', fn() => new SeoResource($this->seo)),
-            'parent' => $this->whenLoaded('parent', fn() => new CategoryResource($this->parent)),
-            'ancestors' => $this->whenLoaded('ancestors', fn() => CategoryResource::collection($this->ancestors)),
-            'descendants' => $this->whenLoaded('descendants', fn() => CategoryResource::collection($this->descendants)),
+            'seo' => new SeoResource($this->whenLoaded('seo')),
+            'parent' => new CategoryResource($this->whenLoaded('parent')),
+            'ancestors' => CategoryResource::collection($this->whenLoaded('ancestors')),
+            'descendants' => CategoryResource::collection($this->whenLoaded('descendants')),
         ]);
     }
 }

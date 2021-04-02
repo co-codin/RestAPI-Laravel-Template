@@ -5,6 +5,7 @@ namespace Modules\Brand\Http\Resources;
 use App\Enums\Status;
 use App\Transformers\BaseJsonResource;
 use Modules\Brand\Models\Brand;
+use Modules\Seo\Http\Resources\SeoResource;
 
 /**
  * Class BrandResource
@@ -20,6 +21,7 @@ class BrandResource extends BaseJsonResource
                 'value' => $this->status,
                 'description' => Status::getDescription($this->status),
             ]),
+            'seo' => new SeoResource($this->whenLoaded('seo')),
         ]);
     }
 }

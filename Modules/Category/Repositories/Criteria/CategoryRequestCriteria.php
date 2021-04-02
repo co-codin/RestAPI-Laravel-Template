@@ -33,11 +33,10 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('parent_id'),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['parent', 'ancestors', 'descendants'])
+            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo'])
             ->allowedSorts([
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
-            ])
-            ;
+            ]);
     }
 
     protected function allowedCategoryFields($prefix = null): array

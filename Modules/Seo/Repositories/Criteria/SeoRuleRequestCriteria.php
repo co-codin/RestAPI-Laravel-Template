@@ -19,7 +19,7 @@ class SeoRuleRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('url'),
             ])
-            ->allowedSorts('id', 'name', 'url', 'created_at', 'updated_at')
-            ;
+            ->allowedIncludes('seo')
+            ->allowedSorts('id', 'name', 'url', 'created_at', 'updated_at');
     }
 }
