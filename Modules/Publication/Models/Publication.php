@@ -4,6 +4,7 @@ namespace Modules\Publication\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Query\Builder;
 use Modules\Publication\Database\factories\PublicationFactory;
 
 class Publication extends Model
@@ -16,6 +17,11 @@ class Publication extends Model
         'published_at' => 'date',
         'is_enabled' => 'boolean',
     ];
+
+    public function scopeIsEnabled(Builder $query): Builder
+    {
+        return $query->where('is_enabled', '=', true);
+    }
 
     protected static function newFactory()
     {
