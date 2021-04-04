@@ -4,5 +4,6 @@
     "Category": true,
     "Seo": true,
     "Faq": true,
-    "Publication": true
+    "Publication": true,
+    "News": true
 }
