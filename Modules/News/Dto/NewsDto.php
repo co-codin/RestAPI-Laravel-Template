@@ -25,24 +25,7 @@ class NewsDto extends Dto
 
     public ?string $image;
 
-    public ?bool $in_home;
+    public ?bool $is_in_home;
 
-    /**
-     * @var int|null
-     */
-    public $views_num;
-
-    /**
-     * @var string
-     */
-    public $news_date;
-
-    /**
-     * @param FormRequest $request
-     * @return self
-     */
-    public static function fromFormRequest(FormRequest $request): self
-    {
-        return new static($request->except(['seo', 'tags']));
-    }
+    public ?string $published_at;
 }

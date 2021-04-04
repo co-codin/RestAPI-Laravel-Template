@@ -1,6 +1,7 @@
 <?php
 namespace Modules\News\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NewsFactory extends Factory
@@ -20,7 +21,13 @@ class NewsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->sentence,
+            'short_description' => $this->faker->sentence(10),
+            'full_description' => $this->faker->sentence(30),
+            'status' => Status::getRandomValue(),
+            'in_home' => $this->faker->boolean,
+            'image' => '/uploads/test/news/news' . $this->faker->randomElement([1, 2]) . '.jpg',
+            'published_at' => $this->faker->date(),
         ];
     }
 }
