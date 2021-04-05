@@ -14,7 +14,7 @@ class NewsRequestCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return QueryBuilder::for($model)
-            ->defaultSort('id')
+            ->defaultSort('-id')
             ->allowedFields([
                 'id', 'name', 'slug', 'short_description', 'full_description',
                 'status', 'image', 'is_in_home', 'published_at',
@@ -23,18 +23,17 @@ class NewsRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('slug'),
-                AllowedFilter::exact('image'),
-                AllowedFilter::partial('website'),
-                AllowedFilter::exact('country'),
+                AllowedFilter::partial('short_description'),
+                AllowedFilter::partial('full_description'),
                 AllowedFilter::exact('status'),
+                AllowedFilter::partial('image'),
                 AllowedFilter::exact('is_in_home'),
-                AllowedFilter::exact('position'),
+                AllowedFilter::exact('published_at'),
                 AllowedFilter::trashed(),
             ])
             ->allowedIncludes('seo')
             ->allowedSorts([
-                'id', 'name', 'slug', 'short_description', 'full_description',
-                'status', 'image', 'is_in_home', 'published_at',
+                'id', 'name', 'slug', 'status', 'image', 'is_in_home', 'published_at',
             ]);
     }
 }
