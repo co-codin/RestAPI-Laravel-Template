@@ -24,9 +24,10 @@ class PageUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'sometimes|required|string|max:255',
             'full_description' => 'sometimes|nullable|string',
             'status' => [
+                'sometimes',
                 'required',
                 new EnumValue(Status::class, false),
             ],
