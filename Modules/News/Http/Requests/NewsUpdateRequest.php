@@ -31,7 +31,7 @@ class NewsUpdateRequest extends FormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'slug' => 'sometimes|nullable|string|max:255',
+            'slug' => 'sometimes|nullable|max:255|unique:brands,slug,' . $this->route('news'),
             'image' => 'sometimes|required|string|max:255',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'sometimes|required|date_format:Y-m-d',
