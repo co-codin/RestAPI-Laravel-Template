@@ -1,7 +1,10 @@
 <?php
+
 namespace Modules\Page\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Page\Models\Page;
 
 class PageFactory extends Factory
 {
@@ -20,7 +23,10 @@ class PageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'parent_id' => Page::factory(),
+            'name' => $this->faker->name,
+            'full_description' => $this->faker->sentence(10),
+            'status' => Status::getRandomValue(),
         ];
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace Modules\Page\Http\Controllers;
+namespace Modules\Page\Http\Controllers\Admin;
 
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,7 +13,9 @@ class PageController extends Controller
 {
     public function __construct(
         protected PageRepository $pageRepository
-    ) {}
+    ) {
+        $this->pageRepository->popCriteria(ActiveStatusCriteria::class);
+    }
 
     public function index()
     {
@@ -21,10 +24,10 @@ class PageController extends Controller
         return PageResource::collection($pages);
     }
 
-    public function show(string $slug)
+    public function show(int $page)
     {
-        $page = $this->pageRepository->findBySlug($slug);
+        $pageModel = $this->pageRepository->find($page);
 
-        return new PageResource($page);
+        return new PageResource($pageModel);
     }
 }
