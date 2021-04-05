@@ -2,6 +2,8 @@
 
 namespace Modules\News\Models;
 
+use App\Traits\IsActive;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +12,7 @@ use Modules\Seo\Models\Seo;
 
 class News extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Sluggable, IsActive;
 
     protected $guarded = ['id'];
 
@@ -19,6 +21,15 @@ class News extends Model
         'is_in_home' => 'boolean',
         'published_at' => 'datetime:Y-m-d',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
+    }
 
     public function seo()
     {
