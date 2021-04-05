@@ -16,7 +16,7 @@ class PageDto extends Dto
     public ?int $parent_id;
 
     public ?string $name;
-    
+
     public ?string $slug;
 
     public ?string $full_description;
