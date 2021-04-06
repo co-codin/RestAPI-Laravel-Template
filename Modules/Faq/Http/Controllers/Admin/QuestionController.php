@@ -2,13 +2,13 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionDto;
 use Modules\Faq\Http\Requests\QuestionCreateRequest;
 use Modules\Faq\Http\Requests\QuestionSortRequest;
 use Modules\Faq\Http\Requests\QuestionUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionResource;
-use Modules\Faq\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Faq\Repositories\QuestionRepository;
 use Modules\Faq\Services\QuestionStorage;
 
