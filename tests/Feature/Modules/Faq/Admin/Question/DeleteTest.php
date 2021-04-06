@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Admin;
+namespace Tests\Feature\Modules\Faq\Admin\Question;
 
 
 use Tests\TestCase;

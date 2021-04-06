@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Admin;
+namespace Tests\Feature\Modules\Faq\Admin\Question;
 
 
 use Modules\Faq\Models\Question;
 use Tests\TestCase;
 
-class QuestionReadTest extends TestCase
+class ReadTest extends TestCase
 {
     public function test_unauthenticated_user_cannot_view_any_question()
     {
