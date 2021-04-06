@@ -6,7 +6,7 @@ namespace Tests\Feature\Modules\News\Admin;
 
 use Tests\TestCase;
 
-class NewsUpdateTest extends TestCase
+class CreateTest extends TestCase
 {
 
 }

@@ -8,7 +8,7 @@ use App\Enums\Status;
 use Modules\News\Models\News;
 use Tests\TestCase;
 
-class NewsReadTest extends TestCase
+class ReadTest extends TestCase
 {
     public function test_active_news_can_be_viewed()
     {
