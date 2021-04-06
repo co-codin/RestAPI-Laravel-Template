@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Modules\Publication\Web;
 
-use Modules\Achievement\Models\Achievement;
 use Modules\Publication\Models\Publication;
 use Tests\TestCase;
 

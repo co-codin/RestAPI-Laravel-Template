@@ -21,7 +21,7 @@ class SeoRuleFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(4),
-            'url' => $this->faker->url,
+            'url' => '/admin/achievements'
         ];
     }
 }
