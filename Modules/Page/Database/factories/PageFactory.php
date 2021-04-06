@@ -23,8 +23,7 @@ class PageFactory extends Factory
     public function definition()
     {
         return [
-            'parent_id' => Page::factory(),
-            'name' => $this->faker->name,
+            'name' => $this->faker->sentence(4),
             'full_description' => $this->faker->sentence(10),
             'status' => Status::getRandomValue(),
         ];
