@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeoTable extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSeoTable extends Migration
      */
     public function up()
     {
-        Schema::create('seo', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->morphs('seoable');
-            $table->boolean('is_enabled')->default(true);
-            $table->string('title', 1000);
-            $table->string('description', 1000);
-            $table->string('h1', 1000);
-            $table->json('meta_tags')->nullable();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('full_description')->nullable();
+            $table->unsignedTinyInteger('status')->default(1);
+            $table->nestedSet();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateSeoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seo');
+        Schema::dropIfExists('pages');
     }
 }

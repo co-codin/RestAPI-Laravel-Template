@@ -3,7 +3,6 @@
 namespace Modules\Seo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Seo\Enums\SeoType;
 use Modules\Seo\Models\SeoRule;
 
 class SeoFactory extends Factory
@@ -34,7 +33,6 @@ class SeoFactory extends Factory
                     'content' => $this->faker->sentence(10)
                 ]
             ],
-            'type' => SeoType::getRandomValue(),
         ];
     }
 }

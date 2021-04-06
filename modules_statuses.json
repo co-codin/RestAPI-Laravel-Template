@@ -3,5 +3,8 @@
     "Brand": true,
     "Category": true,
     "Seo": true,
-    "Faq": true
+    "Faq": true,
+    "Publication": true,
+    "News": true,
+    "Page": true
 }

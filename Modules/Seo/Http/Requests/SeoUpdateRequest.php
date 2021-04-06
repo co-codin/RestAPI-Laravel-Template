@@ -4,7 +4,6 @@ namespace Modules\Seo\Http\Requests;
 
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\Seo\Enums\SeoType;
 
 class SeoUpdateRequest extends FormRequest
 {
@@ -19,10 +18,6 @@ class SeoUpdateRequest extends FormRequest
             'meta_tags.*' => 'required|array',
             'meta_tags.*.name' => 'required|string|max:255',
             'meta_tags.*.content' => 'required|string|max:255',
-            'type' => [
-                'required',
-                new EnumValue(SeoType::class, false),
-            ],
         ];
     }
 }
