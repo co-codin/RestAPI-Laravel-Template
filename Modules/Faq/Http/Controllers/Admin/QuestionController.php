@@ -46,7 +46,7 @@ class QuestionController extends Controller
     {
         $questionModel = $this->questionRepository->find($question);
 
-        $questionModel = $this->questionStorage->update($questionModel, QuestionDto::fromFormRequest($request));
+        $questionModel = $this->questionStorage->update($questionModel, (new QuestionDto($request->validated()))->only(...$request->keys()));
 
         return new QuestionResource($questionModel);
     }

@@ -42,7 +42,7 @@ class SeoRuleController extends Controller
     {
         $seoRuleModel = $this->seoRuleRepository->find($seo_rule);
 
-        $seoRuleModel = $this->seoRuleStorage->update($seoRuleModel, SeoRuleDto::fromFormRequest($request));
+        $seoRuleModel = $this->seoRuleStorage->update($seoRuleModel, (new SeoRuleDto($request->validated()))->only(...$request->keys()));
 
         return new SeoRuleResource($seoRuleModel);
     }

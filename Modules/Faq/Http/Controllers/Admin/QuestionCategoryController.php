@@ -46,7 +46,7 @@ class QuestionCategoryController extends Controller
     {
         $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
 
-        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, QuestionCategoryDto::fromFormRequest($request));
+        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, (new QuestionCategoryDto($request->validated()))->only(...$request->keys()));
 
         return new QuestionCategoryResource($questionCategoryModel);
     }
