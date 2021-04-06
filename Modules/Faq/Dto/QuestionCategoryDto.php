@@ -12,5 +12,5 @@ class QuestionCategoryDto extends Dto
 
     public ?string $slug;
 
-    public ?bool $status;
+    public ?int $status;
 }

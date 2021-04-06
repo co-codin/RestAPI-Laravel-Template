@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Admin;
+namespace Tests\Feature\Modules\Faq\Admin\QuestionCategory;
 
 
 use Modules\Faq\Models\QuestionCategory;
 use Tests\TestCase;
 
-class QuestionCategoryDeleteTest extends TestCase
+class DeleteTest extends TestCase
 {
     public function test_unauthenticated_cannot_delete_question_category()
     {
