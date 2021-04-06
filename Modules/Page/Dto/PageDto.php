@@ -21,5 +21,6 @@ class PageDto extends Dto
 
     public ?string $full_description;
 
-    public ?int $status;
+    /** @var mixed */
+    public $status;
 }

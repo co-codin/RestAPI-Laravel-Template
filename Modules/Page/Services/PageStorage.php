@@ -16,6 +16,9 @@ class PageStorage
 
     public function update(Page $page, PageDto $pageDto)
     {
+        dd(
+            $pageDto->toArray()
+        );
         if (!$page->update($pageDto->toArray())) {
             throw new \LogicException('can not update page');
         }
