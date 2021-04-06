@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Faq\Http\Controllers\QuestionCategoryController;
+use Modules\Faq\Http\Controllers\Admin\QuestionCategoryController;
 use Modules\Faq\Http\Controllers\Admin\QuestionController;
 
 Route::resource('question_categories', QuestionCategoryController::class);
