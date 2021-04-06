@@ -4,7 +4,7 @@ namespace Modules\Publication\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Publication\Database\factories\PublicationFactory;
 
 class Publication extends Model

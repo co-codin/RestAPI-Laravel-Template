@@ -8,7 +8,7 @@ use App\Dto\Dto;
 
 class PublicationDto extends Dto
 {
-    public ?string $title;
+    public ?string $name;
 
     public ?string $url;
 
