@@ -25,7 +25,7 @@ class NewsDto extends Dto
 
     public ?string $image;
 
-    public ?bool $is_in_home;
+    public $is_in_home = false;
 
     public ?string $published_at;
 }
