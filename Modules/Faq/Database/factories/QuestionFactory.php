@@ -2,6 +2,7 @@
 
 namespace Modules\Faq\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Faq\Models\QuestionCategory;
 
@@ -25,6 +26,7 @@ class QuestionFactory extends Factory
             'question_category_id' => QuestionCategory::factory(),
             'question' => $this->faker->sentence(4),
             'answer' => $this->faker->sentence(4),
+            'status' => Status::getRandomValue()
         ];
     }
 }
