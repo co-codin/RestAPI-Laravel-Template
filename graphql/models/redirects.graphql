@@ -1,0 +1,6 @@
+type Redirect {
+    id: ID!
+    old_url: String!
+    new_url: String!
+    code: Int!
+}
