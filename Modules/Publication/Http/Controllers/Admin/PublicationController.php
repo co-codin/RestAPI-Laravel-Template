@@ -45,7 +45,7 @@ class PublicationController extends Controller
     {
         $publication = $this->publicationRepository->find($publication);
 
-        $publication = $this->publicationStorage->update($publication, PublicationDto::fromFormRequest($request));
+        $publication = $this->publicationStorage->update($publication, (new PublicationDto($request->validated()))->only(...$request->keys()));
 
         return new PublicationResource($publication);
     }

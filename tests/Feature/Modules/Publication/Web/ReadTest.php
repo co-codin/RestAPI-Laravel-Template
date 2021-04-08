@@ -1,28 +1,25 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Web;
+namespace Tests\Feature\Modules\Publication\Web;
 
-
-use App\Enums\Status;
-use Modules\Faq\Models\Question;
+use Modules\Publication\Models\Publication;
 use Tests\TestCase;
 
-class QuestionReadTest extends TestCase
+class ReadTest extends TestCase
 {
-    public function test_active_questions_can_be_viewed()
+    public function test_active_publications_can_be_viewed()
     {
-        $question = Question::factory()->create([
-            'status' => Status::ACTIVE,
+        $publication = Publication::factory()->create([
+            'is_enabled' => 1,
         ]);
 
         $response = $this->graphQL('
             {
-                questions {
+                publications {
                     data {
                         id
-                        question
-                        slug
+                        name
                     }
                     paginatorInfo {
                         currentPage
@@ -34,11 +31,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'publications' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $publication->id,
+                            'name' => $publication->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -51,10 +48,10 @@ class QuestionReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $question->id .'  }) {
+                publications(where: { column: ID, operator: EQ, value: ' . $publication->id .'  }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -62,11 +59,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'publications' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $publication->id,
+                            'name' => $publication->name,
                         ]
                     ],
                 ]
@@ -75,22 +72,22 @@ class QuestionReadTest extends TestCase
 
     }
 
-    public function test_inactive_questions_cannot_be_viewed()
+    public function test_inactive_publications_cannot_be_viewed()
     {
-        $question = Question::factory()->create([
-            'status' => Status::ACTIVE,
+        $publication = Publication::factory()->create([
+            'is_enabled' => 1,
         ]);
 
-        $anotherQuestion = Question::factory()->create([
-            'status' => Status::INACTIVE,
+        $anotherPublication = Publication::factory()->create([
+            'is_enabled' => 0,
         ]);
 
         $response = $this->graphQL('
             {
-                questions {
+                publications {
                     data {
                         id
-                        question
+                        name
                     }
                     paginatorInfo {
                         currentPage
@@ -102,11 +99,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'publications' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $publication->id,
+                            'name' => $publication->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -117,14 +114,14 @@ class QuestionReadTest extends TestCase
             ],
         ]);
 
-        $this->assertNotContains($anotherQuestion->id, $response->json());
+        $this->assertNotContains($anotherPublication->id, $response->json());
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $question->id . ' }) {
+                publications(where: { column: ID, operator: EQ, value: ' . $publication->id . ' }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -132,11 +129,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'publications' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $publication->id,
+                            'name' => $publication->name,
                         ]
                     ],
                 ]
@@ -145,10 +142,10 @@ class QuestionReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $anotherQuestion->id . ' }) {
+                publications(where: { column: ID, operator: EQ, value: ' . $anotherPublication->id . ' }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -156,7 +153,7 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'publications' => [
                     'data' => [],
                 ]
             ],

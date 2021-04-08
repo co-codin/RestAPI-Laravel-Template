@@ -12,7 +12,7 @@ use App\Dto\Dto;
  */
 class SeoRuleDto extends Dto
 {
-    public string $title;
+    public ?string $name;
 
-    public string $url;
+    public ?string $url;
 }

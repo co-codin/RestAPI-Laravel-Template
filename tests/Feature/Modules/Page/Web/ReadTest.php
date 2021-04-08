@@ -1,28 +1,26 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Web;
-
+namespace Tests\Feature\Modules\Page\Web;
 
 use App\Enums\Status;
-use Modules\Faq\Models\Question;
+use Modules\Page\Models\Page;
 use Tests\TestCase;
 
-class QuestionReadTest extends TestCase
+class ReadTest extends TestCase
 {
-    public function test_active_questions_can_be_viewed()
+    public function test_active_pages_can_be_viewed()
     {
-        $question = Question::factory()->create([
+        $page = Page::factory()->create([
             'status' => Status::ACTIVE,
         ]);
 
         $response = $this->graphQL('
             {
-                questions {
+                pages {
                     data {
                         id
-                        question
-                        slug
+                        name
                     }
                     paginatorInfo {
                         currentPage
@@ -34,11 +32,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'pages' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $page->id,
+                            'name' => $page->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -51,10 +49,10 @@ class QuestionReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $question->id .'  }) {
+                pages(where: { column: ID, operator: EQ, value: ' . $page->id .'  }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -62,11 +60,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'pages' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $page->id,
+                            'name' => $page->name,
                         ]
                     ],
                 ]
@@ -75,22 +73,22 @@ class QuestionReadTest extends TestCase
 
     }
 
-    public function test_inactive_questions_cannot_be_viewed()
+    public function test_inactive_pages_cannot_be_viewed()
     {
-        $question = Question::factory()->create([
+        $page = Page::factory()->create([
             'status' => Status::ACTIVE,
         ]);
 
-        $anotherQuestion = Question::factory()->create([
+        $anotherPage = Page::factory()->create([
             'status' => Status::INACTIVE,
         ]);
 
         $response = $this->graphQL('
             {
-                questions {
+                pages {
                     data {
                         id
-                        question
+                        name
                     }
                     paginatorInfo {
                         currentPage
@@ -102,11 +100,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'pages' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $page->id,
+                            'name' => $page->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -117,14 +115,14 @@ class QuestionReadTest extends TestCase
             ],
         ]);
 
-        $this->assertNotContains($anotherQuestion->id, $response->json());
+        $this->assertNotContains($anotherPage->id, $response->json());
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $question->id . ' }) {
+                pages(where: { column: ID, operator: EQ, value: ' . $page->id . ' }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -132,11 +130,11 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'pages' => [
                     'data' => [
                         [
-                            'id' => $question->id,
-                            'question' => $question->question,
+                            'id' => $page->id,
+                            'name' => $page->name,
                         ]
                     ],
                 ]
@@ -145,10 +143,10 @@ class QuestionReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                questions(where: { column: ID, operator: EQ, value: ' . $anotherQuestion->id . ' }) {
+                pages(where: { column: ID, operator: EQ, value: ' . $anotherPage->id . ' }) {
                     data {
                         id
-                        question
+                        name
                     }
                 }
             }
@@ -156,7 +154,7 @@ class QuestionReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questions' => [
+                'pages' => [
                     'data' => [],
                 ]
             ],

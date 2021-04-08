@@ -2,13 +2,13 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
 use Modules\Faq\Http\Requests\QuestionCategorySortRequest;
 use Modules\Faq\Http\Requests\QuestionCategoryUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
-use Modules\Faq\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Faq\Repositories\QuestionCategoryRepository;
 use Modules\Faq\Services\QuestionCategoryStorage;
 
@@ -46,7 +46,7 @@ class QuestionCategoryController extends Controller
     {
         $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
 
-        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, QuestionCategoryDto::fromFormRequest($request));
+        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, (new QuestionCategoryDto($request->validated()))->only(...$request->keys()));
 
         return new QuestionCategoryResource($questionCategoryModel);
     }

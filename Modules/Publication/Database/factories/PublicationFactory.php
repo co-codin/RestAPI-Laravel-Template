@@ -2,6 +2,7 @@
 
 namespace Modules\Publication\Database\factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PublicationFactory extends Factory
@@ -25,7 +26,7 @@ class PublicationFactory extends Factory
             'url' => $this->faker->sentence(4),
             'source' => $this->faker->sentence(4),
             'is_enabled' => $this->faker->boolean,
-            'published_at' => $this->faker->dateTime,
+            'published_at' => Carbon::now()->format('d.m.Y'),
         ];
     }
 }

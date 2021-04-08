@@ -14,7 +14,8 @@ class QuestionDto extends Dto
 
     public ?string $answer;
 
-    public ?int $status;
+    /** @var mixed */
+    public $status;
 
     public ?int $question_category_id;
 }

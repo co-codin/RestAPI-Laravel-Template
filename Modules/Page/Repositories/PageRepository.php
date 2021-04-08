@@ -5,7 +5,7 @@ namespace Modules\Page\Repositories;
 
 
 use App\Repositories\BaseRepository;
-use App\Traits\IsActive;
+use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Page\Models\Page;
 use Modules\Page\Repositories\Criteria\PageRequestCriteria;
 
@@ -18,7 +18,7 @@ class PageRepository extends BaseRepository
 
     public function boot()
     {
-        $this->pushCriteria(IsActive::class);
+        $this->pushCriteria(ActiveStatusCriteria::class);
         $this->pushCriteria(PageRequestCriteria::class);
     }
 }

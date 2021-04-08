@@ -17,7 +17,7 @@ class QuestionCreateRequest extends FormRequest
     {
         return [
             'question' => 'required|string|max:255',
-            'slug' => 'required|string|unique:questions,slug',
+            'slug' => 'sometimes|string|unique:questions,slug',
             'answer' => 'required|string|max:255',
             'status' => [
                 'required',
