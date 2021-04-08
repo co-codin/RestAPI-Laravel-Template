@@ -20,8 +20,8 @@ class RedirectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_url' => 'required|string|max:255|unique:redirects,old_url',
-            'new_url' => 'required|string|max:255',
+            'old_url' => 'sometimes|required|string|max:255|unique:redirects,old_url,' . $this->route('redirect'),
+            'new_url' => 'sometimes|required|string|max:255',
             'code' => 'sometimes|nullable|integer|digits:3',
         ];
     }
