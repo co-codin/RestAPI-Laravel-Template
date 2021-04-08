@@ -14,15 +14,15 @@ class RedirectRequestCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return QueryBuilder::for($model)
-            ->defaultSort('position')
-            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
+            ->defaultSort('-id')
+            ->allowedFields(['id', 'old_url', 'new_url', 'code', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
-                AllowedFilter::partial('name'),
-                AllowedFilter::exact('image'),
-                AllowedFilter::exact('is_enabled'),
+                AllowedFilter::partial('old_url'),
+                AllowedFilter::exact('new_url'),
+                AllowedFilter::exact('code'),
             ])
-            ->allowedSorts('id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'old_url', 'new_url', 'code', 'created_at', 'updated_at')
             ;
     }
 }
