@@ -6,5 +6,6 @@
     "Faq": true,
     "Publication": true,
     "News": true,
-    "Page": true
+    "Page": true,
+    "Redirect": true
 }
