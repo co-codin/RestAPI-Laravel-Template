@@ -123,6 +123,7 @@ return [
             'Modules\\Page\\Models',
             'Modules\\Publication\\Models',
             'Modules\\Seo\\Models',
+            'Modules\\Redirect\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',

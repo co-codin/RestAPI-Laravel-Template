@@ -1,0 +1,13 @@
+{
+    "name": "Redirect",
+    "alias": "redirect",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Redirect\\Providers\\RedirectServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
