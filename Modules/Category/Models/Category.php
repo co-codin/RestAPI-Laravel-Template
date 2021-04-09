@@ -32,9 +32,8 @@ use Modules\Seo\Models\Seo;
  */
 class Category extends Model
 {
-    use HasFactory, Sluggable, NodeTrait, SoftDeletes, IsActive {
+    use HasFactory, NodeTrait, SoftDeletes, IsActive {
         NodeTrait::replicate as replicateNode;
-        Sluggable::replicate as replicateSlug;
     }
 
     protected $guarded = ['id'];
@@ -52,15 +51,6 @@ class Category extends Model
         (new SlugService())->slug($instance, true);
 
         return $instance;
-    }
-
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
     }
 
     public function seo()

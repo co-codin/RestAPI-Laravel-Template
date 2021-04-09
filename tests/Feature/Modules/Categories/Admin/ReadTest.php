@@ -14,8 +14,6 @@ class ReadTest extends TestCase
 
     public function test_authenticated_user_can_view_categories()
     {
-        $this->withoutExceptionHandling();
-
         Category::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('admin.categories.index'));
