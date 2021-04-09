@@ -14,7 +14,7 @@ class CategoryCreateRequest extends FormRequest
         return [
             'parent_id' => 'sometimes|nullable|integer|exists:categories,id',
             'name' => 'required|string|max:255',
-            'slug' => 'sometimes|nullable|max:255|unique:categories,slug',
+            'slug' => 'required|string|max:255|unique:categories,slug',
             'product_name' => 'sometimes|nullable|string|max:255',
             'full_description' => 'sometimes|nullable|string',
             'status' => [
