@@ -5,7 +5,6 @@ namespace Modules\Brand\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
@@ -18,23 +17,7 @@ class BrandController extends Controller
     public function __construct(
         protected BrandStorage $brandStorage,
         protected BrandRepository $brandRepository
-    ) {
-        $this->brandRepository->popCriteria(ActiveStatusCriteria::class);
-    }
-
-    public function index()
-    {
-        $brands = $this->brandRepository->jsonPaginate();
-
-        return BrandResource::collection($brands);
-    }
-
-    public function show(int $brand)
-    {
-        $brandModel = $this->brandRepository->find($brand);
-
-        return new BrandResource($brandModel);
-    }
+    ) {}
 
     public function store(BrandCreateRequest $request)
     {
@@ -60,5 +43,4 @@ class BrandController extends Controller
 
         return response()->noContent();
     }
-
 }

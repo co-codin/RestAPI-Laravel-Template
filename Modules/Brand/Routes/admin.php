@@ -6,4 +6,4 @@ use Modules\Brand\Http\Controllers\Admin\BrandSeoController;
 
 Route::patch('brands/{brand}/seo', [BrandSeoController::class, 'update']);
 
-Route::resource('brands', BrandController::class);
+Route::resource('brands', BrandController::class)->except('index', 'show');

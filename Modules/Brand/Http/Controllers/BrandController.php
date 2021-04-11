@@ -19,10 +19,10 @@ class BrandController extends Controller
         return BrandResource::collection($brands);
     }
 
-    public function show(string $slug)
+    public function show(int $brand)
     {
-        $brand = $this->brandRepository->findBySlug($slug) ?? abort(404);
+        $brandModel = $this->brandRepository->find($brand);
 
-        return new BrandResource($brand);
+        return new BrandResource($brandModel);
     }
 }
