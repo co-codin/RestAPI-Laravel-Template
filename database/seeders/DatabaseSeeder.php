@@ -9,6 +9,7 @@ use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Faq\Database\Seeders\FaqDatabaseSeeder;
 use Modules\News\Database\Seeders\NewsDatabaseSeeder;
 use Modules\Page\Database\Seeders\PageDatabaseSeeder;
+use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
 
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsDatabaseSeeder::class);
         $this->call(PageDatabaseSeeder::class);
         $this->call(RedirectDatabaseSeeder::class);
+        $this->call(PublicationDatabaseSeeder::class);
     }
 }

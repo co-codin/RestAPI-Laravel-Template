@@ -23,10 +23,10 @@ class PublicationFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(4),
-            'url' => $this->faker->sentence(4),
-            'source' => $this->faker->sentence(4),
+            'url' => $this->faker->url,
+            'source' => $this->faker->words(2, true),
             'is_enabled' => $this->faker->boolean,
-            'published_at' => Carbon::now()->format('d.m.Y'),
+            'published_at' => $this->faker->date('Y-m-d'),
         ];
     }
 }
