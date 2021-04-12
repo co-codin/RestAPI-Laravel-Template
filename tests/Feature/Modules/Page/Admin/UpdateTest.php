@@ -16,17 +16,15 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_page()
     {
-        $this->withoutExceptionHandling();
-
         $page = Page::factory()->create([
             'status' => Status::ACTIVE,
         ]);
 
-        $response = $this->json('PATCH', route('admin.pages.update', ['page' => $page->id]), [
+        $response = $this->json('PATCH', route('admin.pages.update', $page), [
             'name' => $newName = 'new name',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('pages', [
             'name' => $newName,
         ]);
