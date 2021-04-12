@@ -19,12 +19,12 @@ class UpdateTest extends TestCase
             'is_enabled' => true,
         ]);
 
-        $response = $this->json('PATCH', route('admin.achievements.update', ['achievement' => $achievement->id]), [
+        $response = $this->json('PATCH', route('admin.achievements.update', $achievement), [
             'name' => $newName = 'new name',
             'is_enabled' => false
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('achievements', [
             'name' => $newName,
             'is_enabled' => false

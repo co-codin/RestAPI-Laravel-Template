@@ -1,162 +1,75 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievements\Web;
+namespace Tests\Feature\Modules\Achievement\Web;
 
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_achievements_can_be_viewed()
+    public function test_user_can_view_achievements()
     {
-        $achievement = Achievement::factory()->create([
-            'is_enabled' => 1,
-        ]);
+        Achievement::factory()->count($count = 5)->create();
 
-        $response = $this->graphQL('
-            {
-                achievements {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('achievements.index'));
 
-        $response->assertJson([
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
             'data' => [
-                'achievements' => [
-                    'data' => [
-                        [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                [
+                    "id",
+                    "name",
+                    "image",
+                    "is_enabled",
+                    "position",
+                    "created_at",
+                    "updated_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
                     ]
-                ]
-            ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'achievements' => [
-                    'data' => [
-                        [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 
-    public function test_inactive_achievements_cannot_be_viewed()
+    public function test_user_can_view_single_achievement()
     {
-        $achievement = Achievement::factory()->create([
-            'is_enabled' => 1,
-        ]);
+        $achievement = Achievement::factory()->create();
 
-        $anotherAchievement = Achievement::factory()->create([
-            'is_enabled' => 0,
-        ]);
+        $response = $this->json('GET', route('achievements.show', $achievement));
 
-        $response = $this->graphQL('
-            {
-                achievements {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'achievements' => [
-                    'data' => [
-                        [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
-        ]);
-
-        $this->assertNotContains($anotherAchievement->id, $response->json());
-
-        $response = $this->graphQL('
-            {
-                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'achievements' => [
-                    'data' => [
-                        [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
-        $response = $this->graphQL('
-            {
-                achievements(where: { column: ID, operator: EQ, value: ' . $anotherAchievement->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'achievements' => [
-                    'data' => [],
-                ]
-            ],
+                'id',
+                'name',
+                'image',
+                'is_enabled',
+                'position',
+                'created_at',
+                'updated_at',
+            ]
         ]);
     }
 }

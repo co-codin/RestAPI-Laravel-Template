@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Brands\Web;
+namespace Tests\Feature\Modules\Brand\Gql;
 
 use App\Enums\Status;
 use Modules\Brand\Models\Brand;
