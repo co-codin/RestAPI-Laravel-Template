@@ -6,4 +6,4 @@ use Modules\News\Http\Controllers\Admin\NewsSeoController;
 
 Route::patch('news/{news}/seo', [NewsSeoController::class, 'update']);
 
-Route::resource('news', NewsController::class);
+Route::resource('news', NewsController::class)->except(['index', 'show']);

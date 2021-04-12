@@ -16,7 +16,6 @@ class QuestionCategoryRepository extends BaseRepository
 
     public function boot()
     {
-        $this->pushCriteria(ActiveStatusCriteria::class);
         $this->pushCriteria(QuestionCategoryRequestCriteria::class);
     }
 }

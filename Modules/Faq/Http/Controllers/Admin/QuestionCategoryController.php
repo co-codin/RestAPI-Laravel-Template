@@ -2,7 +2,6 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
@@ -17,23 +16,7 @@ class QuestionCategoryController extends Controller
     public function __construct(
         protected QuestionCategoryRepository $questionCategoryRepository,
         protected QuestionCategoryStorage $questionCategoryStorage
-    ) {
-        $this->questionCategoryRepository->popCriteria(ActiveStatusCriteria::class);
-    }
-
-    public function index()
-    {
-        $questionCategories = $this->questionCategoryRepository->jsonPaginate();
-
-        return QuestionCategoryResource::collection($questionCategories);
-    }
-
-    public function show(int $question_category)
-    {
-        $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
-
-        return new QuestionCategoryResource($questionCategoryModel);
-    }
+    ) {}
 
     public function store(QuestionCategoryCreateRequest $request)
     {

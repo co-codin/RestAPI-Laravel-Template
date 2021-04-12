@@ -3,4 +3,4 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Page\Http\Controllers\Admin\PageController;
 
-Route::resource('pages', PageController::class);
+Route::resource('pages', PageController::class)->except(['index', 'show']);
