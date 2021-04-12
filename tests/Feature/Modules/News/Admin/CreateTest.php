@@ -20,7 +20,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.news.store'), $newsData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'name',
