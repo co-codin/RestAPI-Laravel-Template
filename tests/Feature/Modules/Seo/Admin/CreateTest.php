@@ -15,13 +15,11 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_seo_rule()
     {
-        $this->withoutExceptionHandling();
-
         $seoRuleData = SeoRule::factory()->raw();
 
         $response = $this->json('POST', route('admin.seo-rules.store'), $seoRuleData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'name',
