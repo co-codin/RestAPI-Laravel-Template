@@ -24,6 +24,7 @@ class PageFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(4),
+            'slug' => $this->faker->slug,
             'full_description' => $this->faker->sentence(10),
             'status' => Status::getRandomValue(),
         ];
