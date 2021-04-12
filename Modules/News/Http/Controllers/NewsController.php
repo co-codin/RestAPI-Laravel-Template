@@ -19,9 +19,9 @@ class NewsController extends Controller
         return NewsResource::collection($news);
     }
 
-    public function show(string $slug)
+    public function show(int $news)
     {
-        $news = $this->newsRepository->findBySlug($slug);
+        $news = $this->newsRepository->find($news);
 
         return new NewsResource($news);
     }

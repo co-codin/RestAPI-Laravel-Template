@@ -21,9 +21,9 @@ class RedirectController extends Controller
         return RedirectResource::collection($redirects);
     }
 
-    public function show(string $old_url)
+    public function show(int $redirect)
     {
-        $redirect = $this->redirectRepository->findByOldUrl($old_url);
+        $redirect = $this->redirectRepository->find($redirect);
 
         return new RedirectResource($redirect);
     }

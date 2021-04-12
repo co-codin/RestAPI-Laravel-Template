@@ -19,11 +19,4 @@ class RedirectRepository extends BaseRepository
     {
         $this->pushCriteria(RedirectRequestCriteria::class);
     }
-
-    public function findByOldUrl(string $oldUrl)
-    {
-        return $this
-            ->scopeQuery(fn($q) => $q->where('old_url', $oldUrl))
-            ->first();
-    }
 }

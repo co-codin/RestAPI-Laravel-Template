@@ -19,9 +19,9 @@ class QuestionController extends Controller
         return QuestionResource::collection($questions);
     }
 
-    public function show(string $slug)
+    public function show(int $question)
     {
-        $question = $this->questionRepository->findBySlug($slug);
+        $question = $this->questionRepository->find($question);
 
         return new QuestionResource($question);
     }

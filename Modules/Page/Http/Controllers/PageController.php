@@ -21,9 +21,9 @@ class PageController extends Controller
         return PageResource::collection($pages);
     }
 
-    public function show(string $slug)
+    public function show(int $page)
     {
-        $page = $this->pageRepository->findBySlug($slug);
+        $page = $this->pageRepository->find($page);
 
         return new PageResource($page);
     }
