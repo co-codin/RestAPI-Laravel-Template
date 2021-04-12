@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievements\Admin;
+namespace Tests\Feature\Modules\Achievement\Admin;
 
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
@@ -19,7 +19,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'name',

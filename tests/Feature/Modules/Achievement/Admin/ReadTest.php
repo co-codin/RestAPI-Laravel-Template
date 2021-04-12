@@ -1,25 +1,20 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievements\Admin;
+namespace Tests\Feature\Modules\Achievement\Admin;
 
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_unauthenticated_user_cannot_view_any_achievement()
-    {
-
-    }
-
-    public function test_authenticated_user_can_view_achievements()
+    public function test_user_can_view_achievements()
     {
         Achievement::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('admin.achievements.index'));
+        $response = $this->json('GET', route('achievements.index'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
         $response->assertJsonStructure([
             'data' => [
@@ -58,13 +53,13 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_view_single_achievement()
+    public function test_user_can_view_single_achievement()
     {
         $achievement = Achievement::factory()->create();
 
-        $response = $this->json('GET', route('admin.achievements.show', ['achievement' => $achievement->id]));
+        $response = $this->json('GET', route('achievements.show', $achievement));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 'id',

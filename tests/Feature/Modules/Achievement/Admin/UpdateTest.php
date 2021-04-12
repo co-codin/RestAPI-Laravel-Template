@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievements\Admin;
+namespace Tests\Feature\Modules\Achievement\Admin;
 
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
