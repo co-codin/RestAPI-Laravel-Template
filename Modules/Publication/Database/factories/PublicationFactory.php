@@ -26,7 +26,7 @@ class PublicationFactory extends Factory
             'url' => $this->faker->url,
             'source' => $this->faker->words(2, true),
             'is_enabled' => $this->faker->boolean,
-            'published_at' => $this->faker->date('Y-m-d'),
+            'published_at' => $this->faker->date('d.m.Y'),
         ];
     }
 }

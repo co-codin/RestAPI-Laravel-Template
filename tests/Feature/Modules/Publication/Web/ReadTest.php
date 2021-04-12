@@ -8,155 +8,70 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_publications_can_be_viewed()
+    public function test_user_can_view_publications()
     {
-        $publication = Publication::factory()->create([
-            'is_enabled' => 1,
-        ]);
+        Publication::factory()->count($count = 5)->create();
 
-        $response = $this->graphQL('
-            {
-                publications {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('publications.index'));
 
-        $response->assertJson([
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
             'data' => [
-                'publications' => [
-                    'data' => [
-                        [
-                            'id' => $publication->id,
-                            'name' => $publication->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                [
+                    "id",
+                    "name",
+                    "url",
+                    "is_enabled",
+                    "source",
+                    "published_at",
+                    "created_at",
+                    "updated_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
                     ]
-                ]
-            ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                publications(where: { column: ID, operator: EQ, value: ' . $publication->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'publications' => [
-                    'data' => [
-                        [
-                            'id' => $publication->id,
-                            'name' => $publication->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 
-    public function test_inactive_publications_cannot_be_viewed()
+    public function test_user_can_view_single_publication()
     {
-        $publication = Publication::factory()->create([
-            'is_enabled' => 1,
-        ]);
+        $publication = Publication::factory()->create();
 
-        $anotherPublication = Publication::factory()->create([
-            'is_enabled' => 0,
-        ]);
+        $response = $this->json('GET', route('publications.show', ['publication' => $publication->id]));
 
-        $response = $this->graphQL('
-            {
-                publications {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'publications' => [
-                    'data' => [
-                        [
-                            'id' => $publication->id,
-                            'name' => $publication->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
-        ]);
-
-        $this->assertNotContains($anotherPublication->id, $response->json());
-
-        $response = $this->graphQL('
-            {
-                publications(where: { column: ID, operator: EQ, value: ' . $publication->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'publications' => [
-                    'data' => [
-                        [
-                            'id' => $publication->id,
-                            'name' => $publication->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
-        $response = $this->graphQL('
-            {
-                publications(where: { column: ID, operator: EQ, value: ' . $anotherPublication->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'publications' => [
-                    'data' => [],
-                ]
-            ],
+                "id",
+                "name",
+                "url",
+                "is_enabled",
+                "source",
+                "published_at",
+                "created_at",
+                "updated_at",
+            ]
         ]);
     }
 }
