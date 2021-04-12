@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Categories\Admin;
+namespace Tests\Feature\Modules\Category\Admin;
 
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
@@ -15,7 +15,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.categories.store'), $categoryData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'id',

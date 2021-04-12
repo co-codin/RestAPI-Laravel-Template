@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Categories\Admin;
+namespace Tests\Feature\Modules\Category\Admin;
 
 use App\Enums\Status;
 use Modules\Category\Models\Category;
@@ -22,13 +22,13 @@ class UpdateTest extends TestCase
             'status' => Status::ONLY_URL,
         ]);
 
-        $response = $this->json('PATCH', route('admin.categories.update', ['category' => $category->id]), [
+        $response = $this->json('PATCH', route('admin.categories.update', $category), [
             'name' => $newName = 'new name',
             'status' => Status::ACTIVE,
             'parent_id' => $parentCategory->id,
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('categories', [
             'name' => $newName,
             'status' => Status::ACTIVE,
@@ -37,13 +37,13 @@ class UpdateTest extends TestCase
 
     public function test_category_slug_should_be_unique()
     {
-        $category = Category::factory()->create([
+        Category::factory()->create([
             'slug' => 'slug'
         ]);
 
         $anotherCategory = Category::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.categories.update', ['category' => $anotherCategory->id]), [
+        $response = $this->json('PATCH', route('admin.categories.update',$anotherCategory), [
             'slug' => 'slug',
         ]);
 

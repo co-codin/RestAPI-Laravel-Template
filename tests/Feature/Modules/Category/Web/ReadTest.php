@@ -1,24 +1,19 @@
 <?php
 
-namespace Tests\Feature\Modules\Categories\Admin;
+namespace Tests\Feature\Modules\Category\Web;
 
 use Modules\Category\Models\Category;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_unauthenticated_user_cannot_view_any_category()
-    {
-
-    }
-
-    public function test_authenticated_user_can_view_categories()
+    public function test_user_can_view_categories()
     {
         Category::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('admin.categories.index'));
+        $response = $this->json('GET', route('categories.index'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
 
         $this->assertEquals($count, count(($response['data'])));
 
@@ -44,13 +39,13 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_view_single_category()
+    public function test_user_can_view_single_category()
     {
         $category = Category::factory()->create();
 
-        $response = $this->json('GET', route('admin.categories.show', ['category' => $category->id]));
+        $response = $this->json('GET', route('categories.show', $category));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 'id',

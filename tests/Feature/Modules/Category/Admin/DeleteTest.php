@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Categories\Admin;
+namespace Tests\Feature\Modules\Category\Admin;
 
 use Modules\Category\Models\Category;
 use Tests\TestCase;
@@ -17,12 +17,10 @@ class DeleteTest extends TestCase
     {
         $category = Category::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.categories.destroy', ['category' => $category->id]));
+        $response = $this->deleteJson(route('admin.categories.destroy', $category));
 
-        $response->assertStatus(204);
+        $response->assertNoContent(204);
 
-        $this->assertSoftDeleted('categories', [
-            'name' => $category->name,
-        ]);
+        $this->assertSoftDeleted($category);
     }
 }
