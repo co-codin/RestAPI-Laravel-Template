@@ -27,4 +27,13 @@ class QuestionUpdateRequest extends FormRequest
             'question_category_id' => 'sometimes|required|integer|exists:question_categories,id'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
+            'question_category_id' => 'ID категории',
+        ];
+    }
 }

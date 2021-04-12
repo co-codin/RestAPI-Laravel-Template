@@ -20,4 +20,14 @@ class SeoUpdateRequest extends FormRequest
             'meta_tags.*.content' => 'required|string|max:255',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'h1' => 'h1',
+            'meta_tags' => 'Мета тэги',
+            'meta_tags.*.title' => 'Название',
+            'meta_tags.*.content' => 'Контент',
+        ];
+    }
 }

@@ -25,10 +25,6 @@ class PublicationUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Заголовок',
-            'url' => 'Ссылка',
-            'source' => 'Источник',
-            'is_enabled' => 'Статус',
             'published_at' => 'Дата публикации',
         ];
     }

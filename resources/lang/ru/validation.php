@@ -195,5 +195,6 @@ return [
         'position' => 'Позиция',
         'is_enabled' => 'Статус',
         'type' => 'Тип',
+        'parent_id' => 'Родитель',
     ],
 ];

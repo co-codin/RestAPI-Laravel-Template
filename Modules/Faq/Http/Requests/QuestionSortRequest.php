@@ -19,4 +19,13 @@ class QuestionSortRequest extends FormRequest
             'questions.*.position' => 'required|distinct|integer|min:0',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'questions' => 'Вопросы',
+            'questions.*.id' => 'ID вопроса',
+            'questions.*.position' => 'Позиция вопроса',
+        ];
+    }
 }

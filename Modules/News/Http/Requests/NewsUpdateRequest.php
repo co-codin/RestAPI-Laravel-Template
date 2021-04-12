@@ -37,4 +37,11 @@ class NewsUpdateRequest extends FormRequest
             'published_at' => 'sometimes|required|date_format:Y-m-d',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'published_at' => 'Дата публикации',
+        ];
+    }
 }

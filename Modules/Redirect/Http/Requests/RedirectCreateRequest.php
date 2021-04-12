@@ -25,4 +25,13 @@ class RedirectCreateRequest extends FormRequest
             'code' => 'sometimes|integer|digits:3|in:301,302',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'old_url' => 'Старая ссылка',
+            'new_url' => 'Новая ссылка',
+            'code' => 'Код',
+        ];
+    }
 }
