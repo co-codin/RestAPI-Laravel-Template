@@ -21,12 +21,12 @@ class UpdateTest extends TestCase
             'status' => Status::ACTIVE,
         ]);
 
-        $response = $this->json('PATCH', route('admin.question_categories.update', ['question_category' => $questionCategory->id]), [
+        $response = $this->json('PATCH', route('admin.question_categories.update', $questionCategory), [
             'name' => $newName = 'new name',
             'status' => Status::ACTIVE,
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk(200);
         $this->assertDatabaseHas('question_categories', [
             'name' => $newName,
         ]);

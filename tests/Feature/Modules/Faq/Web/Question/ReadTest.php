@@ -1,33 +1,29 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Faq\Admin\QuestionCategory;
+namespace Tests\Feature\Modules\Faq\Web\Question;
 
 
-use Modules\Faq\Models\QuestionCategory;
+use Modules\Faq\Models\Question;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_unauthenticated_user_cannot_view_any_question_category()
+    public function test_user_can_view_questions()
     {
+        Question::factory()->count($count = 5)->create();
 
-    }
+        $response = $this->json('GET', route('questions.index'));
 
-    public function test_authenticated_user_can_view_question_categories()
-    {
-        QuestionCategory::factory()->count($count = 5)->create();
-
-        $response = $this->json('GET', route('admin.question_categories.index'));
-
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
         $response->assertJsonStructure([
             'data' => [
                 [
                     "id",
-                    "name",
+                    "question",
                     "slug",
+                    "answer",
                     "status",
                     "position",
                     "created_at",
@@ -60,18 +56,19 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_view_single_question_category()
+    public function test_user_can_view_single_question()
     {
-        $questionCategory = QuestionCategory::factory()->create();
+        $question = Question::factory()->create();
 
-        $response = $this->json('GET', route('admin.question_categories.show', ['question_category' => $questionCategory->id]));
+        $response = $this->json('GET', route('questions.show', $question));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "name",
+                "question",
                 "slug",
+                "answer",
                 "status",
                 "position",
                 "created_at",
