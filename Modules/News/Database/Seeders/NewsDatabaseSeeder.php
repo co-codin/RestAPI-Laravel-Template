@@ -3,7 +3,6 @@
 namespace Modules\News\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\News\Models\News;
 
 class NewsDatabaseSeeder extends Seeder
 {
@@ -14,6 +13,6 @@ class NewsDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        News::factory()->count(50)->create();
+        $this->call(NewsTableSeeder::class);
     }
 }

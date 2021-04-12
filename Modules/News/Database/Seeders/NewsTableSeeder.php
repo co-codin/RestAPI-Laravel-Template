@@ -1,10 +1,11 @@
 <?php
 
-namespace Modules\Redirect\Database\Seeders;
+namespace Modules\News\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\News\Models\News;
 
-class RedirectDatabaseSeeder extends Seeder
+class NewsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class RedirectDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RedirectTableSeeder::class);
+        News::factory()->count(50)->create();
     }
 }
