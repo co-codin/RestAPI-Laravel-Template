@@ -16,7 +16,7 @@ class CategoryCreateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug',
             'product_name' => 'sometimes|nullable|string|max:255',
-            'full_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),

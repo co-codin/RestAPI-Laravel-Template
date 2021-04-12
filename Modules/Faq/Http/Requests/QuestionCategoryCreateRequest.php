@@ -17,7 +17,7 @@ class QuestionCategoryCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:question_categories,name',
-            'slug' => 'sometimes|string|unique:question_categories,slug',
+            'slug' => 'sometimes|string|max:255|unique:question_categories,slug',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),

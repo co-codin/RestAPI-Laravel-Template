@@ -15,7 +15,7 @@ class SeoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'seoable_type' => 'required|string',
+            'seoable_type' => 'required|string|max:255',
             'seable_id' => 'required|integer',
             'is_enabled' => 'sometimes|boolean',
             'title' => 'required|string|max:255',

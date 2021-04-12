@@ -17,7 +17,7 @@ class CategoryUpdateRequest extends FormRequest
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|nullable|string|max:255|unique:categories,slug,' . $this->route('category'),
             'product_name' => 'sometimes|nullable|string|max:255',
-            'full_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string|max:255',
             'status' => [
                 'sometimes',
                 'required',

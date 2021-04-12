@@ -11,8 +11,8 @@ class SeoUpdateRequest extends FormRequest
     {
         return [
             'is_enabled' => 'required|boolean',
-            'title' => 'required|string|max:1000',
-            'description' => 'required|string|max:1000',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
             'h1' => 'required|string|max:255',
             'meta_tags' => 'nullable|array',
             'meta_tags.*' => 'required|array',

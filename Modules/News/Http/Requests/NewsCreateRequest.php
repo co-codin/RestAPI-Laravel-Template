@@ -25,7 +25,7 @@ class NewsCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'short_description' => 'required|string|max:500',
-            'full_description' => 'required|string',
+            'full_description' => 'required|string|max:500',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),

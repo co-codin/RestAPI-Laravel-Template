@@ -25,7 +25,7 @@ class NewsUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'short_description' => 'sometimes|required|string|max:500',
-            'full_description' => 'sometimes|required|string',
+            'full_description' => 'sometimes|required|string|max:500',
             'status' => [
                 'sometimes',
                 'required',

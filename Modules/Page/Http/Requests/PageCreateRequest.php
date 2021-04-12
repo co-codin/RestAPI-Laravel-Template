@@ -26,7 +26,7 @@ class PageCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:pages,slug',
-            'full_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),

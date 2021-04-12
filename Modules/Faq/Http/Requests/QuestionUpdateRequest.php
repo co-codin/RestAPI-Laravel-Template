@@ -17,7 +17,7 @@ class QuestionUpdateRequest extends FormRequest
     {
         return [
             'question' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|unique:questions,slug,' . $this->route('question'),
+            'slug' => 'sometimes|required|string|max:255|unique:questions,slug,' . $this->route('question'),
             'answer' => 'sometimes|required|string|max:255',
             'status' => [
                 'sometimes',
