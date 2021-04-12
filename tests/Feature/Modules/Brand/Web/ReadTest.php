@@ -12,9 +12,9 @@ class ReadTest extends TestCase
     {
         Brand::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('admin.brands.index'));
+        $response = $this->json('GET', route('brands.index'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
         $response->assertJsonStructure([
             'data' => [
@@ -56,13 +56,13 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_view_single_brand()
+    public function test_user_can_view_single_brand()
     {
         $brand = Brand::factory()->create();
 
-        $response = $this->json('GET', route('admin.brands.show', ['brand' => $brand->id]));
+        $response = $this->json('GET', route('brands.show', $brand));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 'name',

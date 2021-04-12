@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Brands\Admin;
+namespace Tests\Feature\Modules\Brand\Admin;
 
 use App\Enums\Status;
 use Modules\Brand\Models\Brand;
@@ -20,12 +20,12 @@ class UpdateTest extends TestCase
             'status' => Status::ONLY_URL,
         ]);
 
-        $response = $this->json('PATCH', route('admin.brands.update', ['brand' => $brand->id]), [
+        $response = $this->json('PATCH', route('admin.brands.update', $brand), [
             'name' => $newName = 'new name',
             'status' => Status::ACTIVE,
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('brands', [
             'name' => $newName,
             'status' => Status::ACTIVE,
@@ -34,13 +34,13 @@ class UpdateTest extends TestCase
 
     public function test_brand_slug_should_be_unique()
     {
-        $brand = Brand::factory()->create([
+        Brand::factory()->create([
             'slug' => 'slug'
         ]);
 
         $anotherBrand = Brand::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.brands.update', ['brand' => $anotherBrand->id]), [
+        $response = $this->json('PATCH', route('admin.brands.update', $anotherBrand), [
             'slug' => 'slug',
         ]);
 

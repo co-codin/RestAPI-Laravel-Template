@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Brands\Admin;
+namespace Tests\Feature\Modules\Brand\Admin;
 
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
@@ -14,7 +14,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.brands.store'), $brandData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'name',

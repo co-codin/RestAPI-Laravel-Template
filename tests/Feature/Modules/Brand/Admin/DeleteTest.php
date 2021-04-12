@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Brands\Admin;
+namespace Tests\Feature\Modules\Brand\Admin;
 
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
@@ -17,12 +17,10 @@ class DeleteTest extends TestCase
     {
         $brand = Brand::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.brands.destroy', ['brand' => $brand->id]));
+        $response = $this->deleteJson(route('admin.brands.destroy', $brand));
 
-        $response->assertStatus(204);
+        $response->assertNoContent(204);
 
-        $this->assertSoftDeleted('brands', [
-            'name' => $brand->name,
-        ]);
+        $this->assertSoftDeleted($brand);
     }
 }
