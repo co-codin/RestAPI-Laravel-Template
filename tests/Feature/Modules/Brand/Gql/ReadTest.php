@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_brands_can_be_viewed()
+    public function test_brands_can_be_viewed()
     {
         $brand = Brand::factory()->create([
             'status' => Status::ACTIVE,

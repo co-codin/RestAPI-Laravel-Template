@@ -1,19 +1,14 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Brands\Admin;
+namespace Tests\Feature\Modules\Brand\Web;
 
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_unauthenticated_user_cannot_view_any_brand()
-    {
-
-    }
-
-    public function test_authenticated_user_can_view_brands()
+    public function test_user_can_view_brands()
     {
         Brand::factory()->count($count = 5)->create();
 
