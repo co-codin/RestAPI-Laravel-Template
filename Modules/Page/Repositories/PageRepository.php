@@ -5,7 +5,6 @@ namespace Modules\Page\Repositories;
 
 
 use App\Repositories\BaseRepository;
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Page\Models\Page;
 use Modules\Page\Repositories\Criteria\PageRequestCriteria;
 
