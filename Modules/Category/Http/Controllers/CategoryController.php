@@ -19,9 +19,9 @@ class CategoryController extends Controller
         return CategoryResource::collection($categories);
     }
 
-    public function show(string $slug)
+    public function show(int $category)
     {
-        $category = $this->categoryRepository->findBySlug($slug) ?? abort(404);
+        $category = $this->categoryRepository->find($category);
 
         return new CategoryResource($category);
     }

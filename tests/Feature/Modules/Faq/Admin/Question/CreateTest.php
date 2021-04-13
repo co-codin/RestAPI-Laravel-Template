@@ -14,13 +14,13 @@ class CreateTest extends TestCase
         //
     }
 
-    public function test_authenticated_can_create_question()
+    public function test_authenticated_user_can_create_question()
     {
         $questionData = Question::factory()->raw();
 
         $response = $this->json('POST', route('admin.questions.store'), $questionData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'question',

@@ -17,7 +17,7 @@ type Query {
         where: _ @whereConditions(columns: ["id", "name", "image", "is_enabled", "position"])
         orderBy: _ @orderBy(columns: ["id", "name", "image", "position", "created_at", "updated_at"])
     ): [Achievement!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 }
 

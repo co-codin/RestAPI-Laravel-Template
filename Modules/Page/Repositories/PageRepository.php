@@ -18,7 +18,6 @@ class PageRepository extends BaseRepository
 
     public function boot()
     {
-        $this->pushCriteria(ActiveStatusCriteria::class);
         $this->pushCriteria(PageRequestCriteria::class);
     }
 }

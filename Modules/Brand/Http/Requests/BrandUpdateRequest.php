@@ -24,7 +24,7 @@ class BrandUpdateRequest extends FormRequest
             'country' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|string|url|max:255',
             'short_description' => 'sometimes|nullable|string|max:255',
-            'full_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string|max:255',
             'position' => 'sometimes|nullable|integer',
         ];
     }

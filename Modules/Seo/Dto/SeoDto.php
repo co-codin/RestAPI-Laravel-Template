@@ -12,7 +12,7 @@ use App\Dto\Dto;
  */
 class SeoDto extends Dto
 {
-    public bool $is_enabled;
+    public $is_enabled = 1;
 
     public string $title;
 

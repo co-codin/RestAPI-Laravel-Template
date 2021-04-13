@@ -19,20 +19,6 @@ class RedirectController extends Controller
         protected RedirectStorage $redirectStorage
     ) {}
 
-    public function index()
-    {
-        $redirects = $this->redirectRepository->jsonPaginate();
-
-        return RedirectResource::collection($redirects);
-    }
-
-    public function show(int $redirect)
-    {
-        $redirectModel = $this->redirectRepository->find($redirect);
-
-        return new RedirectResource($redirectModel);
-    }
-
     public function store(RedirectCreateRequest $request)
     {
         $redirectModel = $this->redirectStorage->store(RedirectDto::fromFormRequest($request));

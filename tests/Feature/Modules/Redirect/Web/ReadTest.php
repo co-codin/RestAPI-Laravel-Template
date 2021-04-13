@@ -1,73 +1,74 @@
 <?php
 
+
 namespace Tests\Feature\Modules\Redirect\Web;
+
 
 use Modules\Redirect\Models\Redirect;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_redirects_can_be_viewed()
+    public function test_user_can_view_redirects()
+    {
+        Redirect::factory()->count($count = 5)->create();
+
+        $response = $this->json('GET', route('redirects.index'));
+
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
+            'data' => [
+                [
+                    "id",
+                    "old_url",
+                    "new_url",
+                    "code",
+                    "created_at",
+                    "updated_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
+                    ]
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
+        ]);
+    }
+
+    public function test_user_can_view_single_redirect()
     {
         $redirect = Redirect::factory()->create();
 
-        $response = $this->graphQL('
-            {
-                redirects {
-                    data {
-                        id
-                        old_url
-                        new_url
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('redirects.show', $redirect));
 
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'redirects' => [
-                    'data' => [
-                        [
-                            'id' => $redirect->id,
-                            'old_url' => $redirect->old_url,
-                            'new_url' => $redirect->new_url,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
+                "id",
+                "old_url",
+                "new_url",
+                "code",
+                "created_at",
+                "updated_at",
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                redirects(where: { column: ID, operator: EQ, value: ' . $response->id .'  }) {
-                    data {
-                        id
-                        old_url
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'redirects' => [
-                    'data' => [
-                        [
-                            'id' => $redirect->id,
-                            'old_url' => $redirect->old_url,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 }

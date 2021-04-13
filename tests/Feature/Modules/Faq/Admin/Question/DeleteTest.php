@@ -14,16 +14,14 @@ class DeleteTest extends TestCase
         //
     }
 
-    public function test_authenticated_can_delete_question()
+    public function test_authenticated_user_can_delete_question()
     {
         $question = Question::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.questions.destroy', ['question' => $question->id]));
+        $response = $this->deleteJson(route('admin.questions.destroy', $question));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertSoftDeleted('questions', [
-            'question' => $question->question,
-        ]);
+        $this->assertSoftDeleted($question);
     }
 }

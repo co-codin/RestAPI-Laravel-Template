@@ -17,18 +17,16 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_news()
     {
-        $this->withoutExceptionHandling();
-
         $news = News::factory()->create([
             'status' => Status::ACTIVE,
         ]);
 
-        $response = $this->json('PATCH', route('admin.news.update', ['news' => $news->id]), [
+        $response = $this->json('PATCH', route('admin.news.update', $news), [
             'name' => $newName = 'new name',
             'status' => Status::INACTIVE
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('news', [
             'name' => $newName,
             'status' => Status::INACTIVE

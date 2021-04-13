@@ -3,6 +3,6 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "name", "slug", "full_description", "status", "parent_id"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "full_description", "status", "parent_id"])
     ): [Page!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 }

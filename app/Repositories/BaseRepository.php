@@ -11,12 +11,5 @@ use App\Repositories\Criteria\NoInactiveCriteria;
  */
 abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
 {
-    public function findBySlug(string $slug)
-    {
-        return $this
-            ->popCriteria(ActiveStatusCriteria::class)
-            ->pushCriteria(NoInactiveCriteria::class)
-            ->scopeQuery(fn($q) => $q->where('slug', $slug))
-            ->first();
-    }
+
 }

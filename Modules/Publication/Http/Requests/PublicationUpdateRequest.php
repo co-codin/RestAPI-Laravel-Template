@@ -16,7 +16,7 @@ class PublicationUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'url' => 'sometimes|required|string|max:255|unique:publications,url,' . $this->get('publication'),
-            'source' => 'sometimes|required|string',
+            'source' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date_format:d.m.Y',
         ];
@@ -25,10 +25,6 @@ class PublicationUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Заголовок',
-            'url' => 'Ссылка',
-            'source' => 'Источник',
-            'is_enabled' => 'Статус',
             'published_at' => 'Дата публикации',
         ];
     }

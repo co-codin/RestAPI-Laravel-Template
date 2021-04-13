@@ -3,7 +3,6 @@
 namespace Modules\Redirect\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Redirect\Models\Redirect;
 
 class RedirectDatabaseSeeder extends Seeder
 {
@@ -14,6 +13,6 @@ class RedirectDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Redirect::factory()->count(10)->create();
+        $this->call(RedirectTableSeeder::class);
     }
 }

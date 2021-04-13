@@ -18,7 +18,7 @@ class QuestionCategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255|unique:question_categories,name,' . $this->route('question_category'),
-            'slug' => 'sometimes"required|string|unique:question_categories,slug,' . $this->route('question_category'),
+            'slug' => 'sometimes"required|string|max:255|unique:question_categories,slug,' . $this->route('question_category'),
             'status' => [
                 'sometimes',
                 'required',

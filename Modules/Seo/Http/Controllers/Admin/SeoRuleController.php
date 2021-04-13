@@ -17,20 +17,6 @@ class SeoRuleController extends Controller
         protected SeoRuleStorage $seoRuleStorage
     ) {}
 
-    public function index()
-    {
-        $seoRules = $this->seoRuleRepository->jsonPaginate();
-
-        return SeoRuleResource::collection($seoRules);
-    }
-
-    public function show(int $seo_rule)
-    {
-        $seoRuleModel = $this->seoRuleRepository->find($seo_rule);
-
-        return new SeoRuleResource($seoRuleModel);
-    }
-
     public function store(SeoRuleCreateRequest $request)
     {
         $seoRule = $this->seoRuleStorage->store(SeoRuleDto::fromFormRequest($request));

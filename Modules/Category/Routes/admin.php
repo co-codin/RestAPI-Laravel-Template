@@ -6,4 +6,4 @@ use Modules\Category\Http\Controllers\Admin\CategorySeoController;
 
 Route::patch('categories/{category}/seo', [CategorySeoController::class, 'update']);
 
-Route::resource('categories', CategoryController::class);
+Route::resource('categories', CategoryController::class)->except(['index', 'show']);

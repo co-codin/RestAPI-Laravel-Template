@@ -3,161 +3,77 @@
 
 namespace Tests\Feature\Modules\Page\Web;
 
-use App\Enums\Status;
 use Modules\Page\Models\Page;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_pages_can_be_viewed()
+    public function test_authenticated_user_can_view_pages()
     {
-        $page = Page::factory()->create([
-            'status' => Status::ACTIVE,
-        ]);
+        Page::factory()->count($count = 5)->create();
 
-        $response = $this->graphQL('
-            {
-                pages {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('pages.index'));
 
-        $response->assertJson([
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
             'data' => [
-                'pages' => [
-                    'data' => [
-                        [
-                            'id' => $page->id,
-                            'name' => $page->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                [
+                    "id",
+                    "parent_id",
+                    "name",
+                    "slug",
+                    "full_description",
+                    "status",
+                    "created_at",
+                    "updated_at",
+                    "deleted_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
                     ]
-                ]
-            ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                pages(where: { column: ID, operator: EQ, value: ' . $page->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'pages' => [
-                    'data' => [
-                        [
-                            'id' => $page->id,
-                            'name' => $page->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 
-    public function test_inactive_pages_cannot_be_viewed()
+    public function test_user_can_view_single_page()
     {
-        $page = Page::factory()->create([
-            'status' => Status::ACTIVE,
-        ]);
+        $page = Page::factory()->create();
 
-        $anotherPage = Page::factory()->create([
-            'status' => Status::INACTIVE,
-        ]);
+        $response = $this->json('GET', route('pages.show', $page));
 
-        $response = $this->graphQL('
-            {
-                pages {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'pages' => [
-                    'data' => [
-                        [
-                            'id' => $page->id,
-                            'name' => $page->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
-        ]);
-
-        $this->assertNotContains($anotherPage->id, $response->json());
-
-        $response = $this->graphQL('
-            {
-                pages(where: { column: ID, operator: EQ, value: ' . $page->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'pages' => [
-                    'data' => [
-                        [
-                            'id' => $page->id,
-                            'name' => $page->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
-        $response = $this->graphQL('
-            {
-                pages(where: { column: ID, operator: EQ, value: ' . $anotherPage->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'pages' => [
-                    'data' => [],
-                ]
-            ],
+                "id",
+                "parent_id",
+                "name",
+                "slug",
+                "full_description",
+                "status",
+                "created_at",
+                "updated_at",
+                "deleted_at",
+            ]
         ]);
     }
 }

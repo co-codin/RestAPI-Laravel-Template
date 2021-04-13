@@ -17,13 +17,10 @@ class DeleteTest extends TestCase
     {
         $seoRule = SeoRule::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.seo-rules.destroy', ['seo_rule' => $seoRule->id]));
+        $response = $this->json('DELETE', route('admin.seo-rules.destroy', $seoRule));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertDatabaseMissing('seo_rules', [
-            'name' => $seoRule->name,
-            'url' => $seoRule->url,
-        ]);
+        $this->assertDeleted($seoRule);
     }
 }

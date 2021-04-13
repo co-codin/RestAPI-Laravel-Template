@@ -21,20 +21,6 @@ class AchievementController extends Controller
         $this->achievementRepository->popCriteria(IsEnabledCriteria::class);
     }
 
-    public function index()
-    {
-        $achievements = $this->achievementRepository->jsonPaginate();
-
-        return AchievementResource::collection($achievements);
-    }
-
-    public function show(int $achievement)
-    {
-        $achievementModel = $this->achievementRepository->find($achievement);
-
-        return new AchievementResource($achievementModel);
-    }
-
     public function store(AchievementCreateRequest $request)
     {
         $achievement = $this->achievementStorage->store(AchievementDto::fromFormRequest($request));

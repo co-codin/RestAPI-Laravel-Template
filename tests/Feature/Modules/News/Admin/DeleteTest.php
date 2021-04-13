@@ -19,13 +19,10 @@ class DeleteTest extends TestCase
     {
         $news = News::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.news.destroy', ['news' => $news->id]));
+        $response = $this->deleteJson(route('admin.news.destroy', $news));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertSoftDeleted('news', [
-            'name' => $news->name,
-            'slug' => $news->slug,
-        ]);
+        $this->assertSoftDeleted($news);
     }
 }
