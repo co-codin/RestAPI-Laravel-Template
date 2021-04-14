@@ -18,14 +18,16 @@ class ToggleFilter implements Filter
 
     public function __invoke(Builder $query, $value, string $property)
     {
-        $modelIds = $this->getVerifiedModels($value);
+        if ($value) {
+            $modelIds = $this->getVerifiedModels();
 
-        $modelIds = array_unique(Arr::pluck($modelIds, 'object'));
+            $modelIds = array_unique(Arr::pluck($modelIds, 'object'));
 
-        $query->whereIn('id', $modelIds);
+            $query->whereIn('id', $modelIds);
+        }
     }
 
-    protected function getVerifiedModels($value)
+    protected function getVerifiedModels()
     {
         $response = Http::withToken(request()->bearerToken())
             ->baseUrl(config('services.content.domain'))
@@ -33,7 +35,7 @@ class ToggleFilter implements Filter
             ->acceptJson()
             ->get('/toggles', [
                 'filter' => [
-                    'module' => $value
+                    'module' => $this->module
                 ],
             ]);
 
