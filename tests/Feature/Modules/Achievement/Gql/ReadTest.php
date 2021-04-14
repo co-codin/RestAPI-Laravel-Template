@@ -71,4 +71,9 @@ class ReadTest extends TestCase
         ]);
 
     }
+
+    public function test_single_achievement_can_be_viewed()
+    {
+        
+    }
 }
