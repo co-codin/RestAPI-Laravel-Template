@@ -5,4 +5,6 @@ extend type Query {
     ): [Redirect!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
+
+    redirect(id: ID @eq): Redirect @find
 }

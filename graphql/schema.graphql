@@ -20,7 +20,7 @@ type Query {
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 
-    achievement(id: ID! @eq): Achievement @find
+    achievement(id: ID @eq): Achievement @find
 }
 
 #import models/*.graphql
