@@ -3,6 +3,8 @@
 
 namespace Tests\Feature\Modules\Achievement\Admin;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 
@@ -15,7 +17,11 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_achievement()
     {
-        $achievementData = Achievement::factory()->raw();
+        Storage::fake();
+
+        $achievementData = Achievement::factory()->raw([
+            'image' => UploadedFile::fake()->create('test.png')
+        ]);
 
         $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
 
