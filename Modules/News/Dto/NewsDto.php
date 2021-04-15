@@ -5,7 +5,7 @@ namespace Modules\News\Dto;
 
 
 use App\Dto\Dto;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class NewsDto
@@ -19,13 +19,13 @@ class NewsDto extends Dto
 
     public ?string $full_description;
 
-    public ?int $status;
+    public $status;
 
     public ?string $slug;
 
-    public ?string $image;
+    public ?UploadedFile $image;
 
-    public $is_in_home = 0;
+    public $is_in_home = false;
 
     public ?string $published_at;
 }
