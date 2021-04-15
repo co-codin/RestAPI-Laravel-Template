@@ -14,6 +14,8 @@ class ImageUploader extends FileUploader
 
     protected string $fit = Manipulations::FIT_MAX;
 
+    protected int $quality = 85;
+
     public function upload(UploadedFile $file): string
     {
         $path = parent::upload($file);
@@ -47,9 +49,18 @@ class ImageUploader extends FileUploader
         return $this;
     }
 
+    public function setQuality(int $quality): static
+    {
+        $this->quality = $quality;
+
+        return $this;
+    }
+
     protected function resize($path)
     {
         Image::load($path)
+            ->optimize()
+            ->quality($this->quality)
             ->fit($this->fit, $this->maxWidth, $this->maxHeight)
             ->save();
     }
@@ -57,6 +68,8 @@ class ImageUploader extends FileUploader
     protected function convert($path, string $format)
     {
         Image::load($path)
+            ->quality($this->quality)
+            ->format(Manipulations::FORMAT_WEBP)
             ->save( $path . "." . $format);
     }
 }
