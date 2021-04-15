@@ -2,21 +2,34 @@
 
 namespace Modules\Achievement\Services;
 
+use App\Services\File\ImageUploader;
 use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Models\Achievement;
 
 class AchievementStorage
 {
+    public function __construct(protected ImageUploader $imageUploader) {}
+
     public function store(AchievementDto $achievementDto)
     {
-        return Achievement::query()->create($achievementDto->toArray());
+        $attributes = $achievementDto->except('image')->toArray();
+        $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
+
+        return Achievement::query()->create($attributes);
     }
 
     public function update(Achievement $achievement, AchievementDto $achievementDto)
     {
-        if (!$achievement->update($achievementDto->toArray())) {
+        $attributes = $achievementDto->except('image')->toArray();
+
+        if($achievementDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
+        }
+
+        if (!$achievement->update($attributes)) {
             throw new \LogicException('can not update achievement');
         }
+
         return $achievement;
     }
 

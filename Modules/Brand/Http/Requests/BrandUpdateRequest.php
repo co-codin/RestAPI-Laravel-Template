@@ -20,7 +20,7 @@ class BrandUpdateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'sometimes|boolean',
-            'image' => 'sometimes|nullable|string|max:255',
+            'image' => 'sometimes|nullable|image|max:255',
             'country' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|string|url|max:255',
             'short_description' => 'sometimes|nullable|string|max:255',
