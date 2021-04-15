@@ -4,7 +4,6 @@
 namespace Modules\News\Services;
 
 use App\Services\File\ImageUploader;
-use Illuminate\Http\UploadedFile;
 use Modules\News\Dto\NewsDto;
 use Modules\News\Models\News;
 
