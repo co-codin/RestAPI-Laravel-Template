@@ -4,12 +4,13 @@
 namespace Modules\Achievement\Dto;
 
 use App\Dto\Dto;
+use Illuminate\Http\UploadedFile;
 
 class AchievementDto extends Dto
 {
     public ?string $name;
 
-    public ?string $image;
+    public ?UploadedFile $image;
 
     /** @var mixed */
     public $is_enabled = 1;

@@ -2,6 +2,7 @@
 
 namespace Modules\Achievement\Http\Controllers\Admin;
 
+use App\Dto\Dto;
 use App\Repositories\Criteria\IsEnabledCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;
@@ -32,7 +33,7 @@ class AchievementController extends Controller
     {
         $achievementModel = $this->achievementRepository->find($achievement);
 
-        $achievementModel = $this->achievementStorage->update($achievementModel, (new AchievementDto($request->validated()))->only(...$request->keys()));
+        $achievementModel = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
 
         return new AchievementResource($achievementModel);
     }

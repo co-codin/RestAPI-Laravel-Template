@@ -4,6 +4,7 @@ namespace Modules\Category\Database\factories;
 
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 
 class CategoryFactory extends Factory
 {
@@ -25,7 +26,7 @@ class CategoryFactory extends Factory
             'name' => $this->faker->word,
             'slug' => $this->faker->slug,
             'product_name' => $this->faker->name,
-            'image' => $this->faker->imageUrl(),
+            'image' => UploadedFile::fake()->image('test.png'),
             'full_description' => $this->faker->paragraph,
             'status' => Status::getRandomValue(),
         ];
