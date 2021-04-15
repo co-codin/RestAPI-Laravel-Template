@@ -8,67 +8,64 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_seo_rules_can_be_viewed()
+    public function test_user_can_view_seo_rules()
+    {
+        SeoRule::factory()->count($count = 5)->create();
+
+        $response = $this->json('GET', route('seo-rules.index'));
+
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
+            'data' => [
+                [
+                    "id",
+                    "name",
+                    "url",
+                    "created_at",
+                    "updated_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
+                    ]
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
+        ]);
+    }
+
+    public function test_user_can_view_single_seo_rule()
     {
         $seoRule = SeoRule::factory()->create();
 
-        $response = $this->graphQL('
-            {
-                seo_rules {
-                    data {
-                        id
-                        name
-                        url
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('seo-rules.show', $seoRule));
 
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'seo_rules' => [
-                    'data' => [
-                        [
-                            'id' => $seoRule->id,
-                            'name' => $seoRule->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
+                "id",
+                "name",
+                "url",
+                "created_at",
+                "updated_at",
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                seo_rules(where: { column: ID, operator: EQ, value: ' . $seoRule->id .'  }) {
-                    data {
-                        id
-                        name
-                        url
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'seo_rules' => [
-                    'data' => [
-                        [
-                            'id' => $seoRule->id,
-                            'name' => $seoRule->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 }

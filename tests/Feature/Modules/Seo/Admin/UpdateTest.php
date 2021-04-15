@@ -18,11 +18,11 @@ class UpdateTest extends TestCase
     {
         $seoRule = SeoRule::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.seo-rules.update', ['seo_rule' => $seoRule->id]), [
+        $response = $this->json('PATCH', route('admin.seo-rules.update', $seoRule), [
             'name' => $newName = 'new name',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('seo_rules', [
             'name' => $newName,
         ]);

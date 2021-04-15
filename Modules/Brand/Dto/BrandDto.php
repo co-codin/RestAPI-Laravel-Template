@@ -20,7 +20,7 @@ class BrandDto extends Dto
     public $status;
 
     /** @var mixed */
-    public $is_in_home = false;
+    public $is_in_home = 0;
 
     public ?int $position;
 

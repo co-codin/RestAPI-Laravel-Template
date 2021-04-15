@@ -18,11 +18,4 @@ class SeoRuleRepository extends BaseRepository
     {
         $this->pushCriteria(SeoRuleRequestCriteria::class);
     }
-
-    public function findByUrl($url)
-    {
-        return $this
-            ->scopeQuery(fn($q) => $q->where('url', $url))
-            ->first();
-    }
 }

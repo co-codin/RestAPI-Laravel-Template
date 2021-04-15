@@ -17,7 +17,7 @@ class QuestionUpdateRequest extends FormRequest
     {
         return [
             'question' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|unique:questions,slug,' . $this->route('question'),
+            'slug' => 'sometimes|required|string|max:255|unique:questions,slug,' . $this->route('question'),
             'answer' => 'sometimes|required|string|max:255',
             'status' => [
                 'sometimes',
@@ -25,6 +25,15 @@ class QuestionUpdateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
             'question_category_id' => 'sometimes|required|integer|exists:question_categories,id'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
+            'question_category_id' => 'ID категории',
         ];
     }
 }

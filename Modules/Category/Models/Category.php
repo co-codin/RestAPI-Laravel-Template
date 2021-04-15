@@ -3,8 +3,6 @@
 namespace Modules\Category\Models;
 
 use App\Traits\IsActive;
-use Cviebrock\EloquentSluggable\Services\SlugService;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,9 +30,7 @@ use Modules\Seo\Models\Seo;
  */
 class Category extends Model
 {
-    use HasFactory, NodeTrait, SoftDeletes, IsActive {
-        NodeTrait::replicate as replicateNode;
-    }
+    use HasFactory, NodeTrait, SoftDeletes, IsActive;
 
     protected $guarded = ['id'];
 
@@ -44,14 +40,6 @@ class Category extends Model
         'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',
     ];
-
-    public function replicate(array $except = null)
-    {
-        $instance = $this->replicateNode($except);
-        (new SlugService())->slug($instance, true);
-
-        return $instance;
-    }
 
     public function seo()
     {

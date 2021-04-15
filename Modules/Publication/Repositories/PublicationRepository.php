@@ -18,7 +18,6 @@ class PublicationRepository extends BaseRepository
 
     public function boot()
     {
-        $this->pushCriteria(IsEnabledCriteria::class);
         $this->pushCriteria(PublicationRequestCriteria::class);
     }
 }

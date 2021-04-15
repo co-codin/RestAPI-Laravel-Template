@@ -18,11 +18,11 @@ class UpdateTest extends TestCase
     {
         $redirect = Redirect::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.redirects.update', ['redirect' => $redirect->id]), [
+        $response = $this->json('PATCH', route('admin.redirects.update', $redirect), [
             'old_url' => $newName = 'new name',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseHas('redirects', [
             'old_url' => $newName,
         ]);

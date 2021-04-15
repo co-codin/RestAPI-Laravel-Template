@@ -3,7 +3,6 @@
 namespace Modules\Category\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Modules\Category\Dto\CategoryDto;
 use Modules\Category\Http\Requests\CategoryCreateRequest;
 use Modules\Category\Http\Requests\CategoryUpdateRequest;
@@ -16,23 +15,7 @@ class CategoryController extends Controller
     public function __construct(
         protected CategoryRepository $categoryRepository,
         protected CategoryStorage $categoryStorage
-    ) {
-        $this->categoryRepository->popCriteria(ActiveStatusCriteria::class);
-    }
-
-    public function index()
-    {
-        $categories = $this->categoryRepository->jsonPaginate();
-
-        return CategoryResource::collection($categories);
-    }
-
-    public function show(int $category)
-    {
-        $categoryModel = $this->categoryRepository->find($category);
-
-        return new CategoryResource($categoryModel);
-    }
+    ) {}
 
     public function store(CategoryCreateRequest $request)
     {

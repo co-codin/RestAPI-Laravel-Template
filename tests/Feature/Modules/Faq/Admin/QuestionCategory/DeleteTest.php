@@ -18,12 +18,10 @@ class DeleteTest extends TestCase
     {
         $questionCategory = QuestionCategory::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.question_categories.destroy', ['question_category' => $questionCategory->id]));
+        $response = $this->deleteJson(route('admin.question_categories.destroy', $questionCategory));
 
-        $response->assertStatus(204);
+        $response->assertNoContent(204);
 
-        $this->assertSoftDeleted('question_categories', [
-            'name' => $questionCategory->name,
-        ]);
+        $this->assertSoftDeleted($questionCategory);
     }
 }

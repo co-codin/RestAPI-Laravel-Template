@@ -18,13 +18,10 @@ class DeleteTest extends TestCase
     {
         $redirect = Redirect::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.redirects.destroy', ['redirect' => $redirect->id]));
+        $response = $this->json('DELETE', route('admin.redirects.destroy', $redirect));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertDatabaseMissing('redirects', [
-            'old_url' => $redirect->name,
-            'new_url' => $redirect->image,
-        ]);
+        $this->assertDeleted($redirect);
     }
 }

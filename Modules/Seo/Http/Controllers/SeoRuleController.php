@@ -21,9 +21,9 @@ class SeoRuleController extends Controller
         return SeoRuleResource::collection($seoRules);
     }
 
-    public function show(string $url)
+    public function show(int $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->findByUrl($url);
+        $seoRule = $this->seoRuleRepository->find($seo_rule);
 
         return new SeoRuleResource($seoRule);
     }

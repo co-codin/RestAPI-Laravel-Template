@@ -17,12 +17,10 @@ class DeleteTest extends TestCase
     {
         $page = Page::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.pages.destroy', ['page' => $page->id]));
+        $response = $this->deleteJson(route('admin.pages.destroy', $page));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertSoftDeleted('pages', [
-            'name' => $page->name,
-        ]);
+        $this->assertSoftDeleted($page);
     }
 }

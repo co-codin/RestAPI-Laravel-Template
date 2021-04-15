@@ -4,186 +4,81 @@
 namespace Tests\Feature\Modules\News\Web;
 
 
-use App\Enums\Status;
 use Modules\News\Models\News;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_active_news_can_be_viewed()
+    public function test_user_can_view_news()
     {
-        $news = News::factory()->create([
-            'status' => Status::ACTIVE,
-        ]);
+        News::factory()->count($count = 5)->create();
 
-        $response = $this->graphQL('
-            {
-                news {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
+        $response = $this->json('GET', route('news.index'));
 
-        $response->assertJson([
+        $response->assertOk();
+        $this->assertEquals($count, count(($response['data'])));
+        $response->assertJsonStructure([
             'data' => [
-                'news' => [
-                    'data' => [
-                        [
-                            'id' => $news->id,
-                            'name' => $news->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                [
+                    "id",
+                    "name",
+                    "slug",
+                    "short_description",
+                    "full_description",
+                    "status",
+                    "image",
+                    "is_in_home",
+                    "published_at",
+                    "created_at",
+                    "updated_at",
+                ]
+            ],
+            'links' => [
+                "first",
+                "last",
+                "prev",
+                "next",
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
                     ]
-                ]
-            ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ]
         ]);
-
-        $response = $this->graphQL('
-            {
-                news(where: { column: ID, operator: EQ, value: ' . $news->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'news' => [
-                    'data' => [
-                        [
-                            'id' => $news->id,
-                            'name' => $news->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
     }
 
-    public function test_inactive_news_cannot_be_viewed()
+    public function test_user_can_view_single_news()
     {
-        $news = News::factory()->create([
-            'status' => Status::INACTIVE,
-        ]);
+        $news = News::factory()->create();
 
-        $secondNews = News::factory()->create([
-            'status' => Status::ACTIVE,
-        ]);
+        $response = $this->json('GET', route('news.show', $news));
 
-        $thirdNews = News::factory()->create([
-            'status' => Status::ONLY_URL,
-        ]);
-
-        $response = $this->graphQL('
-            {
-                news {
-                    data {
-                        id
-                        name
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
+        $response->assertOk();
+        $response->assertJsonStructure([
             'data' => [
-                'news' => [
-                    'data' => [
-                        [
-                            'id' => $secondNews->id,
-                            'name' => $secondNews->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
-                    ]
-                ]
-            ],
-        ]);
-
-        $this->assertNotContains($news->id, $response->json());
-        $this->assertNotContains($thirdNews->id, $response->json());
-
-
-        $response = $this->graphQL('
-            {
-                news(where: { column: ID, operator: EQ, value: ' . $secondNews->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'news' => [
-                    'data' => [
-                        [
-                            'id' => $secondNews->id,
-                            'name' => $secondNews->name,
-                        ]
-                    ],
-                ]
-            ],
-        ]);
-
-        $response = $this->graphQL('
-            {
-                news(where: { column: ID, operator: EQ, value: ' . $news->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'news' => [
-                    'data' => [],
-                ]
-            ],
-        ]);
-
-        $response = $this->graphQL('
-            {
-                news(where: { column: ID, operator: EQ, value: ' . $thirdNews->id . ' }) {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }
-        ');
-
-        $response->assertJson([
-            'data' => [
-                'news' => [
-                    'data' => [],
-                ]
-            ],
+                "id",
+                "name",
+                "slug",
+                "short_description",
+                "full_description",
+                "status",
+                "image",
+                "is_in_home",
+                "published_at",
+                "created_at",
+                "updated_at",
+            ]
         ]);
     }
 }

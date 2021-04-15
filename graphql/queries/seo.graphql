@@ -1,8 +1,0 @@
-#extend type Query {
-#    seo(
-#        where: _ @whereConditions(columns: ["id", "name", "url"])
-#        orderBy: _ @orderBy(columns: ["id", "name", "url"])
-#    ): [Seo!]!
-#    @paginate(defaultCount: 15, maxCount: 200)
-#    @orderBy(column: "id", direction: "ASC")
-#}

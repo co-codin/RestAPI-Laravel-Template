@@ -20,4 +20,11 @@ class AchievementController extends Controller
 
         return AchievementResource::collection($achievements);
     }
+
+    public function show(int $achievement)
+    {
+        $achievement = $this->achievementRepository->find($achievement);
+
+        return new AchievementResource($achievement);
+    }
 }

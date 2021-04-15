@@ -25,7 +25,7 @@ class NewsCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'short_description' => 'required|string|max:500',
-            'full_description' => 'required|string',
+            'full_description' => 'required|string|max:500',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
@@ -34,6 +34,13 @@ class NewsCreateRequest extends FormRequest
             'image' => 'required|string|max:255',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'required|date_format:Y-m-d',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'published_at' => 'Дата публикации',
         ];
     }
 }

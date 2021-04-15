@@ -22,7 +22,16 @@ class RedirectCreateRequest extends FormRequest
         return [
             'old_url' => 'required|string|max:255|unique:redirects,old_url',
             'new_url' => 'required|string|max:255',
-            'code' => 'sometimes|nullable|integer|digits:3',
+            'code' => 'sometimes|integer|digits:3|in:301,302',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'old_url' => 'Старая ссылка',
+            'new_url' => 'Новая ссылка',
+            'code' => 'Код',
         ];
     }
 }

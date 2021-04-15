@@ -19,4 +19,13 @@ class QuestionCategorySortRequest extends FormRequest
             'categories.*.position' => 'required|distinct|integer|min:0',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'categories' => 'Категории',
+            'categories.*.id' => 'ID категории',
+            'categories.*.position' => 'Позиция категории',
+        ];
+    }
 }

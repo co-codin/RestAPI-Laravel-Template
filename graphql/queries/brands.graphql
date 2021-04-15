@@ -3,6 +3,6 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
     ): [Brand!]!
-    @paginate(defaultCount: 15, maxCount: 200, scopes: ["active"])
+    @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 }

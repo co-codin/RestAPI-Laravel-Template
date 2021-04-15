@@ -19,9 +19,9 @@ class QuestionCategoryController extends Controller
         return QuestionCategoryResource::collection($questionCategories);
     }
 
-    public function show(string $slug)
+    public function show(int $question_category)
     {
-        $questionCategory = $this->questionCategoryRepository->findBySlug($slug);
+        $questionCategory = $this->questionCategoryRepository->find($question_category);
 
         return new QuestionCategoryResource($questionCategory);
     }

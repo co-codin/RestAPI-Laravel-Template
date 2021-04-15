@@ -16,23 +16,7 @@ class PublicationController extends Controller
     public function __construct(
         protected PublicationRepository $publicationRepository,
         protected PublicationStorage $publicationStorage
-    ) {
-        $this->publicationRepository->popCriteria(IsEnabledCriteria::class);
-    }
-
-    public function index()
-    {
-        $publications = $this->publicationRepository->jsonPaginate();
-
-        return PublicationResource::collection($publications);
-    }
-
-    public function show(int $publication)
-    {
-        $publication = $this->publicationRepository->find($publication);
-
-        return new PublicationResource($publication);
-    }
+    ) {}
 
     public function store(PublicationCreateRequest $request)
     {

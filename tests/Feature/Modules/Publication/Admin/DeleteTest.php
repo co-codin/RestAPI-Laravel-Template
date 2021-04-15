@@ -17,14 +17,10 @@ class DeleteTest extends TestCase
     {
         $publication = Publication::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.publications.destroy', ['publication' => $publication->id]));
+        $response = $this->deleteJson(route('admin.publications.destroy', $publication));
 
-        $response->assertStatus(204);
+        $response->assertNoContent();
 
-        $this->assertDatabaseMissing('publications', [
-            'name' => $publication->name,
-            'url' => $publication->url,
-            'is_enabled' => $publication->is_enabled,
-        ]);
+        $this->assertDeleted($publication);
     }
 }

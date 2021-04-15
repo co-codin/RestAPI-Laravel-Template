@@ -17,5 +17,4 @@ class PublicationDto extends Dto
     public ?bool $is_enabled;
 
     public ?string $published_at;
-
 }

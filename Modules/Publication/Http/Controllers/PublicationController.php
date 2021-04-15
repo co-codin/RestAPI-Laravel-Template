@@ -21,11 +21,9 @@ class PublicationController extends Controller
         return PublicationResource::collection($publications);
     }
 
-    public function show(string $slug)
+    public function show(int $publication)
     {
-        $publication = $this->publicationRepository->findWhere([
-            'slug' => $slug,
-        ]);
+        $publication = $this->publicationRepository->find($publication);
 
         return new PublicationResource($publication);
     }

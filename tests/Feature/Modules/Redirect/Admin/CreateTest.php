@@ -20,7 +20,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.redirects.store'), $redirectData);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'new_url',

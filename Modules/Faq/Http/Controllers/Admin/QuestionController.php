@@ -2,7 +2,6 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\ActiveStatusCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionDto;
 use Modules\Faq\Http\Requests\QuestionCreateRequest;
@@ -17,23 +16,7 @@ class QuestionController extends Controller
     public function __construct(
         protected QuestionRepository $questionRepository,
         protected QuestionStorage $questionStorage
-    ) {
-        $this->questionRepository->popCriteria(ActiveStatusCriteria::class);
-    }
-
-    public function index()
-    {
-        $questions = $this->questionRepository->jsonPaginate();
-
-        return QuestionResource::collection($questions);
-    }
-
-    public function show(int $question)
-    {
-        $questionModel = $this->questionRepository->find($question);
-
-        return new QuestionResource($questionModel);
-    }
+    ) {}
 
     public function store(QuestionCreateRequest $request)
     {

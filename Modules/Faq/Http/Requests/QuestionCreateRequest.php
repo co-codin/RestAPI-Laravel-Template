@@ -17,13 +17,22 @@ class QuestionCreateRequest extends FormRequest
     {
         return [
             'question' => 'required|string|max:255',
-            'slug' => 'sometimes|string|unique:questions,slug',
+            'slug' => 'sometimes|string|unique:questions,slug|max:255',
             'answer' => 'required|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
             ],
             'question_category_id' => 'required|integer|exists:question_categories,id'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
+            'question_category_id' => 'ID категории',
         ];
     }
 }
