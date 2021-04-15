@@ -30,7 +30,7 @@ class NewsController extends Controller
     {
         $newsModel = $this->newsRepository->find($news);
 
-        $newsModel = $this->newsStorage->update($newsModel, (new NewsDto($request->validated()))->only(...$request->keys()));
+        $newsModel = $this->newsStorage->update($newsModel, NewsDto::fromFormRequest($request));
 
         return new NewsResource($newsModel);
     }
