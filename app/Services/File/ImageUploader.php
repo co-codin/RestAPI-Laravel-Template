@@ -56,9 +56,7 @@ class ImageUploader extends FileUploader
 
     protected function convert($path, string $format)
     {
-        $pathInfo = pathinfo($path);
-
         Image::load($path)
-            ->save($pathInfo['dirname'] . "/" . $pathInfo['filename'] . "." . $format);
+            ->save( $path . "." . $format);
     }
 }
