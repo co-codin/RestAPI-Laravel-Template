@@ -28,7 +28,7 @@ class CategoryCreateRequest extends FormRequest
                     return !$this->input('parent_id');
                 }),
                 'nullable',
-                'string',
+                'image',
                 'max:255',
             ],
             'short_properties' => 'sometimes|nullable|array',

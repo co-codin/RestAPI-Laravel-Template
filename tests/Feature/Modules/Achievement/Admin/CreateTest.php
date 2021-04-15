@@ -17,11 +17,7 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_achievement()
     {
-        Storage::fake();
-
-        $achievementData = Achievement::factory()->raw([
-            'image' => UploadedFile::fake()->create('test.png')
-        ]);
+        $achievementData = Achievement::factory()->raw();
 
         $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
 
@@ -33,9 +29,9 @@ class CreateTest extends TestCase
                 'is_enabled',
             ]
         ]);
+
         $this->assertDatabaseHas('achievements', [
             'name' => $achievementData['name'],
-            'image' => $achievementData['image'],
             'is_enabled' => $achievementData['is_enabled']
         ]);
     }

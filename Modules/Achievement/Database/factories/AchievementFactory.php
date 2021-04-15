@@ -15,6 +15,7 @@ class AchievementFactory extends Factory
         return [
             'name' => $this->faker->sentence(4),
             'is_enabled' => $this->faker->boolean,
+            'image' => UploadedFile::fake()->image('test.png'),
         ];
     }
 }
