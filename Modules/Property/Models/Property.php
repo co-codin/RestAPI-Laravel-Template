@@ -4,15 +4,16 @@ namespace Modules\Property\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Property\Database\factories\PropertyFactory;
 
 class Property extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = ['id'];
+
     protected static function newFactory()
     {
-        return \Modules\Property\Database\factories\PropertyFactory::new();
+        return PropertyFactory::new();
     }
 }
