@@ -22,7 +22,6 @@ class CreateTest extends TestCase
 
         $newsData = News::factory()->raw([
             'image' => UploadedFile::fake()->image('test-file.jpg'),
-            'published_at' => today()->format('d.m.Y'),
         ]);
 
         $response = $this->json('POST', route('admin.news.store'), $newsData);
