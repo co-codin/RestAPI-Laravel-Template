@@ -4,6 +4,8 @@
 namespace Tests\Feature\Modules\News\Admin;
 
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Modules\News\Models\News;
 use Tests\TestCase;
 
@@ -16,7 +18,12 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_news()
     {
-        $newsData = News::factory()->raw();
+        Storage::fake('public');
+
+        $newsData = News::factory()->raw([
+            'image' => UploadedFile::fake()->image('test-file.jpg'),
+            'published_at' => today()->format('d.m.Y'),
+        ]);
 
         $response = $this->json('POST', route('admin.news.store'), $newsData);
 
