@@ -10,12 +10,7 @@ use Modules\News\Models\News;
 
 class NewsStorage
 {
-    protected ImageUploader $imageUploader;
-
-    public function __construct(ImageUploader $imageUploader)
-    {
-        $this->imageUploader = $imageUploader;
-    }
+    public function __construct(protected ImageUploader $imageUploader) {}
 
     public function store(NewsDto $newsDto)
     {
