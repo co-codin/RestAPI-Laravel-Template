@@ -24,7 +24,7 @@ class NewsUpdateRequest extends FormRequest
             'slug' => 'sometimes|nullable|max:255|unique:brands,slug,' . $this->route('news'),
             'image' => 'sometimes|required|image',
             'is_in_home' => 'sometimes|boolean',
-            'published_at' => 'sometimes|required|date_format:Y-m-d',
+            'published_at' => 'sometimes|required|date',
         ];
     }
 

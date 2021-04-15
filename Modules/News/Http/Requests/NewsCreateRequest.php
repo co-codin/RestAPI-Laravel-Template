@@ -21,9 +21,9 @@ class NewsCreateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
             'slug' => 'sometimes|nullable|max:255|unique:news,slug',
-            'image' => 'required|image|max:512',
+            'image' => 'required|image',
             'is_in_home' => 'sometimes|boolean',
-            'published_at' => 'required|date_format:d.m.Y',
+            'published_at' => 'required|date',
         ];
     }
 
