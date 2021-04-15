@@ -5,10 +5,13 @@ namespace App\Dto;
 
 
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
 
 abstract class Dto extends DataTransferObject
 {
+    protected array $visibleKeys = [];
+
     /**
      * Dto constructor.
      * @param array $parameters
@@ -33,7 +36,8 @@ abstract class Dto extends DataTransferObject
      */
     public static function fromFormRequest(FormRequest $request)
     {
-        return new static($request->validated());
+        return (new static($request->validated()))
+            ->visible($request->keys());
     }
 
     /**
@@ -56,5 +60,21 @@ abstract class Dto extends DataTransferObject
         }
 
         return $this;
+    }
+
+    public function visible(array $keys): self
+    {
+        $dataTransferObject = clone $this;
+
+        $dataTransferObject->visibleKeys = [...$this->visibleKeys, ...$keys];
+
+        return $dataTransferObject;
+    }
+
+    public function toArray(): array
+    {
+        $array = parent::toArray();
+
+        return $this->visibleKeys ? Arr::only($array, $this->visibleKeys) : $array;
     }
 }
