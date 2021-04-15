@@ -5,4 +5,6 @@ extend type Query {
     ): [QuestionCategory!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
+
+    questionCategory(id: ID @eq, slug: String @eq): QuestionCategory @find
 }

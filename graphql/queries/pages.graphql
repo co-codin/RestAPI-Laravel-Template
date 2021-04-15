@@ -5,4 +5,6 @@ extend type Query {
     ): [Page!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
+
+    page(id: ID @eq, slug: String @eq): Page @find
 }

@@ -10,9 +10,7 @@ class ReadTest extends TestCase
 {
     public function test_achievements_can_be_viewed()
     {
-        $achievement = Achievement::factory()->create([
-            'is_enabled' => 0,
-        ]);
+        $achievement = Achievement::factory()->create();
 
         $response = $this->graphQL('
             {
@@ -69,6 +67,28 @@ class ReadTest extends TestCase
                 ]
             ],
         ]);
+    }
 
+    public function test_single_achievement_can_be_viewed()
+    {
+        $achievement = Achievement::factory()->create();
+
+        $response = $this->graphQL('
+            {
+                achievement (id: ' . $achievement->id . ') {
+                    id
+                    name
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'achievement' => [
+                    'id' => $achievement->id,
+                    'name' => $achievement->name,
+                ]
+            ],
+        ]);
     }
 }

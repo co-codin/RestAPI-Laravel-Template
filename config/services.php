@@ -31,5 +31,8 @@ return [
     ],
     'auth' => [
         'url' => env('AUTH_URL'),
-    ]
+    ],
+    'content' => [
+        'domain' => env('CONTENT_API_URL', 'https://content.api.medeq.ru'),
+    ],
 ];

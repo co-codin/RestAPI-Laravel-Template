@@ -5,4 +5,6 @@ extend type Query {
     ): [SeoRule!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
+
+    seo_rule(id: ID @eq): SeoRule @find
 }

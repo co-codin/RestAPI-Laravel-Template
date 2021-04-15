@@ -2,6 +2,7 @@
 
 namespace Modules\Brand\Repositories\Criteria;
 
+use App\Filters\ToggleFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -26,7 +27,9 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('position'),
+                AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
                 AllowedFilter::trashed(),
+
             ])
             ->allowedIncludes('seo')
             ->allowedSorts([

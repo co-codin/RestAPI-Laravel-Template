@@ -5,4 +5,6 @@ extend type Query {
     ): [Brand!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
+
+    brand(id: ID @eq, slug: String @eq): Brand @find
 }
