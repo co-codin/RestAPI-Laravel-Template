@@ -29,7 +29,6 @@ class CategoryUpdateRequest extends FormRequest
                 'required_unless:parent_id,null',
                 'nullable',
                 'image',
-                'max:255',
             ],
         ];
     }
