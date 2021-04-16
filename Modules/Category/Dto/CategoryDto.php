@@ -7,7 +7,7 @@ use App\Dto\Dto;
 
 class CategoryDto extends Dto
 {
-    public ?int $parent_id;
+    public $parent_id;
 
     public ?string $name;
 
@@ -17,7 +17,7 @@ class CategoryDto extends Dto
 
     public ?string $full_description;
 
-    public ?int $status;
+    public $status;
 
     public $is_hidden_in_parents = 1;
 
