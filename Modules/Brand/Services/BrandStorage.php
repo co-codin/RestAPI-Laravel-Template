@@ -4,25 +4,31 @@
 namespace Modules\Brand\Services;
 
 
+use App\Services\File\ImageUploader;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
+    public function __construct(protected ImageUploader $imageUploader) {}
+
     public function store(BrandDto $brandDto)
     {
-        $brand = new Brand($brandDto->toArray());
+        $attributes = $brandDto->except('image')->toArray();
+        $attributes['image'] = $this->imageUploader->upload($brandDto->image);
 
-        if (!$brand->save()) {
-            throw new \LogicException('can not create brand.');
-        }
-
-        return $brand;
+        return Brand::query()->create($attributes);
     }
 
     public function update(Brand $brand, BrandDto $brandDto)
     {
-        if (!$brand->update($brandDto->toArray())) {
+        $attributes = $brandDto->except('image')->toArray();
+
+        if($brandDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($brandDto->image);
+        }
+
+        if (!$brand->update($attributes)) {
             throw new \LogicException('can not update brand');
         }
 

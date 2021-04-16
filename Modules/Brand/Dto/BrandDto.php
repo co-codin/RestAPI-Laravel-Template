@@ -3,6 +3,7 @@
 namespace Modules\Brand\Dto;
 
 use App\Dto\Dto;
+use Illuminate\Http\UploadedFile;
 
 class BrandDto extends Dto
 {
@@ -10,7 +11,7 @@ class BrandDto extends Dto
 
     public ?string $slug;
 
-    public ?string $image;
+    public ?UploadedFile $image;
 
     public ?string $website;
 

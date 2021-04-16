@@ -4,25 +4,32 @@
 namespace Modules\Category\Services;
 
 
+use App\Services\File\ImageUploader;
+use Modules\Achievement\Models\Achievement;
 use Modules\Category\Dto\CategoryDto;
 use Modules\Category\Models\Category;
 
 class CategoryStorage
 {
+    public function __construct(protected ImageUploader $imageUploader) {}
+
     public function store(CategoryDto $categoryDto)
     {
-        $category = new Category($categoryDto->toArray());
+        $attributes = $categoryDto->except('image')->toArray();
+        $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
 
-        if (!$category->save()) {
-            throw new \LogicException('can not create category');
-        }
-
-        return $category;
+        return Category::query()->create($attributes);
     }
 
     public function update(Category $category, CategoryDto $categoryDto)
     {
-        if (!$category->update($categoryDto->toArray())) {
+        $attributes = $categoryDto->except('image')->toArray();
+
+        if($categoryDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
+        }
+
+        if (!$category->update($attributes)) {
             throw new \LogicException('can not update category');
         }
 

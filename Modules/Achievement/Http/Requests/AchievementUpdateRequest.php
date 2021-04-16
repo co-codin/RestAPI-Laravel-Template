@@ -11,7 +11,7 @@ class AchievementUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'image' => 'sometimes|required|string|max:255',
+            'image' => 'sometimes|required|image',
             'is_enabled' => 'sometimes|boolean',
         ];
     }

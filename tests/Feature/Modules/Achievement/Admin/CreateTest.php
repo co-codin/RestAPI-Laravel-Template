@@ -3,6 +3,8 @@
 
 namespace Tests\Feature\Modules\Achievement\Admin;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 
@@ -27,9 +29,9 @@ class CreateTest extends TestCase
                 'is_enabled',
             ]
         ]);
+
         $this->assertDatabaseHas('achievements', [
             'name' => $achievementData['name'],
-            'image' => $achievementData['image'],
             'is_enabled' => $achievementData['is_enabled']
         ]);
     }

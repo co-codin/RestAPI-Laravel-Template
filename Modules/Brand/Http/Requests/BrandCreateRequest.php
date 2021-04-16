@@ -18,7 +18,7 @@ class BrandCreateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'sometimes|boolean',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:512',
             'country' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string|max:255',
