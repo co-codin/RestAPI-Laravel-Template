@@ -24,7 +24,4 @@ class CategoryDto extends Dto
     public $is_in_home = 0;
 
     public ?string $image;
-
-    public ?array $short_properties;
-
 }

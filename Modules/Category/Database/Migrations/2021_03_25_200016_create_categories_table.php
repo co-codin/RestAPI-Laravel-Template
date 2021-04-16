@@ -24,7 +24,6 @@ class CreateCategoriesTable extends Migration
             $table->boolean('is_in_home')->default(false);
             $table->boolean('is_hidden_in_parents')->default(true);
             $table->text('full_description')->nullable();
-            $table->json('short_properties')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -25,7 +25,6 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('slug'),
                 AllowedFilter::partial('product_name'),
                 AllowedFilter::partial('full_description'),
-                AllowedFilter::partial('short_properties'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('is_hidden_in_parents'),
@@ -43,7 +42,7 @@ class CategoryRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id', 'name', 'slug', 'product_name', 'full_description', 'image', '_lft', '_rgt',
-            'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id', 'short_properties',
+            'status', 'is_hidden_in_parents', 'is_in_home', 'parent_id',
             'created_at', 'updated_at', 'deleted_at',
         ];
 

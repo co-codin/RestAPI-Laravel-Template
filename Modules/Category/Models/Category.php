@@ -22,7 +22,6 @@ use Modules\Seo\Models\Seo;
  * @property boolean $is_hidden_in_parents
  * @property boolean $is_in_home
  * @property string $image
- * @property array $short_properties
  * @property Category|null $parent
  * @property Category[] $ancestors
  * @property Category[] $descendants
@@ -35,7 +34,6 @@ class Category extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'short_properties' => 'array',
         'status' => 'integer',
         'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',

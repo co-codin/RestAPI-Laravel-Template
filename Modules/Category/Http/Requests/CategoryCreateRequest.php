@@ -5,7 +5,6 @@ namespace Modules\Category\Http\Requests;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CategoryCreateRequest extends FormRequest
 {
@@ -24,16 +23,11 @@ class CategoryCreateRequest extends FormRequest
             'is_hidden_in_parents' => 'sometimes|boolean',
             'is_in_home' => 'sometimes|boolean',
             'image' => [
-                Rule::requiredIf(function() {
-                    return !$this->input('parent_id');
-                }),
+                'required_unless:parent_id:null',
                 'nullable',
                 'image',
                 'max:255',
             ],
-            'short_properties' => 'sometimes|nullable|array',
-            'short_properties.*' => 'required|int',
-//            'short_properties.*' => 'required|int|exists:properties,id',
         ];
     }
 }
