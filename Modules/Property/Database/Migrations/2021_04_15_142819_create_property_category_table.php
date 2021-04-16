@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyCategoriesTable extends Migration
+class CreatePropertyCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePropertyCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_categories', function (Blueprint $table) {
-            $table->id();
-
-            $table->timestamps();
+        Schema::create('property_category', function (Blueprint $table) {
+            $table->primary(['property_id', 'category_id']);
+            $table->foreignId('property_id')->constrained();
+            $table->foreignId('category_id')->constrained();
         });
     }
 
@@ -27,6 +27,6 @@ class CreatePropertyCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('property_categories');
+        Schema::dropIfExists('property_category');
     }
 }
