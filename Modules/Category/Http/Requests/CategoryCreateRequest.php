@@ -23,7 +23,7 @@ class CategoryCreateRequest extends FormRequest
             'is_hidden_in_parents' => 'sometimes|boolean',
             'is_in_home' => 'sometimes|boolean',
             'image' => [
-                'required_unless:parent_id:null',
+                'required_unless:parent_id,null',
                 'nullable',
                 'image',
                 'max:255',

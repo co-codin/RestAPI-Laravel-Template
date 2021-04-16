@@ -26,7 +26,7 @@ class CategoryUpdateRequest extends FormRequest
             'is_in_home' => 'sometimes|boolean',
             'image' => [
                 'sometimes',
-                'required_unless:parent_id:null',
+                'required_unless:parent_id,null',
                 'nullable',
                 'image',
                 'max:255',
