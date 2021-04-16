@@ -2,6 +2,7 @@
 namespace Modules\Property\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Property\Enums\PropertyType;
 
 class PropertyFactory extends Factory
 {
@@ -20,7 +21,8 @@ class PropertyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'type' => PropertyType::getRandomValue(),
         ];
     }
 }
