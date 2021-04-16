@@ -4,6 +4,7 @@
 namespace Modules\Category\Dto;
 
 use App\Dto\Dto;
+use Illuminate\Http\UploadedFile;
 
 class CategoryDto extends Dto
 {
@@ -19,9 +20,9 @@ class CategoryDto extends Dto
 
     public $status;
 
-    public $is_hidden_in_parents = 1;
+    public $is_hidden_in_parents = false;
 
-    public $is_in_home = 0;
+    public $is_in_home = false;
 
-    public ?string $image;
+    public ?UploadedFile $image;
 }

@@ -22,7 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string('product_name')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_in_home')->default(false);
-            $table->boolean('is_hidden_in_parents')->default(true);
+            $table->boolean('is_hidden_in_parents')->default(false);
             $table->text('full_description')->nullable();
             $table->timestamps();
             $table->softDeletes();

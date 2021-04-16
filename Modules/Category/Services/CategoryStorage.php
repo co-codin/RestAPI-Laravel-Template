@@ -16,7 +16,10 @@ class CategoryStorage
     public function store(CategoryDto $categoryDto)
     {
         $attributes = $categoryDto->except('image')->toArray();
-        $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
+
+        if($categoryDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
+        }
 
         return Category::query()->create($attributes);
     }
