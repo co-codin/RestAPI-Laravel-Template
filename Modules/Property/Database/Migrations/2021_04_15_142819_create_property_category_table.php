@@ -17,6 +17,7 @@ class CreatePropertyCategoryTable extends Migration
             $table->primary(['property_id', 'category_id']);
             $table->foreignId('property_id')->constrained();
             $table->foreignId('category_id')->constrained();
+            $table->string('section')->nullable();
         });
     }
 

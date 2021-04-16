@@ -4,17 +4,18 @@ namespace Modules\Property\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Property\Database\factories\PropertyValueFactory;
 
-class PropertyCategory extends Model
+class PropertyValue extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    protected $table = 'property_category';
+    protected $table = 'property_value';
 
     protected static function newFactory()
     {
-        return \Modules\Property\Database\factories\PropertyCategoryFactory::new();
+        return PropertyValueFactory::new();
     }
 }
