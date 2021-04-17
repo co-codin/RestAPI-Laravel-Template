@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyValuesTable extends Migration
+class CreatePropertyValueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,10 @@ class CreatePropertyValuesTable extends Migration
     public function up()
     {
         Schema::create('property_value', function (Blueprint $table) {
-            $table->primary(['property_id', 'product_id']);
+            $table->primary(['property_id']);
+//            $table->primary(['property_id', 'product_id']);
             $table->foreignId('property_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+//            $table->foreignId('product_id')->constrained();
             $table->json('value')->nullable();
             $table->string('pretty_key')->nullable();
             $table->string('pretty_value')->nullable();
