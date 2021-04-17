@@ -15,13 +15,18 @@ class PropertyRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-//            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
-//            ->allowedFilters([
-//                AllowedFilter::exact('id'),
-//                AllowedFilter::partial('name'),
-//                AllowedFilter::exact('type'),
-//            ])
-//            ->allowedSorts('id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at')
+            ->allowedFields(['id', 'name', 'type', 'description', 'is_system', 'system_field', 'in_all_categories', 'options', 'is_hidden_from_product', 'is_hidden_from_comparison', 'created_at', 'updated_at'])
+            ->allowedFilters([
+                AllowedFilter::exact('id'),
+                AllowedFilter::partial('name'),
+                AllowedFilter::exact('type'),
+                AllowedFilter::exact('categories.id'),
+                AllowedFilter::partial('description'),
+                AllowedFilter::exact('is_hidden_from_product'),
+                AllowedFilter::exact('is_hidden_from_comparison'),
+            ])
+            ->allowedIncludes('categories')
+            ->allowedSorts('name')
             ;
     }
 }

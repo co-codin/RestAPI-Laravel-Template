@@ -15,7 +15,12 @@ class Property extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'property_categories', 'property_id', 'category_id');
+        return $this->belongsToMany(
+            Category::class,
+            'property_category',
+            'property_id',
+            'category_id'
+        )->withPivot(['section']);
     }
 
     protected static function newFactory()
