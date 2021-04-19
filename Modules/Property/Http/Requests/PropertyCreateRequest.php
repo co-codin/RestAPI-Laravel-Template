@@ -28,7 +28,8 @@ class PropertyCreateRequest extends FormRequest
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',
             'categories' => 'required|array',
-            'categories.*' => 'required|integer|exists:categories,id',
+            'categories.*.id' => 'required|integer|distinct|exists:categories,id',
+            'categories.*.position' => 'required|distinct|integer',
         ];
     }
 
@@ -37,6 +38,8 @@ class PropertyCreateRequest extends FormRequest
         return [
             'options' => 'Опции',
             'categories' => 'Категории',
+            'categories.*.id' => 'ID Категории',
+            'categories.*.position' => 'Позиция Категории',
         ];
     }
 }

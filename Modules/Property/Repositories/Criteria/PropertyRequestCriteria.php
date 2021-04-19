@@ -4,6 +4,7 @@
 namespace Modules\Property\Repositories\Criteria;
 
 
+use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -15,7 +16,10 @@ class PropertyRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'type', 'description', 'is_system', 'system_field', 'in_all_categories', 'options', 'is_hidden_from_product', 'is_hidden_from_comparison', 'created_at', 'updated_at'])
+            ->allowedFields(array_merge(
+                ['id', 'name', 'type', 'description', 'options', 'is_hidden_from_product', 'is_hidden_from_comparison', 'created_at', 'updated_at'],
+                CategoryRequestCriteria::allowedCategoryFields('categories')
+            ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
