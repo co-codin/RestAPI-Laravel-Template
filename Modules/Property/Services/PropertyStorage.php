@@ -37,7 +37,7 @@ class PropertyStorage
                 $category['id'] => ['position' => $category['position']],
             ]);
         }
-        
+
         return $property;
     }
 

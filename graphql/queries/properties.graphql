@@ -1,0 +1,10 @@
+extend type Query {
+    properties(
+        where: _ @whereConditions(columns: ["id", "name", "type", "is_hidden_from_product", "is_hidden_from_comparison"])
+        orderBy: _ @orderBy(columns: ["id", "name", "type", "is_hidden_from_product", "is_hidden_from_comparison"])
+    ): [Property!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
+    property(id: ID @eq): Property @find
+}
