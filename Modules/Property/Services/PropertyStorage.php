@@ -32,10 +32,12 @@ class PropertyStorage
             throw new \LogicException('can not update property.');
         }
 
-        foreach ($propertyDto->categories as $category) {
-            $property->categories()->sync([
-                $category['id'] => ['position' => $category['position']],
-            ]);
+        if ($propertyDto->categories) {
+            foreach ($propertyDto->categories as $category) {
+                $property->categories()->sync([
+                    $category['id'] => ['position' => $category['position']],
+                ]);
+            }
         }
 
         return $property;

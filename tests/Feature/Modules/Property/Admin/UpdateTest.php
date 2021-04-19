@@ -4,8 +4,7 @@
 namespace Tests\Feature\Modules\Property\Admin;
 
 
-use App\Enums\Status;
-use Modules\News\Models\News;
+use Modules\Property\Models\Property;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -17,19 +16,16 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_property()
     {
-        $news = News::factory()->create([
-            'status' => Status::ACTIVE,
-        ]);
+        $this->withoutExceptionHandling();
+        $property = Property::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.news.update', $news), [
+        $response = $this->json('PATCH', route('admin.properties.update', $property), [
             'name' => $newName = 'new name',
-            'status' => Status::INACTIVE
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('news', [
+        $this->assertDatabaseHas('properties', [
             'name' => $newName,
-            'status' => Status::INACTIVE
         ]);
     }
 }
