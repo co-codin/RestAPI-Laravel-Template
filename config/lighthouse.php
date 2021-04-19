@@ -124,6 +124,7 @@ return [
             'Modules\\Publication\\Models',
             'Modules\\Seo\\Models',
             'Modules\\Redirect\\Models',
+            'Modules\\Property\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',

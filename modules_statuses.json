@@ -7,5 +7,6 @@
     "Publication": true,
     "News": true,
     "Page": true,
-    "Redirect": true
+    "Redirect": true,
+    "Property": true
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
+use App\Dto\Dto;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
@@ -29,7 +30,7 @@ class QuestionCategoryController extends Controller
     {
         $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
 
-        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, (new QuestionCategoryDto($request->validated()))->only(...$request->keys()));
+        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, QuestionCategoryDto::fromFormRequest($request));
 
         return new QuestionCategoryResource($questionCategoryModel);
     }
