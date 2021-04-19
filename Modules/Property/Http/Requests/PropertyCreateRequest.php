@@ -23,7 +23,7 @@ class PropertyCreateRequest extends FormRequest
                 'required',
                 new EnumValue(PropertyType::class, false)
             ],
-            'options' => 'sometimes|nullable|string',
+            'options' => 'sometimes|nullable|array',
             'description' => 'sometimes|nullable|string',
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',

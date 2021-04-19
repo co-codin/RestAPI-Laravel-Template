@@ -16,7 +16,7 @@ class PropertyDto extends Dto
 
     public $type;
 
-    public ?string $options;
+    public ?array $options;
 
     public ?array $categories;
 

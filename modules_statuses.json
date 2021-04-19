@@ -8,5 +8,6 @@
     "News": true,
     "Page": true,
     "Redirect": true,
-    "Property": true
+    "Property": true,
+    "Filter": true
 }
