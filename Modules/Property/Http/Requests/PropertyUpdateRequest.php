@@ -24,9 +24,6 @@ class PropertyUpdateRequest extends FormRequest
                 'required',
                 new EnumValue(PropertyType::class, false)
             ],
-            'is_system' => 'sometimes|integer',
-            'system_field' => 'sometimes|nullable|string|max:255',
-            'in_all_categories' => 'sometimes|integer',
             'options' => 'sometimes|nullable|string',
             'description' => 'sometimes|nullable|string',
             'is_hidden_from_product' => 'sometimes|boolean',

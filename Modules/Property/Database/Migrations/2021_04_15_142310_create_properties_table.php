@@ -17,9 +17,6 @@ class CreatePropertiesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->unsignedTinyInteger('type')->default(1);
-            $table->unsignedTinyInteger('is_system')->default(2);
-            $table->string('system_field')->nullable();
-            $table->unsignedTinyInteger('in_all_categories')->default(2);
             $table->text('options')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_hidden_from_product')->default(false);
