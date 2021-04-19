@@ -24,7 +24,7 @@ class CreatePropertyValueTable extends Migration
             $table->string('pretty_key')->nullable();
             $table->string('pretty_value')->nullable();
             $table->boolean('is_important')->default(false);
-            $table->tinyInteger('important_position')->default(null);
+            $table->unsignedTinyInteger('important_position')->default(null);
             $table->string('important_value')->nullable();
         });
     }
