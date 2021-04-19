@@ -5,8 +5,42 @@ namespace Modules\Property\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use Modules\Property\Dto\PropertyDto;
+use Modules\Property\Http\Requests\PropertyCreateRequest;
+use Modules\Property\Http\Requests\PropertyUpdateRequest;
+use Modules\Property\Http\Resources\PropertyResource;
+use Modules\Property\Repositories\PropertyRepository;
+use Modules\Property\Services\PropertyStorage;
 
 class PropertyController extends Controller
 {
+    public function __construct(
+        protected PropertyStorage $propertyStorage,
+        protected PropertyRepository $propertyRepository
+    ) {}
 
+    public function store(PropertyCreateRequest $request)
+    {
+        $property = $this->propertyStorage->store(PropertyDto::fromFormRequest($request));
+
+        return new PropertyResource($property);
+    }
+
+    public function update(int $property, PropertyUpdateRequest $request)
+    {
+        $propertyModel = $this->propertyRepository->find($property);
+
+        $propertyModel = $this->propertyStorage->update($propertyModel, PropertyDto::fromFormRequest($request));
+
+        return new PropertyResource($propertyModel);
+    }
+
+    public function destroy(int $property)
+    {
+        $propertyModel = $this->propertyRepository->find($property);
+
+        $this->propertyStorage->delete($propertyModel);
+
+        return response()->noContent();
+    }
 }
