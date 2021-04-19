@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Property\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,6 +24,8 @@ class PropertyFactory extends Factory
         return [
             'name' => $this->faker->word,
             'type' => PropertyType::getRandomValue(),
+            'is_hidden_from_product' => $this->faker->boolean,
+            'is_hidden_from_comparison' => $this->faker->boolean,
         ];
     }
 }
