@@ -13,6 +13,13 @@ class Property extends Model
 
     protected $fillable = ['id'];
 
+    protected $casts = [
+        'type' => 'integer',
+        'options' => 'array',
+        'is_hidden_from_product' => 'boolean',
+        'is_hidden_from_comparison' => 'boolean',
+    ];
+
     public function categories()
     {
         return $this->belongsToMany(
