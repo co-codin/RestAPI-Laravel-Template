@@ -1,4 +1,4 @@
-type News {
+type Property {
     id: ID!
     name: String
     type: Int!

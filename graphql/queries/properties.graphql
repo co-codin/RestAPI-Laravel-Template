@@ -1,5 +1,6 @@
 extend type Query {
     properties(
+#        hasCategories: _ @whereHasConditions(columns: ["id"])
         where: _ @whereConditions(columns: ["id", "name", "type", "is_hidden_from_product", "is_hidden_from_comparison"])
         orderBy: _ @orderBy(columns: ["id", "name", "type", "is_hidden_from_product", "is_hidden_from_comparison"])
     ): [Property!]!
