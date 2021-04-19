@@ -3,15 +3,14 @@
 
 namespace Tests\Feature\Modules\Property\Gql;
 
-use App\Enums\Status;
-use Modules\Page\Models\Page;
+use Modules\Property\Models\Property;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
     public function test_properties_can_be_viewed()
     {
-        $property = Page::factory()->create();
+        $property = Property::factory()->create();
 
         $response = $this->graphQL('
             {
@@ -47,7 +46,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                pages(where: { column: ID, operator: EQ, value: ' . $page->id .'  }) {
+                properties(where: { column: ID, operator: EQ, value: ' . $property->id .'  }) {
                     data {
                         id
                         name
@@ -58,16 +57,22 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'pages' => [
+                'properties' => [
                     'data' => [
                         [
-                            'id' => $page->id,
-                            'name' => $page->name,
+                            'id' => $property->id,
+                            'name' => $property->name,
                         ]
                     ],
                 ]
             ],
         ]);
+    }
+
+    public function test_properties_can_be_filtered_by_category_id()
+    {
+        $property = Property::factory()->create();
+
 
     }
 }
