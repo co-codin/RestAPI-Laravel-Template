@@ -27,7 +27,7 @@ class Property extends Model
             'property_category',
             'property_id',
             'category_id'
-        )->withPivot(['section']);
+        )->withPivot(['section', 'position']);
     }
 
     protected static function newFactory()
