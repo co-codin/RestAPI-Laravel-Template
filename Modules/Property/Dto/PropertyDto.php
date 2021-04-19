@@ -14,7 +14,7 @@ class PropertyDto extends Dto
 {
     public ?string $name;
 
-    public ?int $type;
+    public $type;
 
     public ?string $options;
 
@@ -22,7 +22,7 @@ class PropertyDto extends Dto
 
     public ?string $description;
 
-    public ?bool $is_hidden_from_product;
+    public $is_hidden_from_product;
 
-    public ?bool $is_hidden_from_comparison;
+    public $is_hidden_from_comparison;
 }
