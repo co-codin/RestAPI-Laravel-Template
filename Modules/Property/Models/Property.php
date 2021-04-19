@@ -11,7 +11,7 @@ class Property extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id'];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'type' => 'integer',
