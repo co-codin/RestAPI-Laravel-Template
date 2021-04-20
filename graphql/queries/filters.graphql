@@ -1,0 +1,10 @@
+extend type Query {
+    filters(
+        where: _ @whereConditions(columns: ["id", "name", "slug", "property_id", "type", "category_id", "is_enabled", "is_default", "description", "position", "options"])
+        orderBy: _ @orderBy(columns: ["name", "slug"])
+    ): [Filter!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
+    filter(id: ID @eq): Filter @find
+}
