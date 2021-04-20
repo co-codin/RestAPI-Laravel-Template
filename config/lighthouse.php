@@ -125,6 +125,7 @@ return [
             'Modules\\Seo\\Models',
             'Modules\\Redirect\\Models',
             'Modules\\Property\\Models',
+            'Modules\\Filter\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',
