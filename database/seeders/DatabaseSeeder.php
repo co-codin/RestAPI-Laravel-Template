@@ -7,6 +7,7 @@ use Modules\Achievement\Database\Seeders\AchievementDatabaseSeeder;
 use Modules\Brand\Database\Seeders\BrandDatabaseSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Faq\Database\Seeders\FaqDatabaseSeeder;
+use Modules\Filter\Database\Seeders\FilterDatabaseSeeder;
 use Modules\News\Database\Seeders\NewsDatabaseSeeder;
 use Modules\Page\Database\Seeders\PageDatabaseSeeder;
 use Modules\Property\Database\Seeders\PropertyDatabaseSeeder;
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RedirectDatabaseSeeder::class);
         $this->call(PublicationDatabaseSeeder::class);
         $this->call(PropertyDatabaseSeeder::class);
+//        $this->call(FilterDatabaseSeeder::class);
     }
 }
