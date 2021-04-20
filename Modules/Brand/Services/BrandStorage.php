@@ -14,15 +14,18 @@ class BrandStorage
 
     public function store(BrandDto $brandDto)
     {
-        $attributes = $brandDto->except('image')->toArray();
-        $attributes['image'] = $this->imageUploader->upload($brandDto->image);
+        $attributes = $brandDto->toArray();
+
+        if($brandDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($brandDto->image);
+        }
 
         return Brand::query()->create($attributes);
     }
 
     public function update(Brand $brand, BrandDto $brandDto)
     {
-        $attributes = $brandDto->except('image')->toArray();
+        $attributes = $brandDto->toArray();
 
         if($brandDto->image) {
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);

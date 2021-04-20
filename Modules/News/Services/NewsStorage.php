@@ -13,7 +13,7 @@ class NewsStorage
 
     public function store(NewsDto $newsDto)
     {
-        $attributes = $newsDto->except('image')->toArray();
+        $attributes = $newsDto->toArray();
         $attributes['image'] = $this->imageUploader->upload($newsDto->image);
 
         return News::query()->create($attributes);
@@ -21,7 +21,7 @@ class NewsStorage
 
     public function update(News $news, NewsDto $newsDto)
     {
-        $attributes = $newsDto->except('image')->toArray();
+        $attributes = $newsDto->toArray();
 
         if($newsDto->image) {
             $attributes['image'] = $this->imageUploader->upload($newsDto->image);
