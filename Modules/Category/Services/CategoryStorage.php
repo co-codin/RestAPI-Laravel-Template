@@ -14,7 +14,7 @@ class CategoryStorage
 
     public function store(CategoryDto $categoryDto)
     {
-        $attributes = $categoryDto->except('image')->toArray();
+        $attributes = $categoryDto->toArray();
 
         if($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
@@ -25,7 +25,7 @@ class CategoryStorage
 
     public function update(Category $category, CategoryDto $categoryDto)
     {
-        $attributes = $categoryDto->except('image')->toArray();
+        $attributes = $categoryDto->toArray();
 
         if($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
