@@ -18,7 +18,7 @@ class FilterUpdateRequest extends FormRequest
     {
         $rules = [
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_]+$/i',
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_]+$/i|unique:filters,slug,' . $this->route('filter'),
             'property_id' => 'sometimes|required|integer|exists:properties,id',
             'type' => [
                 'sometimes',

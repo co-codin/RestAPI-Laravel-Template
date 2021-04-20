@@ -1,6 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Property\Http\Controllers\PropertyController;
+use Modules\Filter\Http\Controllers\FilterController;
 
-Route::resource('properties', PropertyController::class)->only(['index', 'show']);
+Route::resource('filters', FilterController::class)->only(['index', 'show']);

@@ -12,6 +12,7 @@ class FilterResource extends BaseJsonResource
     {
         return array_merge(parent::toArray($request), [
             'category' => $this->whenLoaded('category'),
+            'property' => $this->whenLoaded('property'),
         ]);
     }
 }

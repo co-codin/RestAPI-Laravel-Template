@@ -18,7 +18,7 @@ class FilterCreateRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|regex:/^[a-z0-9_]+$/i',
+            'slug' => 'required|string|max:255|regex:/^[a-z0-9_]+$/i|unique:filters,slug',
             'property_id' => 'required|integer|exists:properties,id',
             'type' => [
                 'required',

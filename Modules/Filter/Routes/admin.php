@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Property\Http\Controllers\Admin\PropertyController;
+use Modules\Filter\Http\Controllers\Admin\FilterController;
 
-Route::resource('properties', PropertyController::class)->except(['index', 'show']);
+Route::post('filters/sort', [FilterController::class, 'sort'])->name('filters.sort');
+Route::resource('filters', FilterController::class)->except(['index', 'show']);
