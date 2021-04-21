@@ -1,7 +1,11 @@
 <?php
+
 namespace Modules\Filter\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Category\Models\Category;
+use Modules\Filter\Enums\FilterType;
+use Modules\Property\Models\Property;
 
 class FilterFactory extends Factory
 {
@@ -20,7 +24,14 @@ class FilterFactory extends Factory
     public function definition()
     {
         return [
-
+            'name' => $this->faker->name,
+            'slug' => $this->faker->slug,
+            'property_id' => Property::factory(),
+            'type' => FilterType::getRandomValue(),
+            'category_id' => Category::factory(),
+            'is_enabled' => $this->faker->boolean,
+            'is_default' => $this->faker->boolean,
+            'description' => $this->faker->sentence(10),
         ];
     }
 }

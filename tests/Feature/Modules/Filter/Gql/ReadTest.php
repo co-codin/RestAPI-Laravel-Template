@@ -4,13 +4,14 @@
 namespace Tests\Feature\Modules\Filter\Gql;
 
 use Modules\Achievement\Models\Achievement;
+use Modules\Filter\Models\Filter;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
     public function test_achievements_can_be_viewed()
     {
-        $achievement = Achievement::factory()->create();
+        $achievement = Filter::factory()->create();
 
         $response = $this->graphQL('
             {
