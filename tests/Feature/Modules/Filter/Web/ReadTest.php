@@ -3,16 +3,16 @@
 
 namespace Tests\Feature\Modules\Filter\Web;
 
-use Modules\Achievement\Models\Achievement;
+use Modules\Filter\Models\Filter;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_achievements()
+    public function test_user_can_view_filters()
     {
-        Achievement::factory()->count($count = 5)->create();
+        Filter::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('achievements.index'));
+        $response = $this->json('GET', route('filters.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -21,7 +21,9 @@ class ReadTest extends TestCase
                 [
                     "id",
                     "name",
-                    "image",
+                    "slug",
+                    "property_id",
+                    "category_id",
                     "is_enabled",
                     "position",
                     "created_at",
@@ -53,22 +55,24 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_achievement()
+    public function test_user_can_view_single_filter()
     {
-        $achievement = Achievement::factory()->create();
+        $filter = Filter::factory()->create();
 
-        $response = $this->json('GET', route('achievements.show', $achievement));
+        $response = $this->json('GET', route('filters.show', $filter));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
-                'id',
-                'name',
-                'image',
-                'is_enabled',
-                'position',
-                'created_at',
-                'updated_at',
+                "id",
+                "name",
+                "slug",
+                "property_id",
+                "category_id",
+                "is_enabled",
+                "position",
+                "created_at",
+                "updated_at",
             ]
         ]);
     }
