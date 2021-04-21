@@ -3,22 +3,22 @@
 
 namespace Tests\Feature\Modules\Filter\Gql;
 
-use Modules\Achievement\Models\Achievement;
 use Modules\Filter\Models\Filter;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_achievements_can_be_viewed()
+    public function test_filters_can_be_viewed()
     {
-        $achievement = Filter::factory()->create();
+        $filter = Filter::factory()->create();
 
         $response = $this->graphQL('
             {
-                achievements {
+                filters {
                     data {
                         id
                         name
+                        slug
                     }
                     paginatorInfo {
                         currentPage
@@ -30,11 +30,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievements' => [
+                'filters' => [
                     'data' => [
                         [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
+                            'id' => $filter->id,
+                            'name' => $filter->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -47,7 +47,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id .'  }) {
+                filters(where: { column: ID, operator: EQ, value: ' . $filter->id .'  }) {
                     data {
                         id
                         name
@@ -58,11 +58,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievements' => [
+                'filters' => [
                     'data' => [
                         [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
+                            'id' => $filter->id,
+                            'name' => $filter->name,
                         ]
                     ],
                 ]
@@ -70,13 +70,13 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_single_achievement_can_be_viewed()
+    public function test_single_filter_can_be_viewed()
     {
-        $achievement = Achievement::factory()->create();
+        $filter = Filter::factory()->create();
 
         $response = $this->graphQL('
             {
-                achievement (id: ' . $achievement->id . ') {
+                filter (id: ' . $filter->id . ') {
                     id
                     name
                 }
@@ -85,9 +85,9 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievement' => [
-                    'id' => $achievement->id,
-                    'name' => $achievement->name,
+                'filter' => [
+                    'id' => $filter->id,
+                    'name' => $filter->name,
                 ]
             ],
         ]);
