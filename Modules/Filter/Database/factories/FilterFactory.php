@@ -25,7 +25,7 @@ class FilterFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'slug' => $this->faker->slug,
+            'slug' => $this->faker->word(4),
             'property_id' => Property::factory(),
             'type' => FilterType::getRandomValue(),
             'category_id' => Category::factory(),
