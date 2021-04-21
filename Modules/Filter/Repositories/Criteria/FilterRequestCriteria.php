@@ -17,7 +17,7 @@ class FilterRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('position')
             ->allowedFields(array_merge(
-                ['id', 'name', 'type', 'slug', 'category_id', 'description', 'is_enabled', 'is_default', 'property_id', 'options'],
+                self::allowedFields(),
                 CategoryRequestCriteria::allowedCategoryFields('category')
             ))
             ->allowedFilters([
@@ -35,5 +35,19 @@ class FilterRequestCriteria implements CriteriaInterface
             ->allowedIncludes('category')
             ->allowedSorts('name', 'slug')
             ;
+    }
+
+    public static function allowedFields($prefix = null): array
+    {
+        $fields = [
+            'id', 'name', 'type', 'slug', 'category_id', 'description',
+            'is_enabled', 'is_default', 'property_id', 'options'
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
     }
 }

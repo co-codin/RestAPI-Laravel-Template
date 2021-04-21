@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Repositories\Criteria;
 
+use Modules\Filter\Repositories\Criteria\FilterRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -18,6 +19,7 @@ class CategoryRequestCriteria implements CriteriaInterface
                 self::allowedCategoryFields('descendants'),
                 self::allowedCategoryFields('ancestors'),
                 self::allowedCategoryFields('parent'),
+                FilterRequestCriteria::allowedFields('filters'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -32,7 +34,7 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('parent_id'),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo'])
+            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo', 'filters'])
             ->allowedSorts([
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
             ]);

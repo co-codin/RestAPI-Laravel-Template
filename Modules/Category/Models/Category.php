@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
+use Modules\Filter\Models\Filter;
 use Modules\Seo\Models\Seo;
 
 /**
@@ -42,6 +43,11 @@ class Category extends Model
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoable');
+    }
+
+    public function filters()
+    {
+        return $this->hasMany(Filter::class);
     }
 
     protected static function newFactory()
