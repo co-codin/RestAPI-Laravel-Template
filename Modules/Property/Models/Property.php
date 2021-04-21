@@ -5,6 +5,7 @@ namespace Modules\Property\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Models\Category;
+use Modules\Filter\Models\Filter;
 use Modules\Property\Database\factories\PropertyFactory;
 
 class Property extends Model
@@ -28,6 +29,11 @@ class Property extends Model
             'property_id',
             'category_id'
         )->withPivot(['section', 'position']);
+    }
+
+    public function filters()
+    {
+        return $this->hasMany(Filter::class);
     }
 
     protected static function newFactory()
