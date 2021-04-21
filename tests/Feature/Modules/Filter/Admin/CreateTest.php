@@ -15,9 +15,7 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_filter()
     {
-        $filterData = Filter::factory()->raw([
-            'type' => ''
-        ]);
+        $filterData = Filter::factory()->raw();
 
         $response = $this->json('POST', route('admin.filters.store'), $filterData);
 

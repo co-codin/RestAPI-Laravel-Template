@@ -3,6 +3,7 @@
 namespace Modules\Filter\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Modules\Category\Models\Category;
 use Modules\Filter\Enums\FilterType;
 use Modules\Property\Models\Property;
@@ -23,16 +24,26 @@ class FilterFactory extends Factory
      */
     public function definition()
     {
-        return [
+        $data = [
             'name' => $this->faker->name,
-            'slug' => $this->faker->word(4),
+            'slug' => $this->faker->word,
             'property_id' => Property::factory(),
-            'type' => FilterType::getRandomValue(),
+            'type' => $type = FilterType::getRandomValue(),
             'category_id' => Category::factory(),
             'is_enabled' => $this->faker->boolean,
             'is_default' => $this->faker->boolean,
             'description' => $this->faker->sentence(10),
         ];
+
+        $fields = Arr::get(FilterType::fields(), $type);
+
+        foreach ($fields as $item) {
+            if($item['rules'] ?? null) {
+                $data["options"][$item['name']] = $this->faker->word;
+            }
+        }
+
+        return $data;
     }
 }
 
