@@ -18,7 +18,7 @@ class FilterRequestCriteria implements CriteriaInterface
             ->defaultSort('position')
             ->allowedFields(array_merge(
                 self::allowedFields(),
-                CategoryRequestCriteria::allowedCategoryFields('category')
+                CategoryRequestCriteria::allowedFields('category')
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),

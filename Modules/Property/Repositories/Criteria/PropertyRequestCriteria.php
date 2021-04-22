@@ -19,7 +19,7 @@ class PropertyRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields(array_merge(
                 ['id', 'name', 'type', 'description', 'options', 'is_hidden_from_product', 'is_hidden_from_comparison', 'created_at', 'updated_at'],
-                CategoryRequestCriteria::allowedCategoryFields('categories'),
+                CategoryRequestCriteria::allowedFields('categories'),
                 FilterRequestCriteria::allowedFields('filters')
             ))
             ->allowedFilters([
