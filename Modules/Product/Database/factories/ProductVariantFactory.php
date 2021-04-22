@@ -1,7 +1,9 @@
 <?php
+
 namespace Modules\Product\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Product\Models\Product;
 
 class ProductVariantFactory extends Factory
 {
@@ -20,7 +22,13 @@ class ProductVariantFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'product_id' => Product::factory(),
+            'name' => $this->faker->word,
+            'price' => $this->faker->randomDigit,
+            'previous_price' => $this->faker->randomDigit,
+            'is_price_visible' => $this->faker->boolean,
+            'is_enabled' => $this->faker->boolean,
+            'availability' => 1,
         ];
     }
 }
