@@ -24,8 +24,12 @@ class CreateProductsTable extends Migration
             $table->boolean('is_in_home')->default(false);
             $table->tinyInteger('warranty')->nullable();
             $table->json('options')->nullable();
-            
+            $table->json('media')->nullable();
+            $table->json('documents')->nullable();
+            $table->text('short_description')->nullable();
+            $table->text('full_description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
