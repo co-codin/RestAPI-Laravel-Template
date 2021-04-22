@@ -24,6 +24,11 @@ class Product extends Model
         'documents' => 'array',
     ];
 
+    public function productVariants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
     protected static function newFactory()
     {
         return ProductFactory::new();
