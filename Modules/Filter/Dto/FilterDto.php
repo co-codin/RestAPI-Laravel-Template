@@ -10,11 +10,11 @@ class FilterDto extends Dto
 
     public ?string $slug;
 
-    public ?int $property_id;
+    public $property_id;
 
-    public ?int $type;
+    public $type;
 
-    public ?int $category_id;
+    public $category_id;
 
     public $is_enabled;
 

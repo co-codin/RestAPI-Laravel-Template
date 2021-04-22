@@ -21,15 +21,6 @@ final class FilterType extends Enum
         return [
             self::Slider => [
                 [
-                    'name' => 'property_id',
-                    'label' => 'Свойство',
-                    'description' => 'ID свойства',
-                    'type' => 'textInput',
-                    'rules' => [
-                        'required_if:path,properties'
-                    ],
-                ],
-                [
                     'name' => 'aggregationFormatter',
                     'label' => 'Aggregation Formatter Class',
                     'description' => 'Кастомный класс aggregation',
@@ -65,15 +56,6 @@ final class FilterType extends Enum
             ],
             self::CheckMarkList => [
                 [
-                    'name' => 'property_id',
-                    'label' => 'Свойство',
-                    'description' => 'ID свойства',
-                    'type' => 'textInput',
-                    'rules' => [
-                        'required_if:path,properties'
-                    ],
-                ],
-                [
                     'name' => 'seoTagLabels',
                     'label' => 'Метки',
                     'description' => 'Пропишите метки',
@@ -104,15 +86,6 @@ final class FilterType extends Enum
                 ]
             ],
             self::CheckMark => [
-                [
-                    'name' => 'property_id',
-                    'label' => 'Свойство',
-                    'description' => 'ID свойства',
-                    'type' => 'textInput',
-                    'rules' => [
-                        'required_if:path,properties'
-                    ],
-                ],
                 [
                     'name' => 'seoTagLabel',
                     'label' => 'Seo метка',

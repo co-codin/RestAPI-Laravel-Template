@@ -5,6 +5,7 @@ namespace Modules\Filter\Http\Requests;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 use Modules\Filter\Enums\FilterType;
 
 class FilterCreateRequest extends FormRequest
@@ -18,7 +19,14 @@ class FilterCreateRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|regex:/^[a-z0-9_]+$/i|unique:filters,slug',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-z0-9_]+$/i',
+                Rule::unique('filters')
+                    ->where('category_id', $this->category_id)
+            ],
             'property_id' => 'required|integer|exists:properties,id',
             'type' => [
                 'required',
