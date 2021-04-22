@@ -9,5 +9,6 @@
     "Page": true,
     "Redirect": true,
     "Property": true,
-    "Filter": true
+    "Filter": true,
+    "Product": true
 }
