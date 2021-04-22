@@ -1,0 +1,16 @@
+type Filter {
+    id: ID!
+    name: String!
+    slug: String!
+    property_id: Int
+    type: Int!
+    category_id: Int!
+    is_enabled: Boolean!
+    is_default: Boolean!
+    description: String
+    position: Int
+    options: String
+
+    property: Property @belongsTo
+    category: Category! @belongsTo
+}

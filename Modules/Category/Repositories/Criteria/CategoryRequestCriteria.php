@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Repositories\Criteria;
 
+use Modules\Filter\Repositories\Criteria\FilterRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -14,10 +15,11 @@ class CategoryRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
-                self::allowedCategoryFields(),
-                self::allowedCategoryFields('descendants'),
-                self::allowedCategoryFields('ancestors'),
-                self::allowedCategoryFields('parent'),
+                self::allowedFields(),
+                self::allowedFields('descendants'),
+                self::allowedFields('ancestors'),
+                self::allowedFields('parent'),
+                FilterRequestCriteria::allowedFields('filters'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -32,13 +34,13 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('parent_id'),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo'])
+            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo', 'filters'])
             ->allowedSorts([
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
             ]);
     }
 
-    public static function allowedCategoryFields($prefix = null): array
+    public static function allowedFields($prefix = null): array
     {
         $fields = [
             'id', 'name', 'slug', 'product_name', 'full_description', 'image', '_lft', '_rgt',
