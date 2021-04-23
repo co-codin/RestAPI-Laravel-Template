@@ -20,8 +20,7 @@ class FilterUpdateRequest extends FormRequest
         $rules = [
             'name' => 'sometimes|required|string|max:255',
             'slug' => [
-                'sometimes',
-                'required',
+                'required_with:category_id',
                 'string',
                 'max:255',
                 'regex:/^[a-z0-9_]+$/i',
