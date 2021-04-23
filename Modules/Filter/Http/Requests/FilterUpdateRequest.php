@@ -35,7 +35,7 @@ class FilterUpdateRequest extends FormRequest
                 'integer',
                 new EnumValue(FilterType::class, false)
             ],
-            'category_id' => 'sometimes|required|integer|exists:categories,id',
+            'category_id' => 'sometimes|required|integer|exists:categories,id|required_with:slug',
             'is_default' => 'sometimes|boolean',
             'is_enabled' => 'sometimes|boolean',
             'description' => 'sometimes|nullable|string',
