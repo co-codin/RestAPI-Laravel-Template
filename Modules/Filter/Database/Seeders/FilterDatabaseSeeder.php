@@ -14,6 +14,6 @@ class FilterDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(FilterTableSeeder::class);
+        $this->call(FiltersTableSeeder::class);
     }
 }

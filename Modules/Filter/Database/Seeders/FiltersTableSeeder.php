@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
 
-class FilterTableSeeder extends Seeder
+class FiltersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
