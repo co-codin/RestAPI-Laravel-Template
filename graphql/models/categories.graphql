@@ -9,4 +9,6 @@ type Category {
     is_in_home: Boolean!
     image: String
     parent_id: Int
+    filters: [Filter!] @hasMany
+    properties: [Property!] @belongsToMany
 }

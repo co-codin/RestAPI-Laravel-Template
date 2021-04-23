@@ -20,8 +20,7 @@ class FilterUpdateRequest extends FormRequest
         $rules = [
             'name' => 'sometimes|required|string|max:255',
             'slug' => [
-                'sometimes',
-                'required',
+                'required_with:category_id',
                 'string',
                 'max:255',
                 'regex:/^[a-z0-9_]+$/i',
@@ -36,7 +35,7 @@ class FilterUpdateRequest extends FormRequest
                 'integer',
                 new EnumValue(FilterType::class, false)
             ],
-            'category_id' => 'sometimes|required|integer|exists:categories,id',
+            'category_id' => 'sometimes|required|integer|exists:categories,id|required_with:slug',
             'is_default' => 'sometimes|boolean',
             'is_enabled' => 'sometimes|boolean',
             'description' => 'sometimes|nullable|string',
