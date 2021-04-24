@@ -126,6 +126,7 @@ return [
             'Modules\\Redirect\\Models',
             'Modules\\Property\\Models',
             'Modules\\Filter\\Models',
+            'Modules\\Currency\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',
