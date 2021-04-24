@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Currency\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,7 +21,10 @@ class CurrencyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->currencyCode,
+            'code' => $this->faker->sentence(3),
+            'rate' => $this->faker->randomFloat(),
+            'is_main' => false,
         ];
     }
 }
