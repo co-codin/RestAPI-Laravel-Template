@@ -3,7 +3,6 @@
 namespace Modules\Currency\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class CurrencyDatabaseSeeder extends Seeder
 {
@@ -14,8 +13,6 @@ class CurrencyDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        $this->call(CurrencyTableSeeder::class);
     }
 }
