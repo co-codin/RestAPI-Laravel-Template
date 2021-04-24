@@ -18,7 +18,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('name');
             $table->string('code', 3);
             $table->unsignedInteger('rate');
-            $table->boolean('is_main');
+            $table->boolean('is_main')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

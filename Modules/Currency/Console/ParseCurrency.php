@@ -2,67 +2,42 @@
 
 namespace Modules\Currency\Console;
 
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Modules\Currency\Models\Currency;
 
 class ParseCurrency extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'command:name';
+    protected $signature = 'parse:currency';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description.';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Parse currency from cb rf';
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
+     * @param Client $client
+     * @throws \GuzzleHttp\Exception\GuzzleException|\JsonException
      */
-    public function handle()
+    public function handle(Client $client)
     {
-        //
-    }
+        $response = $client->request('get', 'https://www.cbr-xml-daily.ru/daily_json.js');
+        $data = json_decode(
+            $response->getBody(),
+            JSON_OBJECT_AS_ARRAY,
+            512,
+            JSON_THROW_ON_ERROR
+        );
+        $rates = collect(Arr::get($data, 'Valute', []));
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['example', InputArgument::REQUIRED, 'An example argument.'],
-        ];
-    }
+        $currencies = Currency::all();
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-        ];
+        $rates->each(function($rate, $key) use ($currencies) {
+            if(!$currency = $currencies->where('code', Str::lower($key))->first()) {
+                return;
+            }
+            $currency->rate = round($rate['Value'], 2);
+            $currency->save();
+        });
     }
 }
