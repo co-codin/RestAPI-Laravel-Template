@@ -11,6 +11,6 @@ class CurrencyDto extends Dto
     public ?string $code;
 
     public ?float $rate;
-    
+
     public $is_main;
 }
