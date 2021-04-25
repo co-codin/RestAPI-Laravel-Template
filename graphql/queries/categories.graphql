@@ -6,5 +6,12 @@ extend type Query {
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 
+    allCategories(
+        where: _ @whereConditions(columns: ["id", "name", "slug", "product_name", "full_description", "is_hidden_in_parents", "is_in_home", "image", "parent_id"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "product_name", "full_description", "is_hidden_in_parents", "is_in_home", "image", "parent_id"])
+    ): [Category!]!
+    @all(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
     category(id: ID @eq, slug: String @eq): Category @find
 }

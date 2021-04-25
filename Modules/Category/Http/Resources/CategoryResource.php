@@ -25,6 +25,7 @@ class CategoryResource extends BaseJsonResource
             'parent' => new CategoryResource($this->whenLoaded('parent')),
             'ancestors' => CategoryResource::collection($this->whenLoaded('ancestors')),
             'descendants' => CategoryResource::collection($this->whenLoaded('descendants')),
+            'children' => CategoryResource::collection($this->whenLoaded('children')),
         ]);
     }
 }

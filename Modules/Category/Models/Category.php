@@ -4,6 +4,7 @@ namespace Modules\Category\Models;
 
 use App\Traits\IsActive;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
@@ -64,5 +65,10 @@ class Category extends Model
     protected static function newFactory()
     {
         return CategoryFactory::new();
+    }
+
+    public function scopeIsRoot(Builder $query): Builder
+    {
+        return $query->whereNull($this->getParentIdName());
     }
 }

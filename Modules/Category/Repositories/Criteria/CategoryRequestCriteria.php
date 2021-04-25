@@ -19,6 +19,7 @@ class CategoryRequestCriteria implements CriteriaInterface
                 self::allowedFields('descendants'),
                 self::allowedFields('ancestors'),
                 self::allowedFields('parent'),
+                self::allowedFields('children'),
                 FilterRequestCriteria::allowedFields('filters'),
             ))
             ->allowedFilters([
@@ -32,9 +33,10 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_hidden_in_parents'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('parent_id'),
+                AllowedFilter::scope('is_root'),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'seo', 'filters'])
+            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'children', 'seo', 'filters'])
             ->allowedSorts([
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
             ]);
