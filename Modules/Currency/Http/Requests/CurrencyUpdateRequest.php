@@ -14,10 +14,11 @@ class CurrencyUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:3',
-            'rate' => 'required|numeric|min:1',
+            'name' => 'sometimes|required|string|max:255',
+            'code' => 'sometimes|required|string|max:3',
+            'rate' => 'sometimes|required|numeric|min:1',
             'is_main' => [
+                'sometimes',
                 'required',
                 'boolean',
                 'unique:currencies,is_main,NULL,id,is_main,1'
