@@ -13,4 +13,5 @@ type Category {
     children: [Category] @belongsTo
     filters: [Filter!] @hasMany
     properties: [Property!] @belongsToMany
+    seo: Seo @morphOne
 }
