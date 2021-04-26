@@ -1,7 +1,7 @@
 extend type Query {
     currencies(
-        where: _ @whereConditions(columns: ["id", "name", "code", "rate", "is_main"])
-        orderBy: _ @orderBy(columns: ["id", "name", "code", "rate", "is_main"])
+        where: _ @whereConditions(columns: ["id", "name", "iso_code", "rate", "is_main"])
+        orderBy: _ @orderBy(columns: ["id", "name", "iso_code", "rate", "is_main"])
     ): [Currency!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

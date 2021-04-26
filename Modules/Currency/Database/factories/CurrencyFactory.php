@@ -22,8 +22,8 @@ class CurrencyFactory extends Factory
     {
         return [
             'name' => $this->faker->currencyCode,
-            'code' => $this->faker->currencyCode,
-            'rate' => $this->faker->randomFloat(),
+            'iso_code' => $this->faker->currencyCode,
+            'rate' => $this->faker->randomFloat(2, 1, 3),
             'is_main' => false,
         ];
     }

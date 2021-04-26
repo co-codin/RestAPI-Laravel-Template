@@ -23,7 +23,7 @@ class CreateTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 'name',
-                'code',
+                'iso_code',
                 'is_main',
             ]
         ]);

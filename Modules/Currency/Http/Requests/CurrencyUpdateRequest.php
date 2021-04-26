@@ -15,8 +15,8 @@ class CurrencyUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'code' => 'sometimes|required|string|max:3',
-            'rate' => 'sometimes|required|numeric|min:1',
+            'iso_code' => 'sometimes|required|string|max:3|unique:currencies,iso_code,' . $this->route('currency'),
+            'rate' => 'sometimes|numeric|min:1',
             'is_main' => [
                 'sometimes',
                 'required',

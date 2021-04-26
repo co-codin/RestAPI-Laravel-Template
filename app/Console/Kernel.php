@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Modules\Currency\Console\ParseCurrency;
+use Modules\Currency\Console\CurrencyParse;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ParseCurrency::class,
+        CurrencyParse::class,
     ];
 
     /**
@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(ParseCurrency::class)
+        $schedule->command(CurrencyParse::class)
             ->timezone('Europe/Moscow')
             ->twiceDaily();
     }

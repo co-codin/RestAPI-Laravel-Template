@@ -15,8 +15,8 @@ class CurrencyCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:3',
-            'rate' => 'required|numeric|min:1',
+            'iso_code' => 'required|string|max:3|unique:currencies,iso_code',
+            'rate' => 'sometimes|numeric|min:1',
             'is_main' => [
                 'required',
                 'boolean',

@@ -13,6 +13,16 @@ class Currency extends Model
 
     protected $guarded = ['id'];
 
+    public function getRateAttribute($value)
+    {
+        return $value / 100;
+    }
+
+    public function setRateAttribute($value)
+    {
+        $this->attributes['rate'] = $value * 100;
+    }
+
     protected static function newFactory()
     {
         return CurrencyFactory::new();

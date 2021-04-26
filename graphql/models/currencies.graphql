@@ -1,7 +1,7 @@
 type Currency {
     id: ID!
     name: String!
-    code: String!
+    iso_code: String!
     rate: Float!
     is_main: Boolean!
 }

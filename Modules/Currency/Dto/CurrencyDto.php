@@ -8,9 +8,9 @@ class CurrencyDto extends Dto
 {
     public ?string $name;
 
-    public ?string $code;
+    public ?string $iso_code;
 
-    public ?float $rate;
+    public $rate;
 
     public $is_main;
 }

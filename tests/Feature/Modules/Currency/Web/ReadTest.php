@@ -22,7 +22,7 @@ class ReadTest extends TestCase
                 [
                     "id",
                     "name",
-                    "code",
+                    "iso_code",
                     "is_main",
                     "created_at",
                     "updated_at",
@@ -65,7 +65,7 @@ class ReadTest extends TestCase
             'data' => [
                 "id",
                 "name",
-                "code",
+                "iso_code",
                 "is_main",
                 "created_at",
                 "updated_at",

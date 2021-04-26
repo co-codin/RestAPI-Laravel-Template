@@ -13,6 +13,6 @@ class CurrencyDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CurrencyTableSeeder::class);
+        $this->call(CurrenciesTableSeeder::class);
     }
 }

@@ -19,7 +19,7 @@ class ReadTest extends TestCase
                     data {
                         id
                         name
-                        code
+                        iso_code
                     }
                     paginatorInfo {
                         currentPage

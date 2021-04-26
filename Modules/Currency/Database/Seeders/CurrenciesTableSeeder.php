@@ -5,7 +5,7 @@ namespace Modules\Currency\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Currency\Models\Currency;
 
-class CurrencyTableSeeder extends Seeder
+class CurrenciesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,17 +17,17 @@ class CurrencyTableSeeder extends Seeder
         $currencies = [
             [
                 'name' => 'Рубль',
-                'code' => 'rub',
+                'iso_code' => 'RUB',
                 'rate' => 1,
             ],
             [
                 'name' => 'Доллар',
-                'code' => 'usd',
+                'iso_code' => 'USD',
                 'rate' => 65.72,
             ],
             [
                 'name' => 'Евро',
-                'code' => 'eur',
+                'iso_code' => 'EUR',
                 'rate' => 72.58,
             ],
         ];
