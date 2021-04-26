@@ -5,6 +5,7 @@ namespace Modules\Product\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
 
 class Product extends Model
@@ -27,6 +28,12 @@ class Product extends Model
     public function productVariants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_category')
+            ->withPivot('is_main');
     }
 
     protected static function newFactory()
