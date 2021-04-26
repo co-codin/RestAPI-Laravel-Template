@@ -21,6 +21,10 @@ class ProductStorage
 
         $product->categories()->attach($productDto->categories);
 
+        $product->productVariants()->create([
+            'name' => $product->brand->name . ' ' . $product->name
+        ]);
+
         return $product;
     }
 }

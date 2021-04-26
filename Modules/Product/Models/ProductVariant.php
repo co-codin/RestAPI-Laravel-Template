@@ -17,7 +17,7 @@ class ProductVariant extends Model
         'product_id' => 'integer',
         'price' => 'integer',
         'previous_price' => 'integer',
-//        'currency_id' => 'integer',
+        'currency_id' => 'integer',
         'is_price_visible' => 'boolean',
         'is_enabled' => 'boolean',
         'availability' => 'integer',
