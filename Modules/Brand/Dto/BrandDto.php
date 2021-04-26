@@ -17,11 +17,9 @@ class BrandDto extends BaseDto
 
     public ?string $full_description;
 
-    /** @var mixed */
-    public $status;
+    public mixed $status;
 
-    /** @var mixed */
-    public $is_in_home = 0;
+    public mixed $is_in_home = 0;
 
     public ?int $position;
 

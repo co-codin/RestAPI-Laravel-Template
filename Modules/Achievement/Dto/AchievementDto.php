@@ -12,6 +12,5 @@ class AchievementDto extends BaseDto
 
     public ?UploadedFile $image;
 
-    /** @var mixed */
-    public $is_enabled = 1;
+    public mixed $is_enabled = 1;
 }
