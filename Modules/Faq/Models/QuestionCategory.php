@@ -2,7 +2,7 @@
 
 namespace Modules\Faq\Models;
 
-use App\Traits\IsActive;
+use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

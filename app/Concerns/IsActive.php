@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Traits;
+namespace App\Concerns;
 
 
 use App\Enums\Status;
