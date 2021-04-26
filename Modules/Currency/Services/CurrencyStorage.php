@@ -11,11 +11,15 @@ class CurrencyStorage
 {
     public function store(CurrencyDto $currencyDto)
     {
+        $this->truncateMainColumn($currencyDto->is_main);
+
         return Currency::query()->create($currencyDto->toArray());
     }
 
     public function update(Currency $currency, CurrencyDto $currencyDto)
     {
+        $this->truncateMainColumn($currencyDto->is_main);
+
         if (!$currency->update($currencyDto->toArray())) {
             throw new \LogicException('can not update currency.');
         }
@@ -24,8 +28,15 @@ class CurrencyStorage
 
     public function delete(Currency $currency)
     {
-        if (!$currency->delete()) {
-            throw new \LogicException('can not delete currency.');
+        if (!$currency->is_main) {
+            $currency->delete();
+        }
+    }
+
+    protected function truncateMainColumn($isMain)
+    {
+        if ($isMain) {
+            Currency::query()->update(['is_main', false]);
         }
     }
 }
