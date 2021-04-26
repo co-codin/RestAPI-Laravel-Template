@@ -32,7 +32,7 @@ class ProductUpdateRequest extends FormRequest
 
             'brand_id' => 'required_unless:type,' . Status::ACTIVE,
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|unique:products,slug',
+            'slug' => 'sometimes|required|string|unique:products,slug,' . $this->route('product'),
             'image' => 'sometimes|required|image',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
