@@ -36,6 +36,19 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function category()
+    {
+        return $this->hasOneThrough(
+            Category::class,
+            ProductCategory::class,
+            'product_id',
+            'id',
+            'id',
+            'category_id'
+        )
+            ->where('product_categories.is_main', '=', true);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_category')
