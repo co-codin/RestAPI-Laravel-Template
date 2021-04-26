@@ -10,6 +10,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\News\Database\factories\NewsFactory;
 use Modules\Seo\Models\Seo;
 
+/**
+ * Class News
+ * @package Modules\News\Models
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property integer $status
+ * @property boolean $is_in_home
+ * @property ?Seo $seo
+ */
 class News extends Model
 {
     use HasFactory, SoftDeletes, Sluggable, IsActive;
