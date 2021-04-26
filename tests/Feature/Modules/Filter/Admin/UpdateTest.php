@@ -9,10 +9,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_update_filter()
-    {
-        //
-    }
+//    public function test_unauthenticated_cannot_update_filter()
+//    {
+//        //
+//    }
 
     public function test_authenticated_user_can_update_filter()
     {

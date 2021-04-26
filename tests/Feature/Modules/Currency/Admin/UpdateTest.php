@@ -8,10 +8,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_update_currency()
-    {
-        //
-    }
+//    public function test_unauthenticated_cannot_update_currency()
+//    {
+//        //
+//    }
 
     public function test_authenticated_can_update_currency()
     {
