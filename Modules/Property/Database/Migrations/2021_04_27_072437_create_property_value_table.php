@@ -14,12 +14,9 @@ class CreatePropertyValueTable extends Migration
     public function up()
     {
         Schema::create('property_value', function (Blueprint $table) {
-            $table->primary(['property_id']);
-            // TODO module Product
-//            $table->primary(['property_id', 'product_id']);
+            $table->primary(['property_id', 'product_id']);
             $table->foreignId('property_id')->constrained();
-            // TODO module Product
-//            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained();
             $table->json('value')->nullable();
             $table->string('pretty_key')->nullable();
             $table->string('pretty_value')->nullable();

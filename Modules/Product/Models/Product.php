@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
+use Modules\Seo\Models\Seo;
 
 class Product extends Model
 {
@@ -53,6 +54,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_category')
             ->withPivot('is_main');
+    }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
     }
 
     protected static function newFactory()
