@@ -2,9 +2,9 @@
 
 namespace Modules\Currency\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
-class CurrencyDto extends Dto
+class CurrencyDto extends BaseDto
 {
     public ?string $name;
 

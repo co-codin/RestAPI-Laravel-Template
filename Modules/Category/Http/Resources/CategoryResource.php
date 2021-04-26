@@ -3,7 +3,7 @@
 namespace Modules\Category\Http\Resources;
 
 use App\Enums\Status;
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Category\Models\Category;
 use Modules\Seo\Http\Resources\SeoResource;
 

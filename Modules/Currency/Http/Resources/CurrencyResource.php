@@ -3,7 +3,7 @@
 
 namespace Modules\Currency\Http\Resources;
 
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Currency\Models\Currency;
 
 /**

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
 
-abstract class Dto extends DataTransferObject
+abstract class BaseDto extends DataTransferObject
 {
     protected array $visibleKeys = [];
 
@@ -51,7 +51,7 @@ abstract class Dto extends DataTransferObject
 
     /**
      * @param string|string[] ...$properties
-     * @return Dto
+     * @return BaseDto
      */
     public function toJson(...$properties)
     {

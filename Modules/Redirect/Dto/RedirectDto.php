@@ -4,13 +4,13 @@
 namespace Modules\Redirect\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
 /**
  * Class RedirectDto
  * @package Modules\Redirect\Dto\Admin
  */
-class RedirectDto extends Dto
+class RedirectDto extends BaseDto
 {
     public ?string $source;
 

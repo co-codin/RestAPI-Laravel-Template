@@ -5,7 +5,7 @@ namespace Modules\Page\Http\Resources;
 
 
 use App\Enums\Status;
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Page\Models\Page;
 use Modules\Seo\Http\Resources\SeoResource;
 

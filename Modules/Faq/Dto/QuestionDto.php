@@ -4,9 +4,9 @@
 namespace Modules\Faq\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
-class QuestionDto extends Dto
+class QuestionDto extends BaseDto
 {
     public ?string $question;
 

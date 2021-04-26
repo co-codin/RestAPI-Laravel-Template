@@ -2,7 +2,7 @@
 
 namespace Modules\Filter\Enums;
 
-use App\Enums\Enum;
+use App\Enums\BaseEnum;
 
 /**
  * @method static static CheckMarkList()
@@ -10,7 +10,7 @@ use App\Enums\Enum;
  * @method static static CheckMark()
  * @method static static DropDown()
  */
-final class FilterType extends Enum
+final class FilterType extends BaseEnum
 {
     const CheckMarkList = 1;
     const Slider = 2;

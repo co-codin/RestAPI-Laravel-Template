@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Transformers;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BaseJsonResource extends JsonResource
+abstract class BaseJsonResource extends JsonResource
 {
     public function toArray($request): array
     {

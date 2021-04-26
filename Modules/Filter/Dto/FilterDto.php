@@ -2,9 +2,9 @@
 
 namespace Modules\Filter\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
-class FilterDto extends Dto
+class FilterDto extends BaseDto
 {
     public ?string $name;
 

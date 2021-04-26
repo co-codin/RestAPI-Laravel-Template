@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
  * Class Enum
  * @package App\Enums
  */
-abstract class Enum extends BenSampoEnum implements LocalizedEnum
+abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
 {
     /**
      * @var string|null

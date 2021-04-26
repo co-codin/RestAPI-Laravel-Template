@@ -4,14 +4,14 @@
 namespace Modules\News\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Http\UploadedFile;
 
 /**
  * Class NewsDto
  * @package Modules\News\Dto\Admin
  */
-class NewsDto extends Dto
+class NewsDto extends BaseDto
 {
     public ?string $name;
 

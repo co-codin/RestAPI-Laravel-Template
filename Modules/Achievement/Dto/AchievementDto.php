@@ -3,10 +3,10 @@
 
 namespace Modules\Achievement\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Http\UploadedFile;
 
-class AchievementDto extends Dto
+class AchievementDto extends BaseDto
 {
     public ?string $name;
 

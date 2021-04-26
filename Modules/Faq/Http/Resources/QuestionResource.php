@@ -3,7 +3,7 @@
 namespace Modules\Faq\Http\Resources;
 
 use App\Enums\Status;
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Faq\Models\Question;
 
 /**

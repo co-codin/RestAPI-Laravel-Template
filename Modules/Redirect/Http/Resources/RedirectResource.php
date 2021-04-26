@@ -4,7 +4,7 @@
 namespace Modules\Redirect\Http\Resources;
 
 
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Redirect\Models\Redirect;
 
 /**

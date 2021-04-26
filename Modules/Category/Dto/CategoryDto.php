@@ -3,10 +3,10 @@
 
 namespace Modules\Category\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Http\UploadedFile;
 
-class CategoryDto extends Dto
+class CategoryDto extends BaseDto
 {
     public $parent_id;
 

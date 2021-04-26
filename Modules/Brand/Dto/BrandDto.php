@@ -2,10 +2,10 @@
 
 namespace Modules\Brand\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Http\UploadedFile;
 
-class BrandDto extends Dto
+class BrandDto extends BaseDto
 {
     public ?string $name;
 

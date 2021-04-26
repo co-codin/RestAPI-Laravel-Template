@@ -5,7 +5,7 @@ namespace Modules\News\Http\Resources;
 
 
 use App\Enums\Status;
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\News\Models\News;
 use Modules\Seo\Http\Resources\SeoResource;
 
