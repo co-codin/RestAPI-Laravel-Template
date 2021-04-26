@@ -44,16 +44,4 @@ class FileUploader
     {
         return Storage::disk($this->disk)->path($path);
     }
-
-//    protected function generateFileName(UploadedFile $file, $suffix = 0): string
-//    {
-//        $extension = $file->getClientOriginalExtension();
-//        $filename = basename($file->getClientOriginalName(), "." . $extension);
-//
-//        if (!Storage::exists($this->dir . "/" . $filename . "." . $extension)) {
-//            return $filename;
-//        }
-//
-//        return $this->generateFileName($file, $suffix + 1);
-//    }
 }
