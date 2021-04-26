@@ -10,7 +10,7 @@ use Modules\Currency\Models\Currency;
 
 class CurrencyParse extends Command
 {
-    protected $signature = 'parse:currency';
+    protected $signature = 'currency:parse';
 
     protected $description = 'Parse currency from cb rf';
 

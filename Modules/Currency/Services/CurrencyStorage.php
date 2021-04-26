@@ -4,11 +4,17 @@
 namespace Modules\Currency\Services;
 
 
+use Illuminate\Support\Facades\Artisan;
 use Modules\Currency\Dto\CurrencyDto;
 use Modules\Currency\Models\Currency;
 
 class CurrencyStorage
 {
+    public function __construct()
+    {
+        Artisan::call('currency:parse');
+    }
+
     public function store(CurrencyDto $currencyDto)
     {
         $this->truncateMainColumn($currencyDto->is_main);
