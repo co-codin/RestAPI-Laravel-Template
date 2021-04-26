@@ -15,14 +15,14 @@ class RedirectRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'old_url', 'new_url', 'code', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'source', 'destination', 'code', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
-                AllowedFilter::partial('old_url'),
-                AllowedFilter::exact('new_url'),
+                AllowedFilter::partial('source'),
+                AllowedFilter::exact('destination'),
                 AllowedFilter::exact('code'),
             ])
-            ->allowedSorts('id', 'old_url', 'new_url', 'code', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'source', 'destination', 'code', 'created_at', 'updated_at')
             ;
     }
 }

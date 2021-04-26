@@ -12,9 +12,9 @@ use App\Dto\Dto;
  */
 class RedirectDto extends Dto
 {
-    public ?string $old_url;
+    public ?string $source;
 
-    public ?string $new_url;
+    public ?string $destination;
 
     public int $code = 301;
 }

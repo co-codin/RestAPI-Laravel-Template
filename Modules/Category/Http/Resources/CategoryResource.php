@@ -17,10 +17,7 @@ class CategoryResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'status' => $this->whenRequested('status', [
-                'value' => $this->status,
-                'description' => Status::getDescription($this->status),
-            ]),
+            'status' => $this->whenRequested('status', Status::toJson($this->status)),
             'seo' => new SeoResource($this->whenLoaded('seo')),
             'parent' => new CategoryResource($this->whenLoaded('parent')),
             'ancestors' => CategoryResource::collection($this->whenLoaded('ancestors')),

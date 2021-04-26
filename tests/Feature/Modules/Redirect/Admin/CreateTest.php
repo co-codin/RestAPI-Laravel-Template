@@ -23,14 +23,14 @@ class CreateTest extends TestCase
         $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
-                'new_url',
-                'old_url',
+                'destination',
+                'source',
                 'code',
             ]
         ]);
         $this->assertDatabaseHas('redirects', [
-            'new_url' => $redirectData['new_url'],
-            'old_url' => $redirectData['old_url'],
+            'destination' => $redirectData['destination'],
+            'source' => $redirectData['source'],
         ]);
     }
 }

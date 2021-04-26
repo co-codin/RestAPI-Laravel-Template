@@ -16,8 +16,8 @@ class ReadTest extends TestCase
                 redirects {
                     data {
                         id
-                        old_url
-                        new_url
+                        source
+                        destination
                     }
                     paginatorInfo {
                         currentPage
@@ -33,8 +33,8 @@ class ReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $redirect->id,
-                            'old_url' => $redirect->old_url,
-                            'new_url' => $redirect->new_url,
+                            'source' => $redirect->source,
+                            'destination' => $redirect->destination,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -50,7 +50,7 @@ class ReadTest extends TestCase
                 redirects(where: { column: ID, operator: EQ, value: ' . $redirect->id .'  }) {
                     data {
                         id
-                        old_url
+                        source
                     }
                 }
             }
@@ -62,7 +62,7 @@ class ReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $redirect->id,
-                            'old_url' => $redirect->old_url,
+                            'source' => $redirect->source,
                         ]
                     ],
                 ]

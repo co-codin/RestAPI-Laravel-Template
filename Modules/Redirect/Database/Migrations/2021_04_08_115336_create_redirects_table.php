@@ -15,8 +15,8 @@ class CreateRedirectsTable extends Migration
     {
         Schema::create('redirects', function (Blueprint $table) {
             $table->id();
-            $table->string('old_url')->unique();
-            $table->string('new_url');
+            $table->string('source')->unique();
+            $table->string('destination');
             $table->unsignedSmallInteger('code')->default(301);
             $table->timestamps();
         });

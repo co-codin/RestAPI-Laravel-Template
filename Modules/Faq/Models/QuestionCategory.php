@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Faq\Database\factories\QuestionCategoryFactory;
 
+/**
+ * Class QuestionCategory
+ * @package Modules\Faq\Models
+ * @property int $id
+ * @property int $status
+ * @property int|null $position
+ */
 class QuestionCategory extends Model
 {
     use HasFactory, SoftDeletes, IsActive, Sluggable;

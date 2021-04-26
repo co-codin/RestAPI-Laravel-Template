@@ -10,6 +10,14 @@ use Kalnoy\Nestedset\NodeTrait;
 use Modules\Page\Database\factories\PageFactory;
 use Modules\Seo\Models\Seo;
 
+/**
+ * Class Page
+ * @package Modules\Page\Models
+ * @property int $id
+ * @property string $slug
+ * @property int $status
+ * @property Seo|null $seo
+ */
 class Page extends Model
 {
     use HasFactory, NodeTrait, SoftDeletes, IsActive;
