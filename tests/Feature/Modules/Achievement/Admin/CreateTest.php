@@ -3,8 +3,6 @@
 
 namespace Tests\Feature\Modules\Achievement\Admin;
 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 

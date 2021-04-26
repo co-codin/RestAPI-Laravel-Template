@@ -10,5 +10,6 @@
     "Redirect": true,
     "Property": true,
     "Filter": true,
-    "Product": true
+    "Product": true,
+    "Currency": true
 }

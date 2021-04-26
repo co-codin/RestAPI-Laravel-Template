@@ -29,7 +29,6 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
                 AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
                 AllowedFilter::trashed(),
-
             ])
             ->allowedIncludes('seo')
             ->allowedSorts([
