@@ -63,4 +63,12 @@ abstract class Enum extends BenSampoEnum implements LocalizedEnum
     {
         return $value;
     }
+
+    public static function toJson($value): array
+    {
+        return [
+            'value' => $value,
+            'description' => static::getDescription($value),
+        ];
+    }
 }
