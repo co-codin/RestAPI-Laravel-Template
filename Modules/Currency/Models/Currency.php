@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Currency\Database\factories\CurrencyFactory;
 
+/**
+ * Class Currency
+ * @package Modules\Currency\Models
+ * @property int $id
+ * @property string $name
+ * @property string $iso_code
+ * @property int|float $rate
+ * @property boolean $is_main
+ */
 class Currency extends Model
 {
     use HasFactory, SoftDeletes;
