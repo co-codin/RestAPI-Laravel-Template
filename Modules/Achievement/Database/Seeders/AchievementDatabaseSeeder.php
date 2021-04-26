@@ -8,6 +8,6 @@ class AchievementDatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call(AchievementTableSeeder::class);
+        $this->call(AchievementsTableSeeder::class);
     }
 }

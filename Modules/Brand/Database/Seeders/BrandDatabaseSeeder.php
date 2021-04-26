@@ -8,6 +8,6 @@ class BrandDatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call(BrandTableSeeder::class);
+        $this->call(BrandsTableSeeder::class);
     }
 }

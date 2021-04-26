@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Modules\Page\Models\Page;
 
-class PageTableSeeder extends Seeder
+class PagesTableSeeder extends Seeder
 {
     public function run()
     {

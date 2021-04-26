@@ -9,7 +9,7 @@ class FaqDatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call(QuestionCategoryTableSeeder::class);
-        $this->call(QuestionTableSeeder::class);
+        $this->call(QuestionCategoriesTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
     }
 }

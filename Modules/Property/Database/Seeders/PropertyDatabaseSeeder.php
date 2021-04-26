@@ -13,6 +13,6 @@ class PropertyDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PropertyTableSeeder::class);
+        $this->call(PropertiesTableSeeder::class);
     }
 }

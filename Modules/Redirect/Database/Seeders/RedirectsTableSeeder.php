@@ -5,7 +5,7 @@ namespace Modules\Redirect\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Redirect\Models\Redirect;
 
-class RedirectTableSeeder extends Seeder
+class RedirectsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

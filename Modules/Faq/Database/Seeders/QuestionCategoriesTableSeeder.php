@@ -8,7 +8,7 @@ use App\Enums\Status;
 use Illuminate\Database\Seeder;
 use Modules\Faq\Models\QuestionCategory;
 
-class QuestionCategoryTableSeeder extends Seeder
+class QuestionCategoriesTableSeeder extends Seeder
 {
     public function run()
     {

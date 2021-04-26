@@ -13,6 +13,6 @@ class PageDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PageTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
     }
 }
