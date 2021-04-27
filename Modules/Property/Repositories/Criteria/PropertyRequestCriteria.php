@@ -18,9 +18,9 @@ class PropertyRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
-                ['id', 'name', 'type', 'description', 'options', 'is_hidden_from_product', 'is_hidden_from_comparison', 'created_at', 'updated_at'],
-                CategoryRequestCriteria::allowedFields('categories'),
-                FilterRequestCriteria::allowedFields('filters')
+                static::allowedPropertyFields(),
+                CategoryRequestCriteria::allowedCategoryFields('categories'),
+                FilterRequestCriteria::allowedFilterFields('filters')
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -34,5 +34,26 @@ class PropertyRequestCriteria implements CriteriaInterface
             ->allowedIncludes(['categories', 'filters'])
             ->allowedSorts('name')
             ;
+    }
+
+    public static function allowedPropertyFields($prefix = null): array
+    {
+        $fields = [
+            'id',
+            'name',
+            'type',
+            'description',
+            'options',
+            'is_hidden_from_product',
+            'is_hidden_from_comparison',
+            'created_at',
+            'updated_at'
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
     }
 }

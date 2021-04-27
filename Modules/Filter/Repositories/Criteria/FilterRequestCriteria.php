@@ -5,6 +5,7 @@ namespace Modules\Filter\Repositories\Criteria;
 
 
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
+use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -15,10 +16,11 @@ class FilterRequestCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return QueryBuilder::for($model)
-            ->defaultSort('position')
+            ->defaultSort('-id')
             ->allowedFields(array_merge(
-                self::allowedFields(),
-                CategoryRequestCriteria::allowedFields('category')
+                self::allowedFilterFields(),
+                CategoryRequestCriteria::allowedCategoryFields('category'),
+                PropertyRequestCriteria::allowedPropertyFields('property'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -32,12 +34,12 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('property_id'),
                 AllowedFilter::exact('options->field'),
             ])
-            ->allowedIncludes('category')
+            ->allowedIncludes('category', 'property')
             ->allowedSorts('name', 'slug')
             ;
     }
 
-    public static function allowedFields($prefix = null): array
+    public static function allowedFilterFields($prefix = null): array
     {
         $fields = [
             'id', 'name', 'type', 'slug', 'category_id', 'description',
