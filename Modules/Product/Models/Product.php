@@ -52,6 +52,12 @@ class Product extends Model
             ->where('product_categories.is_main', '=', true);
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_category')
+            ->withPivot('is_main');
+    }
+
     public function properties()
     {
         return $this
@@ -61,12 +67,6 @@ class Product extends Model
                 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
             ])
             ->whereNotNull('value');
-    }
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'product_category')
-            ->withPivot('is_main');
     }
 
     public function seo()
