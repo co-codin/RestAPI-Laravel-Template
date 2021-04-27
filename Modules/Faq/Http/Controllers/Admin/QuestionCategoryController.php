@@ -2,7 +2,6 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use App\Dto\Dto;
 use Illuminate\Routing\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;

@@ -8,6 +8,18 @@ use Modules\Category\Models\Category;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
 
+/**
+ * Class Filter
+ * @package Modules\Filter\Models
+ * @property int $id
+ * @property int $status
+ * @property bool $is_default
+ * @property bool $is_enabled
+ * @property int $position
+ * @property array $array
+ * @property Property|null $property
+ * @property Category|null $category
+ */
 class Filter extends Model
 {
     use HasFactory;

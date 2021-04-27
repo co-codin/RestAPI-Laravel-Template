@@ -2,9 +2,9 @@
 
 namespace Modules\Product\Enums;
 
-use App\Enums\Enum;
+use App\Enums\BaseEnum;
 
-class ProductType extends Enum
+class ProductType extends BaseEnum
 {
     CONST STERLING = 1;
 

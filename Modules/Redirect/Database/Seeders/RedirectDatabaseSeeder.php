@@ -13,6 +13,6 @@ class RedirectDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RedirectTableSeeder::class);
+        $this->call(RedirectsTableSeeder::class);
     }
 }

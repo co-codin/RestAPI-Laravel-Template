@@ -5,7 +5,7 @@ namespace Modules\Achievement\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Achievement\Models\Achievement;
 
-class AchievementTableSeeder extends Seeder
+class AchievementsTableSeeder extends Seeder
 {
     public function run()
     {

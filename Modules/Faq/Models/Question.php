@@ -2,13 +2,19 @@
 
 namespace Modules\Faq\Models;
 
-use App\Traits\IsActive;
+use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Faq\Database\factories\QuestionFactory;
 
+/**
+ * Class Question
+ * @package Modules\Faq\Models
+ * @property int $id
+ * @property int $status
+ */
 class Question extends Model
 {
     use HasFactory, SoftDeletes, IsActive, Sluggable;

@@ -2,7 +2,6 @@
 
 namespace Modules\Achievement\Http\Controllers\Admin;
 
-use App\Dto\Dto;
 use App\Repositories\Criteria\IsEnabledCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;

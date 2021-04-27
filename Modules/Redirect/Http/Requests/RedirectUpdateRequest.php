@@ -20,8 +20,8 @@ class RedirectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_url' => 'sometimes|required|string|max:255|unique:redirects,old_url,' . $this->route('redirect'),
-            'new_url' => 'sometimes|required|string|max:255',
+            'source' => 'sometimes|required|string|max:255|unique:redirects,source,' . $this->route('redirect'),
+            'destination' => 'sometimes|required|string|max:255',
             'code' => 'sometimes|integer|digits:3|in:301,302',
         ];
     }
@@ -29,8 +29,8 @@ class RedirectUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'old_url' => 'Старая ссылка',
-            'new_url' => 'Новая ссылка',
+            'source' => 'Старая ссылка',
+            'destination' => 'Новая ссылка',
             'code' => 'Код',
         ];
     }

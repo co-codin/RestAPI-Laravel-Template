@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Publication\Database\factories\PublicationFactory;
 
+/**
+ * Class Publication
+ * @package Modules\Publication\Models
+ * @property int $id
+ * @property bool $is_enabled
+ */
 class Publication extends Model
 {
     use HasFactory;

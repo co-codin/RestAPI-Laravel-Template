@@ -8,6 +8,16 @@ use Modules\Category\Models\Category;
 use Modules\Filter\Models\Filter;
 use Modules\Property\Database\factories\PropertyFactory;
 
+/**
+ * Class Property
+ * @package Modules\Property\Models
+ * @property string $name
+ * @property integer $type
+ * @property array|null $options
+ * @property string|null $description
+ * @property bool is_hidden_from_product
+ * @property bool is_hidden_from_comparison
+ */
 class Property extends Model
 {
     use HasFactory;

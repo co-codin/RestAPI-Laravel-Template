@@ -4,9 +4,9 @@
 namespace Modules\Publication\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
-class PublicationDto extends Dto
+class PublicationDto extends BaseDto
 {
     public ?string $name;
 

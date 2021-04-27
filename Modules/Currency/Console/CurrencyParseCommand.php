@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Currency\Models\Currency;
 
-class CurrencyParse extends Command
+class CurrencyParseCommand extends Command
 {
     protected $signature = 'currency:parse';
 

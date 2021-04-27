@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
  * Class Enum
  * @package App\Enums
  */
-abstract class Enum extends BenSampoEnum implements LocalizedEnum
+abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
 {
     /**
      * @var string|null
@@ -62,5 +62,13 @@ abstract class Enum extends BenSampoEnum implements LocalizedEnum
     public static function getFilterItemValue(string $value): ?string
     {
         return $value;
+    }
+
+    public static function toJson($value): array
+    {
+        return [
+            'value' => $value,
+            'description' => static::getDescription($value),
+        ];
     }
 }

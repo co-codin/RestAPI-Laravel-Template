@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Modules\Faq\Dto;
 
+use App\Dto\BaseDto;
 
-use App\Dto\Dto;
-
-class QuestionDto extends Dto
+class QuestionDto extends BaseDto
 {
     public ?string $question;
 
@@ -14,8 +12,7 @@ class QuestionDto extends Dto
 
     public ?string $answer;
 
-    /** @var mixed */
-    public $status;
+    public mixed $status;
 
-    public ?int $question_category_id;
+    public mixed $question_category_id;
 }

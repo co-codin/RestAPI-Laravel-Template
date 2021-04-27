@@ -4,14 +4,14 @@
 namespace Modules\Page\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class PageDto
  * @package Modules\Page\Dto\Admin
  */
-class PageDto extends Dto
+class PageDto extends BaseDto
 {
     public ?int $parent_id;
 

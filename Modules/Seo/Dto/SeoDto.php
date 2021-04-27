@@ -4,13 +4,13 @@
 namespace Modules\Seo\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
 /**
  * Class SeoDto
  * @package Modules\Seo\Dto\Admin
  */
-class SeoDto extends Dto
+class SeoDto extends BaseDto
 {
     public $is_enabled = 1;
 

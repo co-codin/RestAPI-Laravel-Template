@@ -2,7 +2,7 @@
 
 namespace Modules\Seo\Http\Resources;
 
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Seo\Models\Seo;
 
 /**

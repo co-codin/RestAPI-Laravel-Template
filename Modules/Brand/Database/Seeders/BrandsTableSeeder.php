@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Brand\Models\Brand;
 
-class BrandTableSeeder extends Seeder
+class BrandsTableSeeder extends Seeder
 {
     public function run()
     {

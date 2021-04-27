@@ -21,8 +21,8 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
-                    "old_url",
-                    "new_url",
+                    "source",
+                    "destination",
                     "code",
                     "created_at",
                     "updated_at",
@@ -63,8 +63,8 @@ class ReadTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "old_url",
-                "new_url",
+                "source",
+                "destination",
                 "code",
                 "created_at",
                 "updated_at",

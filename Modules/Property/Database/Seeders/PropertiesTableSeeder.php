@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Modules\Property\Enums\PropertyType;
 use Modules\Property\Models\Property;
 
-class PropertyTableSeeder extends Seeder
+class PropertiesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

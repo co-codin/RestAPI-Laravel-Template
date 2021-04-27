@@ -9,10 +9,10 @@ use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_create_question()
-    {
-        //
-    }
+//    public function test_unauthenticated_cannot_create_question()
+//    {
+//        //
+//    }
 
     public function test_authenticated_user_can_create_question()
     {

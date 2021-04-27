@@ -4,13 +4,13 @@
 namespace Modules\Seo\Dto;
 
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 
 /**
  * Class SeoRuleDto
  * @package Modules\Seo\Dto\Admin
  */
-class SeoRuleDto extends Dto
+class SeoRuleDto extends BaseDto
 {
     public ?string $name;
 
