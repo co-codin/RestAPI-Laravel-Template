@@ -10,6 +10,6 @@ class ProductPropertyController extends Controller
 {
     public function update()
     {
-        
+
     }
 }
