@@ -27,4 +27,9 @@ class ProductStorage
 
         return $product;
     }
+
+    public function update(Product $product, ProductDto $productDto)
+    {
+
+    }
 }
