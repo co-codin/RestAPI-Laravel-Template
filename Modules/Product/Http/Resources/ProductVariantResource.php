@@ -11,7 +11,7 @@ class ProductVariantResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'product' => $this->whenLoaded('product'),
+            'currency' => $this->whenLoaded('currency'),
         ]);
     }
 }

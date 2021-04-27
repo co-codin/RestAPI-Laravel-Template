@@ -11,5 +11,8 @@ type Product {
     full_description: String!
 
     brand: Brand!
-
+    productVariants: [ProductVariant!]!
+    category: Category
+    categories: [Category!]
+    properties: [Property!]!
 }
