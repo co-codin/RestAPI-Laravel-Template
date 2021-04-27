@@ -30,7 +30,7 @@ class ProductVariantFactory extends Factory
             'is_price_visible' => $this->faker->boolean,
             'is_enabled' => $this->faker->boolean,
             'availability' => 1,
-            'currency_id' => Currency::factory(),
+            'currency_id' => Currency::inRandomOrder()->first(),
         ];
     }
 }

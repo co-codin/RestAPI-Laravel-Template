@@ -24,7 +24,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'type' => ProductType::getRandomValue(),
+//            'type' => ProductType::getRandomValue(),
             'name' => $this->faker->word,
             'slug' => $this->faker->slug,
             'brand_id' => Brand::factory(),

@@ -1,0 +1,15 @@
+type Product {
+    id: ID!
+    name: String!
+    slug: String!
+    brand_id: Int
+    status: Int!
+    image: String!
+    is_in_home: Boolean!
+    warranty: Int
+    short_description: String!
+    full_description: String!
+
+    brand: Brand!
+
+}
