@@ -3,6 +3,7 @@
 namespace Modules\Product\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Currency\Models\Currency;
 use Modules\Product\Models\Product;
 
 class ProductVariantFactory extends Factory
@@ -29,6 +30,7 @@ class ProductVariantFactory extends Factory
             'is_price_visible' => $this->faker->boolean,
             'is_enabled' => $this->faker->boolean,
             'availability' => 1,
+            'currency_id' => Currency::inRandomOrder()->first(),
         ];
     }
 }

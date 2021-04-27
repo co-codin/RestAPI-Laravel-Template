@@ -1,0 +1,13 @@
+type ProductVariant {
+    id: ID!
+    product_id: Int!
+    name: String!
+    price: Float
+    previous_price: Float
+    currency_id: Int
+    is_price_visible: Boolean!
+    is_enabled: Boolean!
+    availability: Int!
+
+    currency: Currency
+}

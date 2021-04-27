@@ -127,6 +127,7 @@ return [
             'Modules\\Property\\Models',
             'Modules\\Filter\\Models',
             'Modules\\Currency\\Models',
+            'Modules\\Product\\Models',
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',

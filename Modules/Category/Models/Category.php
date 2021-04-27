@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
+use Modules\Product\Models\Product;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 
@@ -41,6 +42,12 @@ class Category extends Model
         'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_category')
+            ->withPivot('is_main');
+    }
 
     public function seo()
     {

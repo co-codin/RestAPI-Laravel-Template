@@ -5,6 +5,7 @@ namespace Modules\Product\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Currency\Models\Currency;
 use Modules\Product\Database\factories\ProductVariantFactory;
 
 class ProductVariant extends Model
@@ -17,7 +18,7 @@ class ProductVariant extends Model
         'product_id' => 'integer',
         'price' => 'integer',
         'previous_price' => 'integer',
-//        'currency_id' => 'integer',
+        'currency_id' => 'integer',
         'is_price_visible' => 'boolean',
         'is_enabled' => 'boolean',
         'availability' => 'integer',
@@ -27,6 +28,11 @@ class ProductVariant extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     protected static function newFactory()

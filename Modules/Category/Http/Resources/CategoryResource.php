@@ -23,6 +23,9 @@ class CategoryResource extends BaseJsonResource
             'ancestors' => CategoryResource::collection($this->whenLoaded('ancestors')),
             'descendants' => CategoryResource::collection($this->whenLoaded('descendants')),
             'children' => CategoryResource::collection($this->whenLoaded('children')),
+            'is_main' => $this->whenPivotLoaded('product_category', function () {
+                return $this->pivot->is_main;
+            }),
         ]);
     }
 }
