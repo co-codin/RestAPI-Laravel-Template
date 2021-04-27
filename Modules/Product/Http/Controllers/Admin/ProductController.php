@@ -32,6 +32,6 @@ class ProductController extends Controller
 
         $productModel = $this->productStorage->update($productModel, ProductDto::fromFormRequest($request));
 
-        return new ProductResource($product);
+        return new ProductResource($productModel);
     }
 }

@@ -10,7 +10,9 @@ use Modules\Product\Models\Product;
 
 class ProductStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(protected ImageUploader $imageUploader)
+    {
+    }
 
     public function store(ProductDto $productDto)
     {
@@ -30,6 +32,21 @@ class ProductStorage
 
     public function update(Product $product, ProductDto $productDto)
     {
+        $attributes = $productDto->toArray();
 
+        if ($productDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($productDto->image);
+        }
+
+        if ($productDto->categories) {
+            $product->categories()->detach();
+            $product->categories()->attach($productDto->categories);
+        }
+
+        if (!$product->update($attributes)) {
+            throw new \LogicException('can not update product.');
+        }
+
+        return $product;
     }
 }

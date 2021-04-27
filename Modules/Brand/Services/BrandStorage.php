@@ -10,13 +10,15 @@ use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(protected ImageUploader $imageUploader)
+    {
+    }
 
     public function store(BrandDto $brandDto)
     {
         $attributes = $brandDto->toArray();
 
-        if($brandDto->image) {
+        if ($brandDto->image) {
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);
         }
 
@@ -27,7 +29,7 @@ class BrandStorage
     {
         $attributes = $brandDto->toArray();
 
-        if($brandDto->image) {
+        if ($brandDto->image) {
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);
         }
 
