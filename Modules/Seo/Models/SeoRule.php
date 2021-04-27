@@ -23,4 +23,9 @@ class SeoRule extends Model
     {
         return SeoRuleFactory::new();
     }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
+    }
 }
