@@ -1,12 +1,22 @@
 <?php
 
 
-namespace Modules\Product\Models\Pivots;
+namespace Modules\Property\Models\Pivots;
 
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Modules\Property\Models\Property;
 
+/**
+ * Class PropertyValuePivot
+ * @package Modules\Product\Models\Pivots
+ * @property mixed $value
+ * @property string|null $pretty_key
+ * @property string|null $pretty_value
+ * @property boolean $is_important
+ * @property int|null $important_position
+ * @property string|null $important_value
+ */
 class PropertyValuePivot extends Pivot
 {
     protected $casts = [

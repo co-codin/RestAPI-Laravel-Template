@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Models\Category;
 use Modules\Filter\Models\Filter;
+use Modules\Property\Models\Pivots\PropertyValuePivot;
 use Modules\Property\Database\factories\PropertyFactory;
 
 /**
@@ -17,6 +18,7 @@ use Modules\Property\Database\factories\PropertyFactory;
  * @property string|null $description
  * @property bool is_hidden_from_product
  * @property bool is_hidden_from_comparison
+ * @property PropertyValuePivot $pivot
  */
 class Property extends Model
 {
