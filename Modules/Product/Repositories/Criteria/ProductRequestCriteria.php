@@ -41,7 +41,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariants.availability'),
                 AllowedFilter::exact('productVariants.previous_price'),
             ])
-            ->allowedIncludes(['brand', 'productVariants', 'category', 'categories', 'seo'])
+            ->allowedIncludes(['brand', 'productVariants', 'properties', 'category', 'categories', 'seo'])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
     }

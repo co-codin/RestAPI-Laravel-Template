@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
+use Modules\Product\Models\Pivots\PropertyValuePivot;
+use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 
 class Product extends Model
@@ -48,6 +50,17 @@ class Product extends Model
             'category_id'
         )
             ->where('product_categories.is_main', '=', true);
+    }
+
+    public function properties()
+    {
+        return $this
+            ->belongsToMany(Property::class, 'property_value')
+            ->using(PropertyValuePivot::class)
+            ->withPivot([
+                'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
+            ])
+            ->whereNotNull('value');
     }
 
     public function categories()
