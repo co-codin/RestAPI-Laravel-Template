@@ -4,7 +4,7 @@
 namespace Modules\Property\Http\Resources;
 
 
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Category\Http\Resources\CategoryResource;
 use Modules\Filter\Http\Resources\FilterResource;
 

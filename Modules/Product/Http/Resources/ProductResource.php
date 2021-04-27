@@ -5,7 +5,7 @@ namespace Modules\Product\Http\Resources;
 
 
 use App\Enums\Status;
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
 use Modules\Property\Http\Resources\PropertyResource;

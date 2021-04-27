@@ -4,7 +4,7 @@
 namespace Modules\Product\Http\Resources;
 
 
-use App\Transformers\BaseJsonResource;
+use App\Http\Resources\BaseJsonResource;
 
 class ProductVariantResource extends BaseJsonResource
 {
