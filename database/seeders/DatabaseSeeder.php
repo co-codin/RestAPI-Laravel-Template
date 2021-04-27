@@ -8,9 +8,9 @@ use Modules\Brand\Database\Seeders\BrandDatabaseSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Currency\Database\Seeders\CurrencyDatabaseSeeder;
 use Modules\Faq\Database\Seeders\FaqDatabaseSeeder;
-use Modules\Filter\Database\Seeders\FilterDatabaseSeeder;
 use Modules\News\Database\Seeders\NewsDatabaseSeeder;
 use Modules\Page\Database\Seeders\PageDatabaseSeeder;
+use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 use Modules\Property\Database\Seeders\PropertyDatabaseSeeder;
 use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PropertyDatabaseSeeder::class);
 //        $this->call(FilterDatabaseSeeder::class);
         $this->call(CurrencyDatabaseSeeder::class);
+        $this->call(ProductDatabaseSeeder::class);
     }
 }

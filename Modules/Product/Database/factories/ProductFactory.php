@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Brand\Models\Brand;
 use Modules\Product\Enums\ProductType;
@@ -27,7 +28,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'slug' => $this->faker->slug,
             'brand_id' => Brand::factory(),
-            'status' => 1,
+            'status' => Status::ACTIVE,
             'image' => $this->faker->imageUrl(),
             'is_in_home' => $this->faker->boolean,
             'warranty' => 1,
