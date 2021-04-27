@@ -45,7 +45,7 @@ class FilterUpdateRequest extends FormRequest
         if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {
             foreach ($fields as $item) {
                 if($item['rules'] ?? null) {
-                    $rules["options.{$item['name']}"] = !empty($item['rules']) ? 'sometimes|' . $item['rules'] : $item['rules'];
+                    $rules["options.{$item['name']}"] = $item['rules'];
                 }
             }
         }
