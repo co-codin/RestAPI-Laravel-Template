@@ -17,12 +17,12 @@ class PropertiesTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->getProperties() as $property) {
+        foreach (self::properties() as $property) {
             Property::query()->create(Arr::except($property, ['values', 'rules']));
         }
     }
 
-    protected function getProperties()
+    public static function properties()
     {
         return [
             [

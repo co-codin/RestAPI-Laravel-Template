@@ -29,7 +29,8 @@ class PropertyUpdateRequest extends FormRequest
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',
             'categories' => 'sometimes|required|array',
-            'categories.*' => 'sometimes|required|integer|exists:categories,id',
+            'categories.*.id' => 'sometimes|required|integer|exists:categories,id',
+            'categories.*.position' => 'sometimes|required|distinct|integer',
         ];
     }
 
