@@ -18,6 +18,10 @@ class ReadTest extends TestCase
                         id
                         name
                         slug
+                        brand {
+                            id
+                            name
+                        }
                     }
                     paginatorInfo {
                         currentPage
