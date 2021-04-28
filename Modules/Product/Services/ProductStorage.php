@@ -6,11 +6,9 @@ use App\Services\File\ImageUploader;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
-class ProductStorage
+class ProductStorage extends ProductBaseStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(protected ImageUploader $imageUploader) {}
 
     public function store(ProductDto $productDto)
     {
@@ -46,16 +44,5 @@ class ProductStorage
         }
 
         return $product;
-    }
-
-    protected function groupBy(array $categories)
-    {
-        $data = [];
-
-        foreach ($categories as $category) {
-            $data[$category['id']] = ['is_main' => $category['is_main']];
-        }
-
-        return $data;
     }
 }
