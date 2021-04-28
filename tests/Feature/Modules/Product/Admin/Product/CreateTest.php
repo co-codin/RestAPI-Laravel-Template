@@ -16,6 +16,8 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_product()
     {
+        $this->withoutExceptionHandling();
+
         $category = Category::factory()->create();
 
         $productData = Product::factory()->raw();

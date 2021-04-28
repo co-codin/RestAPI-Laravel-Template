@@ -5,6 +5,7 @@ namespace Modules\Product\Services;
 
 
 use App\Services\File\ImageUploader;
+use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
@@ -21,7 +22,10 @@ class ProductStorage
 
         $product = Product::query()->create($attributes);
 
-        $product->categories()->attach($productDto->categories);
+        // TODO REFACTORING
+        foreach ($productDto->categories as $category) {
+            $product->categories()->attach($category['id'], ['is_main' => $category['is_main']]);
+        }
 
         $product->productVariants()->create([
             'name' => $product->brand->name . ' ' . $product->name
@@ -40,7 +44,7 @@ class ProductStorage
 
         if ($productDto->categories) {
             $product->categories()->detach();
-            $product->categories()->attach($productDto->categories);
+            $product->categories()->attach($this->groupBy($productDto->categories));
         }
 
         if (!$product->update($attributes)) {
@@ -48,5 +52,18 @@ class ProductStorage
         }
 
         return $product;
+    }
+
+    protected function groupBy(array $categories)
+    {
+        $data = [];
+
+        foreach ($categories as $category) {
+            $data[] = [
+                $category['id'] => ['is_main' => $category['is_main']]
+            ];
+        }
+
+        return $data;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Dto;
 
-use App\Dto\Dto;
+use App\Dto\BaseDto;
 use Illuminate\Http\UploadedFile;
 
-class ProductDto extends Dto
+class ProductDto extends BaseDto
 {
     public ?array $categories;
 
