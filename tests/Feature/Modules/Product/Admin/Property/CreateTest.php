@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Product\Admin;
+namespace Tests\Feature\Modules\Product\Admin\Property;
 
 use Modules\Achievement\Models\Achievement;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_create_product()
+    public function test_unauthenticated_cannot_create_property()
     {
         //
     }
 
-    public function test_authenticated_can_create_product()
+    public function test_authenticated_can_create_property()
     {
 //        $achievementData = Achievement::factory()->raw();
 //
