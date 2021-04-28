@@ -28,9 +28,9 @@ class ProductUpdateRequest extends FormRequest
                 },
             ],
             'categories.*.id' => 'sometimes｜required|integer|distinct|exists:categories,id',
-            'categories.*.is_main' => 'sometimes｜required|boolean',
+            'categories.*.is_main' => 'sometimes|required|boolean',
 
-            'brand_id' => 'required_unless:type,' . Status::ACTIVE,
+            'brand_id' => 'sometimes|required_unless:type,' . Status::ACTIVE,
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|unique:products,slug,' . $this->route('product'),
             'image' => 'sometimes|required|image',

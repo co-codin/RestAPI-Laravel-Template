@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Modules\Product\Services;
 
-
 use App\Services\File\ImageUploader;
-use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
@@ -22,10 +19,7 @@ class ProductStorage
 
         $product = Product::query()->create($attributes);
 
-        // TODO REFACTORING
-        foreach ($productDto->categories as $category) {
-            $product->categories()->attach($category['id'], ['is_main' => $category['is_main']]);
-        }
+        $product->categories()->sync($this->groupBy($productDto->categories));
 
         $product->productVariants()->create([
             'name' => $product->brand->name . ' ' . $product->name
@@ -44,7 +38,7 @@ class ProductStorage
 
         if ($productDto->categories) {
             $product->categories()->detach();
-            $product->categories()->attach($this->groupBy($productDto->categories));
+            $product->categories()->sync($this->groupBy($productDto->categories));
         }
 
         if (!$product->update($attributes)) {
@@ -59,9 +53,7 @@ class ProductStorage
         $data = [];
 
         foreach ($categories as $category) {
-            $data[] = [
-                $category['id'] => ['is_main' => $category['is_main']]
-            ];
+            $data[$category['id']] = ['is_main' => $category['is_main']];
         }
 
         return $data;

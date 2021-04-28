@@ -16,15 +16,13 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_product()
     {
-        $this->withoutExceptionHandling();
-
         $category = Category::factory()->create();
 
         $productData = Product::factory()->raw();
 
         $response = $this->json('POST', route('admin.products.store'), array_merge($productData, [
             'categories' => [
-                ['id' => $category->id, 'is_main' => true]
+                ['id' => $category->id, 'is_main' => $isMain = true]
             ]
         ]));
 
@@ -39,6 +37,12 @@ class CreateTest extends TestCase
         $this->assertDatabaseHas('products', [
             'name' => $productData['name'],
             'slug' => $productData['slug']
+        ]);
+
+        $this->assertDatabaseHas('product_category', [
+            'product_id' => $response['data']['id'],
+            'category_id' => $category->id,
+            'is_main' => $isMain,
         ]);
     }
 }
