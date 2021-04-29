@@ -7,7 +7,6 @@ use Modules\Currency\Models\Currency;
 use Modules\Product\Enums\ProductVariantStock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariant;
-use Modules\Property\Models\Property;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -24,19 +23,20 @@ class UpdateTest extends TestCase
         $response = $this->json(
             'PUT',
             route('admin.product.configurator.update', $product),
-            $this->getData()
+            [
+                'variants' => $this->getData(),
+            ],
         );
 
+        $response->assertNoContent();
 
-//
-//        $response->assertNoContent();
-//
-//        $this->assertDatabaseHas('property_value', [
-//            'property_id' => $property->id,
-//            'product_id' => $product->id,
-//            'pretty_key' => $prettyKey,
-//            'pretty_value' => $prettyValue,
-//        ]);
+        $this->assertDatabaseHas('product_variants', [
+            'name' =>  'name_two',
+        ]);
+
+        $this->assertDatabaseMissing('product_variants', [
+            'name' => 'name_one'
+        ]);
     }
 
     protected function getData(): array
@@ -46,37 +46,35 @@ class UpdateTest extends TestCase
         $anotherProductVariant = ProductVariant::factory()->create();
 
         return [
-            'variants' => [
-                [
-                    'id' => $productVariant->id,
-                    'name' => 'name_one',
-                    'price' => 100,
-                    'previous_price' => 50,
-                    'currency_id' => Currency::factory(),
-                    'is_price_visible' => true,
-                    'is_enabled' => true,
-                    'availability' => ProductVariantStock::InStock,
-                ],
-                [
-                    'name' =>  'name_two',
-                    'price' => 200,
-                    'previous_price' => 100,
-                    'currency_id' => Currency::factory(),
-                    'is_price_visible' => false,
-                    'is_enabled' => true,
-                    'availability' => ProductVariantStock::UnderTheOrder,
-                ],
-                [
-                    'id' => $anotherProductVariant->id,
-                    'name' => 'name_three',
-                    'price' => 300,
-                    'previous_price' => 150,
-                    'currency_id' => Currency::factory(),
-                    'is_price_visible' => true,
-                    'is_enabled' => true,
-                    'availability' => ProductVariantStock::ComingSoon,
-                ],
-            ]
+            [
+                'id' => $productVariant->id,
+                'name' => 'name_one',
+                'price' => 100,
+                'previous_price' => 50,
+                'currency_id' => Currency::factory()->create()->id,
+                'is_price_visible' => true,
+                'is_enabled' => true,
+                'availability' => ProductVariantStock::InStock,
+            ],
+            [
+                'name' =>  'name_two',
+                'price' => 200,
+                'previous_price' => 100,
+                'currency_id' => Currency::factory()->create()->id,
+                'is_price_visible' => false,
+                'is_enabled' => true,
+                'availability' => ProductVariantStock::UnderTheOrder,
+            ],
+            [
+                'id' => $anotherProductVariant->id,
+                'name' => 'name_three',
+                'price' => 300,
+                'previous_price' => 150,
+                'currency_id' => Currency::factory()->create()->id,
+                'is_price_visible' => true,
+                'is_enabled' => true,
+                'availability' => ProductVariantStock::ComingSoon,
+            ],
         ];
     }
 }
