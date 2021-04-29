@@ -4,13 +4,15 @@ namespace Modules\Product\Services;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductVariant;
 
 class ProductConfiguratorStorage
 {
     public function update(Product $product, array $variants)
     {
+        DB::beginTransaction();
+
         $dataWithId = collect($variants)->filter(fn($item) => Arr::exists($item, 'id'));
         $dataWithoutId = collect($variants)->filter(fn($item) => !Arr::exists($item, 'id'));
 
@@ -21,25 +23,39 @@ class ProductConfiguratorStorage
         if (count($dataWithoutId)) {
             $this->handleNewData($product, $dataWithoutId);
         }
+
+        DB::commit();
     }
 
     protected function handleExistingData(Product $product, Collection $collection)
     {
-        $product->productVariants()
-            ->whereNotIn('id', $collection->pluck('id')->toArray())
-            ->delete()
-        ;
+        try {
+            $product->productVariants()
+                ->whereNotIn('id', $collection->pluck('id')->toArray())
+                ->delete()
+            ;
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
 
         foreach ($collection as $item) {
-            $productVariantQuery = $product->productVariants()->where('id', $item['id']);
-            if ($productVariantQuery->exists()) {
-                $productVariantQuery->update(Arr::except($item, 'id'));
+            try {
+                $productVariantQuery = $product->productVariants()->where('id', $item['id']);
+                if ($productVariantQuery->exists()) {
+                    $productVariantQuery->update(Arr::except($item, 'id'));
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
             }
         }
     }
 
     protected function handleNewData(Product $product, Collection $collection)
     {
-        $product->productVariants()->createMany($collection->toArray());
+        try {
+            $product->productVariants()->createMany($collection->toArray());
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
 }

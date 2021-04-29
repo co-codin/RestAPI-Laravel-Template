@@ -25,8 +25,8 @@ class ProductVariantFactory extends Factory
         return [
             'product_id' => Product::factory(),
             'name' => $this->faker->word,
-            'price' => $this->faker->randomDigit,
-            'previous_price' => $this->faker->randomDigit,
+            'price' => $this->faker->numberBetween(1000, 9000),
+            'previous_price' => $this->faker->numberBetween(1000, 9000),
             'is_price_visible' => $this->faker->boolean,
             'is_enabled' => $this->faker->boolean,
             'availability' => 1,
