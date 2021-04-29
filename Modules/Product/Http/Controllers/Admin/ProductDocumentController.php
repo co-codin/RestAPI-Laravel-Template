@@ -6,6 +6,7 @@ namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Modules\Product\Http\Requests\ProductDocumentUpdateRequest;
+use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Services\ProductDocumentStorage;
 
@@ -20,8 +21,8 @@ class ProductDocumentController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
-        $this->productDocumentStorage->update($productModel, $request->validated());
+        $productModel = $this->productDocumentStorage->update($productModel, $request->validated());
 
-        return response()->noContent();
+        return new ProductResource($productModel);
     }
 }

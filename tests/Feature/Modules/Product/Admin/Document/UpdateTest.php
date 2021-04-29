@@ -3,6 +3,7 @@
 namespace Tests\Feature\Modules\Product\Admin\Document;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 use Modules\Product\Models\Product;
@@ -12,6 +13,10 @@ class UpdateTest extends TestCase
 {
     public function test_authenticated_can_update_document()
     {
+        $this->withoutExceptionHandling();
+
+//        Storage::fake('documents');
+
         $product = Product::factory()->create();
 
         $response = $this->json(
@@ -29,13 +34,14 @@ class UpdateTest extends TestCase
                     [
                         'name' => 'test_2',
                         'source' => DocumentSource::FILE,
-                        'file' => UploadedFile::fake()->create('test.pdf'),
+                        'file' => $file = UploadedFile::fake()->createWithContent('test.pdf', 'test'),
                         'type' => DocumentType::MANUAL,
                     ],
                 ]
             ],
         );
 
-        $response->assertNoContent();
+        $response->assertOk();
+        $this->assertNotEmpty($product->refresh()->documents);
     }
 }
