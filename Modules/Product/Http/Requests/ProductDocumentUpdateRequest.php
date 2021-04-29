@@ -12,7 +12,7 @@ class ProductDocumentUpdateRequest extends FormRequest
     {
         return [
             'documents' => 'required|array',
-
+            'documents.*.'
         ];
     }
 }
