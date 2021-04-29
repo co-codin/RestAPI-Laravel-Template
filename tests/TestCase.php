@@ -16,6 +16,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         Storage::fake();
+        Storage::fake('public');
     }
 
     protected function getToken()

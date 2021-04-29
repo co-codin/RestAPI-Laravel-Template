@@ -31,7 +31,7 @@ class ProductCreateRequest extends FormRequest
 
             'brand_id' => 'required_unless:type,' . Status::ACTIVE,
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:products,slug',
+            'slug' => 'required|string|max:255|unique:products,slug',
             'image' => 'required|image',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',

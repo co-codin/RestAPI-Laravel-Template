@@ -17,8 +17,6 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_property_in_product()
     {
-        $this->withoutExceptionHandling();
-
         $product = Product::factory()->create();
 
         $property = Property::factory()->create();

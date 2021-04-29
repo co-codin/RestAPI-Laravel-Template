@@ -7,13 +7,17 @@ namespace Modules\Product\Services;
 use Illuminate\Support\Arr;
 use Modules\Product\Models\Product;
 
-class ProductPropertyStorage extends ProductBaseStorage
+class ProductPropertyStorage
 {
     public function update(Product $product, array $properties)
     {
-        $properties = $this->groupBy($properties);
         $product->properties()->detach();
 
-        $product->properties()->attach($properties);
+        $product->properties()->sync(
+            collect($properties)
+                ->keyBy('id')
+                ->map(fn($item) => Arr::except($item, 'id'))
+                ->toArray()
+        );
     }
 }

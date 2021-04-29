@@ -3,10 +3,11 @@
 namespace Modules\Product\Services;
 
 use App\Services\File\ImageUploader;
+use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
-class ProductStorage extends ProductBaseStorage
+class ProductStorage
 {
     public function __construct(protected ImageUploader $imageUploader) {}
 
@@ -17,7 +18,12 @@ class ProductStorage extends ProductBaseStorage
 
         $product = Product::query()->create($attributes);
 
-        $product->categories()->sync($this->groupBy($productDto->categories));
+        $product->categories()->sync(
+            collect($productDto->categories)
+                ->keyBy('id')
+                ->map(fn($item) => Arr::except($item, 'id'))
+                ->toArray()
+        );
 
         $product->productVariants()->create([
             'name' => $product->brand->name . ' ' . $product->name
@@ -36,7 +42,12 @@ class ProductStorage extends ProductBaseStorage
 
         if ($productDto->categories) {
             $product->categories()->detach();
-            $product->categories()->sync($this->groupBy($productDto->categories));
+            $product->categories()->sync(
+                collect($productDto->categories)
+                    ->keyBy('id')
+                    ->map(fn($item) => Arr::except($item, 'id'))
+                    ->toArray()
+            );
         }
 
         if (!$product->update($attributes)) {
