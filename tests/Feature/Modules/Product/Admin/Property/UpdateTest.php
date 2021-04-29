@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_page()
+//    public function test_unauthenticated_cannot_update_property_in_product()
 //    {
 //        //
 //    }
