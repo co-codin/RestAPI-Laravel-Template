@@ -13,7 +13,9 @@ class ProductConfiguratorStorage
         $dataWithId = collect($variants)->map(fn($item) => Arr::exists($item, 'id'))->toArray();
         $dataWithoutId = collect($variants)->map(fn($item) => !Arr::exists($item, 'id'))->toArray();
 
-
+        dd(
+            $dataWithId
+        );
 //        ProductVariant::query()->get();
     }
 }
