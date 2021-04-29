@@ -18,25 +18,24 @@ class UpdateTest extends TestCase
             'PUT',
             route('admin.product.document.update', $product),
             [
-                [
-                    'name' => 'test',
-                    'source' => DocumentSource::URL,
-                    'url' => 'http://www.test.com',
-                    'type' => DocumentType::MANUAL,
-                    'position' => 1
-                ],
-                [
-                    'name' => 'test_2',
-                    'source' => DocumentSource::FILE,
-                    'file' => UploadedFile::fake()->create('test.pdf'),
-                    'type' => DocumentType::MANUAL,
-                    'position' => 1
-                ],
+                'documents' => $documents = [
+                    [
+                        'name' => 'test',
+                        'source' => DocumentSource::URL,
+                        'url' => 'http://www.test.com',
+                        'type' => DocumentType::MANUAL,
+                        'position' => 1
+                    ],
+                    [
+                        'name' => 'test_2',
+                        'source' => DocumentSource::FILE,
+                        'file' => UploadedFile::fake()->create('test.pdf'),
+                        'type' => DocumentType::MANUAL,
+                    ],
+                ]
             ],
         );
 
-        dd(
-            $response->json()
-        );
+        $response->assertNoContent();
     }
 }

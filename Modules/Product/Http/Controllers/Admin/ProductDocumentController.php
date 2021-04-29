@@ -20,7 +20,7 @@ class ProductDocumentController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
-        $this->productDocumentStorage->update($productModel, $request->get('documents'));
+        $this->productDocumentStorage->update($productModel, $request->validated());
 
         return response()->noContent();
     }

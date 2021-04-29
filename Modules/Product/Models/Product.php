@@ -24,6 +24,7 @@ class Product extends Model
         'status' => 'integer',
         'is_in_home' => 'boolean',
         'warranty' => 'integer',
+        'documents' => 'array',
     ];
 
     public function brand()

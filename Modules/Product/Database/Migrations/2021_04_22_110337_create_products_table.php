@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->unsignedTinyInteger('warranty')->nullable();
             $table->text('short_description')->nullable();
             $table->text('full_description')->nullable();
+            $table->json('documents')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
