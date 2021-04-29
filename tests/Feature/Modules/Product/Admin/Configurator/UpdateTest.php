@@ -16,7 +16,7 @@ class UpdateTest extends TestCase
 //        //
 //    }
 
-    public function test_authenticated_can_update_configurator()
+    public function test_authenticated_can_create_configurator()
     {
         $product = Product::factory()->create();
 
@@ -24,57 +24,35 @@ class UpdateTest extends TestCase
             'PUT',
             route('admin.product.configurator.update', $product),
             [
-                'variants' => $this->getData(),
+                'variants' => [
+                    $productVariant = ProductVariant::factory()->raw([
+                        'product_id' => null
+                    ]),
+                    $anotherProductVariant = ProductVariant::factory()->raw([
+                        'product_id' => null
+                    ]),
+                ],
             ],
         );
 
         $response->assertNoContent();
 
-        $this->assertDatabaseHas('product_variants', [
-            'name' =>  'name_two',
-        ]);
+        $this->assertDatabaseHas('product_variants', array_merge($productVariant, [
+            'product_id' => $product->id
+        ]));
 
-        $this->assertDatabaseMissing('product_variants', [
-            'name' => 'name_one'
-        ]);
+        $this->assertDatabaseHas('product_variants', array_merge($anotherProductVariant, [
+            'product_id' => $product->id
+        ]));
     }
 
-    protected function getData(): array
+    public function test_authenticated_can_update_configurator()
     {
-        $productVariant = ProductVariant::factory()->create();
 
-        $anotherProductVariant = ProductVariant::factory()->create();
+    }
 
-        return [
-            [
-                'id' => $productVariant->id,
-                'name' => 'name_one',
-                'price' => 100,
-                'previous_price' => 50,
-                'currency_id' => Currency::factory()->create()->id,
-                'is_price_visible' => true,
-                'is_enabled' => true,
-                'availability' => ProductVariantStock::InStock,
-            ],
-            [
-                'name' =>  'name_two',
-                'price' => 200,
-                'previous_price' => 100,
-                'currency_id' => Currency::factory()->create()->id,
-                'is_price_visible' => false,
-                'is_enabled' => true,
-                'availability' => ProductVariantStock::UnderTheOrder,
-            ],
-            [
-                'id' => $anotherProductVariant->id,
-                'name' => 'name_three',
-                'price' => 300,
-                'previous_price' => 150,
-                'currency_id' => Currency::factory()->create()->id,
-                'is_price_visible' => true,
-                'is_enabled' => true,
-                'availability' => ProductVariantStock::ComingSoon,
-            ],
-        ];
+    public function test_authenticated_can_create_and_update_configurator()
+    {
+        
     }
 }
