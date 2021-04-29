@@ -22,7 +22,7 @@ class ProductDocumentUpdateRequest extends FormRequest
                 new EnumValue(DocumentSource::class, false),
             ],
             'documents.*.file' => 'required_if:documents.*.source,' . DocumentSource::FILE . '|file',
-            'documents.*.url' => 'required_if:documents.*.source,' . DocumentSource::URL,
+            'documents.*.url' => 'required_if:documents.*.source,' . DocumentSource::URL . '|url',
 
             'documents.*.type' => [
                 'required',
