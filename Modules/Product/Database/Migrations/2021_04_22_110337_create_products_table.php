@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->foreignId('brand_id')->nullable()->constrained();
+            $table->foreignId('brand_id')->constrained();
             $table->unsignedTinyInteger('status')->default(1);
             $table->string('image');
             $table->boolean('is_in_home')->default(false);
