@@ -4,6 +4,7 @@ namespace Modules\Product\Database\factories;
 
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Modules\Brand\Models\Brand;
 use Modules\Product\Enums\ProductType;
 
@@ -29,9 +30,10 @@ class ProductFactory extends Factory
             'slug' => $this->faker->slug,
             'brand_id' => Brand::factory(),
             'status' => Status::ACTIVE,
-            'image' => $this->faker->imageUrl(),
+            'image' => UploadedFile::fake()->image('test.png'),
+//            'image' => $this->faker->image(storage_path('app/public'),400,300, null, false),
             'is_in_home' => $this->faker->boolean,
-            'warranty' => 1,
+            'warranty' => $this->faker->randomElement([12, 24, 26, 48, 60]),
         ];
     }
 }

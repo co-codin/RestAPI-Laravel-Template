@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Modules\Product\Services;
 
-
 use App\Services\File\ImageUploader;
+use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
 class ProductStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(protected ImageUploader $imageUploader) {}
 
     public function store(ProductDto $productDto)
     {
@@ -21,7 +18,12 @@ class ProductStorage
 
         $product = Product::query()->create($attributes);
 
-        $product->categories()->attach($productDto->categories);
+        $product->categories()->sync(
+            collect($productDto->categories)
+                ->keyBy('id')
+                ->map(fn($item) => Arr::except($item, 'id'))
+                ->toArray()
+        );
 
         $product->productVariants()->create([
             'name' => $product->brand->name . ' ' . $product->name
@@ -40,7 +42,12 @@ class ProductStorage
 
         if ($productDto->categories) {
             $product->categories()->detach();
-            $product->categories()->attach($productDto->categories);
+            $product->categories()->sync(
+                collect($productDto->categories)
+                    ->keyBy('id')
+                    ->map(fn($item) => Arr::except($item, 'id'))
+                    ->toArray()
+            );
         }
 
         if (!$product->update($attributes)) {

@@ -19,13 +19,11 @@ class Product extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'type' => 'integer',
+//        'type' => 'integer',
         'brand_id' => 'integer',
         'status' => 'integer',
         'is_in_home' => 'boolean',
         'warranty' => 'integer',
-        'options' => 'array',
-        'media' => 'array',
         'documents' => 'array',
     ];
 

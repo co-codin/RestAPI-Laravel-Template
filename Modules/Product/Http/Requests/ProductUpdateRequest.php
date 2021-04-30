@@ -27,12 +27,13 @@ class ProductUpdateRequest extends FormRequest
                     }
                 },
             ],
-            'categories.*.id' => 'sometimes｜required|integer|distinct|exists:categories,id',
-            'categories.*.is_main' => 'sometimes｜required|boolean',
-
-            'brand_id' => 'required_unless:type,' . Status::ACTIVE,
+            'categories.*.id' => 'required|integer|distinct|exists:categories,id',
+            'categories.*.is_main' => 'required|boolean',
+            // TODO type
+//            'brand_id' => 'sometimes|integer|exists:brands,id|required_unless:type,' . Status::ACTIVE,
+            'brand_id' => 'sometimes|integer|exists:brands,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|unique:products,slug,' . $this->route('product'),
+            'slug' => 'sometimes|required|string|max:255|unique:products,slug,' . $this->route('product'),
             'image' => 'sometimes|required|image',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',

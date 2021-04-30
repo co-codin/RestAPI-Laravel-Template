@@ -11,19 +11,13 @@ class ProductPropertyStorage
 {
     public function update(Product $product, array $properties)
     {
-        $properties = $this->groupBy('id', $properties);
         $product->properties()->detach();
-        $product->properties()->attach($properties);
-    }
 
-    protected function groupBy($key, array $data)
-    {
-        $result = array();
-
-        foreach($data as $val) {
-            $result[$val[$key]][] = Arr::flatten($val);
-        }
-
-        return $result;
+        $product->properties()->sync(
+            collect($properties)
+                ->keyBy('id')
+                ->map(fn($item) => Arr::except($item, 'id'))
+                ->toArray()
+        );
     }
 }
