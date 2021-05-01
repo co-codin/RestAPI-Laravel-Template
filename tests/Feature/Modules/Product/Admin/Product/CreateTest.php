@@ -4,6 +4,7 @@
 namespace Tests\Feature\Modules\Product\Admin\Product;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Modules\Category\Models\Category;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
@@ -57,7 +58,7 @@ class CreateTest extends TestCase
 
         $productData = Product::factory()->raw([
             'image' => UploadedFile::fake()->image('test.jpg'),
-            'documents' => [
+            'documents' => $documents = [
                 [
                     'name' => 'test',
                     'source' => DocumentSource::URL,
@@ -68,7 +69,7 @@ class CreateTest extends TestCase
                 [
                     'name' => 'test_2',
                     'source' => DocumentSource::FILE,
-                    'file' => UploadedFile::fake()->createWithContent('test.pdf', 'test'),
+                    'file' => $file = UploadedFile::fake()->createWithContent('test.pdf', 'test'),
                     'type' => DocumentType::MANUAL,
                 ],
             ]
@@ -85,18 +86,28 @@ class CreateTest extends TestCase
             'data' => [
                 'name',
                 'slug',
+                'documents',
             ]
         ]);
 
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has('data')
+                ->has('data.documents', count($documents))
+                ->has('data.documents.0', fn ($json) =>
+                    $json->where('name', 'test')
+                        ->where('url', 'http://www.test.com')
+                        ->etc()
+                )
+                ->has('data.documents.1', fn ($json) =>
+                $json->where('name', 'test_2')
+                    ->where('file', date('Y') . '/' . date('m') . '/' . $file->hashName())
+                    ->etc()
+                )
+        );
+
         $this->assertDatabaseHas('products', [
             'name' => $productData['name'],
-            'slug' => $productData['slug']
-        ]);
-
-        $this->assertDatabaseHas('product_category', [
-            'product_id' => $response['data']['id'],
-            'category_id' => $category->id,
-            'is_main' => $isMain,
+            'slug' => $productData['slug'],
         ]);
     }
 }

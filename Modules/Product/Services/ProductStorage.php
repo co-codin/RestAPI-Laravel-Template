@@ -81,12 +81,7 @@ class ProductStorage
     {
         $attributes['documents'] = collect($attributes['documents'])->map(function ($document) {
             if (Arr::exists($document, 'file')) {
-                $file = $document['file'];
-                $fileName = Str::uuid();
-                $extension = $file->getClientOriginalExtension();
-
-                Storage::disk('public')->put($path = "documents/{$fileName}.{$extension}", $file);
-
+                $path = $this->fileUploader->upload( $document['file']);
                 $document['file'] = $path;
             }
             return $document;
