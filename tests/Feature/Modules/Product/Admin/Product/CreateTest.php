@@ -4,7 +4,6 @@
 namespace Tests\Feature\Modules\Product\Admin\Product;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
 use Tests\TestCase;
@@ -20,7 +19,9 @@ class CreateTest extends TestCase
     {
         $category = Category::factory()->create();
 
-        $productData = Product::factory()->raw();
+        $productData = Product::factory()->raw([
+            'image' => UploadedFile::fake()->image('test.jpg'),
+        ]);
 
         $response = $this->json('POST', route('admin.products.store'), array_merge($productData, [
             'categories' => [

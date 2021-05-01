@@ -3,6 +3,7 @@
 
 namespace Tests\Feature\Modules\Product\Admin\Configurator;
 
+use Illuminate\Http\UploadedFile;
 use Modules\Product\Enums\ProductVariantStock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariant;
@@ -18,7 +19,9 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_create_configurator()
     {
-        $product = Product::factory()->create();
+        $product = Product::factory()->create([
+            'image' => UploadedFile::fake()->image('test.jpg'),
+        ]);
 
         $response = $this->json(
             'PUT',

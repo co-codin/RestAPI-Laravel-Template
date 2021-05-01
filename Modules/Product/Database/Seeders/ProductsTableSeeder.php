@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
-use Modules\Property\Database\Seeders\PropertyTableSeeder;
+use Modules\Property\Database\Seeders\PropertiesTableSeeder;
 use Modules\Property\Models\Property;
 
 class ProductsTableSeeder extends Seeder
@@ -37,7 +37,7 @@ class ProductsTableSeeder extends Seeder
                 foreach ($categories as $category)
                 {
                     $values = $category->properties->mapWithKeys(function (Property $property) {
-                        $propValues = collect(PropertyTableSeeder::properties())->where('name', $property->name)->first()['values'];
+                        $propValues = collect(PropertiesTableSeeder::properties())->where('name', $property->name)->first()['values'];
                         $propValues[] = null;
 
                         return [

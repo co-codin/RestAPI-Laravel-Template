@@ -3,7 +3,6 @@
 namespace Tests\Feature\Modules\Product\Admin\Document;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 use Modules\Product\Models\Product;
@@ -17,7 +16,9 @@ class UpdateTest extends TestCase
 
 //        Storage::fake('documents');
 
-        $product = Product::factory()->create();
+        $product = Product::factory()->create([
+            'image' => UploadedFile::fake()->image('test.jpg'),
+        ]);
 
         $response = $this->json(
             'PUT',
