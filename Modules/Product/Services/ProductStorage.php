@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Services;
 
+use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +12,10 @@ use Modules\Product\Models\Product;
 
 class ProductStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(
+        protected ImageUploader $imageUploader,
+        protected FileUploader $fileUploader
+    ) {}
 
     public function store(ProductDto $productDto)
     {
