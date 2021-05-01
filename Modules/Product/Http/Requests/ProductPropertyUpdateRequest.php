@@ -13,12 +13,12 @@ class ProductPropertyUpdateRequest extends FormRequest
         return [
             'properties' => 'required|array',
             'properties.*.id' => 'required|distinct|integer|exists:properties,id',
-            'properties.*.value' => 'sometimes|array',
+            'properties.*.value' => 'sometimes',
             'properties.*.pretty_key' => 'sometimes|string|max:255',
             'properties.*.pretty_value' => 'sometimes|string|max:255',
             'properties.*.is_important' => 'sometimes|boolean',
             'properties.*.important_position' => 'sometimes|nullable|integer',
-            'properties.*.important_value' => 'sometimes|string|max:255',
+            'properties.*.important_value' => 'sometimes|nullable|string|max:255',
         ];
     }
 }

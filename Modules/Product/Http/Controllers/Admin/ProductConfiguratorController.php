@@ -18,7 +18,7 @@ class ProductConfiguratorController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
-        $this->productConfiguratorStorage->update($productModel, $request->get('variants'));
+        $this->productConfiguratorStorage->update($productModel, $request->input('variants'));
 
         return response()->noContent();
     }

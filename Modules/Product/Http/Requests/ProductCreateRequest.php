@@ -5,6 +5,8 @@ namespace Modules\Product\Http\Requests;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Product\Enums\DocumentSource;
+use Modules\Product\Enums\DocumentType;
 use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends FormRequest
@@ -40,6 +42,23 @@ class ProductCreateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'required|boolean',
+
+            'documents' => 'sometimes|nullable|array',
+            'documents.*.name' => 'required|string|max:255',
+            'documents.*.source' => [
+                'required',
+                'integer',
+                new EnumValue(DocumentSource::class, false),
+            ],
+            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSource::FILE . '|file',
+            'documents.*.url' => 'required_if:documents.*.source,' . DocumentSource::URL . '|url',
+
+            'documents.*.type' => [
+                'required',
+                'integer',
+                new EnumValue(DocumentType::class, false),
+            ],
+            'documents.*.position' => 'sometimes|nullable|integer|distinct',
         ];
     }
 }
