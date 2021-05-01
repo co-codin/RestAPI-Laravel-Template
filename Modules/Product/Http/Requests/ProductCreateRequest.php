@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Requests;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends FormRequest
 {
@@ -17,19 +18,16 @@ class ProductCreateRequest extends FormRequest
     {
         return [
             'categories' => [
+                'bail',
                 'required',
                 'array',
-                function ($attribute, $value, $fail) {
-                    $isMain = array_column($value, 'is_main');
-                    if (count(array_filter($isMain)) > 1) {
-                        $fail('is_main should be unique in array.');
-                    }
-                },
+                new CategoryIsMainRule,
             ],
             'categories.*.id' => 'required|integer|distinct|exists:categories,id',
             'categories.*.is_main' => 'required|boolean',
 
-            'brand_id' => 'required_unless:type,' . Status::ACTIVE,
+//            'brand_id' => 'required_unless:type,' . Status::ACTIVE,
+            'brand_id' => 'required|integer|exists:brands,id',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',
             'image' => 'required|image',

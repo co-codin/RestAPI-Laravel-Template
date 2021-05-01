@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Modules\Product\Admin\Product;
 
-use App\Enums\Status;
 use Illuminate\Http\UploadedFile;
 use Modules\Product\Models\Product;
 use Tests\TestCase;
