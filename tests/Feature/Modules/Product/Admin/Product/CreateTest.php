@@ -48,4 +48,9 @@ class CreateTest extends TestCase
             'is_main' => $isMain,
         ]);
     }
+
+    public function test_authenticated_can_create_product_with_documents()
+    {
+        
+    }
 }
