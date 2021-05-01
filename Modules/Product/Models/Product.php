@@ -12,6 +12,18 @@ use Modules\Property\Models\Pivots\PropertyValuePivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 
+/**
+ * Class Product
+ * @package Modules\Product\Models
+ * @property int|null $id
+ * @property string $name
+ * @property string $slug
+ * @property int $brand_id
+ * @property int $status
+ * @property boolean $is_in_home
+ * @property int|null $warranty
+ * @property array|null $documents
+ */
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
