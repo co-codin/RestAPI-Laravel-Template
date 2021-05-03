@@ -21,7 +21,7 @@ class ProductsTableSeeder extends Seeder
     {
         Product::factory()
             ->count(300)
-            ->hasProductVariants(2)
+            ->hasProductVariations(2)
             ->create()
             ->each(function (Product $product) {
                 $categories = Category::query()
@@ -34,8 +34,7 @@ class ProductsTableSeeder extends Seeder
                     return [$item => ['is_main' => $key ? 2 : 1]];
                 }));
 
-                foreach ($categories as $category)
-                {
+                foreach ($categories as $category) {
                     $values = $category->properties->mapWithKeys(function (Property $property) {
                         $propValues = collect(PropertiesTableSeeder::properties())->where('name', $property->name)->first()['values'];
                         $propValues[] = null;

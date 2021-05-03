@@ -6,7 +6,7 @@ namespace Modules\Product\Enums;
 
 use App\Enums\BaseEnum;
 
-class ProductVariantStock extends BaseEnum
+class ProductVariationStock extends BaseEnum
 {
     const InStock = 1;
     const UnderTheOrder = 2;

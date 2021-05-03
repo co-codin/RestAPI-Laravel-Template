@@ -35,7 +35,7 @@ class ProductStorage
                 ->toArray()
         );
 
-        $product->productVariants()->create([
+        $product->productVariations()->create([
             'name' => $product->brand->name . ' ' . $product->name
         ]);
 

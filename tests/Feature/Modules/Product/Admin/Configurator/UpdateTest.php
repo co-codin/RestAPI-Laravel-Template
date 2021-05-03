@@ -4,9 +4,9 @@
 namespace Tests\Feature\Modules\Product\Admin\Configurator;
 
 use Illuminate\Http\UploadedFile;
-use Modules\Product\Enums\ProductVariantStock;
+use Modules\Product\Enums\ProductVariationStock;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductVariant;
+use Modules\Product\Models\ProductVariation;
 use Tests\TestCase;
 use function React\Promise\map;
 
@@ -28,10 +28,10 @@ class UpdateTest extends TestCase
             route('admin.product.configurator.update', $product),
             [
                 'variants' => [
-                    $productVariant = ProductVariant::factory()->raw([
+                    $productVariant = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
-                    $anotherProductVariant = ProductVariant::factory()->raw([
+                    $anotherProductVariant = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
                 ],
@@ -53,7 +53,7 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $productVariant = ProductVariant::factory()->create([
+        $productVariant = ProductVariation::factory()->create([
             'product_id' => $product->id,
         ]);
 
@@ -67,7 +67,7 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => ProductVariantStock::ComingSoon,
+                        'availability' => ProductVariationStock::ComingSoon,
                     ]
                 ],
             ],
@@ -85,7 +85,7 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $productVariant = ProductVariant::factory()->create([
+        $productVariant = ProductVariation::factory()->create([
             'product_id' => $product->id,
         ]);
 
@@ -99,9 +99,9 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => ProductVariantStock::ComingSoon,
+                        'availability' => ProductVariationStock::ComingSoon,
                     ],
-                    $productVariantData = ProductVariant::factory()->raw([
+                    $productVariantData = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
                 ],

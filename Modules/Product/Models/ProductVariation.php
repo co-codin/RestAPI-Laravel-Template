@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Currency\Models\Currency;
-use Modules\Product\Database\factories\ProductVariantFactory;
+use Modules\Product\Database\factories\ProductVariationFactory;
 
-class ProductVariant extends Model
+class ProductVariation extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -37,6 +37,6 @@ class ProductVariant extends Model
 
     protected static function newFactory()
     {
-        return ProductVariantFactory::new();
+        return ProductVariationFactory::new();
     }
 }

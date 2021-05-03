@@ -1,4 +1,4 @@
-type ProductVariant {
+type ProductVariation {
     id: ID!
     product_id: Int!
     name: String!
