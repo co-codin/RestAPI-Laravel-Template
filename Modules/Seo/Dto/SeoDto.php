@@ -12,13 +12,13 @@ use App\Dto\BaseDto;
  */
 class SeoDto extends BaseDto
 {
-    public $is_enabled = 1;
+    public $is_enabled = false;
 
-    public string $title;
+    public ?string $title;
 
-    public string $h1;
+    public ?string $h1;
 
-    public string $description;
+    public ?string $description;
 
     public ?array $meta_tags;
 }

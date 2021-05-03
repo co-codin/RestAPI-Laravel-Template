@@ -21,11 +21,11 @@ class BrandUpdateRequest extends FormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'is_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image|max:255',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
             'country' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|string|url|max:255',
-            'short_description' => 'sometimes|nullable|string|max:255',
-            'full_description' => 'sometimes|nullable|string|max:255',
+            'short_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
         ];
     }
