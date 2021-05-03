@@ -30,8 +30,7 @@ class ProductFactory extends Factory
             'slug' => $this->faker->slug,
             'brand_id' => Brand::factory(),
             'status' => Status::ACTIVE,
-            'image' => UploadedFile::fake()->image('test.png'),
-//            'image' => $this->faker->image(storage_path('app/public'),400,300, null, false),
+            'image' => $this->faker->imageUrl(),
             'is_in_home' => $this->faker->boolean,
             'warranty' => $this->faker->randomElement([12, 24, 26, 48, 60]),
         ];

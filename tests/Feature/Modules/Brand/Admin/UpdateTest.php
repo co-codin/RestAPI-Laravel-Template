@@ -4,6 +4,7 @@
 namespace Tests\Feature\Modules\Brand\Admin;
 
 use App\Enums\Status;
+use Illuminate\Http\UploadedFile;
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 
@@ -18,6 +19,7 @@ class UpdateTest extends TestCase
     {
         $brand = Brand::factory()->create([
             'status' => Status::ONLY_URL,
+            'image' => UploadedFile::fake()->image('test.jpg'),
         ]);
 
         $response = $this->json('PATCH', route('admin.brands.update', $brand), [

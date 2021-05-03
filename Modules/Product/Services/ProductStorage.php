@@ -2,19 +2,29 @@
 
 namespace Modules\Product\Services;
 
+use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
 class ProductStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(
+        protected ImageUploader $imageUploader,
+        protected FileUploader $fileUploader
+    ) {}
 
     public function store(ProductDto $productDto)
     {
         $attributes = $productDto->toArray();
         $attributes['image'] = $this->imageUploader->upload($productDto->image);
+
+        if (Arr::exists($attributes, 'documents')) {
+            $attributes = $this->handleWithDocuments($attributes);
+        }
 
         $product = Product::query()->create($attributes);
 
@@ -40,6 +50,10 @@ class ProductStorage
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         }
 
+        if (Arr::exists($attributes, 'documents')) {
+            $attributes = $this->handleWithDocuments($attributes);
+        }
+
         if ($productDto->categories) {
             $product->categories()->detach();
             $product->categories()->sync(
@@ -55,5 +69,18 @@ class ProductStorage
         }
 
         return $product;
+    }
+
+    protected function handleWithDocuments(array $attributes)
+    {
+        $attributes['documents'] = collect($attributes['documents'])->map(function ($document) {
+            if (Arr::exists($document, 'file')) {
+                $path = $this->fileUploader->upload( $document['file']);
+                $document['file'] = $path;
+            }
+            return $document;
+        })->toArray();
+
+        return $attributes;
     }
 }

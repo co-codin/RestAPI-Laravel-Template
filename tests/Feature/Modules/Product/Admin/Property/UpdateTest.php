@@ -4,6 +4,7 @@
 namespace Tests\Feature\Modules\Product\Admin\Property;
 
 use App\Enums\Status;
+use Illuminate\Http\UploadedFile;
 use Modules\Product\Models\Product;
 use Modules\Property\Models\Property;
 use Tests\TestCase;
@@ -19,7 +20,9 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $property = Property::factory()->create();
+        $property = Property::factory()->create([
+            'image' => UploadedFile::fake()->image('test.jpg'),
+        ]);
 
         $response = $this->json('PUT', route('admin.product.property.update', $product), [
             'properties' => [
