@@ -52,7 +52,7 @@ class CreateTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_can_create_product_with_documents()
+    public function test_authenticated_can_create_with_documents_in_product()
     {
         $category = Category::factory()->create();
 
@@ -77,7 +77,7 @@ class CreateTest extends TestCase
 
         $response = $this->json('POST', route('admin.products.store'), array_merge($productData, [
             'categories' => [
-                ['id' => $category->id, 'is_main' => $isMain = true]
+                ['id' => $category->id, 'is_main' => true]
             ],
         ]));
 
@@ -91,7 +91,7 @@ class CreateTest extends TestCase
         ]);
 
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('data')
+            $json
                 ->has('data.documents', count($documents))
                 ->has('data.documents.0', fn ($json) =>
                     $json->where('name', 'test')

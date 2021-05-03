@@ -23,10 +23,10 @@ class ProductStorage
         $attributes['image'] = $this->imageUploader->upload($productDto->image);
 
         if (Arr::exists($attributes, 'documents')) {
-            $product = $this->createWithDocuments($attributes);
-        } else {
-            $product = Product::query()->create($attributes);
+            $attributes = $this->handleWithDocuments($attributes);
         }
+
+        $product = Product::query()->create($attributes);
 
         $product->categories()->sync(
             collect($productDto->categories)
@@ -50,10 +50,9 @@ class ProductStorage
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         }
 
-        // TODO need to discuss
-//        if (Arr::exists($attributes, 'documents')) {
-//            $this->updateWithDocuments($product, $attributes);
-//        }
+        if (Arr::exists($attributes, 'documents')) {
+            $attributes = $this->handleWithDocuments($attributes);
+        }
 
         if ($productDto->categories) {
             $product->categories()->detach();
@@ -72,12 +71,7 @@ class ProductStorage
         return $product;
     }
 
-    protected function updateWithDocuments($product, array $attributes)
-    {
-
-    }
-
-    protected function createWithDocuments(array $attributes)
+    protected function handleWithDocuments(array $attributes)
     {
         $attributes['documents'] = collect($attributes['documents'])->map(function ($document) {
             if (Arr::exists($document, 'file')) {
@@ -87,8 +81,6 @@ class ProductStorage
             return $document;
         })->toArray();
 
-        $product = Product::query()->create($attributes);
-
-        return $product;
+        return $attributes;
     }
 }
