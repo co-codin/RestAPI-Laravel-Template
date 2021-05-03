@@ -21,7 +21,7 @@ class BrandUpdateRequest extends FormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'is_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image|max:255',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image|max:255',
             'country' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|string|url|max:255',
             'short_description' => 'sometimes|nullable|string|max:255',
