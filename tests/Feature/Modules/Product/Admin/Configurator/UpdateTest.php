@@ -27,11 +27,11 @@ class UpdateTest extends TestCase
             'PUT',
             route('admin.product.configurator.update', $product),
             [
-                'variants' => [
-                    $productVariant = ProductVariation::factory()->raw([
+                'variations' => [
+                    $productVariation = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
-                    $anotherProductVariant = ProductVariation::factory()->raw([
+                    $anotherProductVariation = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
                 ],
@@ -40,11 +40,11 @@ class UpdateTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseHas('product_variants', array_merge($productVariant, [
+        $this->assertDatabaseHas('product_variations', array_merge($productVariation, [
             'product_id' => $product->id
         ]));
 
-        $this->assertDatabaseHas('product_variants', array_merge($anotherProductVariant, [
+        $this->assertDatabaseHas('product_variations', array_merge($anotherProductVariation, [
             'product_id' => $product->id
         ]));
     }
@@ -53,7 +53,7 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $productVariant = ProductVariation::factory()->create([
+        $productVariation = ProductVariation::factory()->create([
             'product_id' => $product->id,
         ]);
 
@@ -61,9 +61,9 @@ class UpdateTest extends TestCase
             'PUT',
             route('admin.product.configurator.update', $product),
             [
-                'variants' => [
+                'variations' => [
                     [
-                        'id' => $productVariant->id,
+                        'id' => $productVariation->id,
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
@@ -75,7 +75,7 @@ class UpdateTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseHas('product_variants', [
+        $this->assertDatabaseHas('product_variations', [
             'product_id' => $product->id,
             'name' => $newName,
         ]);
@@ -85,7 +85,7 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $productVariant = ProductVariation::factory()->create([
+        $productVariation = ProductVariation::factory()->create([
             'product_id' => $product->id,
         ]);
 
@@ -93,15 +93,15 @@ class UpdateTest extends TestCase
             'PUT',
             route('admin.product.configurator.update', $product),
             [
-                'variants' => [
+                'variations' => [
                     [
-                        'id' => $productVariant->id,
+                        'id' => $productVariation->id,
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
                         'availability' => ProductVariationStock::ComingSoon,
                     ],
-                    $productVariantData = ProductVariation::factory()->raw([
+                    $productVariationData = ProductVariation::factory()->raw([
                         'product_id' => null
                     ]),
                 ],
@@ -110,11 +110,11 @@ class UpdateTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseHas('product_variants', array_merge($productVariantData, [
+        $this->assertDatabaseHas('product_variations', array_merge($productVariationData, [
             'product_id' => $product->id
         ]));
 
-        $this->assertDatabaseHas('product_variants', [
+        $this->assertDatabaseHas('product_variations', [
             'product_id' => $product->id,
             'name' => $newName,
         ]);

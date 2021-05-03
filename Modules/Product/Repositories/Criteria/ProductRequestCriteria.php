@@ -32,16 +32,16 @@ class ProductRequestCriteria implements CriteriaInterface
 
                 AllowedFilter::exact('categories.id'),
 
-                AllowedFilter::exact('productVariants.id'),
-                AllowedFilter::partial('productVariants.name'),
-                AllowedFilter::exact('productVariants.is_price_visible'),
-                AllowedFilter::exact('productVariants.is_enabled'),
-                AllowedFilter::exact('productVariants.currency_id'),
-                AllowedFilter::exact('productVariants.price'),
-                AllowedFilter::exact('productVariants.availability'),
-                AllowedFilter::exact('productVariants.previous_price'),
+                AllowedFilter::exact('productVariations.id'),
+                AllowedFilter::partial('productVariations.name'),
+                AllowedFilter::exact('productVariations.is_price_visible'),
+                AllowedFilter::exact('productVariations.is_enabled'),
+                AllowedFilter::exact('productVariations.currency_id'),
+                AllowedFilter::exact('productVariations.price'),
+                AllowedFilter::exact('productVariations.availability'),
+                AllowedFilter::exact('productVariations.previous_price'),
             ])
-            ->allowedIncludes(['brand', 'productVariants', 'properties', 'category', 'categories', 'seo'])
+            ->allowedIncludes(['brand', 'productVariations', 'properties', 'category', 'categories', 'seo'])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
     }
