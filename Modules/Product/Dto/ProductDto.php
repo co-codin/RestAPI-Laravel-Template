@@ -9,7 +9,7 @@ class ProductDto extends BaseDto
 {
     public ?array $categories;
 
-    public ?int $brand_id;
+    public $brand_id;
 
     public ?string $name;
 
