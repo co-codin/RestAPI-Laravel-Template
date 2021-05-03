@@ -6,7 +6,7 @@ namespace Modules\Product\Http\Resources;
 
 use App\Http\Resources\BaseJsonResource;
 
-class ProductVariantResource extends BaseJsonResource
+class ProductVariationResource extends BaseJsonResource
 {
     public function toArray($request): array
     {

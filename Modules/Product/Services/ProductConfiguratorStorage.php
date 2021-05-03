@@ -9,12 +9,12 @@ use Modules\Product\Models\Product;
 
 class ProductConfiguratorStorage
 {
-    public function update(Product $product, array $variants)
+    public function update(Product $product, array $variations)
     {
         DB::beginTransaction();
 
-        $dataWithId = collect($variants)->filter(fn($item) => Arr::exists($item, 'id'));
-        $dataWithoutId = collect($variants)->filter(fn($item) => !Arr::exists($item, 'id'));
+        $dataWithId = collect($variations)->filter(fn($item) => Arr::exists($item, 'id'));
+        $dataWithoutId = collect($variations)->filter(fn($item) => !Arr::exists($item, 'id'));
 
         if (count($dataWithId)) {
             $this->handleExistingData($product, $dataWithId);
@@ -30,7 +30,7 @@ class ProductConfiguratorStorage
     protected function handleExistingData(Product $product, Collection $collection)
     {
         try {
-            $product->productVariants()
+            $product->productVariations()
                 ->whereNotIn('id', $collection->pluck('id')->toArray())
                 ->delete()
             ;
@@ -40,9 +40,9 @@ class ProductConfiguratorStorage
 
         foreach ($collection as $item) {
             try {
-                $productVariantQuery = $product->productVariants()->where('id', $item['id']);
-                if ($productVariantQuery->exists()) {
-                    $productVariantQuery->update(Arr::except($item, 'id'));
+                $productVariationQuery = $product->productVariations()->where('id', $item['id']);
+                if ($productVariationQuery->exists()) {
+                    $productVariationQuery->update(Arr::except($item, 'id'));
                 }
             } catch (\Exception $e) {
                 DB::rollback();
@@ -53,7 +53,7 @@ class ProductConfiguratorStorage
     protected function handleNewData(Product $product, Collection $collection)
     {
         try {
-            $product->productVariants()->createMany($collection->toArray());
+            $product->productVariations()->createMany($collection->toArray());
         } catch (\Exception $e) {
             DB::rollback();
         }

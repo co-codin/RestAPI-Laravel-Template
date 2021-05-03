@@ -44,9 +44,9 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function productVariants()
+    public function productVariations()
     {
-        return $this->hasMany(ProductVariant::class);
+        return $this->hasMany(ProductVariation::class);
     }
 
     public function category()

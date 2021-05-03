@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Currency\Models\Currency;
 use Modules\Product\Models\Product;
 
-class ProductVariantFactory extends Factory
+class ProductVariationFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = \Modules\Product\Models\ProductVariant::class;
+    protected $model = \Modules\Product\Models\ProductVariation::class;
 
     /**
      * Define the model's default state.

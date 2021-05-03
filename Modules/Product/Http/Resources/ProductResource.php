@@ -21,7 +21,7 @@ class ProductResource extends BaseJsonResource
                 'description' => Status::getDescription($this->status),
             ]),
             'properties' => PropertyResource::collection($this->whenLoaded('properties')),
-            'productVariants' => ProductVariantResource::collection($this->whenLoaded('productVariants')),
+            'productVariations' => ProductVariationResource::collection($this->whenLoaded('productVariations')),
             'seo' => new SeoResource($this->whenLoaded('seo')),
             'brand' => new BrandResource($this->whenLoaded('brand')),
             'category' => new CategoryResource($this->whenLoaded('category')),
