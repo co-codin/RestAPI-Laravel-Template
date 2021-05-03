@@ -11,8 +11,6 @@ class ProductPropertyStorage
 {
     public function update(Product $product, array $properties)
     {
-        $product->properties()->detach();
-
         $product->properties()->sync(
             collect($properties)
                 ->keyBy('id')

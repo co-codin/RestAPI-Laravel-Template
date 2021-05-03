@@ -55,7 +55,6 @@ class ProductStorage
         }
 
         if ($productDto->categories) {
-            $product->categories()->detach();
             $product->categories()->sync(
                 collect($productDto->categories)
                     ->keyBy('id')
