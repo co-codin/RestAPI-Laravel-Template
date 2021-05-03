@@ -5,6 +5,7 @@ namespace Modules\Brand\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
@@ -30,7 +31,7 @@ class BrandController extends Controller
     {
         $brandModel = $this->brandRepository->find($brand);
 
-        $brandModel = $this->brandStorage->update($brandModel, (new BrandDto($request->validated()))->only(...$request->keys()));
+        $brandModel = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
 
         return new BrandResource($brandModel);
     }
