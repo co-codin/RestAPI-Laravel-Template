@@ -5,8 +5,6 @@ namespace Modules\Product\Services;
 use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Modules\Product\Dto\ProductDto;
 use Modules\Product\Models\Product;
 
@@ -68,6 +66,13 @@ class ProductStorage
         }
 
         return $product;
+    }
+
+    public function delete(Product $product)
+    {
+        if (!$product->delete()) {
+            throw new \LogicException('can not delete product.');
+        }
     }
 
     protected function handleWithDocuments(array $attributes)
