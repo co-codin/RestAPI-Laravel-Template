@@ -34,4 +34,13 @@ class ProductController extends Controller
 
         return new ProductResource($productModel);
     }
+
+    public function destroy(int $product)
+    {
+        $productModel = $this->productRepository->find($product);
+
+        $this->productStorage->delete($productModel);
+
+        return response()->noContent();
+    }
 }
