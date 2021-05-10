@@ -14,5 +14,6 @@ class Migrate extends Command
     public function handle()
     {
         Artisan::call('migrate:brand');
+        Artisan::call('migrate:category');
     }
 }

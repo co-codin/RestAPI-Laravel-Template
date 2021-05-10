@@ -8,11 +8,6 @@ class MigrateBrand extends Command
 {
     protected $signature = 'migrate:brand';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Migrate Brands';
 
     public function handle()
