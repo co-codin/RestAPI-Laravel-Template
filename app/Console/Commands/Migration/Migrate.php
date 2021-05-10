@@ -18,5 +18,6 @@ class Migrate extends Command
         Artisan::call('migrate:currency');
         Artisan::call('migrate:achievement');
         Artisan::call('migrate:news');
+        Artisan::call('migrate:redirect');
     }
 }
