@@ -15,5 +15,6 @@ class Migrate extends Command
     {
         Artisan::call('migrate:brand');
         Artisan::call('migrate:category');
+        Artisan::call('migrate:currency');
     }
 }
