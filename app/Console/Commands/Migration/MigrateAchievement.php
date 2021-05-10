@@ -15,7 +15,7 @@ class MigrateAchievement extends Command
     public function handle()
     {
         $oldBrands = DB::connection('old_medeq_mysql')
-            ->table('brands')
+            ->table('achievements')
             ->get();
 
         foreach ($oldBrands as $oldBrand) {
@@ -27,6 +27,14 @@ class MigrateAchievement extends Command
 
     protected function transform($item)
     {
-
+        return [
+            'id' => $item->id,
+            'name' => $item->title,
+            'image' => $item->image,
+            'is_enabled' => $item->status === 1 ? true : false,
+            'position' => $item->position,
+            'created_at' => $item->created_at,
+            'updated_at' => $item->updated_at,
+        ];
     }
 }
