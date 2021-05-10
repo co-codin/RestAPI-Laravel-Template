@@ -14,11 +14,17 @@ class MigrateCategory extends Command
 
     public function handle()
     {
+        // TODO recursive
         $oldCategories = DB::connection('old_medeq_mysql')
             ->table('categories')
+            ->select('categories.*')
+//            ->leftJoin('categories as parent_categories', 'parent_categories.id', '=', 'categories.parent_id')
             ->get()
             ;
 
+        dd(
+            $oldCategories
+        );
         foreach ($oldCategories as $oldCategory) {
             Category::query()->insert(
                 $this->transform($oldCategory)
@@ -31,7 +37,7 @@ class MigrateCategory extends Command
         return [
             'id' => $item->id,
             'name' => $item->title,
-            'slug' => $item->slug,
+            'slug' => $this->getSlug($item),
             '_lft' => $item->_lft,
             '_rgt' => $item->_rgt,
             'parent_id' => $item->parent_id,
@@ -44,5 +50,12 @@ class MigrateCategory extends Command
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
+    }
+
+    protected function getSlug($item)
+    {
+
+//        if ($item)
+        //
     }
 }
