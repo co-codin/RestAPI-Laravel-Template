@@ -19,7 +19,6 @@ class MigrateCategory extends Command
             ->get()
             ;
 
-
         foreach ($oldCategories as $oldCategory) {
             Category::query()->insert(
                 $this->transform($oldCategory)
