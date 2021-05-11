@@ -12,17 +12,17 @@ class MigratePage extends Command
 
     protected $description = 'Migrate page';
 
-    protected $oldPageQuery;
+    protected $oldPages;
 
     public function __construct()
     {
         parent::__construct();
-        $this->oldPageQuery = DB::connection('old_medeq_mysql')->table('pages');
+        $this->oldPages = DB::connection('old_medeq_mysql')->table('pages')->get();
     }
 
     public function handle()
     {
-        foreach ($this->oldPageQuery->get() as $oldPage) {
+        foreach ($this->oldPages as $oldPage) {
             Page::query()->insert(
                 $this->transform($oldPage)
             );
@@ -50,17 +50,14 @@ class MigratePage extends Command
         $slugs = [];
 
         if ($item->parent_id) {
-            $parent = DB::connection('old_medeq_mysql')
-                ->table('pages')
-                ->where('id', '=', $item->parent_id)
-                ->first();
+            $parent = $this->oldPages->where('id', '=', $item->parent_id)->first();
             while(!is_null($parent)) {
                 array_push($slugs, $parent->slug);
-                $parent = DB::connection('old_medeq_mysql')
-                    ->table('pages')
-                    ->where('id', '=', $parent->parent_id)
-                    ->first();
+                $parent = $this->oldPages->where('id', '=',  $parent->parent_id)->first();
             }
+            dd(
+                implode('/', $slugs)
+            );
             return implode('/', $slugs) . $item->slug;
         } else {
             return $item->slug;
