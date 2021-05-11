@@ -3,6 +3,8 @@
 namespace Modules\Seo\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Seo\Repositories\Admin\CanonicalRepository as AdminCanonicalRepository;
+use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface as AdminCanonicalRepositoryInterface;
 
 class SeoServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,11 @@ class SeoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(
+            AdminCanonicalRepositoryInterface::class,
+            AdminCanonicalRepository::class
+        );
     }
 
     protected function registerConfig()
