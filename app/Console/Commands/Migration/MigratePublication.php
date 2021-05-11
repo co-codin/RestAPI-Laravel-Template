@@ -4,7 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Modules\News\Models\News;
+use Modules\Publication\Models\Publication;
 
 class MigratePublication extends Command
 {
@@ -18,10 +18,23 @@ class MigratePublication extends Command
             ->table('publications')
             ->get();
 
-        foreach ($oldNews as $item) {
-            News::query()->insert(
-                $this->transform($item)
+        foreach ($oldPublications as $oldPublication) {
+            Publication::query()->insert(
+                $this->transform($oldPublication)
             );
         }
+    }
+
+    protected function transform($item)
+    {
+        return [
+            'name' => $item->title,
+            'url' => $item->url,
+            'source' => $item->source,
+            'is_enabled' => $item->status === 1,
+            'published_at' => $item->published_at,
+            'created_at' => $item->created_at,
+            'updated_at' => $item->updated_at,
+        ];
     }
 }

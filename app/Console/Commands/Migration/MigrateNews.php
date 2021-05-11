@@ -35,7 +35,7 @@ class MigrateNews extends Command
             'full_description' => $item->full_description,
             'status' => $item->status,
             'image' => $item->image,
-            'is_in_home' => $item->in_home === 1 ? true : false,
+            'is_in_home' => $item->in_home === 1,
             'published_at' => $item->news_date,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,

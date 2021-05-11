@@ -31,7 +31,7 @@ class MigrateAchievement extends Command
             'id' => $item->id,
             'name' => $item->title,
             'image' => $item->image,
-            'is_enabled' => $item->status === 1 ? true : false,
+            'is_enabled' => $item->status === 1,
             'position' => $item->position,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,

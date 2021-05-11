@@ -35,7 +35,7 @@ class MigrateBrand extends Command
             'website' => $item->website,
             'full_description' => $item->full_description,
             'status' => $item->status,
-            'is_in_home' => $item->in_home === 1 ? true : false,
+            'is_in_home' => $item->in_home === 1,
             'position' => $item->position,
             'country' => $item->country,
             'short_description' => $item->short_description,
