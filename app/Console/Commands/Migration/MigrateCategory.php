@@ -12,20 +12,18 @@ class MigrateCategory extends Command
 
     protected $description = 'Migrate category';
 
+    protected $oldCategories;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->oldCategories = DB::connection('old_medeq_mysql')->table('categories')->get();
+    }
+
     public function handle()
     {
-        // TODO recursive
-        $oldCategories = DB::connection('old_medeq_mysql')
-            ->table('categories')
-            ->select('categories.*')
-//            ->leftJoin('categories as parent_categories', 'parent_categories.id', '=', 'categories.parent_id')
-            ->get()
-            ;
-
-        dd(
-            $oldCategories
-        );
-        foreach ($oldCategories as $oldCategory) {
+        foreach ($this->oldCategories as $oldCategory) {
             Category::query()->insert(
                 $this->transform($oldCategory)
             );
@@ -54,8 +52,17 @@ class MigrateCategory extends Command
 
     protected function getSlug($item)
     {
+        $slugs = [];
 
-//        if ($item)
-        //
+        if ($item->parent_id) {
+            $parent = $this->oldCategories->where('id', '=', $item->parent_id)->first();
+            while(!is_null($parent)) {
+                array_push($slugs, $parent->slug);
+                $parent = $this->oldCategories->where('id', '=',  $parent->parent_id)->first();
+            }
+            return implode('/', $slugs) . '/' . $item->slug;
+        } else {
+            return $item->slug;
+        }
     }
 }

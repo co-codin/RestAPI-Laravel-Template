@@ -55,10 +55,7 @@ class MigratePage extends Command
                 array_push($slugs, $parent->slug);
                 $parent = $this->oldPages->where('id', '=',  $parent->parent_id)->first();
             }
-            dd(
-                implode('/', $slugs)
-            );
-            return implode('/', $slugs) . $item->slug;
+            return implode('/', $slugs) . '/' . $item->slug;
         } else {
             return $item->slug;
         }
