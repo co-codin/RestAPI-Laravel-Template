@@ -21,5 +21,6 @@ class Migrate extends Command
         Artisan::call('migrate:redirect');
         Artisan::call('migrate:page');
         Artisan::call('migrate:publication');
+        Artisan::call('migrate:filter');
     }
 }
