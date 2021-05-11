@@ -8,7 +8,7 @@ use Modules\News\Models\News;
 
 class MigrateNews extends Command
 {
-    protected $signature = 'migrate:new';
+    protected $signature = 'migrate:news';
 
     protected $description = 'Migrate news';
 

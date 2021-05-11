@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Artisan;
 
 class Migrate extends Command
 {
-    protected $signature = 'migrate';
+    protected $signature = 'migrate:old_db';
 
-    protected $description = 'Migrate';
+    protected $description = 'Migrate old medeq db';
 
     public function handle()
     {
