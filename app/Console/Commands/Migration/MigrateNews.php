@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Migration;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Modules\News\Models\News;
@@ -27,7 +28,7 @@ class MigrateNews extends Command
 
     protected function transform($item)
     {
-        return [
+        $data = [
             'id' => $item->id,
             'name' => $item->title,
             'slug' => $item->slug,
@@ -40,5 +41,13 @@ class MigrateNews extends Command
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
+
+        if ($item->status === 4) {
+            array_merge($data, [
+                'deleted_at' => Carbon::now(),
+            ]);
+        }
+
+        return $data;
     }
 }

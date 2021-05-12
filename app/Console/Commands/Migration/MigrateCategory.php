@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Migration;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
@@ -32,7 +33,7 @@ class MigrateCategory extends Command
 
     protected function transform($item)
     {
-        return [
+        $data = [
             'id' => $item->id,
             'name' => $item->title,
             'slug' => $this->getSlug($item),
@@ -48,6 +49,14 @@ class MigrateCategory extends Command
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
+
+        if ($item->status === 4) {
+            array_merge($data, [
+                'deleted_at' => Carbon::now(),
+            ]);
+        }
+
+        return $data;
     }
 
     protected function getSlug($item)
