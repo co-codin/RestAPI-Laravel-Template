@@ -26,7 +26,16 @@ class MigrateProductVariation extends Command
     protected function transform($item)
     {
         return [
-
+            'id' => $item->id,
+            'product_id' => $item->product_id,
+            'name' => $item->title,
+            'price' => $item->price,
+            'previous_price' => $item->old_price,
+            'currency_id' => $item->currency_id,
+            'is_price_visible' => $item->is_show_price === 1,
+            'is_enabled' => $item->status === 1,
+            'availability' => $item->in_stock,
+            'stock_type' => $item->stock_type,
         ];
     }
 }
