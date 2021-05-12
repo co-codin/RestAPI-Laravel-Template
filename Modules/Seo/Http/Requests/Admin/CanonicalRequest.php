@@ -30,7 +30,6 @@ class CanonicalRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
             'url' => [
                 'required',
                 'string',
@@ -38,25 +37,6 @@ class CanonicalRequest extends FormRequest
                 'unique:canonicals,url,' . $this->route('canonical.id'),
             ],
             'canonical' => 'required|string|max:255',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'title' => 'Заголовок',
-            'url' => 'url',
-            'text' => 'Seo текст',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'url.unique' => 'Сео правило с таким url уже существует.',
-            'required' => 'Поле :attribute обязательно для заполнения.',
-            'string' => 'Поле :attribute должно быть строкой.',
-            'max:255' => 'Поле :attribute не может быть длиннее 255 символов.',
         ];
     }
 }

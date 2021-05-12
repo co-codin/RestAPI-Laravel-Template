@@ -9,11 +9,11 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class CanonicalQueryBuilderCriteria.
+ * Class CanonicalRequestCriteria.
  *
  * @package Modules\Seo\Repositories\Admin\Criteria;
  */
-class CanonicalQueryBuilderCriteria implements CriteriaInterface
+class CanonicalRequestCriteria implements CriteriaInterface
 {
     /**
      * Apply criteria in query repository

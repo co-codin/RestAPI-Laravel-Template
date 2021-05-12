@@ -7,6 +7,7 @@ namespace Modules\Seo\Repositories\Admin;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection as SupportCollection;
 use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Repositories\Admin\Criteria\CanonicalRequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 
@@ -25,5 +26,10 @@ class CanonicalRepository extends BaseRepository implements CanonicalRepositoryI
     public function model()
     {
         return CanonicalEntity::class;
+    }
+
+    public function boot()
+    {
+        $this->pushCriteria(CanonicalRequestCriteria::class);
     }
 }

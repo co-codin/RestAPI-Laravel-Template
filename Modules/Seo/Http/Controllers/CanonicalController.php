@@ -3,10 +3,10 @@
 namespace Modules\Seo\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Models\CanonicalEntity;
 use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface;
-use Modules\Seo\Repositories\Admin\Criteria\CanonicalQueryBuilderCriteria;
 
 /**
  * Class CanonicalController
@@ -14,20 +14,17 @@ use Modules\Seo\Repositories\Admin\Criteria\CanonicalQueryBuilderCriteria;
  */
 class CanonicalController extends Controller
 {
-    public function __construct(private CanonicalRepositoryInterface $repository)
-    {
-        $this->repository->pushCriteria(CanonicalQueryBuilderCriteria::class);
-    }
+    public function __construct(
+        private CanonicalRepositoryInterface $repository
+    ) {}
 
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        $canonical = $this->repository->paginate(
-            \request()->get('limit') ?? 25
-        );
+        $canonical = $this->repository->jsonPaginate();
 
         return CanonicalResource::collection($canonical);
     }
@@ -37,7 +34,7 @@ class CanonicalController extends Controller
      * @param CanonicalEntity $canonical
      * @return CanonicalResource
      */
-    public function show(CanonicalEntity $canonical)
+    public function show(CanonicalEntity $canonical): CanonicalResource
     {
         return new CanonicalResource($canonical);
     }
