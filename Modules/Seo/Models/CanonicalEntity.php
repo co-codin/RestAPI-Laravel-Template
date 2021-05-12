@@ -3,8 +3,10 @@
 namespace Modules\Seo\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Modules\Seo\Database\factories\CanonicalFactory;
 
 /**
  * This is the model class for table "canonicals".
@@ -23,10 +25,17 @@ use Illuminate\Support\Carbon;
  */
 class CanonicalEntity extends Model
 {
+    use HasFactory;
+
     protected $table = 'canonicals';
 
     protected $fillable = [
         'url',
         'canonical',
     ];
+
+    protected static function newFactory()
+    {
+        return CanonicalFactory::new();
+    }
 }
