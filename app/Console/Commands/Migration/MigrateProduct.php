@@ -26,7 +26,17 @@ class MigrateProduct extends Command
     protected function transform($item)
     {
         return [
-
+            'id' => $item->id,
+            'name' => $item->title,
+            'slug' => $item->slug,
+            'brand_id' => $item->brand_id,
+            'status' => $item->status,
+            'image' => $item->image,
+            'is_in_home' => $item->in_home === 1,
+            'short_description' => $item->short_description,
+            'full_description' => $item->full_description,
+            'created_at' => $item->created_at,
+            'updated_at' => $item->updated_at,
         ];
     }
 }
