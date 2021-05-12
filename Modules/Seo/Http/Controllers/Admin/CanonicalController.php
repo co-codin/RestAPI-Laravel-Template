@@ -4,7 +4,7 @@ namespace Modules\Seo\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Modules\Seo\Dto\Admin\CanonicalDto;
+use Modules\Seo\Dto\CanonicalDto;
 use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
@@ -31,7 +31,7 @@ class CanonicalController extends Controller
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
         $canonical = $this->storage->store(
-            CanonicalDto::fromFormRequest($request)
+            \Modules\Seo\Dto\CanonicalDto::fromFormRequest($request)
         );
 
         return new CanonicalResource($canonical);
@@ -50,7 +50,7 @@ class CanonicalController extends Controller
 
         $canonical = $this->storage->update(
             $canonical,
-            CanonicalDto::create($request->validated())->only(...$request->keys())
+            \Modules\Seo\Dto\CanonicalDto::create($request->validated())->only(...$request->keys())
         );
 
         return new CanonicalResource($canonical);

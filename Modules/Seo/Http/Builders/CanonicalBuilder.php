@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Seo\Http\Builders\Admin;
+namespace Modules\Seo\Http\Builders;
 
 
 use App\Http\Builders\BaseBuilder;
@@ -13,11 +13,7 @@ use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 
 class CanonicalBuilder extends BaseBuilder
 {
-    /**
-     * @param string|Builder|Model $model
-     * @return SortsQuery|SpatieQueryBuilder
-     */
-    public function builder($model)
+    public function builder(Model|Builder|string $model): SortsQuery|SpatieQueryBuilder
     {
         $query = !is_a($model, Builder::class) ? $model::query() : $model;
 
@@ -59,7 +55,7 @@ class CanonicalBuilder extends BaseBuilder
             'canonical',
         ];
 
-        if (!is_null($this->relationDto)) {
+        if (!is_null($this->relationDtoCollection)) {
             $filters = [];
         }
 

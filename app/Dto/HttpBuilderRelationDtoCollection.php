@@ -4,21 +4,22 @@
 namespace App\Dto;
 
 
-class HttpBuilderRelationDtoCollection extends DtoCollection
+class HttpBuilderRelationDtoCollection extends BaseDtoCollection
 {
-    public function current(): HttpBuilderRelationDto
+    public function __construct($items = [])
     {
-        return parent::current();
+        $items = array_map(
+            fn (array $data): HttpBuilderRelationDto => $data instanceof HttpBuilderRelationDto
+                ? $data
+                : new HttpBuilderRelationDto(...$data),
+            $items
+        );
+
+        parent::__construct($items);
     }
 
-    public static function create(array $data): HttpBuilderRelationDtoCollection
+    public function offsetGet($key): HttpBuilderRelationDto
     {
-        $collection = [];
-
-        foreach ($data as $item) {
-            $collection[] = HttpBuilderRelationDto::create($item);
-        }
-
-        return new self($collection);
+        return parent::offsetGet($key);
     }
 }

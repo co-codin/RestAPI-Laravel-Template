@@ -4,7 +4,7 @@ namespace Modules\Seo\Repositories\Criteria;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Seo\Http\Builders\Admin\CanonicalBuilder;
+use Modules\Seo\Http\Builders\CanonicalBuilder;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 

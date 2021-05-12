@@ -5,6 +5,7 @@ namespace App\Dto;
 
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Seo\Dto\CanonicalDto;
 use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;

@@ -13,17 +13,16 @@ abstract class BaseBuilder
     protected string $relationName = '';
 
     /**
-     * @var HttpBuilderRelationDtoCollection|HttpBuilderRelationDto[]|null
+     * BaseBuilder constructor.
+     * @param HttpBuilderRelationDtoCollection|HttpBuilderRelationDto[]|null $relationDtoCollection
      */
-    protected ?HttpBuilderRelationDtoCollection $relationDto;
-
-    public function __construct(?HttpBuilderRelationDtoCollection $relationDto = null)
+    public function __construct(
+        protected ?HttpBuilderRelationDtoCollection $relationDtoCollection = null
+    )
     {
-        if (!is_null($relationDto)) {
-            $this->relationName = $relationDto[0]->relationName;
+        if (!is_null($relationDtoCollection)) {
+            $this->relationName = $relationDtoCollection[0]->relationName;
         }
-
-        $this->relationDto = $relationDto;
     }
 
     /**
@@ -49,11 +48,11 @@ abstract class BaseBuilder
     }
 
     /**
-     * @param array|SupportCollection $fields
+     * @param SupportCollection|array $fields
      * @return SupportCollection
      * @throws \Exception
      */
-    final protected function getFieldsWithRelationName($fields): SupportCollection
+    final protected function getFieldsWithRelationName(SupportCollection|array $fields): SupportCollection
     {
         if (!$fields instanceof SupportCollection || !is_array($fields)) {
             throw new \Exception('

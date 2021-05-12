@@ -4,7 +4,7 @@
 namespace Modules\Seo\Services\Admin;
 
 
-use Modules\Seo\Dto\Admin\CanonicalDto;
+use Modules\Seo\Dto\CanonicalDto;
 use Modules\Seo\Models\CanonicalEntity;
 
 /**
