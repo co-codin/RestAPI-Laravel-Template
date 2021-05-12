@@ -13,12 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CanonicalUpdateRequest extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'url' => [
@@ -32,7 +27,7 @@ class CanonicalUpdateRequest extends FormRequest
         ];
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
