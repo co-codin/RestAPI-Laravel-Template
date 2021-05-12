@@ -23,5 +23,6 @@ class Migrate extends Command
         Artisan::call('migrate:publication');
         Artisan::call('migrate:filter');
         Artisan::call('migrate:product');
+        Artisan::call('migrate:product_variation');
     }
 }
