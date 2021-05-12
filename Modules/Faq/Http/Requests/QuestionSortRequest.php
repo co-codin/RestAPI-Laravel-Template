@@ -2,9 +2,9 @@
 
 namespace Modules\Faq\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class QuestionSortRequest extends FormRequest
+class QuestionSortRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -4,11 +4,11 @@ namespace Modules\Product\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 
-class ProductUpdateRequest extends FormRequest
+class ProductUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

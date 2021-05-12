@@ -5,7 +5,7 @@ namespace Modules\Page\Dto;
 
 
 use App\Dto\BaseDto;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
 /**
  * Class PageDto

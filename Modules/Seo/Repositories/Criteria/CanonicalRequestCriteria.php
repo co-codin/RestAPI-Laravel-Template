@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Seo\Repositories\Admin\Criteria;
+namespace Modules\Seo\Repositories\Criteria;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

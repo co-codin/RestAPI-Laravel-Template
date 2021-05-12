@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Seo\Http\Requests;
+namespace Modules\Seo\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Modules\Seo\Rules\SeoRuleUrlRouteNotIn;
-use Symfony\Component\HttpFoundation\Response;
 
-class SeoRuleUpdateRequest extends FormRequest
+class SeoRuleUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -35,10 +34,5 @@ class SeoRuleUpdateRequest extends FormRequest
                 ])
             ],
         ];
-    }
-
-    protected function passedValidation()
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

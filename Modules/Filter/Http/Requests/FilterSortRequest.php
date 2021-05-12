@@ -4,9 +4,9 @@
 namespace Modules\Filter\Http\Requests;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class FilterSortRequest extends FormRequest
+class FilterSortRequest extends BaseFormRequest
 {
     public function rules()
     {

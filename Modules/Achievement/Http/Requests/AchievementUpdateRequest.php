@@ -2,10 +2,9 @@
 
 namespace Modules\Achievement\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\BaseFormRequest;
 
-class AchievementUpdateRequest extends FormRequest
+class AchievementUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {
@@ -14,10 +13,5 @@ class AchievementUpdateRequest extends FormRequest
             'image' => 'sometimes|required|image',
             'is_enabled' => 'sometimes|boolean',
         ];
-    }
-
-    protected function passedValidation()
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

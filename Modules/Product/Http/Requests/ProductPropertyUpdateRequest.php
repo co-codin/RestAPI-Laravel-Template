@@ -4,9 +4,9 @@
 namespace Modules\Product\Http\Requests;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class ProductPropertyUpdateRequest extends FormRequest
+class ProductPropertyUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {

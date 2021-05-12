@@ -8,7 +8,7 @@ use Modules\Seo\Dto\Admin\CanonicalDto;
 use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
-use Modules\Seo\Repositories\Admin\CanonicalRepository;
+use Modules\Seo\Repositories\CanonicalRepository;
 use Modules\Seo\Services\Admin\CanonicalStorage;
 
 /**

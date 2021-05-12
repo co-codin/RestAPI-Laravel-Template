@@ -4,14 +4,9 @@
 namespace Modules\Seo\Http\Requests\Admin;
 
 
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\BaseFormRequest;
 
-/**
- * Class CanonicalUpdateRequest
- * @package Modules\Seo\Http\Requests\Admin
- */
-class CanonicalUpdateRequest extends FormRequest
+class CanonicalUpdateRequest extends BaseFormRequest
 {
     public function rules(): array
     {
@@ -25,10 +20,5 @@ class CanonicalUpdateRequest extends FormRequest
             ],
             'canonical' => 'sometimes|required|string|max:255',
         ];
-    }
-
-    protected function passedValidation(): void
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

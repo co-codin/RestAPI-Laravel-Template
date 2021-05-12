@@ -2,9 +2,9 @@
 
 namespace Modules\Currency\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class CurrencyCreateRequest extends FormRequest
+class CurrencyCreateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

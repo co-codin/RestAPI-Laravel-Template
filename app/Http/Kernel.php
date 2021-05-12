@@ -4,7 +4,6 @@ namespace App\Http;
 
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Modules\Seo\Http\Middleware\MetaTagsMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -16,7 +15,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        MetaTagsMiddleware::class
     ];
 
     protected $middlewareGroups = [

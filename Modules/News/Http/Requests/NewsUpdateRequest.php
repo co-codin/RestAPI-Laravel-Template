@@ -6,9 +6,9 @@ namespace Modules\News\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class NewsUpdateRequest extends FormRequest
+class NewsUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {

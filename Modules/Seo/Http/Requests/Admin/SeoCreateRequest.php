@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Seo\Http\Requests;
+namespace Modules\Seo\Http\Requests\Admin;
 
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class SeoCreateRequest extends FormRequest
+class SeoCreateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

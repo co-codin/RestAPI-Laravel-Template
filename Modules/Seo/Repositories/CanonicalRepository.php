@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection as SupportCollection;
 use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Repositories\Criteria\CanonicalRequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 
@@ -28,35 +29,8 @@ class CanonicalRepository extends BaseRepository
         return CanonicalEntity::class;
     }
 
-    /**
-     * @param string $url
-     * @param string|null $cacheKey
-     * @return CanonicalEntity|null
-     */
-    public function findByUrl(string $url, ?string $cacheKey = null): ?CanonicalEntity
+    public function boot()
     {
-        if (!is_null($cacheKey)) {
-            return \Cache::store('array')->rememberForever("$cacheKey-canonical", function () use ($url) {
-                return $this->get()->where('url', $url)->first();
-            });
-        }
-
-        return $this->get()->where('url', $url)->first();
-    }
-
-    /**
-     * @param array $urls
-     * @param string|null $cacheKey
-     * @return Collection|CanonicalEntity[]
-     */
-    public function getByUrls(array $urls, ?string $cacheKey = null): Collection
-    {
-        if (!is_null($cacheKey)) {
-            return \Cache::store('array')->rememberForever($cacheKey, function () use ($urls) {
-                return $this->get()->whereIn('url', $urls);
-            });
-        }
-
-        return $this->get()->whereIn('url', $urls);
+        $this->pushCriteria(CanonicalRequestCriteria::class);
     }
 }

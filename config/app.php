@@ -1,8 +1,5 @@
 <?php
 
-use Modules\Seo\Facades\Canonical;
-use Modules\Seo\Facades\MetaTags;
-
 return [
 
     /*
@@ -233,9 +230,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
-        'MetaTags' => MetaTags::class,
-        'Canonical' => Canonical::class,
     ],
 
 ];

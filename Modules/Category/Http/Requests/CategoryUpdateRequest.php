@@ -4,10 +4,9 @@ namespace Modules\Category\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\BaseFormRequest;
 
-class CategoryUpdateRequest extends FormRequest
+class CategoryUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {
@@ -31,10 +30,5 @@ class CategoryUpdateRequest extends FormRequest
                 'image',
             ],
         ];
-    }
-
-    protected function passedValidation()
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

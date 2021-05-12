@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Seo\Http\Requests;
+namespace Modules\Seo\Http\Requests\Admin;
 
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
-class SeoUpdateRequest extends FormRequest
+class SeoUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {

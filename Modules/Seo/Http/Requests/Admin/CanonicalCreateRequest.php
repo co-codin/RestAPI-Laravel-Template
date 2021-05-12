@@ -4,13 +4,9 @@
 namespace Modules\Seo\Http\Requests\Admin;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-/**
- * Class CanonicalCreateRequest
- * @package Modules\Seo\Http\Requests\Admin
- */
-class CanonicalCreateRequest extends FormRequest
+class CanonicalCreateRequest extends BaseFormRequest
 {
     public function rules(): array
     {

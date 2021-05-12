@@ -2,9 +2,9 @@
 
 namespace Modules\Achievement\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class AchievementCreateRequest extends FormRequest
+class AchievementCreateRequest extends BaseFormRequest
 {
     public function rules()
     {
