@@ -13,7 +13,11 @@ use Modules\Faq\Database\factories\QuestionFactory;
  * Class Question
  * @package Modules\Faq\Models
  * @property int $id
+ * @property string $question
+ * @property string $slug
+ * @property string $answer
  * @property int $status
+ * @property QuestionCategory $questionCategory
  */
 class Question extends Model
 {
