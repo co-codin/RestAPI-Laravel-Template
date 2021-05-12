@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Modules\Seo\Facades\Canonical as CanonicalFacade;
 use Modules\Seo\Facades\MetaTags as MetaTagsFacade;
-use Modules\Seo\Repositories\CanonicalRepositoryInterface;
+use Modules\Seo\Repositories\CanonicalRepository;
 use Modules\Seo\Repositories\SeoRuleRepository;
 
 /**
@@ -16,9 +16,6 @@ use Modules\Seo\Repositories\SeoRuleRepository;
  */
 class MetaTagsMiddleware
 {
-    private SeoRuleRepository $seoRuleRepository;
-    private CanonicalRepositoryInterface $canonicalRepository;
-
     /**
      * The ROUTE NAMES that should be excluded from MetaTagsMiddleware.
      *
@@ -31,19 +28,10 @@ class MetaTagsMiddleware
         'news-view',
     ];
 
-    /**
-     * MetaTags constructor.
-     * @param SeoRuleRepository $seoRuleRepository
-     * @param CanonicalRepositoryInterface $canonicalRepository
-     */
     public function __construct(
-        SeoRuleRepository $seoRuleRepository,
-        CanonicalRepositoryInterface $canonicalRepository
-    )
-    {
-        $this->seoRuleRepository = $seoRuleRepository;
-        $this->canonicalRepository = $canonicalRepository;
-    }
+        private SeoRuleRepository $seoRuleRepository,
+        private CanonicalRepository $canonicalRepository
+    ) {}
 
     /**
      * Handle an incoming request.

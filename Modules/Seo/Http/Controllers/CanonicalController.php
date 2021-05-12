@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Models\CanonicalEntity;
-use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface;
+use Modules\Seo\Repositories\CanonicalRepository;
 
 /**
  * Class CanonicalController
@@ -15,7 +15,7 @@ use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface;
 class CanonicalController extends Controller
 {
     public function __construct(
-        private CanonicalRepositoryInterface $repository
+        private CanonicalRepository $repository
     ) {}
 
     /**

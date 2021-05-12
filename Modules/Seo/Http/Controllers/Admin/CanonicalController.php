@@ -8,7 +8,7 @@ use Modules\Seo\Dto\Admin\CanonicalDto;
 use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
-use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface;
+use Modules\Seo\Repositories\Admin\CanonicalRepository;
 use Modules\Seo\Services\Admin\CanonicalStorage;
 
 /**
@@ -18,7 +18,7 @@ use Modules\Seo\Services\Admin\CanonicalStorage;
 class CanonicalController extends Controller
 {
     public function __construct(
-        private CanonicalRepositoryInterface $repository,
+        private CanonicalRepository $repository,
         private CanonicalStorage $storage
     ) {}
 

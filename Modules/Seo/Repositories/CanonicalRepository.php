@@ -16,7 +16,7 @@ use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
  * @package Modules\Seo\Repositories
  * @property CanonicalEntity $model
  */
-class CanonicalRepository extends BaseRepository implements CanonicalRepositoryInterface
+class CanonicalRepository extends BaseRepository
 {
     /**
      * Specify Model class name
