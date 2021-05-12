@@ -2,9 +2,7 @@
 
 namespace Modules\Seo\Http\Requests;
 
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class SeoUpdateRequest extends FormRequest
 {
