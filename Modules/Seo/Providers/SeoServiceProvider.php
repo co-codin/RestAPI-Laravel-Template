@@ -5,6 +5,8 @@ namespace Modules\Seo\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\Seo\Repositories\Admin\CanonicalRepository as AdminCanonicalRepository;
 use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface as AdminCanonicalRepositoryInterface;
+use Modules\Seo\Repositories\CanonicalRepository;
+use Modules\Seo\Repositories\CanonicalRepositoryInterface;
 
 class SeoServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,11 @@ class SeoServiceProvider extends ServiceProvider
         $this->app->bind(
             AdminCanonicalRepositoryInterface::class,
             AdminCanonicalRepository::class
+        );
+
+        $this->app->bind(
+            CanonicalRepositoryInterface::class,
+            CanonicalRepository::class
         );
     }
 

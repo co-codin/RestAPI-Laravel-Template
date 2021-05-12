@@ -8,7 +8,7 @@ use Illuminate\Routing\Route;
 use Modules\Seo\Facades\Canonical as CanonicalFacade;
 use Modules\Seo\Facades\MetaTags as MetaTagsFacade;
 use Modules\Seo\Repositories\CanonicalRepositoryInterface;
-use Modules\Seo\Repositories\SeoRuleRepositoryInterface;
+use Modules\Seo\Repositories\SeoRuleRepository;
 
 /**
  * Class MetaTagsMiddleware
@@ -16,7 +16,7 @@ use Modules\Seo\Repositories\SeoRuleRepositoryInterface;
  */
 class MetaTagsMiddleware
 {
-    private SeoRuleRepositoryInterface $seoRuleRepository;
+    private SeoRuleRepository $seoRuleRepository;
     private CanonicalRepositoryInterface $canonicalRepository;
 
     /**
@@ -33,11 +33,11 @@ class MetaTagsMiddleware
 
     /**
      * MetaTags constructor.
-     * @param SeoRuleRepositoryInterface $seoRuleRepository
+     * @param SeoRuleRepository $seoRuleRepository
      * @param CanonicalRepositoryInterface $canonicalRepository
      */
     public function __construct(
-        SeoRuleRepositoryInterface $seoRuleRepository,
+        SeoRuleRepository $seoRuleRepository,
         CanonicalRepositoryInterface $canonicalRepository
     )
     {

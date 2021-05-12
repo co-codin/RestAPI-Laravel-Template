@@ -1,0 +1,5 @@
+type CanonicalEntity {
+    id: ID!
+    url: String!
+    canonical: String!
+}
