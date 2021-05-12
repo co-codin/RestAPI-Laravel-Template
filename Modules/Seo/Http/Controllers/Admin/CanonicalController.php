@@ -3,9 +3,11 @@
 namespace Modules\Seo\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Modules\Seo\Dto\Admin\CanonicalDto;
+use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
-use Modules\Seo\Http\Requests\Admin\CanonicalRequest;
+use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
 use Modules\Seo\Repositories\Admin\CanonicalRepositoryInterface;
 use Modules\Seo\Services\Admin\CanonicalStorage;
 
@@ -18,16 +20,15 @@ class CanonicalController extends Controller
     public function __construct(
         private CanonicalRepositoryInterface $repository,
         private CanonicalStorage $storage
-    )
-    {}
+    ) {}
 
     /**
      * Store a newly created resource in storage.
-     * @param CanonicalRequest $request
+     * @param CanonicalCreateRequest $request
      * @return CanonicalResource
      * @throws \Exception
      */
-    public function store(CanonicalRequest $request)
+    public function store(CanonicalCreateRequest $request): CanonicalResource
     {
         $canonical = $this->storage->store(
             CanonicalDto::fromFormRequest($request)
@@ -38,12 +39,12 @@ class CanonicalController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param CanonicalRequest $request
+     * @param CanonicalUpdateRequest $request
      * @param int $id
      * @return CanonicalResource
      * @throws \Exception
      */
-    public function update(CanonicalRequest $request, int $id)
+    public function update(CanonicalUpdateRequest $request, int $id): CanonicalResource
     {
         $canonical = $this->repository->find($id);
 
@@ -58,10 +59,10 @@ class CanonicalController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @throws \Exception
      */
-    public function destroy(int $id)
+    public function destroy(int $id): Response
     {
         $canonical = $this->repository->find($id);
         $this->storage->delete($canonical);

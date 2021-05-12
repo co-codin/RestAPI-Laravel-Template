@@ -7,10 +7,10 @@ namespace Modules\Seo\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CanonicalRequest
+ * Class CanonicalCreateRequest
  * @package Modules\Seo\Http\Requests\Admin
  */
-class CanonicalRequest extends FormRequest
+class CanonicalCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
