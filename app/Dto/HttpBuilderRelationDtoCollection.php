@@ -9,7 +9,7 @@ class HttpBuilderRelationDtoCollection extends BaseDtoCollection
     public function __construct($items = [])
     {
         $items = array_map(
-            fn (array $data): HttpBuilderRelationDto => $data instanceof HttpBuilderRelationDto
+            fn (HttpBuilderRelationDto|array $data): HttpBuilderRelationDto => $data instanceof HttpBuilderRelationDto
                 ? $data
                 : new HttpBuilderRelationDto(...$data),
             $items
