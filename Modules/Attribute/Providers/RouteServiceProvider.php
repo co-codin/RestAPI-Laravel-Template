@@ -50,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('admin')
             ->as('admin.')
             ->prefix('admin')
-            ->group(module_path('Attribute', '/Routes/web.php'));
+            ->group(module_path('Attribute', '/Routes/admin.php'));
     }
 
     /**
