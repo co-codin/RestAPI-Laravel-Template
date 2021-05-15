@@ -11,5 +11,6 @@
     "Property": true,
     "Filter": true,
     "Product": true,
-    "Currency": true
+    "Currency": true,
+    "Attribute": true
 }
