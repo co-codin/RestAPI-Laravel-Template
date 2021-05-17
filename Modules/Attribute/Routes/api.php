@@ -1,5 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Attribute\Http\Controllers\AttributeController;
 
-//Route::resource('achievements', AchievementController::class)->only(['index', 'show']);
+Route::resource('attributes', AttributeController::class)->only(['index', 'show']);

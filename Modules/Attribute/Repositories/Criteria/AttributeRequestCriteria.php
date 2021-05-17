@@ -13,16 +13,16 @@ class AttributeRequestCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
-//        return QueryBuilder::for($model)
-//            ->defaultSort('position')
-//            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
-//            ->allowedFilters([
-//                AllowedFilter::exact('id'),
-//                AllowedFilter::partial('name'),
-//                AllowedFilter::exact('image'),
-//                AllowedFilter::exact('is_enabled'),
-//            ])
-//            ->allowedSorts('id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at')
-//            ;
+        return QueryBuilder::for($model)
+            ->defaultSort('id')
+            ->allowedFields(['id', 'name', 'is_default', 'created_at', 'updated_at', 'deleted_at'])
+            ->allowedFilters([
+                AllowedFilter::exact('id'),
+                AllowedFilter::partial('name'),
+                AllowedFilter::exact('is_default'),
+                AllowedFilter::trashed(),
+            ])
+            ->allowedSorts('id', 'name', 'is_default', 'created_at', 'updated_at', 'deleted_at')
+            ;
     }
 }
