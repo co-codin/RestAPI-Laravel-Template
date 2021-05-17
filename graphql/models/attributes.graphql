@@ -1,0 +1,5 @@
+type Achievement {
+    id: ID!
+    name: String!
+    is_default: Boolean!
+}
