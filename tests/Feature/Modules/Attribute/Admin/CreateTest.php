@@ -1,36 +1,36 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievement\Admin;
+namespace Tests\Feature\Modules\Attribute\Admin;
 
 use Modules\Achievement\Models\Achievement;
+use Modules\Attribute\Models\Attribute;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_achievement()
+//    public function test_unauthenticated_cannot_create_attribute()
 //    {
 //        //
 //    }
 
-    public function test_authenticated_can_create_achievement()
+    public function test_authenticated_can_create_attribute()
     {
-        $achievementData = Achievement::factory()->raw();
+        $attributeData = Attribute::factory()->raw();
 
-        $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
+        $response = $this->json('POST', route('admin.attributes.store'), $attributeData);
 
         $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
                 'name',
-                'image',
-                'is_enabled',
+                'is_default',
             ]
         ]);
 
-        $this->assertDatabaseHas('achievements', [
-            'name' => $achievementData['name'],
-            'is_enabled' => $achievementData['is_enabled']
+        $this->assertDatabaseHas('attributes', [
+            'name' => $attributeData['name'],
+            'is_default' => $attributeData['is_default']
         ]);
     }
 }

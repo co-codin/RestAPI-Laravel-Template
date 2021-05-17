@@ -1,33 +1,33 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievement\Admin;
+namespace Tests\Feature\Modules\Attribute\Admin;
 
-use Modules\Achievement\Models\Achievement;
+use Modules\Attribute\Models\Attribute;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_achievement()
+//    public function test_unauthenticated_cannot_update_attribute()
 //    {
 //        //
 //    }
 
-    public function test_authenticated_can_update_achievement()
+    public function test_authenticated_can_update_attribute()
     {
-        $achievement = Achievement::factory()->create([
-            'is_enabled' => true,
+        $achievement = Attribute::factory()->create([
+            'is_default' => true,
         ]);
 
-        $response = $this->json('PATCH', route('admin.achievements.update', $achievement), [
+        $response = $this->json('PATCH', route('admin.attributes.update', $achievement), [
             'name' => $newName = 'new name',
-            'is_enabled' => false
+            'is_default' => false
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('achievements', [
+        $this->assertDatabaseHas('attributes', [
             'name' => $newName,
-            'is_enabled' => false
+            'is_default' => false
         ]);
     }
 }

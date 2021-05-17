@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Achievement\Web;
+namespace Tests\Feature\Modules\Attribute\Web;
 
-use Modules\Achievement\Models\Achievement;
+use Modules\Attribute\Models\Attribute;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_achievements()
+    public function test_user_can_view_attributes()
     {
-        Achievement::factory()->count($count = 5)->create();
+        Attribute::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('achievements.index'));
+        $response = $this->json('GET', route('attributes.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -21,9 +21,7 @@ class ReadTest extends TestCase
                 [
                     "id",
                     "name",
-                    "image",
-                    "is_enabled",
-                    "position",
+                    "is_default",
                     "created_at",
                     "updated_at",
                 ]
@@ -53,22 +51,20 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_achievement()
+    public function test_user_can_view_single_attribute()
     {
-        $achievement = Achievement::factory()->create();
+        $attribute = Attribute::factory()->create();
 
-        $response = $this->json('GET', route('achievements.show', $achievement));
+        $response = $this->json('GET', route('attributes.show', $attribute));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
-                'id',
-                'name',
-                'image',
-                'is_enabled',
-                'position',
-                'created_at',
-                'updated_at',
+                "id",
+                "name",
+                "is_default",
+                "created_at",
+                "updated_at",
             ]
         ]);
     }

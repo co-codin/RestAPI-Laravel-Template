@@ -10,14 +10,15 @@ class ReadTest extends TestCase
 {
     public function test_attributes_can_be_viewed()
     {
-        $achievement = Attribute::factory()->create();
+        $attribute = Attribute::factory()->create();
 
         $response = $this->graphQL('
             {
-                achievements {
+                attributes {
                     data {
                         id
                         name
+                        is_default
                     }
                     paginatorInfo {
                         currentPage
@@ -29,11 +30,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievements' => [
+                'attributes' => [
                     'data' => [
                         [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
+                            'id' => $attribute->id,
+                            'name' => $attribute->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -46,7 +47,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                achievements(where: { column: ID, operator: EQ, value: ' . $achievement->id .'  }) {
+                attributes(where: { column: ID, operator: EQ, value: ' . $attribute->id .'  }) {
                     data {
                         id
                         name
@@ -57,11 +58,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievements' => [
+                'attributes' => [
                     'data' => [
                         [
-                            'id' => $achievement->id,
-                            'name' => $achievement->name,
+                            'id' => $attribute->id,
+                            'name' => $attribute->name,
                         ]
                     ],
                 ]
@@ -69,13 +70,13 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_single_achievement_can_be_viewed()
+    public function test_single_attribute_can_be_viewed()
     {
-        $achievement = Achievement::factory()->create();
+        $attribute = Attribute::factory()->create();
 
         $response = $this->graphQL('
             {
-                achievement (id: ' . $achievement->id . ') {
+                attribute (id: ' . $attribute->id . ') {
                     id
                     name
                 }
@@ -84,9 +85,9 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'achievement' => [
-                    'id' => $achievement->id,
-                    'name' => $achievement->name,
+                'attribute' => [
+                    'id' => $attribute->id,
+                    'name' => $attribute->name,
                 ]
             ],
         ]);
