@@ -33,4 +33,15 @@ class CreateTest extends TestCase
             'is_default' => $attributeData['is_default']
         ]);
     }
+
+    public function test_attribute_name_should_be_unique()
+    {
+         $attribute = Attribute::factory()->create();
+
+        $response = $this->json('POST', route('admin.attributes.store'), [
+            'name' => $attribute->name
+        ]);
+
+        $response->assertStatus(422);
+    }
 }
