@@ -26,11 +26,19 @@ class AttributeController extends Controller
 
     public function update(int $attribute, AttributeUpdateRequest $request)
     {
+        $attributeModel = $this->attributeRepository->find($attribute);
 
+        $this->attributeStorage->update($attributeModel, AttributeDto::fromFormRequest($request));
+
+        return new AttributeResource($attributeModel);
     }
 
-    public function destroy()
+    public function destroy(int $attribute)
     {
+        $attributeModel = $this->attributeRepository->find($attribute);
 
+        $this->attributeStorage->delete($attributeModel);
+
+        return response()->noContent();
     }
 }

@@ -11,18 +11,18 @@ class AttributeStorage
 {
     public function store(AttributeDto $attributeDto)
     {
-        $attribute = Attribute::query()->create($attributeDto->toArray());
-
-        return $attribute;
+        return Attribute::query()->create($attributeDto->toArray());
     }
 
     public function update(Attribute $attribute, AttributeDto $attributeDto)
     {
+        $attribute->update($attributeDto->toArray());
 
+        return $attribute;
     }
 
     public function delete(Attribute $attribute)
     {
-
+        $attribute->delete();
     }
 }
