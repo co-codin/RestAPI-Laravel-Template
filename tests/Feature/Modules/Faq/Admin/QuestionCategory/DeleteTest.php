@@ -18,7 +18,7 @@ class DeleteTest extends TestCase
     {
         $questionCategory = QuestionCategory::factory()->create();
 
-        $response = $this->deleteJson(route('admin.question_categories.destroy', $questionCategory));
+        $response = $this->deleteJson(route('admin.question-categories.destroy', $questionCategory));
 
         $response->assertNoContent(204);
 

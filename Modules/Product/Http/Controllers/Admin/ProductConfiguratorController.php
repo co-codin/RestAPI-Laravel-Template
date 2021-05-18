@@ -3,7 +3,7 @@
 namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Http\Requests\ProductConfiguratorUpdateRequest;
+use Modules\Product\Http\Requests\Admin\ProductConfiguratorUpdateRequest;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Services\ProductConfiguratorStorage;
 

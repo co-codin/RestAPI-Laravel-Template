@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Http\Requests;
+namespace Modules\Product\Http\Requests\Admin;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;

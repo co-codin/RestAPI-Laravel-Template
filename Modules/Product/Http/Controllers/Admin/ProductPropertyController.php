@@ -5,7 +5,7 @@ namespace Modules\Product\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Http\Requests\ProductPropertyUpdateRequest;
+use Modules\Product\Http\Requests\Admin\ProductPropertyUpdateRequest;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Services\ProductPropertyStorage;
 

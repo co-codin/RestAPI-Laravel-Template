@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Product\Http\Requests;
+namespace Modules\Product\Http\Requests\Admin;
 
 
 use BenSampo\Enum\Rules\EnumValue;
