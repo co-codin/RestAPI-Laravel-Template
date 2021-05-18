@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Attribute\Http\Requests;
+namespace Modules\Attribute\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class AttributeUpdateRequest extends FormRequest
+class AttributeUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {

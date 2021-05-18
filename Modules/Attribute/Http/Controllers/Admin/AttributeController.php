@@ -4,8 +4,8 @@ namespace Modules\Attribute\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Modules\Attribute\Dto\AttributeDto;
-use Modules\Attribute\Http\Requests\AttributeCreateRequest;
-use Modules\Attribute\Http\Requests\AttributeUpdateRequest;
+use Modules\Attribute\Http\Requests\Admin\AttributeCreateRequest;
+use Modules\Attribute\Http\Requests\Admin\AttributeUpdateRequest;
 use Modules\Attribute\Http\Resources\AttributeResource;
 use Modules\Attribute\Repositories\AttributeRepository;
 use Modules\Attribute\Services\AttributeStorage;
