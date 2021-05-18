@@ -128,6 +128,8 @@ return [
             'Modules\\Filter\\Models',
             'Modules\\Currency\\Models',
             'Modules\\Product\\Models',
+            'Modules\\Attribute\\Models',
+
         ],
 //        'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',
