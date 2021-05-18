@@ -5,10 +5,10 @@ namespace Modules\Product\Http\Requests;
 
 
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\ProductVariationStock;
 
-class ProductConfiguratorUpdateRequest extends FormRequest
+class ProductConfiguratorUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {

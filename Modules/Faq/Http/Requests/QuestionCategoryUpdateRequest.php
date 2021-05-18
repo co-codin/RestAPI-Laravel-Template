@@ -4,10 +4,9 @@ namespace Modules\Faq\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\BaseFormRequest;
 
-class QuestionCategoryUpdateRequest extends FormRequest
+class QuestionCategoryUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -25,10 +24,5 @@ class QuestionCategoryUpdateRequest extends FormRequest
                 new EnumValue(Status::class, false),
             ],
         ];
-    }
-
-    protected function passedValidation()
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

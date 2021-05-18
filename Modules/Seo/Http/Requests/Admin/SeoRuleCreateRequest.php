@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Seo\Http\Requests;
+namespace Modules\Seo\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Modules\Seo\Rules\SeoRuleUrlRouteNotIn;
 
-class SeoRuleCreateRequest extends FormRequest
+class SeoRuleCreateRequest extends BaseFormRequest
 {
     public function rules()
     {

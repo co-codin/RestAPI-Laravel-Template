@@ -4,8 +4,8 @@ namespace Modules\Seo\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 use Modules\Seo\Dto\SeoRuleDto;
-use Modules\Seo\Http\Requests\SeoRuleCreateRequest;
-use Modules\Seo\Http\Requests\SeoRuleUpdateRequest;
+use Modules\Seo\Http\Requests\Admin\SeoRuleCreateRequest;
+use Modules\Seo\Http\Requests\Admin\SeoRuleUpdateRequest;
 use Modules\Seo\Http\Resources\SeoRuleResource;
 use Modules\Seo\Repositories\SeoRuleRepository;
 use Modules\Seo\Services\SeoRuleStorage;

@@ -4,13 +4,13 @@
 namespace Modules\Redirect\Http\Requests;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
 /**
  * Class RedirectCreateRequest
  * @package Modules\Redirect\Http\Requests\Admin
  */
-class RedirectCreateRequest extends FormRequest
+class RedirectCreateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

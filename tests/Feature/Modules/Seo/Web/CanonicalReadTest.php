@@ -3,25 +3,28 @@
 
 namespace Tests\Feature\Modules\Seo\Web;
 
-use Modules\Seo\Models\SeoRule;
+use Modules\Seo\Models\CanonicalEntity;
 use Tests\TestCase;
+use function route;
 
-class ReadTest extends TestCase
+class CanonicalReadTest extends TestCase
 {
-    public function test_user_can_view_seo_rules()
+    public function test_user_can_view_canonicals()
     {
-        SeoRule::factory()->count($count = 5)->create();
+        CanonicalEntity::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('seo-rules.index'));
+        $response = $this->json('GET', route('canonicals.index'));
 
         $response->assertOk();
-        $this->assertEquals($count, count(($response['data'])));
+
+        $this->assertCount($count, ($response['data']));
+
         $response->assertJsonStructure([
             'data' => [
                 [
                     "id",
-                    "name",
                     "url",
+                    "canonical",
                     "created_at",
                     "updated_at",
                 ]
@@ -51,18 +54,18 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_seo_rule()
+    public function test_user_can_view_single_canonical()
     {
-        $seoRule = SeoRule::factory()->create();
+        $canonical = CanonicalEntity::factory()->create();
 
-        $response = $this->json('GET', route('seo-rules.show', $seoRule));
+        $response = $this->json('GET', route('canonicals.show', $canonical));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "name",
                 "url",
+                "canonical",
                 "created_at",
                 "updated_at",
             ]

@@ -1,11 +1,12 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Seo\Admin;
+namespace Tests\Feature\Modules\Seo\Admin\SeoRule;
 
 use Modules\Publication\Models\Publication;
 use Modules\Seo\Models\SeoRule;
 use Tests\TestCase;
+use function route;
 
 class UpdateTest extends TestCase
 {

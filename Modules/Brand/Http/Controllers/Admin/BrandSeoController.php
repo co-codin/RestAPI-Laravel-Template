@@ -6,7 +6,7 @@ namespace Modules\Brand\Http\Controllers\Admin;
 
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Seo\Dto\SeoDto;
-use Modules\Seo\Http\Requests\SeoUpdateRequest;
+use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
 use Modules\Seo\Http\Resources\SeoResource;
 use Modules\Seo\Services\SeoStorage;
 use Illuminate\Routing\Controller;

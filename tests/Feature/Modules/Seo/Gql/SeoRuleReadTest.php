@@ -6,7 +6,7 @@ namespace Tests\Feature\Modules\Seo\Gql;
 use Modules\Seo\Models\SeoRule;
 use Tests\TestCase;
 
-class ReadTest extends TestCase
+class SeoRuleReadTest extends TestCase
 {
     public function test_seo_rules_can_be_viewed()
     {

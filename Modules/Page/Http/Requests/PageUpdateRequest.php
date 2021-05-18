@@ -6,14 +6,14 @@ namespace Modules\Page\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
 /**
  * Class PageCreateRequest
  * @package Modules\Page\Http\Requests\Admin
  * @property array $seo
  */
-class PageUpdateRequest extends FormRequest
+class PageUpdateRequest extends BaseFormRequest
 {
 
     /**
