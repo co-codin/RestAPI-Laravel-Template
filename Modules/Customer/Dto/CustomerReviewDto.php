@@ -5,6 +5,7 @@ namespace Modules\Customer\Dto;
 
 
 use App\Dto\BaseDto;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class CustomerReviewDto
@@ -16,8 +17,8 @@ class CustomerReviewDto extends BaseDto
     public string $author;
     public int $type;
     public ?string $video;
-    public ?string $review_file;
+    public UploadedFile|string|null $review_file;
     public bool $is_home;
     public string $comment;
-    public ?string $logo;
+    public UploadedFile|string|null $logo;
 }

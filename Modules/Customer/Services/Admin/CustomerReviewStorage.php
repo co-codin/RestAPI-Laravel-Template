@@ -4,6 +4,9 @@
 namespace Modules\Customer\Services\Admin;
 
 
+use App\Services\File\FileUploader;
+use App\Services\File\ImageUploader;
+use Illuminate\Http\UploadedFile;
 use Modules\Customer\Dto\CustomerReviewDto;
 use Modules\Customer\Models\CustomerReview;
 
@@ -13,6 +16,11 @@ use Modules\Customer\Models\CustomerReview;
  */
 class CustomerReviewStorage
 {
+    public function __construct(
+        private ImageUploader $imageUploader,
+        private FileUploader $fileUploader
+    ) {}
+
     /**
      * @param CustomerReviewDto $dto
      * @return CustomerReview
@@ -20,7 +28,8 @@ class CustomerReviewStorage
      */
     public function store(CustomerReviewDto $dto): CustomerReview
     {
-        $customerReview = new CustomerReview($dto->toArray());
+        $attributes = $this->getPreparedAttributes($dto);
+        $customerReview = new CustomerReview($attributes);
 
         if (!$customerReview->save()) {
             throw new \Exception('Не удалось сохранить отзыв клиента');
@@ -37,7 +46,9 @@ class CustomerReviewStorage
      */
     public function update(CustomerReview $customerReview, CustomerReviewDto $dto): CustomerReview
     {
-        if (!$customerReview->update($dto->toArray())) {
+        $attributes = $this->getPreparedAttributes($dto);
+
+        if (!$customerReview->update($attributes)) {
             throw new \Exception('Не удалось обновить отзыв клиента - id' . $customerReview->id);
         }
 
@@ -56,5 +67,24 @@ class CustomerReviewStorage
         }
 
         return $customerReview;
+    }
+
+    /**
+     * @param CustomerReviewDto $dto
+     * @return array
+     */
+    private function getPreparedAttributes(CustomerReviewDto $dto): array
+    {
+        $attributes = $dto->toArray();
+
+        if ($dto->logo && $dto->logo instanceof UploadedFile) {
+            $attributes['logo'] = $this->imageUploader->upload($dto->logo);
+        }
+
+        if ($dto->review_file && $dto->review_file instanceof UploadedFile) {
+            $attributes['review_file'] = $this->fileUploader->upload($dto->review_file);
+        }
+
+        return $attributes;
     }
 }
