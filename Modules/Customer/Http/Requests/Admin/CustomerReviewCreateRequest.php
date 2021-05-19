@@ -14,7 +14,7 @@ class CustomerReviewCreateRequest extends CustomerReviewRequest
             'post' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'type' => 'required|integer|enum_value:' . CustomerType::class,
-            'video' => 'sometimes|nullable|string|max:255',
+            'video' => 'sometimes|nullable|string|is_youtube_link|max:255',
             'review_file' => 'sometimes|nullable|file',
             'is_home' => 'sometimes|nullable|boolean',
             'comment' => 'required|string',

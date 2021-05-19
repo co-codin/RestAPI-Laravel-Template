@@ -33,7 +33,7 @@ class CustomerReview extends Model
 
     protected $casts = [
         'type' => 'integer',
-        'is_home' => 'array'
+        'is_home' => 'boolean'
     ];
 
     protected $fillable = [
@@ -47,7 +47,7 @@ class CustomerReview extends Model
         'logo',
     ];
 
-    protected static function newFactory()
+    protected static function newFactory(): CustomerReviewFactory
     {
         return CustomerReviewFactory::new();
     }
