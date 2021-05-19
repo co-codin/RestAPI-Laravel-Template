@@ -1,19 +1,19 @@
 <?php
 
-namespace Modules\Seo\Repositories\Criteria;
+namespace Modules\Customer\Repositories\Criteria;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Seo\Http\Builders\CanonicalBuilder;
+use Modules\Customer\Http\Builders\CustomerReviewBuilder;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class CanonicalRequestCriteria.
+ * Class CustomerReviewRequestCriteria.
  *
- * @package Modules\Seo\Repositories\Criteria;
+ * @package Modules\Customer\Repositories\Criteria;
  */
-class CanonicalRequestCriteria implements CriteriaInterface
+class CustomerReviewRequestCriteria implements CriteriaInterface
 {
     /**
      * Apply criteria in query repository
@@ -25,6 +25,6 @@ class CanonicalRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        return (new CanonicalBuilder())->builder($model);
+        return (new CustomerReviewBuilder())->builder($model);
     }
 }

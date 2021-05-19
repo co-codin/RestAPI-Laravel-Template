@@ -1,23 +1,25 @@
 <?php
 
 
-namespace Modules\Seo\Http\Builders;
+namespace Modules\Customer\Http\Builders;
 
 
 use App\Http\Builders\BaseBuilder;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Concerns\SortsQuery;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 
-class CanonicalBuilder extends BaseBuilder
+class CustomerReviewBuilder extends BaseBuilder
 {
     public function builder(Model|Builder|string $model): SortsQuery|SpatieQueryBuilder
     {
         return SpatieQueryBuilder::for($this->getQuery($model))
             ->allowedFields($this->getFields())
             ->defaultSort('-id')
+            ->allowedSorts($this->getSorts())
             ->allowedFilters($this->getFilters());
     }
 
@@ -29,8 +31,14 @@ class CanonicalBuilder extends BaseBuilder
     {
         $fields = [
             'id',
-            'url',
-            'canonical',
+            'post',
+            'author',
+            'type',
+            'video',
+            'review_file',
+            'is_home',
+            'comment',
+            'logo',
         ];
 
         return $this->filter($fields, $columns)
@@ -45,8 +53,12 @@ class CanonicalBuilder extends BaseBuilder
     public function getFilters(?array $columns = null): array
     {
         $filters = [
-            'url',
-            'canonical',
+            'post',
+            'author',
+            'comment',
+            'id' => AllowedFilter::exact('id'),
+            'is_home' => AllowedFilter::exact('manager_id'),
+            'type' => AllowedFilter::exact('status'),
         ];
 
         if (!is_null($this->relationDtoCollection)) {
@@ -54,5 +66,26 @@ class CanonicalBuilder extends BaseBuilder
         }
 
         return $this->filter($filters, $columns)->toArray();
+    }
+
+    /**
+     * @param array|null $columns
+     * @return array
+     */
+    public function getSorts(?array $columns = null): array
+    {
+        $sorts = [
+            'id',
+            'post',
+            'author',
+            'type',
+            'is_home',
+        ];
+
+        if (!is_null($this->relationDtoCollection)) {
+            $sorts = [];
+        }
+
+        return $this->filter($sorts, $columns)->toArray();
     }
 }

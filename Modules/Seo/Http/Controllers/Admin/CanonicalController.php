@@ -31,7 +31,7 @@ class CanonicalController extends Controller
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
         $canonical = $this->storage->store(
-            \Modules\Seo\Dto\CanonicalDto::fromFormRequest($request)
+            CanonicalDto::fromFormRequest($request)
         );
 
         return new CanonicalResource($canonical);
@@ -50,7 +50,7 @@ class CanonicalController extends Controller
 
         $canonical = $this->storage->update(
             $canonical,
-            \Modules\Seo\Dto\CanonicalDto::create($request->validated())->only(...$request->keys())
+            CanonicalDto::create($request->validated())->only(...$request->keys())
         );
 
         return new CanonicalResource($canonical);
