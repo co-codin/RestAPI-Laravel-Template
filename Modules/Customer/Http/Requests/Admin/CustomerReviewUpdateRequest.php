@@ -18,7 +18,8 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
             'review_file' => 'sometimes|nullable|file',
             'is_home' => 'sometimes|nullable|boolean',
             'comment' => 'sometimes|required|string',
-            'logo' => 'sometimes|nullable|image',
+            'logo' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
+            'is_image_changed' => 'sometimes|boolean',
         ];
     }
 }
