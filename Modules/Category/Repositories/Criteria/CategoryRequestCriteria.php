@@ -6,6 +6,7 @@ use Modules\Filter\Repositories\Criteria\FilterRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryRequestCriteria implements CriteriaInterface
@@ -36,7 +37,15 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::scope('is_root'),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['parent', 'ancestors', 'descendants', 'children', 'seo', 'filters'])
+            ->allowedIncludes([
+                'parent',
+                'ancestors',
+                'descendants',
+                'children',
+                'seo',
+                'filters',
+                AllowedInclude::count('productsCount'),
+            ])
             ->allowedSorts([
                 'id', 'name', 'slug', 'product_name', '_lft', 'created_at', 'updated_at', 'deleted_at',
             ]);

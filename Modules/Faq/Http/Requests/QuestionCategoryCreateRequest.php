@@ -4,9 +4,9 @@ namespace Modules\Faq\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class QuestionCategoryCreateRequest extends FormRequest
+class QuestionCategoryCreateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

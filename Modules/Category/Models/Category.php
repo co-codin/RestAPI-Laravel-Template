@@ -20,12 +20,12 @@ use Modules\Seo\Models\Seo;
  * @property int $id
  * @property string $name
  * @property string $slug
- * @property string $product_name
+ * @property string|null $product_name
  * @property string $full_description
  * @property int $status
  * @property boolean $is_hidden_in_parents
  * @property boolean $is_in_home
- * @property string $image
+ * @property string|null $image
  * @property Category|null $parent
  * @property Category[] $ancestors
  * @property Category[] $descendants

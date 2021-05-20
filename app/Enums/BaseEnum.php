@@ -7,6 +7,7 @@ use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum as BenSampoEnum;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class Enum
@@ -14,21 +15,15 @@ use Illuminate\Support\Str;
  */
 abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
 {
-    /**
-     * @var string|null
-     */
-    protected static $moduleName = null;
+    protected static ?string $moduleName = null;
 
-    /**
-     * @throws \ReflectionException
-     */
-    protected static function setModuleName()
+    protected static function setModuleName(): void
     {
         static::$moduleName = null;
 
         $namespaceName = static::class;
-        $findme = "Modules";
-        $pos = strpos($namespaceName, $findme);
+        $findMe = "Modules";
+        $pos = strpos($namespaceName, $findMe);
 
         if ($pos !== false) {
             preg_match("~[\\\\]+\\w+[\\\\]~", $namespaceName, $matches);
@@ -40,7 +35,6 @@ abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
      * Get the default localization key.
      *
      * @return string
-     * @throws \ReflectionException
      */
     public static function getLocalizationKey(): string
     {
@@ -64,6 +58,10 @@ abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
         return $value;
     }
 
+    #[ArrayShape([
+        'value' => "",
+        'description' => "string"
+    ])]
     public static function toJson($value): array
     {
         return [

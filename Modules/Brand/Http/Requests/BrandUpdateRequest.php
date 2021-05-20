@@ -4,10 +4,9 @@ namespace Modules\Brand\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\BaseFormRequest;
 
-class BrandUpdateRequest extends FormRequest
+class BrandUpdateRequest extends BaseFormRequest
 {
     public function rules()
     {
@@ -28,10 +27,5 @@ class BrandUpdateRequest extends FormRequest
             'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
         ];
-    }
-
-    protected function passedValidation()
-    {
-        abort_if(!$this->validated(), Response::HTTP_BAD_REQUEST);
     }
 }

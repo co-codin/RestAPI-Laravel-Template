@@ -2,9 +2,9 @@
 
 namespace Modules\Publication\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class PublicationUpdateRequest extends FormRequest
+class PublicationUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

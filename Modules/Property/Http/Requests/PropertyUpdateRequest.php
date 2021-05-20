@@ -5,10 +5,10 @@ namespace Modules\Property\Http\Requests;
 
 
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Modules\Property\Enums\PropertyType;
 
-class PropertyUpdateRequest extends FormRequest
+class PropertyUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

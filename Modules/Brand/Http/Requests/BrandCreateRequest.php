@@ -4,9 +4,9 @@ namespace Modules\Brand\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class BrandCreateRequest extends FormRequest
+class BrandCreateRequest extends BaseFormRequest
 {
     public function rules()
     {

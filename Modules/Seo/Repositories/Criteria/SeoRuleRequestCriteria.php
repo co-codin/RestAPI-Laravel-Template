@@ -18,6 +18,7 @@ class SeoRuleRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('url'),
+                AllowedFilter::exact('seo.is_enabled'),
             ])
             ->allowedIncludes('seo')
             ->allowedSorts('id', 'name', 'url', 'created_at', 'updated_at');

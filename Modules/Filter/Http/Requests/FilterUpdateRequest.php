@@ -3,12 +3,12 @@
 namespace Modules\Filter\Http\Requests;
 
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Modules\Filter\Enums\FilterType;
 
-class FilterUpdateRequest extends FormRequest
+class FilterUpdateRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

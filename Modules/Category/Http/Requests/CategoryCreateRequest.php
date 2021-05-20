@@ -4,9 +4,9 @@ namespace Modules\Category\Http\Requests;
 
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class CategoryCreateRequest extends FormRequest
+class CategoryCreateRequest extends BaseFormRequest
 {
     public function rules()
     {

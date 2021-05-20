@@ -5,36 +5,21 @@ namespace App\Dto;
 
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Seo\Dto\CanonicalDto;
 use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 abstract class BaseDto extends DataTransferObject
 {
     protected array $visibleKeys = [];
 
     /**
-     * Dto constructor.
-     * @param array $parameters
-     */
-    public function __construct(array $parameters = [])
-    {
-        $class = get_called_class();
-        $properties = get_class_vars($class);
-
-        foreach ($parameters as $key => $parameter) {
-            if (!array_key_exists($key, $properties)) {
-                unset($parameters[$key]);
-            }
-        }
-
-        parent::__construct($parameters);
-    }
-
-    /**
      * @param FormRequest $request
      * @return static
+     * @throws UnknownProperties
      */
-    public static function fromFormRequest(FormRequest $request)
+    public static function fromFormRequest(FormRequest $request): static
     {
         return (new static($validated = $request->validated()))
             ->visible(array_keys($validated));
@@ -44,8 +29,9 @@ abstract class BaseDto extends DataTransferObject
     /**
      * @param array $items
      * @return static
+     * @throws UnknownProperties
      */
-    public static function create(array $items)
+    public static function create(array $items): static
     {
         return new static($items);
     }
@@ -54,7 +40,7 @@ abstract class BaseDto extends DataTransferObject
      * @param string|string[] ...$properties
      * @return BaseDto
      */
-    public function toJson(...$properties)
+    public function toJson(...$properties): static
     {
         foreach ($properties as $property) {
             $this->{$property} = json_encode($this->{$property});

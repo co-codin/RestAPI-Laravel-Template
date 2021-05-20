@@ -1,0 +1,11 @@
+type CustomerReview {
+    id: ID!
+    post: String!
+    author: String!
+    type: Int!
+    video: String
+    review_file: String
+    is_home: Boolean!
+    comment: String
+    logo: String
+}

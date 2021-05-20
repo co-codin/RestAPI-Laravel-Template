@@ -7,7 +7,7 @@ namespace Modules\Category\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Seo\Dto\SeoDto;
-use Modules\Seo\Http\Requests\SeoUpdateRequest;
+use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
 use Modules\Seo\Http\Resources\SeoResource;
 use Modules\Seo\Services\SeoStorage;
 

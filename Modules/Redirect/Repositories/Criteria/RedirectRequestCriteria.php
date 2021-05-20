@@ -18,7 +18,7 @@ class RedirectRequestCriteria implements CriteriaInterface
             ->allowedFields(['id', 'source', 'destination', 'code', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
-                AllowedFilter::partial('source'),
+                AllowedFilter::exact('source'),
                 AllowedFilter::exact('destination'),
                 AllowedFilter::exact('code'),
             ])

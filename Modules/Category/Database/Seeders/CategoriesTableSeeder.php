@@ -13,23 +13,19 @@ class CategoriesTableSeeder extends Seeder
         $categories = [
             [
                 'name' => 'УЗИ',
-                'slug' => 'uzi',
                 'product_name' => 'УЗИ аппарат',
                 'image' => '/uploads/test/categories/uzi.png',
                 'children' => [
                     [
                         'name' => 'Кардиологические',
-                        'slug' => 'uzi/cardiological',
                         'product_name' => 'УЗИ аппарат',
                     ],
                     [
                         'name' => 'Гинекологические',
-                        'slug' => 'uzi/gynecological',
                         'product_name' => 'УЗИ аппарат',
                     ],
                     [
                         'name' => 'Общие',
-                        'slug' => 'uzi/common',
                         'product_name' => 'УЗИ аппарат',
                     ],
                 ],
@@ -196,22 +192,6 @@ class CategoriesTableSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'name' => 'Косметология',
-                'image' => '/uploads/test/categories/cosmetology.jpg',
-            ],
-            [
-                'name' => 'Хирургия',
-                'image' => '/uploads/test/categories/hirurg.jpg',
-            ],
-            [
-                'name' => 'Лаборатория',
-                'image' => '/uploads/test/categories/laborat.jpg',
-            ],
-            [
-                'name' => 'Реабилитация',
-                'image' => '/uploads/test/categories/reability.jpg',
-            ],
         ];
 
         foreach($categories as $category)
@@ -220,7 +200,7 @@ class CategoriesTableSeeder extends Seeder
             $category['slug'] = Str::slug($category['name']);
 
             foreach ($category['children'] ?? [] as $key => $child) {
-                $category['children'][$key]['slug'] = Str::slug($child['name']);
+                $category['children'][$key]['slug'] = $category['slug'] . "/" . Str::slug($child['name']);
             }
 
             Category::create($category);

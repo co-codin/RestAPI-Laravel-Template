@@ -14,6 +14,7 @@ use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 use Modules\Property\Database\Seeders\PropertyDatabaseSeeder;
 use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
+use Modules\Seo\Database\Seeders\CanonicalDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandDatabaseSeeder::class);
         $this->call(CategoryDatabaseSeeder::class);
         $this->call(SeoDatabaseSeeder::class);
+        $this->call(CanonicalDatabaseSeeder::class);
         $this->call(FaqDatabaseSeeder::class);
         $this->call(NewsDatabaseSeeder::class);
         $this->call(PageDatabaseSeeder::class);
