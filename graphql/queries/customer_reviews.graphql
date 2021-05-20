@@ -1,0 +1,10 @@
+extend type Query {
+    customer_reviews(
+        where: _ @whereConditions(columns: ["id", "post", "author", "type", "is_home"])
+        orderBy: _ @orderBy(columns: ["id", "post", "author", "type", "is_home"])
+    ): [CustomerReview!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
+    customerReview(id: ID @eq): CustomerReview @find
+}

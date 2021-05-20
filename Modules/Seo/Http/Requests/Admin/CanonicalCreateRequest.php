@@ -15,7 +15,7 @@ class CanonicalCreateRequest extends BaseFormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:canonicals,url,' . $this->route('canonical.id'),
+                'unique:canonicals,url,' . $this->route('canonical.id'), //проверить
             ],
             'canonical' => 'required|string|max:255',
         ];

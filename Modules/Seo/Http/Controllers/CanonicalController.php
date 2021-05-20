@@ -24,9 +24,9 @@ class CanonicalController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $canonical = $this->repository->jsonPaginate();
+        $canonicals = $this->repository->jsonPaginate();
 
-        return CanonicalResource::collection($canonical);
+        return CanonicalResource::collection($canonicals);
     }
 
     /**

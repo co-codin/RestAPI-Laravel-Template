@@ -12,5 +12,6 @@
     "Filter": true,
     "Product": true,
     "Currency": true,
-    "Attribute": true
+    "Attribute": true,
+    "Customer": true
 }
