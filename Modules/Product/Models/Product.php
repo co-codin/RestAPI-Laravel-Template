@@ -11,6 +11,7 @@ use Modules\Product\Database\factories\ProductFactory;
 use Modules\Property\Models\Pivots\PropertyValuePivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
+use App\Traits\Searchable;
 
 /**
  * Class Product
@@ -26,7 +27,7 @@ use Modules\Seo\Models\Seo;
  */
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $guarded = ['id'];
 
