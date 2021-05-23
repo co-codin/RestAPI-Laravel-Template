@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ElasticsearchService;
 use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -13,7 +14,10 @@ class ProductIndex extends Command
 
     protected $description = 'ProductIndex products';
 
-    public function __construct(protected Client $elasticsearch)
+    public function __construct(
+        protected Client $elasticsearch,
+        protected ElasticsearchService $elasticsearchService
+    )
     {
         parent::__construct();
     }
@@ -35,6 +39,17 @@ class ProductIndex extends Command
                         'mappings' => $index['mappings'],
                     ],
                 ];
+
+                try {
+                    $indexData = $this->elasticsearch->indices()->getAlias(['name' => $searchIndex]);       //exception
+                    $oldIndexName = array_key_first($indexData);
+                } catch (\Throwable $e) {
+                    $this->elasticsearch->indices()->create($params);
+                    $data->addToIndex($indexName);
+
+                    $this->elasticsearch->indices()->putAlias(['index' => $indexName, 'name' => $searchIndex]);
+                    return;
+                }
             });
     }
 
@@ -52,5 +67,16 @@ class ProductIndex extends Command
         }
 
         return $indices;
+    }
+
+    private function getData(SearchableRepository $repository, string $indexName): IndexCollection
+    {
+        $indexData = collect($repository->getToIndexData());
+//            ->map(function (Model $model) use ($indexName) {
+//                $model->offsetSet('indexName', $indexName);
+//                return $model;
+//            });
+
+        return new IndexCollection($indexData);
     }
 }
