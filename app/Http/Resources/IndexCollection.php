@@ -4,10 +4,10 @@
 namespace App\Http\Resources;
 
 
+use App\Facades\Elasticsearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Modules\Search\Concerns\Searchable;
-use Modules\Search\Facades\ElasticSearch;
+use App\Traits\Searchable;
 
 class IndexCollection extends Collection
 {
@@ -19,11 +19,8 @@ class IndexCollection extends Collection
             return null;
         }
 
-        // Use an stdClass to store result of elasticsearch operation
         $result = new \stdClass;
 
-        // Iterate according to the amount configured, and put that iteration's worth of records into elastic search
-        // This is done so that we do not exceed the maximum request size
         $all = $this->all();
         $iteration = 0;
         do {
@@ -44,9 +41,8 @@ class IndexCollection extends Collection
                 $params['body'][] = $item->toSearchArray();
             }
 
-            $result = ElasticSearch::bulk($params);
+            $result = Elasticsearch::bulk($params);
 
-            // Check for errors
             if ( (array_key_exists('errors', $result) && $result['errors'] != false ) || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false)) {
                 break;
             }
