@@ -35,6 +35,10 @@ class ProductIndex extends Command
 
                 $data = $this->getData(app($index['repository']));
 
+                dd(
+                    $data
+                );
+
                 $params = [
                     'index' => $indexName,
                     'body' => [
@@ -62,7 +66,7 @@ class ProductIndex extends Command
 
         $indices = $indices->filter(function ($index, $class) {
             $classTable = (new $class)->getTable();
-            return array_key_exists($classTable, ['products']);
+            return $classTable === 'products';
         });
 
         if ($indices->isEmpty()) {

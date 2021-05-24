@@ -358,9 +358,6 @@ return [
                     'slug' => [
                         'type' => 'keyword',
                     ],
-                    'views_num' => [
-                        'type' => 'integer',
-                    ],
                     'status' => [
                         'properties' => [
                             'key' => [
@@ -382,7 +379,7 @@ return [
                             'country' => [
                                 'type' => 'keyword',
                             ],
-                            'title' => [
+                            'name' => [
                                 'type' => 'keyword',
                                 'fields' => [
                                     'without_ru_en' => [
@@ -416,7 +413,7 @@ return [
                             'slug' => [
                                 'type' => 'keyword',
                             ],
-                            'title' => [
+                            'name' => [
                                 'type' => 'keyword',
                             ],
                         ],
@@ -430,7 +427,7 @@ return [
                             'price' => [
                                 'type' => 'integer',
                             ],
-                            'old_price' => [
+                            'previous_price' => [
                                 'type' => 'integer',
                             ],
                             'price_in_rub' => [
