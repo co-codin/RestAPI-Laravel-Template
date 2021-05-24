@@ -34,21 +34,16 @@ class Brochure extends Form
 
     protected function getBrochureUrl(): ?string
     {
-        $product = $this->getProduct();
-
-        if (!is_null($product) && $product->booklet) {
-            return $product->booklet;
-        }
-
-        return null;
+        return $this->getProduct()->documents['booklet'] ?? null;
     }
 
     protected function getBrochureFilename(): ?string
     {
         $product = $this->getProduct();
+        $booklet = $product->documents['booklet'] ?? null;
 
-        if (!is_null($product) && $product->booklet) {
-            return "Брошюра {$product->brand->name} {$product->name}." . pathinfo($product->booklet)['extension'];
+        if (!is_null($booklet)) {
+            return "Брошюра {$product->brand->name} {$product->name}." . pathinfo($booklet)['extension'];
         }
 
         return null;
@@ -91,7 +86,7 @@ class Brochure extends Form
         $product = $this->getProduct();
 
         $category = $this->getCategory();
-        $categoryTitle = optional($category)->title;
+        $categoryTitle = optional($category)->name;
         $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
 
         $link = route('product-view', [
@@ -99,10 +94,12 @@ class Brochure extends Form
             'id' => $product->id,
         ]);
 
+        $productFullTitle = optional($product->brand)->name . ' ' . $product->name;
+
         return "
                 $default
                 $categoryComment
-                <br><b>Оборудование:</b> {$product->getFullTitle()}
+                <br><b>Оборудование:</b> $productFullTitle
                 <br><b>Ссылка на оборудование:</b> $link
                 ";
     }

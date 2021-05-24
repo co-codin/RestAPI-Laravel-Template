@@ -2,6 +2,10 @@
 
 namespace Modules\Product\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,10 +27,31 @@ use Modules\Seo\Models\Seo;
  * @property boolean $is_in_home
  * @property int|null $warranty
  * @property array|null $documents
+ * @property-read Brand $brand
+ * @property-read Category $category
+ * @property-read Seo $seo
+ * @property-read Collection|ProductCategory[] $productCategories
+ * @property-read Collection|Category[] $categories
+ * @property-read Collection|ProductVariation[] $variations
+ * @property-read Collection|Property[] $properties
+ * @mixin Eloquent
+ * @method static Builder|Product findSimilarSlugs($attribute, $config, $slug)
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
  */
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use Sluggable, HasFactory, SoftDeletes;
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     protected $guarded = ['id'];
 
@@ -66,6 +91,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_category')
             ->withPivot('is_main');
+    }
+
+    public function productCategories()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id', 'id');
     }
 
     public function properties()

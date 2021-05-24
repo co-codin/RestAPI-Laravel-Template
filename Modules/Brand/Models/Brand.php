@@ -24,7 +24,7 @@ use Modules\Seo\Models\Seo;
  * @property string|null $country
  * @property int|null $position
  * @property string|null $website
- * @property int|null Seo $seo
+ * @property-read Seo $seo
  */
 class Brand extends Model
 {
