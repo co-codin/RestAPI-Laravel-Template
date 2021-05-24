@@ -24,9 +24,7 @@ class ProductRepository extends BaseRepository
 
     public function indexForProducts()
     {
-        $data = Product::query()->select([
-            'id', 'name', 'slug', 'status', 'brand_id'
-        ])
+        return Product::query()
             ->where('status', '=', Status::ACTIVE)
             ->whereHas('productVariations', function (Builder $query) {
                 $query->where('status', '=', Status::ACTIVE);
@@ -44,6 +42,6 @@ class ProductRepository extends BaseRepository
                 'properties',
                 'category',
             ])
-            ->get();
+            ->get(['id', 'name', 'slug', 'status', 'brand_id']);
     }
 }
