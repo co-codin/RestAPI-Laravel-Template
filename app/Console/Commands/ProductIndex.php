@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Resources\IndexCollection;
 use App\Services\ElasticsearchService;
 use Elasticsearch\Client;
 use Illuminate\Console\Command;
@@ -69,9 +70,10 @@ class ProductIndex extends Command
         return $indices;
     }
 
-    private function getData(SearchableRepository $repository, string $indexName): IndexCollection
+    private function getData(): IndexCollection
     {
-        $indexData = collect($repository->getToIndexData());
+
+        $indexData = collect($this->elasticsearchService->getToIndexData());
 //            ->map(function (Model $model) use ($indexName) {
 //                $model->offsetSet('indexName', $indexName);
 //                return $model;
