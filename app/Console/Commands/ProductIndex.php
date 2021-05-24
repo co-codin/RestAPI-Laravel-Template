@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Resources\IndexCollection;
-use App\Services\ElasticsearchService;
 use Elasticsearch\Client;
+use App\Http\Resources\IndexCollection;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Modules\Product\Repositories\ProductRepository;
 
 class ProductIndex extends Command
 {
@@ -15,12 +16,13 @@ class ProductIndex extends Command
 
     protected $description = 'ProductIndex products';
 
-    public function __construct(
-        protected Client $elasticsearch,
-        protected ElasticsearchService $elasticsearchService
-    )
+    protected Client $elasticsearch;
+
+    public function __construct()
     {
         parent::__construct();
+
+        $this->elasticsearch = ClientBuilder::create()->build();;
     }
 
     public function handle()
@@ -31,7 +33,7 @@ class ProductIndex extends Command
                 $searchIndex = $model->getSearchIndex();
                 $indexName = $searchIndex . '_' . Carbon::now()->format('Y-m-d_H-i-s');
 
-                $data = $this->getData(app($index['repository']), $indexName);
+                $data = $this->getData(app($index['repository']));
 
                 $params = [
                     'index' => $indexName,
@@ -70,14 +72,9 @@ class ProductIndex extends Command
         return $indices;
     }
 
-    private function getData(): IndexCollection
+    private function getData(ProductRepository $repository): IndexCollection
     {
-
-        $indexData = collect($this->elasticsearchService->getToIndexData());
-//            ->map(function (Model $model) use ($indexName) {
-//                $model->offsetSet('indexName', $indexName);
-//                return $model;
-//            });
+        $indexData = collect($repository->getToIndexData());
 
         return new IndexCollection($indexData);
     }
