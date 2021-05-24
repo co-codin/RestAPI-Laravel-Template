@@ -39,4 +39,9 @@ return [
     'roistat' => [
         'enabled' => env('ROISTAT', false),
     ],
+
+    'crm' => [
+        'domain' => env('CRM_API_URL'),
+        'token' => env('CRM_TOKEN'),
+    ],
 ];
