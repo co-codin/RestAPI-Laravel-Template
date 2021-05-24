@@ -53,7 +53,7 @@ class TestDrive extends Form
     {
         $default = parent::getComments();
 
-        $product = $this->getProduct()->present();
+        $product = $this->getProduct();
 
         $category = $this->getCategory();
         $categoryTitle = optional($category)->title;

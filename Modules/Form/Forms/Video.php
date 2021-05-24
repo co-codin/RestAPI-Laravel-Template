@@ -36,7 +36,7 @@ class Video extends Form
     {
         $product = $this->getProduct();
 
-        if (!is_null($product) && $product->present()->hasVideo()) {
+        if (!is_null($product) && $product->video) {
             return $product->video;
         }
 
@@ -47,7 +47,7 @@ class Video extends Form
     {
         $product = $this->getProduct();
 
-        if (!is_null($product) && $product->present()->hasVideo()) {
+        if (!is_null($product) && $product->video) {
             preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $product->video, $match);
             return $match[1];
         }
@@ -89,7 +89,7 @@ class Video extends Form
     {
         $default = parent::getComments();
 
-        $product = $this->getProduct()->present();
+        $product = $this->getProduct();
 
         $category = $this->getCategory();
         $categoryTitle = optional($category)->title;

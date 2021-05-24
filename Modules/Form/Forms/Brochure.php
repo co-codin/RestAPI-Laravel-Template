@@ -36,8 +36,8 @@ class Brochure extends Form
     {
         $product = $this->getProduct();
 
-        if (!is_null($product) && $product->present()->hasBooklet()) {
-            return $product->present()->getBookletUrl();
+        if (!is_null($product) && $product->booklet) {
+            return $product->booklet;
         }
 
         return null;
@@ -47,7 +47,7 @@ class Brochure extends Form
     {
         $product = $this->getProduct();
 
-        if (!is_null($product) && $product->present()->hasBooklet()) {
+        if (!is_null($product) && $product->booklet) {
             return "Брошюра {$product->brand->title} {$product->title}." . pathinfo($product->booklet)['extension'];
         }
 
@@ -88,7 +88,7 @@ class Brochure extends Form
     {
         $default = parent::getComments();
 
-        $product = $this->getProduct()->present();
+        $product = $this->getProduct();
 
         $category = $this->getCategory();
         $categoryTitle = optional($category)->title;
