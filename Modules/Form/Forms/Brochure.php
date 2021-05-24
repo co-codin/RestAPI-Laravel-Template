@@ -48,7 +48,7 @@ class Brochure extends Form
         $product = $this->getProduct();
 
         if (!is_null($product) && $product->booklet) {
-            return "Брошюра {$product->brand->title} {$product->title}." . pathinfo($product->booklet)['extension'];
+            return "Брошюра {$product->brand->name} {$product->name}." . pathinfo($product->booklet)['extension'];
         }
 
         return null;

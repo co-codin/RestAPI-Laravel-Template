@@ -6,18 +6,16 @@ namespace Modules\Form\Forms;
 /**
  * Class ChatBot
  * @package Modules\Form\Forms
- * @property array $companyTypes
- * @property array $options
  */
 class ChatBot extends Form
 {
-    protected $companyTypes = [
+    protected array $companyTypes = [
         "private" => "Частная",
         "state" => "Государственная",
         "trade" => "Торговая",
     ];
 
-    protected $options = [
+    protected array $options = [
         'obsie' => 'Общие',
         'kardiologiceskie' => 'Кардио',
         'ginekologiceskie' => 'Гинекология',
@@ -112,11 +110,11 @@ class ChatBot extends Form
         $hasBrand = $hasBrand === 'Yes' ? 'Да' : 'Нет';
 
         $brand = $this->getBrand();
-        $brandTitle = optional($brand)->title;
+        $brandTitle = optional($brand)->name;
         $brandComment = $this->getComment("<br><b>Производитель:</b>", $brandTitle);
 
         $category = $this->getCategory();
-        $categoryTitle = optional($category)->title;
+        $categoryTitle = optional($category)->name;
         $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
 
         $companyType = $this->getCompanyType();

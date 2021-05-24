@@ -44,14 +44,14 @@ class CategoryConsultation extends Form
         $category = $this->getCategory();
 
         $brand = $this->getBrand();
-        $title = optional($brand)->title;
+        $title = optional($brand)->name;
 
         $brandComment = $this->getComment("<br><b>Производитель:</b>", $title);
 
         return "
                 $default
                 $brandComment
-                <br><b>Категория:</b> {$category->title}
+                <br><b>Категория:</b> {$category->name}
                 ";
     }
 }

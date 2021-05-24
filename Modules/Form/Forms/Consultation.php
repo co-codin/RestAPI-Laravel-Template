@@ -56,7 +56,7 @@ class Consultation extends Form
         $product = $this->getProduct();
 
         $category = $this->getCategory();
-        $categoryTitle = optional($category)->title;
+        $categoryTitle = optional($category)->name;
         $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
 
         $link = route('product-view', [
@@ -64,10 +64,12 @@ class Consultation extends Form
             'id' => $product->id,
         ]);
 
+        $productFullTitle = optional($product->brand)->name . ' ' . $product->name;
+
         return "
                 $default
                 $categoryComment
-                <br><b>Оборудование:</b> {$product->getFullTitle()}
+                <br><b>Оборудование:</b> $productFullTitle
                 <br><b>Ссылка на оборудование:</b> $link
                 ";
     }

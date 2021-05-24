@@ -48,7 +48,7 @@ class Cart extends Form
 
         $variations = collect($this->getAttribute('variations'))->map(function($item) {
             $variation = ProductVariation::find($item['id']);
-            return $variation->product->brand->title . " " . $variation->product->title . " - " . $item['number'] . " шт.";
+            return $variation->product->brand->name . " " . $variation->product->name . " - " . $item['number'] . " шт.";
         })->join("<br>");
 
         return "

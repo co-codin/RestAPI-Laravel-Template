@@ -37,14 +37,14 @@ class SendToCrm implements ShouldQueue
         if (!is_null($category)) {
             $properties[] = [
                 'property' => 'category_title',
-                'value' => $category->title
+                'value' => $category->name
             ];
         }
 
         if (!is_null($product)) {
             $properties[] = [
                 'property' => 'product_title',
-                'value' => optional($product->brand)->title . ' ' . $product->title
+                'value' => optional($product->brand)->name . ' ' . $product->name
             ];
         } /*else if(($category = $lead->getProperty('category'))) {
             $properties[] = ['property' => 'category_title', 'value' => $category];

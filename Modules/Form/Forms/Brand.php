@@ -49,7 +49,7 @@ class Brand extends Form
 
         return "
                 $default
-                <br><b>Производитель:</b> {$brand->title}
+                <br><b>Производитель:</b> {$brand->name}
                 ";
     }
 }
