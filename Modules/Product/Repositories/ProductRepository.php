@@ -33,7 +33,7 @@ class ProductRepository extends BaseRepository
                 FROM
                     products AS p
                 WHERE
-                    p.status = " . Status::Active . "
+                    p.status = " . Status::ACTIVE . "
                     AND EXISTS (
                         SELECT
                             1
@@ -41,7 +41,7 @@ class ProductRepository extends BaseRepository
                             product_variations AS pv
                         WHERE
                             pv.product_id = p.id
-                            AND pv.status = " . Status::Active . "
+                            AND pv.status = " . Status::ACTIVE . "
                         )
                     AND EXISTS (
                         SELECT
@@ -51,7 +51,7 @@ class ProductRepository extends BaseRepository
                             JOIN categories AS cat ON cat.id = pc.category_id
                         WHERE
                             pc.product_id = p.id
-                            AND cat.status = " . Status::Active . "
+                            AND cat.status = " . Status::ACTIVE . "
                         )
                     AND EXISTS (
                         SELECT
@@ -60,7 +60,7 @@ class ProductRepository extends BaseRepository
                             brands AS b
                         WHERE
                             p.brand_id = b.id
-                            AND b.status = " . Status::Active . "
+                            AND b.status = " . Status::ACTIVE . "
                         )
         ");
     }

@@ -35,10 +35,6 @@ class ProductIndex extends Command
 
                 $data = $this->getData(app($index['repository']));
 
-                dd(
-                    $data
-                );
-
                 $params = [
                     'index' => $indexName,
                     'body' => [
@@ -78,7 +74,7 @@ class ProductIndex extends Command
 
     private function getData(ProductRepository $repository): IndexCollection
     {
-        $indexData = collect($repository->getToIndexData());
+        $indexData = collect($repository->indexForProducts());
 
         return new IndexCollection($indexData);
     }
