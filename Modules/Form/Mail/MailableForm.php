@@ -26,12 +26,9 @@ class MailableForm extends Mailable implements ShouldQueue
      */
     public int $backoff = 60;
 
-    private Form $form;
-
-    public function __construct(Form $form)
-    {
-        $this->form = $form;
-    }
+    public function __construct(
+        private Form $form
+    ) {}
 
     /**
      * Build the message.
