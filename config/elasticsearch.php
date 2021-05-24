@@ -94,7 +94,6 @@ return [
                             "tokenizer" => "edge_ngram",
                             "filter" => [
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "russian_stop",
                                 "russian_keywords",
                                 "ru_RU",
@@ -105,7 +104,6 @@ return [
                             "tokenizer" => "edge_ngram",
                             "filter" => [
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "russian_stop",
                                 "russian_keywords",
                                 "ru_RU",
@@ -118,7 +116,6 @@ return [
                             "tokenizer" => "standard",
                             "filter" => [
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "russian_stop",
                                 "russian_keywords",
                                 "ru_RU",
@@ -128,7 +125,6 @@ return [
                             "tokenizer" => "standard",
                             "filter" => [
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "russian_stop",
                                 "russian_keywords",
                                 "ru_RU",
@@ -143,7 +139,6 @@ return [
                             "filter" => [
                                 "english_possessive_stemmer",
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "english_stop",
                                 "russian_stop",
                                 "stop",
@@ -159,7 +154,6 @@ return [
                             "filter" => [
                                 "english_possessive_stemmer",
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "english_stop",
                                 "russian_stop",
                                 "stop",
@@ -177,7 +171,6 @@ return [
                             "filter" => [
                                 "english_possessive_stemmer",
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "english_stop",
                                 "russian_stop",
                                 "stop",
@@ -192,7 +185,6 @@ return [
                             "filter" => [
                                 "english_possessive_stemmer",
                                 "lowercase",
-                                "split",        //synonyms, custom_word_delimiter_graph, latin, phonetic
                                 "english_stop",
                                 "russian_stop",
                                 "stop",
@@ -211,30 +203,6 @@ return [
                                 "stop",
                             ],
                         ],
-                        'phonetic' => [
-                            "tokenizer" => "standard",
-                            "filter" => [
-                                "my_phonetic_english",
-                                "my_phonetic_cyrillic",
-                                "lowercase",
-                                "stop",
-                            ],
-                        ],
-                    ],
-                    'tokenizer' => [
-                        'edge_ngram' => [
-                            'type' => 'edge_ngram',
-                            'min_gram' => 2,
-                            'max_gram' => 12,
-                            'token_chars' => [
-                                'letter',
-                                'digit',
-                                'punctuation',
-                                'initial_quote_punctuation',
-                                'dash_punctuation',
-                                'math_symbol',
-                            ],
-                        ]
                     ],
                     "filter" => [
                         'shingle' => [
@@ -260,28 +228,6 @@ return [
                             'type' => 'hunspell',
                             'language' => 'en_US',
                         ],
-                        'synonyms' => [
-                            'type' => 'synonym',
-                            'synonyms_path' => 'analysis/synonyms.txt',
-                        ],
-                        'myLatinTransform' => [
-                            'type' => 'icu_transform',
-                            'id' => 'Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC',
-                        ],
-                        'my_phonetic_cyrillic' => [
-                            'type' => 'phonetic',
-                            'encoder' => 'beider_morse',
-                            'rule_type' => 'approx',
-                            'name_type' => 'generic',
-                            'languageset' => ["cyrillic"],
-                        ],
-                        'my_phonetic_english' => [
-                            'type' => 'phonetic',
-                            'encoder' => 'beider_morse',
-                            'rule_type' => 'approx',
-                            'name_type' => 'generic',
-                            'languageset' => ["english"],
-                        ],
                         'custom_word_delimiter_graph' => [
                             'type' => 'word_delimiter_graph',
                             'generate_word_parts' => true,
@@ -297,10 +243,7 @@ return [
                         'split' => [
                             'type' => 'multiplexer',
                             'filters' => [
-//                                'my_phonetic_english,my_phonetic_cyrillic,lowercase',
-                                'myLatinTransform,lowercase',
                                 'custom_word_delimiter_graph,lowercase',
-                                'lowercase,synonyms',
                             ],
                         ],
                         'russian_stop' => [
@@ -347,10 +290,6 @@ return [
                                 'type' => 'text',
                                 'analyzer' => 'shingle',
                             ],
-                            'phonetic' => [
-                                'type' => 'text',
-                                'analyzer' => 'phonetic',
-                            ],
                         ],
 //                        'analyzer' => 'en_US_ru_RU_index',
 //                        'search_analyzer' => 'en_US_ru_RU_search'
@@ -395,10 +334,6 @@ return [
                                     'shingle' => [
                                         'type' => 'text',
                                         'analyzer' => 'shingle',
-                                    ],
-                                    'phonetic' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'phonetic',
                                     ],
                                 ],
                             ],
