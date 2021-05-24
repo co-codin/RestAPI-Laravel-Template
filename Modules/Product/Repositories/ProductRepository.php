@@ -23,7 +23,12 @@ class ProductRepository extends BaseRepository
 
     public function indexForProducts()
     {
-        return Product::query()->raw("
+        $data = Product::query()->select([
+            'id', 'name', 'slug', 'status', 'brand_id'
+        ])
+        ->where('status', '=', Status::ACTIVE);
+
+        return Product::query()->fromQuery("
                 SELECT
                     p.id,
                     p.name,
@@ -62,6 +67,7 @@ class ProductRepository extends BaseRepository
                             p.brand_id = b.id
                             AND b.status = " . Status::ACTIVE . "
                         )
-        ");
+        ")
+            ->get();
     }
 }
