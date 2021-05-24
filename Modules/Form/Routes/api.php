@@ -1,18 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+use Modules\Client\Http\Middleware\ClientAuthWithPhone;
+use Modules\Form\Http\Controllers\FormController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/form', function (Request $request) {
-    return $request->user();
+Route::prefix('form')->group(function() {
+    Route::post('/{formName}/send', [FormController::class, 'send'])
+//        ->middleware(ClientAuthWithPhone::class)
+        ->where('formName', '[a-z0-9_-]+')
+        ->name('form-send');
 });
