@@ -85,7 +85,7 @@ class DirectoryHelper
         $classPaths = self::getClassPaths([self::FORMS_PATH]);
 
         return collect($classPaths)->filter(function (string $class) {
-            return $class != Form::class && is_a($class, Form::class, true);
+            return $class !== Form::class && is_a($class, Form::class, true);
         });
     }
 }

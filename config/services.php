@@ -35,4 +35,8 @@ return [
     'content' => [
         'domain' => env('CONTENT_API_URL', 'https://content.api.medeq.ru'),
     ],
+
+    'roistat' => [
+        'enabled' => env('ROISTAT', false),
+    ],
 ];
