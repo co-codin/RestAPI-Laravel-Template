@@ -15,10 +15,6 @@ use Modules\Form\Services\FormSendService;
 class FormController extends Controller
 {
     /**
-     * @param FormsRequest $request
-     * @param FormPreparerService $prepareDataService
-     * @param FormSendService $sendService
-     * @return JsonResponse
      * @throws \Throwable
      */
     public function send(

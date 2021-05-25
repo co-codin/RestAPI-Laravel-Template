@@ -30,7 +30,7 @@ abstract class Form
     protected array $attributes = [];
     protected ?array $utm = null;
     protected ?string $page;
-    private int|string|null $roistatVisit;
+    protected int|string|null $roistatVisit;
 
     abstract public function title(): string;
     abstract public function rules(): array;
@@ -170,10 +170,6 @@ abstract class Form
         return $this;
     }
 
-    /**
-     * @param string|int|null $roistatVisit
-     * @return $this
-     */
     public function setRoistatVisit(string|int|null $roistatVisit = null): self
     {
         $this->roistatVisit = $roistatVisit;
@@ -333,9 +329,6 @@ abstract class Form
         return null;
     }
 
-    /**
-     * @return Product|null
-     */
     public function getProduct(): ?Product
     {
         $cast = new ProductCast();
@@ -343,9 +336,6 @@ abstract class Form
         return $this->getCastedAttribute('product', $cast);
     }
 
-    /**
-     * @return Category|null
-     */
     public function getCategory(): ?Category
     {
         $cast = new CategoryCast();
@@ -353,9 +343,6 @@ abstract class Form
         return $this->getCastedAttribute('category', $cast);
     }
 
-    /**
-     * @return Brand|null
-     */
     public function getBrand(): ?Brand
     {
         $cast = new BrandCast();
@@ -363,9 +350,6 @@ abstract class Form
         return $this->getCastedAttribute('brand', $cast);
     }
 
-    /**
-     * @return City|null
-     */
     public function getCity(): ?City
     {
         $cast = new CityCast();
@@ -373,10 +357,6 @@ abstract class Form
         return $this->getCastedAttribute('city', $cast);
     }
 
-    /**
-     * @param array $attributes
-     * @return Form
-     */
     public function unsetAttributes(array $attributes): self
     {
         foreach ($attributes as $attribute) {
@@ -386,10 +366,6 @@ abstract class Form
         return $this;
     }
 
-    /**
-     * @param array $attributes
-     * @return $this
-     */
     public function withoutAttributes(array $attributes): self
     {
         $form = clone $this;

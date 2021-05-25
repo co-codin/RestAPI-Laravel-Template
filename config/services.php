@@ -44,4 +44,9 @@ return [
         'domain' => env('CRM_API_URL'),
         'token' => env('CRM_TOKEN'),
     ],
+
+    'yandex-metrika' => [
+        'enabled' => env('YANDEX_METRIKA', false),
+        'id' => env('YANDEX_METRIKA_ID')
+    ],
 ];
