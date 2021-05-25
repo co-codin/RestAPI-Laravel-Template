@@ -23,101 +23,91 @@ return [
                         'type' => 'keyword',
                     ],
                     'status' => [
+                        'type' => 'keyword',
+                    ],
+                    'brand' => [
                         'properties' => [
-                            'key' => [
+                            'slug' => [
+                                'type' => 'keyword',
+                            ],
+                            'country' => [
+                                'type' => 'keyword',
+                            ],
+                            'name' => [
+                                'type' => 'keyword',
+                            ],
+                        ],
+                    ],
+                    'categories' => [
+                        'type' => 'nested',
+                        'properties' => [
+                            'id' => [
                                 'type' => 'integer',
                             ],
                             'slug' => [
                                 'type' => 'keyword',
                             ],
-                            'title' => [
+                            'name' => [
                                 'type' => 'keyword',
                             ],
                         ],
                     ],
-//                    'brand' => [
-//                        'properties' => [
-//                            'slug' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'country' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'name' => [
-//                                'type' => 'keyword',
-//                            ],
-//                        ],
-//                    ],
-//                    'categories' => [
-//                        'type' => 'nested',
-//                        'properties' => [
-//                            'id' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'slug' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'name' => [
-//                                'type' => 'keyword',
-//                            ],
-//                        ],
-//                    ],
-//                    'productVariations' => [
-//                        'type' => 'nested',
-//                        'properties' => [
-//                            'id' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'price' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'previous_price' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'is_price_visible' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'is_in_stock' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'stock_type' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'availability' => [
-//                                'properties' => [
-//                                    'slug' => [
-//                                        'type' => 'keyword',
-//                                    ],
-//                                    'title' => [
-//                                        'type' => 'keyword',
-//                                    ],
-//                                ]
-//                            ],
-//                        ]
-//                    ],
-//                    'properties' => [
-//                        'type' => 'nested',
-//                        'properties' => [
-//                            'key' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'name' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'slug' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'slug_number' => [
-//                                'type' => 'integer',
-//                            ],
-//                            'value' => [
-//                                'type' => 'keyword',
-//                            ],
-//                            'aggregation' => [
-//                                'type' => 'keyword',
-//                            ],
-//                        ],
-//                    ],
+                    'productVariations' => [
+                        'type' => 'nested',
+                        'properties' => [
+                            'id' => [
+                                'type' => 'integer',
+                            ],
+                            'price' => [
+                                'type' => 'integer',
+                            ],
+                            'previous_price' => [
+                                'type' => 'integer',
+                            ],
+                            'is_price_visible' => [
+                                'type' => 'integer',
+                            ],
+                            'is_in_stock' => [
+                                'type' => 'integer',
+                            ],
+                            'stock_type' => [
+                                'type' => 'keyword',
+                            ],
+                            'availability' => [
+                                'properties' => [
+                                    'slug' => [
+                                        'type' => 'keyword',
+                                    ],
+                                    'title' => [
+                                        'type' => 'keyword',
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ],
+                    'properties' => [
+                        'type' => 'nested',
+                        'properties' => [
+                            'key' => [
+                                'type' => 'integer',
+                            ],
+                            'name' => [
+                                'type' => 'keyword',
+                            ],
+                            'slug' => [
+                                'type' => 'keyword',
+                            ],
+                            'slug_number' => [
+                                'type' => 'integer',
+                            ],
+                            'value' => [
+                                'type' => 'keyword',
+                            ],
+                            'aggregation' => [
+                                'type' => 'keyword',
+                            ],
+                        ],
+                    ],
                 ],
             ]
         ]

@@ -45,7 +45,8 @@ class ProductRepository extends BaseRepository
                 'properties',
                 'category',
             ])
-            ->get(['id', 'name', 'slug', 'status', 'brand_id']);
+            ->get(['id', 'name', 'slug', 'brand_id'])
+            ;
 
     }
 }
