@@ -17,8 +17,6 @@ class Vacancy extends Form
     public function rules(): array
     {
         return [
-//            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'url' => 'sometimes|nullable|string|max:255',
         ];
     }
@@ -28,8 +26,6 @@ class Vacancy extends Form
         return [
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
-            'email' => 'Email',
-            'phone' => 'Телефон',
             'url' => 'url',
         ];
     }

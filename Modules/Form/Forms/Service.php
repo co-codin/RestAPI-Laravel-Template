@@ -17,8 +17,6 @@ class Service extends Form
     {
         return [
 //            'name' => 'required|string|max:255',
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
-//            'email' => 'required|string|email|max:255',
         ];
     }
 
@@ -36,8 +34,6 @@ class Service extends Form
     {
         return [
             'name' => 'ФИО',
-            'phone' => 'Телефон',
-            'email' => 'Email',
         ];
     }
 

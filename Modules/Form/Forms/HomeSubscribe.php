@@ -12,20 +12,6 @@ class HomeSubscribe extends Form
         return 'Подписка на акции (главная)';
     }
 
-    public function rules(): array
-    {
-        return [
-//            'email' => 'required|string|email|max:255',
-        ];
-    }
-
-    public function attributeLabels(): array
-    {
-        return [
-            'email' => 'E-mail',
-        ];
-    }
-
     public function ym(): ?string
     {
         return 'mailing_button_rush';

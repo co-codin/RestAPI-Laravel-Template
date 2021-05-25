@@ -26,8 +26,6 @@ class Director extends Form
     {
         return [
 //            'name' => 'required|string|max:255',
-            'phone' => 'sometimes|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
-//            'email' => 'required|string|email|max:255',
             'message' => 'required|string|external_links',
         ];
     }
@@ -46,8 +44,6 @@ class Director extends Form
     {
         return [
             'name' => 'Имя',
-            'phone' => 'Телефон',
-            'email' => 'Email',
             'message' => 'Ваше сообщение',
         ];
     }

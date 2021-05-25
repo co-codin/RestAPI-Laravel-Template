@@ -14,20 +14,6 @@ class Dealers extends Form
         return 'Консультация (страница дилеров)';
     }
 
-    public function rules(): array
-    {
-        return [
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:30',
-        ];
-    }
-
-    public function attributeLabels(): array
-    {
-        return [
-            'phone' => 'Телефон',
-        ];
-    }
-
     public function ym(): ?string
     {
         return 'contact_us_dealer';

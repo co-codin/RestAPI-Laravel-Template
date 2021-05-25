@@ -15,8 +15,6 @@ class Leasing extends Form
     {
         return [
 //            'name' => 'required|string|max:255',
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
-//            'email' => 'sometimes|nullable|string|email|max:255',
             'message' => 'required|string',
         ];
     }
@@ -35,8 +33,6 @@ class Leasing extends Form
     {
         return [
             'name' => 'Имя',
-            'phone' => 'Телефон',
-            'email' => 'Email',
             'message' => 'Ваше сообщение',
         ];
     }

@@ -20,7 +20,15 @@ class FormsRequest extends FormRequestAlias
 
     public function rules(): array
     {
-        return $this->getForm()->rules();
+        $rules = $this->getForm()->rules();
+
+        if (!$this->bearerToken()) {
+            $rules = array_merge($rules, [
+                'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
+            ]);
+        }
+
+        return $rules;
     }
 
     public function attributes(): array

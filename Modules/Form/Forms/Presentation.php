@@ -19,20 +19,6 @@ class Presentation extends Form
         return 'Скачивание презентации';
     }
 
-    public function rules(): array
-    {
-        return [
-//            'email' => 'required|string|email|max:255',
-        ];
-    }
-
-    public function attributeLabels(): array
-    {
-        return [
-            'email' => 'Email',
-        ];
-    }
-
     public function messages(): array
     {
         return [

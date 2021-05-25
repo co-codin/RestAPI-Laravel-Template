@@ -17,7 +17,6 @@ class Brand extends Form
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'brand' => 'required|string|max:255|exists:brands,slug',
         ];
     }
@@ -30,15 +29,6 @@ class Brand extends Form
     public function ga(): ?string
     {
         return 'contact_us';
-    }
-
-
-    public function attributeLabels(): array
-    {
-        return [
-            'phone' => 'Телефон',
-            'brand' => 'Производитель',
-        ];
     }
 
     public function getComments(): string

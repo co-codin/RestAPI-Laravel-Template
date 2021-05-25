@@ -17,7 +17,6 @@ class Warranty extends Form
             'inn' => 'nullable|regex:/^\d{10,15}$/',
             'contact_person' => 'required|string|max:255',
             'message' => 'nullable|string|external_links',
-            'phone' => 'sometimes|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'file' => 'required|file|mimes:pdf,xlsx,xls,doc,docx,pptx,pps,ppt,jpeg,bmp,png|max:1024',
         ];
     }
@@ -28,7 +27,6 @@ class Warranty extends Form
             'inn' => 'ИНН',
             'contact_person' => 'Контактное лицо',
             'message' => 'Текст претензии',
-            'phone' => 'Телефон',
             'file' => 'Заявка',
         ];
     }

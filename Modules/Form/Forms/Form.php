@@ -33,8 +33,6 @@ abstract class Form
     protected int|string|null $roistatVisit;
 
     abstract public function title(): string;
-    abstract public function rules(): array;
-    abstract public function attributeLabels(): array;
 
     public function __construct()
     {
@@ -52,6 +50,16 @@ abstract class Form
     public function boot()
     {
         //
+    }
+
+    public function rules(): array
+    {
+        return [];
+    }
+
+    public function attributeLabels(): array
+    {
+        return [];
     }
 
     public function messages(): array

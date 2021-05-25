@@ -19,7 +19,6 @@ class GetPrice extends Form
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'product_id' => 'required|integer|exists:products,id',
         ];
     }
@@ -27,7 +26,6 @@ class GetPrice extends Form
     public function attributeLabels(): array
     {
         return [
-            'phone' => 'Телефон',
             'product_id' => 'Продукция',
             'accept' => 'accept',
         ];

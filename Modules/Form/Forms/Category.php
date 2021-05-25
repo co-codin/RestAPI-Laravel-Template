@@ -17,7 +17,6 @@ class Category extends Form
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'category' => 'required|string|max:255|exists:categories,slug',
         ];
     }
@@ -30,13 +29,5 @@ class Category extends Form
     public function ga(): ?string
     {
         return 'contact_us_category1';
-    }
-
-    public function attributeLabels(): array
-    {
-        return [
-            'phone' => 'Телефон',
-            'category' => 'Категория',
-        ];
     }
 }

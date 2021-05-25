@@ -54,7 +54,6 @@ class ChatBot extends Form
         $companyTypes = implode(',', array_keys($this->companyTypes));
 
         return [
-            'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
             'brand' => 'sometimes|nullable|string|max:255|exists:brands,slug',
             'hasBrand' => 'sometimes|nullable|string',
             'category' => 'sometimes|nullable|string|max:255|exists:categories,slug',
@@ -66,11 +65,9 @@ class ChatBot extends Form
     public function attributeLabels(): array
     {
         return [
-            'phone' => 'Телефон',
             'category' => 'Направление',
             'subCategory' => 'Доп. вопрос',
             'companyType' => 'Тип компании',
-            'brand' => 'Производитель',
             'hasBrand' => 'Определились с производителем',
         ];
     }
