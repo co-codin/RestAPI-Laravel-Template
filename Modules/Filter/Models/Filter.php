@@ -23,7 +23,7 @@ use Modules\Property\Models\Property;
  */
 class Filter extends Model
 {
-    use HasFactory, Aggregable;
+    use HasFactory, Aggregable, Filte;
 
     protected $guarded = ['id'];
 
