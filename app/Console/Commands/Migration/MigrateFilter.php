@@ -27,9 +27,7 @@ class MigrateFilter extends Command
             ->groupBy('category_id');
 
         foreach ($this->filterCategories as $categoryId => $filters) {
-            $filterIds = $filters->pluck('filter_id');
-
-            $filters = $this->filters->whereIn('id', $filterIds);
+            $filters = $this->filters->whereIn('id', $filters->pluck('filter_id'));
 
             foreach ($filters as $filter) {
                 Filter::query()->insert(array_merge(
@@ -49,6 +47,7 @@ class MigrateFilter extends Command
             'is_enabled' => $item->status === 1,
             'is_default' => $item->is_default === 1,
             'description' => $item->description,
+            'property_id' => array_key_exists('property_id', json_decode($item->options, true)) ? json_decode($item->options, true)['property_id'] : null,
             'options' => $item->options,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
