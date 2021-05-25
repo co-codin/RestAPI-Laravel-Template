@@ -140,11 +140,7 @@ abstract class Form
 
     public function emails(): ?array
     {
-        $emails = config('services.mails.forms');
-
-        return !is_null($emails)
-            ? $emails
-            : null;
+        return config('services.mails.forms');
     }
 
     public function getEmail(): ?string

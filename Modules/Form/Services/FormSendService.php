@@ -60,22 +60,13 @@ class FormSendService
         $attachments = \Arr::get($form->attributes(), 'attachments');
 
         SendDispatchableMail::withChain([
-            $this->getDeleteFilesClosure($attachments)
+            function () use ($attachments) {
+                if (is_array($attachments)) {
+                    app(AttachmentService::class)->delete($attachments);
+                }
+            }
         ])
             ->onQueue('form-to-email')
             ->dispatch($mailableForm);
-    }
-
-    /**
-     * @param array|null $attachments
-     * @return \Closure
-     */
-    private function getDeleteFilesClosure(?array $attachments): \Closure
-    {
-        return static function () use ($attachments) {
-            if (is_array($attachments)) {
-                app(AttachmentService::class)->delete($attachments);
-            }
-        };
     }
 }
