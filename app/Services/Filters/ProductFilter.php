@@ -4,8 +4,15 @@
 namespace App\Services\Filters;
 
 
+use App\Enums\Status;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Category\Models\Category;
+use Modules\Filter\Collections\FilterCollection;
+use Modules\Filter\Filters\NestedFilter;
+use Modules\Filter\Filters\TermFilter;
+use Modules\Filter\Models\Filter;
 use Modules\Filter\Repositories\FilterRepository;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductFilter
@@ -124,5 +131,115 @@ class ProductFilter
         $this->filters = $filters;
 
         return $this;
+    }
+
+    public function getProducts($perPage = 15) : LengthAwarePaginator
+    {
+        $products = $this->productRepository
+            ->with([
+                'variations',
+                'variations.currency',
+                'brand',
+            ])
+            ->findByQuery(
+                $this->getQuery(),
+                $this->getAggregations(),
+                $perPage,
+                $this->getSort()
+            );
+
+        $products->transform(function(Product $product) {
+            return $product->present();
+        });
+
+        $this->getFilters()
+            ->fillAggregations($products->getAggregations());
+
+        return $products;
+    }
+
+    public function getFilters() : ? FilterCollection
+    {
+        if(is_null($this->filters) && $this->category) {
+            $this->filters = $this->filterRepository
+                ->findByCategoryId($this->category->id);
+        }
+
+        return $this->filters;
+    }
+
+    public function getNotEmptyFilters() : ? FilterCollection
+    {
+        if(is_null($filters = $this->getFilters())) {
+            return null;
+        }
+
+        return $filters->filter(function(Filter $filter) {
+            return $filter->isNotEmpty();
+        });
+    }
+
+    protected function systemFilters() : FilterCollection
+    {
+        $filters = [
+            new TermFilter('status.key', Status::ACTIVE),
+            new NestedFilter('variations', [
+                new TermFilter('variations.status.key', Status::ACTIVE),
+            ]),
+        ];
+
+        if($this->category) {
+            $filters[] = new NestedFilter('categories', [
+                new TermFilter('categories.slug', $this->category->slug)
+            ]);
+        }
+
+        return new FilterCollection($filters);
+    }
+
+    protected function getQuery() : array
+    {
+        $filters = $this->systemFilters()
+            ->merge($this->getFilters()->enabled());
+
+        return [
+            'bool' => [
+                'must' => $filters->getQuery(),
+            ],
+        ];
+    }
+
+    protected function getAggregations() : ? array
+    {
+        if(!$aggregations = $this->getFilters()->getAggregations()) {
+            return null;
+        }
+
+        return [
+            'aggregations' => [
+                'global' => (object) [],
+                'aggs' => [
+                    'filtered' => [
+                        'filter' => [
+                            'bool' => [
+                                'filter' => $this->systemFilters()->getQuery(),
+                            ],
+                        ],
+                        'aggs' => $aggregations,
+                    ],
+                ],
+            ]
+        ];
+    }
+
+    protected function getSort() : array
+    {
+        $sort = request('sort');
+
+        if(!$sort || !array_key_exists($sort, $this->availableSort)) {
+            $sort = static::DEFAULT_SORT;
+        }
+
+        return $this->availableSort[$sort];
     }
 }

@@ -9,9 +9,12 @@ use App\Repositories\BaseRepository;
 use Modules\Product\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
+use Modules\Filter\Concerns\SearchableRepository;
 
 class ProductRepository extends BaseRepository
 {
+    use SearchableRepository;
+
     public function model()
     {
         return Product::class;

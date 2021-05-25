@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Models\Category;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
+use Modules\Filter\Concerns\Filterable;
 
 /**
  * Class Filter
@@ -22,7 +23,7 @@ use Modules\Property\Models\Property;
  */
 class Filter extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $guarded = ['id'];
 
