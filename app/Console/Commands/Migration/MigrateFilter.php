@@ -16,9 +16,8 @@ class MigrateFilter extends Command
 
     protected $filterCategories;
 
-    public function __construct()
+    public function handle()
     {
-        parent::__construct();
         $this->filters = DB::connection('old_medeq_mysql')
             ->table('filters')
             ->get();
@@ -26,10 +25,7 @@ class MigrateFilter extends Command
             ->table('filter_categories')
             ->get()
             ->groupBy('category_id');
-    }
 
-    public function handle()
-    {
         foreach ($this->filterCategories as $categoryId => $filters) {
             $filterIds = $filters->pluck('filter_id');
 

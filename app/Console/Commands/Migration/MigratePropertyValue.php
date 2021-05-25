@@ -15,15 +15,11 @@ class MigratePropertyValue extends Command
 
     protected $bookItems;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->get();
-        $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get();
-    }
-
     public function handle()
     {
+        $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->get();
+        $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get();
+
         foreach ($this->propertyValues as $propertyValue) {
             DB::table('property_value')->insert(
                 $this->transform($propertyValue)

@@ -15,14 +15,10 @@ class MigratePage extends Command
 
     protected $oldPages;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->oldPages = DB::connection('old_medeq_mysql')->table('pages')->get();
-    }
-
     public function handle()
     {
+        $this->oldPages = DB::connection('old_medeq_mysql')->table('pages')->get();
+
         foreach ($this->oldPages as $oldPage) {
             Page::query()->insert(
                 $this->transform($oldPage)

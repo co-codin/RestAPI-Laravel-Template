@@ -15,15 +15,10 @@ class MigrateCategory extends Command
 
     protected $oldCategories;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->oldCategories = DB::connection('old_medeq_mysql')->table('categories')->get();
-    }
-
     public function handle()
     {
+        $this->oldCategories = DB::connection('old_medeq_mysql')->table('categories')->get();
+
         foreach ($this->oldCategories as $oldCategory) {
             Category::query()->insert(
                 $this->transform($oldCategory)
