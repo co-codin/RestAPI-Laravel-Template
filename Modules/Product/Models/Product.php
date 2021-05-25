@@ -11,7 +11,7 @@ use Modules\Product\Database\factories\ProductFactory;
 use Modules\Property\Models\Pivots\PropertyValuePivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
-use App\Traits\Searchable;
+use App\Concerns\Searchable;
 
 /**
  * Class Product

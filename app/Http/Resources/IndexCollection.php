@@ -7,7 +7,7 @@ namespace App\Http\Resources;
 use App\Facades\Elasticsearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use App\Traits\Searchable;
+use App\Concerns\Searchable;
 
 class IndexCollection extends Collection
 {
