@@ -4,18 +4,15 @@
 namespace Modules\Filter\Aggregations;
 
 
-use Modules\Search\Contracts\Aggregation;
+use Modules\Filter\Contracts\AggregationInterface;
 
-class StatsAggregation implements Aggregation
+class StatsAggregation implements AggregationInterface
 {
-    protected $name;
-    protected $field;
-
-    public function __construct(string $name, string $field)
-    {
-        $this->name = $name;
-        $this->field = $field;
-    }
+    public function __construct(
+        protected string $name,
+        protected string $field
+    )
+    {}
 
     public function toAggregation() : array
     {

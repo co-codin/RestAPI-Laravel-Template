@@ -3,20 +3,16 @@
 
 namespace Modules\Filter\Aggregations;
 
-use Modules\Search\Contracts\Aggregation;
 
-class BucketsAggregation implements Aggregation
+use Modules\Filter\Contracts\AggregationInterface;
+
+class BucketsAggregation implements AggregationInterface
 {
-    protected $name;
-    protected $field;
-    protected $field_name;
-
-    public function __construct(string $name, string $field, string $field_name = "field")
-    {
-        $this->name = $name;
-        $this->field = $field;
-        $this->field_name = $field_name;
-    }
+    public function __construct(
+        protected string $name,
+        protected string $field,
+        protected string $field_name = "field"
+    ) {}
 
     public function toAggregation(): array
     {

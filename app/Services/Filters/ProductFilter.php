@@ -137,8 +137,8 @@ class ProductFilter
     {
         $products = $this->productRepository
             ->with([
-                'variations',
-                'variations.currency',
+                'productVariations',
+                'productVariations.currency',
                 'brand',
             ])
             ->findByQuery(
@@ -183,8 +183,8 @@ class ProductFilter
     {
         $filters = [
             new TermFilter('status.key', Status::ACTIVE),
-            new NestedFilter('variations', [
-                new TermFilter('variations.status.key', Status::ACTIVE),
+            new NestedFilter('productVariations', [
+                new TermFilter('productVariations.status.key', Status::ACTIVE),
             ]),
         ];
 

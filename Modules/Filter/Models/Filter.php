@@ -5,9 +5,9 @@ namespace Modules\Filter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Models\Category;
+use Modules\Filter\Concerns\Aggregable;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
-use Modules\Filter\Concerns\Filterable;
 
 /**
  * Class Filter
@@ -23,7 +23,7 @@ use Modules\Filter\Concerns\Filterable;
  */
 class Filter extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Aggregable;
 
     protected $guarded = ['id'];
 

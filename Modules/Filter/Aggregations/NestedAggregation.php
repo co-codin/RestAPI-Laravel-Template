@@ -3,24 +3,19 @@
 namespace Modules\Filter\Aggregations;
 
 use Illuminate\Support\Arr;
-use Modules\Search\Contracts\Aggregation;
+use Modules\Filter\Contracts\AggregationInterface;
 
-class NestedAggregation implements Aggregation
+class NestedAggregation implements AggregationInterface
 {
-    protected $name;
-    protected $aggregations;
-    protected $path;
-
-    public function __construct(string $path, array $aggregations, ?string $name = null)
-    {
-        $this->path = $path;
-        $this->aggregations = $aggregations;
-        $this->name = $name ?? $path;
-    }
+    public function __construct(
+        protected string $path,
+        protected array $aggregations,
+        protected ?string $name = null
+    ){}
 
     public function toAggregation() : array
     {
-        $aggregations = array_map(function(Aggregation $aggregation) {
+        $aggregations = array_map(function(AggregationInterface $aggregation) {
             return $aggregation->toAggregation();
         }, $this->aggregations);
 
