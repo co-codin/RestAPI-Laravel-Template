@@ -8,6 +8,7 @@ use Modules\Category\Models\Category;
 use Modules\Filter\Concerns\Aggregable;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
+use Modules\Filter\Concerns\Searchable;
 
 /**
  * Class Filter
@@ -23,7 +24,7 @@ use Modules\Property\Models\Property;
  */
 class Filter extends Model
 {
-    use HasFactory, Aggregable, Filte;
+    use HasFactory, Aggregable, Searchable;
 
     protected $guarded = ['id'];
 
