@@ -32,9 +32,9 @@ class ProductRepository extends BaseRepository
             ->whereHas('productVariations', function (Builder $query) {
                 $query->where('status', '=', Status::ACTIVE);
             })
-            ->whereHas('category', function (Builder $query) {
-                $query->where('status', '=', Status::ACTIVE);
-            })
+//            ->whereHas('categories', function (Builder $query) {
+//                $query->where('status', '=', Status::ACTIVE);
+//            })
             ->whereHas('brand', function (Builder $query) {
                 $query->where('status', '=', Status::ACTIVE);
             })
@@ -46,5 +46,6 @@ class ProductRepository extends BaseRepository
                 'category',
             ])
             ->get(['id', 'name', 'slug', 'status', 'brand_id']);
+
     }
 }

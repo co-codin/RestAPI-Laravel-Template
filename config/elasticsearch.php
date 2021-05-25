@@ -16,7 +16,7 @@ return [
             ],
             'mappings' => [
                 'properties' => [
-                    'full_title' => [
+                    'name' => [
                         'type' => 'text',
                     ],
                     'slug' => [

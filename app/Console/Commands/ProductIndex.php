@@ -12,9 +12,9 @@ use Modules\Product\Repositories\ProductRepository;
 
 class ProductIndex extends Command
 {
-    protected $signature = 'search:reindex';
+    protected $signature = 'product:reindex';
 
-    protected $description = 'ProductIndex products';
+    protected $description = 'Reindex products';
 
     protected Client $elasticsearch;
 
