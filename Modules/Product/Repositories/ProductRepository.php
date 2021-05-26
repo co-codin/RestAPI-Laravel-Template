@@ -4,12 +4,17 @@
 namespace Modules\Product\Repositories;
 
 
+use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Modules\Product\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
+use Modules\Filter\Concerns\SearchableRepository;
 
 class ProductRepository extends BaseRepository
 {
+    use SearchableRepository;
+
     public function model()
     {
         return Product::class;
@@ -18,5 +23,30 @@ class ProductRepository extends BaseRepository
     public function boot()
     {
         $this->pushCriteria(ProductRequestCriteria::class);
+    }
+
+    public function indexForProducts()
+    {
+        return Product::query()
+            ->where('status', '=', Status::ACTIVE)
+            ->whereHas('productVariations', function (Builder $query) {
+                $query->where('status', '=', Status::ACTIVE);
+            })
+//            ->whereHas('categories', function (Builder $query) {
+//                $query->where('status', '=', Status::ACTIVE);
+//            })
+            ->whereHas('brand', function (Builder $query) {
+                $query->where('status', '=', Status::ACTIVE);
+            })
+            ->with([
+                'categories',
+                'brand',
+                'productVariations.currency',
+                'properties',
+                'category',
+            ])
+            ->get(['id', 'name', 'slug', 'brand_id'])
+            ;
+
     }
 }
