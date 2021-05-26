@@ -15,7 +15,7 @@ class ClientAuth
             ->withToken($request->bearerToken())
             ->get('/clients/me');
 
-        if($response->failed()) {
+        if ($response->failed()) {
             abort(401);
         }
 
