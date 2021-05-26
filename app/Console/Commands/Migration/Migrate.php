@@ -31,5 +31,6 @@ class Migrate extends Command
         Artisan::call('migrate:canonical');
         Artisan::call('migrate:property_value');
         Artisan::call('migrate:filter');
+        Artisan::call('migrate:seo-rule');
     }
 }
