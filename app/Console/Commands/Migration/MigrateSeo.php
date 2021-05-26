@@ -27,12 +27,15 @@ class MigrateSeo extends Command
 
     protected function transform($item)
     {
-        dd(
-            $item
-        );
         return [
             'id' => $item->id,
-            'seoable_type' => '',
+            'seoable_type' => str_replace('Entities', 'Models', $item->seoable_type),
+            'seoable_id' => $item->seoable_id,
+            'is_enabled' => $item->is_enabled,
+            'title' => $item->title,
+            'description' => $item->description,
+            'h1' => $item->h1,
+            'meta_tags' => $item->meta_tags,
         ];
     }
 }
