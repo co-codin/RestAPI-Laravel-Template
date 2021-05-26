@@ -24,7 +24,7 @@ class FormsRequest extends FormRequestAlias
 
         if (!$this->bearerToken()) {
             $rules = array_merge($rules, [
-                'phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
+                'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
             ]);
         }
 

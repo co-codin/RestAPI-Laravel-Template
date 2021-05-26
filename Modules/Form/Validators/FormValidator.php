@@ -18,8 +18,8 @@ class FormValidator
     public function validateFormName(string $formName): self
     {
         $formNames = DirectoryHelper::getFormClasses()
-            ->filter(fn(string $classPath) => is_a($classPath, Form::class, true))
-            ->map(fn(string $classPath) => Str::snake(class_basename($classPath)));
+            ->filter(fn(string $classPath): bool => is_a($classPath, Form::class, true))
+            ->map(fn(string $classPath): string => Str::snake(class_basename($classPath)));
 
         $validator = Validator::make(['formName' => $formName], [
             'formName' => 'required|string|regex:/^[0-9a-z_]+$/|max:255|in:' . $formNames->implode(','),
