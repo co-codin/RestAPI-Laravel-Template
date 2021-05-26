@@ -24,12 +24,12 @@ class Migrate extends Command
         Artisan::call('migrate:redirect');
         Artisan::call('migrate:page');
         Artisan::call('migrate:publication');
-        Artisan::call('migrate:filter');
         Artisan::call('migrate:product');
         Artisan::call('migrate:product_variation');
         Artisan::call('migrate:property');
         Artisan::call('migrate:property_category');
         Artisan::call('migrate:canonical');
         Artisan::call('migrate:property_value');
+        Artisan::call('migrate:filter');
     }
 }
