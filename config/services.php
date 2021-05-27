@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\MailHelper;
+
 return [
 
     /*
@@ -48,5 +50,12 @@ return [
     'yandex-metrika' => [
         'enabled' => env('YANDEX_METRIKA', false),
         'id' => env('YANDEX_METRIKA_ID')
+    ],
+
+    'mails' => [
+        'review_mail' => MailHelper::emailsToArray(env('REVIEW_EMAIL')),
+        'forms' => MailHelper::emailsToArray(env('FORM_EMAIL')),
+        'director' => MailHelper::emailsToArray(env('FORM_DIRECTOR_EMAIL')),
+        'exception' => MailHelper::emailsToArray(env('NOTIFY_EXCEPTION_EMAIL')),
     ],
 ];

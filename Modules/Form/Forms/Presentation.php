@@ -9,9 +9,7 @@ class Presentation extends Form
 
     public function emails(): ?array
     {
-        $email = config('services.mails.director');
-
-        return !is_null($email) ? $email : null;
+        return config('services.mails.director');
     }
 
     public function title(): string
