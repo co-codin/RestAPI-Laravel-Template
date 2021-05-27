@@ -11,10 +11,12 @@ use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 use Modules\Form\Forms\Form;
 use Modules\Form\Validators\FormValidator;
+use function request;
 
 class FormRequestHelper
 {
     private ?Form $form = null;
+    private ?array $clientData = null;
 
     public function getForm(): Form
     {
@@ -23,11 +25,35 @@ class FormRequestHelper
         }
 
         $requestData = $this->getValidatedRequestData();
-        \request()->offsetSet('roistatVisit', $requestData['roistatVisit']);
+        request()->offsetSet('roistatVisit', $requestData['roistatVisit']);
 
         return $this->form = app(
             DirectoryHelper::FORMS_PATH_WITH_BACKSLASH . "\\" . Str::studly($requestData['formName'])
         );
+    }
+
+    public function getClientData(): array
+    {
+        if (!is_null($this->clientData)) {
+            return $this->clientData;
+        }
+
+        $this->setClientData(request()->client);
+
+        return $this->clientData;
+    }
+
+    public function setClientData(?array $clientData = null): self
+    {
+        $name = \Arr::get($clientData,'first_name') . ' ' . \Arr::get($clientData,'last_name');
+
+        $this->clientData = [
+            'name' => !empty(trim($name)) ? $name : request()->input('name'),
+            'phone' => $clientData['phone'] ?? request()->input('phone'),
+            'email' => $clientData['email'] ?? request()->input('email'),
+        ];
+
+        return $this;
     }
 
     #[ArrayShape([
@@ -37,7 +63,7 @@ class FormRequestHelper
     private function getValidatedRequestData(): array
     {
         try {
-            $formName = \request()->formName;
+            $formName = request()->formName;
             $roistatVisit = Cookie::get('roistatVisit');
 
             app(FormValidator::class)

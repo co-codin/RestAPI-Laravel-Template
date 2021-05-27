@@ -25,7 +25,6 @@ class FormPreparerService
             $validated,
             $request->getClientData(),
             $this->getAttachments($validated),
-            ['url' => url()->previous()],
         );
 
         return $form

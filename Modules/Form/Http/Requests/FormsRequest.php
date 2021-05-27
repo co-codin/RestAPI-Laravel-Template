@@ -13,8 +13,6 @@ use Modules\Form\Helpers\FormRequestHelper;
  */
 class FormsRequest extends FormRequestAlias
 {
-    private ?Form $form = null;
-
     public function rules(): array
     {
         $form = $this->getForm();
@@ -41,11 +39,7 @@ class FormsRequest extends FormRequestAlias
 
     public function getForm(): Form
     {
-        if (!is_null($this->form)) {
-            return $this->form;
-        }
-
-        return $this->form = app(FormRequestHelper::class)->getForm();
+        return app(FormRequestHelper::class)->getForm();
     }
 
     #[ArrayShape([
@@ -55,10 +49,6 @@ class FormsRequest extends FormRequestAlias
     ])]
     public function getClientData(): array
     {
-        return [
-            'name' => $this->input('name'),
-            'phone' => $this->input('phone'),
-            'email' => $this->input('email'),
-        ];
+        return app(FormRequestHelper::class)->getClientData();
     }
 }

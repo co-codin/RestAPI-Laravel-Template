@@ -12,9 +12,9 @@ class ClientAuth
 {
     public function handle(Request $request, \Closure $next)
     {
-        $form = app(FormRequestHelper::class)->getForm();
+        $formHelper = app(FormRequestHelper::class);
 
-        if (!$form->withAuth) {
+        if (!$formHelper->getForm()->withAuth) {
             return $next($request);
         }
 
@@ -27,6 +27,7 @@ class ClientAuth
         }
 
         $request->offsetSet('client', $response->json());
+        $formHelper->setClientData($response->json());
 
         return $next($request);
     }
