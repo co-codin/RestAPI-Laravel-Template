@@ -34,5 +34,6 @@ class Migrate extends Command
         Artisan::call('migrate:filter');
         Artisan::call('migrate:seo-rule');
         Artisan::call('migrate:seo');
+        Artisan::call('migrate:customer-review');
     }
 }
