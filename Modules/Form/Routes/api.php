@@ -5,11 +5,12 @@ use Modules\Form\Http\Controllers\FormController;
 
 Route::prefix('form')->group(function () {
     Route::post('/{formName}/send', function (string $formName) {
+        $actionName = Str::camel($formName);
         $controller = App::make(Modules\Form\Http\Controllers\FormController::class);
         $container = \Illuminate\Container\Container::getInstance();
 
-        if (method_exists(FormController::class, Str::camel($formName))) {
-            return $container->call([$controller, Str::camel($formName)]);
+        if (method_exists(FormController::class, $actionName)) {
+            return $container->call([$controller, $actionName]);
         }
 
         return $container->call([$controller, 'send']);
