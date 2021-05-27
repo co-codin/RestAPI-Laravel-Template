@@ -308,12 +308,10 @@ abstract class Form
     public function getComments(): string
     {
         $date = Carbon::parse(now())->format('d.m.Y H:i:s');
-        $url = $this->getAttribute('url');
+        $page = $this->getPage();
 
-        $pos = strpos($url, '?utm');
-
-        if ($pos) {
-            $url = substr($url, 0, $pos);
+        if ($pos = strpos($page, '?utm')) {
+            $page = substr($page, 0, $pos);
         }
 
         $nameComment = $this->getComment("<br><b>Имя:</b>", $this->getAttribute('name'));
@@ -326,7 +324,7 @@ abstract class Form
                 $nameComment
                 $phoneComment
                 $emailComment
-                <br><b>Страница:</b> $url
+                <br><b>Страница:</b> $page
                 ";
     }
 
