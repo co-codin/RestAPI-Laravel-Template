@@ -57,14 +57,8 @@ class MigratePropertyValue extends Command
                     return json_encode($value);
                 } else if ((int)$value === 2) {
                     return json_encode(0);
-                } else {
-                    return null;
                 }
-            } else {
-                return null;
             }
-        } else {
-            return null;
         }
     }
 }
