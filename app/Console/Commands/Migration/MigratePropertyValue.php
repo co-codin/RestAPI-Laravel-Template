@@ -24,10 +24,9 @@ class MigratePropertyValue extends Command
         $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get();
 
         foreach ($this->propertyValues as $propertyValue) {
-            dump($propertyValue->value);
-//            DB::table('property_value')->insert(
-//                $this->transform($propertyValue)
-//            );
+            DB::table('property_value')->insert(
+                $this->transform($propertyValue)
+            );
         }
     }
 
@@ -42,13 +41,28 @@ class MigratePropertyValue extends Command
         ];
     }
 
-    protected function getBookItem($id, $property_id)
+    protected function getBookItem($value, $property_id)
     {
-        if (
-            $bookItem = $this->bookItems->where('id', (int) $id)->first() &&
-                $this->properties->where('id', '=', (int) $property_id)->first()->type == 4
-        ) {
-            return json_encode((array) $bookItem)['title'];
+        $property = $this->properties->where('id', '=', (int) $property_id)->first();
+
+        if ($bookItem = $this->bookItems->where('id', (int) $value)->first()) {
+            if ($property->type === 4) {
+                return json_encode($bookItem->title);
+            }
+            else if ($property->type === 2) {
+                return json_encode((array) $bookItem);
+            }
+            else if ($property->type === 1) {
+                if ((int)$value === 1) {
+                    return json_encode($value);
+                } else if ((int)$value === 2) {
+                    return json_encode(0);
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
