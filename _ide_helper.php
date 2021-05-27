@@ -14926,6 +14926,18 @@
      *
      */ 
         class Arr {
+                    /**
+         * 
+         *
+         * @see \App\Providers\MacrosServiceProvider::boot()
+         * @param mixed $a
+         * @param mixed $b
+         * @static 
+         */ 
+        public static function mergeRecursive($a, $b)
+        {
+                        return \Illuminate\Support\Arr::mergeRecursive($a, $b);
+        }
          
     }
             /**
@@ -14933,6 +14945,18 @@
      *
      */ 
         class Str {
+                    /**
+         * 
+         *
+         * @see \App\Providers\MacrosServiceProvider::boot()
+         * @param string $haystack
+         * @param array $needle
+         * @static 
+         */ 
+        public static function exist_arr($haystack, $needle)
+        {
+                        return \Illuminate\Support\Str::exist_arr($haystack, $needle);
+        }
          
     }
             /**
@@ -14950,6 +14974,29 @@
         public static function ray($description = '')
         {
                         return \Illuminate\Support\Collection::ray($description);
+        }
+                    /**
+         * 
+         *
+         * @see \App\Providers\MacrosServiceProvider::boot()
+         * @param mixed $class
+         * @static 
+         */ 
+        public static function present($class)
+        {
+                        return \Illuminate\Support\Collection::present($class);
+        }
+                    /**
+         * 
+         *
+         * @see \App\Providers\MacrosServiceProvider::boot()
+         * @param string $charList
+         * @static 
+         */ 
+        public static function trim($charList = ' 	
+' . "\0" . '')
+        {
+                        return \Illuminate\Support\Collection::trim($charList);
         }
          
     }
