@@ -6,14 +6,13 @@ use Modules\Form\Http\Controllers\FormController;
 Route::prefix('form')->group(function () {
     Route::post('/{formName}/send', function (string $formName) {
         $actionName = Str::camel($formName);
-        $controller = App::make(Modules\Form\Http\Controllers\FormController::class);
-        $container = \Illuminate\Container\Container::getInstance();
+        $controller = App::make(FormController::class);
 
         if (method_exists(FormController::class, $actionName)) {
-            return $container->call([$controller, $actionName]);
+            return App::call([$controller, $actionName]);
         }
 
-        return $container->call([$controller, 'send']);
+        return App::call([$controller, 'send']);
     })
         ->middleware(ClientAuth::class)
         ->where('formName', '[a-z0-9_-]+')
