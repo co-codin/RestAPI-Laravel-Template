@@ -19,10 +19,10 @@ class FormValidator
     {
         $formNames = DirectoryHelper::getFormClasses()
             ->filter(fn(string $classPath): bool => is_a($classPath, Form::class, true))
-            ->map(fn(string $classPath): string => Str::snake(class_basename($classPath)));
+            ->map(fn(string $classPath): string => Str::kebab(class_basename($classPath)));
 
         $validator = Validator::make(['formName' => $formName], [
-            'formName' => 'required|string|regex:/^[0-9a-z_]+$/|max:255|in:' . $formNames->implode(','),
+            'formName' => 'required|string|regex:/^[0-9a-z-_]+$/|max:255|in:' . $formNames->implode(','),
         ]);
 
         if ($validator->fails()) {
