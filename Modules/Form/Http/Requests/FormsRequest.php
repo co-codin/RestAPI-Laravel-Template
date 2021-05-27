@@ -2,13 +2,10 @@
 
 namespace Modules\Form\Http\Requests;
 
-use App\Helpers\DirectoryHelper;
 use Illuminate\Foundation\Http\FormRequest as FormRequestAlias;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 use Modules\Form\Forms\Form;
-use Modules\Form\Validators\FormValidator;
+use Modules\Form\Helpers\FormRequestHelper;
 
 /**
  * Class FormsRequest
@@ -20,9 +17,10 @@ class FormsRequest extends FormRequestAlias
 
     public function rules(): array
     {
-        $rules = $this->getForm()->rules();
+        $form = $this->getForm();
+        $rules = $form->rules();
 
-        if (!$this->bearerToken()) {
+        if (!$form->withAuth) {
             $rules = array_merge($rules, [
                 'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
             ]);
@@ -47,35 +45,7 @@ class FormsRequest extends FormRequestAlias
             return $this->form;
         }
 
-        $requestData = $this->getValidatedRequestData();
-        $this->offsetSet('roistatVisit', $requestData['roistatVisit']);
-
-        return $this->form = app(
-            DirectoryHelper::FORMS_PATH_WITH_BACKSLASH . "\\" . Str::studly($requestData['formName'])
-        );
-    }
-
-    #[ArrayShape([
-        'roistatVisit' => "array|null|string",
-        'formName' => "string"
-    ])]
-    private function getValidatedRequestData(): array
-    {
-        try {
-            $formName = $this->formName;
-            $roistatVisit = Cookie::get('roistatVisit');
-
-            app(FormValidator::class)
-                ->validateFormName($formName)
-                ->validateRoistatVisit($roistatVisit);
-        } catch (\Throwable $exception) {
-            abort(404, $exception->getMessage());
-        }
-
-        return [
-            'roistatVisit' => $roistatVisit,
-            'formName' => $formName
-        ];
+        return $this->form = app(FormRequestHelper::class)->getForm();
     }
 
     #[ArrayShape([

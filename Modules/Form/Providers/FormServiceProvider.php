@@ -3,6 +3,7 @@
 namespace Modules\Form\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Form\Helpers\FormRequestHelper;
 
 class FormServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,8 @@ class FormServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->singleton(FormRequestHelper::class);
     }
 
     protected function registerConfig()

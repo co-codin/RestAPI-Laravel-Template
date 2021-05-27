@@ -20,12 +20,14 @@ use Modules\Product\Models\Product;
  * @property bool $sendToCrm
  * @property bool $sendToBitrix
  * @property bool $sendToMail
+ * @property bool $withAuth
  */
 abstract class Form
 {
     public bool $sendToCrm = true;
     public bool $sendToBitrix = true;
     public bool $sendToMail = true;
+    public bool $withAuth = true;
 
     protected array $attributes = [];
     protected ?array $utm = null;
