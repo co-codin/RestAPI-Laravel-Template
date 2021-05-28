@@ -84,7 +84,7 @@ class Product extends Model
             'id',
             'category_id'
         )
-            ->where('product_categories.is_main', '=', true);
+            ->where('product_category.is_main', '=', true);
     }
 
     public function categories()
