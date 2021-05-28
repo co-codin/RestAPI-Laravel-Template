@@ -32,6 +32,11 @@ class FormRequestHelper
         );
     }
 
+    #[ArrayShape([
+        'name' => "string|null",
+        'phone' => "string",
+        'email' => "string|null"
+    ])]
     public function getClientData(): array
     {
         if (!is_null($this->clientData)) {

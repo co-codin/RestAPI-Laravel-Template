@@ -87,18 +87,6 @@ class ChatBot extends Form
         return true;
     }
 
-    protected function getCompanyType(): string
-    {
-        $type = $this->getAttribute('companyType');
-        return \Arr::get($this->companyTypes, $type, 'Не выбран тип компании');
-    }
-
-    protected function getSubCategory(): string
-    {
-        $subCategory = $this->getAttribute('subCategory');
-        return \Arr::get($this->options, $subCategory, 'Не ответили на доп. вопрос');
-    }
-
     public function getComments(): string
     {
         $default = parent::getComments();
@@ -126,5 +114,17 @@ class ChatBot extends Form
                 <br><b>Доп. вопрос:</b> $subCategory
                 <br><b>Определились с производителем:</b> $hasBrand
                 ";
+    }
+
+    protected function getCompanyType(): string
+    {
+        $type = $this->getAttribute('companyType');
+        return \Arr::get($this->companyTypes, $type, 'Не выбран тип компании');
+    }
+
+    protected function getSubCategory(): string
+    {
+        $subCategory = $this->getAttribute('subCategory');
+        return \Arr::get($this->options, $subCategory, 'Не ответили на доп. вопрос');
     }
 }

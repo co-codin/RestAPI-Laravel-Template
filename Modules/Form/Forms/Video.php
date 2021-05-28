@@ -30,34 +30,6 @@ class Video extends Form
         ];
     }
 
-    private function getVideo(): ?string
-    {
-        $product = $this->getProduct();
-
-        if (!is_null($product) && $product->video) {
-            return $product->video;
-        }
-
-        return null;
-    }
-
-    private function getVideoId(): ?string
-    {
-        $product = $this->getProduct();
-
-        if (!is_null($product) && $product->video) {
-            preg_match(
-                '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
-                $product->video,
-                $match
-            );
-
-            return $match[1];
-        }
-
-        return null;
-    }
-
     public function jsCallbackReturn(): bool
     {
         return true;
@@ -112,5 +84,33 @@ class Video extends Form
                 <br><b>Оборудование:</b> $productFullTitle
                 <br><b>Ссылка на оборудование:</b> $link
                 ";
+    }
+
+    private function getVideo(): ?string
+    {
+        $product = $this->getProduct();
+
+        if (!is_null($product) && $product->video) {
+            return $product->video;
+        }
+
+        return null;
+    }
+
+    private function getVideoId(): ?string
+    {
+        $product = $this->getProduct();
+
+        if (!is_null($product) && $product->video) {
+            preg_match(
+                '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                $product->video,
+                $match
+            );
+
+            return $match[1];
+        }
+
+        return null;
     }
 }

@@ -43,9 +43,9 @@ class FormsRequest extends FormRequestAlias
     }
 
     #[ArrayShape([
-        'name' => "string",
+        'name' => "string|null",
         'phone' => "string",
-        'email' => "string"
+        'email' => "string|null"
     ])]
     public function getClientData(): array
     {
