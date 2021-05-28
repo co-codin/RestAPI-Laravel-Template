@@ -93,7 +93,7 @@ class FormTest extends TestCase
             $this->assertTrue($form->isTestRequest());
 
             $form
-                ->fill([
+                ->setAttributes([
                     'phone' => '1111111',
                     'email' => '111111',
                 ]);
