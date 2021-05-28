@@ -18,7 +18,7 @@ class GetClientsList extends Form
     public function rules(): array
     {
         return [
-            'city' => 'required|integer|exists:cities,id',
+//            'city' => 'required|integer|exists:cities,id', //не интегрирована еще эта таблица
         ];
     }
 
@@ -36,11 +36,11 @@ class GetClientsList extends Form
     {
         $default = parent::getComments();
 
-        $city = $this->getCity();
+//        $city = $this->getCity();
 
         return "
                 $default
-                <br><b>Город:</b> {$city->title}
+                <br><b>Город:</b>
                 ";
     }
 }
