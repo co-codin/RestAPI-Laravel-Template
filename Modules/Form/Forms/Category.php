@@ -30,4 +30,16 @@ class Category extends Form
     {
         return 'contact_us_category1';
     }
+
+    public function getComments(): string
+    {
+        $default = parent::getComments();
+
+        $categoryName = $this->getCategory()->name;
+
+        return "
+                $default
+                <br><b>Категория:</b> $categoryName
+                ";
+    }
 }

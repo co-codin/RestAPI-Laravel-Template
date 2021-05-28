@@ -54,13 +54,13 @@ class Director extends Form
     {
         $default = parent::getComments();
 
-        $name = \Arr::get($this->attributes, 'name');
-        $message = \Arr::get($this->attributes, 'message');
+        $name = $this->getAttribute('name');
+        $message = $this->getAttribute('message');
 
         return "
                 $default
-                <br><b>Имя:</b> {$name}
-                <br><b>Сообщение:</b> {$message}
+                <br><b>Имя:</b> $name
+                <br><b>Сообщение:</b> $message
                 ";
     }
 }

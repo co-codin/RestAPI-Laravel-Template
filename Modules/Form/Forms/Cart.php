@@ -46,14 +46,18 @@ class Cart extends Form
     {
         $default = parent::getComments();
 
-        $variations = collect($this->getAttribute('variations'))->map(function($item) {
+        $variations = collect($this->getAttribute('variations'))->map(function ($item) {
             $variation = ProductVariation::find($item['id']);
-            return $variation->product->brand->name . " " . $variation->product->name . " - " . $item['number'] . " шт.";
-        })->join("<br>");
+
+            return $variation->product->brand->name
+                . " " . $variation->product->name
+                . " - " . $item['number'] . " шт.";
+        })
+            ->join("<br>");
 
         return "
                 $default
-                <br><b>Товары:</b> <br> {$variations}
+                <br><b>Товары:</b> <br> $variations
                 ";
     }
 }

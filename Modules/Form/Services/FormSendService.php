@@ -56,7 +56,7 @@ class FormSendService
         $mailableForm = (new MailableForm($formWithoutFiles))
             ->to($form->emails());
 
-        $attachments = \Arr::get($form->attributes(), 'attachments');
+        $attachments = $form->getAttribute('attachments');
 
         SendDispatchableMail::withChain([
             function () use ($attachments) {

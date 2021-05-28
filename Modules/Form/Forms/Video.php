@@ -46,7 +46,12 @@ class Video extends Form
         $product = $this->getProduct();
 
         if (!is_null($product) && $product->video) {
-            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $product->video, $match);
+            preg_match(
+                '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                $product->video,
+                $match
+            );
+
             return $match[1];
         }
 
@@ -78,9 +83,9 @@ class Video extends Form
 
     public function getCategory(): ?Category
     {
-        $product = $this->getProduct();
-
-        return (new CategoryCast())->getCategoryByProduct($product);
+        return (new CategoryCast())->getCategoryByProduct(
+            $this->getProduct()
+        );
     }
 
     public function getComments(): string
@@ -89,16 +94,17 @@ class Video extends Form
 
         $product = $this->getProduct();
 
-        $category = $this->getCategory();
-        $categoryTitle = optional($category)->name;
-        $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
+        $categoryComment = $this->getComment(
+            "<br><b>Категория:</b>",
+            optional($this->getCategory())->name
+        );
 
         $link = route('product-view', [
             'slug' => $product->slug,
             'id' => $product->id,
         ]);
 
-        $productFullTitle = optional($product->brand)->name . ' ' . $product->name;
+        $productFullTitle = $product->brand->name . ' ' . $product->name;
 
         return "
                 $default

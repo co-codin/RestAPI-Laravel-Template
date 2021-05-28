@@ -34,8 +34,10 @@ class Vacancy extends Form
     {
         $default = parent::getComments();
 
-        $vacancyUrl = \Arr::get($this->attributes, 'url');
-        $vacancyUrlComment = $this->getComment("<br><b>Ссылка на вакансию:</b>", $vacancyUrl);
+        $vacancyUrlComment = $this->getComment(
+            "<br><b>Ссылка на вакансию:</b>",
+            $this->getAttribute('url')
+        );
 
         return "
                 $default

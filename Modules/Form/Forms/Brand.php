@@ -35,11 +35,11 @@ class Brand extends Form
     {
         $default = parent::getComments();
 
-        $brand = $this->getBrand();
+        $brandName = $this->getBrand()->name;
 
         return "
                 $default
-                <br><b>Производитель:</b> {$brand->name}
+                <br><b>Производитель:</b> $brandName
                 ";
     }
 }

@@ -89,13 +89,13 @@ class ChatBot extends Form
 
     protected function getCompanyType(): string
     {
-        $type = \Arr::get($this->attributes, 'companyType');
+        $type = $this->getAttribute('companyType');
         return \Arr::get($this->companyTypes, $type, 'Не выбран тип компании');
     }
 
     protected function getSubCategory(): string
     {
-        $subCategory = \Arr::get($this->attributes, 'subCategory');
+        $subCategory = $this->getAttribute('subCategory');
         return \Arr::get($this->options, $subCategory, 'Не ответили на доп. вопрос');
     }
 
@@ -103,16 +103,17 @@ class ChatBot extends Form
     {
         $default = parent::getComments();
 
-        $hasBrand = \Arr::get($this->attributes, 'hasBrand');
-        $hasBrand = $hasBrand === 'Yes' ? 'Да' : 'Нет';
+        $hasBrand = $this->getAttribute('hasBrand') === 'Yes' ? 'Да' : 'Нет';
 
-        $brand = $this->getBrand();
-        $brandTitle = optional($brand)->name;
-        $brandComment = $this->getComment("<br><b>Производитель:</b>", $brandTitle);
+        $brandComment = $this->getComment(
+            "<br><b>Производитель:</b>",
+            optional($this->getBrand())->name
+        );
 
-        $category = $this->getCategory();
-        $categoryTitle = optional($category)->name;
-        $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
+        $categoryComment = $this->getComment(
+            "<br><b>Категория:</b>",
+            optional($this->getCategory())->name
+        );
 
         $companyType = $this->getCompanyType();
         $subCategory = $this->getSubCategory();
@@ -121,9 +122,9 @@ class ChatBot extends Form
                 $default
                 $brandComment
                 $categoryComment
-                <br><b>Тип компании:</b> {$companyType}
-                <br><b>Доп. вопрос:</b> {$subCategory}
-                <br><b>Определились с производителем:</b> {$hasBrand}
+                <br><b>Тип компании:</b> $companyType
+                <br><b>Доп. вопрос:</b> $subCategory
+                <br><b>Определились с производителем:</b> $hasBrand
                 ";
     }
 }

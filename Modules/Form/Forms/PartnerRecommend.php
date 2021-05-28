@@ -17,7 +17,7 @@ class PartnerRecommend extends Form
     {
         return [
             'company' => 'required|string|max:255',
-            'city-title' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'post' => 'required|string|max:255',
             'recommend_name' => 'required|string|max:255',
@@ -43,15 +43,15 @@ class PartnerRecommend extends Form
 
     public function getComments(): string
     {
-        $company = \Arr::get($this->attributes, 'company');
-        $city = \Arr::get($this->attributes, 'city');
-        $name = \Arr::get($this->attributes, 'name');
-        $post = \Arr::get($this->attributes, 'post');
+        $company = $this->getAttribute('company');
+        $city = $this->getAttribute('city');
+        $name = $this->getAttribute('name');
+        $post = $this->getAttribute('post');
 
-        $recommend_name = \Arr::get($this->attributes, 'recommend_name');
-        $recommend_phone = \Arr::get($this->attributes, 'recommend_phone');
-        $recommend_email = \Arr::get($this->attributes, 'recommend_email');
-        $comment = \Arr::get($this->attributes, 'comment');
+        $recommend_name = $this->getAttribute('recommend_name');
+        $recommend_phone = $this->getAttribute('recommend_phone');
+        $recommend_email = $this->getAttribute('recommend_email');
+        $comment = $this->getAttribute('comment');
 
         $date = Carbon::parse(now())->format('d.m.Y H:i:s');
         $url = url()->previous();
@@ -61,17 +61,17 @@ class PartnerRecommend extends Form
                 <br><b>Форма:</b> {$this->title()}
                 <br><b>Страница:</b> $url
                 <br><b>Данные рекомендуемой компании:</b>
-                <br><b>Компания:</b> {$company}
-                <br><b>Город:</b> {$city}
-                <br><b>ФИО лица, принимающего решения:</b> {$name}
-                <br><b>Должность:</b> {$post}
+                <br><b>Компания:</b> $company
+                <br><b>Город:</b> $city
+                <br><b>ФИО лица, принимающего решения:</b> $name
+                <br><b>Должность:</b> $post
                 <br><b>Телефон:</b> {$this->getPhone()}
                 <br><b>Email:</b> {$this->getEmail()}
                 <br><b>Ваши контактные данные:</b>
-                <br><b>ФИО:</b> {$recommend_name}
-                <br><b>Телефон:</b> {$recommend_phone}
-                <br><b>Email:</b> {$recommend_email}
-                <br><b>Комментарий:</b> {$comment}
+                <br><b>ФИО:</b> $recommend_name
+                <br><b>Телефон:</b> $recommend_phone
+                <br><b>Email:</b> $recommend_email
+                <br><b>Комментарий:</b> $comment
                 ";
     }
 }

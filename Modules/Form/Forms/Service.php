@@ -39,7 +39,7 @@ class Service extends Form
 
     public function getComments(): string
     {
-        $name = \Arr::get($this->attributes, 'name');
+        $name = $this->getAttribute('name');
 
         $date = Carbon::parse(now())->format('d.m.Y H:i:s');
         $url = url()->previous();
@@ -48,7 +48,7 @@ class Service extends Form
                 <b>Получена заявка:</b> $date
                 <br><b>Форма:</b> {$this->title()}
                 <br><b>Страница:</b> $url
-                <br><b>ФИО лица:</b> {$name}
+                <br><b>ФИО лица:</b> $name
                 <br><b>Телефон:</b> {$this->getPhone()}
                 <br><b>Email:</b> {$this->getEmail()}
                 ";

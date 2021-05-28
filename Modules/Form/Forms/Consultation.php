@@ -42,9 +42,9 @@ class Consultation extends Form
 
     public function getCategory(): ?Category
     {
-        $product = $this->getProduct();
-
-        return (new CategoryCast())->getCategoryByProduct($product);
+        return (new CategoryCast())->getCategoryByProduct(
+            $this->getProduct()
+        );
     }
 
     public function getComments(): string
@@ -53,16 +53,17 @@ class Consultation extends Form
 
         $product = $this->getProduct();
 
-        $category = $this->getCategory();
-        $categoryTitle = optional($category)->name;
-        $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
+        $categoryComment = $this->getComment(
+            "<br><b>Категория:</b>",
+            optional($this->getCategory())->name
+        );
 
         $link = route('product-view', [
             'slug' => $product->slug,
             'id' => $product->id,
         ]);
 
-        $productFullTitle = optional($product->brand)->name . ' ' . $product->name;
+        $productFullTitle = $product->brand->name . ' ' . $product->name;
 
         return "
                 $default

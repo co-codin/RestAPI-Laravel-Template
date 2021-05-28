@@ -53,16 +53,17 @@ class TestDrive extends Form
 
         $product = $this->getProduct();
 
-        $category = $this->getCategory();
-        $categoryTitle = optional($category)->name;
-        $categoryComment = $this->getComment("<br><b>Категория:</b>", $categoryTitle);
+        $categoryComment = $this->getComment(
+            "<br><b>Категория:</b>",
+            optional($this->getCategory())->name
+        );
 
         $link = route('product-view', [
             'slug' => $product->slug,
             'id' => $product->id,
         ]);
 
-        $productFullTitle = optional($product->brand)->name . ' ' . $product->name;
+        $productFullTitle = $product->brand->name . ' ' . $product->name;
 
         return "
                 $default
