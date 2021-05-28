@@ -110,13 +110,13 @@ abstract class Form
      */
     private function getCastedAttribute(string $attributeName, ?CastsInterface $cast = null): mixed
     {
-        $attribute = $this->getAttribute($attributeName);
+        $attributeValue = $this->getAttribute($attributeName);
 
-        if (is_null($cast) || is_null($attribute)) {
+        if (is_null($cast) || is_null($attributeValue)) {
             return null;
         }
 
-        return $cast->get($attribute);
+        return $cast->get($attributeValue);
     }
 
     public function attributes(): array
@@ -161,9 +161,6 @@ abstract class Form
     public function getPhone(): ?string
     {
         return $this->getAttribute('phone');
-        $phone = $this->getAttribute('phone');
-
-        return $phone !== "+7" ? $phone : null;
     }
 
     public function fill(array $attributes): self
@@ -339,30 +336,22 @@ abstract class Form
 
     public function getProduct(): ?Product
     {
-        $cast = new ProductCast();
-
-        return $this->getCastedAttribute('product', $cast);
+        return $this->getCastedAttribute('product', new ProductCast());
     }
 
     public function getCategory(): ?Category
     {
-        $cast = new CategoryCast();
-
-        return $this->getCastedAttribute('category', $cast);
+        return $this->getCastedAttribute('category', new CategoryCast());
     }
 
     public function getBrand(): ?Brand
     {
-        $cast = new BrandCast();
-
-        return $this->getCastedAttribute('brand', $cast);
+        return $this->getCastedAttribute('brand', new BrandCast());
     }
 
     public function getCity(): ?City
     {
-        $cast = new CityCast();
-
-        return $this->getCastedAttribute('city', $cast);
+        return $this->getCastedAttribute('city', new CityCast());
     }
 
     public function unsetAttributes(array $attributes): self
