@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Validator as ValidationValidator;
@@ -11,6 +13,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(MacrosServiceProvider::class);
+
+        $this->app->bind(Client::class, function ($app) {
+            return ClientBuilder::create()
+                ->setHosts($app['config']->get('elasticsearch.hosts'))
+                ->build();
+        });
     }
 
     public function boot(): void
