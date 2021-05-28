@@ -28,7 +28,7 @@ class FormPreparerService
         );
 
         return $form
-            ->fill($data)
+            ->setAttributes($data)
             ->setUtm($this->getUtm())
             ->setPage(url()->previous())
             ->setRoistatVisit($request->get('roistatVisit'));

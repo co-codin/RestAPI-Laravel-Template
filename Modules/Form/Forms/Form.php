@@ -4,11 +4,10 @@ namespace Modules\Form\Forms;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Modules\Client\Models\City;
+use Modules\Brand\Models\Brand;
+use Modules\Category\Models\Category;
 use Modules\Form\Casts\BrandCast;
 use Modules\Form\Casts\CastsInterface;
-use Modules\Category\Models\Category;
-use Modules\Brand\Models\Brand;
 use Modules\Form\Casts\CategoryCast;
 use Modules\Form\Casts\CityCast;
 use Modules\Form\Casts\ProductCast;
@@ -29,10 +28,10 @@ abstract class Form
     public bool $sendToMail = true;
     public bool $withAuth = true;
 
-    protected array $attributes = [];
-    protected ?array $utm = null;
+    protected ?array $utm;
     protected ?string $page;
     protected int|string|null $roistatVisit;
+    protected array $attributes = [];
 
     abstract public function title(): string;
 
@@ -69,6 +68,11 @@ abstract class Form
         return [];
     }
 
+    public static function getName(): string
+    {
+        return class_basename(static::class);
+    }
+
     public function setAttributes(array $attributes): self
     {
         $this->attributes = $attributes;
@@ -83,40 +87,25 @@ abstract class Form
         return $this;
     }
 
-    protected function addAdditionalAttributes(array &$attributes): void
+    public function unsetAttributes(array $attributes): self
     {
-        $attributes = array_merge($attributes, $this->additionalAttributes());
+        foreach ($attributes as $attribute) {
+            unset($this->attributes[$attribute]);
+        }
+
+        return $this;
     }
 
-    protected function additionalAttributes(): array
+    public function withoutAttributes(array $attributes): self
     {
-        return [];
+        $form = clone $this;
+
+        return $form->unsetAttributes($attributes);
     }
 
-    /**
-     * @param string $name
-     * @param mixed $default
-     * @return mixed
-     */
     public function getAttribute(string $name, mixed $default = null): mixed
     {
         return Arr::get($this->attributes(), $name, $default);
-    }
-
-    /**
-     * @param string $attributeName
-     * @param CastsInterface|null $cast
-     * @return mixed
-     */
-    private function getCastedAttribute(string $attributeName, ?CastsInterface $cast = null): mixed
-    {
-        $attributeValue = $this->getAttribute($attributeName);
-
-        if (is_null($cast) || is_null($attributeValue)) {
-            return null;
-        }
-
-        return $cast->get($attributeValue);
     }
 
     public function attributes(): array
@@ -148,6 +137,53 @@ abstract class Form
         return implode("<br>", $summary);
     }
 
+    public function getProperties(): array
+    {
+        $properties = [];
+
+        foreach ($this->attributes() as $key => $item) {
+            $properties[] = [
+                'property' => $key,
+                'value' => $item
+            ];
+        }
+
+        return $properties;
+    }
+
+
+    private function getCastedAttribute(string $attributeName, ?CastsInterface $cast = null): mixed
+    {
+        $attributeValue = $this->getAttribute($attributeName);
+
+        if (is_null($cast) || is_null($attributeValue)) {
+            return null;
+        }
+
+        return $cast->get($attributeValue);
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->getCastedAttribute('product', new ProductCast());
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->getCastedAttribute('category', new CategoryCast());
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->getCastedAttribute('brand', new BrandCast());
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->getCastedAttribute('city', new CityCast());
+    }
+
+
     public function emails(): ?array
     {
         return config('services.mails.forms');
@@ -161,13 +197,6 @@ abstract class Form
     public function getPhone(): ?string
     {
         return $this->getAttribute('phone');
-    }
-
-    public function fill(array $attributes): self
-    {
-        $this->attributes = $attributes;
-
-        return $this;
     }
 
     public function setUtm(?array $utm = null): self
@@ -191,11 +220,6 @@ abstract class Form
         return $this;
     }
 
-    public function getPage(): string
-    {
-        return $this->page;
-    }
-
     public function getUtm(): ?array
     {
         return $this->utm;
@@ -211,33 +235,9 @@ abstract class Form
         return $this->roistatVisit;
     }
 
-    public function getProperties(): array
+    public function getPage(): string
     {
-        $properties = [];
-
-        foreach ($this->attributes() as $key => $item) {
-            $properties[] = [
-                'property' => $key,
-                'value' => $item
-            ];
-        }
-
-        return $properties;
-    }
-
-    public static function getName(): string
-    {
-        return class_basename(static::class);
-    }
-
-    public function jsCallbackMethod(): ?string
-    {
-        return static::getName();
-    }
-
-    public function jsCallbackReturn(): bool
-    {
-        return false;
+        return $this->page;
     }
 
     public function ym(): ?string
@@ -264,6 +264,49 @@ abstract class Form
     {
         return 'Наши менеджеры скоро с Вами свяжутся';
     }
+
+    public function getComments(): string
+    {
+        $date = Carbon::parse(now())->format('d.m.Y H:i:s');
+        $page = $this->getPage();
+
+        if ($pos = strpos($page, '?utm')) {
+            $page = substr($page, 0, $pos);
+        }
+
+        $nameComment = $this->getComment("<br><b>Имя:</b>", $this->getAttribute('name'));
+        $phoneComment = $this->getComment("<br><b>Телефон:</b>", $this->getPhone());
+        $emailComment = $this->getComment("<br><b>Email:</b>", $this->getEmail());
+
+        return "
+                <b>Получена заявка:</b> $date
+                <br><b>Форма:</b> {$this->title()}
+                $nameComment
+                $phoneComment
+                $emailComment
+                <br><b>Страница:</b> $page
+                ";
+    }
+
+    protected function getComment(string $comment, ?string $attr = null): ?string
+    {
+        if (!is_null($attr)) {
+            return $comment . ' ' . $attr;
+        }
+
+        return null;
+    }
+
+    public function jsCallbackMethod(): ?string
+    {
+        return static::getName();
+    }
+
+    public function jsCallbackReturn(): bool
+    {
+        return false;
+    }
+
 
     public function response(): array
     {
@@ -302,71 +345,13 @@ abstract class Form
         return false;
     }
 
-    public function getComments(): string
+    protected function additionalAttributes(): array
     {
-        $date = Carbon::parse(now())->format('d.m.Y H:i:s');
-        $page = $this->getPage();
-
-        if ($pos = strpos($page, '?utm')) {
-            $page = substr($page, 0, $pos);
-        }
-
-        $nameComment = $this->getComment("<br><b>Имя:</b>", $this->getAttribute('name'));
-        $phoneComment = $this->getComment("<br><b>Телефон:</b>", $this->getPhone());
-        $emailComment = $this->getComment("<br><b>Email:</b>", $this->getEmail());
-
-        return "
-                <b>Получена заявка:</b> $date
-                <br><b>Форма:</b> {$this->title()}
-                $nameComment
-                $phoneComment
-                $emailComment
-                <br><b>Страница:</b> $page
-                ";
+        return [];
     }
 
-    protected function getComment(string $comment, ?string $attr = null): ?string
+    protected function addAdditionalAttributes(array &$attributes): void
     {
-        if (!is_null($attr)) {
-            return $comment . ' ' . $attr;
-        }
-
-        return null;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->getCastedAttribute('product', new ProductCast());
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->getCastedAttribute('category', new CategoryCast());
-    }
-
-    public function getBrand(): ?Brand
-    {
-        return $this->getCastedAttribute('brand', new BrandCast());
-    }
-
-    public function getCity(): ?City
-    {
-        return $this->getCastedAttribute('city', new CityCast());
-    }
-
-    public function unsetAttributes(array $attributes): self
-    {
-        foreach ($attributes as $attribute) {
-            unset($this->attributes[$attribute]);
-        }
-
-        return $this;
-    }
-
-    public function withoutAttributes(array $attributes): self
-    {
-        $form = clone $this;
-
-        return $form->unsetAttributes($attributes);
+        $attributes = array_merge($attributes, $this->additionalAttributes());
     }
 }
