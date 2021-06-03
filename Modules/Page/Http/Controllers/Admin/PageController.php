@@ -28,7 +28,7 @@ class PageController extends Controller
     {
         $pageModel = $this->pageRepository->find($page);
 
-        $pageModel = $this->pageStorage->update($pageModel, (new PageDto($request->validated()))->only(...$request->keys()));
+        $pageModel = $this->pageStorage->update($pageModel, PageDto::fromFormRequest($request));
 
         return new PageResource($pageModel);
     }
