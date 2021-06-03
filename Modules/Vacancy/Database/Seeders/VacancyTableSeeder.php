@@ -4,8 +4,9 @@ namespace Modules\Vacancy\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Vacancy\Models\Vacancy;
 
-class VacancyDatabaseSeeder extends Seeder
+class VacancyTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class VacancyDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(VacancyTableSeeder::class);
+        Vacancy::factory()->times(50)->create();
     }
 }
