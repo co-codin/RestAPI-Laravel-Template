@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Tests\Feature\Modules\News\Web;
+namespace Tests\Feature\Modules\Vacancy\Web;
 
 
-use Modules\News\Models\News;
+use Modules\Vacancy\Models\Vacancy;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_news()
+    public function test_user_can_view_vacancies()
     {
-        News::factory()->count($count = 5)->create();
+        Vacancy::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('news.index'));
+        $response = $this->json('GET', route('vacancies.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -26,9 +26,6 @@ class ReadTest extends TestCase
                     "short_description",
                     "full_description",
                     "status",
-                    "image",
-                    "is_in_home",
-                    "published_at",
                     "created_at",
                     "updated_at",
                 ]
@@ -58,11 +55,11 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_news()
+    public function test_user_can_view_single_vacancy()
     {
-        $news = News::factory()->create();
+        $vacancy = Vacancy::factory()->create();
 
-        $response = $this->json('GET', route('news.show', $news));
+        $response = $this->json('GET', route('vacancies.show', $vacancy));
 
         $response->assertOk();
         $response->assertJsonStructure([
@@ -73,9 +70,6 @@ class ReadTest extends TestCase
                 "short_description",
                 "full_description",
                 "status",
-                "image",
-                "is_in_home",
-                "published_at",
                 "created_at",
                 "updated_at",
             ]

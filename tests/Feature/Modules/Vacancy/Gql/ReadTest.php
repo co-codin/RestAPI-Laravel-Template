@@ -5,23 +5,24 @@ namespace Tests\Feature\Modules\Vacancy\Gql;
 
 
 use App\Enums\Status;
-use Modules\News\Models\News;
+use Modules\Vacancy\Models\Vacancy;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
     public function test_vacancies_can_be_viewed()
     {
-        $news = News::factory()->create([
+        $vacancy = Vacancy::factory()->create([
             'status' => Status::INACTIVE,
         ]);
 
         $response = $this->graphQL('
             {
-                news {
+                vacancies {
                     data {
                         id
                         name
+                        slug
                     }
                     paginatorInfo {
                         currentPage
@@ -33,11 +34,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'news' => [
+                'vacancies' => [
                     'data' => [
                         [
-                            'id' => $news->id,
-                            'name' => $news->name,
+                            'id' => $vacancy->id,
+                            'name' => $vacancy->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -50,7 +51,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                news(where: { column: ID, operator: EQ, value: ' . $news->id .'  }) {
+                vacancies(where: { column: ID, operator: EQ, value: ' . $vacancy->id .'  }) {
                     data {
                         id
                         name
@@ -61,11 +62,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'news' => [
+                'vacancies' => [
                     'data' => [
                         [
-                            'id' => $news->id,
-                            'name' => $news->name,
+                            'id' => $vacancy->id,
+                            'name' => $vacancy->name,
                         ]
                     ],
                 ]

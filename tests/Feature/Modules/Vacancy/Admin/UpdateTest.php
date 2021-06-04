@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\News\Admin;
+namespace Tests\Feature\Modules\Vacancy\Admin;
 
 
 use App\Enums\Status;

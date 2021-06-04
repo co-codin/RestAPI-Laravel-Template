@@ -1,30 +1,25 @@
 <?php
 
 
-namespace Tests\Feature\Modules\News\Admin;
+namespace Tests\Feature\Modules\Vacancy\Admin;
 
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Modules\News\Models\News;
+use Modules\Vacancy\Models\Vacancy;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_news()
+//    public function test_unauthenticated_cannot_create_vacancy()
 //    {
 //        //
 //    }
 
     public function test_authenticated_can_create_news()
     {
-        Storage::fake('public');
+        $vacancyData = Vacancy::factory()->raw();
 
-        $newsData = News::factory()->raw([
-            'image' => UploadedFile::fake()->image('test-file.jpg'),
-        ]);
-
-        $response = $this->json('POST', route('admin.news.store'), $newsData);
+        $response = $this->json('POST', route('admin.vacancies.store'), $vacancyData);
 
         $response->assertCreated();
         $response->assertJsonStructure([
