@@ -5,29 +5,29 @@ namespace Tests\Feature\Modules\Vacancy\Admin;
 
 
 use App\Enums\Status;
-use Modules\News\Models\News;
+use Modules\Vacancy\Models\Vacancy;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_news()
+//    public function test_unauthenticated_cannot_update_vacancy()
 //    {
 //        //
 //    }
 
-    public function test_authenticated_can_update_news()
+    public function test_authenticated_can_update_vacancy()
     {
-        $news = News::factory()->create([
+        $vacancy = Vacancy::factory()->create([
             'status' => Status::ACTIVE,
         ]);
 
-        $response = $this->json('PATCH', route('admin.news.update', $news), [
+        $response = $this->json('PATCH', route('admin.vacancies.update', $vacancy), [
             'name' => $newName = 'new name',
             'status' => Status::INACTIVE
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('news', [
+        $this->assertDatabaseHas('vacancies', [
             'name' => $newName,
             'status' => Status::INACTIVE
         ]);

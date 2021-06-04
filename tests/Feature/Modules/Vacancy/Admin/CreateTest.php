@@ -15,7 +15,7 @@ class CreateTest extends TestCase
 //        //
 //    }
 
-    public function test_authenticated_can_create_news()
+    public function test_authenticated_can_create_vacancy()
     {
         $vacancyData = Vacancy::factory()->raw();
 
@@ -28,8 +28,8 @@ class CreateTest extends TestCase
                 'slug',
             ]
         ]);
-        $this->assertDatabaseHas('news', [
-            'name' => $newsData['name'],
+        $this->assertDatabaseHas('vacancies', [
+            'name' => $vacancyData['name'],
         ]);
     }
 }
