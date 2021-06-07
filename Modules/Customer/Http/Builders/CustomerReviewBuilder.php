@@ -57,8 +57,8 @@ class CustomerReviewBuilder extends BaseBuilder
             'author',
             'comment',
             'id' => AllowedFilter::exact('id'),
-            'is_home' => AllowedFilter::exact('manager_id'),
-            'type' => AllowedFilter::exact('status'),
+            'is_home' => AllowedFilter::exact('is_home'),
+            'type' => AllowedFilter::exact('type'),
         ];
 
         if (!is_null($this->relationDtoCollection)) {
