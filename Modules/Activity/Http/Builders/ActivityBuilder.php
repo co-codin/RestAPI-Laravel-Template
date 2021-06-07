@@ -5,6 +5,7 @@ namespace Modules\Activity\Http\Builders;
 
 
 use App\Http\Builders\BaseBuilder;
+use App\Http\Filters\DateFilter;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -57,14 +58,12 @@ class ActivityBuilder extends BaseBuilder
             'description',
             'subject_type',
             'event',
-            'subject_id',
             'causer_type',
-            'causer_id',
-            'properties',
             'id' => AllowedFilter::exact('id'),
-
-            'is_home' => AllowedFilter::exact('is_home'),
-            'type' => AllowedFilter::exact('type'),
+            'subject_id' => AllowedFilter::exact('subject_id'),
+            'causer_id' => AllowedFilter::exact('causer_id'),
+            'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
+            'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
         ];
 
         if (!is_null($this->relationDtoCollection)) {
@@ -86,10 +85,7 @@ class ActivityBuilder extends BaseBuilder
             'description',
             'subject_type',
             'event',
-            'subject_id',
             'causer_type',
-            'causer_id',
-            'properties',
         ];
 
         if (!is_null($this->relationDtoCollection)) {

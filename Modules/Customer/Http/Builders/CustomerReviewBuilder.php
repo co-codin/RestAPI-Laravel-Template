@@ -5,6 +5,7 @@ namespace Modules\Customer\Http\Builders;
 
 
 use App\Http\Builders\BaseBuilder;
+use App\Http\Filters\DateFilter;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -59,6 +60,8 @@ class CustomerReviewBuilder extends BaseBuilder
             'id' => AllowedFilter::exact('id'),
             'is_home' => AllowedFilter::exact('is_home'),
             'type' => AllowedFilter::exact('type'),
+            'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
+            'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
         ];
 
         if (!is_null($this->relationDtoCollection)) {
