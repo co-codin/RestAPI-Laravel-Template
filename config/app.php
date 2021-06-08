@@ -179,7 +179,7 @@ return [
 
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
         \App\Providers\SpatieQueryBuilderServiceProvider::class,
-        App\Providers\CustomValidateRuleServiceProvider::class,
+        App\Providers\ValidationExtensionServiceProvider::class,
     ],
 
     /*
