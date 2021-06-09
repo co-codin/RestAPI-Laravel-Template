@@ -40,6 +40,8 @@ class ActivityBuilder extends BaseBuilder
             'causer_type',
             'causer_id',
             'properties',
+            'created_at',
+            'updated_at',
         ];
 
         return $this->filter($fields, $columns)
