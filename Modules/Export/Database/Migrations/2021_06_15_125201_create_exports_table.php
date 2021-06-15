@@ -19,6 +19,7 @@ class CreateExportsTable extends Migration
             $table->unsignedTinyInteger('type');
             $table->string('filename');
             $table->unsignedTinyInteger('frequency')->default(30);
+            $table->json('parameters');
             $table->timestamps();
         });
     }
