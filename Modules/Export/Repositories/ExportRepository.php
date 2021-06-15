@@ -1,16 +1,18 @@
 <?php
 
-namespace Modules\Achievement\Repositories;
+
+namespace Modules\Export\Repositories;
+
 
 use App\Repositories\BaseRepository;
-use Modules\Achievement\Models\Achievement;
 use Modules\Achievement\Repositories\Criteria\ExportRequestCriteria;
+use Modules\Export\Models\Export;
 
-class AchievementRepository extends BaseRepository
+class ExportRepository extends BaseRepository
 {
     public function model()
     {
-        return Achievement::class;
+        return Export::class;
     }
 
     public function boot()
