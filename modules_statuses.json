@@ -13,5 +13,6 @@
     "Product": true,
     "Currency": true,
     "Attribute": true,
-    "Customer": true
+    "Customer": true,
+    "Export": true
 }
