@@ -19,7 +19,7 @@ class ExportController extends Controller
 
     public function store(ExportCreateRequest $request)
     {
-
+        $export = $this->exportStorage->store();
     }
 
     public function update(int $export, ExportUpdateRequest $request)
