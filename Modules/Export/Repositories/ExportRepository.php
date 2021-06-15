@@ -5,7 +5,7 @@ namespace Modules\Export\Repositories;
 
 
 use App\Repositories\BaseRepository;
-use Modules\Achievement\Repositories\Criteria\ExportRequestCriteria;
+use Modules\Export\Repositories\Criteria\ExportRequestCriteria;
 use Modules\Export\Models\Export;
 
 class ExportRepository extends BaseRepository
