@@ -4,10 +4,13 @@ namespace Modules\Faq\Models;
 
 use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Faq\Database\factories\QuestionFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Question
@@ -18,10 +21,14 @@ use Modules\Faq\Database\factories\QuestionFactory;
  * @property string $answer
  * @property int $status
  * @property QuestionCategory $questionCategory
+ * @mixin \Eloquent
+ * @method static Builder|Question newModelQuery()
+ * @method static Builder|Question newQuery()
+ * @method static Builder|Question query()
  */
 class Question extends Model
 {
-    use HasFactory, SoftDeletes, IsActive, Sluggable;
+    use HasFactory, SoftDeletes, IsActive, Sluggable, LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -37,6 +44,17 @@ class Question extends Model
                 'source' => 'question',
             ]
         ];
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
     }
 
     protected static function newFactory()

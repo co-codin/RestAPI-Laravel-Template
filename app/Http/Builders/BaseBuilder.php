@@ -6,8 +6,9 @@ namespace App\Http\Builders;
 
 use App\Dto\HttpBuilderRelationDto;
 use App\Dto\HttpBuilderRelationDtoCollection;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection as SupportCollection;
 
 abstract class BaseBuilder
@@ -27,9 +28,9 @@ abstract class BaseBuilder
         }
     }
 
-    protected function getQuery(Model|Builder|string $model): Model|Builder|string
+    final protected function getQuery(Model|EloquentBuilder|Relation|string $model): EloquentBuilder|Relation|string
     {
-        return !is_a($model, Builder::class) ? $model::query() : $model;
+        return is_a($model, Model::class) ? $model::query() : $model;
     }
 
     /**
