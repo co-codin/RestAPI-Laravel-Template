@@ -4,7 +4,7 @@ namespace Modules\Achievement\Repositories;
 
 use App\Repositories\BaseRepository;
 use Modules\Achievement\Models\Achievement;
-use Modules\Achievement\Repositories\Criteria\ExportRequestCriteria;
+use Modules\Achievement\Repositories\Criteria\AchievementRequestCriteria;
 
 class AchievementRepository extends BaseRepository
 {
@@ -15,6 +15,6 @@ class AchievementRepository extends BaseRepository
 
     public function boot()
     {
-        $this->pushCriteria(ExportRequestCriteria::class);
+        $this->pushCriteria(AchievementRequestCriteria::class);
     }
 }

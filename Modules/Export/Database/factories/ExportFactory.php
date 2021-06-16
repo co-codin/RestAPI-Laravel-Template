@@ -3,7 +3,10 @@
 namespace Modules\Export\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Brand\Models\Brand;
+use Modules\Category\Models\Category;
 use Modules\Export\Enum\ExportType;
+use Modules\Product\Models\Product;
 
 class ExportFactory extends Factory
 {
@@ -27,9 +30,11 @@ class ExportFactory extends Factory
             'filename' => $this->faker->name,
             'frequency' => $this->faker->randomDigitNotNull,
             'parameters' => json_encode([
-                'categories' => true,
-                'brands' => false,
-                'variations' => true,
+                'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id'), 'selected' => $this->faker->boolean],
+                'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id'), 'selected' => $this->faker->boolean],
+                'products' => ['ids' => Product::factory()->count(5)->create()->pluck('id'), 'selected' => $this->faker->boolean],
+                'stock_type' => $this->faker->sentence(4),
+                
             ])
         ];
     }

@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_news_can_be_viewed()
+    public function test_exports_can_be_viewed()
     {
         $news = News::factory()->create([
             'status' => Status::INACTIVE,
