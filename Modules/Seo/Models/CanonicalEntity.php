@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Modules\Seo\Database\factories\CanonicalFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * This is the model class for table "canonicals".
@@ -25,7 +27,7 @@ use Modules\Seo\Database\factories\CanonicalFactory;
  */
 class CanonicalEntity extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'canonicals';
 
@@ -33,6 +35,17 @@ class CanonicalEntity extends Model
         'url',
         'canonical',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
+    }
 
     protected static function newFactory()
     {

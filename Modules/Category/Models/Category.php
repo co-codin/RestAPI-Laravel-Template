@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Product;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Category
@@ -30,10 +33,17 @@ use Modules\Seo\Models\Seo;
  * @property Category[] $ancestors
  * @property Category[] $descendants
  * @property Seo|null $seo
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @mixin \Eloquent
+ * @method static Builder|Category newModelQuery()
+ * @method static Builder|Category newQuery()
+ * @method static Builder|Category query()
  */
 class Category extends Model
 {
-    use HasFactory, NodeTrait, SoftDeletes, IsActive;
+    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -42,6 +52,18 @@ class Category extends Model
         'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'full_description',
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
+    }
 
     public function products()
     {
@@ -69,13 +91,13 @@ class Category extends Model
         )->withPivot(['section', 'position']);
     }
 
-    protected static function newFactory()
-    {
-        return CategoryFactory::new();
-    }
-
     public function scopeIsRoot(Builder $query): Builder
     {
         return $query->whereNull($this->getParentIdName());
+    }
+
+    protected static function newFactory()
+    {
+        return CategoryFactory::new();
     }
 }

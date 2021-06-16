@@ -2,15 +2,42 @@
 
 namespace Modules\Product\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Modules\Currency\Models\Currency;
 use Modules\Product\Database\factories\ProductVariationFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * Class ProductVariation
+ * @package Modules\Product\Models
+ * @property int $id
+ * @property int $product_id
+ * @property string $name
+ * @property int|null $price
+ * @property int|null $previous_price
+ * @property int|null $currency_id
+ * @property bool $is_price_visible
+ * @property bool $is_enabled
+ * @property int $availability
+ * @property string|null $stock_type
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Product $product
+ * @property-read Currency $currency
+ * @mixin \Eloquent
+ * @method static Builder|ProductVariation newModelQuery()
+ * @method static Builder|ProductVariation newQuery()
+ * @method static Builder|ProductVariation query()
+ */
 class ProductVariation extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -24,6 +51,17 @@ class ProductVariation extends Model
         'availability' => 'integer',
         'options' => 'array',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
+    }
 
     public function product()
     {
