@@ -37,7 +37,9 @@ class ExportController extends Controller
 
     public function destroy(int $export)
     {
-        $this->exportRepository->find($export);
+        $export = $this->exportRepository->find($export);
+
+        $this->exportStorage->delete($export);
 
         return response()->noContent();
     }
