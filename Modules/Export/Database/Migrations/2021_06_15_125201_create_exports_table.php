@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Export\Enum\ExportFrequency;
 
 class CreateExportsTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateExportsTable extends Migration
             $table->string('name');
             $table->unsignedTinyInteger('type');
             $table->string('filename');
-            $table->unsignedTinyInteger('frequency')->default(30);
+            $table->unsignedTinyInteger('frequency')->default(ExportFrequency::EVERY_30_MINUTES);
             $table->json('parameters');
             $table->timestamps();
         });

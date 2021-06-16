@@ -6,11 +6,11 @@ use App\Enums\BaseEnum;
 
 class ExportType extends BaseEnum
 {
-    const YANDEX = 1;
+    const YANDEX_MARKET = 1;
 
     const TIU = 2;
 
-    const GOOGLE = 3;
+    const GOOGLE_MERCHANT = 3;
 
     const FACEBOOK = 4;
 }

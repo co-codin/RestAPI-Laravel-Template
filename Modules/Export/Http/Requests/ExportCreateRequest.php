@@ -25,19 +25,20 @@ class ExportCreateRequest extends FormRequest
             ],
             'filename' => 'required|string|max:255',
             'frequency' => 'required|integer',
-            'parameters' => 'required|array',
 
-            'parameters.categories' => 'required|array',
+            'parameters' => 'sometimes|array',
+
+            'parameters.categories' => 'sometimes|array',
             'parameters.categories.ids' => 'sometimes|array',
             'parameters.categories.ids.*' => 'sometimes|integer|exists:categories,id',
             'parameters.categories.selected' => 'sometimes|bool',
 
-            'parameters.brands' => 'required|array',
+            'parameters.brands' => 'sometimes|array',
             'parameters.brands.ids' => 'sometimes|array',
             'parameters.brands.ids.*' => 'sometimes|integer|exists:brands,id',
             'parameters.brands.selected' => 'sometimes|boolean',
 
-            'parameters.products' => 'required|array',
+            'parameters.products' => 'sometimes|array',
             'parameters.products.ids' => 'sometimes|array',
             'parameters.products.ids.*' => 'sometimes|integer|exists:brands,id',
             'parameters.products.selected' => 'sometimes|boolean',

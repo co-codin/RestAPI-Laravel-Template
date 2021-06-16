@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Export\Enum\ExportType;
+use Modules\Product\Enums\ProductVariationStock;
 use Modules\Product\Models\Product;
 
 class ExportFactory extends Factory
@@ -34,7 +35,9 @@ class ExportFactory extends Factory
                 'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id'), 'selected' => $this->faker->boolean],
                 'products' => ['ids' => Product::factory()->count(5)->create()->pluck('id'), 'selected' => $this->faker->boolean],
                 'stock_type' => $this->faker->sentence(4),
-                
+                'in_stock' => ProductVariationStock::getRandomValue(),
+                'short_description' => $this->faker->boolean,
+                'price' => $this->faker->boolean,
             ])
         ];
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Achievement\Database\factories\AchievementFactory;
 
 /**
- * Class Brand
+ * Class Achievement
  * @package Modules\Achievement\Models
  * @property int $id
  * @property string $name
