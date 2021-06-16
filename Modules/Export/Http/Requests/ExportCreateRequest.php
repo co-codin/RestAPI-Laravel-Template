@@ -31,34 +31,35 @@ class ExportCreateRequest extends FormRequest
                 new EnumValue(ExportFrequency::class, false),
             ],
 
-            'parameters' => 'sometimes|array',
+            'parameters' => 'sometimes|nullable|array',
 
-            'parameters.categories' => 'sometimes|array',
-            'parameters.categories.ids' => 'sometimes|array',
-            'parameters.categories.ids.*' => 'sometimes|integer|exists:categories,id',
-            'parameters.categories.selected' => 'sometimes|bool',
+            'parameters.categories' => 'sometimes|nullable|array',
+            'parameters.categories.ids' => 'sometimes|nullable|array',
+            'parameters.categories.ids.*' => 'sometimes|nullable|integer|exists:categories,id',
+            'parameters.categories.selected' => 'sometimes|nullable|bool',
 
-            'parameters.brands' => 'sometimes|array',
-            'parameters.brands.ids' => 'sometimes|array',
-            'parameters.brands.ids.*' => 'sometimes|integer|exists:brands,id',
-            'parameters.brands.selected' => 'sometimes|boolean',
+            'parameters.brands' => 'sometimes|nullable|array',
+            'parameters.brands.ids' => 'sometimes|nullable|array',
+            'parameters.brands.ids.*' => 'sometimes|nullable|integer|exists:brands,id',
+            'parameters.brands.selected' => 'sometimes|nullable|boolean',
 
-            'parameters.products' => 'sometimes|array',
-            'parameters.products.ids' => 'sometimes|array',
-            'parameters.products.ids.*' => 'sometimes|integer|exists:brands,id',
-            'parameters.products.selected' => 'sometimes|boolean',
+            'parameters.products' => 'sometimes|nullable|array',
+            'parameters.products.ids' => 'sometimes|nullable|array',
+            'parameters.products.ids.*' => 'sometimes|nullable|integer|exists:brands,id',
+            'parameters.products.selected' => 'sometimes|nullable|boolean',
 
-            'parameters.stock_type' => 'sometimes|string|max:255',
+            'parameters.stock_type' => 'sometimes|nullable|string|max:255',
 
             'parameters.in_stock' => [
                 'sometimes',
+                'nullable',
                 'integer',
                 new EnumValue(ProductVariationStock::class, false),
             ],
 
-            'parameters.short_description' => 'sometimes|boolean',
+            'parameters.short_description' => 'sometimes|nullable|boolean',
 
-            'parameters.price' => 'sometimes|boolean'
+            'parameters.price' => 'sometimes|nullable|boolean'
         ];
     }
 }
