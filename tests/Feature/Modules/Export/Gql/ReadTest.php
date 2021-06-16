@@ -4,24 +4,24 @@
 namespace Tests\Feature\Modules\Export\Gql;
 
 
-use App\Enums\Status;
-use Modules\News\Models\News;
+use Modules\Export\Models\Export;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
     public function test_exports_can_be_viewed()
     {
-        $news = News::factory()->create([
-            'status' => Status::INACTIVE,
-        ]);
+        $export = Export::factory()->create();
 
         $response = $this->graphQL('
             {
-                news {
+                exports {
                     data {
                         id
                         name
+                        filename
+                        type
+                        frequency
                     }
                     paginatorInfo {
                         currentPage
@@ -33,11 +33,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'news' => [
+                'exports' => [
                     'data' => [
                         [
-                            'id' => $news->id,
-                            'name' => $news->name,
+                            'id' => $export->id,
+                            'name' => $export->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -50,7 +50,7 @@ class ReadTest extends TestCase
 
         $response = $this->graphQL('
             {
-                news(where: { column: ID, operator: EQ, value: ' . $news->id .'  }) {
+                exports(where: { column: ID, operator: EQ, value: ' . $export->id .'  }) {
                     data {
                         id
                         name
@@ -61,11 +61,11 @@ class ReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'news' => [
+                'exports' => [
                     'data' => [
                         [
-                            'id' => $news->id,
-                            'name' => $news->name,
+                            'id' => $export->id,
+                            'name' => $export->name,
                         ]
                     ],
                 ]

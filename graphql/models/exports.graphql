@@ -1,4 +1,4 @@
-type Achievement {
+type Export {
     id: ID!
     name: String!
     type: Int!

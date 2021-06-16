@@ -5,6 +5,7 @@ namespace Modules\Export\Database\factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Enum\ExportType;
 use Modules\Product\Enums\ProductVariationStock;
 use Modules\Product\Models\Product;
@@ -29,7 +30,7 @@ class ExportFactory extends Factory
             'name' => $this->faker->name,
             'type' => ExportType::getRandomValue(),
             'filename' => $this->faker->name,
-            'frequency' => $this->faker->randomDigitNotNull,
+            'frequency' => ExportFrequency::getRandomValue(),
             'parameters' => json_encode([
                 'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id'), 'selected' => $this->faker->boolean],
                 'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id'), 'selected' => $this->faker->boolean],

@@ -4,6 +4,7 @@ namespace Modules\Export\Http\Requests;
 
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Enum\ExportType;
 use Modules\Product\Enums\ProductVariationStock;
 
@@ -24,7 +25,11 @@ class ExportCreateRequest extends FormRequest
                 new EnumValue(ExportType::class, false),
             ],
             'filename' => 'required|string|max:255',
-            'frequency' => 'required|integer',
+            'frequency' => [
+                'required',
+                'integer',
+                new EnumValue(ExportFrequency::class, false),
+            ],
 
             'parameters' => 'sometimes|array',
 
