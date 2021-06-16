@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Artisan;
 use Modules\Currency\Console\CurrencyParseCommand;
-use Modules\Export\Enum\ExportType;
+use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Repositories\ExportRepository;
 use Modules\Export\Services\ExportService;
 
@@ -36,7 +36,12 @@ class Kernel extends ConsoleKernel
         foreach ($this->exportRepository->get() as $export) {
             $command = $this->exportService->determine($export);
 
-            Artisan::call($command, $export->parameters);
+            $frequency = ExportFrequency::getFrequency($export->frequency);
+
+            if ($frequency !== ExportFrequency::MANUALLY) {
+                $schedule = $schedule->command($command, $export->parameters)
+                    ->$frequency();
+            }
         }
     }
 

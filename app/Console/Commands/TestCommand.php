@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Repositories\ExportRepository;
 use Modules\Export\Services\ExportService;
 
@@ -24,7 +25,12 @@ class TestCommand extends Command
         foreach ($this->exportRepository->get() as $export) {
             $command = $this->exportService->determine($export);
 
-            Artisan::call($command, $export->parameters);
+            $frequency = ExportFrequency::getFrequency($export->frequency);
+
+            if ($frequency !== ExportFrequency::MANUALLY) {
+                $schedule = $schedule->command($command, $export->parameters)
+                    ->$frequency();
+            }
         }
     }
 }
