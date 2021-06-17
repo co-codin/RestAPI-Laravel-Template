@@ -10,4 +10,9 @@ class GoogleMarketGenerator implements GeneratorInterface
     {
 
     }
+
+    public function transform($data)
+    {
+
+    }
 }

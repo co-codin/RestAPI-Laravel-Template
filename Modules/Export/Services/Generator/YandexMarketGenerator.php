@@ -10,4 +10,9 @@ class YandexMarketGenerator implements GeneratorInterface
     {
 
     }
+
+    public function transform($data)
+    {
+
+    }
 }

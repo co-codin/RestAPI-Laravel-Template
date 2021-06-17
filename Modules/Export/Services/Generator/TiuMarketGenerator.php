@@ -10,4 +10,9 @@ class TiuMarketGenerator implements GeneratorInterface
     {
 
     }
+
+    public function transform($data)
+    {
+
+    }
 }
