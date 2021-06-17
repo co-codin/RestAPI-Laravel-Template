@@ -22,7 +22,7 @@ class FacebookMarketGenerator implements GeneratorInterface
 
         fputcsv($file, array('id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand'));
 
-        $products = $this->productRepository->getProductsForMerchant(true);
+        $products = $this->productRepository->getProductsForMerchant($parameters);
 
         foreach ($products as $product) {
             fputcsv($file, $this->transform($product));
