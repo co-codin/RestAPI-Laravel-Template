@@ -43,7 +43,9 @@ class FacebookMarketGenerator implements GeneratorInterface
             route('product-view', [
                 'slug' => $product->slug,
                 'id' => $product->id,
-            ])
+            ]),
+            url($product->image),
+            $product->brand->name,
         ];
     }
 
