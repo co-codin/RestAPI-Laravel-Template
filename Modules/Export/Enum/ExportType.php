@@ -8,12 +8,7 @@ use Modules\Export\Console\GenerateFacebookMarket;
 use Modules\Export\Console\GenerateGoogleMarket;
 use Modules\Export\Console\GenerateTiuMarket;
 use Modules\Export\Console\GenerateYandexMarket;
-use Modules\Export\Services\Generator\FacebookMarketGenerator;
-use Modules\Export\Services\Generator\GeneratorInterface;
-use Modules\Export\Services\Generator\GoogleMarketGenerator;
-use Modules\Export\Services\Generator\TiuMarketGenerator;
-use Modules\Export\Services\Generator\YandexMarketGenerator;
-use phpDocumentor\Reflection\Types\Self_;
+
 
 class ExportType extends BaseEnum
 {

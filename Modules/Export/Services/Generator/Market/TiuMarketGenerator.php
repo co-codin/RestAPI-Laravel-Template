@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Modules\Export\Services\Generator;
+namespace Modules\Export\Services\Generator\Market;
 
 
-class GoogleMarketGenerator implements GeneratorInterface
+class TiuMarketGenerator implements GeneratorInterface
 {
     public function generate(array $parameters)
     {

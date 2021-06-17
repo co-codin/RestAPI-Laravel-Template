@@ -4,7 +4,7 @@ namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Modules\Export\Services\Generator\FacebookMarketGenerator;
+use Modules\Export\Services\Generator\Market\FacebookMarketGenerator;
 
 class GenerateFacebookMarket extends Command
 {

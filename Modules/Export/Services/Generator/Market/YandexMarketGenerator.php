@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Export\Services\Generator;
+namespace Modules\Export\Services\Generator\Market;
 
 
 class YandexMarketGenerator implements GeneratorInterface
