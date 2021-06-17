@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class GenerateGoogleMarket extends Command
 {
-    protected $signature = 'generate:google-market';
+    protected $signature = 'generate:google-market {parameters}';
 
     protected $description = 'generate xml for google market';
 
@@ -17,6 +17,6 @@ class GenerateGoogleMarket extends Command
 
     public function handle()
     {
-        //
+        $parameters = $this->argument('parameters');
     }
 }

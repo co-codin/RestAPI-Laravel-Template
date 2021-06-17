@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class GenerateFacebookMarket extends Command
 {
-    protected $signature = 'generate:facebook-market';
+    protected $signature = 'generate:facebook-market {parameters}';
 
     protected $description = 'generate csv for facebook market';
 
@@ -17,6 +17,8 @@ class GenerateFacebookMarket extends Command
 
     public function handle()
     {
-        //
+        $parameters = $this->argument('parameters');
+
+
     }
 }

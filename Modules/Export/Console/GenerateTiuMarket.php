@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class GenerateTiuMarket extends Command
 {
-    protected $signature = 'generate:tiu-market';
+    protected $signature = 'generate:tiu-market {parameters}';
 
     protected $description = 'generate xml for tiu market';
 
@@ -17,6 +17,6 @@ class GenerateTiuMarket extends Command
 
     public function handle()
     {
-        //
+        $parameters = $this->argument('parameters');
     }
 }
