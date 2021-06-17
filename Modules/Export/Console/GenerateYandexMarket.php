@@ -3,6 +3,8 @@
 namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Modules\Export\Services\Generator\YandexMarketGenerator;
 
 class GenerateYandexMarket extends Command
 {
@@ -15,8 +17,12 @@ class GenerateYandexMarket extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(YandexMarketGenerator $yandexMarketGenerator)
     {
         $parameters = $this->argument('parameters');
+
+        $yandexMarketGenerator->generate($parameters);
+
+        $this->info("Generated file url: " . url("/uploads/" . Arr::get($parameters, 'filename') . '.xml'));
     }
 }

@@ -3,6 +3,8 @@
 namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Modules\Export\Services\Generator\FacebookMarketGenerator;
 
 class GenerateFacebookMarket extends Command
 {
@@ -15,10 +17,12 @@ class GenerateFacebookMarket extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(FacebookMarketGenerator $facebookMarketGenerator)
     {
         $parameters = $this->argument('parameters');
 
+        $facebookMarketGenerator->generate($parameters);
 
+        $this->info("Generated file url: " . url("/uploads/" . Arr::get($parameters, 'filename') . '.csv'));
     }
 }

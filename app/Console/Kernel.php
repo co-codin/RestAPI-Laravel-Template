@@ -39,7 +39,9 @@ class Kernel extends ConsoleKernel
             $frequency = ExportFrequency::getFrequency($export->frequency);
 
             if ($frequency !== ExportFrequency::MANUALLY) {
-                $schedule = $schedule->command($command, $export->parameters)
+                $schedule = $schedule->command($command, array_merge($export->parameters, [
+                    'filename' => $export->filename,
+                ]))
                     ->$frequency();
             }
         }

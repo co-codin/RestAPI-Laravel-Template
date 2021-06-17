@@ -3,6 +3,8 @@
 namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Modules\Export\Services\Generator\GoogleMarketGenerator;
 
 class GenerateGoogleMarket extends Command
 {
@@ -15,8 +17,12 @@ class GenerateGoogleMarket extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(GoogleMarketGenerator $googleMarketGenerator)
     {
         $parameters = $this->argument('parameters');
+
+        $googleMarketGenerator->generate($parameters);
+
+        $this->info("Generated file url: " . url("/uploads/" . Arr::get($parameters, 'filename') . '.xml'));
     }
 }

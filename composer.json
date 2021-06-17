@@ -11,6 +11,7 @@
         "php": "^8.0",
         "bensampo/laravel-enum": "^3.3",
         "binary-cats/sanitizer": "^8.0",
+        "bukashk0zzz/yml-generator": "^1.11",
         "calebporzio/parental": "^0.11.0",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^3.0",

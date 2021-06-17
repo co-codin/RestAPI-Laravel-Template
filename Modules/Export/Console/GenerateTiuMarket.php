@@ -3,6 +3,8 @@
 namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Modules\Export\Services\Generator\TiuMarketGenerator;
 
 class GenerateTiuMarket extends Command
 {
@@ -15,8 +17,12 @@ class GenerateTiuMarket extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(TiuMarketGenerator $tiuMarketGenerator)
     {
         $parameters = $this->argument('parameters');
+
+        $tiuMarketGenerator->generate($parameters);
+
+        $this->info("Generated file url: " . url("/uploads/" . Arr::get($parameters, 'filename') . '.xml'));
     }
 }
