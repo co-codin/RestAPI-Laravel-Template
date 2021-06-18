@@ -4,12 +4,16 @@
 namespace Modules\Export\Services\Generator\Market;
 
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
+use Modules\Product\Repositories\ProductRepository;
 use Vitalybaev\GoogleMerchant\Feed;
 
 class GoogleMarketGenerator implements GeneratorInterface
 {
     public function __construct(
-        protected GoogleMarketGenerator $googleMarketGenerator
+        protected GoogleMarketGenerator $googleMarketGenerator,
+        protected ProductRepository $productRepository
     ) {}
 
     public function generate(array $parameters)
@@ -19,10 +23,15 @@ class GoogleMarketGenerator implements GeneratorInterface
             config('services.google-market.link'),
             config('services.google-market.description'),
         );
-    }
 
-    public function transform($data)
-    {
+        $products = $this->productRepository->getProductsForMerchant($parameters);
 
+        foreach ($products as $product) {
+            $feed->addProduct($product->toXml());
+        }
+
+        $feedXml = $feed->build();
+
+        File::put(storage_path('app/public') . '/' . Arr::get($parameters, 'filename') . '.xml', $feedXml);
     }
 }

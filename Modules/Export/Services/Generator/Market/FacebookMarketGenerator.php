@@ -29,7 +29,7 @@ class FacebookMarketGenerator implements GeneratorInterface
         }
     }
 
-    public function transform($product)
+    protected function transform($product)
     {
         $productVariation = $product->productVariations->first();
 
