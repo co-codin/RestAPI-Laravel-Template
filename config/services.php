@@ -43,12 +43,6 @@ return [
     ],
 
     'tiu' => [
-        'with_price' => [
-            'filename' => env('TIU_MARKET_FILENAME_WITH_PRICE', 'tiumarket_with_price'),
-        ],
-        'without_price' => [
-            'filename' => env('TIU_MARKET_FILENAME_WITHOUT_PRICE', 'tiumarket_without_price'),
-        ],
         'company_name' => env('APP_NAME')
     ],
 

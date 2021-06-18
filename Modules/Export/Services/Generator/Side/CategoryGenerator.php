@@ -3,6 +3,11 @@
 
 namespace Modules\Export\Services\Generator\Side;
 
+use App\Enums\Status;
+use Bukashk0zzz\YmlGenerator\Model\Category as CategoryYaml;
+use Illuminate\Support\Collection;
+use Modules\Category\Models\Category;
+
 
 class CategoryGenerator
 {
@@ -14,7 +19,7 @@ class CategoryGenerator
             $categories[] = (new CategoryYaml())
                 ->setId($category->id)
                 ->setParentId($category->parent_id)
-                ->setName($category->title);
+                ->setName($category->name);
         }
 
         return $categories;
@@ -24,7 +29,7 @@ class CategoryGenerator
     {
         return Category::query()
             ->defaultOrder()
-            ->whereStatus(Status::Active)
+            ->whereStatus(Status::ACTIVE)
             ->get();
     }
 }
