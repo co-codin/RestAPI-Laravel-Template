@@ -4,21 +4,29 @@
 namespace Modules\Export\Services\Generator\Side;
 
 
-use Bukashk0zzz\YmlGenerator\Model\Currency as CurrencyYaml;
-use Illuminate\Support\Str;
+use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Repositories\ProductRepository;
 
 class OffersGenerator
 {
-    public function getCurrencies(): array
+    public function __construct(
+        protected ProductRepository $productRepository
+    ) {}
+
+    public function getOffers(array $parameters): array
     {
-        $currencies = [];
+        $offers = [];
 
-        foreach ($this->getCurrencyEntities() as $currency) {
-            $currencies[] = (new CurrencyYaml())
-                ->setId(Str::upper($currency->iso_code))
-                ->setRate($currency->rate);
+        foreach ($this->productRepository->getProductsForMerchant($parameters) as $product) {
+            $pictures = collect($product->image)
+                ->map(fn($image) => url($image))
+                ->toArray();
+
+            $variation = $product->productVariations->where('is_enabled', '=', true)->first();
+
+
+
+
         }
-
-        return $currencies;
     }
 }
