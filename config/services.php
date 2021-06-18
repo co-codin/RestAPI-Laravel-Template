@@ -47,7 +47,6 @@ return [
     ],
 
     'google-market' => [
-        'filename' => env('GOOGLE_MARKET_FILENAME', 'googlemarket'),
         'company_name' => env('APP_NAME'),
         'link' => env('APP_URL'),
         'description' => env('GOOGLE_MARKET_DESCRIPTION', 'Best store'),

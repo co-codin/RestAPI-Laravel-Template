@@ -4,6 +4,7 @@
 namespace Modules\Export\Services\Generator\Market;
 
 
+use Bukashk0zzz\YmlGenerator\Generator;
 use Bukashk0zzz\YmlGenerator\Model\ShopInfo;
 use Bukashk0zzz\YmlGenerator\Settings;
 use Illuminate\Support\Arr;
@@ -37,6 +38,13 @@ class TiuMarketGenerator implements GeneratorInterface
         $currencies = $this->currencyGenerator->getCurrencies();
         $categories = $this->categoryGenerator->getCategories();
         $offers = $this->offersGenerator->getOffers($parameters);
+
+        (new Generator($settings))->generate(
+            $shopInfo,
+            $currencies,
+            $categories,
+            $offers
+        );
     }
 
     public function transform($data)
