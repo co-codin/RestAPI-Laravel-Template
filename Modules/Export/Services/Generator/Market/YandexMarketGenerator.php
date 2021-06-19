@@ -4,8 +4,10 @@
 namespace Modules\Export\Services\Generator\Market;
 
 
+use Bukashk0zzz\YmlGenerator\Generator;
 use Bukashk0zzz\YmlGenerator\Model\ShopInfo;
 use Bukashk0zzz\YmlGenerator\Settings;
+use Illuminate\Support\Arr;
 use Modules\Export\Services\Generator\Side\CategoryGenerator;
 use Modules\Export\Services\Generator\Side\CurrencyGenerator;
 use Modules\Export\Services\Generator\Side\OffersGenerator;
@@ -22,11 +24,26 @@ class YandexMarketGenerator implements GeneratorInterface
 
     public function generate(array $parameters)
     {
+        $settings = $this->settings
+            ->setOutputFile(public_path() . '/uploads/' . Arr::get($parameters, 'filename') . '.xml')
+            ->setEncoding('UTF-8');
 
-    }
+        $shopInfo = $this->shopInfo
+            ->setName('MedeqStars.ru')
+            ->setCompany('Best online seller Inc.')
+            ->setUrl('https://medeqstars.ru');
 
-    public function transform($data)
-    {
+        $currencies = $this->currencyGenerator->getCurrencies();
 
+        $categories = $this->categoryGenerator->getCategories();
+
+        $offers = $this->offersGenerator->getOffers($parameters);
+
+        (new Generator($settings))->generate(
+            $shopInfo,
+            $currencies,
+            $categories,
+            $offers
+        );
     }
 }
