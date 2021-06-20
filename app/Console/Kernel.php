@@ -6,8 +6,11 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Artisan;
 use Modules\Currency\Console\CurrencyParseCommand;
+use Modules\Export\Console\GenerateFacebookMarket;
+use Modules\Export\Console\GenerateGoogleMarket;
+use Modules\Export\Console\GenerateTiuMarket;
+use Modules\Export\Console\GenerateYandexMarket;
 use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Repositories\ExportRepository;
 use Modules\Export\Services\ExportService;
@@ -26,6 +29,10 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         CurrencyParseCommand::class,
+        GenerateFacebookMarket::class,
+        GenerateGoogleMarket::class,
+        GenerateTiuMarket::class,
+        GenerateYandexMarket::class,
     ];
 
     protected function schedule(Schedule $schedule): void

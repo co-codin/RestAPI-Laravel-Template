@@ -53,8 +53,10 @@ class ExportController extends Controller
 
         $command = $this->exportService->determine($export);
 
-        Artisan::call($command, array_merge($export->parameters, [
-            'filename' => $export->filename,
-        ]));
+        Artisan::call($command, [
+            'parameters' => array_merge($export->parameters, [
+                'filename' => $export->filename,
+            ])
+        ]);
     }
 }
