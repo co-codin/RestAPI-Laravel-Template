@@ -4,7 +4,7 @@ namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Modules\Export\Services\Generator\TiuMarketGenerator;
+use Modules\Export\Services\Generator\Market\TiuMarketGenerator;
 
 class GenerateTiuMarket extends Command
 {

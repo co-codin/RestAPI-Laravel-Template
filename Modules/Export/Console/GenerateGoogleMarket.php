@@ -4,7 +4,8 @@ namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Modules\Export\Services\Generator\GoogleMarketGenerator;
+use Modules\Export\Services\Generator\Market\GoogleMarketGenerator;
+
 
 class GenerateGoogleMarket extends Command
 {

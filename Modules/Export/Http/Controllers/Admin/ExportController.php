@@ -5,6 +5,7 @@ namespace Modules\Export\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Export\Dto\ExportDto;
 use Modules\Export\Http\Requests\ExportCreateRequest;
 use Modules\Export\Http\Requests\ExportUpdateRequest;
@@ -52,6 +53,8 @@ class ExportController extends Controller
 
         $command = $this->exportService->determine($export);
 
-        
+        Artisan::call($command, array_merge($export->parameters, [
+            'filename' => $export->filename,
+        ]));
     }
 }

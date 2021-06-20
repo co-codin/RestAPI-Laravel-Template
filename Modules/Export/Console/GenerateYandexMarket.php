@@ -4,7 +4,8 @@ namespace Modules\Export\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Modules\Export\Services\Generator\YandexMarketGenerator;
+use Modules\Export\Services\Generator\Market\YandexMarketGenerator;
+
 
 class GenerateYandexMarket extends Command
 {
