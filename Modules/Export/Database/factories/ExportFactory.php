@@ -28,8 +28,7 @@ class ExportFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(4),
-//            'type' => ExportType::getRandomValue(),
-        'type' => 3,
+            'type' => ExportType::getRandomValue(),
             'filename' => 'test',
             'frequency' => ExportFrequency::getRandomValue(),
             'parameters' => [
