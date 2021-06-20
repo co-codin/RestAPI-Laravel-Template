@@ -10,13 +10,15 @@ use Modules\Export\Http\Requests\ExportCreateRequest;
 use Modules\Export\Http\Requests\ExportUpdateRequest;
 use Modules\Export\Http\Resources\ExportResource;
 use Modules\Export\Repositories\ExportRepository;
+use Modules\Export\Services\ExportService;
 use Modules\Export\Services\ExportStorage;
 
 class ExportController extends Controller
 {
     public function __construct(
         protected ExportRepository $exportRepository,
-        protected ExportStorage $exportStorage
+        protected ExportStorage $exportStorage,
+        protected ExportService $exportService
     ) {}
 
     public function store(ExportCreateRequest $request)
@@ -42,5 +44,14 @@ class ExportController extends Controller
         $this->exportStorage->delete($export);
 
         return response()->noContent();
+    }
+
+    public function export(int $export)
+    {
+        $export = $this->exportRepository->find($export);
+
+        $command = $this->exportService->determine($export);
+
+        
     }
 }

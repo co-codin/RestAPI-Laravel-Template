@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Export\Services\Generator\Side;
+namespace Modules\Export\Services\Generator;
 
 
 use Bukashk0zzz\YmlGenerator\Model\Offer\OfferParam;

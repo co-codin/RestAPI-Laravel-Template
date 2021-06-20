@@ -8,9 +8,9 @@ use Bukashk0zzz\YmlGenerator\Generator;
 use Bukashk0zzz\YmlGenerator\Model\ShopInfo;
 use Bukashk0zzz\YmlGenerator\Settings;
 use Illuminate\Support\Arr;
-use Modules\Export\Services\Generator\Side\CategoryGenerator;
-use Modules\Export\Services\Generator\Side\CurrencyGenerator;
-use Modules\Export\Services\Generator\Side\OffersGenerator;
+use Modules\Export\Services\Generator\CategoryGenerator;
+use Modules\Export\Services\Generator\CurrencyGenerator;
+use Modules\Export\Services\Generator\OffersGenerator;
 
 class YandexMarketGenerator implements GeneratorInterface
 {
