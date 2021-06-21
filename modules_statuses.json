@@ -14,5 +14,6 @@
     "Currency": true,
     "Attribute": true,
     "Customer": true,
-    "Activity": true
+    "Activity": true,
+    "Export": true
 }

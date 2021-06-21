@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bff0df17126a7e9805edb0f7a0a5148",
+    "content-hash": "5d9bf2c2de22906593f8a76afa8ed0e8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -249,6 +249,61 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "bukashk0zzz/yml-generator",
+            "version": "v1.11.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bukashk0zzz/YmlGenerator.git",
+                "reference": "49c05290076d8218f2d063f7d4e8db58f167f5b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bukashk0zzz/YmlGenerator/zipball/49c05290076d8218f2d063f7d4e8db58f167f5b6",
+                "reference": "49c05290076d8218f2d063f7d4e8db58f167f5b6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.6.1"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "escapestudios/symfony2-coding-standard": "^3.0",
+                "ext-dom": "*",
+                "friendsofphp/php-cs-fixer": "^2.3",
+                "fzaninotto/faker": "^1.6",
+                "phpcompatibility/php-compatibility": "^9.0",
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bukashk0zzz\\YmlGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Golubovskiy",
+                    "email": "bukashk0zzz@gmail.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "YML (Yandex Market Language) file generator",
+            "homepage": "https://github.com/Bukashk0zzz/YmlGenerator",
+            "keywords": [
+                "market",
+                "yandex",
+                "yml",
+                "yml-generator"
+            ],
+            "time": "2021-04-03T10:32:19+00:00"
         },
         {
             "name": "calebporzio/parental",
@@ -4386,6 +4441,122 @@
             "time": "2020-05-12T15:16:56+00:00"
         },
         {
+            "name": "sabre/uri",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabre-io/uri.git",
+                "reference": "f502edffafea8d746825bd5f0b923a60fd2715ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabre-io/uri/zipball/f502edffafea8d746825bd5f0b923a60fd2715ff",
+                "reference": "f502edffafea8d746825bd5f0b923a60fd2715ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.16.1",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/functions.php"
+                ],
+                "psr-4": {
+                    "Sabre\\Uri\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "me@evertpot.com",
+                    "homepage": "http://evertpot.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Functions for making sense out of URIs.",
+            "homepage": "http://sabre.io/uri/",
+            "keywords": [
+                "rfc3986",
+                "uri",
+                "url"
+            ],
+            "time": "2020-10-03T10:33:23+00:00"
+        },
+        {
+            "name": "sabre/xml",
+            "version": "2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabre-io/xml.git",
+                "reference": "c3b959f821c19b36952ec4a595edd695c216bfc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabre-io/xml/zipball/c3b959f821c19b36952ec4a595edd695c216bfc6",
+                "reference": "c3b959f821c19b36952ec4a595edd695c216bfc6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-xmlreader": "*",
+                "ext-xmlwriter": "*",
+                "lib-libxml": ">=2.6.20",
+                "php": "^7.1 || ^8.0",
+                "sabre/uri": ">=1.0,<3.0.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.16.1",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sabre\\Xml\\": "lib/"
+                },
+                "files": [
+                    "lib/Deserializer/functions.php",
+                    "lib/Serializer/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "me@evertpot.com",
+                    "homepage": "http://evertpot.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Markus Staab",
+                    "email": "markus.staab@redaxo.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "sabre/xml is an XML library that you may not hate.",
+            "homepage": "https://sabre.io/xml/",
+            "keywords": [
+                "XMLReader",
+                "XMLWriter",
+                "dom",
+                "xml"
+            ],
+            "time": "2020-10-03T10:08:14+00:00"
+        },
+        {
             "name": "spatie/browsershot",
             "version": "3.45.0",
             "source": {
@@ -7617,6 +7788,48 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "vitalybaev/google-merchant-feed",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vitalybaev/php-google-merchant-feed.git",
+                "reference": "fd5e5a09ccd898fc0407e7589908f7bc603450f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vitalybaev/php-google-merchant-feed/zipball/fd5e5a09ccd898fc0407e7589908f7bc603450f8",
+                "reference": "fd5e5a09ccd898fc0407e7589908f7bc603450f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "sabre/xml": "^1.5 || ^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vitalybaev\\GoogleMerchant\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitaly Baev",
+                    "email": "dj@vitalybaev.ru"
+                }
+            ],
+            "description": "PHP package for creating Google Merchant products feed",
+            "keywords": [
+                "feed",
+                "google",
+                "merchant"
+            ],
+            "time": "2021-03-01T14:54:14+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -11532,5 +11745,5 @@
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }
