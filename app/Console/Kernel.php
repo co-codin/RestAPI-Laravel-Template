@@ -11,17 +11,12 @@ use Modules\Export\Console\GenerateFacebookMarket;
 use Modules\Export\Console\GenerateGoogleMarket;
 use Modules\Export\Console\GenerateTiuMarket;
 use Modules\Export\Console\GenerateYandexMarket;
-use Modules\Export\Enum\ExportFrequency;
-use Modules\Export\Repositories\ExportRepository;
-use Modules\Export\Services\ExportService;
 
 class Kernel extends ConsoleKernel
 {
     public function __construct(
         Application $app,
-        Dispatcher $events,
-        protected ExportRepository $exportRepository,
-        protected ExportService $exportService
+        Dispatcher $events
     )
     {
         parent::__construct($app, $events);
@@ -39,19 +34,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(CurrencyParseCommand::class)
             ->twiceDaily();
-
-        foreach ($this->exportRepository->get() as $export) {
-            $command = $this->exportService->determine($export);
-
-            $frequency = ExportFrequency::getFrequency($export->frequency);
-
-            if ($frequency !== ExportFrequency::MANUALLY) {
-                $schedule = $schedule->command($command, array_merge($export->parameters, [
-                    'filename' => $export->filename,
-                ]))
-                    ->$frequency();
-            }
-        }
     }
 
     protected function commands(): void

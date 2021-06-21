@@ -180,6 +180,8 @@ return [
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
         \App\Providers\SpatieQueryBuilderServiceProvider::class,
         App\Providers\ValidationExtensionServiceProvider::class,
+
+        \Modules\Export\Providers\ScheduleServiceProvider::class,
     ],
 
     /*

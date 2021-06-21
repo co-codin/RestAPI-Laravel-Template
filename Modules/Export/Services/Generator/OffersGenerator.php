@@ -21,6 +21,7 @@ class OffersGenerator
     {
         $offers = [];
         $price = null;
+        $short_description = null;
 
         foreach ($this->productRepository->getProductsForMerchant($parameters) as $product) {
             $pictures = collect($product->image)
@@ -33,7 +34,6 @@ class OffersGenerator
                 ->setId($product->id)
                 ->setAvailable((int)$variation->in_stock === ProductVariationStock::InStock)
                 ->setPictures($pictures)
-                ->setDescription($product->short_description)
                 ->setUrl(route('product-view', [$product->slug, $product->id]))
                 ->setCategoryId($product->category->id)
                 ->setDelivery(true)
@@ -46,9 +46,17 @@ class OffersGenerator
                 $price = (bool) Arr::get($parameters, 'price');
             }
 
+            if (array_key_exists('short_description', $parameters)) {
+                $short_description = (bool) Arr::get($parameters, 'short_description');
+            }
+
             if ($price) {
                 $offer->setPrice($variation->price);
                 $offer->setCurrencyId(Str::upper($variation->currency->iso_code));
+            }
+
+            if ($short_description) {
+                $offer->setDescription($product->short_description);
             }
 
             foreach ($product->properties as $property) {
