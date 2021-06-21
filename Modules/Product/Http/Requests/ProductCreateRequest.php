@@ -50,8 +50,8 @@ class ProductCreateRequest extends FormRequest
                 'integer',
                 new EnumValue(DocumentSource::class, false),
             ],
-            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSource::FILE . '|file',
-            'documents.*.url' => 'required_if:documents.*.source,' . DocumentSource::URL . '|url',
+            'documents.*.file' => 'required|exclude_unless:documents.*.source,' . DocumentSource::URL . '|url',
+            'documents.*.url' => 'required|exclude_unless:documents.*.source,' . DocumentSource::FILE . '|file',
 
             'documents.*.type' => [
                 'required',
