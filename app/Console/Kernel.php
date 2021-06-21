@@ -24,10 +24,6 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         CurrencyParseCommand::class,
-        GenerateFacebookMarket::class,
-        GenerateGoogleMarket::class,
-        GenerateTiuMarket::class,
-        GenerateYandexMarket::class,
     ];
 
     protected function schedule(Schedule $schedule): void
