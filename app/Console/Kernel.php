@@ -7,10 +7,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Currency\Console\CurrencyParseCommand;
-use Modules\Export\Console\GenerateFacebookMarket;
-use Modules\Export\Console\GenerateGoogleMarket;
-use Modules\Export\Console\GenerateTiuMarket;
-use Modules\Export\Console\GenerateYandexMarket;
 
 class Kernel extends ConsoleKernel
 {
