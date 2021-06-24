@@ -31,6 +31,11 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::trashed(),
 
                 AllowedFilter::exact('categories.id'),
+                AllowedFilter::callback('categories.is_main', function ($query, $value) {
+                    $query->whereHas('productCategories', function ($q) use ($value) {
+                        $q->where('is_main', (bool)$value);
+                    });
+                }),
 
                 AllowedFilter::exact('productVariations.id'),
                 AllowedFilter::partial('productVariations.name'),
