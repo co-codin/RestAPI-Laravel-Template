@@ -13,7 +13,7 @@ class ScheduleServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->app->booted(function () {
+        /*$this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
 
             foreach (Export::query()->get() as $export) {
@@ -28,7 +28,7 @@ class ScheduleServiceProvider extends ServiceProvider
                         ->$frequency();
                 }
             }
-        });
+        });*/
     }
 
     /**
