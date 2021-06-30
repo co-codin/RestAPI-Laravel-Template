@@ -67,7 +67,7 @@ class ProductUpdateRequest extends FormRequest
                 'file',
                 'exclude_unless:documents.*.url,' . DocumentSource::FILE
             ],
-            
+
             'documents.*.type' => [
                 'required',
                 'integer',
