@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,6 +32,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Collection|ProductCategory[] $productCategories
  * @mixin \Eloquent
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
@@ -70,6 +72,14 @@ class Product extends Model
     public function productVariations()
     {
         return $this->hasMany(ProductVariation::class);
+    }
+
+    /**
+     * Get the productCategories for the Product.
+     */
+    public function productCategories()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id', 'id');
     }
 
     public function category()
