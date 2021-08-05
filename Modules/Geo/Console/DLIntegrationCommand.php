@@ -2,9 +2,8 @@
 
 namespace Modules\Geo\Console;
 
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class DLIntegrationCommand extends Command
 {
@@ -16,15 +15,53 @@ class DLIntegrationCommand extends Command
 
     protected $terminals;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function handle()
     {
-        dd(
-            'working'
-        );
+        $this->downloadPlaces();
+        $this->downloadTerminals();
+//        $this->truncateOrderPoint();
+
+    }
+
+    protected function downloadPlaces()
+    {
+        $response = app(Client::class)->post(config('services.dl.place_url'), [
+            'json' => [
+                'appKey' => config('services.dl.token')
+            ]
+        ]);
+
+        $data = json_decode($response->getBody());
+
+        file_put_contents(storage_path('app/places.csv'), file_get_contents($data->url));
+
+        $this->places = $this->transformPlaces();
+    }
+
+    protected function transformPlaces()
+    {
+        $places = array_map('str_getcsv', file(storage_path('app/places.csv'), FILE_SKIP_EMPTY_LINES));
+        $keys = array_shift($places);
+
+        foreach ($places as $i => $row) {
+            $places[$i] = array_combine($keys, $row);
+        }
+
+        return collect($places)->keyBy('cityID');
+    }
+
+    protected function downloadTerminals()
+    {
+        $response = app(Client::class)->post(config('services.dl.terminal_url'), [
+            'json' => [
+                'appKey' => config('services.dl.token')
+            ]
+        ]);
+
+        $data = json_decode($response->getBody());
+
+        file_put_contents(storage_path('app/terminals.json'), file_get_contents($data->url));
+
+        $this->terminals = json_decode(file_get_contents(storage_path('app/terminals.json')), true)['city'];
     }
 }

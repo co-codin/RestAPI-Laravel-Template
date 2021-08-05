@@ -55,4 +55,10 @@ return [
     'facebook-market' => [
         'filename' => env('FACEBOOK_MARKET_FILENAME', 'facebookmarket'),
     ],
+
+    'dl' => [
+        'token' => env('DL_TOKEN'),
+        'terminal_url' => env('DL_TERMINAL_URL', 'https://api.dellin.ru/v3/public/terminals.json'),
+        'place_url' => env('DL_PLACE_URL', 'https://api.dellin.ru/v1/public/places.json'),
+    ],
 ];
