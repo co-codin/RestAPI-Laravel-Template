@@ -4,6 +4,7 @@ namespace Modules\Geo\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Geo\Console\DLIntegrationCommand;
 
 class GeoServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class GeoServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerCommands();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -97,5 +99,12 @@ class GeoServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
+    }
+
+    protected function registerCommands()
+    {
+        $this->commands([
+            DLIntegrationCommand::class,
+        ]);
     }
 }
