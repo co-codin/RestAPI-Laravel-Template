@@ -15,5 +15,6 @@
     "Attribute": true,
     "Customer": true,
     "Activity": true,
-    "Export": true
+    "Export": true,
+    "Geo": true
 }
