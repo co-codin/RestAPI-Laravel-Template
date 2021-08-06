@@ -19,6 +19,7 @@ class CreateCitiesTable extends Migration
             $table->string('region_name_with_type');
             $table->string('federal_district');
             $table->string('iso')->index();
+
             $table->string('city_name')->index();
             $table->string('city_slug')->unique();
             $table->unsignedTinyInteger('status');

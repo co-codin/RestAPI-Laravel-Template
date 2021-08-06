@@ -5,7 +5,7 @@ namespace Modules\Geo\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class GeoDatabaseSeeder extends Seeder
+class CityTableSeederTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,6 @@ class GeoDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
-         $this->call(CityTableSeederTableSeeder::class);
     }
 }
