@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Export\Enum;
+namespace Modules\Export\Enums;
 
 use App\Enums\BaseEnum;
 use Illuminate\Support\Arr;

@@ -5,8 +5,8 @@ namespace Modules\Export\Database\factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
-use Modules\Export\Enum\ExportFrequency;
-use Modules\Export\Enum\ExportType;
+use Modules\Export\Enums\ExportFrequency;
+use Modules\Export\Enums\ExportType;
 use Modules\Product\Enums\ProductVariationStock;
 use Modules\Product\Models\Product;
 

@@ -11,7 +11,7 @@ class GeoServiceProvider extends ServiceProvider
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Geo';
+    protected $moduleName = 'City';
 
     /**
      * @var string $moduleNameLower

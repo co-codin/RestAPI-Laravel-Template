@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Export\Enum\ExportFrequency;
+use Modules\Export\Enums\ExportFrequency;
 
 class CreateExportsTable extends Migration
 {

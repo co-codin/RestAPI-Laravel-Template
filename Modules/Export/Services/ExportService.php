@@ -4,7 +4,7 @@
 namespace Modules\Export\Services;
 
 
-use Modules\Export\Enum\ExportType;
+use Modules\Export\Enums\ExportType;
 use Modules\Export\Models\Export;
 
 class ExportService

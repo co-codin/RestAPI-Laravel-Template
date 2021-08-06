@@ -4,8 +4,8 @@ namespace Modules\Export\Http\Requests;
 
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\Export\Enum\ExportFrequency;
-use Modules\Export\Enum\ExportType;
+use Modules\Export\Enums\ExportFrequency;
+use Modules\Export\Enums\ExportType;
 use Modules\Product\Enums\ProductVariationStock;
 
 class ExportCreateRequest extends FormRequest

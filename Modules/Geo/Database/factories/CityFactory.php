@@ -3,14 +3,14 @@ namespace Modules\Geo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GeoFactory extends Factory
+class CityFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = \Modules\Geo\Models\Geo::class;
+    protected $model = \Modules\Geo\Models\City::class;
 
     /**
      * Define the model's default state.

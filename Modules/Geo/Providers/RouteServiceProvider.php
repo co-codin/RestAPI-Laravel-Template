@@ -19,12 +19,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('admin')
             ->as('admin.')
             ->prefix('admin')
-            ->group(module_path('Geo', '/Routes/admin.php'));
+            ->group(module_path('City', '/Routes/admin.php'));
     }
 
     protected function mapApiRoutes()
     {
         Route::middleware('api')
-            ->group(module_path('Geo', '/Routes/api.php'));
+            ->group(module_path('City', '/Routes/api.php'));
     }
 }

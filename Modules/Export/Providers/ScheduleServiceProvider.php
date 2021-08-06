@@ -4,7 +4,7 @@ namespace Modules\Export\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
-use Modules\Export\Enum\ExportFrequency;
+use Modules\Export\Enums\ExportFrequency;
 use Modules\Export\Models\Export;
 use Modules\Export\Repositories\ExportRepository;
 use Modules\Export\Services\ExportService;
