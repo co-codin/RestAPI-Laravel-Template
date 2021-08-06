@@ -27,6 +27,11 @@ class City extends Model
         ];
     }
 
+    public function orderPoints()
+    {
+        return $this->hasMany(OrderPoint::class);
+    }
+
     protected static function newFactory()
     {
         return CityFactory::new();

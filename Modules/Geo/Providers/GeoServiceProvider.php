@@ -3,7 +3,6 @@
 namespace Modules\Geo\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Modules\Geo\Console\DLIntegrationCommand;
 
 class GeoServiceProvider extends ServiceProvider
@@ -11,7 +10,7 @@ class GeoServiceProvider extends ServiceProvider
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'City';
+    protected $moduleName = 'Geo';
 
     /**
      * @var string $moduleNameLower

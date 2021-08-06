@@ -14,6 +14,16 @@ class OrderPoint extends Model
         'id',
     ];
 
+    protected $casts = [
+        'coordinate' => 'object',
+        'timetable' => 'object',
+    ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     protected static function newFactory()
     {
         return OrderPointFactory::new();

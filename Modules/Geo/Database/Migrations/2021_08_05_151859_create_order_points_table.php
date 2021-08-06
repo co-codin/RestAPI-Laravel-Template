@@ -26,7 +26,7 @@ class CreateOrderPointsTable extends Migration
             $table->tinyInteger('status');
             $table->timestamps();
 
-            $table->foreign('city_id')->references('id')->on('region_cities')->onDelete('CASCADE');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('CASCADE');
         });
     }
 

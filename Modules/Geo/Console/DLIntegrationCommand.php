@@ -4,6 +4,8 @@ namespace Modules\Geo\Console;
 
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Modules\Geo\Enums\OrderPointType;
+use Modules\Geo\Models\OrderPoint;
 
 class DLIntegrationCommand extends Command
 {
@@ -19,8 +21,11 @@ class DLIntegrationCommand extends Command
     {
         $this->downloadPlaces();
         $this->downloadTerminals();
-//        $this->truncateOrderPoint();
+        $this->truncateOrderPoint();
 
+        dd(
+            $this->terminals
+        );
     }
 
     protected function downloadPlaces()
@@ -48,6 +53,11 @@ class DLIntegrationCommand extends Command
         }
 
         return collect($places)->keyBy('cityID');
+    }
+
+    protected function truncateOrderPoint()
+    {
+        OrderPoint::query()->where('type', OrderPointType::ORDER_POINT)->delete();
     }
 
     protected function downloadTerminals()
