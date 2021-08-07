@@ -2,4 +2,4 @@
 
 use Modules\Geo\Http\Controllers\GeoController;
 
-Route::get('/detect-ip', GeoController::class)->name('geo.detect_ip');
+Route::get('/detect-ip', [GeoController::class, 'detectIp'])->name('geo.detect_ip');
