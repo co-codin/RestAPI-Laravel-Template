@@ -11,11 +11,11 @@ use Google_Service_Drive;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection as SupportCollection;
 use LogicException;
-use Modules\Client\Dto\ClientsGeographyDto;
-use Modules\Client\Entities\SoldProduct;
-use Modules\Client\Enums\ClientCsvKeys;
-use Modules\Client\Services\Importers\CitiesImporter;
-use Modules\Client\Services\Importers\SoldProductImporter;
+use Modules\Geo\Dto\ClientsGeographyDto;
+use Modules\Geo\Models\SoldProduct;
+use Modules\Geo\Enums\ClientCsvKeys;
+use Modules\Geo\Services\Importers\CitiesImporter;
+use Modules\Geo\Services\Importers\SoldProductImporter;
 
 /**
  * Class ClientsGeographyImport
@@ -37,25 +37,25 @@ class ClientsGeographyImportCommand extends Command
      */
     protected $description = 'Import clients geography from csv file';
 
-    private GoogleApiService $googleApi;
+    private GoogleApiService $googleApiService;
     private SoldProductImporter $soldProductImporter;
     private CitiesImporter $citiesImporter;
 
     /**
      * ClientsGeographyImport constructor.
-     * @param GoogleApi $googleApi
+     * @param GoogleApiService $googleApi
      * @param SoldProductImporter $soldProductImporter
      * @param CitiesImporter $citiesImporter
      */
     public function __construct(
-        GoogleApi $googleApi,
+        GoogleApiService $googleApiService,
         SoldProductImporter $soldProductImporter,
         CitiesImporter $citiesImporter
     )
     {
         parent::__construct();
 
-        $this->googleApi = $googleApi;
+        $this->googleApiService = $googleApiService;
         $this->soldProductImporter = $soldProductImporter;
         $this->citiesImporter = $citiesImporter;
     }
@@ -167,7 +167,7 @@ class ClientsGeographyImportCommand extends Command
         $client->setAccessType('offline');
         $client->setPrompt('select_account consent');
 
-        $authClient = $this->googleApi->getAuthClient(
+        $authClient = $this->googleApiService->getAuthClient(
             $client,
             base_path('secret-data/google/token_drive.json')
         );

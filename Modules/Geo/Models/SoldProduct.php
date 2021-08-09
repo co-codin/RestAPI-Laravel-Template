@@ -3,16 +3,34 @@
 namespace Modules\Geo\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Category\Models\Category;
+use Modules\Product\Models\Product;
 
 class SoldProduct extends Model
 {
-    use HasFactory;
+    public $timestamps = false;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = [
+        'title',
+        'product_id',
+        'city_id',
+        'category_id',
+        'type',
+        'status',
+    ];
+
+    public function product()
     {
-        return \Modules\Geo\Database\factories\SoldProductFactory::new();
+        return $this->hasOne(Product::class, 'id','product_id');
+    }
+
+    public function city()
+    {
+        return $this->hasOne(City::class, 'id','city_id');
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id','category_id');
     }
 }

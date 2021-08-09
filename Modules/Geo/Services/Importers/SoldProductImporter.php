@@ -8,8 +8,8 @@ use App\Enums\Status;
 use Modules\Category\Models\Category;
 use Modules\Geo\Dto\ClientsGeographyDto;
 use Modules\Geo\Models\City;
-use Modules\Client\Entities\SoldProduct;
-use Modules\Client\Enums\ClientGeographyType;
+use Modules\Geo\Models\SoldProduct;
+use Modules\Geo\Enums\ClientGeographyType;
 
 class SoldProductImporter
 {
