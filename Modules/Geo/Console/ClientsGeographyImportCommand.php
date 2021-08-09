@@ -4,7 +4,7 @@
 namespace Modules\Geo\Console;
 
 
-use App\Api\Google\GoogleApi;
+use App\Services\GoogleApiService;
 use Exception;
 use Google_Client;
 use Google_Service_Drive;
@@ -37,7 +37,7 @@ class ClientsGeographyImportCommand extends Command
      */
     protected $description = 'Import clients geography from csv file';
 
-    private GoogleApi $googleApi;
+    private GoogleApiService $googleApi;
     private SoldProductImporter $soldProductImporter;
     private CitiesImporter $citiesImporter;
 
