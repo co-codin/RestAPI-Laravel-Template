@@ -61,4 +61,13 @@ return [
         'terminal_url' => env('DL_TERMINAL_URL', 'https://api.dellin.ru/v3/public/terminals.json'),
         'place_url' => env('DL_PLACE_URL', 'https://api.dellin.ru/v1/public/places.json'),
     ],
+
+    'google-api' => [
+        'places' => env('GOOGLE_PLACES_API_KEY'),
+        'drive' => [
+            'files' => [
+                'sold-products' => env('GOOGLE_SHEETS_SOLD_PRODUCTS_FILE_ID')
+            ]
+        ],
+    ],
 ];

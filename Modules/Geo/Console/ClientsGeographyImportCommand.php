@@ -43,7 +43,7 @@ class ClientsGeographyImportCommand extends Command
 
     /**
      * ClientsGeographyImport constructor.
-     * @param GoogleApiService $googleApi
+     * @param GoogleApiService $googleApiService
      * @param SoldProductImporter $soldProductImporter
      * @param CitiesImporter $citiesImporter
      */
