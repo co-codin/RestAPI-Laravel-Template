@@ -1,5 +1,14 @@
-type Achievement {
+type OrderPoint {
     id: ID!
     city_id: Int!
-#    city: City @belongsTo
+    address: String!
+    coordinate: String!
+    phone: String
+    email: String
+    info: String
+    timetable: String
+    type: Int!
+    status: Int!
+
+    city: City @belongsTo
 }
