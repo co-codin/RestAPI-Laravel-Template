@@ -1,0 +1,5 @@
+type Achievement {
+    id: ID!
+    city_id: Int!
+#    city: City @belongsTo
+}
