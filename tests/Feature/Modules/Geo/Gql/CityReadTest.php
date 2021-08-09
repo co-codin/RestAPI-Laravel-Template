@@ -17,14 +17,7 @@ class CityReadTest extends TestCase
                     data {
                         id
                         region_name
-                        region_name_with_type
-                        federal_district
-                        iso
                         city_name
-                        city_slug
-                        status
-                        is_default
-                        coordinate
                     }
                     paginatorInfo {
                         currentPage
@@ -41,7 +34,7 @@ class CityReadTest extends TestCase
                         [
                             'id' => $city->id,
                             'region_name' => $city->region_name,
-                            'city_name' => $city->region_name,
+                            'city_name' => $city->city_name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -66,7 +59,7 @@ class CityReadTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'questionCategories' => [
+                'cities' => [
                     'data' => [
                         [
                             'id' => $city->id,

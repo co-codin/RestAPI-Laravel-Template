@@ -1,6 +1,6 @@
 type OrderPoint {
     id: ID!
-    name: String!
+    name: String
     city_id: Int!
     address: String!
     coordinate: String!

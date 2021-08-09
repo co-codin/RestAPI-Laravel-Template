@@ -19,9 +19,6 @@ class OrderPointReadTest extends TestCase
                         city_id
                         name
                         address
-                        coordinate
-                        type
-                        status
                     }
                     paginatorInfo {
                         currentPage
