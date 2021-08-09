@@ -1,7 +1,9 @@
 <?php
+
 namespace Modules\Geo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Geo\Models\City;
 
 class OrderPointFactory extends Factory
 {
@@ -20,7 +22,15 @@ class OrderPointFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'city_id' => City::factory(),
+            'name' => $this->faker->word(4),
+            'address' => $this->faker->word(4),
+            'coordinate' => [
+                'lat' => 123,
+                'long' => 456,
+            ],
+            'type' => 1,
+            'status' => 1,
         ];
     }
 }

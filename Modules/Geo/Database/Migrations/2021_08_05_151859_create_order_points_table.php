@@ -16,8 +16,10 @@ class CreateOrderPointsTable extends Migration
         Schema::create('order_points', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('city_id')->index();
+            $table->string('name')->nullable();
             $table->string('address');
             $table->json('coordinate');
+            $table->string('embed_map_url', 500)->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('info')->nullable();
