@@ -4,7 +4,6 @@ namespace Modules\Geo\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Modules\Geo\Http\Resources\OrderPointResource;
-use Modules\Geo\Models\OrderPoint;
 use Modules\Geo\Repositories\OrderPointRepository;
 
 class OrderPointController extends Controller

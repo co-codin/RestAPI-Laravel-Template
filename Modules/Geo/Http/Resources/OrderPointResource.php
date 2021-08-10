@@ -4,6 +4,7 @@ namespace Modules\Geo\Http\Resources;
 
 use App\Enums\Status;
 use App\Http\Resources\BaseJsonResource;
+use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\OrderPoint;
 
 /**
@@ -18,6 +19,7 @@ class OrderPointResource extends BaseJsonResource
         return array_merge(parent::toArray($request), [
             'status' => $this->whenRequested('status', Status::toJson($this->status)),
             'city' => new CityResource($this->whenLoaded('city')),
+            'type' => $this->whenRequested('type', OrderPointType::toJson($this->type)),
         ]);
     }
 }
