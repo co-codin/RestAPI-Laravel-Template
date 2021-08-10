@@ -15,7 +15,7 @@ class SypexDownloadCommand extends Command
     {
         $response = app(Client::class)->get(config('services.sypex.url'));
 
-        $fileZip = fopen(storage_path('app/SxGeoCity_utf8.zip'), 'wb');
+        $fileZip = fopen($filePath = storage_path('app/SxGeoCity_utf8.zip'), 'wb');
         fwrite($fileZip, $response->getBody());
         fclose($fileZip);
 
@@ -26,6 +26,6 @@ class SypexDownloadCommand extends Command
             $zip->extractTo(storage_path('app/'));
             $zip->close();
         }
-        unlink(storage_path('app/SxGeoCity_utf8.zip'));
+        unlink($filePath);
     }
 }
