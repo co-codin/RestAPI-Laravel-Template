@@ -15,7 +15,7 @@ class CreateOrderPointsTable extends Migration
     {
         Schema::create('order_points', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('city_id')->index();
+            $table->foreignId('city_id');
             $table->string('name')->nullable();
             $table->string('address');
             $table->json('coordinate');
@@ -27,8 +27,6 @@ class CreateOrderPointsTable extends Migration
             $table->tinyInteger('type');
             $table->tinyInteger('status');
             $table->timestamps();
-
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('CASCADE');
         });
     }
 

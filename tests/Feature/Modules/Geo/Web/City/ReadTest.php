@@ -21,8 +21,8 @@ class ReadTest extends TestCase
                     "id",
                     "region_name",
                     "region_name_with_type",
-                    "city_name",
-                    "city_slug",
+                    "name",
+                    "slug",
                     "created_at",
                     "updated_at",
                 ]
@@ -64,8 +64,8 @@ class ReadTest extends TestCase
                 "id",
                 "region_name",
                 "region_name_with_type",
-                "city_name",
-                "city_slug",
+                "name",
+                "slug",
                 "created_at",
                 "updated_at",
             ]

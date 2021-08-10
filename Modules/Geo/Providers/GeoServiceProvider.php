@@ -4,7 +4,7 @@ namespace Modules\Geo\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Geo\Console\ClientsGeographyImportCommand;
-use Modules\Geo\Console\DLIntegrationCommand;
+use Modules\Geo\Console\OrderPointsImportCommand;
 use Modules\Geo\Console\SypexDownloadCommand;
 
 class GeoServiceProvider extends ServiceProvider
@@ -105,7 +105,7 @@ class GeoServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands([
-            DLIntegrationCommand::class,
+            OrderPointsImportCommand::class,
             SypexDownloadCommand::class,
             ClientsGeographyImportCommand::class,
         ]);

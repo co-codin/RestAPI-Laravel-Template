@@ -11,11 +11,11 @@ use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\OrderPoint;
 
-class DLIntegrationCommand extends Command
+class OrderPointsImportCommand extends Command
 {
-    protected $signature = 'dl:integrate';
+    protected $signature = 'import:order_points';
 
-    protected $description = 'Интеграция с деловой линии.';
+    protected $description = 'импорт пунктов выдач из деловых линий.';
 
     protected $places;
 
@@ -49,9 +49,9 @@ class DLIntegrationCommand extends Command
 
     protected function downloadPlaces()
     {
-        $response = app(Client::class)->post(config('services.dl.place_url'), [
+        $response = app(Client::class)->post(config('services.dellin.place_url'), [
             'json' => [
-                'appKey' => config('services.dl.token')
+                'appKey' => config('services.dellin.token')
             ]
         ]);
 
@@ -85,9 +85,9 @@ class DLIntegrationCommand extends Command
 
     protected function downloadTerminals()
     {
-        $response = app(Client::class)->post(config('services.dl.terminal_url'), [
+        $response = app(Client::class)->post(config('services.dellin.terminal_url'), [
             'json' => [
-                'appKey' => config('services.dl.token')
+                'appKey' => config('services.dellin.token')
             ]
         ]);
 
@@ -109,9 +109,7 @@ class DLIntegrationCommand extends Command
         return collect($timetable)
             ->only($weekDays)
             ->map(function($day) {
-                return explode("-", $day);
-            })
-            ->map(function($day) {
+                $day = explode("-", $day);
                 return [
                     'start' => Arr::get($day, 0),
                     'finish' => Arr::get($day, 1),
@@ -129,13 +127,13 @@ class DLIntegrationCommand extends Command
 
         return City::query()->firstOrCreate([
             ['region_name_with_type', '=', $regionName],
-            ['city_name', '=', $city['name']]
+            ['name', '=', $city['name']]
         ], [
             'region_name' => $region['name'],
             'region_name_with_type' => $region['name_with_type'],
             'iso' => $region['iso'],
             'federal_district' => $region['federal_district'],
-            'city_name' => $city['name'],
+            'name' => $city['name'],
             'coordinate' => [
                 'lat' => (float) $city['latitude'],
                 'long' => (float) $city['longitude'],

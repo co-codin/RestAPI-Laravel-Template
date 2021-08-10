@@ -12,7 +12,7 @@ class CreateTest extends TestCase
 //        //
 //    }
 
-    public function test_authenticated_can_create_order_point()
+    public function test_authenticated_user_can_create_order_point()
     {
         $orderPointData = OrderPoint::factory()->raw();
 

@@ -22,8 +22,8 @@ class City extends Model
     public function sluggable(): array
     {
         return [
-            'city_slug' => [
-                'source' => 'city_name'
+            'slug' => [
+                'source' => 'name'
             ]
         ];
     }

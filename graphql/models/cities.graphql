@@ -4,8 +4,8 @@ type City {
     region_name_with_type: String!
     federal_district: Int!
     iso: String!
-    city_name: String!
-    city_slug: String!
+    name: String!
+    slug: String!
     status: Int!
     is_default: Int!
     coordinate: String!

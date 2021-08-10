@@ -11,7 +11,7 @@ class DetectIpTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Artisan::call('dl:integrate');
+        Artisan::call('import:order_points');
     }
 
     public function test_ip_can_be_detected()
@@ -22,7 +22,7 @@ class DetectIpTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
-            "city_name" => "Санкт-Петербург"
+            "name" => "Санкт-Петербург"
         ]);
     }
 }

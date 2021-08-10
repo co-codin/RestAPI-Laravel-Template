@@ -16,7 +16,7 @@ class CityRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'region_name', 'region_name_with_type', 'federal_district', 'iso',
-                'city_name', 'city_slug', 'status', 'is_default', 'coordinate', 'dial_code',
+                'name', 'slug', 'status', 'is_default', 'coordinate', 'dial_code',
                 'postal_index', 'region_phone', 'email', 'created_at', 'updated_at'
             ])
             ->allowedFilters([
@@ -24,11 +24,11 @@ class CityRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('region_name'),
                 AllowedFilter::partial('region_name_with_type'),
                 AllowedFilter::partial('federal_district'),
-                AllowedFilter::partial('city_name'),
-                AllowedFilter::partial('city_slug'),
+                AllowedFilter::partial('name'),
+                AllowedFilter::partial('slug'),
             ])
             ->allowedSorts('id', 'region_name', 'region_name_with_type', 'federal_district', 'iso',
-                'city_name', 'city_slug', 'status', 'is_default', 'dial_code',
+                'name', 'slug', 'status', 'is_default', 'dial_code',
                 'postal_index', 'region_phone', 'email', 'created_at', 'updated_at')
             ->allowedIncludes('orderPoints')
             ;

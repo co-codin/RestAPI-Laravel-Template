@@ -56,7 +56,7 @@ return [
         'filename' => env('FACEBOOK_MARKET_FILENAME', 'facebookmarket'),
     ],
 
-    'dl' => [
+    'dellin' => [
         'token' => env('DL_TOKEN'),
         'terminal_url' => env('DL_TERMINAL_URL', 'https://api.dellin.ru/v3/public/terminals.json'),
         'place_url' => env('DL_PLACE_URL', 'https://api.dellin.ru/v1/public/places.json'),
@@ -69,5 +69,9 @@ return [
                 'sold-products' => env('GOOGLE_SHEETS_SOLD_PRODUCTS_FILE_ID')
             ]
         ],
+    ],
+
+    'sypex' => [
+        'url' => env('SYPEX_URL'),
     ],
 ];

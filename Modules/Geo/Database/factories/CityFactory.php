@@ -26,8 +26,8 @@ class CityFactory extends Factory
             'federal_district' => $this->faker->word(4),
             'iso' => $this->faker->unique()->word(4),
 
-            'city_name' => $this->faker->word(4),
-            'city_slug' => $this->faker->word(4),
+            'name' => $this->faker->city,
+            'slug' => $this->faker->word(4),
             'status' => 1,
 
             'is_default' => 2,

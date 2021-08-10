@@ -18,12 +18,12 @@ class CreateCitiesTable extends Migration
             $table->string('region_name');
             $table->string('region_name_with_type');
             $table->string('federal_district');
-            $table->string('iso')->index();
+            $table->string('iso');
 
-            $table->string('city_name')->index();
-            $table->string('city_slug')->unique();
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->unsignedTinyInteger('status');
-            $table->unsignedTinyInteger('is_default')->default(2);
+            $table->boolean('is_default')->default(false);
             $table->json('coordinate');
             $table->string('dial_code')->nullable();
             $table->string('postal_index')->nullable();
@@ -40,6 +40,6 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('geos');
+        Schema::dropIfExists('cities');
     }
 }

@@ -24,7 +24,7 @@ class OrderPointFactory extends Factory
         return [
             'city_id' => City::factory(),
             'name' => $this->faker->word(4),
-            'address' => $this->faker->word(4),
+            'address' => $this->faker->address,
             'coordinate' => [
                 'lat' => 123,
                 'long' => 456,

@@ -12,7 +12,7 @@ class DeleteTest extends TestCase
 //        //
 //    }
 
-    public function test_authenticated_can_delete_order_point()
+    public function test_authenticated_user_can_delete_order_point()
     {
         $orderPoint = OrderPoint::factory()->create();
 

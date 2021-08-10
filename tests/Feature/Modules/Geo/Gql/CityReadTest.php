@@ -17,7 +17,7 @@ class CityReadTest extends TestCase
                     data {
                         id
                         region_name
-                        city_name
+                        name
                     }
                     paginatorInfo {
                         currentPage
@@ -34,7 +34,7 @@ class CityReadTest extends TestCase
                         [
                             'id' => $city->id,
                             'region_name' => $city->region_name,
-                            'city_name' => $city->city_name,
+                            'name' => $city->name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -51,7 +51,7 @@ class CityReadTest extends TestCase
                     data {
                         id
                         region_name
-                        city_name
+                        name
                     }
                 }
             }
@@ -64,7 +64,7 @@ class CityReadTest extends TestCase
                         [
                             'id' => $city->id,
                             'region_name' => $city->region_name,
-                            'city_name' => $city->city_name
+                            'name' => $city->name
                         ]
                     ],
                 ]

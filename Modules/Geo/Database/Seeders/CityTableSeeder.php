@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Geo\Database\Seeders\Data\GeoData;
 use Modules\Geo\Models\City;
 
-class CityTableSeederTableSeeder extends Seeder
+class CityTableSeeder extends Seeder
 {
     public function run()
     {
@@ -29,7 +29,7 @@ class CityTableSeederTableSeeder extends Seeder
                 'federal_district' =>  $region['federal_district'],
                 'iso' => $region['iso'],
 
-                'city_name' => $item['name'],
+                'name' => $item['name'],
                 'status' => Status::ACTIVE,
                 'is_default' => $item['name'] === 'Москва' ? 1 : 2,
                 'coordinate' => $item['coordinate'],

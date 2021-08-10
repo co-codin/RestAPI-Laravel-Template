@@ -16,6 +16,6 @@ class GeoDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-         $this->call(CityTableSeederTableSeeder::class);
+         $this->call(CityTableSeeder::class);
     }
 }
