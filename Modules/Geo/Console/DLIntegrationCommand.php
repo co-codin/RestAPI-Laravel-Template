@@ -55,11 +55,15 @@ class DLIntegrationCommand extends Command
             ]
         ]);
 
-        $data = json_decode($response->getBody());
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody());
 
-        file_put_contents(storage_path('app/places.csv'), file_get_contents($data->url));
+            file_put_contents(storage_path('app/places.csv'), file_get_contents($data->url));
 
-        $this->places = $this->transformPlaces();
+            $this->places = $this->transformPlaces();
+        } else {
+            throw new \Exception('Places cannot be downloaded.');
+        }
     }
 
     protected function transformPlaces()
@@ -87,11 +91,15 @@ class DLIntegrationCommand extends Command
             ]
         ]);
 
-        $data = json_decode($response->getBody());
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody());
 
-        file_put_contents(storage_path('app/terminals.json'), file_get_contents($data->url));
+            file_put_contents(storage_path('app/terminals.json'), file_get_contents($data->url));
 
-        $this->terminals = json_decode(file_get_contents(storage_path('app/terminals.json')), true)['city'];
+            $this->terminals = json_decode(file_get_contents(storage_path('app/terminals.json')), true)['city'];
+        } else {
+            throw new \Exception('Terminals cannot be downloaded.');
+        }
     }
 
     protected function parseTimeTable(array $timetable) : array
