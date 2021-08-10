@@ -13,7 +13,7 @@ class CityRequestCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return QueryBuilder::for($model)
-            ->defaultSort('position')
+            ->defaultSort('-id')
             ->allowedFields([
                 'id', 'region_name', 'region_name_with_type', 'federal_district', 'iso',
                 'city_name', 'city_slug', 'status', 'is_default', 'coordinate', 'dial_code',
