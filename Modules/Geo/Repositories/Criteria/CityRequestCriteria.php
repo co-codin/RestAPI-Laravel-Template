@@ -29,6 +29,8 @@ class CityRequestCriteria implements CriteriaInterface
             ])
             ->allowedSorts('id', 'region_name', 'region_name_with_type', 'federal_district', 'iso',
                 'city_name', 'city_slug', 'status', 'is_default', 'dial_code',
-                'postal_index', 'region_phone', 'email', 'created_at', 'updated_at');
+                'postal_index', 'region_phone', 'email', 'created_at', 'updated_at')
+            ->allowedIncludes('orderPoints')
+            ;
     }
 }
