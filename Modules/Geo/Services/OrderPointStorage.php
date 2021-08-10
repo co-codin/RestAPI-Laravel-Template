@@ -16,6 +16,6 @@ class OrderPointStorage
 
     public function delete()
     {
-        
+
     }
 }

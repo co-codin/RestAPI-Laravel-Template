@@ -24,6 +24,7 @@ class OrderPointRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('city_id'),
             ])
             ->allowedSorts('id', 'city_id', 'name', 'address', 'type', 'status', 'created_at', 'updated_at')
+            ->allowedIncludes('city')
             ;
     }
 }
