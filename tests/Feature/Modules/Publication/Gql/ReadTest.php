@@ -20,6 +20,7 @@ class ReadTest extends TestCase
                     data {
                         id
                         name
+                        logo
                     }
                     paginatorInfo {
                         currentPage
@@ -52,6 +53,7 @@ class ReadTest extends TestCase
                     data {
                         id
                         name
+                        logo
                     }
                 }
             }

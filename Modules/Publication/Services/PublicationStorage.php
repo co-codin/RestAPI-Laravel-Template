@@ -15,7 +15,8 @@ class PublicationStorage
     public function store(PublicationDto $publicationDto)
     {
         $attributes = $publicationDto->toArray();
-        $attributes['logo'] = $this->imageUploader->upload($publicationDto->logo, 'publications');
+
+        $attributes['logo'] = $this->imageUploader->setDir('publications')->upload($publicationDto->logo);
 
         return Publication::query()->create($attributes);
     }
@@ -37,9 +38,7 @@ class PublicationStorage
 
     public function delete(Publication $publication)
     {
-        if ($publication->delete()) {
-            unlink(storage_path($publication->logo));
-        } else {
+        if (!$publication->delete()) {
             throw new \LogicException('can not delete publication');
         }
     }

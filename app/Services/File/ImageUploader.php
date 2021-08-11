@@ -16,13 +16,9 @@ class ImageUploader extends FileUploader
 
     protected int $quality = 85;
 
-    public function upload(UploadedFile $file, $dir = null): string
+    public function upload(UploadedFile $file): string
     {
         $path = parent::upload($file);
-
-        if ($dir) {
-            $path = "{$dir}/{$path}";
-        }
 
         $fullPath = $this->fullFilePath($path);
 
