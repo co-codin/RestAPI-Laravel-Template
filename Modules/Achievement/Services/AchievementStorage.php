@@ -35,7 +35,9 @@ class AchievementStorage
 
     public function delete(Achievement $achievement)
     {
-        if (!$achievement->delete()) {
+        if ($achievement->delete()) {
+            unlink(storage_path($achievement->image));
+        } else {
             throw new \LogicException('can not delete achievement');
         }
     }
