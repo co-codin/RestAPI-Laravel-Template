@@ -14,7 +14,6 @@ use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
-use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -90,16 +89,6 @@ class Category extends Model
     public function filters()
     {
         return $this->hasMany(Filter::class);
-    }
-
-    public function properties()
-    {
-        return $this->belongsToMany(
-            Property::class,
-            'property_category',
-            'category_id',
-            'property_id',
-        )->withPivot(['section', 'position']);
     }
 
     public function scopeIsRoot(Builder $query): Builder

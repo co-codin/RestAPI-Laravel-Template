@@ -33,21 +33,6 @@ class ProductsTableSeeder extends Seeder
                 $product->categories()->sync($categories->pluck('id')->mapWithKeys(function ($item, $key) {
                     return [$item => ['is_main' => $key ? 2 : 1]];
                 }));
-
-                foreach ($categories as $category) {
-                    $values = $category->properties->mapWithKeys(function (Property $property) {
-                        $propValues = collect(PropertiesTableSeeder::properties())->where('name', $property->name)->first()['values'];
-                        $propValues[] = null;
-
-                        return [
-                            $property->id => [
-                                'value' => Arr::random($propValues),
-                            ]
-                        ];
-                    })->toArray();
-
-                    $product->properties()->sync($values);
-                }
             });
 
         DB::statement('UPDATE products SET is_in_home=:is_in_home WHERE RAND() LIMIT 15', [
