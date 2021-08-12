@@ -17,7 +17,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $name
  * @property string $url
  * @property string $source
- * @property string $logo
+ * @property ?string $logo
  * @property bool $is_enabled
  * @property Carbon|null $published_at
  * @property Carbon|null $created_at
