@@ -20,4 +20,6 @@ class PublicationDto extends BaseDto
     public ?UploadedFile $logo;
 
     public ?string $published_at;
+
+    public ?bool $is_logo_changed;
 }

@@ -20,6 +20,7 @@ class PublicationUpdateRequest extends BaseFormRequest
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date_format:d.m.Y',
             'logo' => 'sometimes|nullable|image',
+            'is_logo_changed' => 'sometimes|boolean',
         ];
     }
 
