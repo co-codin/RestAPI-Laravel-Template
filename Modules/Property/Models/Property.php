@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
 use Modules\Category\Models\Category;
 use Modules\Filter\Models\Filter;
-use Modules\Property\Models\Pivots\PropertyValuePivot;
+use Modules\Property\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Database\factories\PropertyFactory;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -25,7 +25,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool is_hidden_from_comparison
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property PropertyValuePivot $pivot
+ * @property ProductPropertyPivot $pivot
  * @mixin \Eloquent
  * @method static Builder|Property newModelQuery()
  * @method static Builder|Property newQuery()
@@ -53,16 +53,6 @@ class Property extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
-    }
-
-    public function categories()
-    {
-        return $this->belongsToMany(
-            Category::class,
-            'property_category',
-            'property_id',
-            'category_id'
-        )->withPivot(['section', 'position']);
     }
 
     public function filters()

@@ -18,8 +18,6 @@ class PropertyDto extends BaseDto
 
     public ?array $options;
 
-    public ?array $categories;
-
     public ?string $description;
 
     public $is_hidden_from_product;

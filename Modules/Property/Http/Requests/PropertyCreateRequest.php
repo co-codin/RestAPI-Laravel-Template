@@ -27,9 +27,6 @@ class PropertyCreateRequest extends BaseFormRequest
             'description' => 'sometimes|nullable|string',
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',
-            'categories' => 'required|array',
-            'categories.*.id' => 'required|integer|distinct|exists:categories,id',
-            'categories.*.position' => 'required|distinct|integer',
         ];
     }
 
@@ -37,9 +34,6 @@ class PropertyCreateRequest extends BaseFormRequest
     {
         return [
             'options' => 'Опции',
-            'categories' => 'Категории',
-            'categories.*.id' => 'ID Категории',
-            'categories.*.position' => 'Позиция Категории',
         ];
     }
 }

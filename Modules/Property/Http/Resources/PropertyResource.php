@@ -19,7 +19,6 @@ class PropertyResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'filters' => FilterResource::collection($this->whenLoaded('filters')),
 
             'value' => $this->whenPivotLoaded('property_value', function () {

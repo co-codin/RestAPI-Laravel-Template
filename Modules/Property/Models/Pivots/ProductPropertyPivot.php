@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Modules\Property\Models\Property;
 
 /**
- * Class PropertyValuePivot
+ * Class ProductPropertyPivot
  * @package Modules\Product\Models\Pivots
  * @property mixed $value
  * @property string|null $pretty_key
@@ -17,7 +17,7 @@ use Modules\Property\Models\Property;
  * @property int|null $important_position
  * @property string|null $important_value
  */
-class PropertyValuePivot extends Pivot
+class ProductPropertyPivot extends Pivot
 {
     protected $casts = [
         'value' => 'json',
