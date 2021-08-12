@@ -30,9 +30,8 @@ class PublicationStorage
         $attributes = $publicationDto->toArray();
 
         if ($publicationDto->is_logo_changed) {
-            $attributes['logo'] = $publicationDto->logo
-                ? $this->imageUploader->setDir('publications')->upload($publicationDto->logo)
-                : $attributes['logo'] = null;
+            $attributes['logo'] = !$publicationDto->logo
+                ?? $this->imageUploader->setDir('publications')->upload($publicationDto->logo);
         }
 
         if (!$publication->update($attributes)) {
