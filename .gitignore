@@ -1,6 +1,5 @@
 /node_modules
 /public/hot
-/secret-data
 /public/storage
 /storage/*.key
 /vendor

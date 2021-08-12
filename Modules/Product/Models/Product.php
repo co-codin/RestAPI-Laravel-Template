@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
-use Modules\Property\Models\Pivots\ProductPropertyPivot;
+use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Property\Models\Pivots;
+namespace Modules\Product\Models\Pivots;
 
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
