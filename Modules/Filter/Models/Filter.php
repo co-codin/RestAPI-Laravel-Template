@@ -2,11 +2,17 @@
 
 namespace Modules\Filter\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Modules\Category\Models\Category;
+use Modules\Filter\Concerns\Aggregable;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
+use Modules\Filter\Concerns\Searchable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Filter
@@ -19,10 +25,16 @@ use Modules\Property\Models\Property;
  * @property array $array
  * @property Property|null $property
  * @property Category|null $category
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @mixin \Eloquent
+ * @method static Builder|Filter newModelQuery()
+ * @method static Builder|Filter newQuery()
+ * @method static Builder|Filter query()
  */
 class Filter extends Model
 {
-    use HasFactory;
+    use HasFactory, Aggregable, Searchable, LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -42,6 +54,18 @@ class Filter extends Model
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'description',
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
     }
 
     protected static function newFactory()

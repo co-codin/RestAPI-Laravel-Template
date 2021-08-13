@@ -3,16 +3,20 @@
 namespace Modules\Category\Models;
 
 use App\Concerns\IsActive;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Product;
-use Modules\Property\Models\Property;
+use Modules\Product\Models\ProductCategory;
 use Modules\Seo\Models\Seo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Category
@@ -30,10 +34,18 @@ use Modules\Seo\Models\Seo;
  * @property Category[] $ancestors
  * @property Category[] $descendants
  * @property Seo|null $seo
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Product[] $productCategories
+ * @mixin \Eloquent
+ * @method static Builder|Category newModelQuery()
+ * @method static Builder|Category newQuery()
+ * @method static Builder|Category query()
  */
 class Category extends Model
 {
-    use HasFactory, NodeTrait, SoftDeletes, IsActive;
+    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -43,10 +55,30 @@ class Category extends Model
         'is_in_home' => 'boolean',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'full_description',
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_category')
             ->withPivot('is_main');
+    }
+
+    /**
+     * Get the productCategories for the Category.
+     */
+    public function productCategories()
+    {
+        return $this->hasMany(ProductCategory::class, 'category_id', 'id');
     }
 
     public function seo()
@@ -59,23 +91,13 @@ class Category extends Model
         return $this->hasMany(Filter::class);
     }
 
-    public function properties()
+    public function scopeIsRoot(Builder $query): Builder
     {
-        return $this->belongsToMany(
-            Property::class,
-            'property_category',
-            'category_id',
-            'property_id',
-        )->withPivot(['section', 'position']);
+        return $query->whereNull($this->getParentIdName());
     }
 
     protected static function newFactory()
     {
         return CategoryFactory::new();
-    }
-
-    public function scopeIsRoot(Builder $query): Builder
-    {
-        return $query->whereNull($this->getParentIdName());
     }
 }

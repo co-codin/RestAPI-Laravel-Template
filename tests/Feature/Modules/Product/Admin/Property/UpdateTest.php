@@ -20,9 +20,7 @@ class UpdateTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $property = Property::factory()->create([
-            'image' => UploadedFile::fake()->image('test.jpg'),
-        ]);
+        $property = Property::factory()->create();
 
         $response = $this->json('PUT', route('admin.product.property.update', $product), [
             'properties' => [
@@ -36,7 +34,7 @@ class UpdateTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseHas('property_value', [
+        $this->assertDatabaseHas('product_property', [
             'property_id' => $property->id,
             'product_id' => $product->id,
             'pretty_key' => $prettyKey,

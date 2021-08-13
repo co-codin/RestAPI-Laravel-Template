@@ -19,4 +19,13 @@ class FilterRepository extends BaseRepository
     {
         $this->pushCriteria(FilterRequestCriteria::class);
     }
+
+    public function findByCategoryId(int $category_id)
+    {
+        return $this->scopeQuery(function ($builder) use ($category_id) {
+            return $builder
+                ->where('category_id', $category_id)
+                ->orderByRaw('-position DESC');
+        })->get(['filters.*']);
+    }
 }
