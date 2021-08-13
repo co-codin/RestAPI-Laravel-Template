@@ -24,7 +24,7 @@ class MigratePropertyValue extends Command
         $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get();
 
         foreach ($this->propertyValues as $propertyValue) {
-            DB::table('property_value')->insert(
+            DB::table('product_property')->insert(
                 $this->transform($propertyValue)
             );
         }
