@@ -15,7 +15,7 @@ class ProductRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'slug', 'status' , 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('slug'),
