@@ -19,19 +19,17 @@ class PropertyRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields(array_merge(
                 static::allowedPropertyFields(),
-                CategoryRequestCriteria::allowedCategoryFields('categories'),
                 FilterRequestCriteria::allowedFilterFields('filters')
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('type'),
-                AllowedFilter::exact('categories.id'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_hidden_from_product'),
                 AllowedFilter::exact('is_hidden_from_comparison'),
             ])
-            ->allowedIncludes(['categories', 'filters'])
+            ->allowedIncludes(['filters'])
             ->allowedSorts('name')
             ;
     }

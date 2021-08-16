@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Modules\Customer\Database\factories\CustomerReviewFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Modules\Customer\Entities\CustomerReview
@@ -29,7 +31,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class CustomerReview extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $casts = [
         'type' => 'integer',
@@ -46,6 +48,17 @@ class CustomerReview extends Model
         'comment',
         'logo',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->dontLogIfAttributesChangedOnly([
+                'created_at',
+                'updated_at',
+            ])
+            ->logOnlyDirty();
+    }
 
     protected static function newFactory(): CustomerReviewFactory
     {

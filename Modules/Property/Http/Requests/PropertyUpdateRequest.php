@@ -28,9 +28,6 @@ class PropertyUpdateRequest extends BaseFormRequest
             'description' => 'sometimes|nullable|string',
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',
-            'categories' => 'sometimes|required|array',
-            'categories.*.id' => 'sometimes|required|integer|exists:categories,id',
-            'categories.*.position' => 'sometimes|required|distinct|integer',
         ];
     }
 
@@ -38,7 +35,6 @@ class PropertyUpdateRequest extends BaseFormRequest
     {
         return [
             'options' => 'Опции',
-            'categories' => 'Категории',
         ];
     }
 }

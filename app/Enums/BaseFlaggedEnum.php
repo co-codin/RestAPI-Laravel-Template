@@ -5,7 +5,6 @@ namespace App\Enums;
 
 
 use BenSampo\Enum\FlaggedEnum as BenSampoFlaggedEnum;
-use JetBrains\PhpStorm\ArrayShape;
 
 abstract class BaseFlaggedEnum extends BenSampoFlaggedEnum
 {
@@ -38,17 +37,5 @@ abstract class BaseFlaggedEnum extends BenSampoFlaggedEnum
         return !is_null(static::$moduleName)
             ? static::$moduleName . '::' . parent::getLocalizationKey()
             : parent::getLocalizationKey();
-    }
-
-    #[ArrayShape([
-        'value' => "",
-        'description' => "string"
-    ])]
-    public static function toJson($value): array
-    {
-        return [
-            'value' => $value,
-            'description' => static::getDescription($value),
-        ];
     }
 }

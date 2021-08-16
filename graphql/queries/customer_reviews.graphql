@@ -6,5 +6,5 @@ extend type Query {
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 
-    customerReview(id: ID @eq): CustomerReview @find
+    customer_review(id: ID @eq): CustomerReview @find
 }
