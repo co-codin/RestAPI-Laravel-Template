@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
-use Modules\Property\Models\Pivots\PropertyValuePivot;
+use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -104,8 +104,8 @@ class Product extends Model
     public function properties()
     {
         return $this
-            ->belongsToMany(Property::class, 'property_value')
-            ->using(PropertyValuePivot::class)
+            ->belongsToMany(Property::class, 'product_property')
+            ->using(ProductPropertyPivot::class)
             ->withPivot([
                 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
             ])

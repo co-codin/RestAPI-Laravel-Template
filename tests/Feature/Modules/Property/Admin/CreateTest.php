@@ -17,16 +17,9 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_property()
     {
-        $category = Category::factory()->create();
+        $this->withoutExceptionHandling();
 
-        $propertyData = Property::factory()->raw([
-            'categories' => [
-                [
-                    'id' => $category->id,
-                    'position' => $position = 5,
-                ],
-            ]
-        ]);
+        $propertyData = Property::factory()->raw();
 
         $response = $this->json('POST', route('admin.properties.store'), $propertyData);
 
@@ -40,12 +33,6 @@ class CreateTest extends TestCase
 
         $this->assertDatabaseHas('properties', [
             'name' => $propertyData['name'],
-        ]);
-
-        $this->assertDatabaseHas('property_category', [
-            'property_id' => $response['data']['id'],
-            'category_id' => $category->id,
-            'position' => $position,
         ]);
     }
 }
