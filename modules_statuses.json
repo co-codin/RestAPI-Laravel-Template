@@ -16,7 +16,7 @@
     "Customer": true,
     "Form": true,
     "Activity": true,
+    "Vacancy": true,
     "Export": true,
-    "Customer": true,
-    "Vacancy": true
+    "Geo": true
 }

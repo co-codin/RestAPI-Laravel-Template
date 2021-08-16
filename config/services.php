@@ -76,4 +76,23 @@ return [
     'facebook-market' => [
         'filename' => env('FACEBOOK_MARKET_FILENAME', 'facebookmarket'),
     ],
+
+    'dellin' => [
+        'token' => env('DL_TOKEN'),
+        'terminal_url' => env('DL_TERMINAL_URL', 'https://api.dellin.ru/v3/public/terminals.json'),
+        'place_url' => env('DL_PLACE_URL', 'https://api.dellin.ru/v1/public/places.json'),
+    ],
+
+    'google-api' => [
+        'places' => env('GOOGLE_PLACES_API_KEY'),
+        'drive' => [
+            'files' => [
+                'sold-products' => env('GOOGLE_SHEETS_SOLD_PRODUCTS_FILE_ID')
+            ]
+        ],
+    ],
+
+    'sypex' => [
+        'url' => env('SYPEX_URL'),
+    ],
 ];
