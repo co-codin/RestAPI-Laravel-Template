@@ -27,6 +27,7 @@ class SeoRuleCreateRequest extends BaseFormRequest
                     ]
                 ])
             ],
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

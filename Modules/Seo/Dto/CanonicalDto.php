@@ -13,5 +13,8 @@ use App\Dto\BaseDto;
 class CanonicalDto extends BaseDto
 {
     public ?string $url;
+
     public ?string $canonical;
+
+    public ?int $assigned_by_id;
 }

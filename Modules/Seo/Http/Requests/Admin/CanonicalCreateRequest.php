@@ -18,6 +18,7 @@ class CanonicalCreateRequest extends BaseFormRequest
                 'unique:canonicals,url,' . $this->route('canonical.id'), //проверить
             ],
             'canonical' => 'required|string|max:255',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }
