@@ -3,7 +3,6 @@
 namespace Modules\Export\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class ExportServiceProvider extends ServiceProvider
 {
