@@ -17,6 +17,7 @@ use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
 use Modules\Seo\Database\Seeders\CanonicalDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
+use Modules\Vacancy\Database\Seeders\VacancyDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,5 +38,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencyDatabaseSeeder::class);
         $this->call(ProductDatabaseSeeder::class);
         $this->call(GeoDatabaseSeeder::class);
+        $this->call(VacancyDatabaseSeeder::class);
     }
 }

@@ -4,6 +4,8 @@
 namespace Modules\Product\Repositories\Criteria;
 
 
+use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
+use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -15,7 +17,12 @@ class ProductRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
+            ->allowedFields(array_merge(
+                static::allowedProductFields(),
+                BrandRequestCriteria::allowedBrandFields('brand'),
+                CategoryRequestCriteria::allowedCategoryFields('category'),
+                CategoryRequestCriteria::allowedCategoryFields('categories'),
+            ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('slug'),
@@ -49,5 +56,27 @@ class ProductRequestCriteria implements CriteriaInterface
             ->allowedIncludes(['brand', 'productVariations', 'properties', 'category', 'categories', 'seo'])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
+    }
+
+    public static function allowedProductFields($prefix = null)
+    {
+        $fields = [
+            'id',
+            'slug',
+            'status' ,
+            'name',
+            'image',
+            'position',
+            'brand_id',
+            'is_enabled',
+            'created_at',
+            'updated_at'
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
     }
 }

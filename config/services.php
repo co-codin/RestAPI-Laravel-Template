@@ -38,6 +38,27 @@ return [
         'domain' => env('CONTENT_API_URL', 'https://content.api.medeq.ru'),
     ],
 
+    'roistat' => [
+        'enabled' => env('ROISTAT', false),
+    ],
+
+    'crm' => [
+        'domain' => env('CRM_API_URL'),
+        'token' => env('CRM_TOKEN'),
+    ],
+
+    'yandex-metrika' => [
+        'enabled' => env('YANDEX_METRIKA', false),
+        'id' => env('YANDEX_METRIKA_ID')
+    ],
+
+    'mails' => [
+        'review_mail' => env('REVIEW_EMAIL'),
+        'forms' => env('FORM_EMAIL'),
+        'director' => env('FORM_DIRECTOR_EMAIL'),
+        'exception' => env('NOTIFY_EXCEPTION_EMAIL'),
+    ],
+
     'yandex-market' => [
         'filename' => env('YANDEX_MARKET_FILENAME', 'ymlmarket'),
     ],

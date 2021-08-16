@@ -8,7 +8,6 @@ use App\Enums\BaseEnum;
  * @method static static CheckMarkList()
  * @method static static Slider()
  * @method static static CheckMark()
- * @method static static DropDown()
  */
 final class FilterType extends BaseEnum
 {
@@ -20,6 +19,12 @@ final class FilterType extends BaseEnum
     {
         return [
             self::Slider => [
+                [
+                    'name' => 'step',
+                    'label' => 'Шаг',
+                    'description' => 'Шаг слайдера',
+                    'type' => 'textInput',
+                ],
                 [
                     'name' => 'aggregationFormatter',
                     'label' => 'Aggregation Formatter Class',

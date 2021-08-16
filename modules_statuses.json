@@ -14,7 +14,9 @@
     "Currency": true,
     "Attribute": true,
     "Customer": true,
+    "Form": true,
     "Activity": true,
+    "Vacancy": true,
     "Export": true,
     "Geo": true
 }
