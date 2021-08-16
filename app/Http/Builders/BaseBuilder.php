@@ -52,7 +52,7 @@ abstract class BaseBuilder
      */
     final protected function fieldWithRelationName(): \Closure
     {
-        return fn(string $field) => !empty($this->relationName) ? $this->relationName . '.' . $field : $field;
+        return fn(string $field) => !empty($this->relationName) ? \Str::snake($this->relationName) . '.' . $field : $field;
     }
 
     /**
