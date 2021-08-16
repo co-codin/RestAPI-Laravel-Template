@@ -19,6 +19,8 @@ class PublicationUpdateRequest extends BaseFormRequest
             'source' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date_format:d.m.Y',
+            'logo' => 'sometimes|nullable|image',
+            'is_logo_changed' => 'sometimes|boolean',
         ];
     }
 
@@ -26,6 +28,7 @@ class PublicationUpdateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата публикации',
+            'logo' => 'Логотип',
         ];
     }
 }

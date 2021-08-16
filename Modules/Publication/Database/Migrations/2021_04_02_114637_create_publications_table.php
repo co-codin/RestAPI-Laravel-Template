@@ -20,6 +20,7 @@ class CreatePublicationsTable extends Migration
             $table->string('source');
             $table->boolean('is_enabled')->default(true);
             $table->date('published_at')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

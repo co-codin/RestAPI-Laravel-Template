@@ -4,6 +4,7 @@ namespace Modules\Publication\Database\factories;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 
 class PublicationFactory extends Factory
 {
@@ -25,6 +26,7 @@ class PublicationFactory extends Factory
             'name' => $this->faker->sentence(4),
             'url' => $this->faker->url,
             'source' => $this->faker->words(2, true),
+            'logo' => UploadedFile::fake()->image('test_logo.png'),
             'is_enabled' => $this->faker->boolean,
             'published_at' => $this->faker->date('d.m.Y'),
         ];
