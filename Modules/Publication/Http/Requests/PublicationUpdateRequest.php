@@ -19,6 +19,7 @@ class PublicationUpdateRequest extends BaseFormRequest
             'source' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date_format:d.m.Y',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 

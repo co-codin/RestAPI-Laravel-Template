@@ -11,6 +11,7 @@ class AttributeUpdateRequest extends BaseFormRequest
         return [
             'name' => 'required|unique:attributes,name,' . $this->route('attribute'),
             'is_default' => 'sometimes|boolean',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

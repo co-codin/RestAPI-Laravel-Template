@@ -17,4 +17,6 @@ class PublicationDto extends BaseDto
     public ?bool $is_enabled;
 
     public ?string $published_at;
+
+    public ?int $assigned_by_id;
 }
