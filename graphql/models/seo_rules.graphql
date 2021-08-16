@@ -2,4 +2,5 @@ type SeoRule {
     id: ID!
     name: String!
     url: String!
+    assigned_by_id: Int
 }

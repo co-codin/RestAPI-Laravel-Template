@@ -1,7 +1,7 @@
 extend type Query {
     attributes(
-        where: _ @whereConditions(columns: ["id", "name", "is_default"])
-        orderBy: _ @orderBy(columns: ["id", "name", "is_default"])
+        where: _ @whereConditions(columns: ["id", "name", "is_default", "assigned_by_id"])
+        orderBy: _ @orderBy(columns: ["id", "name", "is_default", "assigned_by_id"])
     ): [Attribute!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

@@ -1,7 +1,13 @@
 extend type Query {
     publications(
-        where: _ @whereConditions(columns: ["id", "name", "image", "position", "is_enabled", "published_at"])
-        orderBy: _ @orderBy(columns: ["id", "name", "image", "position", "is_enabled", "published_at"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "image", "position",
+            "is_enabled", "published_at", "assigned_by_id"
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "image", "position",
+            "is_enabled", "published_at", "assigned_by_id"
+        ])
     ): [Publication!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

@@ -3,4 +3,5 @@ type Redirect {
     source: String!
     destination: String!
     code: Int!
+    assigned_by_id: Int
 }

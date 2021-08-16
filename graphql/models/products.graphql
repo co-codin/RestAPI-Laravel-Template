@@ -9,6 +9,7 @@ type Product {
     warranty: Int
     short_description: String!
     full_description: String!
+    assigned_by_id: Int
 
     brand: Brand!
     productVariations: [ProductVariation!]!

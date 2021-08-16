@@ -1,7 +1,13 @@
 extend type Query {
     pages(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "full_description", "status", "parent_id"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "full_description", "status", "parent_id"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "full_description",
+            "status", "parent_id", "assigned_by_id",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "full_description",
+            "status", "parent_id", "assigned_by_id"
+        ])
     ): [Page!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

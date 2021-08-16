@@ -5,4 +5,5 @@ type Publication {
     source: String!
     is_enabled: Boolean!
     published_at: String!
+    assigned_by_id: Int
 }
