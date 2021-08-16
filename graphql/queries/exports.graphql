@@ -1,0 +1,10 @@
+extend type Query {
+    exports(
+        where: _ @whereConditions(columns: ["id", "name", "type", "filename", "frequency"])
+        orderBy: _ @orderBy(columns: ["id", "name", "type", "filename", "frequency"])
+    ): [Export!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
+    export(id: ID @eq, name: String @eq): Export @find
+}

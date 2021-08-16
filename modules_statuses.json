@@ -14,5 +14,7 @@
     "Currency": true,
     "Attribute": true,
     "Customer": true,
-    "Form": true
+    "Form": true,
+    "Activity": true,
+    "Export": true
 }

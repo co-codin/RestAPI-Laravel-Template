@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyValueTable extends Migration
+class CreateProductPropertyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePropertyValueTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_value', function (Blueprint $table) {
+        Schema::create('product_property', function (Blueprint $table) {
             $table->primary(['property_id', 'product_id']);
             $table->foreignId('property_id')->constrained();
             $table->foreignId('product_id')->constrained();
@@ -33,6 +33,6 @@ class CreatePropertyValueTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('property_value');
+        Schema::dropIfExists('product_property');
     }
 }
