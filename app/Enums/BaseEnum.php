@@ -7,7 +7,6 @@ use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum as BenSampoEnum;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class Enum
@@ -58,15 +57,8 @@ abstract class BaseEnum extends BenSampoEnum implements LocalizedEnum
         return $value;
     }
 
-    #[ArrayShape([
-        'value' => "",
-        'description' => "string"
-    ])]
-    public static function toJson($value): array
+    public function toArray(): array
     {
-        return [
-            'value' => $value,
-            'description' => static::getDescription($value),
-        ];
+        return (array)$this;
     }
 }

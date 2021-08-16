@@ -32,8 +32,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Brand $brand
+ * @property-read Category $category
+ * @property-read Seo $seo
  * @property-read Collection|ProductCategory[] $productCategories
- * @mixin \Eloquent
+ * @property-read Collection|Category[] $categories
+ * @property-read Collection|ProductVariation[] $variations
+ * @property-read Collection|Property[] $properties
+ * @mixin Eloquent
+ * @method static Builder|Product findSimilarSlugs($attribute, $config, $slug)
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product query()
