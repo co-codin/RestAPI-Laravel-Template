@@ -25,6 +25,7 @@ class CreateBrandsTable extends Migration
             $table->integer('position')->nullable();
             $table->string('country')->nullable();
             $table->string('short_description')->nullable();
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

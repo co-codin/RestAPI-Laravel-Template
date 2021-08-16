@@ -17,6 +17,7 @@ class CreateAttributesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->boolean('is_default');
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
