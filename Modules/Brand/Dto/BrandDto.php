@@ -26,4 +26,6 @@ class BrandDto extends BaseDto
     public ?string $country;
 
     public ?string $short_description;
+
+    public ?int $assigned_by_id;
 }

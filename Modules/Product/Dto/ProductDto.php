@@ -28,4 +28,6 @@ class ProductDto extends BaseDto
     public $is_in_home;
 
     public ?array $documents;
+
+    public ?int $assigned_by_id;
 }

@@ -42,6 +42,7 @@ class ProductCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'required|boolean',
+            'assigned_by_id' => 'sometimes|nullable|integer',
 
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',

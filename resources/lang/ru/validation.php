@@ -196,5 +196,6 @@ return [
         'is_enabled' => 'Статус',
         'type' => 'Тип',
         'parent_id' => 'Родитель',
+        'assigned_by_id' => 'Ответственный',
     ],
 ];
