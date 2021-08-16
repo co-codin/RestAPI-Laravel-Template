@@ -29,6 +29,7 @@ class CategoryUpdateRequest extends BaseFormRequest
                 'nullable',
                 'image',
             ],
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

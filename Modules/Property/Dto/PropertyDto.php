@@ -25,4 +25,6 @@ class PropertyDto extends BaseDto
     public $is_hidden_from_product;
 
     public $is_hidden_from_comparison;
+
+    public ?int $assigned_by_id;
 }

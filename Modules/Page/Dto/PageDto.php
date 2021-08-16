@@ -23,4 +23,6 @@ class PageDto extends BaseDto
 
     /** @var mixed */
     public $status;
+
+    public ?int $assigned_by_id;
 }
