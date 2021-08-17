@@ -11,11 +11,6 @@ use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends BaseFormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -67,7 +62,6 @@ class ProductCreateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(DocumentType::class, false),
             ],
-            'documents.*.position' => 'sometimes|nullable|integer|distinct',
         ];
     }
 }
