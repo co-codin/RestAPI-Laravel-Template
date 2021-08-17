@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\MailHelper;
+
 return [
 
     /*
@@ -53,10 +55,10 @@ return [
     ],
 
     'mails' => [
-        'review_mail' => env('REVIEW_EMAIL'),
-        'forms' => env('FORM_EMAIL'),
-        'director' => env('FORM_DIRECTOR_EMAIL'),
-        'exception' => env('NOTIFY_EXCEPTION_EMAIL'),
+        'review_mail' => MailHelper::emailsToArray(env('REVIEW_EMAIL')),
+        'forms' => MailHelper::emailsToArray(env('FORM_EMAIL')),
+        'director' => MailHelper::emailsToArray(env('FORM_DIRECTOR_EMAIL')),
+        'exception' => MailHelper::emailsToArray(env('NOTIFY_EXCEPTION_EMAIL')),
     ],
 
     'yandex-market' => [
