@@ -5,17 +5,10 @@ namespace Modules\Product\Http\Requests\Admin;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
-use Modules\Product\Enums\DocumentSource;
-use Modules\Product\Enums\DocumentType;
 use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends BaseFormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -31,6 +24,16 @@ class ProductCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',
             'image' => 'required|image',
+            'short_description' => 'sometimes|nullable|string',
+            'full_description' => 'sometimes|nullable|string',
+            'warranty' => 'sometimes|nullable|integer',
+            'status' => [
+                'sometimes',
+                'required',
+                'integer',
+                new EnumValue(Status::class, false),
+            ],
+            'is_in_home' => 'sometimes|required|boolean',
         ];
     }
 }
