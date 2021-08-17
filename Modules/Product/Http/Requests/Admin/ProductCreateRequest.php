@@ -27,8 +27,6 @@ class ProductCreateRequest extends BaseFormRequest
             ],
             'categories.*.id' => 'required|integer|distinct|exists:categories,id',
             'categories.*.is_main' => 'required|boolean',
-
-//            'brand_id' => 'required_unless:type,' . Status::ACTIVE,
             'brand_id' => 'required|integer|exists:brands,id',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',

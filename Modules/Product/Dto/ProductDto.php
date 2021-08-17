@@ -3,6 +3,7 @@
 namespace Modules\Product\Dto;
 
 use App\Dto\BaseDto;
+use App\Enums\Status;
 use Illuminate\Http\UploadedFile;
 
 class ProductDto extends BaseDto
@@ -23,9 +24,9 @@ class ProductDto extends BaseDto
 
     public ?int $warranty;
 
-    public ?int $status;
+    public ?int $status = Status::INACTIVE;
 
-    public $is_in_home;
+    public $is_in_home = false;
 
     public ?array $documents;
 
