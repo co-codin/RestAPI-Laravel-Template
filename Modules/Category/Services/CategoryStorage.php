@@ -10,15 +10,19 @@ use Modules\Category\Models\Category;
 
 class CategoryStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(protected ImageUploader $imageUploader)
+    {
+    }
 
     public function store(CategoryDto $categoryDto)
     {
         $attributes = $categoryDto->toArray();
 
-        if($categoryDto->image) {
+        if ($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
+
+        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? auth('custom-token')->id();
 
         return Category::query()->create($attributes);
     }
@@ -27,9 +31,11 @@ class CategoryStorage
     {
         $attributes = $categoryDto->toArray();
 
-        if($categoryDto->image) {
+        if ($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
+
+        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? null;
 
         if (!$category->update($attributes)) {
             throw new \LogicException('can not update category');

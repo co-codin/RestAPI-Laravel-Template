@@ -16,6 +16,8 @@ class NewsStorage
         $attributes = $newsDto->toArray();
         $attributes['image'] = $this->imageUploader->upload($newsDto->image);
 
+        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? auth('custom-token')->id();
+
         return News::query()->create($attributes);
     }
 
@@ -26,6 +28,8 @@ class NewsStorage
         if($newsDto->image) {
             $attributes['image'] = $this->imageUploader->upload($newsDto->image);
         }
+
+        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? null;
 
         if (!$news->update($attributes)) {
             throw new \LogicException('can not update news');

@@ -11,12 +11,20 @@ class RedirectStorage
 {
     public function store(RedirectDto $redirectDto)
     {
-        return Redirect::query()->create($redirectDto->toArray());
+        $attributes = $redirectDto->toArray();
+
+        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? auth('custom-token')->id();
+
+        return Redirect::query()->create($attributes);
     }
 
     public function update(Redirect $redirect, RedirectDto $redirectDto)
     {
-        if (!$redirect->update($redirectDto->toArray())) {
+        $attributes = $redirectDto->toArray();
+
+        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? null;
+
+        if (!$redirect->update($attributes)) {
             throw new \LogicException('can not update redirect');
         }
         return $redirect;

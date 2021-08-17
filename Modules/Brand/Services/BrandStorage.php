@@ -33,6 +33,8 @@ class BrandStorage
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);
         }
 
+        $attributes['assigned_by_id'] = $brandDto->assigned_by_id ?? null;
+
         if (!$brand->update($attributes)) {
             throw new \LogicException('can not update brand');
         }

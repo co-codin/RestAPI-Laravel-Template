@@ -11,12 +11,20 @@ class AttributeStorage
 {
     public function store(AttributeDto $attributeDto)
     {
-        return Attribute::query()->create($attributeDto->toArray());
+        $attributes = $attributeDto->toArray();
+
+        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? auth('custom-token')->id();
+
+        return Attribute::query()->create($attributes);
     }
 
     public function update(Attribute $attribute, AttributeDto $attributeDto)
     {
-        $attribute->update($attributeDto->toArray());
+        $attributes = $attributeDto->toArray();
+
+        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? null;
+
+        $attribute->update($attributes);
 
         return $attribute;
     }
