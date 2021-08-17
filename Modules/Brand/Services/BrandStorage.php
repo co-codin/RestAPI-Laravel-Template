@@ -10,9 +10,7 @@ use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(protected ImageUploader $imageUploader) {}
 
     public function store(BrandDto $brandDto)
     {
@@ -21,6 +19,8 @@ class BrandStorage
         if ($brandDto->image) {
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);
         }
+
+        $attributes['assigned_by_id'] = $brandDto->assigned_by_id ?? auth('custom-token')->id();
 
         return Brand::query()->create($attributes);
     }

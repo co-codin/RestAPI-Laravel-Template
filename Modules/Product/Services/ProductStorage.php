@@ -19,6 +19,7 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
         $attributes['image'] = $this->imageUploader->upload($productDto->image);
+        $attributes['assgiend_by_id'] = $productDto->assigned_by_id ?? auth('custom-token')->id();
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
@@ -47,6 +48,9 @@ class ProductStorage
         if ($productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         }
+
+        $attributes['assigned_by_id'] = $productDto->assigned_by_id ?? auth('custom-token')->id();
+
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
