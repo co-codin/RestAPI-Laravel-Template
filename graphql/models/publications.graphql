@@ -2,6 +2,7 @@ type Publication {
     id: ID!
     name: String!
     url: String!
+    logo: String
     source: String!
     is_enabled: Boolean!
     published_at: String!

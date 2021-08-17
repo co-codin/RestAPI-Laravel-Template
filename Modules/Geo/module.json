@@ -1,0 +1,13 @@
+{
+    "name": "Geo",
+    "alias": "geo",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Geo\\Providers\\GeoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -28,6 +28,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $country
  * @property int|null $position
  * @property string|null $website
+ * @property-read Seo $seo
  * @property int|null Seo $seo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

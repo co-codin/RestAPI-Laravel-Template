@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
-use Modules\Property\Models\Pivots\PropertyValuePivot;
+use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -32,8 +32,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Brand $brand
+ * @property-read Category $category
+ * @property-read Seo $seo
  * @property-read Collection|ProductCategory[] $productCategories
- * @mixin \Eloquent
+ * @property-read Collection|Category[] $categories
+ * @property-read Collection|ProductVariation[] $variations
+ * @property-read Collection|Property[] $properties
+ * @mixin Eloquent
+ * @method static Builder|Product findSimilarSlugs($attribute, $config, $slug)
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product query()
@@ -104,8 +111,8 @@ class Product extends Model
     public function properties()
     {
         return $this
-            ->belongsToMany(Property::class, 'property_value')
-            ->using(PropertyValuePivot::class)
+            ->belongsToMany(Property::class, 'product_property')
+            ->using(ProductPropertyPivot::class)
             ->withPivot([
                 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
             ])

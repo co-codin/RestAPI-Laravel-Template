@@ -181,7 +181,6 @@ return [
         \App\Providers\SpatieQueryBuilderServiceProvider::class,
         App\Providers\ValidationExtensionServiceProvider::class,
 
-        \Modules\Export\Providers\ScheduleServiceProvider::class,
     ],
 
     /*

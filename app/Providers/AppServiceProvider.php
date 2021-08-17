@@ -10,6 +10,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->register(MacrosServiceProvider::class);
+
         $this->app->bind(Client::class, function ($app) {
             return ClientBuilder::create()
                 ->setHosts($app['config']->get('elasticsearch.hosts'))

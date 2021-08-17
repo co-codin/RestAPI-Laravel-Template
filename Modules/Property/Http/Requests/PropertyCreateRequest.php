@@ -38,9 +38,6 @@ class PropertyCreateRequest extends BaseFormRequest
     {
         return [
             'options' => 'Опции',
-            'categories' => 'Категории',
-            'categories.*.id' => 'ID Категории',
-            'categories.*.position' => 'Позиция Категории',
         ];
     }
 }

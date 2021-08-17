@@ -21,12 +21,6 @@ class PropertyStorage
             throw new \LogicException('can not create property.');
         }
 
-        foreach ($propertyDto->categories as $category) {
-            $property->categories()->sync([
-                $category['id'] => ['position' => $category['position']],
-            ]);
-        }
-
         return $property;
     }
 
@@ -38,14 +32,6 @@ class PropertyStorage
 
         if (!$property->update($attributes)) {
             throw new \LogicException('can not update property.');
-        }
-
-        if ($propertyDto->categories) {
-            foreach ($propertyDto->categories as $category) {
-                $property->categories()->sync([
-                    $category['id'] => ['position' => $category['position']],
-                ]);
-            }
         }
 
         return $property;

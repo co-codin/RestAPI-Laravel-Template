@@ -56,8 +56,18 @@ class ProductUpdateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(DocumentSource::class, false),
             ],
-            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSource::FILE . '|file',
-            'documents.*.url' => 'required_if:documents.*.source,' . DocumentSource::URL . '|url',
+
+            'documents.*.file' => [
+                'required_if:documents.*.source,' . DocumentSource::FILE,
+                'file',
+                'exclude_unless:documents.*.source,' . DocumentSource::URL
+            ],
+
+            'documents.*.url' => [
+                'required_if:documents.*.source,' . DocumentSource::URL,
+                'file',
+                'exclude_unless:documents.*.url,' . DocumentSource::FILE
+            ],
 
             'documents.*.type' => [
                 'required',

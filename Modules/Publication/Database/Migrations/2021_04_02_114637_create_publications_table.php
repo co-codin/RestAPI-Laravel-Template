@@ -21,6 +21,7 @@ class CreatePublicationsTable extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->date('published_at')->nullable();
             $table->unsignedBigInteger('assigned_by_id')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

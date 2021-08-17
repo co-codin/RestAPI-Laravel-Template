@@ -21,13 +21,16 @@ class UpdateTest extends TestCase
 
         $response = $this->json('PATCH', route('admin.publications.update', $publication), [
             'name' => $newName = 'new name',
-            'is_enabled' => false
+            'is_enabled' => false,
+            'image' => null,
+            'is_logo_changed' => true,
         ]);
 
-        $response->assertOk(200);
+        $response->assertOk();
         $this->assertDatabaseHas('publications', [
             'name' => $newName,
             'is_enabled' => false
         ]);
+        $this->assertEmpty(Publication::query()->first()->image);
     }
 }

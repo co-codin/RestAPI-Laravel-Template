@@ -39,7 +39,6 @@ class PropertyUpdateRequest extends BaseFormRequest
     {
         return [
             'options' => 'Опции',
-            'categories' => 'Категории',
         ];
     }
 }

@@ -20,6 +20,8 @@ class PublicationUpdateRequest extends BaseFormRequest
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date_format:d.m.Y',
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'logo' => 'sometimes|nullable|image',
+            'is_logo_changed' => 'sometimes|boolean',
         ];
     }
 
@@ -27,6 +29,7 @@ class PublicationUpdateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата публикации',
+            'logo' => 'Логотип',
         ];
     }
 }
