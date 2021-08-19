@@ -1,16 +1,16 @@
 <?php
 
-
 namespace Modules\Filter\Concerns;
-
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Modules\Filter\Aggregations\BucketsAggregation;
-use Modules\Filter\Aggregations\FilterAggregation;
-use Modules\Filter\Aggregations\NestedAggregation;
-use Modules\Filter\Contracts\AggregationInterface;
-use Modules\Filter\Filters\TermFilter;
+use Modules\Category\Entities\Category;
+use Modules\Filter\Entities\Filter;
+use Modules\Search\Aggregations\BucketsAggregation;
+use Modules\Search\Aggregations\FilterAggregation;
+use Modules\Search\Aggregations\NestedAggregation;
+use Modules\Search\Contracts\Aggregation;
+use Modules\Search\Filters\TermFilter;
 
 trait Aggregable
 {
@@ -47,7 +47,7 @@ trait Aggregable
         return implode('.', array_filter($path));
     }
 
-    protected function getAggregation() : AggregationInterface
+    protected function getAggregation() : Aggregation
     {
         return new BucketsAggregation($this->slug, $this->field);
     }
