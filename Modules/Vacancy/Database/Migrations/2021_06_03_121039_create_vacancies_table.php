@@ -16,10 +16,11 @@ class CreateVacanciesTable extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->string('short_description', 500);
             $table->text('full_description');
             $table->unsignedTinyInteger('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
