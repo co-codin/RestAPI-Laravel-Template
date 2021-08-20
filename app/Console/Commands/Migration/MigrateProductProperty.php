@@ -5,11 +5,11 @@ namespace App\Console\Commands\Migration;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class MigratePropertyValue extends Command
+class MigrateProductProperty extends Command
 {
-    protected $signature = 'migrate:property_value';
+    protected $signature = 'migrate:product_property';
 
-    protected $description = 'Migrate property value';
+    protected $description = 'Migrate product properties';
 
     protected $propertyValues;
 
@@ -20,45 +20,62 @@ class MigratePropertyValue extends Command
     public function handle()
     {
         $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->get();
-        $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get();
-        $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get();
+        $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get()->keyBy('id');
+        $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get()->keyBy('id');
 
         foreach ($this->propertyValues as $propertyValue) {
+
+            $property = $this->properties->get($propertyValue->property_id);
+            $propertyValue->value = json_decode($propertyValue->value, true);
+
+            if($property === null || $propertyValue->value === null) {
+                continue;
+            }
+
             DB::table('product_property')->insert(
-                $this->transform($propertyValue)
+                $this->transform($property, $propertyValue)
             );
         }
     }
 
-    protected function transform($item)
+    protected function transform($property, $propertyValue)
     {
         return [
-            'property_id' => $item->property_id,
-            'product_id' => $item->product_id,
-            'pretty_key' => $item->specification_key,
-            'pretty_value' => $item->specification_value,
-            'value' => $item->value ? $this->getBookItem($item->value, $item->property_id) : null,
+            'property_id' => $property->id,
+            'product_id' => $propertyValue->product_id,
+            'pretty_key' => $propertyValue->specification_key,
+            'pretty_value' => $propertyValue->specification_value,
+            'value' => json_encode($this->transformValue($property, $propertyValue->value), JSON_UNESCAPED_UNICODE),
         ];
     }
 
-    protected function getBookItem($value, $property_id)
+    protected function transformValue($property, $value)
     {
-        $property = $this->properties->where('id', '=', (int) $property_id)->first();
+        return match ($property->type) {
+            # mark
+            1 => $value == 1,
+            # book
+            4 => $this->getBookItemValue($value),
+            # text input etc
+            default => $value,
+        };
+    }
 
-        if ($bookItem = $this->bookItems->where('id', (int) $value)->first()) {
-            if ($property->type === 4) {
-                return json_encode($bookItem->title);
-            }
-            else if ($property->type === 2) {
-                return json_encode((array) $bookItem);
-            }
-            else if ($property->type === 1) {
-                if ((int)$value === 1) {
-                    return json_encode($value);
-                } else if ((int)$value === 2) {
-                    return json_encode(0);
-                }
-            }
+    protected function getBookItemValue($value)
+    {
+        if(is_array($value)) {
+            $items = $this->bookItems->where('id', $value);
+            return $items->isNotEmpty()
+                ? $items->pluck('title')->toArray()
+                : null;
         }
+
+        $item = $this->bookItems->get($value);
+
+        if(!$item) {
+            return null;
+        }
+
+        return $item->title;
     }
 }
