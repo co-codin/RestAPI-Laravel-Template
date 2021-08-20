@@ -163,7 +163,7 @@ class ClientsGeographyImportCommand extends Command
         $client = new Google_Client();
         $client->setApplicationName('Google Drive API PHP Quickstart');
         $client->setScopes(Google_Service_Drive::DRIVE);
-        $client->setAuthConfig(base_path('secret-data/google/credentials.json'));
+        $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
         $client->setAccessType('offline');
         $client->setPrompt('select_account consent');
 
