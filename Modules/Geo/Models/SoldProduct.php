@@ -2,12 +2,15 @@
 
 namespace Modules\Geo\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
 
 class SoldProduct extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -32,5 +35,10 @@ class SoldProduct extends Model
     public function category()
     {
         return $this->hasOne(Category::class, 'id','category_id');
+    }
+
+    protected static function newFactory()
+    {
+
     }
 }
