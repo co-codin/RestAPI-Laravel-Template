@@ -26,8 +26,7 @@ class SoldProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('status'),
             ])
-            ->allowedSorts('id', 'title', 'product_id', 'city_id',
-                'category_id', 'type', 'status')
+            ->allowedSorts('id', 'title', 'product_id', 'city_id', 'category_id', 'type', 'status')
             ->allowedIncludes(['product', 'city', 'category']);
     }
 }
