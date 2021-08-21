@@ -22,6 +22,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $description
  * @property bool is_hidden_from_product
  * @property bool is_hidden_from_comparison
+ * @property bool $is_numeric
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property ProductPropertyPivot $pivot

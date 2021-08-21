@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Currency\Console\CurrencyParseCommand;
 use Modules\Export\Services\ExportScheduler;
+use Modules\Search\Console\SearchReindexCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         CurrencyParseCommand::class,
+        SearchReindexCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void

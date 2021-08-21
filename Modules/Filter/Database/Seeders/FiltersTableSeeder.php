@@ -9,11 +9,6 @@ use Modules\Filter\Models\Filter;
 
 class FiltersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $filters = [
@@ -35,10 +30,6 @@ class FiltersTableSeeder extends Seeder
                 'type' => FilterType::Slider,
                 'is_enabled' => true,
                 'options' => [
-//                    'aggregationFormatter' => PriceAggregationFormatter::class,
-//                    'searchFormatter' => PriceSearchFormatter::class,
-//                    'tagFormatter' => PriceTagFormatter::class,
-//                    'seoFormatter' => PriceSeoTagFormatter::class,
                     'seoTagLabel' => 'с ценой от <from> и до <to> руб.'
                 ],
             ],

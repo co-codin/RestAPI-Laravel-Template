@@ -1,36 +1,22 @@
 <?php
 
-
 namespace Modules\Product\Http\Controllers;
 
 
-use App\Http\Controllers\Controller;
-use App\Services\Filters\ProductFilter;
-use Modules\Category\Repositories\CategoryRepository;
-use Modules\Filter\Collections\FilterCollection;
-use Modules\Filter\Models\Filter;
+use Illuminate\Routing\Controller;
+use Modules\Product\Http\Requests\ProductFilterRequest;
+use Modules\Product\Http\Resources\FilteredProductResourceCollection;
+use Modules\Product\Services\ProductFilter;
 
 class ProductFilterController extends Controller
 {
-    public function __construct(
-        protected CategoryRepository $categoryRepository,
-        protected ProductFilter $productFilter
-    ) {}
-
-    public function index($category_slug, $filters)
+    public function index(
+        ProductFilterRequest $request,
+        ProductFilter $productFilter
+    )
     {
-        $filters = Filter::query()->whereIn('slug', explode("/", $filters))->get()->unique();
+        $products = $productFilter->getItems();
 
-        $category = $this->categoryRepository->findWhere([
-            'slug' => $category_slug,
-        ])->first();
-
-        $products = $this->productFilter->setCategory($category)
-            ->setFilters(new FilterCollection($filters))
-            ->getProducts();
-
-        dd(
-            $products
-        );
+        return new FilteredProductResourceCollection($products);
     }
 }
