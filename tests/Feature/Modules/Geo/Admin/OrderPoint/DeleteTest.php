@@ -16,7 +16,7 @@ class DeleteTest extends TestCase
     {
         $orderPoint = OrderPoint::factory()->create();
 
-        $response = $this->deleteJson(route('admin.order_points.destroy', $orderPoint));
+        $response = $this->deleteJson(route('admin.order-points.destroy', $orderPoint));
 
         $response->assertNoContent();
 

@@ -16,7 +16,7 @@ class CreateTest extends TestCase
     {
         $orderPointData = OrderPoint::factory()->raw();
 
-        $response = $this->json('POST', route('admin.order_points.store'), $orderPointData);
+        $response = $this->json('POST', route('admin.order-points.store'), $orderPointData);
 
         $response->assertCreated();
         $response->assertJsonStructure([

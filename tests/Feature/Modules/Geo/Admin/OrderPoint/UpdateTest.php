@@ -16,7 +16,7 @@ class UpdateTest extends TestCase
     {
         $orderPoint = OrderPoint::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.order_points.update', $orderPoint), [
+        $response = $this->json('PATCH', route('admin.order-points.update', $orderPoint), [
             'name' => $newName = 'new name',
         ]);
 
