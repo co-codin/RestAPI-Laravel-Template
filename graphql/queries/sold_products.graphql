@@ -1,10 +1,10 @@
 extend type Query {
     sold_products(
-        where: _ @whereConditions(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
-        orderBy: _ @orderBy(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
-    ): [Question!]!
+        where: _ @whereConditions(columns: ["id", "title", "product_id", "city_id", "category_id", "status", "type"])
+        orderBy: _ @orderBy(columns: ["id", "title", "product_id", "city_id", "category_id", "status", "type"])
+    ): [SoldProduct!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 
-    question(id: ID @eq, slug: String @eq): Question @find
+    sold_product(id: ID @eq, title: String @eq): SoldProduct @find
 }
