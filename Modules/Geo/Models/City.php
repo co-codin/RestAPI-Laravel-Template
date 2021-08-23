@@ -33,6 +33,11 @@ class City extends Model
         return $this->hasMany(OrderPoint::class);
     }
 
+    public function soldProducts()
+    {
+        return $this->hasMany(SoldProduct::class);
+    }
+
     protected static function newFactory()
     {
         return CityFactory::new();

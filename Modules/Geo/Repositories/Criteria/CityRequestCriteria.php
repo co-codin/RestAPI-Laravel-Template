@@ -30,7 +30,7 @@ class CityRequestCriteria implements CriteriaInterface
             ->allowedSorts('id', 'region_name', 'region_name_with_type', 'federal_district', 'iso',
                 'name', 'slug', 'status', 'is_default', 'dial_code',
                 'postal_index', 'region_phone', 'email', 'created_at', 'updated_at')
-            ->allowedIncludes('orderPoints')
+            ->allowedIncludes(['orderPoints', 'soldProducts'])
             ;
     }
 }
