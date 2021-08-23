@@ -28,9 +28,9 @@ class ExportFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(4),
-            'type' => 1,
+            'type' => ExportType::getRandomValue(),
             'filename' => 'test',
-            'frequency' => 1,
+            'frequency' => ExportFrequency::getRandomValue(),
             'parameters' => [
                 'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
                 'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
