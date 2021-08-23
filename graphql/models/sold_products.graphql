@@ -1,5 +1,13 @@
 type SoldProduct {
     id: ID!
     title: String!
+    product_id: Int!
+    city_id: Int
+    category_id: Int!
+    type: Int!
+    status: Int!
 
+    product: Product! @belongsTo
+    city: City! @belongsTo
+    category: Category! @belongsTo
 }
