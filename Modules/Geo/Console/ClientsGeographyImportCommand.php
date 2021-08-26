@@ -9,6 +9,7 @@ use Exception;
 use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection as SupportCollection;
 use LogicException;
 use Modules\Geo\Dto\ClientsGeographyDto;
@@ -31,7 +32,7 @@ class ClientsGeographyImportCommand extends Command
 
     protected string $fileContent;
 
-    protected array $soldProducts;
+    protected $soldProducts;
 
     public function __construct(
         protected GoogleApiService    $googleApiService,
@@ -40,13 +41,10 @@ class ClientsGeographyImportCommand extends Command
     )
     {
         parent::__construct();
+        $this->soldProducts = collect();
         $this->getGoogleServiceDrive();
         $this->getFileContent();
         $this->transformCsv();
-
-        dd(
-            $this->soldProducts
-        );
     }
 
     public function handle(): void
@@ -73,45 +71,19 @@ class ClientsGeographyImportCommand extends Command
      */
     private function getSoldProducts(): SupportCollection
     {
-        $stream = fopen('php://temp', 'r+');
+        $dto = ClientsGeographyDto::create($data);
 
-        if (!fwrite($stream, $this->fileContent)) {
-            fclose($stream);
-            throw new LogicException('Failed to write file content (soldProducts) to stream');
-        }
-
-        rewind($stream);
-
-        $soldProducts = collect();
-        $line = 0;
-
-        while (($data = fgetcsv($stream, 1000, ",")) !== false) {
-            if (!$line) {
-                $line++;
-                continue;
-            }
-
-            try {
-                ClientCsvKeys::checkRequiredFields($data);
-                ClientCsvKeys::checkProduct($data);
-            } catch (Exception $e) {
-                continue;
-            }
-
-            $dto = ClientsGeographyDto::create($data);
-
-            $city = $this->citiesImporter->import($dto);
-            $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
-        }
+        $city = $this->citiesImporter->import($dto);
+        $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
 
         fclose($stream);
 
-        return $soldProducts
-            ->groupBy('city_id')
-            ->map(function (SupportCollection $soldProducts) {
-                return $soldProducts->unique('title');
-            })
-            ->flatten(1);
+//        return $soldProducts
+//            ->groupBy('city_id')
+//            ->map(function (SupportCollection $soldProducts) {
+//                return $soldProducts->unique('title');
+//            })
+//            ->flatten(1);
     }
 
     private function getFileContent()
@@ -141,6 +113,20 @@ class ClientsGeographyImportCommand extends Command
 
             $this->soldProducts[] = $row;
         }
+
+        $this->soldProducts = Arr::where($this->soldProducts, function ($value, $key) {
+             if (isset($value['Наименование']) && strlen($value['Наименование'])) {
+                 return array_column()
+             }
+        });
+
+
+        $this->soldProducts = Arr::only($this->soldProducts, [['Наименование']]);
+
+        foreach ($this->soldProducts as $soldProduct) {
+            dump($soldProduct);
+        }
+        die();
     }
 
     private function getGoogleServiceDrive()
