@@ -23,23 +23,13 @@ use Modules\Geo\Services\Importers\SoldProductImporter;
  */
 class ClientsGeographyImportCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:clients-geography';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import clients geography from csv file';
 
-    private GoogleApiService $googleApiService;
-    private SoldProductImporter $soldProductImporter;
-    private CitiesImporter $citiesImporter;
+    protected Google_Service_Drive $serviceDrive;
+
+    protected string $fileContent;
 
     /**
      * ClientsGeographyImport constructor.
@@ -48,16 +38,14 @@ class ClientsGeographyImportCommand extends Command
      * @param CitiesImporter $citiesImporter
      */
     public function __construct(
-        GoogleApiService $googleApiService,
-        SoldProductImporter $soldProductImporter,
-        CitiesImporter $citiesImporter
+        protected GoogleApiService $googleApiService,
+        protected SoldProductImporter $soldProductImporter,
+        protected CitiesImporter $citiesImporter
     )
     {
         parent::__construct();
-
-        $this->googleApiService = $googleApiService;
-        $this->soldProductImporter = $soldProductImporter;
-        $this->citiesImporter = $citiesImporter;
+        $this->getGoogleServiceDrive();
+        $this->getFileContent();
     }
 
     /**
@@ -67,11 +55,7 @@ class ClientsGeographyImportCommand extends Command
      */
     public function handle(): void
     {
-        $serviceDrive = $this->getGoogleServiceDrive();
-
-        $fileContent = $this->getFileContent($serviceDrive);
-
-        $soldProducts = $this->getSoldProducts($fileContent);
+        $soldProducts = $this->getSoldProducts();
 
         if ($soldProducts->isEmpty()) {
             throw new Exception('SoldProducts not found');
@@ -88,22 +72,21 @@ class ClientsGeographyImportCommand extends Command
     }
 
     /**
-     * @param string $fileContent
      * @return SupportCollection
      * @throws Exception
      */
-    private function getSoldProducts(string $fileContent): SupportCollection
+    private function getSoldProducts(): SupportCollection
     {
         $stream = fopen('php://temp','r+');
 
-        if (fwrite($stream, $fileContent) === false) {
+        if (!fwrite($stream, $this->fileContent)) {
             fclose($stream);
             throw new LogicException('Failed to write file content (soldProducts) to stream');
         }
 
         rewind($stream);
 
-        $soldProducts = collect([]);
+        $soldProducts = collect();
         $line = 0;
 
         while (($data = fgetcsv($stream, 1000, ",")) !== false) {
@@ -135,44 +118,36 @@ class ClientsGeographyImportCommand extends Command
             ->flatten(1);
     }
 
-    /**
-     * @param Google_Service_Drive $serviceDrive
-     * @return string
-     */
-    private function getFileContent(Google_Service_Drive $serviceDrive): string
+    private function getFileContent()
     {
         /** @var \GuzzleHttp\Psr7\Response $response */
-        $response = $serviceDrive->files->export(
+        $response = $this->serviceDrive->files->export(
             config('services.google-api.drive.files.sold-products'),
             'text/csv',
             ['alt' => 'media']
         );
 
-        $string = $response->getBody()->getContents();
+        $this->fileContent = $response->getBody()->getContents();
         $response->getBody()->close();
-
-        return $string;
     }
 
-    /**
-     * @return Google_Service_Drive
-     * @throws \Google_Exception
-     */
-    private function getGoogleServiceDrive(): Google_Service_Drive
+    private function getGoogleServiceDrive()
     {
-        $client = new Google_Client();
-        $client->setApplicationName('Google Drive API PHP Quickstart');
-        $client->setScopes(Google_Service_Drive::DRIVE);
+        $client = new Google_Client([
+            'application_name' => 'Google Drive API PHP Quickstart',
+            'scopes' => Google_Service_Drive::DRIVE,
+            'access_type' => 'offline',
+            'prompt' => 'select_account consent',
+        ]);
+
         $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
-        $client->setAccessType('offline');
-        $client->setPrompt('select_account consent');
 
-        $authClient = $this->googleApiService->getAuthClient(
-            $client,
-            base_path('secret-data/google/token_drive.json')
+        $this->serviceDrive = new Google_Service_Drive(
+            $this->googleApiService->getAuthClient(
+                $client,
+                base_path('secret-data/google/token_drive.json')
+            )
         );
-
-        return new Google_Service_Drive($authClient);
     }
 
     /**
