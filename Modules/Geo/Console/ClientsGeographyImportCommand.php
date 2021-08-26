@@ -77,14 +77,7 @@ class ClientsGeographyImportCommand extends Command
      */
     private function getSoldProducts(): SupportCollection
     {
-        $stream = fopen('php://temp','r+');
-
-        if (!fwrite($stream, $this->fileContent)) {
-            fclose($stream);
-            throw new LogicException('Failed to write file content (soldProducts) to stream');
-        }
-
-        rewind($stream);
+        
 
         $soldProducts = collect();
         $line = 0;
@@ -120,7 +113,6 @@ class ClientsGeographyImportCommand extends Command
 
     private function getFileContent()
     {
-        /** @var \GuzzleHttp\Psr7\Response $response */
         $response = $this->serviceDrive->files->export(
             config('services.google-api.drive.files.sold-products'),
             'text/csv',
@@ -148,28 +140,5 @@ class ClientsGeographyImportCommand extends Command
                 base_path('secret-data/google/token_drive.json')
             )
         );
-    }
-
-    /**
-     * @param Google_Service_Drive $serviceDrive
-     * @param int $pageSize
-     */
-    private function showListFiles(Google_Service_Drive $serviceDrive, int $pageSize = 10): void
-    {
-        $optParams = array(
-            'pageSize' => $pageSize,
-            'fields' => 'nextPageToken, files(id, name)'
-        );
-
-        $results = $serviceDrive->files->listFiles($optParams);
-
-        if (count($results->getFiles()) == 0) {
-            print "No files found.\n";
-        } else {
-            print "Files:\n";
-            foreach ($results->getFiles() as $file) {
-                printf("%s (%s)\n", $file->getName(), $file->getId());
-            }
-        }
     }
 }

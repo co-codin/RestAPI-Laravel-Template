@@ -63,6 +63,7 @@ class CitiesImporter
      */
     private function getCity(string $cityTitle, District $district): ?City
     {
+        if ($cityTitle)
         return City::query()
             ->select('id')
             ->where('district', $district->value)
