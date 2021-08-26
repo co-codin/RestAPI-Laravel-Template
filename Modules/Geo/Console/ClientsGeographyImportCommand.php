@@ -31,28 +31,24 @@ class ClientsGeographyImportCommand extends Command
 
     protected string $fileContent;
 
-    /**
-     * ClientsGeographyImport constructor.
-     * @param GoogleApiService $googleApiService
-     * @param SoldProductImporter $soldProductImporter
-     * @param CitiesImporter $citiesImporter
-     */
+    protected array $soldProducts;
+
     public function __construct(
-        protected GoogleApiService $googleApiService,
+        protected GoogleApiService    $googleApiService,
         protected SoldProductImporter $soldProductImporter,
-        protected CitiesImporter $citiesImporter
+        protected CitiesImporter      $citiesImporter
     )
     {
         parent::__construct();
         $this->getGoogleServiceDrive();
         $this->getFileContent();
+        $this->transformCsv();
+
+        dd(
+            $this->soldProducts
+        );
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @throws \Throwable
-     */
     public function handle(): void
     {
         $soldProducts = $this->getSoldProducts();
@@ -77,7 +73,14 @@ class ClientsGeographyImportCommand extends Command
      */
     private function getSoldProducts(): SupportCollection
     {
-        
+        $stream = fopen('php://temp', 'r+');
+
+        if (!fwrite($stream, $this->fileContent)) {
+            fclose($stream);
+            throw new LogicException('Failed to write file content (soldProducts) to stream');
+        }
+
+        rewind($stream);
 
         $soldProducts = collect();
         $line = 0;
@@ -121,6 +124,23 @@ class ClientsGeographyImportCommand extends Command
 
         $this->fileContent = $response->getBody()->getContents();
         $response->getBody()->close();
+    }
+
+    private function transformCsv()
+    {
+        $lines = explode("\n", $this->fileContent);
+        $headers = str_getcsv(array_shift($lines));
+
+        foreach ($lines as $line) {
+            $row = array();
+
+            foreach (str_getcsv($line) as $key => $field)
+                $row[$headers[$key]] = $field;
+
+            $row = array_filter($row);
+
+            $this->soldProducts[] = $row;
+        }
     }
 
     private function getGoogleServiceDrive()
