@@ -14,6 +14,7 @@ use Illuminate\Support\Collection as SupportCollection;
 use LogicException;
 use Modules\Customer\Enums\District;
 use Modules\Geo\Dto\ClientsGeographyDto;
+use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
 use Modules\Geo\Enums\ClientCsvKeys;
 use Modules\Geo\Services\Importers\CitiesImporter;
@@ -34,7 +35,7 @@ class ClientsGeographyImportCommand extends Command
 
     protected string $fileContent;
 
-    protected array $soldProducts;
+    protected $soldProducts;
 
     public function __construct(
         protected GoogleApiService    $googleApiService,
@@ -43,14 +44,42 @@ class ClientsGeographyImportCommand extends Command
     )
     {
         parent::__construct();
+        $this->soldProducts = collect();
         $this->getGoogleServiceDrive();
         $this->getFileContent();
-        $this->transformCsv();
     }
 
     public function handle(): void
     {
-//        $soldProducts = $this->getSoldProducts();
+        $this->transformCsv();
+
+        dd(
+            $this->soldProducts
+        );
+
+        SoldProduct::query()->truncate();
+
+        foreach ($this->soldProducts as $soldProduct) {
+            $cityName = $soldProduct['Город'];
+            $city = City::query()
+                ->where([
+                    ['federal_district', '=', $soldProduct['Федеральный округ']],
+                    ['name', 'like', "%{$cityName}%"],
+                ])
+                ->first();
+
+            if (!$city) {
+                City::query()->create([
+                    'federal_district' => $soldProduct['Федеральный округ'],
+                    'name' => $cityName,
+
+                ]);
+            }
+
+            dump($city);
+        }
+
+//        $this->citiesImporter->import(array_column());
 //
 //        if ($soldProducts->isEmpty()) {
 //            throw new Exception('SoldProducts not found');
@@ -66,18 +95,13 @@ class ClientsGeographyImportCommand extends Command
 //        });
     }
 
-    /**
-     * @return SupportCollection
-     * @throws Exception
-     */
+
     private function getSoldProducts(): SupportCollection
     {
-//        $dto = ClientsGeographyDto::create($data);
+//        $dto = ClientsGeographyDto::create($this->soldProducts);
 //
 //        $city = $this->citiesImporter->import($dto);
-//        $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
 //
-//        fclose($stream);
 
 //        return $soldProducts
 //            ->groupBy('city_id')
@@ -112,33 +136,44 @@ class ClientsGeographyImportCommand extends Command
 
             $row = array_filter($row);
 
-            $this->soldProducts[] = $row;
+            $this->soldProducts->add($row);
         }
 
-        $this->soldProducts = Arr::where($this->soldProducts, function ($value, $key) {
-            return $this->validateSoldProduct($value) ? $value : null;
-        });
-        
-        $this->soldProducts = Arr::only($this->soldProducts, [['Наименование']]);
-
-
-//        foreach ($this->soldProducts as $soldProduct) {
-//            dump($soldProduct);
-//        }
-        die();
+        $this->soldProducts = $this->soldProducts
+            ->filter(fn($soldProduct) => $this->validateSoldProduct($soldProduct))
+            ->map(function ($soldProduct) {
+                $soldProduct['Федеральный округ'] = $this->getDistrict($soldProduct['Федеральный округ']);
+                return $soldProduct;
+//                return collect($soldProduct)->only([
+//                    'Наименование',
+//                    'Федеральный округ',
+//                    'Город',
+//                    'id оборудования',
+//                ])->all();
+            })
+            ->values();
     }
 
-    private function validateSoldProduct(array $soldProduct)
+    private function validateSoldProduct($soldProduct)
     {
         $nameValidator = array_key_exists('Наименование', $soldProduct) && strlen($soldProduct['Наименование']) < 255;
 
-        $districtValidator = array_key_exists('Федеральный округ', $soldProduct) && in_array($soldProduct['Федеральный округ'], Arr::pluck(District::getInstances(), 'description'));
+        $districtValidator = array_key_exists('Федеральный округ', $soldProduct);
 
-        $cityValidator = array_key_exists('Город', $soldProduct)  && strlen($soldProduct['Город']) < 255;
+        $cityValidator = array_key_exists('Город', $soldProduct) && strlen($soldProduct['Город']) < 255;
 
         $productIdValidator = array_key_exists('id оборудования', $soldProduct) && Product::query()->where('id', $soldProduct['id оборудования'])->exists();
 
         return $nameValidator && $districtValidator && $cityValidator && $productIdValidator;
+    }
+
+    private function getDistrict($districtName)
+    {
+        $mapped = collect(District::getInstances())->mapWithKeys(function ($value, $key) {
+            return [$value->description => $value->value];
+        })->toArray();
+
+        return array_key_exists($districtName, $mapped) ? $mapped[$districtName] : District::Central;
     }
 
     private function getGoogleServiceDrive()

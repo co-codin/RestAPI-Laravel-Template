@@ -14,10 +14,6 @@ use Modules\Customer\Enums\District;
 
 class CitiesImporter
 {
-    /**
-     * @param ClientsGeographyDto $dto
-     * @return City
-     */
     public function import(ClientsGeographyDto $dto): City
     {
         $district = $this->getDistrict($dto->district);
