@@ -3,7 +3,6 @@
 namespace Modules\Filter\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
 

@@ -20,7 +20,10 @@ class RegionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word(4),
+            'region_name_with_type' => $this->faker->word(4),
+            'federal_district' => $this->faker->word(4),
+            'iso' => $this->faker->unique()->word(4),
         ];
     }
 }
