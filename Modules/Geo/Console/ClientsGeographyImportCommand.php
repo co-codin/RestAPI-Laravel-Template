@@ -12,11 +12,13 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection as SupportCollection;
 use LogicException;
+use Modules\Customer\Enums\District;
 use Modules\Geo\Dto\ClientsGeographyDto;
 use Modules\Geo\Models\SoldProduct;
 use Modules\Geo\Enums\ClientCsvKeys;
 use Modules\Geo\Services\Importers\CitiesImporter;
 use Modules\Geo\Services\Importers\SoldProductImporter;
+use Modules\Product\Models\Product;
 
 /**
  * Class ClientsGeographyImport
@@ -32,7 +34,7 @@ class ClientsGeographyImportCommand extends Command
 
     protected string $fileContent;
 
-    protected $soldProducts;
+    protected array $soldProducts;
 
     public function __construct(
         protected GoogleApiService    $googleApiService,
@@ -41,7 +43,6 @@ class ClientsGeographyImportCommand extends Command
     )
     {
         parent::__construct();
-        $this->soldProducts = collect();
         $this->getGoogleServiceDrive();
         $this->getFileContent();
         $this->transformCsv();
@@ -49,20 +50,20 @@ class ClientsGeographyImportCommand extends Command
 
     public function handle(): void
     {
-        $soldProducts = $this->getSoldProducts();
-
-        if ($soldProducts->isEmpty()) {
-            throw new Exception('SoldProducts not found');
-        }
-
-        \DB::transaction(function () use ($soldProducts) {
-            SoldProduct::query()->delete();
-            $insert = SoldProduct::insert($soldProducts->toArray());
-
-            if (!$insert) {
-                throw new LogicException('Не удалось сохранить SoldProducts');
-            }
-        });
+//        $soldProducts = $this->getSoldProducts();
+//
+//        if ($soldProducts->isEmpty()) {
+//            throw new Exception('SoldProducts not found');
+//        }
+//
+//        \DB::transaction(function () use ($soldProducts) {
+//            SoldProduct::query()->delete();
+//            $insert = SoldProduct::insert($soldProducts->toArray());
+//
+//            if (!$insert) {
+//                throw new LogicException('Не удалось сохранить SoldProducts');
+//            }
+//        });
     }
 
     /**
@@ -71,12 +72,12 @@ class ClientsGeographyImportCommand extends Command
      */
     private function getSoldProducts(): SupportCollection
     {
-        $dto = ClientsGeographyDto::create($data);
-
-        $city = $this->citiesImporter->import($dto);
-        $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
-
-        fclose($stream);
+//        $dto = ClientsGeographyDto::create($data);
+//
+//        $city = $this->citiesImporter->import($dto);
+//        $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
+//
+//        fclose($stream);
 
 //        return $soldProducts
 //            ->groupBy('city_id')
@@ -115,18 +116,29 @@ class ClientsGeographyImportCommand extends Command
         }
 
         $this->soldProducts = Arr::where($this->soldProducts, function ($value, $key) {
-             if (isset($value['Наименование']) && strlen($value['Наименование'])) {
-                 return array_column()
-             }
+            return $this->validateSoldProduct($value) ? $value : null;
         });
-
-
+        
         $this->soldProducts = Arr::only($this->soldProducts, [['Наименование']]);
 
-        foreach ($this->soldProducts as $soldProduct) {
-            dump($soldProduct);
-        }
+
+//        foreach ($this->soldProducts as $soldProduct) {
+//            dump($soldProduct);
+//        }
         die();
+    }
+
+    private function validateSoldProduct(array $soldProduct)
+    {
+        $nameValidator = array_key_exists('Наименование', $soldProduct) && strlen($soldProduct['Наименование']) < 255;
+
+        $districtValidator = array_key_exists('Федеральный округ', $soldProduct) && in_array($soldProduct['Федеральный округ'], Arr::pluck(District::getInstances(), 'description'));
+
+        $cityValidator = array_key_exists('Город', $soldProduct)  && strlen($soldProduct['Город']) < 255;
+
+        $productIdValidator = array_key_exists('id оборудования', $soldProduct) && Product::query()->where('id', $soldProduct['id оборудования'])->exists();
+
+        return $nameValidator && $districtValidator && $cityValidator && $productIdValidator;
     }
 
     private function getGoogleServiceDrive()
