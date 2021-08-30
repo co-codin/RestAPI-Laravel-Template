@@ -2,7 +2,7 @@
 
 namespace Modules\Product\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,10 +40,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Collection|ProductVariation[] $variations
  * @property-read Collection|Property[] $properties
  * @mixin Eloquent
- * @method static Builder|Product findSimilarSlugs($attribute, $config, $slug)
- * @method static Builder|Product newModelQuery()
- * @method static Builder|Product newQuery()
- * @method static Builder|Product query()
  */
 class Product extends Model
 {
@@ -127,5 +123,10 @@ class Product extends Model
     protected static function newFactory()
     {
         return ProductFactory::new();
+    }
+
+    public function toSearchArray()
+    {
+        return ['name' => $this->name];
     }
 }

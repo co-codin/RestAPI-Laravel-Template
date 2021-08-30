@@ -18,5 +18,6 @@
     "Activity": true,
     "Vacancy": true,
     "Export": true,
-    "Geo": true
+    "Geo": true,
+    "Search": true
 }
