@@ -5,20 +5,12 @@ namespace Modules\Geo\Console;
 
 
 use App\Services\GoogleApiService;
-use Exception;
 use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection as SupportCollection;
-use LogicException;
 use Modules\Customer\Enums\District;
-use Modules\Geo\Dto\ClientsGeographyDto;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
-use Modules\Geo\Enums\ClientCsvKeys;
-use Modules\Geo\Services\Importers\CitiesImporter;
-use Modules\Geo\Services\Importers\SoldProductImporter;
 use Modules\Product\Models\Product;
 
 /**
@@ -39,8 +31,6 @@ class ClientsGeographyImportCommand extends Command
 
     public function __construct(
         protected GoogleApiService    $googleApiService,
-        protected SoldProductImporter $soldProductImporter,
-        protected CitiesImporter      $citiesImporter
     )
     {
         parent::__construct();
@@ -53,62 +43,29 @@ class ClientsGeographyImportCommand extends Command
     {
         $this->transformCsv();
 
-        dd(
-            $this->soldProducts
-        );
-
         SoldProduct::query()->truncate();
 
         foreach ($this->soldProducts as $soldProduct) {
             $cityName = $soldProduct['Город'];
             $city = City::query()
                 ->where([
-                    ['federal_district', '=', $soldProduct['Федеральный округ']],
                     ['name', 'like', "%{$cityName}%"],
                 ])
                 ->first();
 
             if (!$city) {
-                City::query()->create([
-                    'federal_district' => $soldProduct['Федеральный округ'],
+                $city = City::query()->create([
                     'name' => $cityName,
-
                 ]);
             }
 
-            dump($city);
+            SoldProduct::query()->create([
+                'title' => $soldProduct['Наименование'],
+                'city_id' => $city->id,
+                'product_id' => $soldProduct['id оборудования'],
+            ]);
         }
 
-//        $this->citiesImporter->import(array_column());
-//
-//        if ($soldProducts->isEmpty()) {
-//            throw new Exception('SoldProducts not found');
-//        }
-//
-//        \DB::transaction(function () use ($soldProducts) {
-//            SoldProduct::query()->delete();
-//            $insert = SoldProduct::insert($soldProducts->toArray());
-//
-//            if (!$insert) {
-//                throw new LogicException('Не удалось сохранить SoldProducts');
-//            }
-//        });
-    }
-
-
-    private function getSoldProducts(): SupportCollection
-    {
-//        $dto = ClientsGeographyDto::create($this->soldProducts);
-//
-//        $city = $this->citiesImporter->import($dto);
-//
-
-//        return $soldProducts
-//            ->groupBy('city_id')
-//            ->map(function (SupportCollection $soldProducts) {
-//                return $soldProducts->unique('title');
-//            })
-//            ->flatten(1);
     }
 
     private function getFileContent()

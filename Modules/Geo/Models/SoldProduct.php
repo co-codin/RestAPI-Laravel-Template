@@ -21,16 +21,16 @@ class SoldProduct extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'id','product_id');
+        return $this->belongsTo(Product::class, 'id','product_id');
     }
 
     public function city()
     {
-        return $this->hasOne(City::class, 'id','city_id');
+        return $this->belongsTo(City::class, 'id','city_id');
     }
 
     public function category()
     {
-        return $this->hasOne(Category::class, 'id','category_id');
+        return $this->belongsTo(Category::class, 'id','category_id');
     }
 }
