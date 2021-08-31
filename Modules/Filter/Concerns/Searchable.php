@@ -6,23 +6,21 @@ namespace Modules\Filter\Concerns;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Modules\Filter\Contracts\FilterInterface;
-use Modules\Filter\Enums\FilterType;
-use Modules\Filter\Filters\NestedFilter;
-use Modules\Filter\Filters\PropertyFilter;
-use Modules\Filter\Filters\TermFilter;
-use Modules\Filter\Filters\TermsFilter;
+use Modules\Search\Contracts\Filter as FilterInterface;
+use Modules\Search\Filters\NestedFilter;
+use Modules\Search\Filters\PropertyFilter;
+use Modules\Search\Filters\TermFilter;
+use Modules\Search\Filters\TermsFilter;
 
+/**
+ * Trait Searchable
+ * @package Modules\Filter\Concerns
+ */
 trait Searchable
 {
     public function getFilter() : FilterInterface
     {
-        if ($this->property_id !== null && $this->type !== FilterType::Slider) {
-            return new TermsFilter('properties.slug', $this->getSearchValue());
-        }
-        if ($this->property_id !== null && $this->type === FilterType::Slider) {
-            return new TermsFilter('properties.slug_number', $this->getSearchValue());
-        }
+        return new TermsFilter($this->field, $this->getSearchValue());
     }
 
     /**
@@ -36,6 +34,10 @@ trait Searchable
             $propertyFilter = (new TermFilter($this->path . '.key', $property_id))->toFilter();
             $filter = new PropertyFilter($this->path, $filter, $propertyFilter);
         }
+
+//        if($propertyFilter = Arr::get($this->options, 'propertyFilter')) {
+//            $filter = new PropertyFilter($this->path, $filter, $propertyFilter);
+//        }
 
         if($this->path) {
             $path = explode(".", $this->path);

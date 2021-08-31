@@ -28,6 +28,7 @@ class PropertyUpdateRequest extends BaseFormRequest
             'description' => 'sometimes|nullable|string',
             'is_hidden_from_product' => 'sometimes|boolean',
             'is_hidden_from_comparison' => 'sometimes|boolean',
+            'is_numeric' => 'sometimes|boolean',
         ];
     }
 

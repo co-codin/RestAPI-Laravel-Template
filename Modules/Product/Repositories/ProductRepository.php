@@ -9,14 +9,12 @@ use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
 use Modules\Product\Enums\ProductVariationStock;
 use Modules\Product\Models\Product;
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
-use Modules\Filter\Concerns\SearchableRepository;
+use Modules\Search\Contracts\IndexableRepository;
+use Spatie\QueryBuilder\QueryBuilder;
 
-class ProductRepository extends BaseRepository
+class ProductRepository extends BaseRepository implements IndexableRepository
 {
-    use SearchableRepository;
-
     public function model()
     {
         return Product::class;
@@ -123,28 +121,10 @@ class ProductRepository extends BaseRepository
         return $query->get();
     }
 
-    public function indexForProducts()
+    public function getItemsToIndex()
     {
-        return Product::query()
-            ->where('status', '=', Status::ACTIVE)
-            ->whereHas('productVariations', function (Builder $query) {
-                $query->where('status', '=', Status::ACTIVE);
-            })
-//            ->whereHas('categories', function (Builder $query) {
-//                $query->where('status', '=', Status::ACTIVE);
-//            })
-            ->whereHas('brand', function (Builder $query) {
-                $query->where('status', '=', Status::ACTIVE);
-            })
-            ->with([
-                'categories',
-                'brand',
-                'productVariations.currency',
-                'properties',
-                'category',
-            ])
-            ->get(['id', 'name', 'slug', 'brand_id'])
-            ;
-
+        return $this->scopeQuery(function (QueryBuilder $builder) {
+            return $builder->with('brand', 'category');
+        });
     }
 }
