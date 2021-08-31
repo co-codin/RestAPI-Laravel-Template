@@ -6,6 +6,7 @@ namespace Modules\Page\Dto;
 
 use App\Dto\BaseDto;
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class PageDto
@@ -25,4 +26,13 @@ class PageDto extends BaseDto
     public $status;
 
     public ?int $assigned_by_id;
+
+    public static function fromFormRequest(FormRequest $request): static
+    {
+        $validated = $request->validated();
+
+        $validated['assigned_by_id'] = !empty($validated['assigned_by_id']) ? $validated['assigned_by_id'] : auth('custom-token')->id();
+
+        return new static($validated);
+    }
 }

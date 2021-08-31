@@ -20,7 +20,6 @@ class CreatePagesTable extends Migration
             $table->text('full_description')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
             $table->unsignedBigInteger('assigned_by_id')->nullable();
-            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->nestedSet();
             $table->softDeletes();
             $table->timestamps();

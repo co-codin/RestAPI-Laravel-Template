@@ -11,20 +11,12 @@ class PageStorage
 {
     public function store(PageDto $pageDto)
     {
-        $attributes = $pageDto->toArray();
-
-        $attributes['assigned_by_id'] = $pageDto->assigned_by_id ?? auth('custom-token')->id();
-
-        return Page::query()->create($attributes);
+        return Page::query()->create($pageDto->toArray());
     }
 
     public function update(Page $page, PageDto $pageDto)
     {
-        $attributes = $pageDto->toArray();
-
-        $attributes['assigned_by_id'] = $pageDto->assigned_by_id ?? null;
-
-        if (!$page->update($attributes)) {
+        if (!$page->update($pageDto->toArray())) {
             throw new \LogicException('can not update page');
         }
         return $page;
