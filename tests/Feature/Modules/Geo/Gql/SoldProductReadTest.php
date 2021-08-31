@@ -19,9 +19,8 @@ class SoldProductReadTest extends TestCase
                         title
                         product_id
                         city_id
-                        category_id
                         type
-                        status
+                        is_enabled
                     }
                     paginatorInfo {
                         currentPage
@@ -56,9 +55,8 @@ class SoldProductReadTest extends TestCase
                         title
                         product_id
                         city_id
-                        category_id
                         type
-                        status
+                        is_enabled
                     }
                 }
             }

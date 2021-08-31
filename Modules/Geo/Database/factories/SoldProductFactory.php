@@ -1,9 +1,7 @@
 <?php
 namespace Modules\Geo\Database\factories;
 
-use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Category\Models\Category;
 use Modules\Geo\Models\City;
 use Modules\Product\Models\Product;
 
@@ -27,9 +25,8 @@ class SoldProductFactory extends Factory
             'title' => $this->faker->word(),
             'product_id' => Product::factory(),
             'city_id' => City::factory(),
-            'category_id' => Category::factory(),
             'type' => $this->faker->randomDigit(),
-            'status' => Status::getRandomValue(),
+            'is_enabled' => $this->faker->boolean,
         ];
     }
 }

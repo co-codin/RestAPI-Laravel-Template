@@ -3,11 +3,9 @@ type SoldProduct {
     title: String!
     product_id: Int!
     city_id: Int
-    category_id: Int!
     type: Int!
-    status: Int!
+    is_enabled: Boolean!
 
     product: Product! @belongsTo
     city: City! @belongsTo
-    category: Category! @belongsTo
 }

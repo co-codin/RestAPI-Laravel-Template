@@ -31,6 +31,7 @@ class CityRequestCriteria implements CriteriaInterface
                 'name', 'slug', 'status', 'is_default', 'dial_code',
                 'postal_index', 'region_phone', 'email', 'created_at', 'updated_at')
             ->allowedIncludes(['orderPoints', 'soldProducts'])
+            ->withCount(['orderPoints', 'soldProducts'])
             ;
     }
 }

@@ -12,10 +12,8 @@ class SoldProductResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'status' => $this->whenRequested('status', Status::fromValue($this->status)),
             'city' => new CityResource($this->whenLoaded('city')),
             'product' => new ProductResource($this->whenLoaded('product')),
-            'category' => new CategoryResource($this->whenLoaded('category')),
         ]);
     }
 }
