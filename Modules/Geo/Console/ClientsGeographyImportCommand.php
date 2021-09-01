@@ -4,7 +4,7 @@
 namespace Modules\Geo\Console;
 
 
-use App\Services\GoogleApiService;
+use App\Services\GoogleDriveService;
 use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
@@ -24,24 +24,23 @@ class ClientsGeographyImportCommand extends Command
 
     protected $description = 'Import sold products';
 
-    protected Google_Service_Drive $serviceDrive;
-
     protected string $fileContent;
-
     protected $soldProducts;
 
     public function __construct(
-        protected GoogleApiService $googleApiService,
+        protected GoogleDriveService   $googleDriveService,
+        protected Google_Service_Drive $serviceDrive,
     )
     {
         parent::__construct();
+        $this->soldProducts = collect();
     }
 
     public function handle(): void
     {
+        $this->serviceDrive = $this->googleDriveService->getDriveService();
+        $this->fileContent = $this->getFileContent();
         $this->soldProducts = collect();
-        $this->getGoogleServiceDrive();
-        $this->getFileContent();
         $this->transformCsv();
 
         SoldProduct::query()->delete();
@@ -61,7 +60,6 @@ class ClientsGeographyImportCommand extends Command
 
     }
 
-    // TODO проблемы с нейминг - методы с префиксом get должны возвращать что то, а у тебя он не возвращает
     private function getFileContent()
     {
         $response = $this->serviceDrive->files->export(
@@ -70,8 +68,7 @@ class ClientsGeographyImportCommand extends Command
             ['alt' => 'media']
         );
 
-        $this->fileContent = $response->getBody()->getContents();
-        $response->getBody()->close();
+        return $response->getBody()->getContents();
     }
 
     // TODO у тебя метод transformCsv работает с csv, а потом запускает валидацию, потом mapping. нужно бы разбить на 2 метода
@@ -94,15 +91,8 @@ class ClientsGeographyImportCommand extends Command
         $this->soldProducts = $this->soldProducts
             ->filter(fn($soldProduct) => $this->validateSoldProduct($soldProduct))
             ->map(function ($soldProduct) {
-                // TODO не нужно использовать cyrillic как array key, это очень не надежно
-                $soldProduct['Федеральный округ'] = $this->getDistrict($soldProduct['Федеральный округ']);
+                $soldProduct[SoldProductKeys::DISTRICT] = $this->getDistrict($soldProduct[SoldProductKeys::DISTRICT]);
                 return $soldProduct;
-//                return collect($soldProduct)->only([
-//                    'Наименование',
-//                    'Федеральный округ',
-//                    'Город',
-//                    'id оборудования',
-//                ])->all();
             })
             ->values();
     }
@@ -129,28 +119,6 @@ class ClientsGeographyImportCommand extends Command
             return [$value->description => $value->value];
         })->toArray();
 
-        // TODO давай не будем central district by default делать. пускай строки с неправильным district будет skip
-        return array_key_exists($districtName, $mapped) ? $mapped[$districtName] : District::Central;
-    }
-
-    // TODO давай вынесем в отдельный класс, который будет подключаться к google service, а в других классах мы уже будем его в constructor и будем уверены что он со всей авторизацией
-    private function getGoogleServiceDrive()
-    {
-        $client = new Google_Client([
-            'application_name' => 'Google Drive API PHP Quickstart',
-            'scopes' => Google_Service_Drive::DRIVE,
-            'access_type' => 'offline',
-            'prompt' => 'select_account consent',
-        ]);
-
-        $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
-
-        $this->serviceDrive = new Google_Service_Drive(
-            $this->googleApiService->getAuthClient(
-                $client,
-                // TODO нужно путь закинуть в storage, у тебя он отличается - сначала storage, потом base
-                base_path('secret-data/google/token_drive.json')
-            )
-        );
+        return array_key_exists($districtName, $mapped) ? $mapped[$districtName] : null;
     }
 }
