@@ -3,6 +3,7 @@
 namespace Modules\Filter\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Category\Models\Category;
 use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
 
@@ -48,7 +49,9 @@ class FiltersTableSeeder extends Seeder
 
         foreach ($filters as $filter)
         {
-            Filter::create($filter);
+            Filter::create(array_merge($filter, [
+                'category_id' => Category::factory(),
+            ]));
         }
     }
 }

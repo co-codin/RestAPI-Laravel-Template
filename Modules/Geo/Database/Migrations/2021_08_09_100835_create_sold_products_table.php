@@ -16,11 +16,13 @@ class CreateSoldProductsTable extends Migration
         Schema::create('sold_products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('product_id')->nullable()->constrained();
-            $table->foreignId('city_id')->constrained();
-            $table->foreignId('category_id')->nullable()->constrained()->nullable();
+            $table->bigInteger('product_id')->unsigned()->nullable();
+            $table->bigInteger('city_id')->unsigned();
             $table->unsignedTinyInteger('type')->default(1);
-            $table->unsignedTinyInteger('status')->default(1);
+            $table->boolean('is_enabled')->default(true);
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 

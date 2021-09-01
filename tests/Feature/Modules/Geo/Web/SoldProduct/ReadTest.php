@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Feature\Modules\Geo\Web\OrderPoint;
+namespace Tests\Feature\Modules\Geo\Web\SoldProduct;
 
-use Modules\Geo\Models\OrderPoint;
+use Modules\Geo\Models\SoldProduct;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_order_points()
+    public function test_user_can_view_sold_products()
     {
-        OrderPoint::factory()->count($count = 5)->create();
+        SoldProduct::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('order-points.index'));
+        $response = $this->json('GET', route('sold-products.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -19,10 +19,10 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
+                    "title",
+                    "product_id",
                     "city_id",
-                    "name",
-                    "address",
-                    "coordinate",
+                    "category_id",
                     "type",
                     "status",
                 ]
@@ -52,20 +52,20 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_order_point()
+    public function test_user_can_view_single_sold_product()
     {
-        $orderPoint = OrderPoint::factory()->create();
+        $soldProduct = SoldProduct::factory()->create();
 
-        $response = $this->json('GET', route('order-points.show', $orderPoint));
+        $response = $this->json('GET', route('sold-products.show', $soldProduct));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 "id",
+                "title",
+                "product_id",
                 "city_id",
-                "name",
-                "address",
-                "coordinate",
+                "category_id",
                 "type",
                 "status",
             ]

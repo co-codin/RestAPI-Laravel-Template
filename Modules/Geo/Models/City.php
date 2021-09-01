@@ -38,6 +38,11 @@ class City extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function soldProducts()
+    {
+        return $this->hasMany(SoldProduct::class);
+    }
+
     protected static function newFactory()
     {
         return CityFactory::new();

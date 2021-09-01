@@ -1,0 +1,10 @@
+extend type Query {
+    sold_products(
+        where: _ @whereConditions(columns: ["id", "title", "product_id", "city_id", "is_enabled", "type"])
+        orderBy: _ @orderBy(columns: ["id", "title", "product_id", "city_id", "is_enabled", "type"])
+    ): [SoldProduct!]!
+    @paginate(defaultCount: 15, maxCount: 200)
+    @orderBy(column: "id", direction: "ASC")
+
+    sold_product(id: ID @eq, title: String @eq): SoldProduct @find
+}

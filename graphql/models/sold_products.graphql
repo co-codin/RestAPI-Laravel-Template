@@ -1,0 +1,11 @@
+type SoldProduct {
+    id: ID!
+    title: String!
+    product_id: Int!
+    city_id: Int
+    type: Int!
+    is_enabled: Boolean!
+
+    product: Product! @belongsTo
+    city: City! @belongsTo
+}
