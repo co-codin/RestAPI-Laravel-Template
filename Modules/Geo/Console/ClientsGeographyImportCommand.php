@@ -5,14 +5,14 @@ namespace Modules\Geo\Console;
 
 
 use App\Services\GoogleDriveService;
-use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Modules\Customer\Enums\District;
 use Modules\Geo\Enums\SoldProductKeys;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
-use Modules\Product\Models\Product;
 
 /**
  * Class ClientsGeographyImport
@@ -40,8 +40,10 @@ class ClientsGeographyImportCommand extends Command
     {
         $this->serviceDrive = $this->googleDriveService->getDriveService();
         $this->fileContent = $this->getFileContent();
-        $this->soldProducts = collect();
         $this->transformCsv();
+        $this->validateSoldProducts();
+        $this->mapSoldProducts();
+
 
         SoldProduct::query()->delete();
 
@@ -71,7 +73,6 @@ class ClientsGeographyImportCommand extends Command
         return $response->getBody()->getContents();
     }
 
-    // TODO у тебя метод transformCsv работает с csv, а потом запускает валидацию, потом mapping. нужно бы разбить на 2 метода
     private function transformCsv()
     {
         $lines = explode("\n", $this->fileContent);
@@ -87,31 +88,31 @@ class ClientsGeographyImportCommand extends Command
 
             $this->soldProducts->add($row);
         }
-
-        $this->soldProducts = $this->soldProducts
-            ->filter(fn($soldProduct) => $this->validateSoldProduct($soldProduct))
-            ->map(function ($soldProduct) {
-                $soldProduct[SoldProductKeys::DISTRICT] = $this->getDistrict($soldProduct[SoldProductKeys::DISTRICT]);
-                return $soldProduct;
-            })
-            ->values();
     }
 
-    private function validateSoldProduct($soldProduct)
+    private function validateSoldProducts(): Collection
     {
-        // TODO валидация сделана очень сложно, нужно сделать как дефолтно в laravel - https://ibb.co/4j4tkNR
+        $rules = [
+            SoldProductKeys::NAME => 'required|max:255',
+            SoldProductKeys::DISTRICT => 'required',
+            SoldProductKeys::CITY => 'required|max:255',
+            SoldProductKeys::PRODUCT_ID => 'required|exists:products,id',
+        ];
 
+        $validator = Validator::make($this->soldProducts->toArray(), $rules);
 
-        $nameValidator = array_key_exists('Наименование', $soldProduct) && strlen($soldProduct['Наименование']) < 255;
-
-        $districtValidator = array_key_exists('Федеральный округ', $soldProduct);
-
-        $cityValidator = array_key_exists('Город', $soldProduct) && strlen($soldProduct['Город']) < 255;
-
-        $productIdValidator = array_key_exists('id оборудования', $soldProduct) && Product::query()->where('id', $soldProduct['id оборудования'])->exists();
-
-        return $nameValidator && $districtValidator && $cityValidator && $productIdValidator;
+        return collect($validator->valid());
     }
+
+    private function mapSoldProducts()
+    {
+        $this->soldProducts = $this->soldProducts->map(function ($soldProduct) {
+            $soldProduct[SoldProductKeys::DISTRICT] = $this->getDistrict($soldProduct[SoldProductKeys::DISTRICT]);
+            return $soldProduct;
+        })
+        ->values();
+    }
+
 
     private function getDistrict($districtName)
     {

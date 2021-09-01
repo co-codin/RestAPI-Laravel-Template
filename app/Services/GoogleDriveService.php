@@ -20,12 +20,12 @@ class GoogleDriveService
             'prompt' => 'select_account consent',
         ]);
 
-        $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
+        $client->setAuthConfig(storage_path('app/google/credentials/credentials.json'));
 
         return new Google_Service_Drive(
             $this->googleApiService->getAuthClient(
                 $client,
-                storage_path('app/secret-data/google/token_drive.json')
+                storage_path('app/google/credentials/token_drive.json')
             )
         );
     }
