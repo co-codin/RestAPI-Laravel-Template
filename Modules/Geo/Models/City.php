@@ -33,6 +33,11 @@ class City extends Model
         return $this->hasMany(OrderPoint::class);
     }
 
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
     public function soldProducts()
     {
         return $this->hasMany(SoldProduct::class);

@@ -15,7 +15,7 @@ class GeoDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-         $this->call(CityTableSeeder::class);
+        $this->call(RegionTableSeeder::class);
+        $this->call(CityTableSeeder::class);
     }
 }

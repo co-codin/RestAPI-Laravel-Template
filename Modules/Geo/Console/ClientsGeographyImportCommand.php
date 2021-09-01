@@ -5,17 +5,13 @@ namespace Modules\Geo\Console;
 
 
 use App\Services\GoogleApiService;
-use Exception;
 use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection as SupportCollection;
-use LogicException;
-use Modules\Geo\Dto\ClientsGeographyDto;
+use Modules\Customer\Enums\District;
+use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
-use Modules\Geo\Enums\ClientCsvKeys;
-use Modules\Geo\Services\Importers\CitiesImporter;
-use Modules\Geo\Services\Importers\SoldProductImporter;
+use Modules\Product\Models\Product;
 
 /**
  * Class ClientsGeographyImport
@@ -23,178 +19,136 @@ use Modules\Geo\Services\Importers\SoldProductImporter;
  */
 class ClientsGeographyImportCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:clients-geography';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import clients geography from csv file';
 
-    private GoogleApiService $googleApiService;
-    private SoldProductImporter $soldProductImporter;
-    private CitiesImporter $citiesImporter;
+    protected Google_Service_Drive $serviceDrive;
 
-    /**
-     * ClientsGeographyImport constructor.
-     * @param GoogleApiService $googleApiService
-     * @param SoldProductImporter $soldProductImporter
-     * @param CitiesImporter $citiesImporter
-     */
+    protected string $fileContent;
+
+    protected $soldProducts;
+
     public function __construct(
-        GoogleApiService $googleApiService,
-        SoldProductImporter $soldProductImporter,
-        CitiesImporter $citiesImporter
+        protected GoogleApiService    $googleApiService,
     )
     {
         parent::__construct();
-
-        $this->googleApiService = $googleApiService;
-        $this->soldProductImporter = $soldProductImporter;
-        $this->citiesImporter = $citiesImporter;
+        $this->soldProducts = collect();
+        $this->getGoogleServiceDrive();
+        $this->getFileContent();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @throws \Throwable
-     */
     public function handle(): void
     {
-        $serviceDrive = $this->getGoogleServiceDrive();
+        $this->transformCsv();
 
-        $fileContent = $this->getFileContent($serviceDrive);
+        SoldProduct::query()->truncate();
 
-        $soldProducts = $this->getSoldProducts($fileContent);
+        foreach ($this->soldProducts as $soldProduct) {
+            $cityName = $soldProduct['Город'];
+            $city = City::query()
+                ->where([
+                    ['name', 'like', "%{$cityName}%"],
+                ])
+                ->first();
 
-        if ($soldProducts->isEmpty()) {
-            throw new Exception('SoldProducts not found');
+            if (!$city) {
+                $city = City::query()->create([
+                    'name' => $cityName,
+                ]);
+            }
+
+            SoldProduct::query()->create([
+                'title' => $soldProduct['Наименование'],
+                'city_id' => $city->id,
+                'product_id' => $soldProduct['id оборудования'],
+            ]);
         }
 
-        \DB::transaction(function () use ($soldProducts) {
-            SoldProduct::query()->delete();
-            $insert = SoldProduct::insert($soldProducts->toArray());
-
-            if (!$insert) {
-                throw new LogicException('Не удалось сохранить SoldProducts');
-            }
-        });
     }
 
-    /**
-     * @param string $fileContent
-     * @return SupportCollection
-     * @throws Exception
-     */
-    private function getSoldProducts(string $fileContent): SupportCollection
+    private function getFileContent()
     {
-        $stream = fopen('php://temp','r+');
-
-        if (fwrite($stream, $fileContent) === false) {
-            fclose($stream);
-            throw new LogicException('Failed to write file content (soldProducts) to stream');
-        }
-
-        rewind($stream);
-
-        $soldProducts = collect([]);
-        $line = 0;
-
-        while (($data = fgetcsv($stream, 1000, ",")) !== false) {
-            if (!$line) {
-                $line++;
-                continue;
-            }
-
-            try {
-                ClientCsvKeys::checkRequiredFields($data);
-                ClientCsvKeys::checkProduct($data);
-            } catch (Exception $e) {
-                continue;
-            }
-
-            $dto = ClientsGeographyDto::create($data);
-
-            $city = $this->citiesImporter->import($dto);
-            $soldProducts->add($this->soldProductImporter->getSoldProduct($dto, $city));
-        }
-
-        fclose($stream);
-
-        return $soldProducts
-            ->groupBy('city_id')
-            ->map(function (SupportCollection $soldProducts) {
-                return $soldProducts->unique('title');
-            })
-            ->flatten(1);
-    }
-
-    /**
-     * @param Google_Service_Drive $serviceDrive
-     * @return string
-     */
-    private function getFileContent(Google_Service_Drive $serviceDrive): string
-    {
-        /** @var \GuzzleHttp\Psr7\Response $response */
-        $response = $serviceDrive->files->export(
+        $response = $this->serviceDrive->files->export(
             config('services.google-api.drive.files.sold-products'),
             'text/csv',
             ['alt' => 'media']
         );
 
-        $string = $response->getBody()->getContents();
+        $this->fileContent = $response->getBody()->getContents();
         $response->getBody()->close();
-
-        return $string;
     }
 
-    /**
-     * @return Google_Service_Drive
-     * @throws \Google_Exception
-     */
-    private function getGoogleServiceDrive(): Google_Service_Drive
+    private function transformCsv()
     {
-        $client = new Google_Client();
-        $client->setApplicationName('Google Drive API PHP Quickstart');
-        $client->setScopes(Google_Service_Drive::DRIVE);
-        $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
-        $client->setAccessType('offline');
-        $client->setPrompt('select_account consent');
+        $lines = explode("\n", $this->fileContent);
+        $headers = str_getcsv(array_shift($lines));
 
-        $authClient = $this->googleApiService->getAuthClient(
-            $client,
-            base_path('secret-data/google/token_drive.json')
-        );
+        foreach ($lines as $line) {
+            $row = array();
 
-        return new Google_Service_Drive($authClient);
-    }
+            foreach (str_getcsv($line) as $key => $field)
+                $row[$headers[$key]] = $field;
 
-    /**
-     * @param Google_Service_Drive $serviceDrive
-     * @param int $pageSize
-     */
-    private function showListFiles(Google_Service_Drive $serviceDrive, int $pageSize = 10): void
-    {
-        $optParams = array(
-            'pageSize' => $pageSize,
-            'fields' => 'nextPageToken, files(id, name)'
-        );
+            $row = array_filter($row);
 
-        $results = $serviceDrive->files->listFiles($optParams);
-
-        if (count($results->getFiles()) == 0) {
-            print "No files found.\n";
-        } else {
-            print "Files:\n";
-            foreach ($results->getFiles() as $file) {
-                printf("%s (%s)\n", $file->getName(), $file->getId());
-            }
+            $this->soldProducts->add($row);
         }
+
+        $this->soldProducts = $this->soldProducts
+            ->filter(fn($soldProduct) => $this->validateSoldProduct($soldProduct))
+            ->map(function ($soldProduct) {
+                $soldProduct['Федеральный округ'] = $this->getDistrict($soldProduct['Федеральный округ']);
+                return $soldProduct;
+//                return collect($soldProduct)->only([
+//                    'Наименование',
+//                    'Федеральный округ',
+//                    'Город',
+//                    'id оборудования',
+//                ])->all();
+            })
+            ->values();
+    }
+
+    private function validateSoldProduct($soldProduct)
+    {
+        $nameValidator = array_key_exists('Наименование', $soldProduct) && strlen($soldProduct['Наименование']) < 255;
+
+        $districtValidator = array_key_exists('Федеральный округ', $soldProduct);
+
+        $cityValidator = array_key_exists('Город', $soldProduct) && strlen($soldProduct['Город']) < 255;
+
+        $productIdValidator = array_key_exists('id оборудования', $soldProduct) && Product::query()->where('id', $soldProduct['id оборудования'])->exists();
+
+        return $nameValidator && $districtValidator && $cityValidator && $productIdValidator;
+    }
+
+    private function getDistrict($districtName)
+    {
+        $mapped = collect(District::getInstances())->mapWithKeys(function ($value, $key) {
+            return [$value->description => $value->value];
+        })->toArray();
+
+        return array_key_exists($districtName, $mapped) ? $mapped[$districtName] : District::Central;
+    }
+
+    private function getGoogleServiceDrive()
+    {
+        $client = new Google_Client([
+            'application_name' => 'Google Drive API PHP Quickstart',
+            'scopes' => Google_Service_Drive::DRIVE,
+            'access_type' => 'offline',
+            'prompt' => 'select_account consent',
+        ]);
+
+        $client->setAuthConfig(storage_path('app/secret-data/google/credentials.json'));
+
+        $this->serviceDrive = new Google_Service_Drive(
+            $this->googleApiService->getAuthClient(
+                $client,
+                base_path('secret-data/google/token_drive.json')
+            )
+        );
     }
 }

@@ -15,16 +15,12 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('region_name');
-            $table->string('region_name_with_type');
-            $table->string('federal_district');
-            $table->string('iso');
-
+            $table->foreignId('region_id')->nullable()->constrained();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->boolean('is_default')->default(false);
-            $table->json('coordinate');
+            $table->json('coordinate')->nullable();
             $table->string('dial_code')->nullable();
             $table->string('postal_index')->nullable();
             $table->string('region_phone')->nullable();

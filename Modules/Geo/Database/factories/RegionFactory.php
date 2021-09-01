@@ -1,17 +1,16 @@
 <?php
-
 namespace Modules\Geo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CityFactory extends Factory
+class RegionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = \Modules\Geo\Models\City::class;
+    protected $model = \Modules\Geo\Models\Region::class;
 
     /**
      * Define the model's default state.
@@ -21,15 +20,10 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->city,
-            'slug' => $this->faker->word(4),
-            'status' => 1,
-
-            'is_default' => 2,
-            'coordinate' => [
-                'lat' => 123,
-                'long' => 456,
-            ]
+            'name' => $this->faker->word(4),
+            'region_name_with_type' => $this->faker->word(4),
+            'federal_district' => $this->faker->word(4),
+            'iso' => $this->faker->unique()->word(4),
         ];
     }
 }
