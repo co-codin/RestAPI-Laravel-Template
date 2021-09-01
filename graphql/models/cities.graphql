@@ -15,4 +15,5 @@ type City {
     email: String
 
     order_points: [OrderPoint!] @hasMany
+    sold_products: [SoldProduct!] @hasMany
 }

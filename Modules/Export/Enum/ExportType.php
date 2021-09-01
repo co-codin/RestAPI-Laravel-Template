@@ -20,15 +20,15 @@ class ExportType extends BaseEnum
 
     const FACEBOOK = 4;
 
-    const COMMANDS = [
-        self::YANDEX_MARKET => GenerateYandexMarket::class,
-        self::TIU => GenerateTiuMarket::class,
-        self::GOOGLE_MERCHANT => GenerateGoogleMarket::class,
-        self::FACEBOOK => GenerateFacebookMarket::class,
-    ];
-
     public static function getCommand(int $type): string
     {
-        return Arr::get(self::COMMANDS, $type);
+        $commands = [
+            self::YANDEX_MARKET => GenerateYandexMarket::class,
+            self::TIU => GenerateTiuMarket::class,
+            self::GOOGLE_MERCHANT => GenerateGoogleMarket::class,
+            self::FACEBOOK => GenerateFacebookMarket::class,
+        ];
+
+        return Arr::get($commands, $type);
     }
 }
