@@ -9,6 +9,7 @@ use Google_Client;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
 use Modules\Customer\Enums\District;
+use Modules\Geo\Enums\SoldProductKeys;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
 use Modules\Product\Models\Product;
@@ -46,28 +47,15 @@ class ClientsGeographyImportCommand extends Command
         SoldProduct::query()->delete();
 
         foreach ($this->soldProducts as $soldProduct) {
-            // TODO cyrillic в array key - плохой тон
-            $cityName = $soldProduct['Город'];
-            $city = City::query()
-                ->where([
-                    // TODO почему здесь like? нужно exact search
-                    ['name', 'like', "%{$cityName}%"],
-                ])
-                // TODO можно заменить на firstOrCreate
-                ->first();
-
-            if (!$city) {
-                // TODO вот тут будет проблема с region_id, который в cities не должен быть nullable
-                $city = City::query()->create([
-                    'name' => $cityName,
-                ]);
-            }
+            $cityName = $soldProduct[SoldProductKeys::CITY];
+            $city = City::query()->firstOrCreate([
+                'name' => $cityName,
+            ]);
 
             SoldProduct::query()->create([
-                // TODO title rename to name
-                'title' => $soldProduct['Наименование'],
+                'name' => $soldProduct[SoldProductKeys::NAME],
                 'city_id' => $city->id,
-                'product_id' => $soldProduct['id оборудования'],
+                'product_id' => $soldProduct[SoldProductKeys::PRODUCT_ID],
             ]);
         }
 
