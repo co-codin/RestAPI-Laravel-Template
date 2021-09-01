@@ -19,11 +19,9 @@ use Modules\Product\Models\Product;
  */
 class ClientsGeographyImportCommand extends Command
 {
-    // TODO давай переименуем команду - нельзя в начале команды писать действие. нужно сначала сущность, пример: sold-products:import
-    protected $signature = 'import:clients-geography';
+    protected $signature = 'sold-products:import';
 
-    // TODO нужно обновить signature
-    protected $description = 'Import clients geography from csv file';
+    protected $description = 'Import sold products';
 
     protected Google_Service_Drive $serviceDrive;
 
@@ -32,22 +30,20 @@ class ClientsGeographyImportCommand extends Command
     protected $soldProducts;
 
     public function __construct(
-        protected GoogleApiService    $googleApiService,
+        protected GoogleApiService $googleApiService,
     )
     {
         parent::__construct();
-        // TODO не в первый раз я уже это пишу - нельзя в constructor логику писать, так как он будет постоянно запускаться при выполнении любой консольной команде
-        $this->soldProducts = collect();
-        $this->getGoogleServiceDrive();
-        $this->getFileContent();
     }
 
     public function handle(): void
     {
+        $this->soldProducts = collect();
+        $this->getGoogleServiceDrive();
+        $this->getFileContent();
         $this->transformCsv();
 
-        // TODO это плохо, так как после каждого запуска будет auto increment у id и совсем скоро наберется куча всего
-        SoldProduct::query()->truncate();
+        SoldProduct::query()->delete();
 
         foreach ($this->soldProducts as $soldProduct) {
             // TODO cyrillic в array key - плохой тон
