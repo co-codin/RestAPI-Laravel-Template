@@ -18,7 +18,7 @@ use Modules\Geo\Models\SoldProduct;
  * Class ClientsGeographyImport
  * @package Modules\Client\Console\Imports
  */
-class ClientsGeographyImportCommand extends Command
+class SoldProductsImportCommand extends Command
 {
     protected $signature = 'sold-products:import';
 
@@ -45,7 +45,7 @@ class ClientsGeographyImportCommand extends Command
         $this->mapSoldProducts();
 
 
-        SoldProduct::query()->delete();
+        SoldProduct::query()->truncate();
 
         foreach ($this->soldProducts as $soldProduct) {
             $cityName = $soldProduct[SoldProductKeys::CITY];
@@ -93,13 +93,14 @@ class ClientsGeographyImportCommand extends Command
     private function validateSoldProducts(): Collection
     {
         $rules = [
-            SoldProductKeys::NAME => 'required|max:255',
-            SoldProductKeys::DISTRICT => 'required',
-            SoldProductKeys::CITY => 'required|max:255',
-            SoldProductKeys::PRODUCT_ID => 'required|exists:products,id',
+            'data.*.' . SoldProductKeys::NAME => 'required|max:255',
+            'data.*.' . SoldProductKeys::DISTRICT => 'required',
+            'data.*.' . SoldProductKeys::CITY => 'required|max:255',
+            'data.*.' . SoldProductKeys::PRODUCT_ID => 'required|exists:products,id',
         ];
 
-        $validator = Validator::make($this->soldProducts->toArray(), $rules);
+
+        $validator = Validator::make(['data' => $this->soldProducts->toArray()], $rules);
 
         return collect($validator->valid());
     }
