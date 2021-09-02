@@ -32,9 +32,9 @@ class ExportFactory extends Factory
             'filename' => 'test',
             'frequency' => ExportFrequency::getRandomValue(),
             'parameters' => [
-                'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id'), 'selected' => $this->faker->boolean],
-                'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id'), 'selected' => $this->faker->boolean],
-                'products' => ['ids' => Product::factory()->count(5)->create()->pluck('id'), 'selected' => $this->faker->boolean],
+                'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
+                'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
+                'products' => ['ids' => Product::factory()->count(5)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
                 'stock_type' => $this->faker->sentence(4),
                 'in_stock' => ProductVariationStock::getRandomValue(),
                 'short_description' => $this->faker->boolean,

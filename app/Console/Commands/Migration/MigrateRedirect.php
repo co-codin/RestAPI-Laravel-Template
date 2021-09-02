@@ -18,7 +18,6 @@ class MigrateRedirect extends Command
             ->table('redirects')
             ->get();
 
-
         foreach ($oldRedirects as $oldRedirect) {
             Redirect::query()->insert(
                 $this->transform($oldRedirect)

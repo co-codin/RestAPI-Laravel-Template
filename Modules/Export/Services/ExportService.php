@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Modules\Export\Services;
-
 
 use Modules\Export\Enum\ExportType;
 use Modules\Export\Models\Export;
+
 
 class ExportService
 {
@@ -13,4 +12,5 @@ class ExportService
     {
         return ExportType::getCommand($export->type);
     }
+
 }

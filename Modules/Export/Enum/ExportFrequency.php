@@ -19,16 +19,16 @@ class ExportFrequency extends BaseEnum
 
     const MANUALLY = 6;
 
-    const FREQUENCIES = [
-        self::EVERY_30_MINUTES => 'everyThirtyMinutes',
-        self::HOURLY => 'hourly',
-        self::EVERY_3_HOURS => 'everyThreeHours',
-        self::DAILY => 'daily',
-        self::WEEKLY => 'weekly',
-    ];
-
     public static function getFrequency(int $number)
     {
-        return Arr::get(self::FREQUENCIES, $number);
+        $frequencies = [
+            self::EVERY_30_MINUTES => 'everyThirtyMinutes',
+            self::HOURLY => 'hourly',
+            self::EVERY_3_HOURS => 'everyThreeHours',
+            self::DAILY => 'daily',
+            self::WEEKLY => 'weekly',
+        ];
+
+        return Arr::get($frequencies, $number);
     }
 }

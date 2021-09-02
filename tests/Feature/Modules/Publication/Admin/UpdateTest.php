@@ -29,7 +29,7 @@ class UpdateTest extends TestCase
         $response->assertOk();
         $this->assertDatabaseHas('publications', [
             'name' => $newName,
-            'is_enabled' => false
+            'is_enabled' => false,
         ]);
         $this->assertEmpty(Publication::query()->first()->image);
     }

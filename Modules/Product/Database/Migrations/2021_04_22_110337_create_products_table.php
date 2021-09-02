@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->foreignId('brand_id')->constrained();
             $table->unsignedTinyInteger('status')->default(1);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('is_in_home')->default(false);
             $table->unsignedTinyInteger('warranty')->nullable();
             $table->text('short_description')->nullable();

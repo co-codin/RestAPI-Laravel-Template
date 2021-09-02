@@ -19,10 +19,16 @@ class GeoController extends Controller
 
         $city = $SxGeo->getCity($request->get('ip'));
 
-        if ($cityModel = City::query()->where('name', 'LIKE', "%{$city['city']['name_ru']}%")->first()) {
-            return $cityModel;
+        $defaultCity = City::query()->where('is_default', '=', 1)->first();
+
+        if ($city) {
+            if ($cityModel = City::query()->where('name', 'LIKE', "%{$city['city']['name_ru']}%")->first()) {
+                return $cityModel;
+            } else {
+                return $defaultCity;
+            }
         } else {
-            return City::query()->where('is_default', '=', 1)->first();
+            return $defaultCity;
         }
     }
 }

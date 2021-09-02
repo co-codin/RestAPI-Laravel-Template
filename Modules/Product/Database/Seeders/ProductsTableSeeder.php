@@ -20,11 +20,12 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         Product::factory()
-            ->count(300)
-            ->hasProductVariations(2)
-            ->create()
+            ->count(500)
+//            ->hasProductVariations(2)
+            ->create(['brand_id' => 1])
             ->each(function (Product $product) {
                 $categories = Category::query()
+                    ->select('id')
                     ->inRandomOrder()
                     ->whereNotNull('parent_id')
                     ->limit(1)
@@ -33,6 +34,22 @@ class ProductsTableSeeder extends Seeder
                 $product->categories()->sync($categories->pluck('id')->mapWithKeys(function ($item, $key) {
                     return [$item => ['is_main' => $key ? 2 : 1]];
                 }));
+
+                $values = [];
+
+                $properties = Property::query()
+                    ->inRandomOrder()
+                    ->take(10)
+                    ->get();
+
+                foreach ($properties as $property) {
+                    $propertyValues = collect(PropertiesTableSeeder::properties())->where('name', $property->name)->first()['values'];
+                    $values[$property->id] = [
+                        'value' => Arr::random($propertyValues),
+                    ];
+                }
+
+                $product->properties()->attach($values);
             });
 
         DB::statement('UPDATE products SET is_in_home=:is_in_home WHERE RAND() LIMIT 15', [

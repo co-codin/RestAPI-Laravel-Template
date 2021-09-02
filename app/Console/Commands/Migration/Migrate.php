@@ -13,26 +13,30 @@ class Migrate extends Command
 
     public function handle()
     {
-        $this->info('Refreshing migrations');
-        Artisan::call('migrate:refresh --force');
+        $this->migrate('migrate:fresh --force');
+        $this->migrate('migrate:brand');
+        $this->migrate('migrate:category');
+        $this->migrate('migrate:currency');
+        $this->migrate('migrate:achievement');
+        $this->migrate('migrate:news');
+        $this->migrate('migrate:redirect');
+        $this->migrate('migrate:page');
+        $this->migrate('migrate:publication');
+        $this->migrate('migrate:product');
+        $this->migrate('migrate:product_variation');
+        $this->migrate('migrate:product_category');
+        $this->migrate('migrate:property');
+        $this->migrate('migrate:canonical');
+        $this->migrate('migrate:product_property');
+        $this->migrate('migrate:filter');
+        $this->migrate('migrate:seo-rule');
+        $this->migrate('migrate:seo');
+        $this->migrate('migrate:customer-review');
+    }
 
-        Artisan::call('migrate:brand');
-        Artisan::call('migrate:category');
-        Artisan::call('migrate:currency');
-        Artisan::call('migrate:achievement');
-        Artisan::call('migrate:news');
-        Artisan::call('migrate:redirect');
-        Artisan::call('migrate:page');
-        Artisan::call('migrate:publication');
-        Artisan::call('migrate:product');
-        Artisan::call('migrate:product_variation');
-        Artisan::call('migrate:product_category');
-        Artisan::call('migrate:property');
-        Artisan::call('migrate:canonical');
-        Artisan::call('migrate:property_value');
-        Artisan::call('migrate:filter');
-        Artisan::call('migrate:seo-rule');
-        Artisan::call('migrate:seo');
-        Artisan::call('migrate:customer-review');
+    protected function migrate($command): void
+    {
+        $this->info("Running command: \"$command\"");
+        Artisan::call($command);
     }
 }

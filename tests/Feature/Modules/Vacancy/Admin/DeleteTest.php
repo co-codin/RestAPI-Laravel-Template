@@ -22,6 +22,6 @@ class DeleteTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDeleted($vacancy);
+        $this->assertSoftDeleted($vacancy);
     }
 }

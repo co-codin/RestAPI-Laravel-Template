@@ -17,9 +17,9 @@ class CreateSeoTable extends Migration
             $table->id();
             $table->morphs('seoable');
             $table->boolean('is_enabled')->default(false);
-            $table->string('title', 1000)->nullable();
-            $table->string('description', 1000)->nullable();
-            $table->string('h1', 1000)->nullable();
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('h1')->nullable();
             $table->json('meta_tags')->nullable();
             $table->timestamps();
         });

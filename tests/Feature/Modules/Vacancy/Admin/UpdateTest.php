@@ -23,12 +23,14 @@ class UpdateTest extends TestCase
 
         $response = $this->json('PATCH', route('admin.vacancies.update', $vacancy), [
             'name' => $newName = 'new name',
+            'slug' => 'test-slug',
             'status' => Status::INACTIVE
         ]);
 
         $response->assertOk();
         $this->assertDatabaseHas('vacancies', [
             'name' => $newName,
+            'slug' => 'test-slug',
             'status' => Status::INACTIVE
         ]);
     }
