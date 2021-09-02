@@ -1,6 +1,6 @@
 type SoldProduct {
     id: ID!
-    title: String!
+    name: String!
     product_id: Int!
     city_id: Int
     type: Int!

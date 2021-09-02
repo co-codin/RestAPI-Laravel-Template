@@ -15,7 +15,7 @@ class CreateSoldProductsTable extends Migration
     {
         Schema::create('sold_products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->bigInteger('product_id')->unsigned()->nullable();
             $table->bigInteger('city_id')->unsigned();
             $table->unsignedTinyInteger('type')->default(1);
