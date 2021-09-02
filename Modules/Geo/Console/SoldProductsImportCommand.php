@@ -45,7 +45,7 @@ class SoldProductsImportCommand extends Command
         $this->mapSoldProducts();
 
 
-        SoldProduct::query()->delete();
+        SoldProduct::query()->truncate();
 
         foreach ($this->soldProducts as $soldProduct) {
             $cityName = $soldProduct[SoldProductKeys::CITY];
