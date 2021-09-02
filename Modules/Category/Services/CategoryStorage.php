@@ -22,8 +22,6 @@ class CategoryStorage
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
 
-        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? auth('custom-token')->id();
-
         return Category::query()->create($attributes);
     }
 
@@ -34,8 +32,6 @@ class CategoryStorage
         if ($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
-
-        $attributes['assigned_by_id'] = $categoryDto->assigned_by_id ?? null;
 
         if (!$category->update($attributes)) {
             throw new \LogicException('can not update category');

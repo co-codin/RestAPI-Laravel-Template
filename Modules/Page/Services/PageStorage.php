@@ -11,9 +11,6 @@ class PageStorage
 {
     public function store(PageDto $pageDto)
     {
-        dd(
-            $pageDto->toArray()
-        );
         return Page::query()->create($pageDto->toArray());
     }
 

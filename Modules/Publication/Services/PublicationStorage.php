@@ -10,15 +10,13 @@ use Modules\Publication\Models\Publication;
 
 class PublicationStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(
+        protected ImageUploader $imageUploader
+    ) {}
 
     public function store(PublicationDto $publicationDto)
     {
         $attributes = $publicationDto->toArray();
-
-        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? auth('custom-token')->id();
 
         if ($publicationDto->logo) {
             $attributes['logo'] = $this->imageUploader->setDir('publications')->upload($publicationDto->logo);
@@ -30,8 +28,6 @@ class PublicationStorage
     public function update(Publication $publication, PublicationDto $publicationDto)
     {
         $attributes = $publicationDto->toArray();
-
-        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? null;
 
         if ($publicationDto->is_logo_changed) {
             $attributes['logo'] = !$publicationDto->logo

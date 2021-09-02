@@ -23,9 +23,8 @@ abstract class BaseDto extends DataTransferObject
     {
         $validated = $request->validated();
 
-        if ($request->has('assigned_by_id')) {
-
-        }
+        $validated['assigned_by_id'] = $request->has('assigned_by_id') ? $request->get('assigned_by_id')
+            : ($request->isMethod('POST') ? auth('custom-token')->id() : null);
 
         return (new static($validated))
             ->visible(array_keys($validated));

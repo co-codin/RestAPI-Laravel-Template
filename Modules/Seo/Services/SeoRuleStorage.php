@@ -13,16 +13,12 @@ class SeoRuleStorage
     {
         $attributes = $seoRuleDto->toArray();
 
-        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? auth('custom-token')->id();
-
         return SeoRule::query()->create($attributes);
     }
 
     public function update(SeoRule $seoRule, SeoRuleDto $seoRuleDto)
     {
         $attributes = $seoRuleDto->toArray();
-
-        $attributes['assigned_by_id'] = $redirectDto->assigned_by_id ?? null;
 
         if (!$seoRule->update($attributes)) {
             throw new \LogicException('can not update seo rule');
