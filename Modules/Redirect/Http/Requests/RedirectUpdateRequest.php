@@ -23,6 +23,7 @@ class RedirectUpdateRequest extends BaseFormRequest
             'source' => 'sometimes|required|string|max:255|unique:redirects,source,' . $this->route('redirect'),
             'destination' => 'sometimes|required|string|max:255',
             'code' => 'sometimes|integer|digits:3|in:301,302',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 

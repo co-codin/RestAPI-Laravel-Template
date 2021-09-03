@@ -1,7 +1,15 @@
 extend type Query {
     brands(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id",
+        ])
     ): [Brand!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

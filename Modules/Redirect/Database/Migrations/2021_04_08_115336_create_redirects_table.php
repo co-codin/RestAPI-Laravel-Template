@@ -18,6 +18,7 @@ class CreateRedirectsTable extends Migration
             $table->string('source')->unique();
             $table->string('destination');
             $table->unsignedSmallInteger('code')->default(301);
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
         });
     }

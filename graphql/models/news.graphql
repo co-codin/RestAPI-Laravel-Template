@@ -7,4 +7,5 @@ type News {
     image: String
     is_in_home: Boolean!
     published_at: String!
+    assigned_by_id: Int
 }

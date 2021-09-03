@@ -17,6 +17,7 @@ class CreateCanonicalsTable extends Migration
             $table->id();
             $table->string('url');
             $table->string('canonical');
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
         });
     }

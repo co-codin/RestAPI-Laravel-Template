@@ -32,6 +32,7 @@ class ExportUpdateRequest extends FormRequest
                 'integer',
                 new EnumValue(ExportFrequency::class, false),
             ],
+            'assigned_by_id' => 'sometimes|nullable|integer',
 
             'parameters' => 'sometimes|required|array',
 

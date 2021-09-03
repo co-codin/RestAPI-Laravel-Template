@@ -22,6 +22,7 @@ class CreatePropertiesTable extends Migration
             $table->boolean('is_hidden_from_product')->default(false);
             $table->boolean('is_hidden_from_comparison')->default(false);
             $table->boolean('is_numeric')->default(false);
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
         });
     }

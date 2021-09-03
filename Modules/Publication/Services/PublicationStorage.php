@@ -10,9 +10,9 @@ use Modules\Publication\Models\Publication;
 
 class PublicationStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(
+        protected ImageUploader $imageUploader
+    ) {}
 
     public function store(PublicationDto $publicationDto)
     {

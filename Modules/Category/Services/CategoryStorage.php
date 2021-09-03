@@ -10,13 +10,15 @@ use Modules\Category\Models\Category;
 
 class CategoryStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
+    public function __construct(protected ImageUploader $imageUploader)
+    {
+    }
 
     public function store(CategoryDto $categoryDto)
     {
         $attributes = $categoryDto->toArray();
 
-        if($categoryDto->image) {
+        if ($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
 
@@ -27,7 +29,7 @@ class CategoryStorage
     {
         $attributes = $categoryDto->toArray();
 
-        if($categoryDto->image) {
+        if ($categoryDto->image) {
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
 

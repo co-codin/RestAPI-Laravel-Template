@@ -2,4 +2,5 @@ type CanonicalEntity {
     id: ID!
     url: String!
     canonical: String!
+    assigned_by_id: Int
 }

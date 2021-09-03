@@ -17,4 +17,6 @@ class RedirectDto extends BaseDto
     public ?string $destination;
 
     public int $code = 301;
+
+    public ?int $assigned_by_id;
 }

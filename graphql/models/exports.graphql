@@ -4,6 +4,7 @@ type Export {
     type: Int!
     filename: String!
     frequency: Int!
+    assigned_by_id: Int
     parameters: [Parameter]
 }
 

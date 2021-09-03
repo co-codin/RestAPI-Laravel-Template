@@ -5,6 +5,7 @@ type Page {
     full_description: String
     status: Int!
     parent_id: Int
+    assigned_by_id: Int
     parent: Page!
     children: [Page!]
 }

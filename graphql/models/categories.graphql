@@ -9,6 +9,7 @@ type Category {
     is_in_home: Boolean!
     image: String
     parent_id: Int
+    assigned_by_id: Int
     parent: Category @belongsTo
     children: [Category] @belongsTo
     filters: [Filter!] @hasMany

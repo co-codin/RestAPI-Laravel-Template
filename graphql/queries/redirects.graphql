@@ -1,7 +1,7 @@
 extend type Query {
     redirects(
-        where: _ @whereConditions(columns: ["id", "source", "destination", "code"])
-        orderBy: _ @orderBy(columns: ["id", "source", "destination", "code"])
+        where: _ @whereConditions(columns: ["id", "source", "destination", "code", "assigned_by_id"])
+        orderBy: _ @orderBy(columns: ["id", "source", "destination", "code", "assigned_by_id"])
     ): [Redirect!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")

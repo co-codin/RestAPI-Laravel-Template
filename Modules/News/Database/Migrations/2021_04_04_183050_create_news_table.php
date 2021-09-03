@@ -23,6 +23,7 @@ class CreateNewsTable extends Migration
             $table->string('image')->nullable();
             $table->boolean('is_in_home')->default(true);
             $table->timestamp('published_at');
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

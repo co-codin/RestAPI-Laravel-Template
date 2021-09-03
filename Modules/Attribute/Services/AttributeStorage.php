@@ -11,12 +11,16 @@ class AttributeStorage
 {
     public function store(AttributeDto $attributeDto)
     {
-        return Attribute::query()->create($attributeDto->toArray());
+        $attributes = $attributeDto->toArray();
+
+        return Attribute::query()->create($attributes);
     }
 
     public function update(Attribute $attribute, AttributeDto $attributeDto)
     {
-        $attribute->update($attributeDto->toArray());
+        $attributes = $attributeDto->toArray();
+
+        $attribute->update($attributes);
 
         return $attribute;
     }

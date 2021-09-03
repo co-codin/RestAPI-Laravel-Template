@@ -5,7 +5,6 @@ namespace Modules\Page\Dto;
 
 
 use App\Dto\BaseDto;
-use App\Http\Requests\BaseFormRequest;
 
 /**
  * Class PageDto
@@ -23,4 +22,6 @@ class PageDto extends BaseDto
 
     /** @var mixed */
     public $status;
+
+    public ?int $assigned_by_id;
 }
