@@ -19,7 +19,13 @@ class PageController extends Controller
 
     public function store(PageCreateRequest $request)
     {
-        $pageModel = $this->pageStorage->store(PageDto::fromFormRequest($request));
+        $pageDto = PageDto::fromFormRequest($request);
+
+        if (!$pageDto->assigned_by_id) {
+            $pageDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $pageModel = $this->pageStorage->store($pageDto);
 
         return new PageResource($pageModel);
     }

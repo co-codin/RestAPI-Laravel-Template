@@ -36,6 +36,7 @@ class MigrateProduct extends Command
             'is_in_home' => $item->in_home === 1,
             'short_description' => $item->short_description,
             'full_description' => $item->full_description,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

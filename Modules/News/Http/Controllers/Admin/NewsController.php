@@ -21,7 +21,13 @@ class NewsController extends Controller
 
     public function store(NewsCreateRequest $request)
     {
-        $news = $this->newsStorage->store(NewsDto::fromFormRequest($request));
+        $newsDto = NewsDto::fromFormRequest($request);
+
+        if (!$newsDto->assigned_by_id) {
+            $newsDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $news = $this->newsStorage->store($newsDto);
 
         return new NewsResource($news);
     }

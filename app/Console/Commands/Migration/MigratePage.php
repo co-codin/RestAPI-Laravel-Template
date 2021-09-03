@@ -37,6 +37,7 @@ class MigratePage extends Command
             'parent_id' => $item->parent_id,
             '_lft' => $item->_lft,
             '_rgt' => $item->_rgt,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

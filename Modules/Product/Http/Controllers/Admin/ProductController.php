@@ -21,7 +21,13 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request)
     {
-        $product = $this->productStorage->store(ProductDto::fromFormRequest($request));
+        $productDto = ProductDto::fromFormRequest($request);
+
+        if (!$productDto->assigned_by_id) {
+            $productDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $product = $this->productStorage->store($productDto);
 
         return new ProductResource($product);
     }

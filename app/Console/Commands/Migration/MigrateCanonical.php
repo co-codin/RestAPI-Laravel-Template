@@ -18,7 +18,7 @@ class MigrateCanonical extends Command
             ->get();
 
         $canonicalsArray = $oldCanonicals
-            ->map(fn (object $item): array => (array)$item)
+            ->map(fn (object $item): array => (array)$item->merge(['assigned_by_id' => 1,]))
             ->toArray();
 
         CanonicalEntity::query()->insert($canonicalsArray);

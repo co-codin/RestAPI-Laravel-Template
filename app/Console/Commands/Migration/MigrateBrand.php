@@ -40,6 +40,7 @@ class MigrateBrand extends Command
             'position' => $item->position,
             'country' => $item->country,
             'short_description' => $item->short_description,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
