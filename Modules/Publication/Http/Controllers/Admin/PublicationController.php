@@ -20,7 +20,13 @@ class PublicationController extends Controller
 
     public function store(PublicationCreateRequest $request)
     {
-        $publication = $this->publicationStorage->store(PublicationDto::fromFormRequest($request));
+        $publicationDto = PublicationDto::fromFormRequest($request);
+
+        if (!$publicationDto->assigned_by_id) {
+            $publicationDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $publication = $this->publicationStorage->store($publicationDto);
 
         return new PublicationResource($publication);
     }

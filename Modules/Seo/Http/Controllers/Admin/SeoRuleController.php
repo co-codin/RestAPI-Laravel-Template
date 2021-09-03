@@ -19,7 +19,13 @@ class SeoRuleController extends Controller
 
     public function store(SeoRuleCreateRequest $request)
     {
-        $seoRule = $this->seoRuleStorage->store(SeoRuleDto::fromFormRequest($request));
+        $seoRuleDto = SeoRuleDto::fromFormRequest($request);
+
+        if (!$seoRuleDto->assigned_by_id) {
+            $seoRuleDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $seoRule = $this->seoRuleStorage->store($seoRuleDto);
 
         return new SeoRuleResource($seoRule);
     }

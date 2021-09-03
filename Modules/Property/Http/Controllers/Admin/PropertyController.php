@@ -21,7 +21,13 @@ class PropertyController extends Controller
 
     public function store(PropertyCreateRequest $request)
     {
-        $property = $this->propertyStorage->store(PropertyDto::fromFormRequest($request));
+        $propertyDto = PropertyDto::fromFormRequest($request);
+
+        if (!$propertyDto->assigned_by_id) {
+            $propertyDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $property = $this->propertyStorage->store($propertyDto);
 
         return new PropertyResource($property);
     }

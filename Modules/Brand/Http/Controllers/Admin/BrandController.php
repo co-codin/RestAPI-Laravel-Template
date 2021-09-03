@@ -22,7 +22,13 @@ class BrandController extends Controller
 
     public function store(BrandCreateRequest $request)
     {
-        $brand = $this->brandStorage->store(BrandDto::fromFormRequest($request));
+        $brandDto = BrandDto::fromFormRequest($request);
+
+        if (!$brandDto->assigned_by_id) {
+            $brandDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $brand = $this->brandStorage->store($brandDto);
 
         return new BrandResource($brand);
     }

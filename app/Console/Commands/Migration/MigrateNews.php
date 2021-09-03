@@ -38,6 +38,7 @@ class MigrateNews extends Command
             'image' => $item->image,
             'is_in_home' => $item->in_home === 1,
             'published_at' => $item->news_date,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
