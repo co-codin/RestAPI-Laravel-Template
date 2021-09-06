@@ -5,6 +5,7 @@ namespace App\Console\Commands\Migration;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Modules\Filter\Models\Filter;
+use Modules\Property\Models\Property;
 
 class MigrateFilter extends Command
 {
@@ -14,62 +15,54 @@ class MigrateFilter extends Command
 
     protected $filters;
 
-    protected $filterCategories;
-
-    protected $properties;
-
-    protected $propertyId;
-
     public function handle()
     {
-        $this->filters = DB::connection('old_medeq_mysql')
+        $filters = DB::connection('old_medeq_mysql')
             ->table('filters')
             ->get();
-        $this->properties = DB::connection('old_medeq_mysql')
-            ->table('properties')
-            ->get();
-        $this->filterCategories = DB::connection('old_medeq_mysql')
+
+        $filterCategories = DB::connection('old_medeq_mysql')
             ->table('filter_categories')
             ->get()
-            ->groupBy('category_id');
+            ->keyBy('filter_id');
 
-        foreach ($this->filterCategories as $categoryId => $filters) {
-            $filters = $this->filters->whereIn('id', $filters->pluck('filter_id'));
+        $properties = Property::all()->keyBy('id');
 
-            foreach ($filters as $filter) {
-                if (array_key_exists('property_id', json_decode($filter->options, true))) {
-                    $this->propertyId = json_decode($filter->options, true)['property_id'];
-                    if ($this->propertyId && $this->properties->where('id', $this->propertyId)->first()) {
-                        Filter::query()->insert(array_merge(
-                            $this->transform($filter),
-                            ['category_id' => $categoryId],
-                            ['property_id' => $this->propertyId]
-                        ));
-                        $this->propertyId = (int)$this->propertyId;
-                    } else {
-                        Filter::query()->insert(array_merge(
-                            $this->transform($filter),
-                            ['category_id' => $categoryId]
-                        ));
-                    }
-                }
+        foreach ($filters as $filter)
+        {
+            $filterCategory = $filterCategories->get($filter->id);
+
+            if(!$filterCategory) {
+                continue;
             }
+
+            $data = $this->transform($filter, $filterCategory);
+
+            $data['property_id'] = \Arr::get(json_decode($filter->options, true) ?? [], 'property_id');
+
+            if($data['property_id'] && !$properties->has($data['property_id'])) {
+                continue;
+            }
+
+            Filter::query()->insert($data);
         }
     }
 
-    protected function transform($item)
+    protected function transform(object $filter, object $filterCategory = null): array
     {
         return [
-            'name' => $item->title,
-            'slug' => $item->slug,
-            'type' => $item->type,
-            'is_enabled' => $item->status === 1,
-            'is_default' => $item->is_default === 1,
-            'description' => $item->description,
-//            'property_id' => array_key_exists('property_id', json_decode($item->options, true)) ? json_decode($item->options, true)['property_id'] : null,
-            'options' => $item->options,
-            'created_at' => $item->created_at,
-            'updated_at' => $item->updated_at,
+            'id' => $filter->id,
+            'name' => $filter->title,
+            'category_id' => $filterCategory->category_id,
+            'position' => $filterCategory->position,
+            'slug' => $filter->slug,
+            'type' => $filter->type,
+            'is_enabled' => $filter->status == 1,
+            'is_default' => $filter->is_default == 1,
+            'description' => $filter->description,
+            'options' => $filter->options,
+            'created_at' => $filter->created_at,
+            'updated_at' => $filter->updated_at,
         ];
     }
 }
