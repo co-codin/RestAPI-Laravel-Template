@@ -12,7 +12,7 @@ class ProductFilterController extends Controller
 {
     public function index(
         ProductFilterRequest $request,
-        ProductFilter $productFilter
+        ProductFilter $productFilter,
     )
     {
         $products = $productFilter->getItems();

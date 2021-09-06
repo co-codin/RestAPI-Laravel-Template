@@ -6,6 +6,7 @@ namespace Modules\Product\Repositories\Criteria;
 
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
+use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -22,6 +23,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 BrandRequestCriteria::allowedBrandFields('brand'),
                 CategoryRequestCriteria::allowedCategoryFields('category'),
                 CategoryRequestCriteria::allowedCategoryFields('categories'),
+                PropertyRequestCriteria::allowedPropertyFields('properties'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),

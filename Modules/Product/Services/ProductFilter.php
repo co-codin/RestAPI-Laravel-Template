@@ -38,7 +38,7 @@ class ProductFilter
         $this->setQuery($request->input('query') ?? []);
         $this->setAggregations($request->input('aggregations') ?? []);
         $this->setPage($request->input('page.number') ?? 1);
-        $this->setSize($request->input('page.size') ?? 25);
+        $this->setSize($request->input('page[size]') ?? 25);
         $this->setSort($request->input('sort') ?? 'popular');
     }
 
@@ -214,7 +214,7 @@ class ProductFilter
         }
 
         if($this->sort && $this->isAvailableSort($this->sort)) {
-//            $body['sort'] = $this->sort;
+            $body['sort'] = $this->availableSorts()[$this->sort];
         }
 
         return $body;
@@ -237,7 +237,10 @@ class ProductFilter
     {
         return $this
             ->productRepository
-            ->findWhereIn('id', $ids)
+            ->scopeQuery(function($builder) use ($ids) {
+                return $builder->whereIn('id', $ids);
+            })
+            ->jsonPaginate()
             ->sortBy(function ($product) use ($ids) {
                 return array_search($product->getKey(), $ids);
             })
