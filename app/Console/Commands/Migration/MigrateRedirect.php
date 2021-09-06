@@ -32,6 +32,7 @@ class MigrateRedirect extends Command
             'source' => $item->old_url,
             'destination' => $item->new_url,
             'code' => $item->code,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

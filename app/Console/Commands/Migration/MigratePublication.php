@@ -33,6 +33,7 @@ class MigratePublication extends Command
             'source' => $item->source,
             'is_enabled' => $item->status === 1,
             'published_at' => $item->published_at,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

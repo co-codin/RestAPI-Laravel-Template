@@ -19,7 +19,13 @@ class AttributeController extends Controller
 
     public function store(AttributeCreateRequest $request)
     {
-        $attribute = $this->attributeStorage->store(AttributeDto::fromFormRequest($request));
+        $attributeDto = AttributeDto::fromFormRequest($request);
+
+        if (!$attributeDto->assigned_by_id) {
+            $attributeDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $attribute = $this->attributeStorage->store($attributeDto);
 
         return new AttributeResource($attribute);
     }

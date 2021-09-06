@@ -31,6 +31,7 @@ class MigrateSeoRule extends Command
             'id' => $item->id,
             'name' => $item->title,
             'url' => $item->url,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

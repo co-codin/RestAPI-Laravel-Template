@@ -30,9 +30,13 @@ class CanonicalController extends Controller
      */
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
-        $canonical = $this->storage->store(
-            CanonicalDto::fromFormRequest($request)
-        );
+        $canonicalDto = CanonicalDto::fromFormRequest($request);
+
+        if (!$canonicalDto->assigned_by_id) {
+            $canonicalDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $canonical = $this->storage->store($canonicalDto);
 
         return new CanonicalResource($canonical);
     }
