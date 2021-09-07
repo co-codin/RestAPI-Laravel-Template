@@ -44,7 +44,6 @@ class SoldProductsImportCommand extends Command
         $this->validateSoldProducts();
         $this->mapSoldProducts();
 
-
         SoldProduct::query()->truncate();
 
         foreach ($this->soldProducts as $soldProduct) {
