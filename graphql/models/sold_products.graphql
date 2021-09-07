@@ -5,7 +5,6 @@ type SoldProduct {
     city_id: Int
     type: Int!
     is_enabled: Boolean!
-    is_in_home: Boolean!
 
     product: Product! @belongsTo
     city: City! @belongsTo
