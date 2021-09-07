@@ -6,6 +6,8 @@ namespace Modules\Product\Repositories\Criteria;
 
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
+use Modules\Product\Http\Filters\CovidProductsFilter;
+use Modules\Product\Http\Filters\ProductPropertyFilter;
 use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -36,6 +38,9 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('warranty'),
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
+
+                AllowedFilter::custom('properties', new ProductPropertyFilter),
+                AllowedFilter::custom('is_covid', new CovidProductsFilter),
 
                 AllowedFilter::trashed(),
 
