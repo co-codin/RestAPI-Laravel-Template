@@ -3,14 +3,14 @@
 
 namespace Tests\Feature\Modules\Seo\Gql;
 
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Tests\TestCase;
 
 class CanonicalReadTest extends TestCase
 {
     public function test_canonicals_can_be_viewed(): void
     {
-        $canonical = CanonicalEntity::factory()->create();
+        $canonical = Canonical::factory()->create();
 
         $response = $this->graphQL('
             {

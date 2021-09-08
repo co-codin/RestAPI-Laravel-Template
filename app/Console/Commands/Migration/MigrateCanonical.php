@@ -4,7 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 
 class MigrateCanonical extends Command
 {
@@ -17,10 +17,23 @@ class MigrateCanonical extends Command
             ->table('canonicals')
             ->get();
 
-        $canonicalsArray = $oldCanonicals
-            ->map(fn (object $item): array => (array)$item->merge(['assigned_by_id' => 1,]))
-            ->toArray();
 
-        CanonicalEntity::query()->insert($canonicalsArray);
+        foreach ($oldCanonicals as $oldCanonical) {
+            Canonical::query()->insert(
+                $this->transform($oldCanonical)
+            );
+        }
+    }
+
+    protected function transform($item)
+    {
+        return [
+            'id' => $item->id,
+            'url' => $item->url,
+            'canonical' => $item->canonical,
+            'assigned_by_id' => 1,
+            'created_at' => $item->created_at,
+            'updated_at' => $item->updated_at,
+        ];
     }
 }

@@ -7,7 +7,7 @@ namespace Modules\Seo\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection as SupportCollection;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Modules\Seo\Repositories\Criteria\CanonicalRequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
@@ -15,7 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 /**
  * Class CanonicalRepository
  * @package Modules\Seo\Repositories
- * @property CanonicalEntity $model
+ * @property Canonical $model
  */
 class CanonicalRepository extends BaseRepository
 {
@@ -26,7 +26,7 @@ class CanonicalRepository extends BaseRepository
      */
     public function model()
     {
-        return CanonicalEntity::class;
+        return Canonical::class;
     }
 
     public function boot()

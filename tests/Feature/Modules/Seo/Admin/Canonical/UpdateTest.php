@@ -3,7 +3,7 @@
 
 namespace Tests\Feature\Modules\Seo\Admin\Canonical;
 
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -15,7 +15,7 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_canonical()
     {
-        $canonical = CanonicalEntity::factory()->create();
+        $canonical = Canonical::factory()->create();
 
         $response = $this->json('PATCH',
             route('admin.canonicals.update', $canonical), [
