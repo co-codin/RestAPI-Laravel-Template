@@ -7,6 +7,7 @@ use Modules\Achievement\Database\Seeders\AchievementDatabaseSeeder;
 use Modules\Brand\Database\Seeders\BrandDatabaseSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Currency\Database\Seeders\CurrencyDatabaseSeeder;
+use Modules\Customer\Database\Seeders\CustomerDatabaseSeeder;
 use Modules\Faq\Database\Seeders\FaqDatabaseSeeder;
 use Modules\Filter\Database\Seeders\FilterDatabaseSeeder;
 use Modules\Geo\Database\Seeders\GeoDatabaseSeeder;
@@ -40,5 +41,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductDatabaseSeeder::class);
         $this->call(GeoDatabaseSeeder::class);
         $this->call(VacancyDatabaseSeeder::class);
+        $this->call(CustomerDatabaseSeeder::class);
     }
 }
