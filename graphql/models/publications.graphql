@@ -5,6 +5,6 @@ type Publication {
     logo: String
     source: String!
     is_enabled: Boolean!
-    published_at: String!
+    published_at: String
     assigned_by_id: Int
 }
