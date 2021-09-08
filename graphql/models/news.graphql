@@ -1,3 +1,5 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
 type News {
     id: ID!
     name: String!
@@ -7,6 +9,6 @@ type News {
     status: Int!
     image: String
     is_in_home: Boolean!
-    published_at: String!
+    published_at: Date!
     assigned_by_id: Int
 }

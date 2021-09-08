@@ -43,7 +43,7 @@ class News extends Model
     protected $casts = [
         'status' => 'integer',
         'is_in_home' => 'boolean',
-        'published_at' => 'datetime:Y-m-d',
+        'published_at' => 'datetime:d-m-Y',
     ];
 
     public function sluggable(): array
