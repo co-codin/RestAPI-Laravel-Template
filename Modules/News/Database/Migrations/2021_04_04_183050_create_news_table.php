@@ -22,7 +22,7 @@ class CreateNewsTable extends Migration
             $table->unsignedTinyInteger('status')->default(1);
             $table->string('image')->nullable();
             $table->boolean('is_in_home')->default(true);
-            $table->unsignedInteger('views_num')->nullable();
+            $table->unsignedInteger('view_num')->nullable();
             $table->timestamp('published_at');
             $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->softDeletes();

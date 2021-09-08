@@ -8,7 +8,7 @@ type News {
     full_description: String
     status: Int!
     image: String
-    news_num: Int
+    view_num: Int
     is_in_home: Boolean!
     published_at: Date!
     assigned_by_id: Int

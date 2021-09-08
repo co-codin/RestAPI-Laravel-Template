@@ -1,11 +1,11 @@
 extend type Query {
     news(
         where: _ @whereConditions(columns: [
-            "id", "name", "slug", "short_description","full_description", "news_num",
+            "id", "name", "slug", "short_description","full_description", "view_num",
             "status", "image", "is_in_home", "published_at", "assigned_by_id",
         ])
         orderBy: _ @orderBy(columns: [
-            "id", "name", "slug", "status", "image", "news_num",
+            "id", "name", "slug", "status", "image", "view_num",
             "is_in_home", "published_at", "assigned_by_id",
         ])
     ): [News!]!
