@@ -1,4 +1,4 @@
-type CanonicalEntity {
+type Canonical {
     id: ID!
     url: String!
     canonical: String!

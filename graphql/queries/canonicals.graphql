@@ -2,9 +2,9 @@ extend type Query {
     canonicals(
         where: _ @whereConditions(columns: ["id", "url", "canonical", "assigned_by_id"])
         orderBy: _ @orderBy(columns: ["id", "url", "canonical", "assigned_by_id"])
-    ): [CanonicalEntity!]!
+    ): [Canonical!]!
     @paginate(defaultCount: 15, maxCount: 200)
     @orderBy(column: "id", direction: "ASC")
 
-    canonicalEntity(id: ID @eq): CanonicalEntity @find
+    canonicalEntity(id: ID @eq): Canonical @find
 }
