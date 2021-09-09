@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Brand\Database\factories\BrandFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Modules\Product\Models\Product;
 use Modules\Seo\Models\Seo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -74,6 +75,11 @@ class Brand extends Model
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoable');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 
     protected static function newFactory()
