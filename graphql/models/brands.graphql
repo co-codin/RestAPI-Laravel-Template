@@ -11,6 +11,6 @@ type Brand {
     country: String
     short_description: String
     assigned_by_id: Int
-
-    products: [Product!] @hasMany @withCount(relation: "products")
+    productCount: Int! @count(relation: "products")
+    products: [Product!]  @hasMany(relation: "products")
 }
