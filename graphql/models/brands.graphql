@@ -13,4 +13,5 @@ type Brand {
     assigned_by_id: Int
     productCount: Int! @count(relation: "products")
     products: [Product!]  @hasMany(relation: "products")
+    seo: Seo @morphOne
 }
