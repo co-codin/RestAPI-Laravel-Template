@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "image",
             "website", "country", "is_in_home",
-            "position", "assigned_by_id",
+            "position", "assigned_by_id", "status",
         ])
         orderBy: _ @orderBy(columns: [
             "id", "name", "slug", "image",
@@ -18,7 +18,7 @@ extend type Query {
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "image",
             "website", "country", "is_in_home",
-            "position", "assigned_by_id",
+            "position", "assigned_by_id", "status",
         ])
         orderBy: _ @orderBy(columns: [
             "id", "name", "slug", "image",
