@@ -13,12 +13,8 @@ class SoldProduct extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'name',
-        'product_id',
-        'city_id',
-        'is_enabled',
-        'type',
+    protected $guarded = [
+        "id",
     ];
 
     public function product()

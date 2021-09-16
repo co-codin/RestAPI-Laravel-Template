@@ -28,7 +28,7 @@ class PublicationFactory extends Factory
             'source' => $this->faker->words(2, true),
             'logo' => UploadedFile::fake()->image('test_logo.png'),
             'is_enabled' => $this->faker->boolean,
-            'published_at' => $this->faker->date('d.m.Y'),
+            'published_at' => $this->faker->date(),
         ];
     }
 }
