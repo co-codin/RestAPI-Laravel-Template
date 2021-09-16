@@ -6,7 +6,6 @@ use App\Enums\Status;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
-use Modules\Geo\Database\Seeders\Data\GeoData;
 use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\OrderPoint;
@@ -122,8 +121,6 @@ class OrderPointsImportCommand extends Command
             'region_id' => $region->id,
             'name' => $city['name'],
         ], [
-            'iso' => $region['iso'],
-            'federal_district' => $region['federal_district'],
             'coordinate' => [
                 'lat' => (float) $city['latitude'],
                 'long' => (float) $city['longitude'],
