@@ -30,7 +30,7 @@ class MigrateAchievement extends Command
         return [
             'id' => $item->id,
             'name' => $item->title,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'is_enabled' => $item->status === 1,
             'position' => $item->position,
             'created_at' => $item->created_at,

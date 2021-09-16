@@ -37,7 +37,7 @@ class MigrateCategory extends Command
             'parent_id' => $item->parent_id,
             'status' => $item->status,
             'product_name' => $item->product_name,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'is_in_home' => $item->in_home === 1,
             'is_hidden_in_parents' => $item->hide_in_parents,
             'full_description' => $item->full_description,

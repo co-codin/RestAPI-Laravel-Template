@@ -3,9 +3,9 @@
 namespace Modules\Geo\Console;
 
 use App\Enums\Status;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Modules\Geo\Database\Seeders\Data\GeoData;
 use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\City;
@@ -24,9 +24,13 @@ class OrderPointsImportCommand extends Command
 
     public function handle()
     {
-        $this->downloadPlaces();
-        $this->downloadTerminals();
-        $this->truncateOrderPoint();
+//        $this->downloadPlaces();
+        $this->places = $this->transformPlaces();
+
+//        $this->downloadTerminals();
+        $this->terminals = $this->transformTerminals();
+
+        $this->truncateOrderPoints();
 
         foreach ($this->terminals as $city) {
             $cityModel = $this->getCity($city);
@@ -50,21 +54,13 @@ class OrderPointsImportCommand extends Command
 
     protected function downloadPlaces()
     {
-        $response = app(Client::class)->post(config('services.dellin.place_url'), [
-            'json' => [
-                'appKey' => config('services.dellin.token')
-            ]
+        $response = Http::asJson()->post(config('services.dellin.place_url'), [
+            'appKey' => config('services.dellin.token'),
         ]);
 
-        if ($response->getStatusCode() === 200) {
-            $data = json_decode($response->getBody());
+        $response->throw();
 
-            file_put_contents(storage_path('app/places.csv'), file_get_contents($data->url));
-
-            $this->places = $this->transformPlaces();
-        } else {
-            throw new \Exception('Places cannot be downloaded.');
-        }
+        file_put_contents(storage_path('app/places.csv'), file_get_contents($response->json('url')));
     }
 
     protected function transformPlaces()
@@ -79,28 +75,25 @@ class OrderPointsImportCommand extends Command
         return collect($places)->keyBy('cityID');
     }
 
-    protected function truncateOrderPoint()
-    {
-        OrderPoint::query()->where('type', OrderPointType::ORDER_POINT)->delete();
-    }
-
     protected function downloadTerminals()
     {
-        $response = app(Client::class)->post(config('services.dellin.terminal_url'), [
-            'json' => [
-                'appKey' => config('services.dellin.token')
-            ]
+        $response = Http::asJson()->post(config('services.dellin.terminal_url'), [
+            'appKey' => config('services.dellin.token')
         ]);
 
-        if ($response->getStatusCode() === 200) {
-            $data = json_decode($response->getBody());
+        $response->throw();
 
-            file_put_contents(storage_path('app/terminals.json'), file_get_contents($data->url));
+        file_put_contents(storage_path('app/terminals.json'), file_get_contents($response->json('url')));
+    }
 
-            $this->terminals = json_decode(file_get_contents(storage_path('app/terminals.json')), true)['city'];
-        } else {
-            throw new \Exception('Terminals cannot be downloaded.');
-        }
+    protected function transformTerminals()
+    {
+        return json_decode(file_get_contents(storage_path('app/terminals.json')), true)['city'];
+    }
+
+    protected function truncateOrderPoints()
+    {
+        OrderPoint::query()->where('type', OrderPointType::ORDER_POINT)->delete();
     }
 
     protected function parseTimeTable(array $timetable) : array
@@ -123,13 +116,14 @@ class OrderPointsImportCommand extends Command
     {
         $regionName = $this->places->get($city['cityID'])['regname'];
 
-        $region = Region::query()->where('name', '=', $regionName)->first();
+        $region = Region::query()->where('name_with_type', '=', $regionName)->first();
 
         return City::query()->firstOrCreate([
-            ['name', '=', $city['name']],
-            ['region_id', '=', $region->id]
-        ], [
+            'region_id' => $region->id,
             'name' => $city['name'],
+        ], [
+            'iso' => $region['iso'],
+            'federal_district' => $region['federal_district'],
             'coordinate' => [
                 'lat' => (float) $city['latitude'],
                 'long' => (float) $city['longitude'],
