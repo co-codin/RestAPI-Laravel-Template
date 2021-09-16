@@ -7,11 +7,7 @@ namespace Modules\Geo\Console;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Modules\Customer\Enums\District;
 use Modules\Geo\Enums\SoldProductKeys;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
@@ -87,7 +83,7 @@ class SoldProductsImportCommand extends Command
         $rules = [
             SoldProductKeys::NAME => 'required|string|max:255',
             SoldProductKeys::CITY => 'required|string|max:255',
-            SoldProductKeys::PRODUCT_ID => 'sometimes|nullable|integer|exists:products,id',
+            SoldProductKeys::PRODUCT_ID => 'required|integer|exists:products,id',
         ];
 
         foreach ($this->soldProducts->toArray() as $soldProduct) {

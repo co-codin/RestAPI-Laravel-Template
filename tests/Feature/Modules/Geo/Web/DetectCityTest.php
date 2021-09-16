@@ -17,11 +17,11 @@ class DetectCityTest extends TestCase
 
     public function test_ip_can_be_detected()
     {
-        $response = $this->json('GET', route('geo.detect_city'), [], ['REMOTE_ADDR' => '93.0.4577.63']);
+        $response = $this->json('GET', route('geo.detect_city'), [], ['REMOTE_ADDR' => '95.142.196.32']);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
-            "name" => "Москва"
+            "name" => "Санкт-Петербург"
         ]);
     }
 }
