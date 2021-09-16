@@ -10,6 +10,7 @@ use Modules\Geo\Database\Seeders\Data\GeoData;
 use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\OrderPoint;
+use Modules\Geo\Models\Region;
 
 class OrderPointsImportCommand extends Command
 {
@@ -122,15 +123,13 @@ class OrderPointsImportCommand extends Command
     {
         $regionName = $this->places->get($city['cityID'])['regname'];
 
-        $regions = collect(GeoData::getRegionData());
-        $region = $regions->where('name_with_type', '=', $regionName)->first();
+        $region = Region::query()->where('name', '=', $regionName)->first();
 
         return City::query()->firstOrCreate([
             ['name', '=', $city['name']],
             ['region_id', '=', $region->id]
         ], [
             'name' => $city['name'],
-            'region_id' => $region->id,
             'coordinate' => [
                 'lat' => (float) $city['latitude'],
                 'long' => (float) $city['longitude'],
