@@ -32,7 +32,7 @@ class MigrateBrand extends Command
             'id' => $item->id,
             'name' => $item->title,
             'slug' => $item->slug,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'website' => $item->website,
             'full_description' => $item->full_description,
             'status' => $item->status,

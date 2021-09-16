@@ -32,7 +32,7 @@ class MigrateCustomerReview extends Command
             'author' => $item->author,
             'type' => $item->type,
             'video' => $item->video,
-            'review_file' => $item->review_file,
+            'review_file' => ltrim($item->review_file, "/"),
             'is_home' => $item->in_home === 1,
             'comment' => $item->comment,
             'logo' => $item->image,
