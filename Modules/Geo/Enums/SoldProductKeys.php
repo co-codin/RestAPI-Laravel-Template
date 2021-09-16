@@ -10,5 +10,8 @@ class SoldProductKeys
 
     const PRODUCT_ID = 'id оборудования';
 
-    const DISTRICT = 'Федеральный округ';
+    public function translate($titleRU)
+    {
+
+    }
 }
