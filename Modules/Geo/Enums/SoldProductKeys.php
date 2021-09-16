@@ -10,8 +10,5 @@ class SoldProductKeys
 
     const PRODUCT_ID = 'id оборудования';
 
-    public function translate($titleRU)
-    {
 
-    }
 }

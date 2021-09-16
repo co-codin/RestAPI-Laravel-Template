@@ -14,7 +14,7 @@ class SoldProduct extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title',
+        'name',
         'product_id',
         'city_id',
         'is_enabled',
