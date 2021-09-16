@@ -2,7 +2,7 @@ extend type Query {
     categories(
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "product_name",
-            "full_description", "is_hidden_in_parents",
+            "full_description", "is_hidden_in_parents", "status",
             "is_in_home", "image", "parent_id", "assigned_by_id",
         ])
         orderBy: _ @orderBy(columns: [
@@ -17,7 +17,7 @@ extend type Query {
     allCategories(
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "product_name",
-            "full_description", "is_hidden_in_parents",
+            "full_description", "is_hidden_in_parents", "status",
             "is_in_home", "image", "parent_id", "assigned_by_id"
         ])
         orderBy: _ @orderBy(columns: [
@@ -26,7 +26,7 @@ extend type Query {
             "is_in_home", "image", "parent_id", "assigned_by_id"
         ])
     ): [Category!]!
-    @all(defaultCount: 15, maxCount: 200)
+    @all
     @orderBy(column: "id", direction: "ASC")
 
     category(id: ID @eq, slug: String @eq): Category @find
