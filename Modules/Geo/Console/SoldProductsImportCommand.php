@@ -4,7 +4,6 @@
 namespace Modules\Geo\Console;
 
 
-use App\Services\GoogleDriveService;
 use Google_Service_Drive;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -27,19 +26,15 @@ class SoldProductsImportCommand extends Command
     protected string $fileContent;
     protected $soldProducts;
 
-    public function __construct(
-        protected GoogleDriveService   $googleDriveService,
-        protected Google_Service_Drive $serviceDrive,
-    )
+    public function handle(Google_Service_Drive $driveService): void
     {
-        parent::__construct();
-        $this->soldProducts = collect();
-    }
+        $this->fileContent = $driveService->files
+            ->export(config('services.google-api.drive.files.sold-products'), 'text/csv', ['alt' => 'media'])
+            ->getBody()
+            ->getContents();
 
-    public function handle(): void
-    {
-        $this->serviceDrive = $this->googleDriveService->getDriveService();
-        $this->fileContent = $this->getFileContent();
+        $this->soldProducts = collect();
+
         $this->transformCsv();
         $this->validateSoldProducts();
         $this->mapSoldProducts();
@@ -63,13 +58,7 @@ class SoldProductsImportCommand extends Command
 
     private function getFileContent()
     {
-        $response = $this->serviceDrive->files->export(
-            config('services.google-api.drive.files.sold-products'),
-            'text/csv',
-            ['alt' => 'media']
-        );
-
-        return $response->getBody()->getContents();
+        ;
     }
 
     private function transformCsv()
