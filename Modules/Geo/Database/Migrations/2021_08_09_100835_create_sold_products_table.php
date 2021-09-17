@@ -16,7 +16,7 @@ class CreateSoldProductsTable extends Migration
         Schema::create('sold_products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('product_id')->nullable()->constrained();
+            $table->foreignId('product_id')->constrained();
             $table->foreignId('city_id')->constrained();
             $table->unsignedTinyInteger('type')->default(1);
             $table->boolean('is_enabled')->default(true);

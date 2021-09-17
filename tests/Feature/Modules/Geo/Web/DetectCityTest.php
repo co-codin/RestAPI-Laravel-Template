@@ -15,13 +15,15 @@ class DetectCityTest extends TestCase
         Artisan::call('import:order_points');
     }
 
-    public function test_ip_can_be_detected()
+    public function test_city_can_be_detected_by_ip()
     {
-        $response = $this->json('GET', route('geo.detect_city'), [], ['REMOTE_ADDR' => '93.0.4577.63']);
+        $this->withoutExceptionHandling();
+
+        $response = $this->json('GET', route('geo.detect_city'), [], ['REMOTE_ADDR' => '95.142.196.32']);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
-            "name" => "Москва"
+            "name" => "Санкт-Петербург"
         ]);
     }
 }
