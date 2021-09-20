@@ -1,7 +1,7 @@
 extend type Query {
     cities(
-        where: _ @whereConditions(columns: ["id", "region_name", "region_name_with_type", "name", "slug", "order_point_count"])
-        orderBy: _ @orderBy(columns: ["id", "region_name", "region_name_with_type", "name", "slug", "order_point_count"])
+        where: _ @whereConditions(columns: ["id", "region_name", "region_name_with_type", "name", "slug"])
+        orderBy: _ @orderBy(columns: ["id", "region_name", "region_name_with_type", "name", "slug"])
     ): [City!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
