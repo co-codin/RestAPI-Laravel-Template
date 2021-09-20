@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "post", "author", "type", "is_home"])
         orderBy: _ @orderBy(columns: ["id", "post", "author", "type", "is_home"])
     ): [CustomerReview!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     customer_review(id: ID @eq): CustomerReview @find

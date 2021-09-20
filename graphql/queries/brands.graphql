@@ -11,7 +11,7 @@ extend type Query {
             "position", "assigned_by_id",
         ])
     ): [Brand!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     allBrands(

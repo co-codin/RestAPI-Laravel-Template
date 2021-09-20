@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
         orderBy: _ @orderBy(columns: ["id", "question_category_id", "question", "slug", "answer", "status", "position"])
     ): [Question!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     question(id: ID @eq, slug: String @eq): Question @find
