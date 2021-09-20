@@ -14,8 +14,8 @@ type City {
     region_phone: String
     email: String
 
-    order_point_count: Int! @count(relation: "orderPoints")
+    orderPointCount: Int! @count(relation: "orderPoints")
 
-    order_points: [OrderPoint!] @hasMany(relation: "orderPoints")
-    sold_products: [SoldProduct!] @hasMany
+    orderPoints: [OrderPoint!] @hasMany(relation: "orderPoints")
+    soldProducts: [SoldProduct!] @hasMany
 }

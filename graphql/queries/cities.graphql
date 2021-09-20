@@ -6,5 +6,12 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
+    allCities(
+        where: _ @whereConditions(columns: ["id", "region_name", "region_name_with_type", "name", "slug"])
+        orderBy: _ @orderBy(columns: ["id", "region_name", "region_name_with_type", "name", "slug"])
+    ): [City!]!
+    @all
+    @orderBy(column: "id", direction: "ASC")
+
     city(id: ID @eq): City @find
 }
