@@ -1,6 +1,6 @@
 extend type Query {
     order_points(
-        where: _ @whereConditions(columns: ["id", "name", "address", "city_id"])
+        where: _ @whereConditions(columns: ["id", "name", "address", "city_id", "status"])
         orderBy: _ @orderBy(columns: ["id", "name", "address", "city_id"])
     ): [OrderPoint!]!
     @paginate(defaultCount: 15, maxCount: 200)
