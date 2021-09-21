@@ -8,6 +8,7 @@ type ProductVariation {
     is_price_visible: Boolean!
     is_enabled: Boolean!
     availability: Int!
+    stock_type: String
 
     currency: Currency
 }
