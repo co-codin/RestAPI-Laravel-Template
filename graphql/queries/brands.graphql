@@ -29,5 +29,5 @@ extend type Query {
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    brand(id: ID @eq, slug: String @eq): Brand @find
+    brand(id: ID @eq, slug: String @eq, status: Int @eq): Brand @find
 }
