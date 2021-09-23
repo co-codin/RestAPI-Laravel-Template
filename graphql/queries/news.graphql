@@ -12,5 +12,5 @@ extend type Query {
     @paginate(builder: "Modules\\News\\Models\\News@getOptimisedNews")
     @orderBy(column: "id", direction: "ASC")
 
-    news_single(id: ID @eq, slug: String @eq): News @find
+    news_single(id: ID @eq, slug: String @eq): News @find(scopes: ["active"])
 }
