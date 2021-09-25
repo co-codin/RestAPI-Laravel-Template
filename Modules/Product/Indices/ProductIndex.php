@@ -11,7 +11,7 @@ class ProductIndex extends BaseIndex implements SearchIndex
 {
     public function name(): string
     {
-        return "products";
+        return "products_v2";
     }
 
     public function repository(): string

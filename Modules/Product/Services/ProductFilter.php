@@ -228,7 +228,7 @@ class ProductFilter
     protected function search(): array
     {
         return $this->elasticsearch->search([
-            'index' => 'products',
+            'index' => 'products_v2',
             'body' => $this->getRequestBody(),
         ]);
     }
