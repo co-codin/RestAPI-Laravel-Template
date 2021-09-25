@@ -99,6 +99,8 @@ return [
          * Duration in seconds the schema should remain cached, null means forever.
          */
         'ttl' => env('LIGHTHOUSE_CACHE_TTL', null),
+
+        'version' => env('LIGHTHOUSE_CACHE_VERSION', 2),
     ],
 
     /*
