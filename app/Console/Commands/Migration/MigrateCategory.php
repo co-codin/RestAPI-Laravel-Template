@@ -46,7 +46,7 @@ class MigrateCategory extends Command
             'updated_at' => $item->updated_at,
         ];
 
-        if ($item->status === 4) {
+        if ($item->status == 4) {
             array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,
