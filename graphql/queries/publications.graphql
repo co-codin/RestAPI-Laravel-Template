@@ -1,7 +1,5 @@
 extend type Query {
     publications(
-        where: _ @whereConditions(columns: ["id", "name", "logo", "position", "is_enabled", "published_at"])
-        orderBy: _ @orderBy(columns: ["id", "name", "logo", "position", "is_enabled", "published_at"])
         where: _ @whereConditions(columns: [
             "id", "name", "logo", "position",
             "is_enabled", "published_at", "assigned_by_id"
@@ -11,8 +9,20 @@ extend type Query {
             "is_enabled", "published_at", "assigned_by_id"
         ])
     ): [Publication!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
+
+    allPublications(
+        where: _ @whereConditions(columns: [
+            "id", "name", "logo", "position",
+            "is_enabled", "published_at", "assigned_by_id"
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "logo", "position",
+            "is_enabled", "published_at", "assigned_by_id"
+        ])
+    ): [Publication!]!
+    @all
 
     publication(id: ID @eq): Publication @find
 }

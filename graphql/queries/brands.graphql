@@ -11,7 +11,7 @@ extend type Query {
             "position", "assigned_by_id",
         ])
     ): [Brand!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     allBrands(
@@ -29,5 +29,5 @@ extend type Query {
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    brand(id: ID @eq, slug: String @eq): Brand @find
+    brand(id: ID @eq, slug: String @eq): Brand @find(scopes: ["active"])
 }

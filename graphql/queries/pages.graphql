@@ -9,7 +9,7 @@ extend type Query {
             "status", "parent_id", "assigned_by_id"
         ])
     ): [Page!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     page(id: ID @eq, slug: String @eq): Page @find

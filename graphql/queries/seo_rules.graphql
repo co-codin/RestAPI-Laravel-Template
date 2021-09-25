@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "title", "url", "text", "assigned_by_id"])
         orderBy: _ @orderBy(columns: ["id", "title", "url", "assigned_by_id"])
     ): [SeoRule!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     seo_rule(id: ID @eq): SeoRule @find

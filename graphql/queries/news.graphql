@@ -9,8 +9,8 @@ extend type Query {
             "is_in_home", "published_at", "assigned_by_id",
         ])
     ): [News!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate(builder: "Modules\\News\\Models\\News@getOptimisedNews")
     @orderBy(column: "id", direction: "ASC")
 
-    news_single(id: ID @eq, slug: String @eq): News @find
+    news_single(id: ID @eq, slug: String @eq): News @find(scopes: ["active"])
 }

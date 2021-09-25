@@ -3,14 +3,18 @@
 namespace Modules\News\Models;
 
 use App\Concerns\IsActive;
+use App\Enums\Status;
 use Cviebrock\EloquentSluggable\Sluggable;
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Modules\News\Database\factories\NewsFactory;
 use Modules\Seo\Models\Seo;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -70,6 +74,16 @@ class News extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function getOptimisedNews($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
+    {
+        return News::query()->select(array_keys($resolveInfo->getFieldSelection(1)['data']));
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereIn('status', [Status::ACTIVE, Status::ONLY_URL]);
     }
 
     protected static function newFactory()
