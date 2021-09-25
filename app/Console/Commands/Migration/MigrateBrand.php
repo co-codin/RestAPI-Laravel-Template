@@ -32,7 +32,7 @@ class MigrateBrand extends Command
             'id' => $item->id,
             'name' => $item->title,
             'slug' => $item->slug,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'website' => $item->website,
             'full_description' => $item->full_description,
             'status' => $item->status,
@@ -40,11 +40,12 @@ class MigrateBrand extends Command
             'position' => $item->position,
             'country' => $item->country,
             'short_description' => $item->short_description,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
 
-        if ($item->status === 4) {
+        if ($item->status == 4) {
             array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,

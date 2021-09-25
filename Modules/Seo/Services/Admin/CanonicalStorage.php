@@ -5,7 +5,7 @@ namespace Modules\Seo\Services\Admin;
 
 
 use Modules\Seo\Dto\CanonicalDto;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 
 /**
  * Class CanonicalStorage
@@ -15,12 +15,16 @@ class CanonicalStorage
 {
     /**
      * @param CanonicalDto $dto
-     * @return CanonicalEntity
+     * @return Canonical
      * @throws \Exception
      */
-    public function store(CanonicalDto $dto): CanonicalEntity
+    public function store(CanonicalDto $dto): Canonical
     {
-        $canonical = new CanonicalEntity($dto->toArray());
+        $attributes = $dto->toArray();
+
+        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? auth('custom-token')->id();
+
+        $canonical = new Canonical($attributes);
 
         if (!$canonical->save()) {
             throw new \Exception('Не удалось сохранить Canonical');
@@ -30,14 +34,18 @@ class CanonicalStorage
     }
 
     /**
-     * @param CanonicalEntity $canonical
+     * @param Canonical $canonical
      * @param CanonicalDto $dto
-     * @return CanonicalEntity
+     * @return Canonical
      * @throws \Exception
      */
-    public function update(CanonicalEntity $canonical, CanonicalDto $dto): CanonicalEntity
+    public function update(Canonical $canonical, CanonicalDto $dto): Canonical
     {
-        if (!$canonical->update($dto->toArray())) {
+        $attributes = $dto->toArray();
+
+        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? null;
+
+        if (!$canonical->update($attributes)) {
             throw new \Exception('Не удалось обновить Canonical - id' . $canonical->id);
         }
 
@@ -45,11 +53,11 @@ class CanonicalStorage
     }
 
     /**
-     * @param CanonicalEntity $canonical
-     * @return CanonicalEntity
+     * @param Canonical $canonical
+     * @return Canonical
      * @throws \Exception
      */
-    public function delete(CanonicalEntity $canonical): CanonicalEntity
+    public function delete(Canonical $canonical): Canonical
     {
         if (!$canonical->delete()) {
             throw new \Exception('Не удалось удалить запись из таблицы Canonical - id' . $canonical->id);

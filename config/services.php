@@ -86,6 +86,9 @@ return [
     ],
 
     'google-api' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'refresh_token' => env('GOOGLE_CLIENT_REFRESH_TOKEN'),
         'places' => env('GOOGLE_PLACES_API_KEY'),
         'drive' => [
             'files' => [

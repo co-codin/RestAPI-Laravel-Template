@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "name", "slug", "short_description", "full_description", "status"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug", "short_description", "full_description", "status"])
     ): [Vacancy!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     vacancy(id: ID @eq, slug: String @eq): Vacancy @find

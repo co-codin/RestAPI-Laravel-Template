@@ -24,6 +24,7 @@ class NewsCreateRequest extends BaseFormRequest
             'image' => 'required|image',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'required|date',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 

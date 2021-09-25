@@ -19,7 +19,13 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request)
     {
-        $category = $this->categoryStorage->store(CategoryDto::fromFormRequest($request));
+        $categoryDto = CategoryDto::fromFormRequest($request);
+
+        if (!$categoryDto->assigned_by_id) {
+            $categoryDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $category = $this->categoryStorage->store($categoryDto);
 
         return new CategoryResource($category);
     }

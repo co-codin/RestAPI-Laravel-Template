@@ -23,7 +23,6 @@ class ImageUploader extends FileUploader
         $fullPath = $this->fullFilePath($path);
 
         $this->resize($fullPath);
-        $this->convert($fullPath, Manipulations::FORMAT_WEBP);
 
         return $path;
     }

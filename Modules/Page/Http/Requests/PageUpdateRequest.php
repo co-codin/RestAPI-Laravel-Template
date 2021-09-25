@@ -33,6 +33,7 @@ class PageUpdateRequest extends BaseFormRequest
             ],
             'slug' => 'sometimes|nullable|string|max:255|unique:pages,slug,' . $this->route('page'),
             'parent_id' => 'sometimes|nullable|integer|exists:pages,id',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

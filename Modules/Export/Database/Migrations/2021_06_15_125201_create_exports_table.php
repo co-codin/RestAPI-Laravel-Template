@@ -21,6 +21,7 @@ class CreateExportsTable extends Migration
             $table->string('filename');
             $table->unsignedTinyInteger('frequency')->default(ExportFrequency::EVERY_30_MINUTES);
             $table->json('parameters');
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreateSeoRulesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('url')->unique();
+            $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
         });
     }

@@ -35,14 +35,16 @@ class MigrateNews extends Command
             'short_description' => $item->short_description,
             'full_description' => $item->full_description,
             'status' => $item->status,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
+            'view_num' => $item->views_num,
             'is_in_home' => $item->in_home === 1,
             'published_at' => $item->news_date,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
 
-        if ($item->status === 4) {
+        if ($item->status == 4) {
             array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,

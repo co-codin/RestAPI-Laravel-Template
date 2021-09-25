@@ -3,7 +3,7 @@
 
 namespace Tests\Feature\Modules\Seo\Web;
 
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Tests\TestCase;
 use function route;
 
@@ -11,7 +11,7 @@ class CanonicalReadTest extends TestCase
 {
     public function test_user_can_view_canonicals()
     {
-        CanonicalEntity::factory()->count($count = 5)->create();
+        Canonical::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('canonicals.index'));
 
@@ -56,7 +56,7 @@ class CanonicalReadTest extends TestCase
 
     public function test_user_can_view_single_canonical()
     {
-        $canonical = CanonicalEntity::factory()->create();
+        $canonical = Canonical::factory()->create();
 
         $response = $this->json('GET', route('canonicals.show', $canonical));
 

@@ -21,5 +21,7 @@ class PublicationDto extends BaseDto
 
     public ?string $published_at;
 
+    public ?int $assigned_by_id;
+
     public ?bool $is_logo_changed;
 }

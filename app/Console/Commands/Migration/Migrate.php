@@ -32,6 +32,9 @@ class Migrate extends Command
         $this->migrate('migrate:seo-rule');
         $this->migrate('migrate:seo');
         $this->migrate('migrate:customer-review');
+        $this->migrate('module:seed --class=RegionTableSeeder Geo');
+        $this->migrate('sold-products:import');
+        $this->migrate('import:order_points');
     }
 
     protected function migrate($command): void

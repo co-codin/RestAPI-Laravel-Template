@@ -3,7 +3,7 @@
 namespace Modules\Seo\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 
 class CanonicalFactory extends Factory
 {
@@ -12,7 +12,7 @@ class CanonicalFactory extends Factory
      *
      * @var string
      */
-    protected $model = CanonicalEntity::class;
+    protected $model = Canonical::class;
 
     /**
      * Define the model's default state.

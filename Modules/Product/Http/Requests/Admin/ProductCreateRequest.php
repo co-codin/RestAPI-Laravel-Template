@@ -5,6 +5,8 @@ namespace Modules\Product\Http\Requests\Admin;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
+use Modules\Product\Enums\DocumentSource;
+use Modules\Product\Enums\DocumentType;
 use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends BaseFormRequest
@@ -28,12 +30,38 @@ class ProductCreateRequest extends BaseFormRequest
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
             'status' => [
-                'sometimes',
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
             ],
-            'is_in_home' => 'sometimes|required|boolean',
+            'is_in_home' => 'required|boolean',
+            'assigned_by_id' => 'sometimes|nullable|integer',
+
+            'documents' => 'sometimes|nullable|array',
+            'documents.*.name' => 'required|string|max:255',
+            'documents.*.source' => [
+                'required',
+                'integer',
+                new EnumValue(DocumentSource::class, false),
+            ],
+
+            'documents.*.file' => [
+                'required_if:documents.*.source,' . DocumentSource::FILE,
+                'file',
+                'exclude_unless:documents.*.source,' . DocumentSource::URL
+            ],
+
+            'documents.*.url' => [
+                'required_if:documents.*.source,' . DocumentSource::URL,
+                'file',
+                'exclude_unless:documents.*.url,' . DocumentSource::FILE
+            ],
+
+            'documents.*.type' => [
+                'required',
+                'integer',
+                new EnumValue(DocumentType::class, false),
+            ],
         ];
     }
 }

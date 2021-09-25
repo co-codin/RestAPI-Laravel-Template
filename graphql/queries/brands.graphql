@@ -1,10 +1,33 @@
 extend type Query {
     brands(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "image", "website", "country", "is_in_home", "position"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id", "status",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id",
+        ])
     ): [Brand!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    brand(id: ID @eq, slug: String @eq): Brand @find
+    allBrands(
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id", "status",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "image",
+            "website", "country", "is_in_home",
+            "position", "assigned_by_id",
+        ])
+    ): [Brand!]!
+    @all
+    @orderBy(column: "id", direction: "ASC")
+
+    brand(id: ID @eq, slug: String @eq): Brand @find(scopes: ["active"])
 }

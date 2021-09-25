@@ -25,7 +25,13 @@ class ExportController extends Controller
 
     public function store(ExportCreateRequest $request)
     {
-        $export = $this->exportStorage->store(ExportDto::fromFormRequest($request));
+        $exportDto = ExportDto::fromFormRequest($request);
+
+        if (!$exportDto->assigned_by_id) {
+            $exportDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $export = $this->exportStorage->store($exportDto);
 
         return new ExportResource($export);
     }

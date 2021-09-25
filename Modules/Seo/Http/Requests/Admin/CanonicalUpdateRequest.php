@@ -19,6 +19,7 @@ class CanonicalUpdateRequest extends BaseFormRequest
                 'unique:canonicals,url,' . $this->route('canonical.id'),
             ],
             'canonical' => 'sometimes|required|string|max:255',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

@@ -33,6 +33,7 @@ class SeoRuleUpdateRequest extends BaseFormRequest
                     ]
                 ])
             ],
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

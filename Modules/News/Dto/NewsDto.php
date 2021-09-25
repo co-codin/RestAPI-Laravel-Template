@@ -28,4 +28,6 @@ class NewsDto extends BaseDto
     public $is_in_home = false;
 
     public ?string $published_at;
+
+    public ?int $assigned_by_id;
 }

@@ -32,15 +32,16 @@ class MigrateProduct extends Command
             'slug' => $item->slug,
             'brand_id' => $item->brand_id,
             'status' => $item->status,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'is_in_home' => $item->in_home === 1,
             'short_description' => $item->short_description,
             'full_description' => $item->full_description,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
 
-        if ($item->status === 4) {
+        if ($item->status == 4) {
             array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,

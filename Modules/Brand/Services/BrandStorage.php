@@ -10,9 +10,7 @@ use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
-    {
-    }
+    public function __construct(protected ImageUploader $imageUploader) {}
 
     public function store(BrandDto $brandDto)
     {

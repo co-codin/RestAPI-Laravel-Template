@@ -1,9 +1,9 @@
 extend type Query {
     order_points(
-        where: _ @whereConditions(columns: ["id", "name", "address"])
-        orderBy: _ @orderBy(columns: ["id", "name", "address"])
+        where: _ @whereConditions(columns: ["id", "name", "address", "city_id", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "address", "city_id"])
     ): [OrderPoint!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     order_point(id: ID @eq): OrderPoint @find

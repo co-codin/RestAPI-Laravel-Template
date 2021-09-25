@@ -1,10 +1,10 @@
 extend type Query {
     canonicals(
-        where: _ @whereConditions(columns: ["id", "url", "canonical"])
-        orderBy: _ @orderBy(columns: ["id", "url", "canonical"])
-    ): [CanonicalEntity!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+        where: _ @whereConditions(columns: ["id", "url", "canonical", "assigned_by_id"])
+        orderBy: _ @orderBy(columns: ["id", "url", "canonical", "assigned_by_id"])
+    ): [Canonical!]!
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    canonicalEntity(id: ID @eq): CanonicalEntity @find
+    canonicalEntity(id: ID @eq): Canonical @find
 }

@@ -9,8 +9,11 @@ type Category {
     is_in_home: Boolean!
     image: String
     parent_id: Int
+    assigned_by_id: Int
     parent: Category @belongsTo
     children: [Category] @belongsTo
+    productCount: Int! @count(relation: "products")
+    products: [Product] @belongsToMany
     filters: [Filter!] @hasMany
     properties: [Property!] @belongsToMany
     seo: Seo @morphOne

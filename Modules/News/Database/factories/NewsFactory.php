@@ -2,6 +2,7 @@
 namespace Modules\News\Database\factories;
 
 use App\Enums\Status;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NewsFactory extends Factory
@@ -27,7 +28,7 @@ class NewsFactory extends Factory
             'status' => Status::getRandomValue(),
             'is_in_home' => $this->faker->boolean,
             'image' => '/uploads/test/news/news' . $this->faker->randomElement([1, 2]) . '.jpg',
-            'published_at' => $this->faker->date(),
+            'published_at' => Carbon::now(),
         ];
     }
 }

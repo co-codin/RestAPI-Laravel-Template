@@ -3,7 +3,7 @@
 namespace Modules\Seo\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 
 class CanonicalTableSeeder extends Seeder
 {
@@ -14,6 +14,6 @@ class CanonicalTableSeeder extends Seeder
      */
     public function run()
     {
-        CanonicalEntity::factory()->count(50)->create();
+        Canonical::factory()->count(50)->create();
     }
 }

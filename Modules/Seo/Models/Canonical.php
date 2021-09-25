@@ -13,7 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * This is the model class for table "canonicals".
  *
- * Modules\Seo\Models\CanonicalEntity
+ * Modules\Seo\Models\Canonical
  *
  * @property int $id
  * @property string $url
@@ -21,19 +21,18 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @mixin \Eloquent
- * @method static Builder|CanonicalEntity newModelQuery()
- * @method static Builder|CanonicalEntity newQuery()
- * @method static Builder|CanonicalEntity query()
+ * @method static Builder|Canonical newModelQuery()
+ * @method static Builder|Canonical newQuery()
+ * @method static Builder|Canonical query()
  */
-class CanonicalEntity extends Model
+class Canonical extends Model
 {
     use HasFactory, LogsActivity;
-
-    protected $table = 'canonicals';
 
     protected $fillable = [
         'url',
         'canonical',
+        'assigned_by_id',
     ];
 
     public function getActivitylogOptions(): LogOptions

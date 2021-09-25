@@ -1,10 +1,14 @@
 extend type Query {
     products(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "brand_id", "status", "image", "warranty", "short_description", "full_description"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "brand_id", "status", "image",
+            "warranty", "short_description", "full_description", "assigned_by_id", "is_in_home"
+        ])
+        hasBrand: _ @whereHasConditions(columns: ["id", "country", "name", "slug"])
         hasProductVariations: _ @whereHasConditions(columns: ["id", "name", "is_price_visible", "is_enabled", "currency_id", "price", "availability", "previous_price"])
-        orderBy: _ @orderBy(columns: ["id", "name", "warranty"])
+        orderBy: _ @orderBy(columns: ["id", "name", "warranty", "assigned_by_id", "is_in_home"])
     ): [Product!]!
-    @paginate(defaultCount: 15, maxCount: 200)
+    @paginate
     @orderBy(column: "id", direction: "ASC")
 
     product(id: ID @eq, slug: String @eq): Product @find

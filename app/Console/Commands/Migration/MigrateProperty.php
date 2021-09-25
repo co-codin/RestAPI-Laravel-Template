@@ -35,6 +35,7 @@ class MigrateProperty extends Command
             'description' => $item->description,
             'is_hidden_from_product' => $item->hide_from_product,
             'is_hidden_from_comparison' => $item->hide_from_comparison,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

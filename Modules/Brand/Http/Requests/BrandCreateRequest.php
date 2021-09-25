@@ -24,6 +24,7 @@ class BrandCreateRequest extends BaseFormRequest
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

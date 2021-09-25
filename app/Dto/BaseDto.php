@@ -21,7 +21,9 @@ abstract class BaseDto extends DataTransferObject
      */
     public static function fromFormRequest(FormRequest $request): static
     {
-        return (new static($validated = $request->validated()))
+        $validated = $request->validated();
+
+        return (new static($validated))
             ->visible(array_keys($validated));
     }
 

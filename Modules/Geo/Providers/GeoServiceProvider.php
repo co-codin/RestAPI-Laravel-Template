@@ -3,7 +3,7 @@
 namespace Modules\Geo\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Geo\Console\ClientsGeographyImportCommand;
+use Modules\Geo\Console\SoldProductsImportCommand;
 use Modules\Geo\Console\OrderPointsImportCommand;
 use Modules\Geo\Console\SypexDownloadCommand;
 
@@ -107,7 +107,7 @@ class GeoServiceProvider extends ServiceProvider
         $this->commands([
             OrderPointsImportCommand::class,
             SypexDownloadCommand::class,
-            ClientsGeographyImportCommand::class,
+            SoldProductsImportCommand::class,
         ]);
     }
 }

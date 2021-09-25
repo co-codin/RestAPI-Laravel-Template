@@ -21,7 +21,13 @@ class RedirectController extends Controller
 
     public function store(RedirectCreateRequest $request)
     {
-        $redirectModel = $this->redirectStorage->store(RedirectDto::fromFormRequest($request));
+        $redirectDto = RedirectDto::fromFormRequest($request);
+
+        if (!$redirectDto->assigned_by_id) {
+            $redirectDto->assigned_by_id = auth('custom-token')->id();
+        }
+
+        $redirectModel = $this->redirectStorage->store($redirectDto);
 
         return new RedirectResource($redirectModel);
     }

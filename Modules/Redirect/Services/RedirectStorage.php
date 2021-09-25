@@ -11,12 +11,16 @@ class RedirectStorage
 {
     public function store(RedirectDto $redirectDto)
     {
-        return Redirect::query()->create($redirectDto->toArray());
+        $attributes = $redirectDto->toArray();
+
+        return Redirect::query()->create($attributes);
     }
 
     public function update(Redirect $redirect, RedirectDto $redirectDto)
     {
-        if (!$redirect->update($redirectDto->toArray())) {
+        $attributes = $redirectDto->toArray();
+
+        if (!$redirect->update($attributes)) {
             throw new \LogicException('can not update redirect');
         }
         return $redirect;

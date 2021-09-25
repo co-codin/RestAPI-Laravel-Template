@@ -25,4 +25,6 @@ class PropertyDto extends BaseDto
     public $is_hidden_from_comparison;
 
     public $is_numeric;
+
+    public ?int $assigned_by_id;
 }

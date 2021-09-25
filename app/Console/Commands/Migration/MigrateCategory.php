@@ -37,15 +37,16 @@ class MigrateCategory extends Command
             'parent_id' => $item->parent_id,
             'status' => $item->status,
             'product_name' => $item->product_name,
-            'image' => $item->image,
+            'image' => ltrim($item->image, "/"),
             'is_in_home' => $item->in_home === 1,
             'is_hidden_in_parents' => $item->hide_in_parents,
             'full_description' => $item->full_description,
+            'assigned_by_id' => 1,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];
 
-        if ($item->status === 4) {
+        if ($item->status == 4) {
             array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,

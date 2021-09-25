@@ -5,7 +5,7 @@ namespace Modules\Seo\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Seo\Http\Resources\CanonicalResource;
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Modules\Seo\Repositories\CanonicalRepository;
 
 /**
@@ -31,10 +31,10 @@ class CanonicalController extends Controller
 
     /**
      * Show the specified resource.
-     * @param CanonicalEntity $canonical
+     * @param Canonical $canonical
      * @return CanonicalResource
      */
-    public function show(CanonicalEntity $canonical): CanonicalResource
+    public function show(Canonical $canonical): CanonicalResource
     {
         return new CanonicalResource($canonical);
     }

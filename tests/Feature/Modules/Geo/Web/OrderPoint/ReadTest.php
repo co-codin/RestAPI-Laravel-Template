@@ -11,7 +11,7 @@ class ReadTest extends TestCase
     {
         OrderPoint::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('order_points.index'));
+        $response = $this->json('GET', route('order-points.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -56,7 +56,7 @@ class ReadTest extends TestCase
     {
         $orderPoint = OrderPoint::factory()->create();
 
-        $response = $this->json('GET', route('order_points.show', $orderPoint));
+        $response = $this->json('GET', route('order-points.show', $orderPoint));
 
         $response->assertOk();
         $response->assertJsonStructure([

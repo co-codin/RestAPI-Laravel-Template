@@ -32,6 +32,7 @@ class PageCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'parent_id' => 'sometimes|nullable|integer|exists:pages,id',
+            'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
 }

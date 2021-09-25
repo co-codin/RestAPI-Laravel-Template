@@ -11,12 +11,16 @@ class SeoRuleStorage
 {
     public function store(SeoRuleDto $seoRuleDto)
     {
-        return SeoRule::query()->create($seoRuleDto->toArray());
+        $attributes = $seoRuleDto->toArray();
+
+        return SeoRule::query()->create($attributes);
     }
 
     public function update(SeoRule $seoRule, SeoRuleDto $seoRuleDto)
     {
-        if (!$seoRule->update($seoRuleDto->toArray())) {
+        $attributes = $seoRuleDto->toArray();
+
+        if (!$seoRule->update($attributes)) {
             throw new \LogicException('can not update seo rule');
         }
         return $seoRule;

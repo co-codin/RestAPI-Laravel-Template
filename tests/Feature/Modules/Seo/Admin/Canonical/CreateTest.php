@@ -3,7 +3,7 @@
 
 namespace Tests\Feature\Modules\Seo\Admin\Canonical;
 
-use Modules\Seo\Models\CanonicalEntity;
+use Modules\Seo\Models\Canonical;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
@@ -15,7 +15,7 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_canonical()
     {
-        $canonicalData = CanonicalEntity::factory()->raw();
+        $canonicalData = Canonical::factory()->raw();
 
         $response = $this->json('POST', route('admin.canonicals.store'), $canonicalData);
 
