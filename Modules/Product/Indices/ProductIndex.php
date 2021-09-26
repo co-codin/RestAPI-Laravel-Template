@@ -51,7 +51,7 @@ class ProductIndex extends BaseIndex implements SearchIndex
                 'status' => [
                     'properties' => [
                         'id' => [
-                            'type' => 'integer',
+                            'type' => 'byte',
                         ],
                         'name' => [
                             'type' => 'keyword',
@@ -81,7 +81,7 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         'status' => [
                             'properties' => [
                                 'id' => [
-                                    'type' => 'integer',
+                                    'type' => 'byte',
                                 ],
                                 'name' => [
                                     'type' => 'keyword',
@@ -107,7 +107,7 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         'status' => [
                             'properties' => [
                                 'id' => [
-                                    'type' => 'integer',
+                                    'type' => 'byte',
                                 ],
                                 'name' => [
                                     'type' => 'keyword',
@@ -136,7 +136,31 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         ],
                     ],
                 ],
+                'variations' => [
+                    'type' => 'nested',
+                    'properties' => [
+                        'id' => [
+                            'type' => 'integer',
+                        ],
+                        'price' => [
+                            'type' => 'long',
+                        ],
+                        'previous_price' => [
+                            'type' => 'long',
+                        ],
+                        'is_enabled' => [
+                            'type' => 'boolean',
+                        ],
+                        'availability' => [
+                            'type' => 'byte',
+                        ],
+                        'is_price_visible' => [
+                            'type' => 'boolean',
+                        ],
+                    ]
+                ],
             ],
         ];
     }
+
 }

@@ -26,8 +26,11 @@ abstract class BaseIndex implements SearchIndex
 
     public function delete(): void
     {
-        $this->elasticsearch->indices()->delete([
-            'index' => $this->name()
-        ]);
+        try {
+            $this->elasticsearch->indices()->delete([
+                'index' => $this->name()
+            ]);
+        }
+        catch (\Throwable $e) {}
     }
 }

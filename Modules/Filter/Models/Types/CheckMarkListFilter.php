@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Filter\Entities\Types;
+namespace Modules\Filter\Models\Types;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -9,7 +9,7 @@ use Modules\Property\Entities\PropertyValue;
 use Modules\Search\Aggregations\BucketsAggregation;
 use Modules\Search\Contracts\Aggregation;
 use Modules\Search\Contracts\Filter as FilterInterface;
-use Modules\Filter\Entities\Filter;
+use Modules\Filter\Models\Filter;
 use Modules\Search\Filters\TermsFilter;
 use Parental\HasParent;
 
@@ -40,9 +40,7 @@ class CheckMarkListFilter extends Filter
 
     public function parseValue($value)
     {
-        $values = explode("-or-", $value);
-
-        return array_filter($values);
+        return array_filter($value);
     }
 
     public function getFilter() : FilterInterface

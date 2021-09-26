@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Filter\Entities\Types;
+namespace Modules\Filter\Models\Types;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Search\Aggregations\BucketsAggregation;
 use Modules\Search\Contracts\Aggregation as AggregationInterface;
 use Modules\Search\Contracts\Filter as FilterInterface;
-use Modules\Filter\Entities\Filter;
+use Modules\Filter\Models\Filter;
 use Modules\Search\Filters\TermFilter;
 use Parental\HasParent;
 

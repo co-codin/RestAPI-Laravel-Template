@@ -62,10 +62,10 @@ class FilterCollection extends Collection
             ->toArray();
     }
 
-    public function loadValues(array $values)
+    public function loadValues(array $values): self
     {
         return $this->each(function($filter) use ($values) {
-            $filter->value = Arr::get($values, $filter->slug);
+            $filter->value = Arr::get($values, $filter->id);
         });
     }
 

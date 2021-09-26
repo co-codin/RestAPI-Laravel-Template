@@ -18,26 +18,10 @@ trait HasValue
         return !! $value;
     }
 
-    public function getValueAttribute($value)
-    {
-        if($value) {
-            return $value;
-        }
-
-        if(is_null(request('filters'))) {
-            return null;
-        }
-
-        $value = $this->getParsedUrl()->get($this->slug);
-
-        if(!$this->validateValue($value)) {
-            return null;
-        }
-
-        $parsedValue = $this->parseValue($value);
-
-        return $parsedValue;
-    }
+//    public function getValueAttribute($value)
+//    {
+//
+//    }
 
     public function getUrlAttribute()
     {
@@ -46,6 +30,8 @@ trait HasValue
 
     public function setValueAttribute($value)
     {
+        $value = $this->parseValue($value);
+
         $this->attributes['value'] = $value;
     }
 

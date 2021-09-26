@@ -54,6 +54,8 @@ class Indexer
 
         if ((array_key_exists('errors', $result) && $result['errors'] != false) || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false))
         {
+            ray($result);
+//            dump(\Arr::get($result, 'errors'), \Arr::get($result, 'Message'));
             throw new \Exception("Cant index data");
         }
 

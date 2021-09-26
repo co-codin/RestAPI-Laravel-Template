@@ -3,44 +3,29 @@
 namespace Modules\Product\Services;
 
 use Elasticsearch\Client;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\ArrayShape;
+use Modules\Filter\Collections\FilterCollection;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Search\Collections\FilteredCollection;
 
 class ProductFilter
 {
-    protected Client $elasticsearch;
+    protected FilterCollection $filters;
 
-    protected Request $request;
-
-    protected array $query = [];
-
-    protected array $aggregations = [];
+    protected FilterCollection $defaultFilters;
 
     protected int $page = 1;
 
-    protected int $size = 25;
+    protected int $size = 15;
 
     protected string $sort = 'popular';
 
-    protected ProductRepository $productRepository;
-
     public function __construct(
-        Request $request,
-        Client $elasticsearch,
-        ProductRepository $productRepository,
-    )
-    {
-        $this->elasticsearch = $elasticsearch;
-        $this->productRepository = $productRepository;
-
-        $this->setQuery($request->input('query') ?? []);
-        $this->setAggregations($request->input('aggregations') ?? []);
-        $this->setPage($request->input('page.number') ?? 1);
-        $this->setSize($request->input('page[size]') ?? 25);
-        $this->setSort($request->input('sort') ?? 'popular');
-    }
+        protected Client $elasticsearch,
+        protected ProductRepository $productRepository,
+    ) {}
 
     public function getItems(): FilteredCollection
     {
@@ -52,13 +37,6 @@ class ProductFilter
             $this->getProducts($ids),
             $result
         );
-    }
-
-    public function setQuery(array $query = []): self
-    {
-        $this->query = $query;
-
-        return $this;
     }
 
     public function setPage(int $page): self
@@ -75,16 +53,9 @@ class ProductFilter
         return $this;
     }
 
-    public function setSize(int $limit)
+    public function setSize(int $limit): self
     {
         $this->size = $limit;
-
-        return $this;
-    }
-
-    public function setAggregations(array $aggregations = []): self
-    {
-        $this->aggregations = $aggregations;
 
         return $this;
     }
@@ -197,30 +168,55 @@ class ProductFilter
         ];
     }
 
-    protected function getRequestBody(): array
+    protected function getBody(): array
     {
         $body = [
             'size' => $this->size,
             'from' => ($this->page - 1) * $this->size,
             'stored_fields' => [],
+            'query' => $this->getQuery(),
+//            'aggs' => $this->getAggregations(),
         ];
 
-        if($this->query) {
-            $body['query'] = $this->query;
-        }
-
-        if($this->aggregations) {
-            $body['aggs'] = $this->aggregations;
-        }
-
         if($this->sort && $this->isAvailableSort($this->sort)) {
-            $body['sort'] = $this->availableSorts()[$this->sort];
+//            $body['sort'] = $this->availableSorts()[$this->sort];
         }
 
         return $body;
     }
 
-    protected function isAvailableSort(string $sort)
+    protected function getQuery() : array
+    {
+        $filters = $this->defaultFilters
+            ->merge($this->filters->enabled());
+
+        return [
+            'bool' => [
+                'must' => $filters->getQuery(),
+            ],
+        ];
+    }
+
+    protected function getAggregations() : ? array
+    {
+        return [
+            'aggregations' => [
+                'global' => (object) [],
+                'aggs' => [
+                    'filtered' => [
+                        'filter' => [
+                            'bool' => [
+                                'filter' => $this->defaultFilters->getQuery(),
+                            ],
+                        ],
+                        'aggs' => $this->filters->getAggregations(),
+                    ],
+                ],
+            ]
+        ];
+    }
+
+    protected function isAvailableSort(string $sort): bool
     {
         return array_key_exists($sort, $this->availableSorts());
     }
@@ -229,7 +225,7 @@ class ProductFilter
     {
         return $this->elasticsearch->search([
             'index' => 'products_v2',
-            'body' => $this->getRequestBody(),
+            'body' => $this->getBody(),
         ]);
     }
 
@@ -237,13 +233,22 @@ class ProductFilter
     {
         return $this
             ->productRepository
-            ->scopeQuery(function($builder) use ($ids) {
-                return $builder->whereIn('id', $ids);
-            })
-            ->jsonPaginate()
-            ->sortBy(function ($product) use ($ids) {
-                return array_search($product->getKey(), $ids);
-            })
-            ->values();
+            ->scopeQuery(fn($builder) => $builder->whereIn('id', $ids))
+            ->get()
+            ->sortBy(fn($product) => array_search($product->getKey(), $ids));
+    }
+
+    public function setFilters(FilterCollection $filters): self
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    public function setDefaultFilters(FilterCollection $defaultFilters): self
+    {
+        $this->defaultFilters = $defaultFilters;
+
+        return $this;
     }
 }

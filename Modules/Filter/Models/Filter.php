@@ -6,11 +6,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Modules\Category\Models\Category;
+use Modules\Filter\Collections\FilterCollection;
 use Modules\Filter\Concerns\Aggregable;
+use Modules\Filter\Concerns\HasValue;
 use Modules\Filter\Database\factories\FilterFactory;
+use Modules\Filter\Models\Types\CheckMarkFilter;
+use Modules\Filter\Models\Types\CheckMarkListFilter;
+use Modules\Filter\Models\Types\SliderFilter;
+use Modules\Filter\Enums\FilterType;
 use Modules\Property\Models\Property;
 use Modules\Filter\Concerns\Searchable;
+use Parental\HasChildren;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -34,7 +42,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Filter extends Model
 {
-    use HasFactory, Aggregable, Searchable, LogsActivity;
+    use HasFactory,
+        Aggregable,
+        Searchable,
+        LogsActivity,
+        HasChildren,
+        HasValue;
 
     protected $guarded = ['id'];
 
@@ -44,6 +57,12 @@ class Filter extends Model
         'is_default' => 'boolean',
         'position' => 'integer',
         'options' => 'array',
+    ];
+
+    protected $childTypes = [
+        FilterType::CheckMarkList => CheckMarkListFilter::class,
+        FilterType::Slider => SliderFilter::class,
+        FilterType::CheckMark => CheckMarkFilter::class,
     ];
 
     public function category()
@@ -71,5 +90,10 @@ class Filter extends Model
     protected static function newFactory()
     {
         return FilterFactory::new();
+    }
+
+    public function newCollection(array $models = []): FilterCollection
+    {
+        return new FilterCollection($models);
     }
 }

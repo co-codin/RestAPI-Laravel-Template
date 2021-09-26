@@ -47,7 +47,7 @@ class MigrateCategory extends Command
         ];
 
         if ($item->status == 4) {
-            array_merge($data, [
+            $data = array_merge($data, [
                 'deleted_at' => Carbon::now(),
                 'status' => 2,
             ]);

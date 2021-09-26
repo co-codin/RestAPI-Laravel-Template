@@ -29,6 +29,7 @@ class ProductSearchResource extends JsonResource
             'brand' => new ProductBrandSearchResource($this->brand),
             'category' => new ProductCategorySearchResource($this->category),
             'properties' => ProductPropertySearchResource::collection($this->properties),
+            'variations' => ProductVariationSearchResource::collection($this->productVariations),
         ];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Filter\Entities\Types;
+namespace Modules\Filter\Models\Types;
 
 use Illuminate\Support\Arr;
 use Modules\Search\Contracts\Aggregation as AggregationInterface;
 use Modules\Search\Contracts\Filter as FilterInterface;
-use Modules\Filter\Entities\Filter;
+use Modules\Filter\Models\Filter;
 use Modules\Search\Filters\RangeFilter;
 use Modules\Search\Aggregations\StatsAggregation;
 use Parental\HasParent;
@@ -18,8 +18,6 @@ class SliderFilter extends Filter
 {
     use HasParent;
 
-    protected $pattern = '/^(from-(?<from>[0-9]+))?-?(to-(?<to>[0-9]+))?$/';
-
     public function validateValue($value = null) : bool
     {
         if(!preg_match($this->pattern, $value, $matches)) {
@@ -31,20 +29,6 @@ class SliderFilter extends Filter
 
     public function parseValue($value) : array
     {
-        preg_match($this->pattern, $value, $matches);
-
-        $matches = array_map('intval', $matches);
-
-        $value = [];
-
-        if(isset($matches["from"])) {
-            $value['gte'] = $matches["from"];
-        }
-
-        if(isset($matches["to"])) {
-            $value['lte'] = $matches["to"];
-        }
-
         return $value;
     }
 
