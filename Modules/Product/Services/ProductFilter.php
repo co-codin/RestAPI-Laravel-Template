@@ -5,22 +5,16 @@ namespace Modules\Product\Services;
 use Elasticsearch\Client;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\ArrayShape;
-use Modules\Filter\Collections\FilterCollection;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Search\Collections\FilteredCollection;
 
 class ProductFilter
 {
-    protected FilterCollection $filters;
-
-    protected FilterCollection $defaultFilters;
-
     protected int $page = 1;
 
     protected int $size = 15;
 
-    protected string $sort = 'popular';
+    protected Collection $filters;
 
     public function __construct(
         protected Client $elasticsearch,
@@ -39,16 +33,16 @@ class ProductFilter
         );
     }
 
-    public function setPage(int $page): self
+    public function setFilters(array $filters): self
     {
-        $this->page = $page;
+        $this->filters = collect($filters);
 
         return $this;
     }
 
-    public function setSort(string $sort): self
+    public function setPage(int $page): self
     {
-        $this->sort = $sort;
+        $this->page = $page;
 
         return $this;
     }
@@ -60,114 +54,6 @@ class ProductFilter
         return $this;
     }
 
-    public function availableSorts(): array
-    {
-        return [
-            'price' => [
-                'variations.in_stock_sort_value' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                    ]
-                ],
-                'variations.price_in_rub' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                        'filter' => [
-                            'range' => [
-                                'variations.price_in_rub' => [
-                                    'gt' => 0,
-                                ]
-                            ],
-                        ],
-                    ]
-                ],
-                'slug' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                        'filter' => [
-                            'range' => [
-                                'variations.price_in_rub' => [
-                                    'lte' => 0,
-                                ]
-                            ],
-                        ],
-                    ]
-                ],
-            ],
-            '-price' => [
-                'variations.in_stock_sort_value' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                    ]
-                ],
-                'variations.price_in_rub' => [
-                    'order' => 'desc',
-                    'mode' => 'min',
-                    'nested' => [
-                        'path' => 'variations',
-                        'filter' => [
-                            'range' => [
-                                'variations.price_in_rub' => [
-                                    'gt' => 0,
-                                ]
-                            ],
-                        ],
-                    ]
-                ],
-                'slug' => [
-                    'order' => 'desc',
-                    'nested' => [
-                        'path' => 'variations',
-                        'filter' => [
-                            'range' => [
-                                'variations.price_in_rub' => [
-                                    'lte' => 0,
-                                ]
-                            ],
-                        ],
-                    ]
-                ],
-            ],
-            'popular' => [
-                'variations.in_stock_sort_value' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                    ]
-                ],
-                'variations.popular_score' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                    ]
-                ],
-                'variations.is_show_price' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                    ]
-                ],
-                'variations.price_in_rub' => [
-                    'order' => 'asc',
-                    'nested' => [
-                        'path' => 'variations',
-                        'filter' => [
-                            'range' => [
-                                'variations.price_in_rub' => [
-                                    'gt' => 0,
-                                ]
-                            ],
-                        ],
-                    ]
-                ],
-            ],
-        ];
-    }
-
     protected function getBody(): array
     {
         $body = [
@@ -175,24 +61,90 @@ class ProductFilter
             'from' => ($this->page - 1) * $this->size,
             'stored_fields' => [],
             'query' => $this->getQuery(),
-//            'aggs' => $this->getAggregations(),
+            'post_filter' => $this->getPostFilters(),
+            'aggs' => $this->getAggregations(),
         ];
-
-        if($this->sort && $this->isAvailableSort($this->sort)) {
-//            $body['sort'] = $this->availableSorts()[$this->sort];
-        }
 
         return $body;
     }
 
     protected function getQuery() : array
     {
-        $filters = $this->defaultFilters
-            ->merge($this->filters->enabled());
+        return $this->prepareFiltersQuery(
+            $this->filters->where('is_default', true)
+        );
+    }
+
+    protected function getPostFilters() : array
+    {
+        return $this->prepareFiltersQuery(
+            $this->filters->where('is_default', false)
+        );
+    }
+
+    protected function prepareFiltersQuery(Collection $filters): array
+    {
+        $mainFilters = $filters->whereNull('path')
+            ->map(fn($filter) => $this->generateFacetsQuery($filter))
+            ->values();
+
+        $nestedFilters = $filters->whereNotNull('path')
+            ->groupBy('path')
+            ->map(function($filters, $path) {
+                return [
+                    "nested" => [
+                        "path" => $path,
+                        "query" => [
+                            "bool" => [
+                                "must" => $filters->map(fn($filter) => $this->generateFacetsQuery($filter))->toArray(),
+                            ],
+                        ],
+                    ],
+                ];
+            })
+            ->values();
 
         return [
             'bool' => [
-                'must' => $filters->getQuery(),
+                'must' => $mainFilters->merge($nestedFilters)->toArray(),
+            ],
+        ];
+    }
+
+    protected function generateFacetsQuery(array $filter): array
+    {
+        $prefix = ($filter['path'] ?? null) ? $filter['path'] . "." : null;
+        $field = "facets";
+
+        $value = Arr::wrap($filter['value']);
+
+        if($filter['type'] == 'range') {
+            $field = "numeric_facets";
+            $value = [
+                'gte' => $value[0] ?? 0,
+                'lte' => $value[1] ?? 1,
+            ];
+        }
+
+        return [
+            "nested" => [
+                "path" => $prefix . $field,
+                "query" => [
+                    "bool" => [
+                        "must" => [
+                            [
+                                "term" => [
+                                    $prefix . "{$field}.name" => $filter['name'],
+                                ],
+                            ],
+                            [
+                                $filter['type'] => [
+                                    $prefix . "{$field}.value" => $value,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ];
     }
@@ -200,29 +152,54 @@ class ProductFilter
     protected function getAggregations() : ? array
     {
         return [
-            'aggregations' => [
-                'global' => (object) [],
-                'aggs' => [
-                    'filtered' => [
-                        'filter' => [
-                            'bool' => [
-                                'filter' => $this->defaultFilters->getQuery(),
+            "facets" => [
+                "nested" => [
+                    "path" => "facets",
+                ],
+                "aggs" => [
+                    "names" => [
+                        "terms" => [
+                            "field" => "facets.name",
+                            "size" => 100,
+                        ],
+                        "aggs" => [
+                            "values" => [
+                                "terms" => [
+                                    "field" => "facets.value",
+                                    "size" => 100,
+                                ],
                             ],
                         ],
-                        'aggs' => $this->filters->getAggregations(),
                     ],
                 ],
-            ]
+            ],
+            'numeric_facets' => [
+                "nested" => [
+                    "path" => "variations.numeric_facets",
+                ],
+                "aggs" => [
+                    "names" => [
+                        "terms" => [
+                            "field" => "variations.numeric_facets.name",
+                            "size" => 100,
+                        ],
+                        "aggs" => [
+                            "values" => [
+                                "stats" => [
+                                    "field" => "variations.numeric_facets.value",
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
-    }
-
-    protected function isAvailableSort(string $sort): bool
-    {
-        return array_key_exists($sort, $this->availableSorts());
     }
 
     protected function search(): array
     {
+        ray($this->getBody());
+
         return $this->elasticsearch->search([
             'index' => 'products_v2',
             'body' => $this->getBody(),
@@ -236,19 +213,5 @@ class ProductFilter
             ->scopeQuery(fn($builder) => $builder->whereIn('id', $ids))
             ->get()
             ->sortBy(fn($product) => array_search($product->getKey(), $ids));
-    }
-
-    public function setFilters(FilterCollection $filters): self
-    {
-        $this->filters = $filters;
-
-        return $this;
-    }
-
-    public function setDefaultFilters(FilterCollection $defaultFilters): self
-    {
-        $this->defaultFilters = $defaultFilters;
-
-        return $this;
     }
 }

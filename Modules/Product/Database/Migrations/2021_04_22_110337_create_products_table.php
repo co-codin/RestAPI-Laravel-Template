@@ -25,6 +25,8 @@ class CreateProductsTable extends Migration
             $table->text('short_description')->nullable();
             $table->text('full_description')->nullable();
             $table->json('documents')->nullable();
+            $table->string('booklet')->nullable();
+            $table->string('video')->nullable();
             $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
             $table->softDeletes();

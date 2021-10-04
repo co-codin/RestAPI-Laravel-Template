@@ -6,7 +6,7 @@ namespace Modules\Product\Http\Requests\Admin;
 
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
-use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Enums\Availability;
 
 class ProductConfiguratorUpdateRequest extends BaseFormRequest
 {
@@ -24,7 +24,7 @@ class ProductConfiguratorUpdateRequest extends BaseFormRequest
             'variations.*.availability' => [
                 'required',
                 'integer',
-                new EnumValue(ProductVariationStock::class, false),
+                new EnumValue(Availability::class, false),
             ],
             'variations.*.stock_type' => 'sometimes|nullable|string|max:255',
 

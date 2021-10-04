@@ -7,7 +7,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  * Class BaseRepository
- * @method jsonPaginate()
+ * @method jsonPaginate(int $maxResults = null, int $defaultSize = null)
  */
 abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
 {

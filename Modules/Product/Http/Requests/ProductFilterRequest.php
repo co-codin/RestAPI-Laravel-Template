@@ -10,39 +10,36 @@ class ProductFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'defaultFilters' => [
+            'filters' => [
                 'sometimes',
-                'nullable',
                 'array',
             ],
-            'defaultFilters.*.key' => [
+            'filters.*' => [
+                'required',
+                'array',
+            ],
+            'filters.*.name' => [
                 'required',
                 'string',
-                'distinct',
-                Rule::in([
-                    'is_available',
-                    'is_hot',
-                    'is_active',
-                    'has_active_variation',
-                    'is_price_visible',
-                    'brand.country',
-                    'brand.id',
-                    'category.id',
-                    'categories.id',
-                ]),
+                'max:100',
             ],
-            'defaultFilters.*.value' => [
+            'filters.*.value' => [
                 'required',
             ],
-            'filters' => [
-                'array',
+            'filters.*.is_default' => [
+                'boolean',
                 'nullable',
             ],
-            'filters.*.key' => [
+            'filters.*.path' => [
+                'string',
+                'nullable',
+                'max:100',
+                Rule::in(['variations']),
+            ],
+            'filters.*.type' => [
                 'required',
-                'integer',
-                'distinct',
-                'exists:filters,id',
+                'string',
+                Rule::in('terms', 'range'),
             ],
             'page' => [
                 'sometimes',
@@ -61,11 +58,11 @@ class ProductFilterRequest extends FormRequest
                 'min: 1',
                 'max: 50',
             ],
-            'sort' => [
-                'string',
-                'nullable',
-                Rule::in(['popular', 'price', '-price']),
-            ],
+//            'sort' => [
+//                'string',
+//                'nullable',
+//                Rule::in(['popular', 'price', '-price']),
+//            ],
         ];
     }
 }

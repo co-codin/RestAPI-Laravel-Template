@@ -37,7 +37,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Seo $seo
  * @property-read Collection|ProductCategory[] $productCategories
  * @property-read Collection|Category[] $categories
- * @property-read Collection|ProductVariation[] $variations
+ * @property-read Collection|ProductVariation[] $productVariations
  * @property-read Collection|Property[] $properties
  * @mixin Eloquent
  */

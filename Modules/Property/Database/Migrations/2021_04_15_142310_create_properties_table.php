@@ -16,7 +16,8 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->unsignedTinyInteger('type')->default(1);
+            $table->string('key')->unique();
+            $table->unsignedTinyInteger('type');
             $table->json('options')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_hidden_from_product')->default(false);
