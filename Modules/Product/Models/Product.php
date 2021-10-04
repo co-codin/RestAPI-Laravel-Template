@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Models\Image;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -127,6 +128,11 @@ class Product extends Model
     protected static function newFactory()
     {
         return ProductFactory::new();
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function toSearchArray()

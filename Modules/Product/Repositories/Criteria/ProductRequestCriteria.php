@@ -26,6 +26,12 @@ class ProductRequestCriteria implements CriteriaInterface
                 CategoryRequestCriteria::allowedCategoryFields('category'),
                 CategoryRequestCriteria::allowedCategoryFields('categories'),
                 PropertyRequestCriteria::allowedPropertyFields('properties'),
+                [
+                    'images.id',
+                    'images.image',
+                    'images.caption',
+                    'images.position',
+                ],
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -60,7 +66,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariations.availability'),
                 AllowedFilter::exact('productVariations.previous_price'),
             ])
-            ->allowedIncludes(['brand', 'productVariations', 'properties', 'category', 'categories', 'seo'])
+            ->allowedIncludes(['brand', 'productVariations', 'properties', 'category', 'categories', 'seo', 'images'])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
     }
