@@ -19,7 +19,8 @@ class ProductFactory extends Factory
             'status' => Status::ACTIVE,
             'image' => $this->faker->imageUrl(),
             'is_in_home' => $this->faker->boolean,
-            'warranty' => $this->faker->randomElement([12, 24, 26, 48, 60]),
+            'has_test_drive' => $this->faker->boolean,
+            'warranty' => $this->faker->randomElement([12, 24, 36, 48, 60]),
             'short_description' => $this->faker->text(200),
             'full_description' => $this->faker->text(),
         ];

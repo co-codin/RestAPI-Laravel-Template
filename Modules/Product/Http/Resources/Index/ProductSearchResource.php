@@ -28,6 +28,7 @@ class ProductSearchResource extends JsonResource
             'warranty' => $this->warranty,
             'brand' => new ProductBrandSearchResource($this->brand),
             'category' => new ProductCategorySearchResource($this->category),
+            'categories' => ProductCategorySearchResource::collection($this->categories),
             'properties' => ProductPropertySearchResource::collection($this->properties),
             'variations' => ProductVariationSearchResource::collection($this->productVariations),
         ];

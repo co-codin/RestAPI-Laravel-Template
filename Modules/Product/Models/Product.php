@@ -28,6 +28,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $status
  * @property boolean $is_in_home
  * @property int|null $warranty
+ * @property boolean $has_test_drive
  * @property array|null $documents
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -54,6 +55,7 @@ class Product extends Model
         'is_in_home' => 'boolean',
         'warranty' => 'integer',
         'documents' => 'array',
+        'has_test_drive' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions

@@ -10,6 +10,7 @@ type Product {
     short_description: String!
     full_description: String!
     assigned_by_id: Int
+    has_test_drive: Boolean!
 
     brand: Brand!
     productVariations: [ProductVariation!]!
