@@ -29,6 +29,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property boolean $is_in_home
  * @property int|null $warranty
  * @property boolean $has_test_drive
+ * @property string|null $booklet
+ * @property string|null $video
  * @property array|null $documents
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
