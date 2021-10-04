@@ -185,7 +185,40 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         'is_price_visible' => [
                             'type' => 'boolean',
                         ],
-                    ]
+                        'facets' => [
+                            'type' => 'nested',
+                            'properties' => [
+                                'name' => [
+                                    'type' => 'keyword',
+                                ],
+                                'value' => [
+                                    'type' => 'keyword',
+                                ],
+                            ],
+                        ],
+                        'numeric_facets' => [
+                            'type' => 'nested',
+                            'properties' => [
+                                'name' => [
+                                    'type' => 'keyword',
+                                ],
+                                'value' => [
+                                    'type' => 'float',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'facets' => [
+                    'type' => 'nested',
+                    'properties' => [
+                        'name' => [
+                            'type' => 'keyword',
+                        ],
+                        'value' => [
+                            'type' => 'keyword',
+                        ],
+                    ],
                 ],
             ],
         ];

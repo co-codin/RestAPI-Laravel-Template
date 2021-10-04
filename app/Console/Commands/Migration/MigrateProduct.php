@@ -32,6 +32,8 @@ class MigrateProduct extends Command
             'slug' => $item->slug,
             'brand_id' => $item->brand_id,
             'status' => $item->status,
+            'booklet' => ltrim($item->booklet, "/"),
+            'video' => $item->video,
             'image' => ltrim($item->image, "/"),
             'is_in_home' => $item->in_home === 1,
             'short_description' => $item->short_description,

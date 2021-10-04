@@ -8,7 +8,7 @@ use Bukashk0zzz\YmlGenerator\Model\Offer\OfferParam;
 use Bukashk0zzz\YmlGenerator\Model\Offer\OfferSimple;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Repositories\ProductRepository;
 
 class OffersGenerator
@@ -32,7 +32,7 @@ class OffersGenerator
 
             $offer = (new OfferSimple())
                 ->setId($product->id)
-                ->setAvailable((int)$variation->in_stock === ProductVariationStock::InStock)
+                ->setAvailable((int)$variation->in_stock === Availability::InStock)
                 ->setPictures($pictures)
                 ->setUrl(route('product-view', [$product->slug, $product->id]))
                 ->setCategoryId($product->category->id)

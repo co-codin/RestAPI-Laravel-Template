@@ -7,7 +7,7 @@ namespace Modules\Product\Repositories;
 use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
-use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Modules\Search\Contracts\IndexableRepository;
@@ -110,7 +110,7 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             }
 
             if ($in_stock) {
-                $query->where('product_variations.availability', '=', ProductVariationStock::InStock);
+                $query->where('product_variations.availability', '=', Availability::InStock);
             }
 
             $query->where('product_variations.stock_type', $stock_type ? '=' : '!=', null);

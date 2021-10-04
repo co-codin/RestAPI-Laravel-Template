@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands\Migration;
 
+use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Modules\Property\Models\Property;
 
 class MigrateProductProperty extends Command
 {
@@ -11,17 +14,20 @@ class MigrateProductProperty extends Command
 
     protected $description = 'Migrate product properties';
 
-    protected $propertyValues;
+    protected Collection $properties;
 
-    protected $bookItems;
+    protected Collection $propertyValues;
 
-    protected $properties;
+    protected Collection $books;
+
+    protected Collection $bookItems;
 
     public function handle()
     {
-        $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->get();
+        $this->properties = Property::all()->keyBy('id');
+        $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->whereNotNull('value')->get();
+        $this->books = DB::connection('old_medeq_mysql')->table('books')->get()->keyBy('id');
         $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get()->keyBy('id');
-        $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get()->keyBy('id');
 
         foreach ($this->propertyValues as $propertyValue) {
 
@@ -38,14 +44,33 @@ class MigrateProductProperty extends Command
         }
     }
 
-    protected function transform($property, $propertyValue)
+    protected function transform(Property $property, $propertyValue)
     {
+        $value = $propertyValue->value;
+
+        if (!$property->is_numeric) {
+            if (is_array($value)) {
+                $arrayValue = [];
+                foreach ($value as $item) {
+                    $fieldValue = FieldValue::query()->firstOrCreate(['value' => $item]);
+                    $arrayValue[] = $fieldValue->value;
+                }
+                $value = $arrayValue;
+            }
+            else {
+                $fieldValue = FieldValue::query()->firstOrCreate(['value' => $value]);
+                $value = $fieldValue->value;
+            }
+        }
+
         return [
             'property_id' => $property->id,
             'product_id' => $propertyValue->product_id,
             'pretty_key' => $propertyValue->specification_key,
             'pretty_value' => $propertyValue->specification_value,
-            'value' => json_encode($this->transformValue($property, $propertyValue->value), JSON_UNESCAPED_UNICODE),
+            'value' => json_encode(
+                $this->transformValue($property, $value), JSON_UNESCAPED_UNICODE
+            ),
         ];
     }
 

@@ -4,7 +4,7 @@
 namespace Tests\Feature\Modules\Product\Admin\Configurator;
 
 use Illuminate\Http\UploadedFile;
-use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Tests\TestCase;
@@ -67,7 +67,7 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => ProductVariationStock::ComingSoon,
+                        'availability' => Availability::ComingSoon,
                     ]
                 ],
             ],
@@ -99,7 +99,7 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => ProductVariationStock::ComingSoon,
+                        'availability' => Availability::ComingSoon,
                     ],
                     $productVariationData = ProductVariation::factory()->raw([
                         'product_id' => null

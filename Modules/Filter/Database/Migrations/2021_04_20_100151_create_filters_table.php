@@ -17,8 +17,9 @@ class CreateFiltersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->foreignId('property_id')->nullable()->constrained();
             $table->unsignedTinyInteger('type');
+            $table->foreignId('property_id')->nullable()->constrained();
+            $table->string('facet')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->boolean('is_enabled')->default(true);
             $table->boolean('is_default')->default(false);
@@ -26,7 +27,6 @@ class CreateFiltersTable extends Migration
             $table->unsignedInteger('position')->nullable();
             $table->json('options')->nullable();
             $table->timestamps();
-
 //            $table->unique(['category_id', 'slug']);
         });
     }

@@ -213,7 +213,7 @@ class PropertiesTableSeeder extends Seeder
             ],
             [
                 'name' => 'Оборудование для борьбы с последствиями COVID-19',
-                'type' => PropertyType::Checkbox,
+                'type' => PropertyType::CheckBox,
                 'rules' => 'sometimes|nullable|boolean',
                 'values' => [true, false],
                 'description' => '',

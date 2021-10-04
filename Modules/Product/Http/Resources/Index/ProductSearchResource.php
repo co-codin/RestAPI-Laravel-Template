@@ -6,6 +6,7 @@ use App\Enums\Status;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 use Modules\Product\Models\Product;
+use Modules\Property\Models\Property;
 
 /**
  * Class ProductSearchResource
@@ -31,6 +32,30 @@ class ProductSearchResource extends JsonResource
             'categories' => ProductCategorySearchResource::collection($this->categories),
             'properties' => ProductPropertySearchResource::collection($this->properties),
             'variations' => ProductVariationSearchResource::collection($this->productVariations),
+            'facets' => array_merge($this->systemFacets(), $this->propertyFacets()),
         ];
+    }
+
+    protected function systemFacets(): array
+    {
+        return [
+            ['name' => 'status', 'value' => $this->status],
+            ['name' => 'brand', 'value' => $this->brand_id],
+            ['name' => 'brand.country', 'value' => $this->brand->country],
+            ['name' => 'category', 'value' => $this->category->id],
+            ['name' => 'categories', 'value' => $this->categories->pluck('id')->toArray()],
+        ];
+    }
+
+    protected function propertyFacets(): array
+    {
+        return $this->properties->map(function(Property $property) {
+                return [
+                    'name' => $property->name,
+                    'key' => 'properties.' . $property->key,
+                    'value' => $property->pivot->value,
+                ];
+            })
+            ->toArray();
     }
 }

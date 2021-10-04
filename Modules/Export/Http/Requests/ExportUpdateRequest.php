@@ -6,7 +6,7 @@ use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Enum\ExportType;
-use Modules\Product\Enums\ProductVariationStock;
+use Modules\Product\Enums\Availability;
 
 class ExportUpdateRequest extends FormRequest
 {
@@ -56,7 +56,7 @@ class ExportUpdateRequest extends FormRequest
             'parameters.in_stock' => [
                 'sometimes',
                 'integer',
-                new EnumValue(ProductVariationStock::class, false),
+                new EnumValue(Availability::class, false),
             ],
 
             'parameters.short_description' => 'sometimes|boolean',

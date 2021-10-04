@@ -2,6 +2,7 @@
 
 namespace Modules\Property\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @package Modules\Property\Models
  * @property int $id
  * @property string|null $name
+ * @property string|null $key
  * @property int $type
  * @property array|null $options
  * @property string|null $description
@@ -33,7 +35,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Property extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity, Sluggable;
 
     protected $guarded = ['id'];
 
@@ -43,6 +45,15 @@ class Property extends Model
         'is_hidden_from_product' => 'boolean',
         'is_hidden_from_comparison' => 'boolean',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'key' => [
+                'source' => 'name',
+            ]
+        ];
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
