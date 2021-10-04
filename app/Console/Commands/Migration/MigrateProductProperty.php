@@ -48,20 +48,20 @@ class MigrateProductProperty extends Command
     {
         $value = $propertyValue->value;
 
-        if (!$property->is_numeric) {
-            if (is_array($value)) {
-                $arrayValue = [];
-                foreach ($value as $item) {
-                    $fieldValue = FieldValue::query()->firstOrCreate(['value' => $item]);
-                    $arrayValue[] = $fieldValue->value;
-                }
-                $value = $arrayValue;
-            }
-            else {
-                $fieldValue = FieldValue::query()->firstOrCreate(['value' => $value]);
-                $value = $fieldValue->value;
-            }
-        }
+//        if (!$property->is_numeric) {
+//            if (is_array($value)) {
+//                $arrayValue = [];
+//                foreach ($value as $item) {
+//                    $fieldValue = FieldValue::query()->firstOrCreate(['value' => $item]);
+//                    $arrayValue[] = $fieldValue->value;
+//                }
+//                $value = $arrayValue;
+//            }
+//            else {
+//                $fieldValue = FieldValue::query()->firstOrCreate(['value' => $value]);
+//                $value = $fieldValue->value;
+//            }
+//        }
 
         return [
             'property_id' => $property->id,
