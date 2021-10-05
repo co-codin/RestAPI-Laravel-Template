@@ -9,4 +9,5 @@ type Property {
     assigned_by_id: Int
     categories: [Category!]! @belongsToMany
     filters: [Filter!] @hasMany
+    pivot: ProductPropertyPivot
 }
