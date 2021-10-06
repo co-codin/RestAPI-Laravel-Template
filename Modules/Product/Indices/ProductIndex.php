@@ -4,10 +4,9 @@ namespace Modules\Product\Indices;
 
 use Modules\Product\Http\Resources\Index\ProductSearchResource;
 use Modules\Product\Repositories\ProductRepository;
-use Modules\Search\Contracts\SearchIndex;
 use Modules\Search\Services\BaseIndex;
 
-class ProductIndex extends BaseIndex implements SearchIndex
+class ProductIndex extends BaseIndex
 {
     public function name(): string
     {
@@ -119,7 +118,6 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         ],
                     ],
                 ],
-
                 'categories' => [
                     'type' => 'nested',
                     'properties' => [
