@@ -42,7 +42,7 @@ class FilterRequestCriteria implements CriteriaInterface
     public static function allowedFilterFields($prefix = null): array
     {
         $fields = [
-            'id', 'name', 'type', 'slug', 'category_id', 'description',
+            'id', 'name', 'type', 'slug', 'category_id', 'description', 'facet',
             'is_enabled', 'is_default', 'property_id', 'options'
         ];
 

@@ -24,6 +24,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_price_visible
  * @property bool $is_enabled
  * @property int $availability
+ * @property int $condition
  * @property string|null $stock_type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -50,6 +51,7 @@ class ProductVariation extends Model
         'is_enabled' => 'boolean',
         'availability' => 'integer',
         'options' => 'array',
+        'condition' => 'integer',
     ];
 
     public function getActivitylogOptions(): LogOptions

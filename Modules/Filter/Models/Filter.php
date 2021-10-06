@@ -43,6 +43,7 @@ class Filter extends Model
         'is_default' => 'boolean',
         'position' => 'integer',
         'options' => 'array',
+        'facet' => 'object',
     ];
 
     public function category()

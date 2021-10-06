@@ -23,10 +23,10 @@ class OrderPointsImportCommand extends Command
 
     public function handle()
     {
-//        $this->downloadPlaces();
+        $this->downloadPlaces();
         $this->places = $this->transformPlaces();
 
-//        $this->downloadTerminals();
+        $this->downloadTerminals();
         $this->terminals = $this->transformTerminals();
 
         $this->truncateOrderPoints();

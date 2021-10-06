@@ -85,12 +85,15 @@ class FilteredCollection extends Collection
                         return $value;
                     }
 
-                    $value['buckets'] = array_map(function($bucket) {
-                        $exploded = explode("|||", $bucket['key']);
-                        $bucket['key'] = $exploded[0];
-                        $bucket['label'] = $exploded[1];
-                        return $bucket;
-                    }, $value['buckets']);
+                    $value['buckets'] = collect($value['buckets'])
+                        ->map(function($bucket) {
+                            $exploded = explode("|||", $bucket['key']);
+                            $bucket['key'] = $exploded[0];
+                            $bucket['label'] = $exploded[1] ?? $exploded[0];
+                            return $bucket;
+                        })
+                        ->sortBy('label')
+                        ->toArray();
 
                     return $value;
                 });

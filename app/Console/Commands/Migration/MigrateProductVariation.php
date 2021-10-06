@@ -36,6 +36,7 @@ class MigrateProductVariation extends Command
             'is_enabled' => $item->status === 1,
             'availability' => $item->in_stock,
             'stock_type' => $item->stock_type,
+            'condition' => $item->type_id,
         ];
     }
 }

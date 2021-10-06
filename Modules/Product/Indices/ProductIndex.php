@@ -193,6 +193,9 @@ class ProductIndex extends BaseIndex implements SearchIndex
                                 'value' => [
                                     'type' => 'keyword',
                                 ],
+                                'aggregation' => [
+                                    'type' => 'keyword',
+                                ],
                             ],
                         ],
                         'numeric_facets' => [

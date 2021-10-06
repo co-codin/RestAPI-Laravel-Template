@@ -11,7 +11,7 @@ class CreateFieldValuesTable extends Migration
         Schema::create('field_values', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->string('slug')->unique();
+            $table->string('slug')->nullable(); // TODO нужно будет поменять на unique
             $table->timestamps();
         });
     }
