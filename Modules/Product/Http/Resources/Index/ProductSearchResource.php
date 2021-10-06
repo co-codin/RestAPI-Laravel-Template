@@ -3,7 +3,9 @@
 namespace Modules\Product\Http\Resources\Index;
 
 use App\Enums\Status;
+use App\Models\FieldValue;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Product\Models\Product;
 use Modules\Property\Models\Property;
@@ -39,23 +41,76 @@ class ProductSearchResource extends JsonResource
     protected function systemFacets(): array
     {
         return [
-            ['name' => 'status', 'value' => $this->status],
-            ['name' => 'brand', 'value' => $this->brand_id],
-            ['name' => 'brand.country', 'value' => $this->brand->country],
-            ['name' => 'category', 'value' => $this->category->id],
-            ['name' => 'categories', 'value' => $this->categories->pluck('id')->toArray()],
+            [
+                'name' => 'status',
+                'value' => $this->status,
+                'aggregation' => $this->aggregation(
+                    $this->status, Status::getDescription($this->status)
+                ),
+            ],
+            [
+                'name' => 'brand',
+                'value' => $this->brand_id,
+                'aggregation' => $this->aggregation(
+                    $this->brand_id, $this->brand->name
+                ),
+            ],
+            [
+                'name' => 'brand.country',
+                'value' => $this->brand->country, 'label' => $this->brand->country,
+                'aggregation' => $this->aggregation(
+                    $this->brand->country, $this->brand->country
+                ),
+            ],
+            [
+                'name' => 'category',
+                'value' => $this->category->id, 'label' => $this->category->name,
+                'aggregation' => $this->aggregation(
+                    $this->category->id, $this->category->name,
+                ),
+            ],
+            [
+                'name' => 'categories',
+                'value' => $this->categories->pluck('id')->toArray(),
+                'aggregation' => $this->aggregation(
+                    $this->categories->pluck('id')->toArray(),
+                    $this->categories->pluck('name')->toArray(),
+                ),
+            ],
         ];
     }
 
     protected function propertyFacets(): array
     {
-        return $this->properties->map(function(Property $property) {
+        return $this->properties
+            ->whereNotNull('pivot.value')
+            ->map(function(Property $property) {
+                $fieldValues = FieldValue::query()
+                    ->find(Arr::wrap($property->pivot->value))
+                    ->mapWithKeys(function($fieldValue) {
+                        return [$fieldValue->id => $fieldValue->value];
+                    });
+
                 return [
-                    'name' => $property->name,
-                    'key' => 'properties.' . $property->key,
+                    'name' => "properties." . $property->key,
                     'value' => $property->pivot->value,
+                    'aggregation' => $this->aggregation($fieldValues->keys()->toArray(), $fieldValues->values()->toArray()),
                 ];
             })
+            ->toArray();
+    }
+
+    protected function aggregation(string|array|null $key, string|array|null $value): array|null
+    {
+        if (!$key || !$value) {
+            return null;
+        }
+
+        $key = Arr::wrap($key);
+        $value = Arr::wrap($value);
+
+        return collect($key)->map(fn($key, $index) => $key . "|||" . $value[$index])
+            ->values()
             ->toArray();
     }
 }

@@ -14,8 +14,6 @@ class PropertyDto extends BaseDto
 {
     public ?string $name;
 
-    public $type;
-
     public ?array $options;
 
     public ?string $description;

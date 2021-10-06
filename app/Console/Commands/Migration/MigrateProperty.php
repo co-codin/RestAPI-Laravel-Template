@@ -38,7 +38,6 @@ class MigrateProperty extends Command
         return [
             'id' => $item->id,
             'name' => $item->title,
-            'type' => $item->type,
             'options' => $item->options,
             'description' => $item->description,
             'is_numeric' => $is_numeric,

@@ -27,6 +27,8 @@ class ProductFilter
 
         $ids = Arr::pluck(Arr::get($result, 'hits.hits', []), '_id');
 
+        ray($result['aggregations']);
+
         return new FilteredCollection(
             $this->getProducts($ids),
             $result
@@ -165,7 +167,7 @@ class ProductFilter
                         "aggs" => [
                             "values" => [
                                 "terms" => [
-                                    "field" => "facets.value",
+                                    "field" => "facets.aggregation",
                                     "size" => 100,
                                 ],
                             ],
@@ -173,7 +175,27 @@ class ProductFilter
                     ],
                 ],
             ],
-            'numeric_facets' => [
+            'variations_facets' => [
+                "nested" => [
+                    "path" => "variations.facets",
+                ],
+                "aggs" => [
+                    "names" => [
+                        "terms" => [
+                            "field" => "variations.facets.name",
+                            "size" => 100,
+                        ],
+                        "aggs" => [
+                            "values" => [
+                                "terms" => [
+                                    "field" => "variations.facets.aggregation",
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'variations_numeric_facets' => [
                 "nested" => [
                     "path" => "variations.numeric_facets",
                 ],

@@ -14,6 +14,7 @@ class Migrate extends Command
     public function handle()
     {
         $this->migrate('migrate:fresh --force');
+        $this->migrate('migrate:field-values');
         $this->migrate('migrate:brand');
         $this->migrate('migrate:category');
         $this->migrate('migrate:currency');
@@ -34,7 +35,7 @@ class Migrate extends Command
         $this->migrate('migrate:image');
         $this->migrate('migrate:customer-review');
         $this->migrate('module:seed --class=RegionTableSeeder Geo');
-        $this->migrate('sold-products:import');
+//        $this->migrate('sold-products:import');
         $this->migrate('import:order_points');
     }
 

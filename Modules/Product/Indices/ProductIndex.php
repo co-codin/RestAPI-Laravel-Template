@@ -119,7 +119,6 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         ],
                     ],
                 ],
-
                 'categories' => [
                     'type' => 'nested',
                     'properties' => [
@@ -215,7 +214,13 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         'name' => [
                             'type' => 'keyword',
                         ],
+                        'aggregation' => [
+                            'type' => 'keyword',
+                        ],
                         'value' => [
+                            'type' => 'keyword',
+                        ],
+                        'label' => [
                             'type' => 'keyword',
                         ],
                     ],
