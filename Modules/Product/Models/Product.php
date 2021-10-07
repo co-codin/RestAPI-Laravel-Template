@@ -33,6 +33,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $booklet
  * @property string|null $video
  * @property array|null $documents
+ * @property string|null $stock_type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at

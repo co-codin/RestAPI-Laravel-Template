@@ -220,8 +220,6 @@ class ProductFilter
 
     protected function search(): array
     {
-        ray($this->getBody());
-
         return $this->elasticsearch->search([
             'index' => 'products_v2',
             'body' => $this->getBody(),

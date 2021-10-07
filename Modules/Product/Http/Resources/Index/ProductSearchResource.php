@@ -58,9 +58,9 @@ class ProductSearchResource extends JsonResource
             [
                 'name' => 'brand.country',
                 'value' => $this->brand->country, 'label' => $this->brand->country,
-                'aggregation' => $this->aggregation(
-                    $this->brand->country, $this->brand->country
-                ),
+                'aggregation' => $this->brand->country ? $this->aggregation(
+                    $this->brand->country, FieldValue::find($this->brand->country)->value
+                ) : null,
             ],
             [
                 'name' => 'category',
@@ -76,6 +76,14 @@ class ProductSearchResource extends JsonResource
                     $this->categories->pluck('id')->toArray(),
                     $this->categories->pluck('name')->toArray(),
                 ),
+            ],
+            [
+                'name' => 'stock_type',
+                'value' => $this->stock_type,
+                'aggregation' => $this->stock_type ? $this->aggregation(
+                    $this->stock_type,
+                    FieldValue::find($this->stock_type)->value,
+                ): null,
             ],
         ];
     }

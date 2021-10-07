@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -79,4 +80,9 @@ class ProductVariation extends Model
     {
         return ProductVariationFactory::new();
     }
+
+//    public function condition()
+//    {
+//        return $this->belongsTo(FieldValue::class, 'id', 'condition_id');
+//    }
 }

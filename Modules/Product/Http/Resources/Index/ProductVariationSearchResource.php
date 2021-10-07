@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Resources\Index;
 
 
+use App\Models\FieldValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 use Modules\Product\Enums\Availability;
@@ -37,11 +38,6 @@ class ProductVariationSearchResource extends JsonResource
                     'aggregation' => $this->is_price_visible ? 1 : 0,
                 ],
                 [
-                    'name' => 'stock_type',
-                    'value' => $this->stock_type,
-                    'aggregation' => $this->stock_type,
-                ],
-                [
                     'name' => 'availability',
                     'value' => $this->availability,
                     'aggregation' => $this->aggregation(
@@ -59,7 +55,7 @@ class ProductVariationSearchResource extends JsonResource
                     'value' => $this->condition,
                     'aggregation' => $this->aggregation(
                         $this->condition,
-                        ProductVariationCondition::getDescription($this->condition)
+                        FieldValue::find($this->condition)->value,
                     ),
                 ],
             ],
