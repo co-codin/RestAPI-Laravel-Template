@@ -3,6 +3,7 @@
 namespace Modules\Category\Models;
 
 use App\Concerns\IsActive;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,7 +46,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Category extends Model
 {
-    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity;
+    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity, Searchable;
 
     protected $guarded = ['id'];
 
