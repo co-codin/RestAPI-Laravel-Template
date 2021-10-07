@@ -28,7 +28,7 @@ class FilteredCollection extends Collection
         $this->timed_out = $meta['timed_out'] ?? null;
         $this->shards = $meta['_shards'] ?? null;
         $this->hits = $meta['hits'] ?? null;
-        $this->aggregations = $meta['aggregations'] ?? [];
+        $this->aggregations = $this->parseAggregations($meta['aggregations'] ?? []);
 
         return $this;
     }
@@ -66,6 +66,40 @@ class FilteredCollection extends Collection
     public function getAggregations(): array
     {
         return $this->aggregations;
+    }
+
+    protected function parseAggregations($aggregations): array
+    {
+        $facets = [
+            "facets",
+            "variations_facets",
+            "variations_numeric_facets",
+        ];
+
+        return collect($facets)
+            ->map(fn($facet) => collect(Arr::get($aggregations, $facet . ".names.buckets")))
+            ->map(fn($collection) => $collection->pluck('values', 'key'))
+            ->map(function($collection) {
+                return $collection->map(function($value, $name) {
+                    if(!Arr::exists($value, 'buckets')) {
+                        return $value;
+                    }
+
+                    $value['buckets'] = collect($value['buckets'])
+                        ->map(function($bucket) {
+                            $exploded = explode("|||", $bucket['key']);
+                            $bucket['key'] = $exploded[0];
+                            $bucket['label'] = $exploded[1] ?? $exploded[0];
+                            return $bucket;
+                        })
+                        ->sortBy('label')
+                        ->toArray();
+
+                    return $value;
+                });
+            })
+            ->collapse()
+            ->toArray();
     }
 }
 

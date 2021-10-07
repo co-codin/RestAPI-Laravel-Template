@@ -165,7 +165,7 @@ class ProductFilter
                         "aggs" => [
                             "values" => [
                                 "terms" => [
-                                    "field" => "facets.value",
+                                    "field" => "facets.aggregation",
                                     "size" => 100,
                                 ],
                             ],
@@ -173,7 +173,27 @@ class ProductFilter
                     ],
                 ],
             ],
-            'numeric_facets' => [
+            'variations_facets' => [
+                "nested" => [
+                    "path" => "variations.facets",
+                ],
+                "aggs" => [
+                    "names" => [
+                        "terms" => [
+                            "field" => "variations.facets.name",
+                            "size" => 100,
+                        ],
+                        "aggs" => [
+                            "values" => [
+                                "terms" => [
+                                    "field" => "variations.facets.aggregation",
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'variations_numeric_facets' => [
                 "nested" => [
                     "path" => "variations.numeric_facets",
                 ],
@@ -198,8 +218,6 @@ class ProductFilter
 
     protected function search(): array
     {
-        ray($this->getBody());
-
         return $this->elasticsearch->search([
             'index' => 'products_v2',
             'body' => $this->getBody(),

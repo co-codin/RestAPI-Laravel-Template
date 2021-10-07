@@ -18,16 +18,16 @@ use Illuminate\Support\Carbon;
  */
 class FieldValue extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'value',
-            ]
-        ];
-    }
+//    public function sluggable(): array
+//    {
+//        return [
+//            'slug' => [
+//                'source' => 'value',
+//            ]
+//        ];
+//    }
 }

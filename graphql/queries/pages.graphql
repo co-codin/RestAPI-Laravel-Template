@@ -12,5 +12,5 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    page(id: ID @eq, slug: String @eq): Page @find
+    page(id: ID @eq, slug: String @eq): Page @find(scopes: ["active"])
 }

@@ -556,6 +556,9 @@ class ProductIndex extends BaseIndex
                                 'value' => [
                                     'type' => 'keyword',
                                 ],
+                                'aggregation' => [
+                                    'type' => 'keyword',
+                                ],
                             ],
                         ],
                         'numeric_facets' => [
@@ -577,7 +580,13 @@ class ProductIndex extends BaseIndex
                         'name' => [
                             'type' => 'keyword',
                         ],
+                        'aggregation' => [
+                            'type' => 'keyword',
+                        ],
                         'value' => [
+                            'type' => 'keyword',
+                        ],
+                        'label' => [
                             'type' => 'keyword',
                         ],
                     ],

@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands\Migration;
 
+use App\Models\FieldValue;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Modules\Product\Enums\ProductVariationCondition;
+use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 
 class MigrateProductVariation extends Command
@@ -25,6 +28,11 @@ class MigrateProductVariation extends Command
 
     protected function transform($item)
     {
+        if($item->stock_type) {
+            Product::where('id', $item->product_id)
+                ->update(['stock_type' => FieldValue::query()->firstOrCreate(['value' => $item->stock_type])->id]);
+        }
+
         return [
             'id' => $item->id,
             'product_id' => $item->product_id,
@@ -35,7 +43,7 @@ class MigrateProductVariation extends Command
             'is_price_visible' => $item->is_show_price === 1,
             'is_enabled' => $item->status === 1,
             'availability' => $item->in_stock,
-            'stock_type' => $item->stock_type,
+            'condition' => FieldValue::query()->firstOrCreate(['value' => ProductVariationCondition::getDescription($item->type_id)])->id,
         ];
     }
 }

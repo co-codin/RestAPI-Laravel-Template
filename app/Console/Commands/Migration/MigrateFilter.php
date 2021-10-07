@@ -15,6 +15,45 @@ class MigrateFilter extends Command
 
     protected $filters;
 
+    protected function systemFacets()
+    {
+        return [
+            'cena' => [
+                'name' => 'price',
+                'path' => 'variations',
+            ],
+            'leaders' => [
+                'name' => 'stock_type',
+                'value' => 3,
+            ],
+            'brand' => [
+                'name' => 'brand',
+            ],
+            'specpredlozenia' => [
+                'name' => 'is_hot',
+                'path' => 'variations',
+                'value' => 1,
+            ],
+            'sostoanie' => [
+                'name' => 'condition',
+                'path' => 'variations',
+            ],
+            'vnalicii' => [
+                'name' => 'availability',
+                'path' => 'variations',
+                'value' => 1,
+            ],
+            'recommed' => [
+                'name' => 'stock_type',
+                'value' => 4,
+            ],
+            'made_in_russia' => [
+                'name' => 'brand.country',
+                'value' => 13,
+            ],
+        ];
+    }
+
     public function handle()
     {
         $filters = DB::connection('old_medeq_mysql')
@@ -44,7 +83,7 @@ class MigrateFilter extends Command
                 continue;
             }
 
-            Filter::query()->insert($data);
+            Filter::query()->create($data);
         }
     }
 
@@ -63,6 +102,7 @@ class MigrateFilter extends Command
             'options' => $filter->options,
             'created_at' => $filter->created_at,
             'updated_at' => $filter->updated_at,
+            'facet' => \Arr::get($this->systemFacets(), $filter->slug, null),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Migration;
 
+use App\Models\FieldValue;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +39,7 @@ class MigrateBrand extends Command
             'status' => $item->status,
             'is_in_home' => $item->in_home === 1,
             'position' => $item->position,
-            'country' => $item->country,
+            'country' => $item->country ? FieldValue::query()->firstOrCreate(['value' => $item->country])->id : null,
             'short_description' => $item->short_description,
             'assigned_by_id' => 1,
             'created_at' => $item->created_at,

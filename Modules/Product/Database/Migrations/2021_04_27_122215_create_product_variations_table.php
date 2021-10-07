@@ -23,7 +23,6 @@ class CreateProductVariationsTable extends Migration
             $table->boolean('is_price_visible')->default(false);
             $table->boolean('is_enabled')->default(true);
             $table->unsignedTinyInteger('availability')->default(1);
-            $table->string('stock_type')->nullable();
             $table->unsignedInteger('condition')->nullable();
             $table->timestamps();
             $table->softDeletes();

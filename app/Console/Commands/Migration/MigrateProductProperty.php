@@ -78,11 +78,11 @@ class MigrateProductProperty extends Command
     {
         return match ($property->type) {
             # mark
-            1 => $value == 1,
+            1 => $value == 1 ? : 2,
             # book
-            4 => $this->getBookItemValue($value),
+            4 => $this->convertToFieldValue($this->getBookItemValue($value)),
             # text input etc
-            default => $value,
+            default => $this->convertToFieldValue($value),
         };
     }
 
@@ -102,5 +102,18 @@ class MigrateProductProperty extends Command
         }
 
         return $item->title;
+    }
+
+    protected function convertToFieldValue($value)
+    {
+        if(is_array($value)) {
+            $fieldValues = [];
+            foreach ($value as $item) {
+                $fieldValues[] = FieldValue::query()->firstOrCreate(['value' => $item]);
+            }
+            return collect($fieldValues)->pluck('id')->toArray();
+        }
+
+        return FieldValue::query()->firstOrCreate(['value' => $value])->id;
     }
 }

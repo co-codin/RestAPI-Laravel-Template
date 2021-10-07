@@ -19,7 +19,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property string|null $name
  * @property string|null $key
- * @property int $type
  * @property array|null $options
  * @property string|null $description
  * @property bool is_hidden_from_product
@@ -40,7 +39,6 @@ class Property extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'type' => 'integer',
         'options' => 'array',
         'is_hidden_from_product' => 'boolean',
         'is_hidden_from_comparison' => 'boolean',

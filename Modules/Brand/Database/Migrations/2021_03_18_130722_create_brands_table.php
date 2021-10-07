@@ -23,7 +23,7 @@ class CreateBrandsTable extends Migration
             $table->unsignedTinyInteger('status')->default(1);
             $table->boolean('is_in_home')->default(false);
             $table->integer('position')->nullable();
-            $table->string('country')->nullable();
+            $table->unsignedInteger('country')->nullable();
             $table->string('short_description')->nullable();
             $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();

@@ -24,7 +24,6 @@ class PropertyRequestCriteria implements CriteriaInterface
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
-                AllowedFilter::exact('type'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_hidden_from_product'),
                 AllowedFilter::exact('is_hidden_from_comparison'),
@@ -39,7 +38,6 @@ class PropertyRequestCriteria implements CriteriaInterface
         $fields = [
             'id',
             'name',
-            'type',
             'description',
             'options',
             'is_hidden_from_product',
