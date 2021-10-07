@@ -27,8 +27,6 @@ class ProductFilter
 
         $ids = Arr::pluck(Arr::get($result, 'hits.hits', []), '_id');
 
-        ray($result['aggregations']);
-
         return new FilteredCollection(
             $this->getProducts($ids),
             $result
