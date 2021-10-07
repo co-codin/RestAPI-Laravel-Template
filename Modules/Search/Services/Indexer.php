@@ -3,6 +3,7 @@
 namespace Modules\Search\Services;
 
 use Elasticsearch\Client;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Modules\Search\Contracts\SearchIndex;
 
@@ -18,22 +19,55 @@ class Indexer
     {
         $this->index = $index;
 
-        $index->delete();
-        $index->create();
+        $searchIndex = $index->name();
+        $indexName = $searchIndex . '_' . Carbon::now()->format('Y-m-d_H-i-s');
 
-        $this->indexData();
+        try {
+            $indexData = $this->elasticsearch->indices()->getAlias(['name' => $searchIndex]);       //exception
+            $oldIndexName = array_key_first($indexData);
+        } catch (\Throwable $e) {
+            $index->create($indexName);
+            $this->indexData($indexName);
+
+            $this->elasticsearch->indices()->putAlias(['index' => $indexName, 'name' => $searchIndex]);
+            return;
+        }
+
+        $index->create($indexName);
+        $this->indexData($indexName);
+
+        $this->elasticsearch->indices()->updateAliases([
+            'body' => [
+                'actions' => [
+                    [
+                        'remove' => [
+                            'alias' => $searchIndex,
+                            'index' => $oldIndexName,
+                        ],
+                    ],
+                    [
+                        'add' => [
+                            'alias' => $searchIndex,
+                            'index' => $indexName,
+                        ],
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->elasticsearch->indices()->delete(['index' => $oldIndexName]);
     }
 
-    public function indexData()
+    public function indexData(?string $indexName = null)
     {
         app($this->index->repository())
             ->getItemsToIndex()
-            ->chunk(500, function ($items) {
-                $this->addToIndex($items);
+            ->chunk(500, function ($items) use ($indexName) {
+                $this->addToIndex($items, $indexName);
             });
     }
 
-    public function addToIndex(array|Collection $items): array
+    public function addToIndex(array|Collection $items, ?string $indexName = null): array
     {
         $params = [];
 
@@ -42,7 +76,7 @@ class Indexer
             $params['body'][] = [
                 'index' => [
                     '_id' => $item->getKey(),
-                    '_index' => $this->index->name(),
+                    '_index' => $indexName ?? $this->index->name(),
                 ],
             ];
 

@@ -14,7 +14,7 @@ interface SearchIndex
 
     public function mappings(): array;
 
-    public function create(): void;
+    public function create(?string $indexName = null): void;
 
-    public function delete(): void;
+    public function delete(?string $indexName = null): void;
 }
