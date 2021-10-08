@@ -25,6 +25,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property int|null $_lft
+ * @property int|null $_rgt
+ * @property int|null $parent_id
  * @property string|null $product_name
  * @property string $full_description
  * @property int $status
