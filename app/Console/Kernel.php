@@ -32,6 +32,9 @@ class Kernel extends ConsoleKernel
 
         app(ExportScheduler::class)
             ->scheduleExportCommands($schedule);
+
+        // переиндексируем базу товаров
+        $schedule->command(SearchReindexCommand::class)->twiceDaily();
     }
 
     protected function commands(): void
