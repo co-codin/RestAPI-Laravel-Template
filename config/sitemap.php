@@ -54,4 +54,5 @@ return [
      */
     'crawl_profile' => Profile::class,
 
+    'ignore_robots' => env('SITEMAP_IGNORE_ROBOTS', false),
 ];
