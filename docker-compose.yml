@@ -47,7 +47,10 @@ services:
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
     kibana:
-        build: './docker/kibana'
+        build:
+          context: ./docker/kibana
+        environment:
+          - elasticsearch.hosts=http://elasticsearch:9200
         ports:
           - 5601:5601
         networks:
