@@ -1,3 +1,5 @@
+scalar MixedPrice @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+
 type Product {
     id: ID!
     name: String!
@@ -7,15 +9,18 @@ type Product {
     image: String!
     is_in_home: Boolean!
     warranty: Int
-    short_description: String!
-    full_description: String!
+    short_description: String
+    full_description: String
     assigned_by_id: Int
     has_test_drive: Boolean!
     booklet: String
     video: String
 
+    price: MixedPrice
+
     brand: Brand!
     productVariations: [ProductVariation!]!
+    mainVariation: ProductVariation!
     category: Category
     categories: [Category!]
     properties: [Property!]!

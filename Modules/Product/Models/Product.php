@@ -136,8 +136,33 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function toSearchArray()
+    public function mainVariation()
     {
-        return ['name' => $this->name];
+        return $this->belongsTo(ProductVariation::class);
+    }
+
+    public function getPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 10000 : null;
+    }
+
+    public function scopeWithPrice($query)
+    {
+        $query->addSelect(['price' => ProductVariation::selectRaw('rate * price')
+            ->whereColumn('product_id', 'products.id')
+            ->join('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ]);
+    }
+
+    public function scopeWithMainVariation($query)
+    {
+        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+            ->whereColumn('product_id', 'products.id')
+            ->join('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ])->with('mainVariation');
     }
 }

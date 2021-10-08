@@ -11,6 +11,7 @@ type Category {
     parent_id: Int
     assigned_by_id: Int
     parent: Category @belongsTo
+    ancestors: [Category] @belongsToMany
     children: [Category] @belongsTo
     productCount: Int! @count(relation: "products")
     products: [Product] @belongsToMany
