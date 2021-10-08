@@ -3,4 +3,5 @@ type SeoRule {
     name: String!
     url: String!
     assigned_by_id: Int
+    seo: Seo @morphOne
 }

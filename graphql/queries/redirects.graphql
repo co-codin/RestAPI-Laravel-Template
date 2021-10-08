@@ -6,5 +6,5 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    redirect(id: ID @eq): Redirect @find
+    redirect(id: ID @eq, source: String @eq): Redirect @find
 }

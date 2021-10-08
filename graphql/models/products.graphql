@@ -15,9 +15,7 @@ type Product {
     has_test_drive: Boolean!
     booklet: String
     video: String
-
     price: MixedPrice
-
     brand: Brand!
     productVariations: [ProductVariation!]!
     mainVariation: ProductVariation!
@@ -25,4 +23,5 @@ type Product {
     categories: [Category!]
     properties: [Property!]!
     images: [Image!]
+    seo: Seo @morphOne
 }

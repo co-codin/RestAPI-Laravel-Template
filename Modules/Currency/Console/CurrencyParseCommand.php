@@ -2,9 +2,9 @@
 
 namespace Modules\Currency\Console;
 
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Modules\Currency\Models\Currency;
 
@@ -14,30 +14,19 @@ class CurrencyParseCommand extends Command
 
     protected $description = 'Parse currency from cb rf';
 
-    /**
-     * Execute the console command.
-     * @param Client $client
-     * @throws \GuzzleHttp\Exception\GuzzleException|\JsonException
-     */
-    public function handle(Client $client)
+    public function handle()
     {
-        $response = $client->request('get', 'https://www.cbr-xml-daily.ru/daily_json.js');
-        $data = json_decode(
-            $response->getBody(),
-            JSON_OBJECT_AS_ARRAY,
-            512,
-            JSON_THROW_ON_ERROR
-        );
-        $rates = collect(Arr::get($data, 'Valute', []));
+        $rates = Http::get('https://www.cbr-xml-daily.ru/daily_json.js')
+            ->throw()
+            ->collect('Valute')
+            ->keyBy('CharCode');
 
-        $currencies = Currency::all();
+        Currency::all()->each(function (Currency $currency) use ($rates) {
 
-        $rates->each(function($rate, $key) use ($currencies) {
-            if(!$currency = $currencies->where('code', Str::lower($key))->first()) {
-                return;
+            if ($rate = $rates->get($currency->iso_code)) {
+                $currency->rate = round($rate['Value'], 2);
+                $currency->save();
             }
-            $currency->rate = round($rate['Value'], 2);
-            $currency->save();
         });
     }
 }
