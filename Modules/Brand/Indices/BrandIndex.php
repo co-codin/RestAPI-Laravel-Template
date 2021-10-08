@@ -10,7 +10,7 @@ class BrandIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "brands_v2";
+        return "brands";
     }
 
     public function repository(): string

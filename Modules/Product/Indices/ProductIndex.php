@@ -10,7 +10,7 @@ class ProductIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "products_v2";
+        return "products";
     }
 
     public function repository(): string

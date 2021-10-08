@@ -10,7 +10,7 @@ class CategoryIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "categories_v2";
+        return "categories";
     }
 
     public function repository(): string

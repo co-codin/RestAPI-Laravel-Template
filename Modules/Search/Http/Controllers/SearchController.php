@@ -18,7 +18,6 @@ class SearchController extends Controller
     ) {}
 
     /**
-     * @param SearchRequest $request
      * @return JsonResponse
      * @throws \Exception
      */
