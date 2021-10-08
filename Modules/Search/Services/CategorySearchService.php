@@ -29,7 +29,6 @@ class CategorySearchService extends SearchService
                 'id' => $category->id,
                 'slug' => $category->slug,
                 'parent_id' => $category->parent_id,
-//                'url' => $category->present()->getUrl(),
                 'name' => $category->name,
                 'type' => is_null($category->parent_id) ? 'Категория' : 'Подкатегория',
             ];

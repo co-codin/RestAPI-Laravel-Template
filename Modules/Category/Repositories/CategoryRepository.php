@@ -35,16 +35,7 @@ class CategoryRepository extends BaseRepository implements IndexableRepository
                     'slug',
                     'status',
                     'parent_id'
-                ])
-                ->whereNull('parent_id')
-                ->whereIn('id', function ($builder) {
-                    $builder
-                        ->select(['parent_id'])
-                        ->from('categories')
-                        ->whereNotNull('parent_id')
-                        ->distinct();
-                })
-                ->get();
+                ]);
         });
     }
 }

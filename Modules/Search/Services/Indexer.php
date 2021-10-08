@@ -5,6 +5,7 @@ namespace Modules\Search\Services;
 use Elasticsearch\Client;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Contracts\SearchIndex;
 
 class Indexer
@@ -60,7 +61,10 @@ class Indexer
 
     public function indexData(?string $indexName = null)
     {
-        app($this->index->repository())
+        /** @var IndexableRepository $repository */
+        $repository = app($this->index->repository());
+
+        $repository
             ->getItemsToIndex()
             ->chunk(500, function ($items) use ($indexName) {
                 $this->addToIndex($items, $indexName);
@@ -86,9 +90,11 @@ class Indexer
 
         $result = $this->elasticsearch->bulk($params);
 
-        if ((array_key_exists('errors', $result) && $result['errors'] != false) || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false))
+        if (
+            (array_key_exists('errors', $result) && $result['errors'] != false)
+            || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false)
+        )
         {
-            ray($result);
 //            dump(\Arr::get($result, 'errors'), \Arr::get($result, 'Message'));
             throw new \Exception("Cant index data");
         }
