@@ -40,6 +40,8 @@ class ProductSearchResource extends JsonResource
 
     protected function systemFacets(): array
     {
+        $rootCategory = $this->category->ancestors->first();
+
         return [
             [
                 'name' => 'status',
@@ -54,6 +56,13 @@ class ProductSearchResource extends JsonResource
                 'aggregation' => $this->aggregation(
                     $this->brand_id, $this->brand->name
                 ),
+            ],
+            [
+                'name' => 'root_category',
+                'value' => $rootCategory ? $rootCategory->id : null,
+                'aggregation' => $rootCategory ? $this->aggregation(
+                    $rootCategory->id, $rootCategory->name
+                ) : null,
             ],
             [
                 'name' => 'brand.country',

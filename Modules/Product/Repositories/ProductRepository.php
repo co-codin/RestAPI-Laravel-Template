@@ -124,7 +124,16 @@ class ProductRepository extends BaseRepository implements IndexableRepository
     public function getItemsToIndex()
     {
         return $this->scopeQuery(function (QueryBuilder $builder) {
-            return $builder->with('brand', 'category');
+            return $builder->with([
+                'brand',
+                'category',
+                'categories',
+                'properties',
+                'productVariations',
+                'category.ancestors' => function($query) {
+                    $query->whereNull('parent_id');
+                },
+            ]);
         });
     }
 }

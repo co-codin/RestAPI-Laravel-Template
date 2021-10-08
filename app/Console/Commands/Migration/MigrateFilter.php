@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
 use Modules\Property\Models\Property;
 
@@ -51,6 +52,9 @@ class MigrateFilter extends Command
                 'name' => 'brand.country',
                 'value' => 13,
             ],
+            'direction' => [
+                'name' => 'root_category',
+            ],
         ];
     }
 
@@ -85,6 +89,8 @@ class MigrateFilter extends Command
 
             Filter::query()->create($data);
         }
+
+        $this->createRootCategoryFilter();
     }
 
     protected function transform(object $filter, object $filterCategory = null): array
@@ -104,5 +110,18 @@ class MigrateFilter extends Command
             'updated_at' => $filter->updated_at,
             'facet' => \Arr::get($this->systemFacets(), $filter->slug, null),
         ];
+    }
+
+    protected function createRootCategoryFilter()
+    {
+        Filter::query()->create([
+            'name' => 'Направление',
+            'category_id' => null,
+            'slug' => 'direction',
+            'type' => FilterType::CheckMarkList,
+            'is_enabled' => true,
+            'is_default' => true,
+            'facet' => \Arr::get($this->systemFacets(), 'direction', null),
+        ]);
     }
 }
