@@ -33,15 +33,6 @@ class ProductSearchService extends SearchService
         })->toArray();
     }
 
-    private function getUrl(Product $product): string
-    {
-        return route('product-view', [
-            'slug' => $product->slug,
-            'id' => $product->id,
-            'variationId' => null,
-        ]);
-    }
-
     protected function getQuery(string $term): array
     {
         $fields = [

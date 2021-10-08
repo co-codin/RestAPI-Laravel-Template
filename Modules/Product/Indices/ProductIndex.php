@@ -3,6 +3,7 @@
 namespace Modules\Product\Indices;
 
 use Modules\Product\Http\Resources\Index\ProductSearchResource;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Search\Services\BaseIndex;
 
@@ -10,7 +11,7 @@ class ProductIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "products";
+        return (new Product())->getSearchIndex();
     }
 
     public function repository(): string

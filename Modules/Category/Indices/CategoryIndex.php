@@ -3,6 +3,7 @@
 namespace Modules\Category\Indices;
 
 use Modules\Category\Http\Resources\Index\CategorySearchResource;
+use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Search\Services\BaseIndex;
 
@@ -10,7 +11,7 @@ class CategoryIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "categories";
+        return (new Category())->getSearchIndex();
     }
 
     public function repository(): string

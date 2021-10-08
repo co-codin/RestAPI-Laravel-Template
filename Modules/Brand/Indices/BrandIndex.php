@@ -3,6 +3,7 @@
 namespace Modules\Brand\Indices;
 
 use Modules\Brand\Http\Resources\Index\BrandSearchResource;
+use Modules\Brand\Models\Brand;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Search\Services\BaseIndex;
 
@@ -10,7 +11,7 @@ class BrandIndex extends BaseIndex
 {
     public function name(): string
     {
-        return "brands";
+        return (new Brand())->getSearchIndex();
     }
 
     public function repository(): string
