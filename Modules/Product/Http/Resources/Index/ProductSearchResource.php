@@ -66,14 +66,16 @@ class ProductSearchResource extends JsonResource
             ],
             [
                 'name' => 'brand.country',
-                'value' => $this->brand->country, 'label' => $this->brand->country,
-                'aggregation' => $this->brand->country ? $this->aggregation(
-                    $this->brand->country, FieldValue::find($this->brand->country)->value
+                'value' => $this->brand->country_id,
+                'label' => $this->brand->country->value,
+                'aggregation' => $this->brand->country_id ? $this->aggregation(
+                    $this->brand->country_id, $this->brand->country->value,
                 ) : null,
             ],
             [
                 'name' => 'category',
-                'value' => $this->category->id, 'label' => $this->category->name,
+                'value' => $this->category->id,
+                'label' => $this->category->name,
                 'aggregation' => $this->aggregation(
                     $this->category->id, $this->category->name,
                 ),
@@ -88,10 +90,10 @@ class ProductSearchResource extends JsonResource
             ],
             [
                 'name' => 'stock_type',
-                'value' => $this->stock_type,
-                'aggregation' => $this->stock_type ? $this->aggregation(
-                    $this->stock_type,
-                    FieldValue::find($this->stock_type)->value,
+                'value' => $this->stock_type_id,
+                'aggregation' => $this->stock_type_id ? $this->aggregation(
+                    $this->stock_type_id,
+                    $this->stockType->value,
                 ): null,
             ],
         ];

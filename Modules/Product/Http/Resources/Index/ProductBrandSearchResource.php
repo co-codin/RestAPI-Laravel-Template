@@ -20,7 +20,7 @@ class ProductBrandSearchResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'country' => $this->country,
+            'country_id' => $this->country_id,
             'status' => [
                 'id' => $this->status,
                 'name' => Status::getDescription($this->status),

@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Models\FieldValue;
 use App\Models\Image;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,11 +34,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $booklet
  * @property string|null $video
  * @property array|null $documents
- * @property string|null $stock_type
+ * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Brand $brand
+ * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
  * @property-read Collection|ProductCategory[] $productCategories
@@ -60,6 +62,7 @@ class Product extends Model
         'warranty' => 'integer',
         'documents' => 'array',
         'has_test_drive' => 'boolean',
+        'stock_type_id' => 'integer',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -139,5 +142,10 @@ class Product extends Model
     public function toSearchArray()
     {
         return ['name' => $this->name];
+    }
+
+    public function stockType()
+    {
+        return $this->belongsTo(FieldValue::class, 'id', 'stock_type_id');
     }
 }

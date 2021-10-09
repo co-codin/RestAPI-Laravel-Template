@@ -23,7 +23,7 @@ class CreateProductVariationsTable extends Migration
             $table->boolean('is_price_visible')->default(false);
             $table->boolean('is_enabled')->default(true);
             $table->unsignedTinyInteger('availability')->default(1);
-            $table->unsignedInteger('condition')->nullable();
+            $table->unsignedInteger('condition_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

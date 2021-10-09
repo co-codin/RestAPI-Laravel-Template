@@ -3,6 +3,7 @@
 namespace Modules\Brand\Models;
 
 use App\Concerns\IsActive;
+use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,7 +27,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $status
  * @property string|null $short_description
  * @property string|null $full_description
- * @property string|null $country
+ * @property string|integer $country_id
  * @property int|null $position
  * @property string|null $website
  * @property-read Seo $seo
@@ -34,6 +35,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read FieldValue $country
  * @mixin \Eloquent
  * @method static Builder|Brand newModelQuery()
  * @method static Builder|Brand newQuery()
@@ -85,5 +87,10 @@ class Brand extends Model
     protected static function newFactory()
     {
         return BrandFactory::new();
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(FieldValue::class, 'id', 'country_id');
     }
 }

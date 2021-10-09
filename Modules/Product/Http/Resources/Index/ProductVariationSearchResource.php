@@ -52,10 +52,10 @@ class ProductVariationSearchResource extends JsonResource
                 ],
                 [
                     'name' => 'condition',
-                    'value' => $this->condition,
+                    'value' => $this->condition_id,
                     'aggregation' => $this->aggregation(
-                        $this->condition,
-                        FieldValue::find($this->condition)->value,
+                        $this->condition_id,
+                        $this->condition->value,
                     ),
                 ],
             ],

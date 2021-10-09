@@ -75,8 +75,8 @@ class ProductIndex extends BaseIndex implements SearchIndex
                         'slug' => [
                             'type' => 'keyword',
                         ],
-                        'country' => [
-                            'type' => 'keyword',
+                        'country_id' => [
+                            'type' => 'integer',
                         ],
                         'status' => [
                             'properties' => [
