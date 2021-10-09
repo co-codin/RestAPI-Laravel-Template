@@ -13,11 +13,6 @@ class GenerateGoogleMarket extends Command
 
     protected $description = 'generate xml for google market';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function handle(GoogleMarketGenerator $googleMarketGenerator)
     {
         $parameters = $this->argument('parameters');

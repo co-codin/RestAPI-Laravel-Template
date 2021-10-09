@@ -47,7 +47,7 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             $products = Arr::get($parameters, 'products.ids');
         }
 
-        if (array_key_exists('stock_type', $parameters)) {
+        if (array_key_exists('stock_type_id', $parameters)) {
             $stock_type_id = Arr::get($parameters, 'stock_type_id');
         }
 
@@ -118,7 +118,9 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             }
         });
 
-        $query->where('short_description', $short_description ? '=' : '!=', null);
+        if (!is_null($short_description)) {
+            $query->where('short_description', $short_description);
+        }
 
         return $query->get();
     }

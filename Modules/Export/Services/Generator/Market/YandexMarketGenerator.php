@@ -31,7 +31,7 @@ class YandexMarketGenerator implements GeneratorInterface
         $shopInfo = $this->shopInfo
             ->setName('MedeqStars.ru')
             ->setCompany('Best online seller Inc.')
-            ->setUrl('https://medeqstars.ru');
+            ->setUrl(config('app.site_url'));
 
         $currencies = $this->currencyGenerator->getCurrencies();
 

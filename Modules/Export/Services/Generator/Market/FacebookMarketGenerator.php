@@ -36,12 +36,12 @@ class FacebookMarketGenerator implements GeneratorInterface
         return [
             $product->id,
             $product->name,
-            $product->short_description,
+            $product->short_description ?? '',
             $this->getAvailabilityByMerchant($productVariation->availability),
             'new',
             $productVariation->price . ' ' . Str::upper($productVariation->currency->code),
             config('site_url') . "/product/$product->slug/$product->id",
-            url($product->image),
+            !is_null($product->image) ? config('app.asset_url') . $product->image : '',
             $product->brand->name,
         ];
     }

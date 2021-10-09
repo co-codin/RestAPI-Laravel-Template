@@ -3,26 +3,32 @@
 namespace Modules\Export\Services;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Enum\ExportType;
 use Modules\Export\Models\Export;
 
 class ExportScheduler
 {
-    public function scheduleExportCommands(Schedule $schedule)
+    public function scheduleExportCommands(Schedule $schedule): void
     {
-        foreach ($this->getAllScheduledExports() as $export) {
+        $scheduleExports = $this->getAllScheduledExports();
+
+        foreach ($scheduleExports as $export) {
             $command = ExportType::getCommand($export->type);
             $frequency = ExportFrequency::getFrequency($export->frequency);
-            $parameters = array_merge($export->parameters, [
-                'filename' => $export->filename,
-            ]);
+            $parameters = array_merge(
+                $export->parameters,
+                ['filename' => $export->filename]
+            );
 
             $schedule->command($command, $parameters)->{$frequency}();
         }
     }
 
+    /**
+     * @return Export[]|Collection
+     */
     protected function getAllScheduledExports(): Collection
     {
         return Export::query()
