@@ -11,7 +11,7 @@ use Modules\Product\Models\ProductVariation;
 use Vitalybaev\GoogleMerchant\Product as GoogleProduct;
 use Vitalybaev\GoogleMerchant\Product\Availability\Availability;
 
-class ProductGoogleGeneratorHelper
+class ProductGoogleGeneratorConverter
 {
     public function __construct(
         private Product $model

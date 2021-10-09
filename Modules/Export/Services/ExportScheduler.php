@@ -2,6 +2,7 @@
 
 namespace Modules\Export\Services;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Export\Enum\ExportFrequency;
@@ -23,6 +24,9 @@ class ExportScheduler
             );
 
             $schedule->command($command, $parameters)->{$frequency}();
+            $export->update([
+                'exported_at' => Carbon::now()->toDateTimeString()
+            ]);
         }
     }
 

@@ -29,7 +29,7 @@ class GoogleMarketGenerator implements GeneratorInterface
         $products = $this->productRepository->getProductsForMerchant($parameters);
 
         foreach ($products as $product) {
-            $feed->addProduct((new ProductGoogleGeneratorHelper($product))->toXml());
+            $feed->addProduct((new ProductGoogleGeneratorConverter($product))->toXml());
         }
 
         $feedXml = $feed->build();
