@@ -14,6 +14,13 @@ class BrandSearchResource extends JsonResource
 {
     public function toArray($request)
     {
+        if (!is_null($this->country)) {
+            $country = [
+                'id' => $this->country->id,
+                'value' => $this->country->value,
+            ];
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -23,7 +30,7 @@ class BrandSearchResource extends JsonResource
                 'name' => Status::getDescription($this->status),
                 'slug' => Str::slug(Status::getDescription($this->status)),
             ],
-            'country' => $this->country,
+            'country' => $country ?? null
         ];
     }
 }

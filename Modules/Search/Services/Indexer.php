@@ -56,7 +56,7 @@ class Indexer
             ]
         ]);
 
-        $this->elasticsearch->indices()->delete(['index' => $oldIndexName]);
+        $index->delete($oldIndexName);
     }
 
     public function indexData(?string $indexName = null)

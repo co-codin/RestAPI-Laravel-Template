@@ -27,14 +27,7 @@ class BrandRepository extends BaseRepository implements IndexableRepository
     public function getItemsToIndex()
     {
         return $this->scopeQuery(function (QueryBuilder $builder) {
-            return $builder
-                ->select([
-                    'id',
-                    'name',
-                    'slug',
-                    'status',
-                    'country',
-                ]);
+            return $builder->with('country');
         });
     }
 }
