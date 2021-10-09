@@ -25,7 +25,7 @@ class YandexMarketGenerator implements GeneratorInterface
     public function generate(array $parameters)
     {
         $settings = $this->settings
-            ->setOutputFile(public_path() . '/uploads/' . Arr::get($parameters, 'filename') . '.xml')
+            ->setOutputFile(storage_path('app/feeds') . '/' . Arr::get($parameters, 'filename') . '.xml')
             ->setEncoding('UTF-8');
 
         $shopInfo = $this->shopInfo
