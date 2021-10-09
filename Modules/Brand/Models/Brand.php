@@ -91,6 +91,6 @@ class Brand extends Model
 
     public function country()
     {
-        return $this->belongsTo(FieldValue::class, 'id', 'country_id');
+        return $this->belongsTo(FieldValue::class);
     }
 }
