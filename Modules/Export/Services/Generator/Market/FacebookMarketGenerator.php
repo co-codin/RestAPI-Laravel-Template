@@ -16,9 +16,9 @@ class FacebookMarketGenerator implements GeneratorInterface
 
     public function generate(array $parameters)
     {
-        $filePath = storage_path('app/public') . '/' . Arr::get($parameters, 'filename') . '.csv';
+        $filePath = storage_path('app/feeds') . '/' . Arr::get($parameters, 'filename') . '.csv';
 
-        $file = fopen($filePath, 'w');
+        $file = fopen($filePath, 'wb');
 
         fputcsv($file, array('id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand'));
 
@@ -40,10 +40,7 @@ class FacebookMarketGenerator implements GeneratorInterface
             $this->getAvailabilityByMerchant($productVariation->availability),
             'new',
             $productVariation->price . ' ' . Str::upper($productVariation->currency->code),
-            route('product-view', [
-                'slug' => $product->slug,
-                'id' => $product->id,
-            ]),
+            config('site_url') . "/product/$product->slug/$product->id",
             url($product->image),
             $product->brand->name,
         ];
