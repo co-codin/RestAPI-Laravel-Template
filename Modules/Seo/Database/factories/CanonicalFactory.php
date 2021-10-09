@@ -22,7 +22,7 @@ class CanonicalFactory extends Factory
     public function definition()
     {
         return [
-            'url' => '/achievements',
+            'url' => $this->faker->url,
             'canonical' => $this->faker->url,
         ];
     }
