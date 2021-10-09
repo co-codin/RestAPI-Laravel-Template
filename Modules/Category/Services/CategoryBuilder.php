@@ -2,24 +2,33 @@
 
 namespace Modules\Category\Services;
 
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Category\Models\Category;
+use Modules\Product\Models\ProductCategory;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 
 class CategoryBuilder
 {
-    public function getRootCategories(Builder $builder, array $productIds)
+    public function getRootCategories($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        return $builder->whereHas(
-            'productCategories',
-            fn($builder) => $builder->whereIn('product_id', $productIds)
-        )->with('parent')->pluck('parent')
-            ->each(function (Category $parentCategory) use ($productIds) {
-            $parentCategory->descendants()->each(function (Category $category) use ($productIds, $parentCategory) {
-                $count = $category->productCategories()->whereIn('product_id', $productIds)->count();
-                $parentCategory->product_count += $count;
-            });
-            $parentCategory->product_count += $parentCategory->productCategories()->whereIn('product_id', $productIds)->count();
-        });
+        $productIds = $args['productIds'];
+
+        return ProductCategory::query()
+            ->with([
+                'category' => fn($query) => $query->select('id', '_lft', '_rgt'),
+                'category.ancestors' => fn($query) => $query->select('id', 'name', '_lft', '_rgt')->whereNull('parent_id'),
+            ])
+            ->whereIn('product_id', $productIds)
+            ->where('is_main', true)
+            ->get()
+            ->map(fn($productCategory) => $productCategory->category->ancestors->first())
+            ->groupBy('id')
+            ->map(function($group) {
+                $category = $group->first();
+                return ['name' => $category->name, 'count' => $group->count(), 'id' => $category->id];
+            })
+            ->values();
     }
 }

@@ -32,7 +32,7 @@ extend type Query {
     category(id: ID @eq, slug: String @eq): Category @find
 
     getRootCategoriesByProductIds(
-        productIds: [Int!]! @builder(method: "\\Modules\\Category\\Services\\CategoryBuilder@getRootCategories")
+        productIds: [Int!]!
     ): [Category!]!
-    @all
+    @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getRootCategories")
 }
