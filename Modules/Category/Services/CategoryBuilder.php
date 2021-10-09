@@ -27,7 +27,8 @@ class CategoryBuilder
             ->groupBy('id')
             ->map(function($group) {
                 $category = $group->first();
-                return ['name' => $category->name, 'count' => $group->count(), 'id' => $category->id];
+                $category->count = $group->count();
+                return $category;
             })
             ->values();
     }
