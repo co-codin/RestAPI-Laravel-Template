@@ -30,7 +30,7 @@ class ProductRepository extends BaseRepository implements IndexableRepository
         $categories = [];
         $brands = [];
         $products = [];
-        $stock_type = null;
+        $stock_type_id = null;
         $in_stock = null;
         $short_description = null;
         $price = null;
@@ -48,7 +48,7 @@ class ProductRepository extends BaseRepository implements IndexableRepository
         }
 
         if (array_key_exists('stock_type', $parameters)) {
-            $stock_type = Arr::get($parameters, 'stock_type');
+            $stock_type_id = Arr::get($parameters, 'stock_type_id');
         }
 
         if (array_key_exists('in_stock', $parameters)) {
@@ -97,7 +97,11 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             });
         }
 
-        $query->whereHas('productVariations', function ($query) use ($price, $in_stock, $stock_type) {
+        if (!is_null($stock_type_id)) {
+            $query->where('stock_type_id', $stock_type_id);
+        }
+
+        $query->whereHas('productVariations', function ($query) use ($price, $in_stock, $stock_type_id) {
             $query->where('product_variations.is_enabled', '=', true);
 
             if ($price) {
@@ -112,8 +116,6 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             if ($in_stock) {
                 $query->where('product_variations.availability', '=', Availability::InStock);
             }
-
-            $query->where('product_variations.stock_type', $stock_type ? '=' : '!=', null);
         });
 
         $query->where('short_description', $short_description ? '=' : '!=', null);

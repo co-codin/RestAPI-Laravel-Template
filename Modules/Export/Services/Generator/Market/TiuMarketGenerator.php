@@ -27,7 +27,7 @@ class TiuMarketGenerator implements GeneratorInterface
         $filename = Arr::get($parameters, 'filename');
 
         $settings = $this->settings
-            ->setOutputFile(public_path() . '/uploads/' . $filename . '.xml')
+            ->setOutputFile(storage_path('app/feeds') . '/' . $filename . '.xml')
             ->setEncoding('UTF-8');
 
         $shopInfo = $this->shopInfo

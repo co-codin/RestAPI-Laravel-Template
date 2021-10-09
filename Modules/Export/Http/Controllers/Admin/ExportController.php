@@ -47,23 +47,17 @@ class ExportController extends Controller
 
     public function destroy(int $export)
     {
-        $export = $this->exportRepository->find($export);
+        $exportModel = $this->exportRepository->find($export);
 
-        $this->exportStorage->delete($export);
+        $this->exportStorage->delete($exportModel);
 
         return response()->noContent();
     }
 
     public function export(int $export)
     {
-        $export = $this->exportRepository->find($export);
+        $exportModel = $this->exportRepository->find($export);
 
-        $command = $this->exportService->determine($export);
-
-        Artisan::call($command, [
-            'parameters' => array_merge($export->parameters, [
-                'filename' => $export->filename,
-            ])
-        ]);
+        $this->exportService->call($exportModel);
     }
 }
