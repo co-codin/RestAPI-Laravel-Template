@@ -32,6 +32,6 @@ class GoogleMarketGenerator implements GeneratorInterface
 
         $feedXml = $feed->build();
 
-//        File::put(storage_path('app/feeds') . '/' . Arr::get($parameters, 'filename') . '.xml', $feedXml);
+        File::put(storage_path('app/feeds') . '/' . Arr::get($parameters, 'filename') . '.xml', $feedXml);
     }
 }
