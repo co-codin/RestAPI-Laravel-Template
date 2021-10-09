@@ -6,5 +6,5 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    vacancy(id: ID @eq, slug: String @eq): Vacancy @find
+    vacancy(id: ID @eq, slug: String @eq, status: Int @eq): Vacancy @find
 }
