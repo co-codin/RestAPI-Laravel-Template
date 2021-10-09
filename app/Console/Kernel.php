@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Console\Commands\GenerateSitemap;
+use App\Console\Commands\GenerateSitemapCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
             ->scheduleExportCommands($schedule);
 
         // генерируем карту сайта
-        $schedule->command(GenerateSitemap::class)->weekly();
+        $schedule->command(GenerateSitemapCommand::class)->weekly();
     }
 
     protected function commands(): void

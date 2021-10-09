@@ -8,9 +8,9 @@ use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
 use GuzzleHttp\Psr7\Response;
 
-class GenerateSitemap extends Command
+class GenerateSitemapCommand extends Command
 {
-    protected $signature = 'sitemap:generate';
+    protected $signature = 'sitemap:generate {--i|ignore-robots}';      //-i or --ignore-robots
 
     protected $description = 'Generate the sitemap.';
 
@@ -18,7 +18,7 @@ class GenerateSitemap extends Command
     {
         SitemapGenerator::create(config('app.site_url'))
             ->configureCrawler(function (Crawler $crawler) {
-                if (config('sitemap.ignore_robots')) {
+                if ($this->option('ignore-robots')) {
                     $crawler->ignoreRobots();
                 }
             })

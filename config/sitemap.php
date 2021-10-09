@@ -53,6 +53,4 @@ return [
      * which urls should be crawled for the sitemap.
      */
     'crawl_profile' => Profile::class,
-
-    'ignore_robots' => env('SITEMAP_IGNORE_ROBOTS', false),
 ];
