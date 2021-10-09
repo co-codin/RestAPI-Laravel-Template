@@ -171,6 +171,6 @@ class Product extends Model
 
     public function stockType()
     {
-        return $this->belongsTo(FieldValue::class, 'id', 'stock_type_id');
+        return $this->belongsTo(FieldValue::class);
     }
 }

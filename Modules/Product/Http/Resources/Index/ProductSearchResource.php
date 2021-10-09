@@ -68,7 +68,6 @@ class ProductSearchResource extends JsonResource
             [
                 'name' => 'brand.country',
                 'value' => $this->brand->country_id,
-                'label' => $this->brand->country->value,
                 'aggregation' => $this->brand->country_id ? $this->aggregation(
                     $this->brand->country_id, $this->brand->country->value,
                 ) : null,
@@ -76,7 +75,6 @@ class ProductSearchResource extends JsonResource
             [
                 'name' => 'category',
                 'value' => $this->category->id,
-                'label' => $this->category->name,
                 'aggregation' => $this->aggregation(
                     $this->category->id, $this->category->name,
                 ),

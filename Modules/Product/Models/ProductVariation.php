@@ -53,7 +53,7 @@ class ProductVariation extends Model
         'is_enabled' => 'boolean',
         'availability' => 'integer',
         'options' => 'array',
-        'condition' => 'integer',
+        'condition_id' => 'integer',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -84,7 +84,7 @@ class ProductVariation extends Model
 
     public function condition()
     {
-        return $this->belongsTo(FieldValue::class, 'id', 'condition_id');
+        return $this->belongsTo(FieldValue::class);
     }
 
     public function getPriceAttribute($value): float|int|null
