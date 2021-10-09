@@ -31,7 +31,7 @@ class MigrateCurrency extends Command
             'id' => $item->id,
             'name' => $item->title,
             'iso_code' => strtoupper($item->code),
-            'rate' => $item->rate,
+            'rate' => $item->rate / 100,
             'is_main' => false,
         ];
     }

@@ -14,5 +14,9 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    product(id: ID @eq, slug: String @eq): Product @find
+    product(
+        id: ID @eq,
+        slug: String @eq
+        withMainVariation: Boolean @scope(name: "withMainVariation")
+    ): Product @find
 }
