@@ -15,11 +15,13 @@ class MigrateCanonical extends Command
     {
         $oldCanonicals = DB::connection('old_medeq_mysql')
             ->table('canonicals')
+            ->orderBy('id')
             ->get();
 
 
         foreach ($oldCanonicals as $oldCanonical) {
-            Canonical::query()->insert(
+            Canonical::query()->updateOrCreate(
+                ['url' => $oldCanonical->url],
                 $this->transform($oldCanonical)
             );
         }
@@ -28,8 +30,6 @@ class MigrateCanonical extends Command
     protected function transform($item)
     {
         return [
-            'id' => $item->id,
-            'url' => $item->url,
             'canonical' => $item->canonical,
             'assigned_by_id' => 1,
             'created_at' => $item->created_at,

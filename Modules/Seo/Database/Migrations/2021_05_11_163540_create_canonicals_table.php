@@ -15,7 +15,7 @@ class CreateCanonicalsTable extends Migration
     {
         Schema::create('canonicals', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
+            $table->string('url')->unique();
             $table->string('canonical');
             $table->unsignedBigInteger('assigned_by_id')->nullable();
             $table->timestamps();
