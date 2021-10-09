@@ -25,13 +25,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_price_visible
  * @property bool $is_enabled
  * @property int $availability
- * @property int $condition
+ * @property int $condition_id
  * @property string|null $stock_type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Product $product
  * @property-read Currency $currency
+ * @property-read FieldValue $condition
  * @mixin \Eloquent
  * @method static Builder|ProductVariation newModelQuery()
  * @method static Builder|ProductVariation newQuery()
@@ -81,8 +82,32 @@ class ProductVariation extends Model
         return ProductVariationFactory::new();
     }
 
-//    public function condition()
-//    {
-//        return $this->belongsTo(FieldValue::class, 'id', 'condition_id');
-//    }
+    public function condition()
+    {
+        return $this->belongsTo(FieldValue::class, 'id', 'condition_id');
+    }
+
+    public function getPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPriceAttribute($value): void
+    {
+        $this->attributes['price'] = $value
+            ? $value * 100
+            : null;
+    }
+
+    public function getPreviousPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPreviousPriceAttribute($value): void
+    {
+        $this->attributes['previous_price'] = $value
+            ? $value * 100
+            : null;
+    }
 }

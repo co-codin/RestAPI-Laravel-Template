@@ -28,6 +28,10 @@ class MigrateCategory extends Command
 
     protected function transform($item)
     {
+        $image = $item->parent_id && $item->status == 1
+            ? "categories/{$item->slug}.jpg"
+            : null;
+
         $data = [
             'id' => $item->id,
             'name' => $item->title,
@@ -37,7 +41,7 @@ class MigrateCategory extends Command
             'parent_id' => $item->parent_id,
             'status' => $item->status,
             'product_name' => $item->product_name,
-            'image' => ltrim($item->image, "/"),
+            'image' => $image,
             'is_in_home' => $item->in_home === 1,
             'is_hidden_in_parents' => $item->hide_in_parents,
             'full_description' => $item->full_description,

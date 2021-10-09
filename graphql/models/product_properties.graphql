@@ -1,7 +1,7 @@
-scalar Value @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+scalar Mixed @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
 
 type ProductPropertyPivot {
-    value: Value
+    value: Mixed
     pretty_key: String
     pretty_value: String
     is_important: Boolean

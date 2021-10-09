@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Models\FieldValue;
 use App\Models\Image;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,11 +34,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $booklet
  * @property string|null $video
  * @property array|null $documents
- * @property string|null $stock_type
+ * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Brand $brand
+ * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
  * @property-read Collection|ProductCategory[] $productCategories
@@ -60,6 +62,7 @@ class Product extends Model
         'warranty' => 'integer',
         'documents' => 'array',
         'has_test_drive' => 'boolean',
+        'stock_type_id' => 'integer',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -136,8 +139,38 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function toSearchArray()
+    public function mainVariation()
     {
-        return ['name' => $this->name];
+        return $this->belongsTo(ProductVariation::class);
+    }
+
+    public function getPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 10000 : null;
+    }
+
+    public function scopeWithPrice($query)
+    {
+        $query->addSelect(['price' => ProductVariation::selectRaw('rate * price')
+            ->whereColumn('product_id', 'products.id')
+            ->join('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ]);
+    }
+
+    public function scopeWithMainVariation($query)
+    {
+        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+            ->whereColumn('product_id', 'products.id')
+            ->join('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ])->with('mainVariation');
+    }
+
+    public function stockType()
+    {
+        return $this->belongsTo(FieldValue::class, 'id', 'stock_type_id');
     }
 }
