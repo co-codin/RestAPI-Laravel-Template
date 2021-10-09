@@ -30,7 +30,7 @@ class MigrateCurrency extends Command
         return [
             'id' => $item->id,
             'name' => $item->title,
-            'iso_code' => $item->code,
+            'iso_code' => strtoupper($item->code),
             'rate' => $item->rate,
             'is_main' => false,
         ];

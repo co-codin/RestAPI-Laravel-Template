@@ -86,4 +86,28 @@ class ProductVariation extends Model
     {
         return $this->belongsTo(FieldValue::class, 'id', 'condition_id');
     }
+
+    public function getPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPriceAttribute($value): void
+    {
+        $this->attributes['price'] = $value
+            ? $value * 100
+            : null;
+    }
+
+    public function getPreviousPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPreviousPriceAttribute($value): void
+    {
+        $this->attributes['previous_price'] = $value
+            ? $value * 100
+            : null;
+    }
 }

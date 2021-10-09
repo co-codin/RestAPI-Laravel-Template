@@ -6,5 +6,5 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    canonicalEntity(id: ID @eq): Canonical @find
+    canonical(id: ID @eq, url: String @eq): Canonical @find
 }

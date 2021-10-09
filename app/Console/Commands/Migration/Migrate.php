@@ -18,6 +18,7 @@ class Migrate extends Command
         $this->migrate('migrate:brand');
         $this->migrate('migrate:category');
         $this->migrate('migrate:currency');
+        $this->migrate('currency:parse');
         $this->migrate('migrate:achievement');
         $this->migrate('migrate:news');
         $this->migrate('migrate:redirect');
