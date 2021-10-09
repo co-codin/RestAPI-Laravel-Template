@@ -39,7 +39,9 @@ class MigrateBrand extends Command
             'status' => $item->status,
             'is_in_home' => $item->in_home === 1,
             'position' => $item->position,
-            'country' => $item->country ? FieldValue::query()->firstOrCreate(['value' => $item->country])->id : null,
+            'country_id' => $item->country
+                ? FieldValue::query()->firstOrCreate(['value' => $item->country])->id
+                : null,
             'short_description' => $item->short_description,
             'assigned_by_id' => 1,
             'created_at' => $item->created_at,
