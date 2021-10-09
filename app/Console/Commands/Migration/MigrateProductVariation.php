@@ -30,7 +30,7 @@ class MigrateProductVariation extends Command
     {
         if($item->stock_type) {
             Product::where('id', $item->product_id)
-                ->update(['stock_type' => FieldValue::query()->firstOrCreate(['value' => $item->stock_type])->id]);
+                ->update(['stock_type_id' => FieldValue::query()->firstOrCreate(['value' => $item->stock_type])->id]);
         }
 
         return [
@@ -43,7 +43,7 @@ class MigrateProductVariation extends Command
             'is_price_visible' => $item->is_show_price === 1,
             'is_enabled' => $item->status === 1,
             'availability' => $item->in_stock,
-            'condition' => FieldValue::query()->firstOrCreate(['value' => ProductVariationCondition::getDescription($item->type_id)])->id,
+            'condition_id' => FieldValue::query()->firstOrCreate(['value' => ProductVariationCondition::getDescription($item->type_id)])->id,
         ];
     }
 }
