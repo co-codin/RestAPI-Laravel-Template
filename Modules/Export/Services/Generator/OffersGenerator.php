@@ -33,7 +33,7 @@ class OffersGenerator
             $offer = (new OfferSimple())
                 ->setId($product->id)
                 ->setPictures($pictures)
-                ->setUrl(route('product-view', [$product->slug, $product->id]))
+                ->setUrl(config('app.site_url') . "/product/$product->slug/$product->id")
                 ->setCategoryId($product->category->id)
                 ->setDelivery(true)
                 ->setName($product->brand->name . ' ' . $product->name)
