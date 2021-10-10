@@ -9,6 +9,8 @@ class HomeBuilder
 {
     public function getHomeData($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-
+        dd(
+            'home data'
+        );
     }
 }

@@ -1,4 +1,3 @@
 extend type Query {
-    getHomeData: [Home!]!
-    @field(resolver: "\\App\\Services\\HomeBuilder@getHomeData")
+    getHomeData: [Home!]! @field(resolver: "\\App\\Services\\HomeBuilder@getHomeData")
 }
