@@ -18,10 +18,18 @@ class ProductRequestCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
+        $includes = request()->input('include') ?? [];
+
+        if(is_string($includes)) {
+            $includes = explode(",", $includes);
+        }
+
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
                 static::allowedProductFields(),
+                static::allowedProductVariationFields('product_variations'),
+                static::allowedProductVariationFields('main_variation'),
                 BrandRequestCriteria::allowedBrandFields('brand'),
                 CategoryRequestCriteria::allowedCategoryFields('category'),
                 CategoryRequestCriteria::allowedCategoryFields('categories'),
@@ -33,6 +41,7 @@ class ProductRequestCriteria implements CriteriaInterface
                     'images.position',
                 ],
             ))
+            ->when(in_array("mainVariation", $includes), fn($query) => $query->withMainVariation())
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('slug'),
@@ -66,7 +75,18 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariations.availability'),
                 AllowedFilter::exact('productVariations.previous_price'),
             ])
-            ->allowedIncludes(['brand', 'productVariations', 'productVariations.currency', 'properties', 'category', 'categories', 'seo', 'images'])
+            ->allowedIncludes([
+                'brand',
+                'productVariations',
+                'productVariations.currency',
+                'properties',
+                'category',
+                'categories',
+                'seo',
+                'images',
+                'mainVariation',
+                'mainVariation.currency',
+            ])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
     }
@@ -82,6 +102,30 @@ class ProductRequestCriteria implements CriteriaInterface
             'position',
             'brand_id',
             'is_enabled',
+            'created_at',
+            'updated_at'
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
+    }
+
+    public static function allowedProductVariationFields($prefix = null): array
+    {
+        $fields = [
+            'id',
+            'product_id',
+            'name',
+            'price' ,
+            'previous_price',
+            'currency_id',
+            'is_price_visible',
+            'is_enabled',
+            'availability',
+            'condition_id',
             'created_at',
             'updated_at'
         ];
