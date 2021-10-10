@@ -20,7 +20,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  */
 class FieldValue extends Model
 {
-    use HasFactory, HasJsonRelationships;;
+    use HasFactory, HasJsonRelationships;
 
     protected $guarded = ['id'];
 

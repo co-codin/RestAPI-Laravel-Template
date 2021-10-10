@@ -17,6 +17,7 @@ class ProductPropertySearchResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'field_value_ids' => $this->pivot->field_value_ids,
             'value' => $this->pivot->value,
             'value_numeric' => $this->is_numeric
                 ? (float) $this->pivot->value

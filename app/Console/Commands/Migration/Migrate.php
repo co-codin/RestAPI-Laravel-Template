@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 
 class Migrate extends Command
@@ -13,6 +14,8 @@ class Migrate extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $this->migrate('migrate:fresh --force');
         $this->migrate('migrate:field-values');
         $this->migrate('migrate:brand');

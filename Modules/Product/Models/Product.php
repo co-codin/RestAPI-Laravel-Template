@@ -173,9 +173,9 @@ class Product extends Model
     {
         return $this->belongsTo(FieldValue::class);
     }
-    
+
     public function scopeCategoryId()
     {
-        
+
     }
 }
