@@ -28,7 +28,7 @@ class MigrateProductProperty extends Command
      */
     public function handle()
     {
-        $this->properties = Property::all()->keyBy('id');
+        $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get()->keyBy('id');
         $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->whereNotNull('value')->get();
         $this->books = DB::connection('old_medeq_mysql')->table('books')->get()->keyBy('id');
         $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get()->keyBy('id');
@@ -64,7 +64,7 @@ class MigrateProductProperty extends Command
     /**
      * @throws \JsonException
      */
-    protected function transform(Property $property, $propertyValue, ?array $propertyCsv = null): array
+    protected function transform(object $property, $propertyValue, ?array $propertyCsv = null): array
     {
         $value = $propertyValue->value;
 
@@ -96,37 +96,41 @@ class MigrateProductProperty extends Command
         ];
     }
 
-    protected function transformForFieldValue($property, $value)
+    protected function transformForFieldValue(object $property, $value)
     {
-        return match ($property->type) {
+        switch ($property->type) {
             # mark
-            1 => $value == 1 ?: 2,
+            case 1:
+                return $value == 1 ?: 2;
             # book
-            4 => $this->convertToFieldValueFromBookItems($this->getBookItems($value)),
+            case 4: {
+                $bookItems = $this->getBookItems($value);
+                return !is_null($bookItems) ? $this->convertToFieldValueFromBookItems($bookItems) : null;
+            }
             # text input etc
-            default => $this->convertToFieldValue($value),
-        };
+            default: return $this->convertToFieldValue($value);
+        }
     }
 
     /**
      * @throws \JsonException
      */
-    protected function transformValue($property, $value)
+    protected function transformValue(object $property, $value)
     {
         # book
-        if ($property->type == 4) {
+        if ($property->type === 4) {
             $bookItems = $this->getBookItems($value);
 
-            $titleArray = count($bookItems) === 1
-                ? $bookItems[0]['title']
-                : Arr::pluck($this->getBookItems($value), 'title');
+            if (is_null($bookItems)) {
+                return null;
+            }
 
-            $value = json_encode($titleArray, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
-        } else {
-            $value = json_encode($value, JSON_THROW_ON_ERROR);
+            $value = count($bookItems) === 1
+                ? $bookItems[0]['title']
+                : Arr::pluck($bookItems, 'title');
         }
 
-        return $value;
+        return json_encode($value, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
     }
 
     protected function getBookItems($value): ?array
