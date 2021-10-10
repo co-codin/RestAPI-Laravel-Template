@@ -19,9 +19,10 @@ class CreateProductPropertyTable extends Migration
             $table->foreignId('product_id')->constrained();
 
             $table->json('field_value_ids')->nullable();
-            $field_value_ids = DB::connection()->getQueryGrammar()->wrap('field_value_ids');
-            $table->unsignedInteger('field_value_ids')->storedAs($field_value_ids);
-            $table->foreign('field_value_ids')->references('id')->on('field_values');
+//            $table->json('options')->nullable();
+//            $field_value_ids = DB::connection()->getQueryGrammar()->wrap('options->field_value_ids');
+//            $table->unsignedInteger('field_value_ids')->storedAs($field_value_ids);
+//            $table->foreign('field_value_ids')->references('id')->on('field_values');
 
             $table->json('value')->nullable();
             $table->string('pretty_key')->nullable();
