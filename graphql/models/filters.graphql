@@ -4,6 +4,7 @@ type Filter {
     slug: String!
     property_id: Int
     type: Int!
+    facet: FilterFacet
     category_id: Int!
     is_enabled: Boolean!
     is_default: Boolean!
@@ -13,4 +14,12 @@ type Filter {
 
     property: Property @belongsTo
     category: Category! @belongsTo
+}
+
+scalar FacetValue @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+
+type FilterFacet {
+    name: String
+    path: String
+    value: FacetValue
 }
