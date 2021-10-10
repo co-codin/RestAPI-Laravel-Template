@@ -90,13 +90,13 @@ class MigrateProductProperty extends Command
             'pretty_key' => $propertyValue->specification_key,
             'pretty_value' => $propertyValue->specification_value,
             'field_value_ids' => !is_null($propertyCsv) && !$isNumeric
-                ? json_encode($this->transformValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
+                ? json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
                 : null,
-            'value' => !is_null($propertyCsv) && $isNumeric ? json_encode($value, JSON_THROW_ON_ERROR) : null
+            'value' => !is_null($propertyCsv) && $isNumeric ? $this->transformValue($property, $value) : null
         ];
     }
 
-    protected function transformValue($property, $value)
+    protected function transformForFieldValue($property, $value)
     {
         return match ($property->type) {
             # mark
@@ -106,6 +106,27 @@ class MigrateProductProperty extends Command
             # text input etc
             default => $this->convertToFieldValue($value),
         };
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    protected function transformValue($property, $value)
+    {
+        # book
+        if ($property->type == 4) {
+            $bookItems = $this->getBookItems($value);
+
+            $titleArray = count($bookItems) === 1
+                ? $bookItems[0]['title']
+                : Arr::pluck($this->getBookItems($value), 'title');
+
+            $value = json_encode($titleArray, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
+        } else {
+            $value = json_encode($value, JSON_THROW_ON_ERROR);
+        }
+
+        return $value;
     }
 
     protected function getBookItems($value): ?array
@@ -147,7 +168,7 @@ class MigrateProductProperty extends Command
     /**
      * @param array[] $bookItems
      */
-    protected function convertToFieldValueFromBookItems(array $bookItems): array
+    protected function convertToFieldValueFromBookItems(array $bookItems): int|array
     {
         $fieldValues = [];
 
@@ -164,6 +185,10 @@ class MigrateProductProperty extends Command
             }
 
             $fieldValues[] = $fieldValue;
+        }
+
+        if (count($fieldValues) === 1) {
+            return $fieldValues[0]['id'];
         }
 
         return collect($fieldValues)->pluck('id')->toArray();
