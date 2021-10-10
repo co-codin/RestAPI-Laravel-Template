@@ -13,8 +13,9 @@ class CurrencyGenerator
     public function getCurrencies(): array
     {
         $currencies = [];
+        $currencyEntities = Currency::query()->get();
 
-        foreach (Currency::query()->get() as $currency) {
+        foreach ($currencyEntities as $currency) {
             $currencies[] = (new CurrencyYaml())
                 ->setId(Str::upper($currency->iso_code))
                 ->setRate($currency->rate);

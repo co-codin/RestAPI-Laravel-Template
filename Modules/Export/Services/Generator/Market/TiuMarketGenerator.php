@@ -33,7 +33,7 @@ class TiuMarketGenerator implements GeneratorInterface
         $shopInfo = $this->shopInfo
             ->setName(config('app.name'))
             ->setCompany(config('services.tiu.company_name'))
-            ->setUrl(config('app.url'));
+            ->setUrl(config('app.site_url'));
 
         $currencies = $this->currencyGenerator->getCurrencies();
         $categories = $this->categoryGenerator->getCategories();
@@ -45,10 +45,5 @@ class TiuMarketGenerator implements GeneratorInterface
             $categories,
             $offers
         );
-    }
-
-    public function transform($data)
-    {
-
     }
 }

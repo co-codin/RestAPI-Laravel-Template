@@ -19,8 +19,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property int $product_id
  * @property string $name
- * @property int|null $price
- * @property int|null $previous_price
+ * @property float|int|null $price
+ * @property float|int|null $previous_price
  * @property int|null $currency_id
  * @property bool $is_price_visible
  * @property bool $is_enabled
