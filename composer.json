@@ -38,6 +38,7 @@
         "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-query-builder": "^3.3",
         "spatie/laravel-sitemap": "^5.9",
+        "staudenmeir/eloquent-json-relations": "^1.1",
         "vitalybaev/google-merchant-feed": "^2.1",
         "wildbit/swiftmailer-postmark": "^3.3"
     },

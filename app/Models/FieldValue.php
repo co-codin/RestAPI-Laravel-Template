@@ -6,6 +6,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Modules\Product\Models\Pivots\ProductPropertyPivot;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class FieldValue
@@ -18,9 +20,14 @@ use Illuminate\Support\Carbon;
  */
 class FieldValue extends Model
 {
-    use HasFactory;
+    use HasFactory, HasJsonRelationships;;
 
     protected $guarded = ['id'];
+
+    public function productPropertyPivots()
+    {
+        return $this->hasManyJson(ProductPropertyPivot::class, 'field_value_ids');
+    }
 
 //    public function sluggable(): array
 //    {

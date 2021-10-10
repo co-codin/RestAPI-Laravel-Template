@@ -44,7 +44,10 @@ class MigrateProductProperty extends Command
         }
     }
 
-    protected function transform(Property $property, $propertyValue)
+    /**
+     * @throws \JsonException
+     */
+    protected function transform(Property $property, $propertyValue): array
     {
         $value = $propertyValue->value;
 
@@ -68,9 +71,10 @@ class MigrateProductProperty extends Command
             'product_id' => $propertyValue->product_id,
             'pretty_key' => $propertyValue->specification_key,
             'pretty_value' => $propertyValue->specification_value,
-            'value' => json_encode(
-                $this->transformValue($property, $value), JSON_UNESCAPED_UNICODE
-            ),
+            'field_value_ids' => !$property->is_numeric
+                ? json_encode($this->transformValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
+                : null,
+            'value' => $property->is_numeric ? json_encode($value, JSON_THROW_ON_ERROR) : null
         ];
     }
 
