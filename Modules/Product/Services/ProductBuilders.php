@@ -13,9 +13,13 @@ class ProductBuilders
     {
         $rootCategory = Category::findOrFail($rootCategory);
 
+        $ids = $rootCategory->descendants()
+            ->pluck('id')
+            ->add($rootCategory->id);
+
         return $builder->whereHas(
             'productCategories',
-            fn($builder) => $builder->whereIn('category_id', $rootCategory->descendants()->pluck('id'))
+            fn($builder) => $builder->whereIn('category_id', $ids)
         );
     }
 }
