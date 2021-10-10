@@ -30,4 +30,9 @@ extend type Query {
     @orderBy(column: "id", direction: "ASC")
 
     category(id: ID @eq, slug: String @eq): Category @find
+
+    getRootCategoriesByProductIds(
+        productIds: [Int!]!
+    ): [Category!]!
+    @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getRootCategories")
 }
