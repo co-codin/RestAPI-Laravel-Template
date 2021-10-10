@@ -86,6 +86,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'images',
                 'mainVariation',
                 'mainVariation.currency',
+                'stockType',
             ])
             ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
             ;
@@ -101,9 +102,10 @@ class ProductRequestCriteria implements CriteriaInterface
             'image',
             'position',
             'brand_id',
+            'stock_type_id',
             'is_enabled',
             'created_at',
-            'updated_at'
+            'updated_at',
         ];
 
         if(!$prefix) {

@@ -6,6 +6,7 @@ namespace Modules\Product\Http\Resources;
 
 use App\Enums\Status;
 use App\Http\Resources\BaseJsonResource;
+use App\Http\Resources\FieldValueResource;
 use Illuminate\Http\Resources\MissingValue;
 use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
@@ -24,6 +25,8 @@ class ProductResource extends BaseJsonResource
             ]),
             'product_variations' => new MissingValue(),
             'main_variation' => new MissingValue(),
+            'stock_type' => new MissingValue(),
+            'stockType' => new FieldValueResource($this->whenLoaded('stockType')),
             'properties' => PropertyResource::collection($this->whenLoaded('properties')),
             'productVariations' => ProductVariationResource::collection($this->whenLoaded('productVariations')),
             'mainVariation' => new ProductVariationResource($this->whenLoaded('mainVariation')),
