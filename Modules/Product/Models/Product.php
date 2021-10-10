@@ -28,8 +28,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $slug
  * @property int $brand_id
  * @property int $status
+ * @property string|null $image
  * @property boolean $is_in_home
  * @property int|null $warranty
+ * @property string|null $short_description
+ * @property string|null $full_description
  * @property boolean $has_test_drive
  * @property string|null $booklet
  * @property string|null $video
@@ -46,6 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Collection|Category[] $categories
  * @property-read Collection|ProductVariation[] $productVariations
  * @property-read Collection|Property[] $properties
+ * @property-read Collection|Image[] $images
  * @mixin Eloquent
  */
 class Product extends Model

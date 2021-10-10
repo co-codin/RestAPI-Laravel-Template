@@ -3,6 +3,10 @@
 namespace Modules\Export\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Export\Console\GenerateFacebookMarket;
+use Modules\Export\Console\GenerateGoogleMarket;
+use Modules\Export\Console\GenerateTiuMarket;
+use Modules\Export\Console\GenerateYandexMarket;
 
 class ExportServiceProvider extends ServiceProvider
 {
@@ -26,6 +30,7 @@ class ExportServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerCommands();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -86,6 +91,16 @@ class ExportServiceProvider extends ServiceProvider
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
         }
+    }
+
+    public function registerCommands()
+    {
+        $this->commands([
+            GenerateFacebookMarket::class,
+            GenerateGoogleMarket::class,
+            GenerateTiuMarket::class,
+            GenerateYandexMarket::class,
+        ]);
     }
 
     /**

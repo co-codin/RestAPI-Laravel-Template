@@ -12,10 +12,12 @@ use Vitalybaev\GoogleMerchant\Feed;
 class GoogleMarketGenerator implements GeneratorInterface
 {
     public function __construct(
-        protected GoogleMarketGenerator $googleMarketGenerator,
         protected ProductRepository $productRepository
     ) {}
 
+    /**
+     * @throws \Vitalybaev\GoogleMerchant\Exception\InvalidArgumentException
+     */
     public function generate(array $parameters)
     {
         $feed = new Feed(
@@ -27,11 +29,11 @@ class GoogleMarketGenerator implements GeneratorInterface
         $products = $this->productRepository->getProductsForMerchant($parameters);
 
         foreach ($products as $product) {
-            $feed->addProduct($product->toXml());
+            $feed->addProduct((new ProductGoogleGeneratorConverter($product))->toXml());
         }
 
         $feedXml = $feed->build();
 
-        File::put(storage_path('app/public') . '/' . Arr::get($parameters, 'filename') . '.xml', $feedXml);
+        File::put(storage_path('app/feeds') . '/' . Arr::get($parameters, 'filename') . '.xml', $feedXml);
     }
 }
