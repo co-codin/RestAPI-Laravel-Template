@@ -1,8 +1,0 @@
-type Home {
-    productsHot: [Product!]!
-    productsRussia: [Product!]!
-    productsCovid: [Product!]!
-    brands: [Brand!]!
-    publications: [Publication!]!
-    news: [News!]!
-}
