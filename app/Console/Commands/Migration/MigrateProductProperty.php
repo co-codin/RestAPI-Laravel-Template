@@ -102,13 +102,13 @@ class MigrateProductProperty extends Command
             # mark
             1 => $value == 1 ?: 2,
             # book
-            4 => $this->convertToFieldValueFromBookItems($this->getBookItemValue($value)),
+            4 => $this->convertToFieldValueFromBookItems($this->getBookItems($value)),
             # text input etc
             default => $this->convertToFieldValue($value),
         };
     }
 
-    protected function getBookItemValue($value): ?array
+    protected function getBookItems($value): ?array
     {
         if (is_array($value)) {
             $items = $this->bookItems->where('id', $value);
@@ -124,7 +124,9 @@ class MigrateProductProperty extends Command
             return null;
         }
 
-        return Arr::only((array)$item, ['title', 'slug']);
+        return [
+            Arr::only((array)$item, ['title', 'slug'])
+        ];
     }
 
     protected function convertToFieldValue($value)
@@ -142,6 +144,9 @@ class MigrateProductProperty extends Command
         return FieldValue::query()->firstOrCreate(['value' => $value])->id;
     }
 
+    /**
+     * @param array[] $bookItems
+     */
     protected function convertToFieldValueFromBookItems(array $bookItems): array
     {
         $fieldValues = [];
