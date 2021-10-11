@@ -103,7 +103,7 @@ class ProductSearchResource extends JsonResource
             ->whereNotNull('pivot.value')
             ->map(function(Property $property) {
                 $fieldValues = FieldValue::query()
-                    ->find(Arr::wrap($property->pivot->value))
+                    ->find(Arr::wrap($property->pivot->field_value_ids))
                     ->mapWithKeys(function($fieldValue) {
                         return [$fieldValue->id => $fieldValue->value];
                     });
