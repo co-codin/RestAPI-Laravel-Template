@@ -43,7 +43,7 @@ class FilterRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id', 'name', 'type', 'slug', 'category_id', 'description', 'facet',
-            'is_enabled', 'is_default', 'property_id', 'options'
+            'is_enabled', 'is_default', 'property_id', 'options', 'position',
         ];
 
         if(!$prefix) {
