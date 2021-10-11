@@ -25,6 +25,14 @@ class MigrateSeo extends Command
         }
     }
 
+    // Product.category.childSeo - seo
+    // Category - seo
+    // ProductCategory - seo
+
+    // product.vue
+    // product.seo.is_enabled = true ?? product.seotype2.is_enabled = 2 ?? product.name
+    // <производитель> <модель> - купить телефоны дешево
+
     protected function transform($item)
     {
         return [

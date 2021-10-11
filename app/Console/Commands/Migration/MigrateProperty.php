@@ -35,12 +35,9 @@ class MigrateProperty extends Command
 
     protected function transform($item, $is_numeric = false)
     {
-        if($item->slug === "is-covid") {
-            $item->slug = "from-covid";
-        }
-
         return [
             'id' => $item->id,
+            'key' => $item->slug === "is-covid" ? "from-covid" : null,
             'name' => $item->title,
             'options' => $item->options,
             'description' => $item->description,
