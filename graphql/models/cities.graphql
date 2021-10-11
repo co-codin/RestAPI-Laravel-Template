@@ -8,7 +8,7 @@ type City {
     slug: String!
     status: Int!
     is_default: Int!
-    coordinate: String!
+    coordinate: Coordinate
     dial_code: String
     postal_index: String
     region_phone: String
