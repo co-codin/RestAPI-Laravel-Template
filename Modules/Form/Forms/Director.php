@@ -24,6 +24,7 @@ class Director extends Form
     {
         return [
 //            'name' => 'required|string|max:255',
+            'subject' => 'required|string|max:255|external_links',
             'message' => 'required|string|external_links',
         ];
     }

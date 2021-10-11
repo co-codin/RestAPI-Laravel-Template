@@ -18,6 +18,7 @@ class Warranty extends Form
             'contact_person' => 'required|string|max:255',
             'message' => 'nullable|string|external_links',
             'file' => 'required|file|mimes:pdf,xlsx,xls,doc,docx,pptx,pps,ppt,jpeg,bmp,png|max:1024',
+            'email' => 'required|string|email|max:255',
         ];
     }
 
@@ -25,6 +26,7 @@ class Warranty extends Form
     {
         return [
             'inn' => 'ИНН',
+            'email' => 'E-mail',
             'contact_person' => 'Контактное лицо',
             'message' => 'Текст претензии',
             'file' => 'Заявка',
