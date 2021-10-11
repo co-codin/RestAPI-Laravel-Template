@@ -11,10 +11,13 @@ use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Modules\Search\Contracts\IndexableRepository;
+use Modules\Search\Repositories\IndexableRepositoryTrait;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository extends BaseRepository implements IndexableRepository
 {
+    use IndexableRepositoryTrait;
+
     public function model()
     {
         return Product::class;

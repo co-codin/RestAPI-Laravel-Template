@@ -4,6 +4,7 @@ namespace Modules\Brand\Models;
 
 use App\Concerns\IsActive;
 use App\Models\FieldValue;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,7 +44,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Brand extends Model
 {
-    use HasFactory, Sluggable, IsActive, SoftDeletes, LogsActivity;
+    use HasFactory, Sluggable, IsActive, SoftDeletes, LogsActivity, Searchable;
 
     protected $guarded = ['id'];
 
