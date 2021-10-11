@@ -61,6 +61,7 @@ class ProductVariationSearchResource extends JsonResource
             ],
             'numeric_facets' => [
                 ['name' => 'price', 'value' => $this->price],
+                ['name' => 'price_in_rub', 'value' => $this->price_in_rub],
             ],
         ];
     }

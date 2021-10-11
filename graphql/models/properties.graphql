@@ -1,6 +1,7 @@
 type Property {
     id: ID!
-    name: String
+    name: String!
+    key: String
     type: Int!
     options: String
     description: String

@@ -72,6 +72,7 @@ class FilteredCollection extends Collection
     {
         $facets = [
             "facets",
+            "numeric_facets",
             "variations_facets",
             "variations_numeric_facets",
         ];

@@ -592,6 +592,17 @@ class ProductIndex extends BaseIndex
                         ],
                     ],
                 ],
+                'numeric_facets' => [
+                    'type' => 'nested',
+                    'properties' => [
+                        'name' => [
+                            'type' => 'keyword',
+                        ],
+                        'value' => [
+                            'type' => 'float',
+                        ],
+                    ],
+                ],
             ],
         ];
     }

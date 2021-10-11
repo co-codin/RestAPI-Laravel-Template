@@ -20,7 +20,7 @@ class MigrateFilter extends Command
     {
         return [
             'cena' => [
-                'name' => 'price',
+                'name' => 'price_in_rub',
                 'path' => 'variations',
             ],
             'leaders' => [

@@ -36,6 +36,7 @@ class ProductSearchResource extends JsonResource
             'properties' => ProductPropertySearchResource::collection($this->properties),
             'variations' => ProductVariationSearchResource::collection($this->productVariations),
             'facets' => array_merge($this->systemFacets(), $this->propertyFacets()),
+            'numeric_facets' => array_merge($this->numericPropertyFacets()),
         ];
     }
 
@@ -101,18 +102,15 @@ class ProductSearchResource extends JsonResource
     protected function propertyFacets(): array
     {
         return $this->properties
-            ->whereNotNull('pivot.value')
+            ->where('is_numeric', false)
+            ->whereNotNull('pivot.field_value_ids')
             ->map(function(Property $property) {
                 $fieldValues = FieldValue::query()
-                    ->find(Arr::wrap($property->pivot->field_value_ids))
-                    ->mapWithKeys(function($fieldValue) {
-                        return [$fieldValue->id => $fieldValue->value];
-                    });
-
+                    ->whereIn('id', Arr::wrap($property->pivot->field_value_ids))
+                    ->pluck('value', 'id');
                 return [
                     'name' => "properties." . $property->key,
-                    'field_value_ids' => $property->pivot->field_value_ids,
-                    'value' => $property->pivot->value,
+                    'value' => $fieldValues->keys(),
                     'aggregation' => $this->aggregation($fieldValues->keys()->toArray(), $fieldValues->values()->toArray()),
                 ];
             })
@@ -130,6 +128,24 @@ class ProductSearchResource extends JsonResource
 
         return collect($key)->map(fn($key, $index) => $key . "|||" . $value[$index])
             ->values()
+            ->toArray();
+    }
+
+    protected function numericPropertyFacets(): array
+    {
+        return $this->properties
+            ->where('is_numeric', true)
+            ->whereNotNull('pivot.field_value_ids')
+            ->map(function(Property $property) {
+                $fieldValues = FieldValue::query()
+                    ->whereIn('id', Arr::wrap($property->pivot->field_value_ids))
+                    ->pluck('value', 'id')
+                    ->filter(fn($value) => is_numeric($value));
+                return [
+                    'name' => "properties." . $property->key,
+                    'value' => $fieldValues->values(),
+                ];
+            })
             ->toArray();
     }
 }

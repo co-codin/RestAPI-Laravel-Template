@@ -20,6 +20,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $product_id
  * @property string $name
  * @property float|int|null $price
+ * @property int|null $price_in_rub
  * @property float|int|null $previous_price
  * @property int|null $currency_id
  * @property bool $is_price_visible
@@ -109,5 +110,10 @@ class ProductVariation extends Model
         $this->attributes['previous_price'] = $value
             ? $value * 100
             : null;
+    }
+
+    public function getPriceInRubAttribute() : int
+    {
+        return $this->price ? ceil($this->price * $this->currency->rate) : 0;
     }
 }

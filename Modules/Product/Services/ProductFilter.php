@@ -5,6 +5,7 @@ namespace Modules\Product\Services;
 use Elasticsearch\Client;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Search\Collections\FilteredCollection;
 
@@ -104,6 +105,8 @@ class ProductFilter
             })
             ->values();
 
+        ray($mainFilters->merge($nestedFilters)->toArray());
+
         return [
             'bool' => [
                 'must' => $mainFilters->merge($nestedFilters)->toArray(),
@@ -121,8 +124,8 @@ class ProductFilter
         if($filter['type'] == 'range') {
             $field = "numeric_facets";
             $value = [
-                'gte' => $value[0] ?? 0,
-                'lte' => $value[1] ?? 1,
+                'gte' => $value['gte'] ?? 0,
+                'lte' => $value['lte'] ?? 1,
             ];
         }
 
@@ -167,6 +170,26 @@ class ProductFilter
                                 "terms" => [
                                     "field" => "facets.aggregation",
                                     "size" => 100,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            "numeric_facets" => [
+                "nested" => [
+                    "path" => "numeric_facets",
+                ],
+                "aggs" => [
+                    "names" => [
+                        "terms" => [
+                            "field" => "numeric_facets.name",
+                            "size" => 100,
+                        ],
+                        "aggs" => [
+                            "values" => [
+                                "stats" => [
+                                    "field" => "numeric_facets.value",
                                 ],
                             ],
                         ],
@@ -219,7 +242,7 @@ class ProductFilter
     protected function search(): array
     {
         return $this->elasticsearch->search([
-            'index' => 'products_v2',
+            'index' => (new Product)->getSearchIndex(),
             'body' => $this->getBody(),
         ]);
     }

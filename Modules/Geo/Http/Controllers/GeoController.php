@@ -12,9 +12,13 @@ class GeoController extends Controller
 {
     public function detectCity(Request $request)
     {
-        $SxGeo = new SxGeo(storage_path('app/SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY));
-
         $defaultCity = City::query()->where('is_default', '=', 1)->first();
+
+        if(!\Storage::exists('app/SxGeoCity.data')) {
+            return $defaultCity;
+        }
+
+        $SxGeo = new SxGeo(storage_path('app/SxGeoCity.dat'), SXGEO_BATCH | SXGEO_MEMORY);
 
         if ($city = $SxGeo->getCityFull($request->ip())) {
             if ($region = Region::query()->where('iso', '=', $city['region']['iso'])->first()) {
