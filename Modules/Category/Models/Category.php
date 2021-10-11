@@ -83,7 +83,7 @@ class Category extends Model
 
     public function seo()
     {
-        return $this->morphOne(Seo::class, 'seoable');
+        return $this->morphMany(Seo::class, 'seoable');
     }
 
     public function filters()
