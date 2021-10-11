@@ -124,8 +124,7 @@ class Product extends Model
             ->using(ProductPropertyPivot::class)
             ->withPivot([
                 'field_value_ids', 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
-            ])
-            ->whereNotNull('value');
+            ]);
     }
 
     public function seo()

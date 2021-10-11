@@ -17,6 +17,8 @@ class MigrateProductProperty extends Command
 
     protected Collection $properties;
 
+    protected Collection $oldProperties;
+
     protected Collection $propertyValues;
 
     protected Collection $books;
@@ -28,27 +30,13 @@ class MigrateProductProperty extends Command
      */
     public function handle()
     {
-        $this->properties = DB::connection('old_medeq_mysql')->table('properties')->get()->keyBy('id');
+        $this->updateNumericProperties();
+
+        $this->oldProperties = DB::connection('old_medeq_mysql')->table('properties')->pluck('type','id');
+        $this->properties = DB::table('properties')->get()->keyBy('id');
         $this->propertyValues = DB::connection('old_medeq_mysql')->table('property_values')->whereNotNull('value')->get();
         $this->books = DB::connection('old_medeq_mysql')->table('books')->get()->keyBy('id');
         $this->bookItems = DB::connection('old_medeq_mysql')->table('book_items')->get()->keyBy('id');
-
-        $propertiesCsv = collect([]);
-        if (($handle = fopen(storage_path('app/field-values/field_value_ids.csv'), "rb")) !== false) {
-            while (($data = fgetcsv($handle, 1000, ";")) !== false) {
-                $id = (int)$data[0];
-                $isNumeric = (int)$data[1];
-
-                $propertiesCsv->add([
-                    'id' => $id,
-                    'is_numeric' => (bool)$isNumeric
-                ]);
-
-                Property::find($id)?->update(['is_numeric' => $isNumeric]);
-            }
-            rewind($handle);
-            fclose($handle);
-        }
 
         foreach ($this->propertyValues as $propertyValue) {
             $property = $this->properties->get($propertyValue->property_id);
@@ -58,10 +46,16 @@ class MigrateProductProperty extends Command
                 continue;
             }
 
-            $propertyCsv = $propertiesCsv->where('id', $property->id)->first();
+            $property->type = $this->oldProperties->get($property->id);
+
+            $transformedValue = $this->transform($property, $propertyValue);
+
+            if($transformedValue['field_value_ids'] === null) {
+                continue;
+            }
 
             DB::table('product_property')->insert(
-                $this->transform($property, $propertyValue, $propertyCsv)
+                $transformedValue
             );
         }
     }
@@ -69,35 +63,21 @@ class MigrateProductProperty extends Command
     /**
      * @throws \JsonException
      */
-    protected function transform(object $property, $propertyValue, ?array $propertyCsv = null): array
+    protected function transform(object $property, $propertyValue): array
     {
         $value = $propertyValue->value;
-
-//        if (!$property->is_numeric) {
-//            if (is_array($value)) {
-//                $arrayValue = [];
-//                foreach ($value as $item) {
-//                    $fieldValue = FieldValue::query()->firstOrCreate(['value' => $item]);
-//                    $arrayValue[] = $fieldValue->value;
-//                }
-//                $value = $arrayValue;
-//            }
-//            else {
-//                $fieldValue = FieldValue::query()->firstOrCreate(['value' => $value]);
-//                $value = $fieldValue->value;
-//            }
-//        }
-        $isNumeric = Arr::get($propertyCsv, 'is_numeric', false);
 
         return [
             'property_id' => $property->id,
             'product_id' => $propertyValue->product_id,
             'pretty_key' => $propertyValue->specification_key,
             'pretty_value' => $propertyValue->specification_value,
-            'field_value_ids' => !is_null($propertyCsv) && !$isNumeric
-                ? json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
-                : null,
-            'value' => !is_null($propertyCsv) && $isNumeric ? $this->transformValue($property, $value) : null
+//            'field_value_ids' => !$property->is_numeric
+//                ? json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
+//                : null,
+//            'value' => $property->is_numeric ? $this->transformValue($property, $value) : null
+            'field_value_ids' => json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+//            'value' => $property->is_numeric ? $this->transformValue($property, $value) : null
         ];
     }
 
@@ -106,7 +86,7 @@ class MigrateProductProperty extends Command
         switch ($property->type) {
             # mark
             case 1:
-                return $value == 1 ?: 2;
+                return $value == 1 ? 1 : 2;
             # book
             case 4: {
                 $bookItems = $this->getBookItems($value);
@@ -123,7 +103,8 @@ class MigrateProductProperty extends Command
     protected function transformValue(object $property, $value)
     {
         # book
-        if ($property->type === 4) {
+        if ($property->type == 4) {
+
             $bookItems = $this->getBookItems($value);
 
             if (is_null($bookItems)) {
@@ -141,7 +122,7 @@ class MigrateProductProperty extends Command
     protected function getBookItems($value): ?array
     {
         if (is_array($value)) {
-            $items = $this->bookItems->where('id', $value);
+            $items = $this->bookItems->whereIn('id', $value)->values();
 
             return $items->isNotEmpty()
                 ? $items->map(fn($item) => Arr::only((array)$item, ['title', 'slug']))->toArray()
@@ -201,5 +182,22 @@ class MigrateProductProperty extends Command
         }
 
         return collect($fieldValues)->pluck('id')->toArray();
+    }
+
+    protected function updateNumericProperties()
+    {
+        if (!\Storage::exists('app/field-values/field_value_ids.csv')) {
+            return;
+        }
+
+        if (($handle = fopen(storage_path('app/field-values/field_value_ids.csv'), "rb")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                $id = (int)$data[0];
+                $isNumeric = (int)$data[1];
+                Property::find($id)?->update(['is_numeric' => $isNumeric]);
+            }
+            rewind($handle);
+            fclose($handle);
+        }
     }
 }
