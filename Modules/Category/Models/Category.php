@@ -83,6 +83,11 @@ class Category extends Model
         return $this->hasMany(ProductCategory::class, 'category_id', 'id');
     }
 
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
+    }
+
     public function seoCategoryProducts(): MorphOne
     {
         return $this->morphOne(Seo::class, 'seoable')
