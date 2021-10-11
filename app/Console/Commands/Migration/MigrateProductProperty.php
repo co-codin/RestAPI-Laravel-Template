@@ -186,6 +186,10 @@ class MigrateProductProperty extends Command
 
     protected function updateNumericProperties()
     {
+        if (!\Storage::exists('app/field-values/field_value_ids.csv')) {
+            return;
+        }
+
         if (($handle = fopen(storage_path('app/field-values/field_value_ids.csv'), "rb")) !== false) {
             while (($data = fgetcsv($handle, 1000, ";")) !== false) {
                 $id = (int)$data[0];
