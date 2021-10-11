@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\NodeTrait;
@@ -15,6 +16,7 @@ use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
+use Modules\Seo\Enums\SeoType;
 use Modules\Seo\Models\Seo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -87,7 +89,14 @@ class Category extends Model
 
     public function seo()
     {
-        return $this->morphOne(Seo::class, 'seoable');
+        return $this->morphOne(Seo::class, 'seoable')
+            ->where('type', SeoType::Self);
+    }
+
+    public function seoCategoryProducts(): MorphOne
+    {
+        return $this->morphOne(Seo::class, 'seoable')
+            ->where('type', SeoType::CategoryProducts);
     }
 
     public function filters()

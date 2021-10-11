@@ -18,5 +18,6 @@ type Category {
     filters: [Filter!] @hasMany
     properties: [Property!] @belongsToMany
     seo: Seo @morphOne
+    seoCategoryProducts: Seo @morphOne
     count: Int
 }

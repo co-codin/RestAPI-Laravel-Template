@@ -4,7 +4,8 @@
 namespace Modules\Form\Casts;
 
 
-use Modules\Client\Models\City;
+
+use Modules\Geo\Models\City;
 
 /**
  * Class CityCast

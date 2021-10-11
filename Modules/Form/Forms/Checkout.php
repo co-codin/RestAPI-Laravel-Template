@@ -3,9 +3,9 @@
 namespace Modules\Form\Forms;
 
 
-use Modules\Product\Models\ProductVariation;
+use Modules\Product\Models\Product;
 
-class Cart extends Form
+class Checkout extends Form
 {
     public bool $sendToBitrix = false;
 
@@ -17,18 +17,18 @@ class Cart extends Form
     public function rules(): array
     {
         return [
-            'variations' => 'required|array',
-            'variations.*.id' => 'required|integer|exists:product_variations,id',
-            'variations.*.number' => 'required|integer',
+            'products' => 'required|array',
+            'products.*.id' => 'required|integer|exists:products,id',
+            'products.*.number' => 'required|integer',
         ];
     }
 
     public function attributeLabels(): array
     {
         return [
-            'variations' => 'Товары',
-            'variations.*.id' => 'Товар',
-            'variations.*.number' => 'Количество',
+            'products' => 'Товары',
+            'products.*.id' => 'Товар',
+            'products.*.number' => 'Количество',
         ];
     }
 
@@ -46,18 +46,18 @@ class Cart extends Form
     {
         $default = parent::getComments();
 
-        $variations = collect($this->getAttribute('variations'))->map(function ($item) {
-            $variation = ProductVariation::find($item['id']);
+        $products = collect($this->getAttribute('products'))->map(function ($item) {
+            $product = Product::find($item['id']);
 
-            return $variation->product->brand->name
-                . " " . $variation->product->name
+            return $product->brand->name
+                . " " . $product->name
                 . " - " . $item['number'] . " шт.";
         })
             ->join("<br>");
 
         return "
                 $default
-                <br><b>Товары:</b> <br> $variations
+                <br><b>Товары:</b> <br> $products
                 ";
     }
 }

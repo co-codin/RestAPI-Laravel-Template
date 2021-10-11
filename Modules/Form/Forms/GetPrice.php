@@ -64,14 +64,10 @@ class GetPrice extends Form
 
         $categoryComment = $this->getComment(
             "<br><b>Категория:</b>",
-            optional($this->getCategory())->name
+            $this->getCategory()?->name
         );
 
-        $link = route('product-view', [
-            'slug' => $product->slug,
-            'id' => $product->id,
-        ]);
-
+        $link = config('app.site_url') . "/product/$product->slug/$product->id";
         $productFullTitle = $product->brand->name . ' ' . $product->name;
 
         return "

@@ -11,6 +11,7 @@ use Modules\Form\Casts\CastsInterface;
 use Modules\Form\Casts\CategoryCast;
 use Modules\Form\Casts\CityCast;
 use Modules\Form\Casts\ProductCast;
+use Modules\Geo\Models\City;
 use Modules\Product\Models\Product;
 
 /**
@@ -267,7 +268,7 @@ abstract class Form
 
     public function getComments(): string
     {
-        $date = Carbon::parse(now())->format('d.m.Y H:i:s');
+        $date = $this->getDate();
         $page = $this->getPage();
 
         if ($pos = strpos($page, '?utm')) {
@@ -286,6 +287,11 @@ abstract class Form
                 $emailComment
                 <br><b>Страница:</b> $page
                 ";
+    }
+
+    protected function getDate(): string
+    {
+        return Carbon::parse(now())->format('d.m.Y H:i:s');
     }
 
     protected function getComment(string $comment, ?string $attr = null): ?string
