@@ -29,6 +29,7 @@ class BrandSearchService extends SearchService
                 'id' => $brand->id,
                 'slug' => $brand->slug,
                 'name' => $brand->name,
+                'url' => config('app.site_url') . "/brands/$brand->slug",
                 'type' => 'Производитель',
             ];
         })->toArray();

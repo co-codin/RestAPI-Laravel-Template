@@ -28,6 +28,7 @@ class ProductSearchService extends SearchService
                 'id' => $product->id,
                 'slug' => $product->slug,
                 'name' => "{$product->category->product_name} {$product->brand->name} $product->name",
+                'url' => config('app.site_url') . "/product/$product->slug/$product->id",
                 'type' => 'Товар',
             ];
         })->toArray();
@@ -84,7 +85,7 @@ class ProductSearchService extends SearchService
 //                                'query' => [
 //                                    'multi_match' => [
 //                                        'query' => $query,
-//                                        'fields' => ['full_title.phonetic'],
+//                                        'fields' => ['full_name.phonetic'],
 //                                        'fuzziness' => 'AUTO',
 //                                        'operator' => 'and',
 //                                        'prefix_length' => 2,
@@ -105,7 +106,7 @@ class ProductSearchService extends SearchService
     public function getEntities(string $term, int $size = 10): Collection
     {
         $products = parent::getEntities($term, $size);
-        return $products->load(['category', 'brand', 'productVariations', 'productVariations.currency']);
+        return $products->load(['category', 'brand']);
     }
 
     /**

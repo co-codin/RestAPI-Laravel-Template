@@ -30,6 +30,7 @@ class CategorySearchService extends SearchService
                 'slug' => $category->slug,
                 'parent_id' => $category->parent_id,
                 'name' => $category->name,
+                'url' => config('app.site_url') . "/store/$category->slug",
                 'type' => is_null($category->parent_id) ? 'Категория' : 'Подкатегория',
             ];
         })->toArray();
