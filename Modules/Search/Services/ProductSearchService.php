@@ -57,7 +57,7 @@ class ProductSearchService extends SearchService
                 ],
                 "filter" => [
                     "term" => [
-                        'status.key' => Status::ACTIVE
+                        'status.id' => Status::ACTIVE
                     ]
                 ]
             ]
@@ -105,7 +105,7 @@ class ProductSearchService extends SearchService
     public function getEntities(string $term, int $size = 10): Collection
     {
         $products = parent::getEntities($term, $size);
-        return $products->load(['category', 'brand', 'variations', 'variations.currency']);
+        return $products->load(['category', 'brand', 'productVariations', 'productVariations.currency']);
     }
 
     /**
