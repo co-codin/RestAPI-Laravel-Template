@@ -3,6 +3,7 @@
 namespace Modules\Category\Models;
 
 use App\Concerns\IsActive;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,6 +25,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property int|null $_lft
+ * @property int|null $_rgt
+ * @property int|null $parent_id
  * @property string|null $product_name
  * @property string $full_description
  * @property int $status
@@ -45,7 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Category extends Model
 {
-    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity;
+    use HasFactory, NodeTrait, SoftDeletes, IsActive, LogsActivity, Searchable;
 
     protected $guarded = ['id'];
 

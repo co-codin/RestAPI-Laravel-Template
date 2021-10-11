@@ -5,7 +5,6 @@ namespace Modules\Search\Providers;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class SearchServiceProvider extends ServiceProvider
 {
