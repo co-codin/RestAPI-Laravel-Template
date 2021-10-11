@@ -2,10 +2,11 @@ scalar Mixed @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
 
 type ProductPropertyPivot {
     value: Mixed
-    field_value_id: Mixed
+    field_value_ids: Mixed
     pretty_key: String
     pretty_value: String
     is_important: Boolean
     important_position: Int
     important_value: String
+    fieldValues: [FieldValue!]
 }
