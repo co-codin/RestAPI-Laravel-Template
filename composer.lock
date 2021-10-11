@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "816036115ce3654fb2629dc0cfc56e17",
+    "content-hash": "6d1b76fc1080ab3974fa20c0a687ed36",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3747,6 +3747,69 @@
                 }
             ],
             "time": "2021-01-18T20:58:21+00:00"
+        },
+        {
+            "name": "medeq/bitrix24",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/medeqstars/bitrix24-api.git",
+                "reference": "5e5a9e980e6ab074765fe08537b0dee6274587eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/medeqstars/bitrix24-api/zipball/5e5a9e980e6ab074765fe08537b0dee6274587eb",
+                "reference": "5e5a9e980e6ab074765fe08537b0dee6274587eb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5|~6|~7|~8"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~3|~4",
+                "phpunit/phpunit": "^8.0",
+                "sempro/phpunit-pretty-print": "^1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Medeq\\Bitrix24\\Bitrix24ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Bitrix24": "Medeq\\Bitrix24\\Facades\\Bitrix24"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Medeq\\Bitrix24\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Lenar",
+                    "email": "mail@lenarx.ru",
+                    "homepage": "https://medeqstars.ru"
+                }
+            ],
+            "description": ":package_description",
+            "homepage": "https://github.com/medeqstars/bitrix24-api",
+            "keywords": [
+                "Bitrix24",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/medeqstars/bitrix24-api/issues",
+                "source": "https://github.com/medeqstars/bitrix24-api/tree/1.0.3"
+            },
+            "time": "2020-11-24T13:40:53+00:00"
         },
         {
             "name": "mll-lab/graphql-php-scalars",
@@ -14644,7 +14707,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "medeq/bitrix24": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
