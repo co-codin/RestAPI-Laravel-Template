@@ -38,7 +38,7 @@ class Seo extends Model
 
     protected $casts = [
         'is_enabled' => 'boolean',
-//        'type' => 'integer',
+        'type' => 'integer',
         'meta_tags' => 'array',
     ];
 
