@@ -105,8 +105,6 @@ class ProductFilter
             })
             ->values();
 
-        ray($mainFilters->merge($nestedFilters)->toArray());
-
         return [
             'bool' => [
                 'must' => $mainFilters->merge($nestedFilters)->toArray(),
