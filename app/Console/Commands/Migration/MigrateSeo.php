@@ -36,6 +36,7 @@ class MigrateSeo extends Command
             'description' => $item->description,
             'h1' => $item->h1,
             'meta_tags' => $item->meta_tags && $item->meta_tags !== "[]" ? $item->meta_tags : null,
+            'type' => $item->type,
         ];
     }
 }
