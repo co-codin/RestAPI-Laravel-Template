@@ -11,10 +11,10 @@ abstract class BaseIndex implements SearchIndex
         protected Client $elasticsearch,
     ) {}
 
-    public function create(): void
+    public function create(?string $indexName = null): void
     {
         $params = [
-            'index' => $this->name(),
+            'index' => $indexName ?? $this->name(),
             'body' => [
                 'settings' => $this->settings(),
                 'mappings' => $this->mappings(),
@@ -24,11 +24,11 @@ abstract class BaseIndex implements SearchIndex
         $this->elasticsearch->indices()->create($params);
     }
 
-    public function delete(): void
+    public function delete(?string $indexName = null): void
     {
         try {
             $this->elasticsearch->indices()->delete([
-                'index' => $this->name()
+                'index' => $indexName ?? $this->name()
             ]);
         }
         catch (\Throwable $e) {}

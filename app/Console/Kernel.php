@@ -36,6 +36,9 @@ class Kernel extends ConsoleKernel
 
         // генерируем карту сайта
         $schedule->command(GenerateSitemapCommand::class)->weekly();
+
+        // переиндексируем базу товаров
+        $schedule->command(SearchReindexCommand::class)->twiceDaily();
     }
 
     protected function commands(): void

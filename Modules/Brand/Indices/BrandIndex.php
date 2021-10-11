@@ -1,27 +1,27 @@
 <?php
 
-namespace Modules\Product\Indices;
+namespace Modules\Brand\Indices;
 
-use Modules\Product\Http\Resources\Index\ProductSearchResource;
-use Modules\Product\Models\Product;
-use Modules\Product\Repositories\ProductRepository;
+use Modules\Brand\Http\Resources\Index\BrandSearchResource;
+use Modules\Brand\Models\Brand;
+use Modules\Brand\Repositories\BrandRepository;
 use Modules\Search\Services\BaseIndex;
 
-class ProductIndex extends BaseIndex
+class BrandIndex extends BaseIndex
 {
     public function name(): string
     {
-        return (new Product())->getSearchIndex();
+        return (new Brand())->getSearchIndex();
     }
 
     public function repository(): string
     {
-        return ProductRepository::class;
+        return BrandRepository::class;
     }
 
     public function resource(): string
     {
-        return ProductSearchResource::class;
+        return BrandSearchResource::class;
     }
 
     public function settings(): array
@@ -264,7 +264,7 @@ class ProductIndex extends BaseIndex
             "filter" => [
                 'shingle' => [
                     'type' => 'shingle',
-                    'min_gram_size' => 2,
+                    'min_gram_size' => 1,
                     'max_gram_size' => 4,
                 ],
                 'gram' => [
@@ -316,7 +316,7 @@ class ProductIndex extends BaseIndex
                     'catenate_all' => true,
                     'split_on_case_change' => true,
                     'preserve_original' => true,
-                    'split_on_numerics' => true,
+                    'split_on_numerics' => false,
                     'adjust_offsets' => false,  //
                 ],
                 'split' => [
@@ -334,21 +334,21 @@ class ProductIndex extends BaseIndex
                     'ignore_case' => true
                 ],
                 "russian_keywords" => [
-                    "type" => "keyword_marker",
-                    "keywords" => ["пример"]
+                    "type" =>       "keyword_marker",
+                    "keywords" =>   ["пример"]
                 ],
                 "english_stop" => [
-                    "type" => "stop",
-                    "stopwords" => "_english_",
+                    "type" =>       "stop",
+                    "stopwords" =>  "_english_",
                     'ignore_case' => true
                 ],
                 "english_keywords" => [
-                    "type" => "keyword_marker",
-                    "keywords" => ["example"]
+                    "type" =>       "keyword_marker",
+                    "keywords" =>   ["example"]
                 ],
                 "english_possessive_stemmer" => [
-                    "type" => "stemmer",
-                    "language" => "possessive_english"
+                    "type" =>       "stemmer",
+                    "language" =>   "possessive_english"
                 ],
             ],
         ];
@@ -358,7 +358,7 @@ class ProductIndex extends BaseIndex
     {
         return [
             'properties' => [
-                'full_name' => [
+                'name' => [
                     'type' => 'text',
                     'fields' => [
                         'without_ru_en' => [
@@ -380,217 +380,9 @@ class ProductIndex extends BaseIndex
                             'analyzer' => 'phonetic',
                         ],
                     ],
-//                        'analyzer' => 'en_US_ru_RU_index',
-//                        'search_analyzer' => 'en_US_ru_RU_search'
-                ],
-                'id' => [
-                    'type' => 'integer',
-                ],
-                'name' => [
-                    'type' => 'keyword',
                 ],
                 'slug' => [
                     'type' => 'keyword',
-                ],
-                'status' => [
-                    'properties' => [
-                        'id' => [
-                            'type' => 'byte',
-                        ],
-                        'name' => [
-                            'type' => 'keyword',
-                        ],
-                        'slug' => [
-                            'type' => 'keyword',
-                        ],
-                    ],
-                ],
-                'warranty' => [
-                    'type' => 'integer',
-                ],
-                'brand' => [
-                    'properties' => [
-                        'name' => [
-                            'type' => 'keyword',
-                            'fields' => [
-                                'without_ru_en' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'en_US_ru_RU_index',
-                                    'search_analyzer' => 'en_US_ru_RU_search'
-                                ],
-                                'with_ru_en' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'en_US_ru_RU_index_char',
-                                    'search_analyzer' => 'en_US_ru_RU_search_char'
-                                ],
-                                'shingle' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'shingle',
-                                ],
-                                'phonetic' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'phonetic',
-                                ],
-                            ],
-                        ],
-                        'id' => [
-                            'type' => 'integer',
-                        ],
-                        'slug' => [
-                            'type' => 'keyword',
-                        ],
-                        'country_id' => [
-                            'type' => 'integer',
-                        ],
-                        'status' => [
-                            'properties' => [
-                                'id' => [
-                                    'type' => 'byte',
-                                ],
-                                'name' => [
-                                    'type' => 'keyword',
-                                ],
-                                'slug' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'category' => [
-                    'properties' => [
-                        'id' => [
-                            'type' => 'integer',
-                        ],
-                        'name' => [
-                            'type' => 'keyword',
-                        ],
-                        'slug' => [
-                            'type' => 'keyword',
-                        ],
-                        'status' => [
-                            'properties' => [
-                                'id' => [
-                                    'type' => 'byte',
-                                ],
-                                'name' => [
-                                    'type' => 'keyword',
-                                ],
-                                'slug' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'categories' => [
-                    'type' => 'nested',
-                    'properties' => [
-                        'id' => [
-                            'type' => 'integer',
-                        ],
-                        'slug' => [
-                            'type' => 'keyword',
-                        ],
-                        'name' => [
-                            'type' => 'keyword',
-                        ],
-                        'status' => [
-                            'properties' => [
-                                'id' => [
-                                    'type' => 'byte',
-                                ],
-                                'name' => [
-                                    'type' => 'keyword',
-                                ],
-                                'slug' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'properties' => [
-                    'type' => 'nested',
-                    'properties' => [
-                        'id' => [
-                            'type' => 'integer',
-                        ],
-                        'name' => [
-                            'type' => 'keyword',
-                        ],
-                        'value' => [
-                            'type' => 'keyword',
-                        ],
-                        'value_numeric' => [
-                            'type' => 'float',
-                        ],
-                    ],
-                ],
-                'variations' => [
-                    'type' => 'nested',
-                    'properties' => [
-                        'id' => [
-                            'type' => 'integer',
-                        ],
-                        'price' => [
-                            'type' => 'long',
-                        ],
-                        'previous_price' => [
-                            'type' => 'long',
-                        ],
-                        'is_enabled' => [
-                            'type' => 'boolean',
-                        ],
-                        'availability' => [
-                            'type' => 'byte',
-                        ],
-                        'is_price_visible' => [
-                            'type' => 'boolean',
-                        ],
-                        'facets' => [
-                            'type' => 'nested',
-                            'properties' => [
-                                'name' => [
-                                    'type' => 'keyword',
-                                ],
-                                'value' => [
-                                    'type' => 'keyword',
-                                ],
-                                'aggregation' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
-                        ],
-                        'numeric_facets' => [
-                            'type' => 'nested',
-                            'properties' => [
-                                'name' => [
-                                    'type' => 'keyword',
-                                ],
-                                'value' => [
-                                    'type' => 'float',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'facets' => [
-                    'type' => 'nested',
-                    'properties' => [
-                        'name' => [
-                            'type' => 'keyword',
-                        ],
-                        'aggregation' => [
-                            'type' => 'keyword',
-                        ],
-                        'value' => [
-                            'type' => 'keyword',
-                        ],
-                        'label' => [
-                            'type' => 'keyword',
-                        ],
-                    ],
                 ],
             ],
         ];
