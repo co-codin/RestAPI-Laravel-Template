@@ -33,7 +33,7 @@ class ProductBuilders
                 ->from('product_property as pp')
                 ->whereColumn('pp.product_id', 'products.id')
                 ->where('pp.property_id', static::COVID_PROPERTY_ID)
-                ->whereJsonContains('pp.value', true);
+                ->whereJsonContains('pp.field_value_ids', 1);
         });
     }
 }
