@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63d84d36c6b3bff39d24607861f586b9",
+    "content-hash": "6d1b76fc1080ab3974fa20c0a687ed36",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3749,6 +3749,69 @@
             "time": "2021-01-18T20:58:21+00:00"
         },
         {
+            "name": "medeq/bitrix24",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/medeqstars/bitrix24-api.git",
+                "reference": "5e5a9e980e6ab074765fe08537b0dee6274587eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/medeqstars/bitrix24-api/zipball/5e5a9e980e6ab074765fe08537b0dee6274587eb",
+                "reference": "5e5a9e980e6ab074765fe08537b0dee6274587eb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5|~6|~7|~8"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~3|~4",
+                "phpunit/phpunit": "^8.0",
+                "sempro/phpunit-pretty-print": "^1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Medeq\\Bitrix24\\Bitrix24ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Bitrix24": "Medeq\\Bitrix24\\Facades\\Bitrix24"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Medeq\\Bitrix24\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Lenar",
+                    "email": "mail@lenarx.ru",
+                    "homepage": "https://medeqstars.ru"
+                }
+            ],
+            "description": ":package_description",
+            "homepage": "https://github.com/medeqstars/bitrix24-api",
+            "keywords": [
+                "Bitrix24",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/medeqstars/bitrix24-api/issues",
+                "source": "https://github.com/medeqstars/bitrix24-api/tree/1.0.3"
+            },
+            "time": "2020-11-24T13:40:53+00:00"
+        },
+        {
             "name": "mll-lab/graphql-php-scalars",
             "version": "v4.1.1",
             "source": {
@@ -7446,6 +7509,57 @@
                 }
             ],
             "time": "2021-03-30T19:46:13+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-json-relations",
+            "version": "v1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-json-relations.git",
+                "reference": "842078eb67b33e270804a724cb4c6231d9fc1afc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-json-relations/zipball/842078eb67b33e270804a724cb4c6231d9fc1afc",
+                "reference": "842078eb67b33e270804a724cb4c6231d9fc1afc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "laravel/homestead": "^11.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentJsonRelations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel Eloquent relationships with JSON keys",
+            "support": {
+                "issues": "https://github.com/staudenmeir/eloquent-json-relations/issues",
+                "source": "https://github.com/staudenmeir/eloquent-json-relations/tree/v1.5.4"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-05-22T07:02:22+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -14593,12 +14707,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "medeq/bitrix24": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
