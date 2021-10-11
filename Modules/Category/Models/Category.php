@@ -85,7 +85,8 @@ class Category extends Model
 
     public function seo()
     {
-        return $this->morphOne(Seo::class, 'seoable');
+        return $this->morphOne(Seo::class, 'seoable')
+            ->where('type', SeoType::Self);
     }
 
     public function seoCategoryProducts(): MorphOne
