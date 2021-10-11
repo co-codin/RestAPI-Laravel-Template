@@ -15,10 +15,10 @@ class Warranty extends Form
     {
         return [
             'inn' => 'nullable|regex:/^\d{10,15}$/',
+            'contact_email' => 'required|string|email|max:255',
             'contact_person' => 'required|string|max:255',
             'message' => 'nullable|string|external_links',
             'file' => 'required|file|mimes:pdf,xlsx,xls,doc,docx,pptx,pps,ppt,jpeg,bmp,png|max:1024',
-            'email' => 'required|string|email|max:255',
         ];
     }
 
@@ -26,7 +26,7 @@ class Warranty extends Form
     {
         return [
             'inn' => 'ИНН',
-            'email' => 'E-mail',
+            'contact_email' => 'E-mail',
             'contact_person' => 'Контактное лицо',
             'message' => 'Текст претензии',
             'file' => 'Заявка',
@@ -38,5 +38,17 @@ class Warranty extends Form
         return [
             'inn.regex' => 'ИНН может содержать от 10 до 15 символов',
         ];
+    }
+
+    public function getComments(): string
+    {
+        $default = parent::getComments();
+
+        $contactEmail = $this->getAttribute('contact_email');
+
+        return "
+                $default
+                <br><b>Контактный E-mail:</b> $contactEmail
+                ";
     }
 }
