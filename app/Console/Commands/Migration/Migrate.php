@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 
 class Migrate extends Command
@@ -13,6 +14,8 @@ class Migrate extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $this->migrate('migrate:fresh --force');
         $this->migrate('migrate:field-values');
         $this->migrate('migrate:brand');
@@ -38,6 +41,7 @@ class Migrate extends Command
         $this->migrate('module:seed --class=RegionTableSeeder Geo');
 //        $this->migrate('sold-products:import');
         $this->migrate('import:order_points');
+        $this->migrate('migrate:vacancies');
     }
 
     protected function migrate($command): void

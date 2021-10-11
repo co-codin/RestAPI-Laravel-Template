@@ -35,8 +35,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property boolean $is_in_home
  * @property string|null $image
  * @property Category|null $parent
- * @property Category[] $ancestors
- * @property Category[] $descendants
+ * @property Category[]|Collection $ancestors
+ * @property Category[]|Collection $descendants
  * @property Seo|null $seo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

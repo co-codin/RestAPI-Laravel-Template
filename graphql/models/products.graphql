@@ -24,4 +24,5 @@ type Product {
     properties: [Property!]!
     images: [Image!]
     seo: Seo @morphOne
+    stockType: FieldValue
 }

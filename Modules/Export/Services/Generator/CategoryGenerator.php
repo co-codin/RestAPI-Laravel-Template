@@ -14,8 +14,9 @@ class CategoryGenerator
     public function getCategories(): array
     {
         $categories = [];
+        $categoryEntities = $this->getCategoryEntities();
 
-        foreach ($this->getCategoryEntities() as $category) {
+        foreach ($categoryEntities as $category) {
             $categories[] = (new CategoryYaml())
                 ->setId($category->id)
                 ->setParentId($category->parent_id)

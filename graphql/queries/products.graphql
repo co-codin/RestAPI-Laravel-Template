@@ -7,12 +7,18 @@ extend type Query {
         withMainVariation: Boolean @scope(name: "withMainVariation")
         withPrice: Boolean @scope(name: "withPrice")
         rootCategory: Int @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@rootCategory")
-        hasBrand: _ @whereHasConditions(columns: ["id", "country", "name", "slug"])
+        fromCovid: Boolean @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@fromCovid")
+        category: Int @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@rootCategory")
+        hasBrand: _ @whereHasConditions(columns: ["id", "country_id", "name", "slug"])
         hasProductVariations: _ @whereHasConditions(columns: ["id", "name", "is_price_visible", "is_enabled", "currency_id", "price", "availability", "previous_price"])
         orderBy: _ @orderBy(columns: ["id", "name", "warranty", "assigned_by_id", "is_in_home", "price"])
     ): [Product!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
-    product(id: ID @eq, slug: String @eq): Product @find
+    product(
+        id: ID @eq,
+        slug: String @eq
+        withMainVariation: Boolean @scope(name: "withMainVariation")
+    ): Product @find
 }

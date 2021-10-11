@@ -8,7 +8,7 @@ type Brand {
     status: Int!
     is_in_home: Boolean!
     position: Int
-    country: String
+    country_id: Int
     short_description: String
     assigned_by_id: Int
     productCount: Int! @count(relation: "products")

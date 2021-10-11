@@ -2,7 +2,7 @@ extend type Query {
     brands(
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "image",
-            "website", "country", "is_in_home",
+            "website", "country_id", "is_in_home",
             "position", "assigned_by_id", "status",
         ])
         orderBy: _ @orderBy(columns: [
