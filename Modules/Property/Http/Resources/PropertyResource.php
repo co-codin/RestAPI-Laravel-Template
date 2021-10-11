@@ -20,6 +20,9 @@ class PropertyResource extends BaseJsonResource
     {
         return array_merge(parent::toArray($request), [
             'filters' => FilterResource::collection($this->whenLoaded('filters')),
+            'field_value_ids' => $this->whenPivotLoaded('product_property', function () {
+                return $this->pivot->field_value_ids;
+            }),
             'value' => $this->whenPivotLoaded('product_property', function () {
                 return $this->pivot->value;
             }),

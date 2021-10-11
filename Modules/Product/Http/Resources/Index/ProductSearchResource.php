@@ -110,6 +110,7 @@ class ProductSearchResource extends JsonResource
 
                 return [
                     'name' => "properties." . $property->key,
+                    'field_value_ids' => $property->pivot->field_value_ids,
                     'value' => $property->pivot->value,
                     'aggregation' => $this->aggregation($fieldValues->keys()->toArray(), $fieldValues->values()->toArray()),
                 ];
