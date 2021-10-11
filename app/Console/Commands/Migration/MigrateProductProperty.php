@@ -36,10 +36,15 @@ class MigrateProductProperty extends Command
         $propertiesCsv = collect([]);
         if (($handle = fopen(storage_path('app/field-values/field_value_ids.csv'), "rb")) !== false) {
             while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                $id = (int)$data[0];
+                $isNumeric = (int)$data[1];
+
                 $propertiesCsv->add([
-                    'id' => (int)$data[0],
-                    'is_numeric' => (bool)((int)$data[1])
+                    'id' => $id,
+                    'is_numeric' => (bool)$isNumeric
                 ]);
+
+                Property::find($id)?->update(['is_numeric' => $isNumeric]);
             }
             rewind($handle);
             fclose($handle);
