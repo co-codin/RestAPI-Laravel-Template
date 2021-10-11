@@ -18,7 +18,7 @@ trait Searchable
 
     public function getSearchIndex()
     {
-        return config('elasticsearch.index_prefix') . $this->searchIndex();
+        return config('elasticsearch.index_name_prefix') . $this->searchIndex();
     }
 
     public function getSearchType()
