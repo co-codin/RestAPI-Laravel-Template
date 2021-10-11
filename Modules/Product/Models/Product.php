@@ -123,7 +123,7 @@ class Product extends Model
             ->belongsToMany(Property::class, 'product_property')
             ->using(ProductPropertyPivot::class)
             ->withPivot([
-                'field_value_id', 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
+                'field_value_ids', 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
             ])
             ->whereNotNull('value');
     }
