@@ -15545,6 +15545,41 @@
      
 }
 
+    namespace Medeq\Bitrix24\Facades { 
+            /**
+     * Class Bitrix24
+     *
+     * @package Medeq\Bitrix24\Facades
+     */ 
+        class Bitrix24 {
+                    /**
+         * 
+         *
+         * @param $path
+         * @param array $params
+         * @return array|null 
+         * @static 
+         */ 
+        public static function call($path, $params = [])
+        {
+                        /** @var \Medeq\Bitrix24\Bitrix24 $instance */
+                        return $instance->call($path, $params);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function batch($path, $params)
+        {
+                        /** @var \Medeq\Bitrix24\Bitrix24 $instance */
+                        return $instance->batch($path, $params);
+        }
+         
+    }
+     
+}
+
     namespace Nuwave\Lighthouse { 
             /**
      * The main entrypoint to start and end GraphQL execution.
@@ -19699,6 +19734,7 @@ namespace  {
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Horizon extends \Laravel\Horizon\Horizon {}
+            class Bitrix24 extends \Medeq\Bitrix24\Facades\Bitrix24 {}
             class graphql extends \Nuwave\Lighthouse\GraphQL {}
             class Module extends \Nwidart\Modules\Facades\Module {}
             class Sentry extends \Sentry\Laravel\Facade {}
