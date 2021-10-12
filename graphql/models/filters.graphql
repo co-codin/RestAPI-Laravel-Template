@@ -10,10 +10,20 @@ type Filter {
     is_default: Boolean!
     description: String
     position: Int
-    options: String
-
+    options: FilterOptions
     property: Property @belongsTo
     category: Category! @belongsTo
+}
+
+type FilterOptions {
+    seoPrefix: String
+    seoTagLabel: String
+    seoTagLabels: [FilterSeoTagLabel!]
+}
+
+type FilterSeoTagLabel {
+    key: String!
+    value: String!
 }
 
 scalar FacetValue @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")

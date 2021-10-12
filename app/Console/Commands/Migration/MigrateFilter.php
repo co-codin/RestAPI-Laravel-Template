@@ -105,7 +105,7 @@ class MigrateFilter extends Command
             'is_enabled' => $filter->status == 1,
             'is_default' => $filter->is_default == 1,
             'description' => $filter->description,
-            'options' => $filter->options,
+            'options' => json_decode($filter->options, true),
             'created_at' => $filter->created_at,
             'updated_at' => $filter->updated_at,
             'facet' => \Arr::get($this->systemFacets(), $filter->slug, null),
