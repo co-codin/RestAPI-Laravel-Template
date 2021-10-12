@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 
 class MigrateFieldValue extends Command
 {
@@ -29,6 +30,8 @@ class MigrateFieldValue extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         foreach ($this->fieldValues as $fieldValue) {
             FieldValue::query()->create($fieldValue);
         }

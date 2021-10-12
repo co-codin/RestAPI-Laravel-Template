@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
 
@@ -17,6 +18,8 @@ class MigrateCategory extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $this->oldCategories = DB::connection('old_medeq_mysql')->table('categories')->get();
 
         foreach ($this->oldCategories as $oldCategory) {

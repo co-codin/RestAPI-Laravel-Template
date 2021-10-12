@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,8 @@ class MigrateProductProperty extends Command
      */
     public function handle()
     {
+        Model::unguard();
+
         $this->updateNumericProperties();
 
         $this->oldProperties = DB::connection('old_medeq_mysql')->table('properties')->pluck('type','id');
@@ -66,6 +69,7 @@ class MigrateProductProperty extends Command
     protected function transform(object $property, $propertyValue): array
     {
         $value = $propertyValue->value;
+        $fieldValueIds = $this->transformForFieldValue($property, $value);
 
         return [
             'property_id' => $property->id,
@@ -76,7 +80,7 @@ class MigrateProductProperty extends Command
 //                ? json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)
 //                : null,
 //            'value' => $property->is_numeric ? $this->transformValue($property, $value) : null
-            'field_value_ids' => json_encode($this->transformForFieldValue($property, $value), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+            'field_value_ids' => !is_null($fieldValueIds) ? json_encode($fieldValueIds, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE) : null,
 //            'value' => $property->is_numeric ? $this->transformValue($property, $value) : null
         ];
     }
@@ -164,6 +168,7 @@ class MigrateProductProperty extends Command
 
         foreach ($bookItems as $item) {
             $fieldValue = FieldValue::query()
+                ->select('id')
                 ->where('value', $item['title'])
                 ->first();
 
@@ -177,9 +182,9 @@ class MigrateProductProperty extends Command
             $fieldValues[] = $fieldValue;
         }
 
-        if (count($fieldValues) === 1) {
-            return $fieldValues[0]['id'];
-        }
+//        if (count($fieldValues) === 1) {
+//            return $fieldValues[0]['id'];
+//        }
 
         return collect($fieldValues)->pluck('id')->toArray();
     }

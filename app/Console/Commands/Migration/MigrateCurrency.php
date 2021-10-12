@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Currency\Models\Currency;
 
@@ -14,6 +15,8 @@ class MigrateCurrency extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldCurrencies = DB::connection('old_medeq_mysql')
             ->table('currencies')
             ->get();

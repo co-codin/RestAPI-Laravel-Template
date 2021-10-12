@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Seo\Models\Canonical;
 
@@ -13,6 +14,8 @@ class MigrateCanonical extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldCanonicals = DB::connection('old_medeq_mysql')
             ->table('canonicals')
             ->orderBy('id')
