@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Kalnoy\Nestedset\Collection as CollectionNestedset;
 use Kalnoy\Nestedset\NodeTrait;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
@@ -37,13 +38,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property boolean $is_in_home
  * @property string|null $image
  * @property Category|null $parent
- * @property Category[]|Collection $ancestors
- * @property Category[]|Collection $descendants
+ * @property Category[]|CollectionNestedset $children
+ * @property Category[]|CollectionNestedset $ancestors
+ * @property Category[]|CollectionNestedset $descendants
  * @property Seo|null $seo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Collection|Product[] $productCategories
+ * @property-read Collection|ProductCategory[] $productCategories
+ * @property-read Collection|Product[] $products
  * @mixin \Eloquent
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
