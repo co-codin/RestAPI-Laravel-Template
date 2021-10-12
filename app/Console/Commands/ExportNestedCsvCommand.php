@@ -99,7 +99,7 @@ class ExportNestedCsvCommand extends Command
             foreach ($categories2 as $category2) {
                 $content2 = $this->categoryContent($content1, $handle, $category2, 2);
                 $categories3 = $this->getSubcategories($category2->id);
-                $brands = $category2->products->pluck('brand');
+                $brands = $category2->products->pluck('brand')->unique();
 
                 foreach ($brands as $brand) {
                     $brandContent2 = $this->brandContent($content2, $handle, $brand);
@@ -112,7 +112,7 @@ class ExportNestedCsvCommand extends Command
 
                 foreach ($categories3 as $category3) {
                     $content3 = $this->categoryContent($content2, $handle, $category3, 3);
-                    $brands = $category3->products->pluck('brand');
+                    $brands = $category3->products->pluck('brand')->unique();
 
                     foreach ($brands as $brand) {
                         $brandContent3 = $this->brandContent($content3, $handle, $brand);
