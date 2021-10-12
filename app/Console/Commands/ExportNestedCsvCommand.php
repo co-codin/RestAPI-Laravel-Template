@@ -53,9 +53,20 @@ class ExportNestedCsvCommand extends Command
             ->with([
                 'products' => function ($q) {
                     $q
+                        ->join('brands as b', 'b.id', '=', 'products.brand_id')
                         ->wherePivot('is_main', 1)
-                        ->where('status', Status::ACTIVE)
-                        ->whereNull('deleted_at');
+//                        ->whereExists(function ($q) {
+//                            $q
+//                                ->from('brands as b')
+//                                ->selectRaw(1)
+//                                ->whereRaw('b.id = products.brand_id')
+//                                ->where('b.status', Status::ACTIVE)
+//                                ->whereNull('b.deleted_at');
+//                        })
+                        ->where('products.status', Status::ACTIVE)
+                        ->where('b.status', Status::ACTIVE)
+                        ->whereNull('b.deleted_at')
+                        ->whereNull('products.deleted_at');
                 },
                 'products.brand' => function ($q) {
                     $q
@@ -87,20 +98,20 @@ class ExportNestedCsvCommand extends Command
 
             foreach ($categories2 as $category2) {
                 $content2 = $this->categoryContent($content1, $handle, $category2, 2);
+                $categories3 = $this->getSubcategories($category2->id);
 
                 foreach ($category2->products as $product) {
-                    $this->brandContent($content2, $handle, $product->brand);
-                    $this->productContent($content2, $handle, $product);
+                    $brandContent2 = $this->brandContent($content2, $handle, $product->brand);
+                    $this->productContent($brandContent2, $handle, $product);
                 }
 
-                $categories3 = $this->getSubcategories($category2->id);
 
                 foreach ($categories3 as $category3) {
                     $content3 = $this->categoryContent($content2, $handle, $category3, 3);
 
                     foreach ($category3->products as $product) {
-                        $this->brandContent($content3, $handle, $product->brand);
-                        $this->productContent($content3, $handle, $product);
+                        $brandContent3 = $this->brandContent($content3, $handle, $product->brand);
+                        $this->productContent($brandContent3, $handle, $product);
                     }
                 }
             }
