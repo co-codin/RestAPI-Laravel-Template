@@ -93,7 +93,7 @@ class ExportNestedCsvCommand extends Command
                     $this->productContent($content2, $handle, $product);
                 }
 
-                $categories3 = $this->getSubcategories($rootCategory->id);
+                $categories3 = $this->getSubcategories($category2->id);
 
                 foreach ($categories3 as $category3) {
                     $content3 = $this->categoryContent($content2, $handle, $category3, 3);
