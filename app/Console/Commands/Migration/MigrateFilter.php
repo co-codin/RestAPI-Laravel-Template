@@ -135,6 +135,8 @@ class MigrateFilter extends Command
 
     protected function transform(object $filter, object $filterCategory = null): array
     {
+        $newOptions = $this->clearOptions($this->getNewOptions($filter->options));
+
         return [
             'id' => $filter->id,
             'name' => $filter->title,
@@ -145,7 +147,7 @@ class MigrateFilter extends Command
             'is_enabled' => $filter->status == 1,
             'is_default' => $filter->is_default == 1,
             'description' => $filter->description,
-            'options' => $this->clearOptions($this->getNewOptions($filter->options)),
+            'options' => !empty($newOptions) ? $newOptions : null,
             'created_at' => $filter->created_at,
             'updated_at' => $filter->updated_at,
             'facet' => \Arr::get($this->systemFacets(), $filter->slug, null),
