@@ -27,6 +27,7 @@ extend type Query {
         ])
     ): [Category!]!
     @all
+    @cache
     @orderBy(column: "id", direction: "ASC")
 
 
