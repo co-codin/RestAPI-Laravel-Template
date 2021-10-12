@@ -5,6 +5,7 @@ namespace App\Console\Commands\Migration;
 use App\Console\Commands\Migration\Enums\OldPropertyType;
 use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
@@ -61,6 +62,8 @@ class MigrateFilter extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $filters = DB::connection('old_medeq_mysql')
             ->table('filters')
             ->get();

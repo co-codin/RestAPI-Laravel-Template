@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\ProductCategory;
 
@@ -14,6 +15,8 @@ class MigrateProductCategory extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldProductCategories = DB::connection('old_medeq_mysql')->table('product_categories')->get();
 
         foreach ($oldProductCategories as $oldProductCategory) {

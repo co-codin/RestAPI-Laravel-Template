@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Page\Models\Page;
 
@@ -17,6 +18,8 @@ class MigratePage extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $this->oldPages = DB::connection('old_medeq_mysql')->table('pages')->get();
 
         foreach ($this->oldPages as $oldPage) {

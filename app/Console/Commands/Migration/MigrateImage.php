@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use App\Models\Image;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
 
@@ -19,6 +20,8 @@ class MigrateImage extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $images = DB::connection('old_medeq_mysql')
             ->table('images')
             ->get();

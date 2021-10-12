@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,8 @@ class MigrateProductProperty extends Command
      */
     public function handle()
     {
+        Model::unguard();
+
         $this->updateNumericProperties();
 
         $this->oldProperties = DB::connection('old_medeq_mysql')->table('properties')->pluck('type','id');

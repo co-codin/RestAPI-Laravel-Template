@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
 
@@ -15,6 +16,8 @@ class MigrateProduct extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldProducts = DB::connection('old_medeq_mysql')->table('products')->get();
 
         foreach ($oldProducts as $oldProduct) {

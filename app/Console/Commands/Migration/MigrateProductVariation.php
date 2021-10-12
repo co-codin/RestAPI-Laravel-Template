@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migration;
 
 use App\Models\FieldValue;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Enums\ProductVariationCondition;
 use Modules\Product\Models\Product;
@@ -17,6 +18,8 @@ class MigrateProductVariation extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldProductVariations = DB::connection('old_medeq_mysql')->table('product_variations')->get();
 
         foreach ($oldProductVariations as $oldProductVariation) {

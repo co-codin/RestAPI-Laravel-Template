@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Redirect\Models\Redirect;
 
@@ -14,6 +15,8 @@ class MigrateRedirect extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldRedirects = DB::connection('old_medeq_mysql')
             ->table('redirects')
             ->get();
