@@ -15534,6 +15534,17 @@
      
 }
 
+    namespace Jenssegers\Date { 
+            /**
+     * 
+     *
+     */ 
+        class Date {
+         
+    }
+     
+}
+
     namespace Laravel\Horizon { 
             /**
      * 
@@ -19733,6 +19744,7 @@ namespace  {
             class Sanitizer extends \BinaryCats\Sanitizer\Laravel\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}
+            class Date extends \Jenssegers\Date\Date {}
             class Horizon extends \Laravel\Horizon\Horizon {}
             class Bitrix24 extends \Medeq\Bitrix24\Facades\Bitrix24 {}
             class graphql extends \Nuwave\Lighthouse\GraphQL {}
