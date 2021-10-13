@@ -42,8 +42,7 @@ class MigrateProduct extends Command
             'short_description' => $item->short_description,
             'full_description' => $item->full_description,
             'assigned_by_id' => 1,
-            // TODO убрать при заливе на production
-            'warranty' => \Arr::random([12, 24, 36, 48, 60, 18, null]),
+//            'warranty' => \Arr::random([12, 24, 36, 48, 60, 18, null]),
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
         ];

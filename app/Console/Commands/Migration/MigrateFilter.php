@@ -139,6 +139,16 @@ class MigrateFilter extends Command
     protected function transform(object $filter, object $filterCategory = null): array
     {
         $newOptions = $this->clearOptions($this->getNewOptions($filter->options));
+        $facet = \Arr::get($this->systemFacets(), $filter->slug, null);
+
+        if($filter->type == FilterType::CheckMark && !($facet['value'] ?? null)) {
+            if(!$facet) $facet = [];
+            $facet['value'] = \Arr::pull($newOptions, 'filter_value', 1);
+        }
+
+        if($filter->slug == "sostoanie") {
+            $newOptions['seoTagLabels'] = $this->prepareConditionFieldLabels($newOptions['seoTagLabels']);
+        }
 
         return [
             'id' => $filter->id,
@@ -153,7 +163,7 @@ class MigrateFilter extends Command
             'options' => !empty($newOptions) ? $newOptions : null,
             'created_at' => $filter->created_at,
             'updated_at' => $filter->updated_at,
-            'facet' => \Arr::get($this->systemFacets(), $filter->slug, null),
+            'facet' => $facet,
         ];
     }
 
@@ -257,5 +267,20 @@ class MigrateFilter extends Command
         return collect($options)
             ->filter(fn(mixed $value, string $name): bool => !empty($value) && array_key_exists($name, $allowedOptions))
             ->toArray();
+    }
+
+    protected function prepareConditionFieldLabels(mixed $seoTagLabels)
+    {
+        $lookupTable = [
+            'novyi' => 'Новый',
+            'vosstanovlennyi' => 'Восстановленный',
+            'demo' => 'Демонстрационный',
+            'bu' => 'БУ',
+        ];
+
+        return array_map(function($tag) use ($lookupTable) {
+            $tag['key'] = FieldValue::query()->firstOrCreate(['value' => $lookupTable[$tag['key']]])->id;
+            return $tag;
+        }, $seoTagLabels);
     }
 }
