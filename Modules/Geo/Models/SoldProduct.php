@@ -2,6 +2,7 @@
 
 namespace Modules\Geo\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Geo\Database\factories\SoldProductFactory;
@@ -30,5 +31,10 @@ class SoldProduct extends Model
     protected static function newFactory()
     {
         return SoldProductFactory::new();
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_enabled', '=', true);
     }
 }
