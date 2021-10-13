@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Publication\Models\Publication;
 
@@ -14,6 +15,8 @@ class MigratePublication extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldPublications = DB::connection('old_medeq_mysql')
             ->table('publications')
             ->get();

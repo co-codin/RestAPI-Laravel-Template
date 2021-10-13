@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Achievement\Models\Achievement;
 
@@ -14,6 +15,8 @@ class MigrateAchievement extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldBrands = DB::connection('old_medeq_mysql')
             ->table('achievements')
             ->get();

@@ -42,7 +42,7 @@ class Filter extends Model
         'is_enabled' => 'boolean',
         'is_default' => 'boolean',
         'position' => 'integer',
-        'options' => 'array',
+        'options' => 'json',
         'facet' => 'object',
     ];
 

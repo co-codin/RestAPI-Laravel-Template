@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Property\Models\Property;
 
@@ -14,6 +15,8 @@ class MigrateProperty extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $filters = DB::connection('old_medeq_mysql')->table('filters')->where('slug', '!=', 'cena')
             ->where('type', 2)
             ->get();

@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Migration;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Customer\Models\CustomerReview;
 
@@ -13,6 +14,8 @@ class MigrateCustomerReview extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldCustomerReviews = DB::connection('old_medeq_mysql')
             ->table('client_reviews')
             ->get();

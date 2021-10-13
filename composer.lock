@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d1b76fc1080ab3974fa20c0a687ed36",
+    "content-hash": "6fd3e25c403aa1758b70f2567a5fc926",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2622,6 +2622,83 @@
             "time": "2021-05-26T08:46:42+00:00"
         },
         {
+            "name": "jenssegers/date",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/date.git",
+                "reference": "506f86096e0b512f9ece6ad0ccae62b03c125771"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/date/zipball/506f86096e0b512f9ece6ad0ccae62b03c125771",
+                "reference": "506f86096e0b512f9ece6ad0ccae62b03c125771",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^2.16"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5",
+                "satooshi/php-coveralls": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Jenssegers\\Date\\DateServiceProvider"
+                    ],
+                    "aliases": {
+                        "Date": "Jenssegers\\Date\\Date"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jenssegers\\Date\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "https://jenssegers.com"
+                }
+            ],
+            "description": "A date library to help you work with dates in different languages",
+            "homepage": "https://github.com/jenssegers/date",
+            "keywords": [
+                "carbon",
+                "date",
+                "datetime",
+                "i18n",
+                "laravel",
+                "time",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/jenssegers/date/issues",
+                "source": "https://github.com/jenssegers/date/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jenssegers",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/jenssegers/date",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-28T06:35:54+00:00"
+        },
+        {
             "name": "kalnoy/nestedset",
             "version": "v5.0.5",
             "source": {
@@ -3245,16 +3322,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.6.1",
+            "version": "v4.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "0ad3dfd523f6fda6fa5e7adaa6a72a5d8921f752"
+                "reference": "06ce2890dd9f1f6aab218a922746161e6870a29a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/0ad3dfd523f6fda6fa5e7adaa6a72a5d8921f752",
-                "reference": "0ad3dfd523f6fda6fa5e7adaa6a72a5d8921f752",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/06ce2890dd9f1f6aab218a922746161e6870a29a",
+                "reference": "06ce2890dd9f1f6aab218a922746161e6870a29a",
                 "shasum": ""
             },
             "require": {
@@ -3303,9 +3380,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.6.1"
+                "source": "https://github.com/laravel/telescope/tree/v4.6.5"
             },
-            "time": "2021-08-03T18:44:23+00:00"
+            "time": "2021-10-05T19:06:40+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -6560,16 +6637,16 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "21dd07bdd2956e182ffde32d22872ce1a4b3eca9"
+                "reference": "3acb930f1abeb67046097c3912c7b4b9b4303f08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/21dd07bdd2956e182ffde32d22872ce1a4b3eca9",
-                "reference": "21dd07bdd2956e182ffde32d22872ce1a4b3eca9",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/3acb930f1abeb67046097c3912c7b4b9b4303f08",
+                "reference": "3acb930f1abeb67046097c3912c7b4b9b4303f08",
                 "shasum": ""
             },
             "require": {
@@ -6635,7 +6712,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/2.8.0"
+                "source": "https://github.com/getsentry/sentry-laravel/tree/2.9.0"
             },
             "funding": [
                 {
@@ -6647,7 +6724,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-08-08T09:03:08+00:00"
+            "time": "2021-10-06T13:08:08+00:00"
         },
         {
             "name": "spatie/browsershot",

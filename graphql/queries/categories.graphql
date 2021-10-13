@@ -27,7 +27,9 @@ extend type Query {
         ])
     ): [Category!]!
     @all
+    @cache
     @orderBy(column: "id", direction: "ASC")
+
 
     category(id: ID @eq, slug: String @eq): Category @find
 

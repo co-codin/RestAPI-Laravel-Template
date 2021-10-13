@@ -6,6 +6,7 @@ use App\Console\Commands\Migration\Enums\OldStatus;
 use App\Enums\Status;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Vacancy\Models\Vacancy;
 
@@ -17,6 +18,8 @@ class MigrateVacancies extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldVacancies = DB::connection('old_medeq_mysql')
             ->table('vacancies')
             ->get();

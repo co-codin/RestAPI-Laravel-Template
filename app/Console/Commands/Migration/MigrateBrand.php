@@ -5,6 +5,7 @@ namespace App\Console\Commands\Migration;
 use App\Models\FieldValue;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Brand\Models\Brand;
 
@@ -16,6 +17,8 @@ class MigrateBrand extends Command
 
     public function handle()
     {
+        Model::unguard();
+
         $oldBrands = DB::connection('old_medeq_mysql')
             ->table('brands')
             ->get();
