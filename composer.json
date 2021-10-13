@@ -25,7 +25,7 @@
         "laravel/framework": "^8.12",
         "laravel/horizon": "^5.7",
         "laravel/slack-notification-channel": "^2.3",
-        "laravel/telescope": "^4.4",
+        "laravel/telescope": "^4.6",
         "laravel/tinker": "^2.5",
         "medeq/bitrix24": "dev-master",
         "mll-lab/graphql-php-scalars": "^4.1",
