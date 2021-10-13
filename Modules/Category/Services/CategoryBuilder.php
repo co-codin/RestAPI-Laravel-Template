@@ -32,4 +32,25 @@ class CategoryBuilder
             })
             ->values();
     }
+
+    public function getCategoriesByProductIds($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    {
+        $productIds = $args['productIds'];
+
+        return ProductCategory::query()
+            ->with([
+                'category' => fn($query) => $query->select('id', 'name'),
+            ])
+            ->whereIn('product_id', $productIds)
+            ->where('is_main', true)
+            ->get()
+            ->map(fn($productCategory) => $productCategory->category)
+            ->groupBy('id')
+            ->map(function($group) {
+                $category = $group->first();
+                $category->count = $group->count();
+                return $category;
+            })
+            ->values();
+    }
 }

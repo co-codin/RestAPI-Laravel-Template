@@ -37,4 +37,9 @@ extend type Query {
         productIds: [Int!]!
     ): [Category!]!
     @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getRootCategories")
+
+    getCategoriesByProductIds(
+        productIds: [Int!]!
+    ): [Category!]!
+    @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getCategoriesByProductIds")
 }
