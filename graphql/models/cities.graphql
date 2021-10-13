@@ -1,9 +1,6 @@
 type City {
     id: ID!
-    region_name: String!
-    region_name_with_type: String!
-    federal_district: Int!
-    iso: String!
+    region_id: Int!
     name: String!
     slug: String!
     status: Int!
@@ -18,4 +15,5 @@ type City {
 
     orderPoints: [OrderPoint!] @hasMany(relation: "orderPoints")
     soldProducts: [SoldProduct!] @hasMany
+    region: Region @belongsTo
 }

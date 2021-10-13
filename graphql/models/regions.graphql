@@ -1,0 +1,9 @@
+type Region {
+    id: ID!
+    name: String!
+    name_with_type: String
+    federal_district: Int!
+    iso: String!
+
+    cities: [City!] @hasMany
+}
