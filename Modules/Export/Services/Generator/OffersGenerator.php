@@ -27,7 +27,7 @@ class OffersGenerator
 
         foreach ($products as $product) {
             $pictures = collect($product->images)
-                ->map(fn($image) => config('app.asset_url') . $image)
+                ->map(fn($image) => config('app.storage_url') . $image)
                 ->toArray();
 
             $offer = (new OfferSimple())
