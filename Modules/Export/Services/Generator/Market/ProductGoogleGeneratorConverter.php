@@ -77,7 +77,7 @@ class ProductGoogleGeneratorConverter
 
     private function getImageLink(): string
     {
-        return !is_null($this->model->image) ? config('app.asset_url') . $this->model->image : '';
+        return !is_null($this->model->image) ? config('app.storage_url') . $this->model->image : '';
     }
 
     private function getAvailability(): string

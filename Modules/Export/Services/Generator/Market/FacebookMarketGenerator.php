@@ -41,7 +41,7 @@ class FacebookMarketGenerator implements GeneratorInterface
             'new',
             $productVariation->price . ' ' . Str::upper($productVariation->currency->code),
             config('site_url') . "/product/$product->slug/$product->id",
-            !is_null($product->image) ? config('app.asset_url') . $product->image : '',
+            !is_null($product->image) ? config('app.storage_url') . $product->image : '',
             $product->brand->name,
         ];
     }
