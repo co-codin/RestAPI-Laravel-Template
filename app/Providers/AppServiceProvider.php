@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Notifications\JobFailedNotification;
+use Carbon\Carbon;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Google_Service_Drive;
+use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Support\ServiceProvider;
+use Jenssegers\Date\Date;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +35,28 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->setLocale();
+        $this->queueFailingNotification();
+    }
 
+    private function setLocale(): void
+    {
+        Date::setLocale(config('app.locale'));
+        setlocale(LC_TIME, 'ru_RU.utf8');
+        Carbon::setLocale(config('app.locale'));
+    }
+
+    private function queueFailingNotification(): void
+    {
+        \Queue::failing(function (JobFailed $event) {
+            info("sending...");
+            $notification = \Notification::route('mail', config('services.mails.exception'));
+
+            if (!app()->environment('local')) {
+                $notification->route('slack', config('logging.channels.slack.url'));
+            }
+
+            $notification->notify(new JobFailedNotification($event));
+        });
     }
 }
