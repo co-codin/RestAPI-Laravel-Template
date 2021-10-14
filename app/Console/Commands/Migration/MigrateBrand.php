@@ -36,7 +36,7 @@ class MigrateBrand extends Command
             'id' => $item->id,
             'name' => $item->title,
             'slug' => $item->slug,
-            'image' => ltrim($item->image, "/"),
+            'image' => !is_null($item->image) ? ltrim($item->image, "/") : null,
             'website' => $item->website,
             'full_description' => $item->full_description,
             'status' => $item->status,
