@@ -1,13 +1,13 @@
 extend type Query {
     cities(
-        where: _ @whereConditions(columns: ["id", "name", "slug"])
+        where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
     ): [City!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
     allCities(
-        where: _ @whereConditions(columns: ["id",  "name", "slug"])
+        where: _ @whereConditions(columns: ["id",  "name", "slug", "status"])
         withSoldProducts: Boolean @scope(name: "withSoldProducts")
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
     ): [City!]!
