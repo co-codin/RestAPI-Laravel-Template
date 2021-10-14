@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 use Modules\Property\Models\Property;
 
 /**
@@ -162,9 +163,15 @@ class ProductSearchResource extends JsonResource
             return \Arr::get($stockTypes, $this->stockType->value, 5);
         }
 
-//        if($this->old_price && $this->is_show_price === ProductVariationShowPrice::ShowPrice) {
-//            return 3;
-//        }
+        $hasHotVariation = $this->productVariations
+            ->filter(function(ProductVariation $productVariation) {
+                return !! $productVariation->previous_price && $productVariation->is_price_visible;
+            })
+            ->isNotEmpty();
+
+        if ($hasHotVariation) {
+            return 3;
+        }
 
         return 6;
     }
