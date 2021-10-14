@@ -38,7 +38,7 @@ class MigrateNews extends Command
             'short_description' => $item->short_description,
             'full_description' => $item->full_description,
             'status' => $item->status,
-            'image' => ltrim($item->image, "/"),
+            'image' => !is_null($item->image) ? ltrim($item->image, "/") : null,
             'view_num' => $item->views_num,
             'is_in_home' => $item->in_home === 1,
             'published_at' => $item->news_date,

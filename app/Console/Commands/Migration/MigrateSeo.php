@@ -40,7 +40,9 @@ class MigrateSeo extends Command
     {
         return [
             'id' => $item->id,
-            'seoable_type' => str_replace('Entities', 'Models', $item->seoable_type),
+            'seoable_type' => !is_null($item->seoable_type)
+                ? str_replace('Entities', 'Models', $item->seoable_type)
+                : $item->seoable_type,
             'seoable_id' => $item->seoable_id,
             'is_enabled' => $item->is_enabled,
             'title' => $item->title,
