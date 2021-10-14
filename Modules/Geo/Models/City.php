@@ -3,6 +3,7 @@
 namespace Modules\Geo\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Modules\Geo\Database\factories\CityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,11 @@ class City extends Model
     public function soldProducts()
     {
         return $this->hasMany(SoldProduct::class);
+    }
+
+    public function scopeWithSoldProducts(Builder $query): Builder
+    {
+        return $query->whereHas('soldProducts');
     }
 
     protected static function newFactory()
