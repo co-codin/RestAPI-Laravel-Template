@@ -408,6 +408,9 @@ class ProductIndex extends BaseIndex
                 'warranty' => [
                     'type' => 'integer',
                 ],
+                'popular_score' => [
+                    'type' => 'byte',
+                ],
                 'brand' => [
                     'properties' => [
                         'name' => [
@@ -545,8 +548,17 @@ class ProductIndex extends BaseIndex
                         'availability' => [
                             'type' => 'byte',
                         ],
+                        'price_in_rub' => [
+                            'type' => 'long',
+                        ],
                         'is_price_visible' => [
-                            'type' => 'boolean',
+                            'type' => 'byte',
+                        ],
+                        'is_hot' => [
+                            'type' => 'byte',
+                        ],
+                        'availability_sort_value' => [
+                            'type' => 'byte',
                         ],
                         'facets' => [
                             'type' => 'nested',

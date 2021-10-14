@@ -19,6 +19,7 @@ class ProductFilterController extends Controller
             ->setFilters($request->input('filters') ?? [])
             ->setPage($request->input('page.number') ?? 1)
             ->setSize($request->input('page.size') ?? 15)
+            ->setSort($request->input('orderBy') ?? 'popular')
             ->getItems();
 
         return new FilteredProductResourceCollection($products);

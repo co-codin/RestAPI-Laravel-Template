@@ -35,6 +35,7 @@ class ProductSearchResource extends JsonResource
             'categories' => ProductCategorySearchResource::collection($this->categories),
             'properties' => ProductPropertySearchResource::collection($this->properties),
             'variations' => ProductVariationSearchResource::collection($this->productVariations),
+            'popular_score' => $this->getSearchScore(),
             'facets' => array_merge($this->systemFacets(), $this->propertyFacets()),
             'numeric_facets' => array_merge($this->numericPropertyFacets()),
         ];
@@ -147,5 +148,24 @@ class ProductSearchResource extends JsonResource
                 ];
             })
             ->toArray();
+    }
+
+    protected function getSearchScore()
+    {
+        $stockTypes = [
+            "Лидер продаж" => 1,
+            "Лучшая цена" => 2,
+            "Медэк рекомендует" => 4,
+        ];
+
+        if($this->stockType) {
+            return \Arr::get($stockTypes, $this->stockType->value, 5);
+        }
+
+//        if($this->old_price && $this->is_show_price === ProductVariationShowPrice::ShowPrice) {
+//            return 3;
+//        }
+
+        return 6;
     }
 }

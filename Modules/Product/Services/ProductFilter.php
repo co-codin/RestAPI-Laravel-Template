@@ -15,6 +15,8 @@ class ProductFilter
 
     protected int $size = 15;
 
+    protected string $sort = 'popular';
+
     protected Collection $filters;
 
     public function __construct(
@@ -55,6 +57,115 @@ class ProductFilter
         return $this;
     }
 
+    public function setSort(string $sort): ProductFilter
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    protected array $availableSort = [
+        'price' => [
+            'variations.availability_sort_value' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                ]
+            ],
+            'variations.price_in_rub' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                    'filter' => [
+                        'range' => [
+                            'variations.price_in_rub' => [
+                                'gt' => 0,
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+            'slug' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                    'filter' => [
+                        'range' => [
+                            'variations.price_in_rub' => [
+                                'lte' => 0,
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+        ],
+        '-price' => [
+            'variations.availability_sort_value' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                ]
+            ],
+            'variations.price_in_rub' => [
+                'order' => 'desc',
+                'mode' => 'min',
+                'nested' => [
+                    'path' => 'variations',
+                    'filter' => [
+                        'range' => [
+                            'variations.price_in_rub' => [
+                                'gt' => 0,
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+            'slug' => [
+                'order' => 'desc',
+                'nested' => [
+                    'path' => 'variations',
+                    'filter' => [
+                        'range' => [
+                            'variations.price_in_rub' => [
+                                'lte' => 0,
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+        ],
+        'popular' => [
+            'variations.availability_sort_value' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                ]
+            ],
+            'popular_score' => [
+                'order' => 'asc',
+            ],
+            'variations.is_price_visible' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                ]
+            ],
+            'variations.price_in_rub' => [
+                'order' => 'asc',
+                'nested' => [
+                    'path' => 'variations',
+                    'filter' => [
+                        'range' => [
+                            'variations.price_in_rub' => [
+                                'gt' => 0,
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+        ],
+    ];
+
     protected function getBody(): array
     {
         $body = [
@@ -64,6 +175,7 @@ class ProductFilter
             'query' => $this->getQuery(),
             'post_filter' => $this->getPostFilters(),
             'aggs' => $this->getAggregations(),
+            'sort' => $this->getSort(),
         ];
 
         return $body;
@@ -252,5 +364,14 @@ class ProductFilter
             ->scopeQuery(fn($builder) => $builder->whereIn('id', $ids))
             ->get()
             ->sortBy(fn($product) => array_search($product->getKey(), $ids));
+    }
+
+    protected function getSort() : array
+    {
+        if(!$this->sort || !array_key_exists($this->sort, $this->availableSort)) {
+            $this->sort = 'popular';
+        }
+
+        return $this->availableSort[$this->sort];
     }
 }
