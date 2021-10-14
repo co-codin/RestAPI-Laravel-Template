@@ -2,6 +2,7 @@
 
 namespace Modules\Geo\Models;
 
+use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class City extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, IsActive;
 
     protected $guarded = [
         'id',

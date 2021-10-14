@@ -3,7 +3,7 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
     ): [City!]!
-    @paginate
+    @paginate(scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
 
     allCities(
@@ -11,8 +11,8 @@ extend type Query {
         withSoldProducts: Boolean @scope(name: "withSoldProducts")
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
     ): [City!]!
-    @all
+    @all(scopes: ["active"])
     @orderBy(column: "id", direction: "ASC")
 
-    city(id: ID @eq): City @find
+    city(id: ID @eq, slug: String @eq): City @find(scopes: ["active"])
 }
