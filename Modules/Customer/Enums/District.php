@@ -5,6 +5,7 @@ namespace Modules\Customer\Enums;
 
 
 use App\Enums\BaseEnum;
+use BenSampo\Enum\Contracts\LocalizedEnum;
 
 /**
  * @method static static Central()
@@ -16,7 +17,7 @@ use App\Enums\BaseEnum;
  * @method static static Siberian()
  * @method static static FarEastern()
  */
-final class District extends BaseEnum
+final class District extends BaseEnum implements LocalizedEnum
 {
     const Central = 1;
     const NorthWest = 2;

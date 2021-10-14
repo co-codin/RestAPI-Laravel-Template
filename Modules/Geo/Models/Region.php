@@ -4,6 +4,7 @@ namespace Modules\Geo\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Customer\Enums\District;
 use Modules\Geo\Database\factories\RegionFactory;
 
 class Region extends Model
@@ -17,6 +18,11 @@ class Region extends Model
     protected static function newFactory()
     {
         return RegionFactory::new();
+    }
+
+    public function getFederalDistrictNameAttribute()
+    {
+        return District::getDescription($this->attributes['federal_district']);
     }
 
     public function cities()

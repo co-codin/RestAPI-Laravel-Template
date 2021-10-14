@@ -3,6 +3,7 @@ type Region {
     name: String!
     name_with_type: String
     federal_district: Int!
+    federal_district_name: String!
     iso: String!
 
     cities: [City!] @hasMany
