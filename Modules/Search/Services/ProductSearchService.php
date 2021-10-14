@@ -28,8 +28,9 @@ class ProductSearchService extends SearchService
                 'id' => $product->id,
                 'slug' => $product->slug,
                 'name' => "{$product->category->product_name} {$product->brand->name} $product->name",
-                'url' => config('app.site_url') . "/product/$product->slug/$product->id",
+                'url' => "/product/$product->slug/$product->id",
                 'type' => 'Товар',
+                'image' => $product->image,
             ];
         })->toArray();
     }
