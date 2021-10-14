@@ -73,7 +73,7 @@ class MigrateCategory extends Command
                 array_push($slugs, $parent->slug);
                 $parent = $this->oldCategories->where('id', '=',  $parent->parent_id)->first();
             }
-            return implode('/', $slugs) . '/' . $item->slug;
+            return implode('/', array_reverse($slugs)) . '/' . $item->slug;
         } else {
             return $item->slug;
         }

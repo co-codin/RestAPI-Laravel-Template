@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Filter\Enums\FilterType;
 use Modules\Filter\Models\Filter;
+use function Clue\StreamFilter\fun;
 
 class MigrateFilter extends Command
 {
@@ -134,6 +135,7 @@ class MigrateFilter extends Command
         }
 
         $this->createRootCategoryFilter();
+        $this->updateDefaultFilterPositions();
     }
 
     protected function transform(object $filter, object $filterCategory = null): array
@@ -178,6 +180,29 @@ class MigrateFilter extends Command
             'is_default' => true,
             'facet' => \Arr::get($this->systemFacets(), 'direction', null),
         ]);
+    }
+
+    protected function updateDefaultFilterPositions()
+    {
+        $positions = [
+            'Направление',
+            'Цена',
+            'Производитель',
+            'По акции',
+            'Лидер продаж',
+            'Медэк рекомендует',
+            'Произведено в России',
+            'Состояние',
+            'В наличии',
+        ];
+
+        Filter::query()
+            ->where('is_default', true)
+            ->get()
+            ->each(function(Filter $filter) use ($positions) {
+                $filter->position = array_search($filter->name, $positions) + 1;
+                $filter->save();
+            });
     }
 
     private function getNewOptions(array $options): array

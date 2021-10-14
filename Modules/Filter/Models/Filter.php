@@ -16,6 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class Filter
  * @package Modules\Filter\Models
  * @property int $id
+ * @property string $name
  * @property int $status
  * @property bool $is_default
  * @property bool $is_enabled
