@@ -8,4 +8,5 @@ type Page {
     assigned_by_id: Int
     parent: Page!
     children: [Page!]
+    seo: Seo @morphOne
 }

@@ -64,4 +64,16 @@ class Director extends Form
                 <br><b>Сообщение:</b> $message
                 ";
     }
+
+    public function popupTitle(): string
+    {
+        return "Письмо директору успешно отправлено";
+    }
+
+    public function popupMessage(): string
+    {
+        return "Мы с вами свяжемся";
+    }
+
+
 }
