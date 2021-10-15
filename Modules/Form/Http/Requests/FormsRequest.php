@@ -15,16 +15,7 @@ class FormsRequest extends FormRequestAlias
 {
     public function rules(): array
     {
-        $form = $this->getForm();
-        $rules = $form->rules();
-
-        if (!$form->withAuth) {
-            $rules = array_merge($rules, [
-                'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone_default_countries|max:255'
-            ]);
-        }
-
-        return $rules;
+        return $this->getForm()->rules();
     }
 
     public function attributes(): array

@@ -5,7 +5,6 @@ namespace Modules\Form\Helpers;
 
 
 use App\Helpers\DirectoryHelper;
-use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
@@ -53,9 +52,9 @@ class FormRequestHelper
         $name = \Arr::get($clientData,'first_name') . ' ' . \Arr::get($clientData,'last_name');
 
         $this->clientData = [
-            'name' => !empty(trim($name)) ? $name : request()->input('name'),
-            'phone' => $clientData['phone'] ?? request()->input('phone'),
-            'email' => $clientData['email'] ?? request()->input('email'),
+            'name' => !empty(trim($name)) ? $name : null,
+            'phone' => $clientData['phone'] ?? null,
+            'email' => $clientData['email'] ?? null,
         ];
 
         return $this;
