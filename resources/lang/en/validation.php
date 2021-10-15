@@ -118,6 +118,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'phone_default_countries' => 'The :attribute must be a valid Phone number.',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +148,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'phone_default_countries' => 'Phone'
+    ],
 
 ];

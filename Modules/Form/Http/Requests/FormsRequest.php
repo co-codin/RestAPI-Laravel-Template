@@ -20,7 +20,7 @@ class FormsRequest extends FormRequestAlias
 
         if (!$form->withAuth) {
             $rules = array_merge($rules, [
-                'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
+                'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone_default_countries|max:255'
             ]);
         }
 

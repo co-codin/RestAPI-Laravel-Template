@@ -21,7 +21,7 @@ class PartnerRecommend extends Form
             'name' => 'required|string|max:255',
             'post' => 'required|string|max:255',
             'recommend_name' => 'required|string|max:255',
-            'recommend_phone' => 'required|string|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255',
+            'recommend_phone' => 'required|string|phone_default_countries|max:255',
             'recommend_email' => 'required|string|email|max:255',
             'comment' => 'required|string|max:1024',
         ];
