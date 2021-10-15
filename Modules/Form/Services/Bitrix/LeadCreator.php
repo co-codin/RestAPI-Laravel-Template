@@ -90,13 +90,13 @@ class LeadCreator
         $lead = Lead::create([
             "title" => $this->newLeadTitle,
             config('bitrix24.lead_category_field_id') => Arr::wrap($this->getCategoryIdFromBitrix()),
-            "assigned_by_id" => $form->getPhone()
+            "assigned_by_id" => ($form->getAuthPhone() ?? $form->getPhone())
                 ? config('bitrix24.new_deal_assigned_id')
                 : config('bitrix24.no_phone_deal_assigned_id')
             ,
             "name" => $form->getAttribute('name') ?? "",
-            "email" => $form->getEmail() ? [['VALUE' => $form->getEmail()]] : [],
-            "phone" => $form->getPhone() ? [['VALUE' => $form->getPhone()]] : [],
+            "email" => $form->getAuthEmail() ? [['VALUE' => $form->getAuthEmail()]] : [['VALUE' => $form->getEmail()]],
+            "phone" => $form->getAuthPhone() ? [['VALUE' => $form->getAuthPhone()]] : [['VALUE' => $form->getPhone()]],
             'source_id' => $this->newLeadSourceId,
             'comments' => $form->getComments(),
             'utm_source' => $form->getConcreteUtm('utm_source'),

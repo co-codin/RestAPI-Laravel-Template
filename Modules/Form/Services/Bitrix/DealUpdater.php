@@ -119,7 +119,7 @@ class DealUpdater
      */
     private function changeManagerForBotDeal(Deal $deal)
     {
-        $deal->assigned_by_id = ! $this->form->getPhone()
+        $deal->assigned_by_id = ! ($this->form->getAuthPhone() ?? $this->form->getPhone())
             ? config('bitrix24.no_phone_deal_assigned_id')
             : config('bitrix24.repeat_deal_assigned_id');
 

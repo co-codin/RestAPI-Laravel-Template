@@ -93,15 +93,8 @@ class ChatBot extends Form
 
         $hasBrand = $this->getAttribute('hasBrand') === 'Yes' ? 'Да' : 'Нет';
 
-        $brandComment = $this->getComment(
-            "<br><b>Производитель:</b>",
-            optional($this->getBrand())->name
-        );
-
-        $categoryComment = $this->getComment(
-            "<br><b>Категория:</b>",
-            optional($this->getCategory())->name
-        );
+        $brandComment = $this->getComment("<br><b>Производитель:</b>", $this->getBrand()?->name);
+        $categoryComment = $this->getComment("<br><b>Категория:</b>", $this->getCategory()?->name);
 
         $companyType = $this->getCompanyType();
         $subCategory = $this->getSubCategory();

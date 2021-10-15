@@ -15,16 +15,7 @@ class FormsRequest extends FormRequestAlias
 {
     public function rules(): array
     {
-        $form = $this->getForm();
-        $rules = $form->rules();
-
-        if (!$form->withAuth) {
-            $rules = array_merge($rules, [
-                'phone' => 'required|string|regex:/^[\s0-9()+-]+$/|phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ|max:255'
-            ]);
-        }
-
-        return $rules;
+        return $this->getForm()->rules();
     }
 
     public function attributes(): array
@@ -43,9 +34,9 @@ class FormsRequest extends FormRequestAlias
     }
 
     #[ArrayShape([
-        'name' => "string|null",
-        'phone' => "string",
-        'email' => "string|null"
+        'auth_name' => "string|null",
+        'auth_phone' => "string",
+        'auth_email' => "string|null"
     ])]
     public function getClientData(): array
     {

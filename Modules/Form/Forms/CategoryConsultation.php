@@ -32,11 +32,7 @@ class CategoryConsultation extends Form
         $default = parent::getComments();
 
         $categoryName = $this->getCategory()->name;
-
-        $brandComment = $this->getComment(
-            "<br><b>Производитель:</b>",
-            optional($this->getBrand())->name
-        );
+        $brandComment = $this->getComment("<br><b>Производитель:</b>", $this->getBrand()?->name);
 
         return "
                 $default

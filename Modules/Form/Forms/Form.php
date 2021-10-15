@@ -190,14 +190,29 @@ abstract class Form
         return config('services.mails.forms');
     }
 
+    public function getAuthEmail(): ?string
+    {
+        return $this->getAttribute('auth_email');
+    }
+
     public function getEmail(): ?string
     {
         return $this->getAttribute('email');
     }
 
+    public function getAuthPhone(): ?string
+    {
+        return $this->getAttribute('auth_phone');
+    }
+
     public function getPhone(): ?string
     {
         return $this->getAttribute('phone');
+    }
+
+    public function getAuthName(): ?string
+    {
+        return $this->getAttribute('auth_name');
     }
 
     public function setUtm(?array $utm = null): self
@@ -275,9 +290,9 @@ abstract class Form
             $page = substr($page, 0, $pos);
         }
 
-        $nameComment = $this->getComment("<br><b>Имя:</b>", $this->getAttribute('name'));
-        $phoneComment = $this->getComment("<br><b>Телефон:</b>", $this->getPhone());
-        $emailComment = $this->getComment("<br><b>Email:</b>", $this->getEmail());
+        $nameComment = $this->getComment("<br><b>Имя:</b>", $this->getAuthName());
+        $phoneComment = $this->getComment("<br><b>Телефон:</b>", $this->getAuthPhone());
+        $emailComment = $this->getComment("<br><b>Email:</b>", $this->getAuthEmail());
 
         return "
                 <b>Получена заявка:</b> $date
@@ -330,21 +345,18 @@ abstract class Form
 
     public function isTestRequest(): bool
     {
-        $email = $this->getEmail();
-        $phone = $this->getPhone();
-        $ip = request()->ip();
-
         $testPatterns = config('form.test_patterns');
 
-        $testDataCollection = [
-            $phone => $testPatterns['phones'],
-            $email => $testPatterns['emails'],
-            $ip => $testPatterns['ips'],
-        ];
+        $attributes = array_merge(
+            $this->attributes(),
+            ['ip' => request()->ip()]
+        );
 
-        foreach ($testDataCollection as $verifiableData => $testData) {
-            if (\Str::exist_arr($verifiableData, $testData)) {
-                return true;
+        foreach ($testPatterns as $testPattern) {
+            foreach ($attributes as $attribute) {
+                if (!is_null($attribute) && \Str::exist_arr($attribute, $testPattern)) {
+                    return true;
+                }
             }
         }
 

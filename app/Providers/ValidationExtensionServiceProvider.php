@@ -91,5 +91,18 @@ class ValidationExtensionServiceProvider extends ServiceProvider
 
             return true;
         });
+
+        Validator::extend('phone_default_countries', function ($attribute, string $value, $parameters, ValidationValidator $validator) {
+            $newValidator = Validator::make(
+                ['phone' => $value],
+                ['phone' => 'phone:AM,AZ,RU,BY,UA,GE,KZ,MD,TM,KG,UZ,TJ'],
+            );
+
+            if ($newValidator->errors()->isEmpty()) {
+                return true;
+            }
+
+            return false;
+        });
     }
 }

@@ -33,14 +33,12 @@ class Service extends Form
     public function attributeLabels(): array
     {
         return [
-            'name' => 'ФИО',
+            'auth_name' => 'ФИО',
         ];
     }
 
     public function getComments(): string
     {
-        $name = $this->getAttribute('name');
-
         $date = Carbon::parse(now())->format('d.m.Y H:i:s');
         $url = url()->previous();
 
@@ -48,9 +46,9 @@ class Service extends Form
                 <b>Получена заявка:</b> $date
                 <br><b>Форма:</b> {$this->title()}
                 <br><b>Страница:</b> $url
-                <br><b>ФИО лица:</b> $name
-                <br><b>Телефон:</b> {$this->getPhone()}
-                <br><b>Email:</b> {$this->getEmail()}
+                <br><b>ФИО лица:</b> {$this->getAuthName()}
+                <br><b>Телефон:</b> {$this->getAuthPhone()}
+                <br><b>Email:</b> {$this->getAuthEmail()}
                 ";
     }
 }
