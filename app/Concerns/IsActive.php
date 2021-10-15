@@ -13,4 +13,9 @@ trait IsActive
     {
         return $query->where('status', '=', Status::ACTIVE);
     }
+
+    public function scopeVisible(Builder $query): Builder
+    {
+        return $query->whereIn('status', [Status::ACTIVE, Status::ONLY_URL]);
+    }
 }

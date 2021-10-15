@@ -29,5 +29,8 @@ extend type Query {
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    brand(id: ID @eq, slug: String @eq): Brand @find(scopes: ["active"])
+    brand(
+        id: ID @eq,
+        slug: String @eq
+    ): Brand @find(scopes: ["visible"])
 }
