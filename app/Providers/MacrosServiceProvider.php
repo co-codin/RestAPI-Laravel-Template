@@ -27,7 +27,11 @@ class MacrosServiceProvider extends ServiceProvider
 
         Str::macro('exist_arr', function (string $haystack, array $needle) {
             foreach ($needle as $what) {
-                if (($pos = strpos($haystack, (string)$what)) !== false || $pos === 0) {
+                if (empty($what)) {
+                    continue;
+                }
+
+                if (str_contains($haystack, (string)$what)) {
                     return true;
                 }
             }

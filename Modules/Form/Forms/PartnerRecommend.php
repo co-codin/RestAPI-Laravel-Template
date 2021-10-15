@@ -45,7 +45,7 @@ class PartnerRecommend extends Form
     {
         $company = $this->getAttribute('company');
         $city = $this->getAttribute('city');
-        $name = $this->getAttribute('name');
+        $name = $this->getAttribute('name') ?? $this->getAuthName();
         $post = $this->getAttribute('post');
 
         $recommend_name = $this->getAttribute('recommend_name');
@@ -65,8 +65,8 @@ class PartnerRecommend extends Form
                 <br><b>Город:</b> $city
                 <br><b>ФИО лица, принимающего решения:</b> $name
                 <br><b>Должность:</b> $post
-                <br><b>Телефон:</b> {$this->getPhone()}
-                <br><b>Email:</b> {$this->getEmail()}
+                <br><b>Телефон:</b> {$this->getAuthPhone()}
+                <br><b>Email:</b> {$this->getAuthEmail()}
                 <br><b>Ваши контактные данные:</b>
                 <br><b>ФИО:</b> $recommend_name
                 <br><b>Телефон:</b> $recommend_phone

@@ -32,9 +32,9 @@ class FormRequestHelper
     }
 
     #[ArrayShape([
-        'name' => "string|null",
-        'phone' => "string",
-        'email' => "string|null"
+        'auth_name' => "string|null",
+        'auth_phone' => "string",
+        'auth_email' => "string|null"
     ])]
     public function getClientData(): array
     {
@@ -52,9 +52,9 @@ class FormRequestHelper
         $name = \Arr::get($clientData,'first_name') . ' ' . \Arr::get($clientData,'last_name');
 
         $this->clientData = [
-            'name' => !empty(trim($name)) ? $name : null,
-            'phone' => $clientData['phone'] ?? null,
-            'email' => $clientData['email'] ?? null,
+            'auth_name' => !empty(trim($name)) ? $name : null,
+            'auth_phone' => $clientData['phone'] ?? null,
+            'auth_email' => $clientData['email'] ?? null,
         ];
 
         return $this;

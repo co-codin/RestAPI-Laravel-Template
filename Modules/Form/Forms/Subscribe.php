@@ -15,14 +15,7 @@ class Subscribe extends Form
     public function rules(): array
     {
         return [
-            'contact_email' => 'required|string|email|max:255',
-        ];
-    }
-
-    public function attributeLabels(): array
-    {
-        return [
-            'contact_email' => 'E-mail',
+            'email' => 'required|string|email|max:255',
         ];
     }
 
@@ -30,7 +23,7 @@ class Subscribe extends Form
     {
         $default = parent::getComments();
 
-        $contactEmail = $this->getAttribute('contact_email');
+        $contactEmail = $this->getEmail();
 
         return "
                 $default

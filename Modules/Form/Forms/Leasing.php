@@ -32,7 +32,7 @@ class Leasing extends Form
     public function attributeLabels(): array
     {
         return [
-            'name' => 'Имя',
+            'auth_name' => 'Имя',
             'message' => 'Ваше сообщение',
         ];
     }
@@ -41,7 +41,7 @@ class Leasing extends Form
     {
         $default = parent::getComments();
 
-        $name = $this->getAttribute('name');
+        $name = $this->getAuthName();
         $message = $this->getAttribute('message');
 
         return "

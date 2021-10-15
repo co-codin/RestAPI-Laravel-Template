@@ -55,8 +55,8 @@ class SendToBitrix implements ShouldQueue
         LeadCreator $leadCreator
     )
     {
-        $phone = $this->form->getPhone();
-        $email = $this->form->getEmail();
+        $phone = $this->form->getAuthPhone() ?? $this->form->getPhone();
+        $email = $this->form->getAuthEmail() ?? $this->form->getEmail();
 
         if (!$phone && !$email) {
             throw new Exception("no phone and email");
