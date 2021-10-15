@@ -30,4 +30,14 @@ class Subscribe extends Form
                 <br><b>Контактный E-mail:</b> $contactEmail
                 ";
     }
+
+    public function popupTitle(): string
+    {
+        return 'Вы успешно подписались на новостную рассылку!';
+    }
+
+    public function popupMessage(): string
+    {
+        return 'В скором времени вы начнете получать новости';
+    }
 }
