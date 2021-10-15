@@ -12,4 +12,5 @@ type News {
     is_in_home: Boolean!
     published_at: Date!
     assigned_by_id: Int
+    seo: Seo @morphOne
 }
