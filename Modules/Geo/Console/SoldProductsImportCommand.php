@@ -29,10 +29,12 @@ class SoldProductsImportCommand extends Command
     {
         SoldProduct::query()->truncate();
 
-        $this->fileContent = $driveService->files
-            ->export(config('services.google-api.drive.files.sold-products'), 'text/csv', ['alt' => 'media'])
-            ->getBody()
-            ->getContents();
+//        $this->fileContent = $driveService->files
+//            ->export(config('services.google-api.drive.files.sold-products'), 'text/csv', ['alt' => 'media'])
+//            ->getBody()
+//            ->getContents();
+
+        $this->fileContent = file_get_contents(storage_path('app/sold-products.csv'));
 
 //        $this->fileContent = file_get_contents(storage_path('app/sold_products.csv'));
 

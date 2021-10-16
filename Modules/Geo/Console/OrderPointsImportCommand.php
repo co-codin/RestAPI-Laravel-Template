@@ -6,6 +6,7 @@ use App\Enums\Status;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Modules\Geo\Database\Seeders\Data\GeoData;
 use Modules\Geo\Enums\OrderPointType;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\OrderPoint;
