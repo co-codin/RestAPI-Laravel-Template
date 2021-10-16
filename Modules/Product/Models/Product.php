@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\Concerns\IsActive;
 use App\Models\FieldValue;
 use App\Models\Image;
 use Eloquent;
@@ -54,7 +55,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Product extends Model
 {
-    use HasFactory, SoftDeletes, Searchable, LogsActivity;
+    use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity;
 
     protected $guarded = ['id'];
 
