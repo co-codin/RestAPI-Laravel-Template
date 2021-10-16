@@ -9,6 +9,7 @@ extend type Query {
     allCities(
         where: _ @whereConditions(columns: ["id",  "name", "slug", "status"])
         withSoldProducts: Boolean @scope(name: "withSoldProducts")
+        withOrderPoints: Boolean @scope(name: "withOrderPoints")
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
     ): [City!]!
     @all(scopes: ["active"])

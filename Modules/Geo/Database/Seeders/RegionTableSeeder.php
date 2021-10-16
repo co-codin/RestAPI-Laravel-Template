@@ -15,7 +15,7 @@ class RegionTableSeeder extends Seeder
                 'name' => $region['name'],
                 'name_with_type' => $region['name_with_type'],
                 'federal_district' => $region['federal_district'],
-                'iso' => $region['iso'],
+                'iso' => $region['iso_code'],
             ]);
         }
     }

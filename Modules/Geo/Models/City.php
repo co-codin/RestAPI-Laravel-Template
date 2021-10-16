@@ -50,6 +50,11 @@ class City extends Model
         return $query->whereHas('soldProducts');
     }
 
+    public function scopeWithOrderPoints(Builder $query): Builder
+    {
+        return $query->whereHas('orderPoints');
+    }
+
     protected static function newFactory()
     {
         return CityFactory::new();

@@ -32,7 +32,11 @@ class OrderPointsImportCommand extends Command
 
         $this->truncateOrderPoints();
 
+        $regions = [];
+
         foreach ($this->terminals as $city) {
+            $regions[] = $this->places->get($city['cityID'])['regname'];
+
             $cityModel = $this->getCity($city);
 
             foreach ($city['terminals']['terminal'] as $terminal) {
