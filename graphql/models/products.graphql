@@ -6,7 +6,7 @@ type Product {
     slug: String!
     brand_id: Int
     status: Int!
-    image: String!
+    image: String
     is_in_home: Boolean!
     warranty: Int
     short_description: String
