@@ -33,6 +33,7 @@ class Migrate extends Command
         $this->migrate('migrate:property');
         $this->migrate('migrate:canonical');
         $this->migrate('migrate:product_property');
+        $this->migrate('migrate:characteristics');
         $this->migrate('migrate:filter');
         $this->migrate('migrate:seo-rule');
         $this->migrate('migrate:seo');
