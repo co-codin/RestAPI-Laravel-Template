@@ -354,7 +354,7 @@ abstract class Form
 
         foreach ($testPatterns as $testPattern) {
             foreach ($attributes as $attribute) {
-                if (!is_null($attribute) && \Str::exist_arr($attribute, $testPattern)) {
+                if (!is_array($attribute) && !is_null($attribute) && \Str::exist_arr($attribute, $testPattern)) {
                     return true;
                 }
             }
