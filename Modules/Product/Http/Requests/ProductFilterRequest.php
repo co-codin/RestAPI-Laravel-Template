@@ -56,7 +56,6 @@ class ProductFilterRequest extends FormRequest
                 'nullable',
                 'integer',
                 'min: 1',
-                'max: 50',
             ],
 //            'sort' => [
 //                'string',

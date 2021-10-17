@@ -10,5 +10,5 @@ class SoldProductKeys
 
     const PRODUCT_ID = 'id оборудования';
 
-
+    const FEDERAL_DISTRICT = 'Федеральный округ';
 }

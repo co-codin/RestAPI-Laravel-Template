@@ -8,6 +8,8 @@ use Google_Service_Drive;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Modules\Customer\Enums\District;
 use Modules\Geo\Enums\SoldProductKeys;
 use Modules\Geo\Models\City;
 use Modules\Geo\Models\SoldProduct;
@@ -86,6 +88,11 @@ class SoldProductsImportCommand extends Command
             SoldProductKeys::NAME => 'required|string|max:255',
             SoldProductKeys::CITY => 'required|string|max:255',
             SoldProductKeys::PRODUCT_ID => 'required|integer|exists:products,id',
+            SoldProductKeys::FEDERAL_DISTRICT => [
+                'required',
+                'string',
+                Rule::in(District::asSelectArray()),
+            ],
         ];
 
         foreach ($this->soldProducts->toArray() as $soldProduct) {
@@ -99,5 +106,10 @@ class SoldProductsImportCommand extends Command
         }
 
         $this->soldProducts = $validatedData;
+    }
+
+    protected function getCity()
+    {
+
     }
 }
