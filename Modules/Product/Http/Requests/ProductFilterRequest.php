@@ -21,7 +21,7 @@ class ProductFilterRequest extends FormRequest
             'filters.*.name' => [
                 'required',
                 'string',
-                'max:100',
+                'max:200',
             ],
             'filters.*.value' => [
                 'required',
