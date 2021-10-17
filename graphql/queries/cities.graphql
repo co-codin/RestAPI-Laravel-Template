@@ -1,6 +1,6 @@
 extend type Query {
     cities(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
+        where: _ @whereConditions(columns: ["id", "name", "slug", "status", "federal_district"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
         withOrderPoints: Boolean @scope(name: "withOrderPoints")
     ): [City!]!
@@ -8,7 +8,7 @@ extend type Query {
     @orderBy(column: "id", direction: "ASC")
 
     allCities(
-        where: _ @whereConditions(columns: ["id",  "name", "slug", "status"])
+        where: _ @whereConditions(columns: ["id",  "name", "slug", "status", "federal_district"])
         withSoldProducts: Boolean @scope(name: "withSoldProducts")
         withOrderPoints: Boolean @scope(name: "withOrderPoints")
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])

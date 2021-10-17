@@ -6,6 +6,7 @@ use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Customer\Enums\District;
 use \Modules\Geo\Database\factories\CityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -58,5 +59,10 @@ class City extends Model
     protected static function newFactory()
     {
         return CityFactory::new();
+    }
+
+    public function getFederalDistrictNameAttribute()
+    {
+        return District::getDescription($this->attributes['federal_district']);
     }
 }

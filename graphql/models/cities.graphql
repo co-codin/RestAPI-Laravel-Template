@@ -1,6 +1,8 @@
 type City {
     id: ID!
-    region_id: Int!
+    federal_district: Int
+    federal_district_name: String
+    region_id: Int
     name: String!
     slug: String!
     status: Int!
