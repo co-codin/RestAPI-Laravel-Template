@@ -120,9 +120,9 @@ class OrderPointsImportCommand extends Command
     {
         $regionName = $this->places->get($city['cityID'])['regname'];
 
-        $region = Region::query()->where('name_with_type', '=', $regionName)->first();
+//        $region = Region::query()->where('name_with_type', '=', $regionName)->first();
 
-        return City::query()->firstOrCreate([
+        return City::query()->updateOrCreate([
 //            'region_id' => $region->id,
             'name' => $city['name'],
         ], [
