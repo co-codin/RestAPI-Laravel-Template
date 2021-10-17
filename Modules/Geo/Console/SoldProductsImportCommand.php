@@ -49,6 +49,7 @@ class SoldProductsImportCommand extends Command
             $cityName = $soldProduct[SoldProductKeys::CITY];
             $city = City::query()->firstOrCreate([
                 'name' => $cityName,
+                'federal_district' => array_flip(District::asSelectArray())[$soldProduct[SoldProductKeys::FEDERAL_DISTRICT]]
             ]);
 
             SoldProduct::query()->create([
@@ -76,7 +77,7 @@ class SoldProductsImportCommand extends Command
         }
 
         $this->soldProducts = $this->soldProducts->map(function ($item) {
-            return Arr::only($item, [SoldProductKeys::CITY, SoldProductKeys::NAME, SoldProductKeys::PRODUCT_ID]);
+            return Arr::only($item, [SoldProductKeys::CITY, SoldProductKeys::NAME, SoldProductKeys::FEDERAL_DISTRICT, SoldProductKeys::PRODUCT_ID]);
         });
     }
 

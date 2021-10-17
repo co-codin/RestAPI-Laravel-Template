@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('federal_district');
+            $table->smallInteger('federal_district')->nullable();
             $table->foreignId('region_id')->nullable()->constrained();
             $table->string('name');
             $table->string('slug')->unique();

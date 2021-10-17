@@ -123,7 +123,7 @@ class OrderPointsImportCommand extends Command
         $region = Region::query()->where('name_with_type', '=', $regionName)->first();
 
         return City::query()->firstOrCreate([
-            'region_id' => $region->id,
+//            'region_id' => $region->id,
             'name' => $city['name'],
         ], [
             'coordinate' => [
