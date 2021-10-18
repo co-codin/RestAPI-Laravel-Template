@@ -51,6 +51,11 @@ class City extends Model
         return $query->whereHas('soldProducts');
     }
 
+    public function scopeSortBySoldProducts(Builder $query): Builder
+    {
+        return $query->whereHas('soldProducts')->withCount('soldProducts')->orderBy('sold_products_count', 'desc');
+    }
+
     public function scopeWithOrderPoints(Builder $query): Builder
     {
         return $query->whereHas('orderPoints');

@@ -2,6 +2,7 @@ extend type Query {
     cities(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status", "federal_district"])
         orderBy: _ @orderBy(columns: ["id", "name", "slug"])
+        sortBySoldProductCount: Boolean @scope(name: "sortBySoldProducts")
         withOrderPoints: Boolean @scope(name: "withOrderPoints")
     ): [City!]!
     @paginate(scopes: ["active"])
