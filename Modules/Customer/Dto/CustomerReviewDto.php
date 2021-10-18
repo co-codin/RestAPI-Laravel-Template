@@ -15,11 +15,22 @@ use Modules\Customer\Enums\CustomerType;
 class CustomerReviewDto extends BaseDto
 {
     public ?string $post;
+
+    public ?string $company_name;
+
+    public ?int $product_id;
+
     public ?string $author;
+
     public int $type = CustomerType::PrivatePerson;
+
     public ?string $video;
+
     public UploadedFile|string|null $review_file;
+
     public bool $is_home = false;
+
     public ?string $comment;
+
     public UploadedFile|string|null $logo;
 }

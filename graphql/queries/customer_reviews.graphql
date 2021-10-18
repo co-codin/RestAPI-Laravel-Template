@@ -1,7 +1,7 @@
 extend type Query {
     customer_reviews(
-        where: _ @whereConditions(columns: ["id", "post", "author", "type", "is_home"])
-        orderBy: _ @orderBy(columns: ["id", "post", "author", "type", "is_home"])
+        where: _ @whereConditions(columns: ["id", "company_name", "post", "author", "type", "is_home"])
+        orderBy: _ @orderBy(columns: ["id", "company_name", "post", "author", "type", "is_home"])
     ): [CustomerReview!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")

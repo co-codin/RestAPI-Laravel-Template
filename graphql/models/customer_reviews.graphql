@@ -1,5 +1,6 @@
 type CustomerReview {
     id: ID!
+    company_name: String
     post: String!
     author: String!
     type: Int!
@@ -8,4 +9,6 @@ type CustomerReview {
     is_home: Boolean!
     comment: String
     logo: String
+    product_id: Int
+    product: Product @belongsTo
 }
