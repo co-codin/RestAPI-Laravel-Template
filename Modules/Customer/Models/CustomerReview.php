@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Modules\Customer\Database\factories\CustomerReviewFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Product\Models\Product;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -58,6 +59,11 @@ class CustomerReview extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
     protected static function newFactory(): CustomerReviewFactory
