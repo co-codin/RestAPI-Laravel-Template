@@ -6,5 +6,12 @@ extend type Query {
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
+    all_customer_reviews(
+        where: _ @whereConditions(columns: ["id", "company_name", "post", "author", "type", "is_home"])
+        orderBy: _ @orderBy(columns: ["id", "company_name", "post", "author", "type", "is_home"])
+    ): [CustomerReview!]!
+    @all
+    @orderBy(column: "id", direction: "ASC")
+
     customer_review(id: ID @eq): CustomerReview @find
 }

@@ -4,6 +4,7 @@ type CustomerReview {
     post: String!
     author: String!
     type: Int!
+    type_name: String!
     video: String
     review_file: String
     is_home: Boolean!

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Modules\Customer\Database\factories\CustomerReviewFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Customer\Enums\CustomerType;
 use Modules\Product\Models\Product;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -42,6 +43,11 @@ class CustomerReview extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function getTypeNameAttribute()
+    {
+        return CustomerType::getDescription($this->type);
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
