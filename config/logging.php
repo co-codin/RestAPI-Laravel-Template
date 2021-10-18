@@ -35,7 +35,7 @@ return [
     */
 
     'channels' => [
-        
+
         'production' => [
             'driver' => 'stack',
             'channels' => ['daily', 'slack'],
