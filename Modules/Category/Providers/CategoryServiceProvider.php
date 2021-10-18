@@ -3,6 +3,7 @@
 namespace Modules\Category\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Category\Console\ExportCategoriesWithNoImage;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class CategoryServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->registerCommands();
     }
 
     public function register()
@@ -46,5 +48,11 @@ class CategoryServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+    protected function registerCommands()
+    {
+        $this->commands([
+            ExportCategoriesWithNoImage::class,
+        ]);
     }
 }
