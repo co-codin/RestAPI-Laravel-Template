@@ -175,19 +175,25 @@ return [
             'nice' => 0,
         ],
     ],
-
+    
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'maxProcesses' => 10,
-                'balanceMaxShift' => 1,
-                'balanceCooldown' => 3,
+                'connection' => 'redis',
+                'queue' => ['default', 'form-to-bitrix', 'form-to-crm', 'form-to-email'],
+                'balance' => 'simple',
+                'processes' => 10,
+                'tries' => 3,
             ],
         ],
 
         'local' => [
             'supervisor-1' => [
-                'maxProcesses' => 3,
+                'connection' => 'redis',
+                'queue' => ['default', 'form-to-bitrix', 'form-to-crm', 'form-to-email'],
+                'balance' => 'simple',
+                'processes' => 3,
+                'tries' => 3,
             ],
         ],
     ],
