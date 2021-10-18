@@ -27,6 +27,8 @@ class FacebookMarketGenerator implements GeneratorInterface
         foreach ($products as $product) {
             fputcsv($file, $this->transform($product));
         }
+
+        fclose($file);
     }
 
     protected function transform($product)
