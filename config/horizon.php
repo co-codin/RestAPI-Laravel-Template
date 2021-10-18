@@ -175,7 +175,7 @@ return [
             'nice' => 0,
         ],
     ],
-    
+
     'environments' => [
         'production' => [
             'supervisor-1' => [
