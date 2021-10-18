@@ -34,7 +34,12 @@ class MigrateCharacteristics extends Command
                 ->select('pc.product_id')
                 ->join('categories as cat', 'cat.id', '=', 'pc.category_id')
                 ->where('cat.name', $categoryName)
+                ->where('pc.is_main', 1)
                 ->get();
+
+            if ($productIds->isEmpty()) {
+                continue;
+            }
 
             DB::table('product_property')
                 ->select(['property_id', 'product_id', 'is_important'])
