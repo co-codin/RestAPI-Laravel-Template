@@ -95,12 +95,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return false;
         }
 
-        $route = request()->route();
-
-        if(optional($route)->getName() == 'botman.web' && in_array(request('message'), ['/start', '/retry'])) {
-            return false;
-        }
-
         return in_array(request()->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])
             || ($entry->content['response_status'] ?? null) == 404;
     }
