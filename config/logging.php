@@ -35,6 +35,13 @@ return [
     */
 
     'channels' => [
+        
+        'production' => [
+            'driver' => 'stack',
+            'channels' => ['daily', 'slack'],
+            'ignore_exceptions' => false,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
