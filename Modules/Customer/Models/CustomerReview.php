@@ -39,15 +39,8 @@ class CustomerReview extends Model
         'is_home' => 'boolean'
     ];
 
-    protected $fillable = [
-        'post',
-        'author',
-        'type',
-        'video',
-        'review_file',
-        'is_home',
-        'comment',
-        'logo',
+    protected $guarded = [
+        'id',
     ];
 
     public function getActivitylogOptions(): LogOptions

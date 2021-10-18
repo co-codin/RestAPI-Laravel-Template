@@ -21,7 +21,9 @@ class CustomerReviewBuilder extends BaseBuilder
             ->allowedFields($this->getFields())
             ->defaultSort('-id')
             ->allowedSorts($this->getSorts())
-            ->allowedFilters($this->getFilters());
+            ->allowedFilters($this->getFilters())
+            ->allowedIncludes(['product'])
+            ;
     }
 
     /**
@@ -32,6 +34,7 @@ class CustomerReviewBuilder extends BaseBuilder
     {
         $fields = [
             'id',
+            'company_name',
             'post',
             'author',
             'type',
@@ -40,6 +43,7 @@ class CustomerReviewBuilder extends BaseBuilder
             'is_home',
             'comment',
             'logo',
+            'product_id',
         ];
 
         return $this->filter($fields, $columns)
@@ -54,6 +58,8 @@ class CustomerReviewBuilder extends BaseBuilder
     public function getFilters(?array $columns = null): array
     {
         $filters = [
+            'company_name',
+            'product_id',
             'post',
             'author',
             'comment',
@@ -79,10 +85,12 @@ class CustomerReviewBuilder extends BaseBuilder
     {
         $sorts = [
             'id',
+            'company_name',
             'post',
             'author',
             'type',
             'is_home',
+            'product_id',
         ];
 
         if (!is_null($this->relationDtoCollection)) {

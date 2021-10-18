@@ -11,6 +11,8 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
     public function rules(): array
     {
         return [
+            'company_name' => 'sometimes|nullable|string|max:255',
+            'product_id' => 'sometimes|nullable|integer|exists:products,id',
             'post' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
             'type' => 'sometimes|required|integer|enum_value:' . CustomerType::class,
