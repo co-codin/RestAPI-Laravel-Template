@@ -4,6 +4,14 @@ namespace Modules\Form\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Form\Helpers\FormRequestHelper;
+use Modules\Form\Repositories\Contracts\DealRepository;
+use Modules\Form\Repositories\Contracts\DepartmentRepository;
+use Modules\Form\Repositories\Contracts\LeadRepository;
+use Modules\Form\Repositories\Contracts\ManagerRepository;
+use Modules\Form\Repositories\DealBitrix24Repository;
+use Modules\Form\Repositories\DepartmentBitrix24Repository;
+use Modules\Form\Repositories\LeadBitrix24Repository;
+use Modules\Form\Repositories\ManagerBitrix24Repository;
 
 class FormServiceProvider extends ServiceProvider
 {
@@ -28,6 +36,26 @@ class FormServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
 
         $this->app->singleton(FormRequestHelper::class);
+
+        $this->app->bind(
+            DepartmentRepository::class,
+            DepartmentBitrix24Repository::class
+        );
+
+        $this->app->bind(
+            ManagerRepository::class,
+            ManagerBitrix24Repository::class
+        );
+
+        $this->app->bind(
+            DealRepository::class,
+            DealBitrix24Repository::class
+        );
+
+        $this->app->bind(
+            LeadRepository::class,
+            LeadBitrix24Repository::class
+        );
     }
 
     protected function registerConfig()
