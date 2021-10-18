@@ -4,6 +4,7 @@ namespace Modules\Category\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Modules\Category\Models\Category;
 use Symfony\Component\Console\Input\InputOption;
@@ -24,8 +25,12 @@ class ExportCategoriesWithNoImage extends Command
         fputcsv($file, array('id', 'name', 'image'));
 
         foreach (Category::query()->whereNotNull('image')->get() as $category) {
-            if (!Storage::exists($category->image)) {
-                fputcsv($file, [$category->id, $category->name, $category->image]);
+            try {
+                $response = Http::get(Storage::disk('medeq')->url($category->image));
+                if ($response->status() !== 200) {
+                    fputcsv($file, [$category->id, $category->name, $category->image]);
+                }
+            } catch (\Exception $exception) {
             }
         }
 
