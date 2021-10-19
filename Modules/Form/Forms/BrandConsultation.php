@@ -13,7 +13,7 @@ class BrandConsultation extends Form
     public function rules() : array
     {
         return [
-            'brand' => 'required|string|max:255|exists:brands,id',
+            'brand' => 'required|int|exists:brands,id',
             'message' => 'required|string|max:1000|external_links',
         ];
     }

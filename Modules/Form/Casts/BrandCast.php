@@ -15,17 +15,17 @@ class BrandCast implements CastsInterface
     private ?Brand $brand = null;
 
     /**
-     * @param string $slug
+     * @param string $id
      * @return Brand|null
      */
-    public function get($slug): ?Brand
+    public function get($id): ?Brand
     {
         if (!is_null($this->brand)) {
             return $this->brand;
         }
 
         return $this->brand = Brand::query()
-            ->where('slug', $slug)
+            ->where('id', $id)
             ->first();
     }
 }
