@@ -25,7 +25,7 @@ class BrandController extends Controller
         $brandDto = BrandDto::fromFormRequest($request);
 
         if (!$brandDto->assigned_by_id) {
-            $brandDto->assigned_by_id = auth('custom-token')->id();
+            $brandDto->assigned_by_id = auth('api')->id();
         }
 
         $brand = $this->brandStorage->store($brandDto);
