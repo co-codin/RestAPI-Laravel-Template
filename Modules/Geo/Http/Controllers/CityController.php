@@ -4,6 +4,7 @@ namespace Modules\Geo\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Modules\Geo\Http\Resources\CityResource;
+use Modules\Geo\Models\City;
 use Modules\Geo\Repositories\CityRepository;
 
 class CityController extends Controller
