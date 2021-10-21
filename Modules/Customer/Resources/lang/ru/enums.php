@@ -22,13 +22,13 @@ return [
     ],
 
     District::class => [
-        District::Central => 'Центральный',
-        District::NorthWest => 'Северо-Западный',
-        District::South => 'Южный',
-        District::NorthCaucasian => 'Северо-Кавказский',
-        District::Volga => 'Приволжский',
-        District::Ural => 'Уральский',
-        District::Siberian => 'Сибирский',
-        District::FarEastern => 'Дальневосточный',
+        District::Central => 'Центральный федеральный округ',
+        District::NorthWest => 'Северо-Западный федеральный округ',
+        District::South => 'Южный федеральный округ',
+        District::NorthCaucasian => 'Северо-Кавказский федеральный округ',
+        District::Volga => 'Приволжский федеральный округ',
+        District::Ural => 'Уральский федеральный округ',
+        District::Siberian => 'Сибирский федеральный округ',
+        District::FarEastern => 'Дальневосточный федеральный округ',
     ],
 ];
