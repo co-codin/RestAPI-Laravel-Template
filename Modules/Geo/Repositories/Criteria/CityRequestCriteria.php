@@ -16,7 +16,7 @@ class CityRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'federal_district', 'region_id', 'name', 'slug', 'status', 'is_default',
-                'coordinate', 'dial_code', 'postal_index', 'region_phone', 'email',
+                'coordinate', 'dial_code', 'postal_index', 'region_phone', 'email', 'created_at', 'updated_at',
             ])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
