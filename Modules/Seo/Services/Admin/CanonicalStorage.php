@@ -22,7 +22,7 @@ class CanonicalStorage
     {
         $attributes = $dto->toArray();
 
-        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? auth('custom-token')->id();
+        $attributes['assigned_by_id'] = $dto->assigned_by_id ?? auth('api')->id();
 
         $canonical = new Canonical($attributes);
 
