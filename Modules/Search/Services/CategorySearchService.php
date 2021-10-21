@@ -4,6 +4,7 @@
 namespace Modules\Search\Services;
 
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
@@ -47,15 +48,36 @@ class CategorySearchService extends SearchService
         ];
 
         return [
-            'multi_match' => [
-                'fields' => $fields,
-                'query' => $term,
-                'type' => 'most_fields',
-                'fuzziness' => 'AUTO',
-                'operator' => 'and',
-                'prefix_length' => 2,
-                'minimum_should_match' => '80%',
-            ],
+            'bool' => [
+                'must' => [
+                    'multi_match' => [
+                        'fields' => $fields,
+                        'query' => $term,
+                        'type' => 'most_fields',
+                        'fuzziness' => 'AUTO',
+                        'operator' => 'and',
+                        'prefix_length' => 2,
+                        'minimum_should_match' => '80%',
+                    ],
+                ],
+                "filter" => [
+                    "term" => [
+                        'status.id' => Status::ACTIVE
+                    ]
+                ]
+            ]
+        ];
+        return [
+//            'multi_match' => [
+//                'fields' => $fields,
+//                'query' => $term,
+//                'type' => 'most_fields',
+//                'fuzziness' => 'AUTO',
+//                'operator' => 'and',
+//                'prefix_length' => 2,
+//                'minimum_should_match' => '80%',
+//            ],
+
 //            'bool' => [
 //                    'should' => [
 //                        [
