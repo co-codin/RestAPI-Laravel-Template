@@ -16,7 +16,7 @@ class CityResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'status' => $this->whenRequested('status', Status::fromValue($this->status)),
+            'status' => $this->whenRequested('status', Status::fromValue($this->status)->toArray()),
             'order_points' => OrderPointResource::collection($this->whenLoaded('orderPoints')),
         ]);
     }
