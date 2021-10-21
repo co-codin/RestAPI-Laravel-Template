@@ -28,7 +28,7 @@ class ExportController extends Controller
         $exportDto = ExportDto::fromFormRequest($request);
 
         if (!$exportDto->assigned_by_id) {
-            $exportDto->assigned_by_id = auth('custom-token')->id();
+            $exportDto->assigned_by_id = auth('api')->id();
         }
 
         $export = $this->exportStorage->store($exportDto);
