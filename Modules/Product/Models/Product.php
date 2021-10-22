@@ -167,6 +167,7 @@ class Product extends Model
     {
         $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
             ->whereColumn('product_id', 'products.id')
+            ->where('is_enabled', true)
             ->join('currencies', 'currency_id', 'currencies.id')
             ->orderByRaw('rate * price ASC')
             ->take(1),
