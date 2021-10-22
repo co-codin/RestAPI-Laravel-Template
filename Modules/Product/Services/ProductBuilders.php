@@ -28,7 +28,9 @@ class ProductBuilders
 
     public function fromCovid(Builder $builder, bool $fromCovid): Builder
     {
-        return $builder->whereExists(function($query) use ($fromCovid) {
+        $method = $fromCovid ? "whereExists" : "whereNotExists";
+
+        return $builder->{$method}(function($query) use ($fromCovid) {
             $query->select(DB::raw(1))
                 ->from('product_property as pp')
                 ->whereColumn('pp.product_id', 'products.id')
