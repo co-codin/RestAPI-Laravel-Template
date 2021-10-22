@@ -22,7 +22,7 @@ class PageController extends Controller
         $pageDto = PageDto::fromFormRequest($request);
 
         if (!$pageDto->assigned_by_id) {
-            $pageDto->assigned_by_id = auth('custom-token')->id();
+            $pageDto->assigned_by_id = auth('api')->id();
         }
 
         $pageModel = $this->pageStorage->store($pageDto);
