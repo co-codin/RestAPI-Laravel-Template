@@ -10,7 +10,7 @@ class AchievementUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'image' => 'sometimes|required|image',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
             'is_enabled' => 'sometimes|boolean',
         ];
     }
