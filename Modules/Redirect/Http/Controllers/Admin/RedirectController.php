@@ -24,7 +24,7 @@ class RedirectController extends Controller
         $redirectDto = RedirectDto::fromFormRequest($request);
 
         if (!$redirectDto->assigned_by_id) {
-            $redirectDto->assigned_by_id = auth('custom-token')->id();
+            $redirectDto->assigned_by_id = auth('api')->id();
         }
 
         $redirectModel = $this->redirectStorage->store($redirectDto);

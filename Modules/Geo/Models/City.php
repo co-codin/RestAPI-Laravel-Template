@@ -20,6 +20,7 @@ class City extends Model
 
     protected $casts = [
         'coordinate' => 'object',
+        'federal_district' => 'integer',
     ];
 
     public function sluggable(): array
