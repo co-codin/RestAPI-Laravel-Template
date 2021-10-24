@@ -10,6 +10,8 @@ class FieldValueCreateRequest extends FormRequest
 {
     public function rules()
     {
-
+        return [
+            'value' => 'required|unique:field_values,value',
+        ];
     }
 }

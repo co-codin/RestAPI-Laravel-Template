@@ -5,9 +5,12 @@ namespace App\Repositories\Criteria;
 
 
 use App\Filters\ToggleFilter;
+use App\Http\Filters\PartialRightFilter;
+use App\Http\Sorts\FieldLength;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FieldValueRequestCriteria implements CriteriaInterface
@@ -25,10 +28,12 @@ class FieldValueRequestCriteria implements CriteriaInterface
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('slug'),
-                AllowedFilter::partial('value'),
+                AllowedFilter::custom('value', new PartialRightFilter),
             ])
             ->allowedSorts([
-                'id', 'value', 'slug', 'created_at', 'updated_at',
+                'id',
+                'value', 'slug', 'created_at', 'updated_at',
+                AllowedSort::custom('valueLength', new FieldLength, 'value')
             ]);
     }
 }

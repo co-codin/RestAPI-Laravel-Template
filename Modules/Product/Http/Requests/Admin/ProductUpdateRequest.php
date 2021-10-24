@@ -47,7 +47,9 @@ class ProductUpdateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
-
+            'is_booklet_changed' => 'sometimes|boolean',
+            'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true|nullable|file',
+            'video' => 'sometimes|nullable|string|max:255',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.source' => [

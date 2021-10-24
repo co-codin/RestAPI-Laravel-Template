@@ -14,13 +14,15 @@ class ProductPropertyController extends Controller
     public function __construct(
         protected ProductPropertyStorage $productPropertyStorage,
         protected ProductRepository $productRepository
-    ){}
+    ) {}
 
     public function update(int $product, ProductPropertyUpdateRequest $request)
     {
         $productModel = $this->productRepository->find($product);
 
-        $this->productPropertyStorage->update($productModel, $request->get('properties'));
+        ray($request->validated()['properties']);
+
+        $this->productPropertyStorage->update($productModel, $request->validated()['properties']);
 
         return response()->noContent();
     }

@@ -20,6 +20,13 @@ class PropertyController extends Controller
         return PropertyResource::collection($properties);
     }
 
+    public function all()
+    {
+        $properties = $this->propertyRepository->all();
+
+        return PropertyResource::collection($properties);
+    }
+
     public function show(int $property)
     {
         $property = $this->propertyRepository->find($property);
