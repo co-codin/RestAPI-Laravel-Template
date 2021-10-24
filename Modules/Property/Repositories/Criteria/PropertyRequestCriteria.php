@@ -23,6 +23,7 @@ class PropertyRequestCriteria implements CriteriaInterface
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
+                AllowedFilter::exact('key'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_hidden_from_product'),
