@@ -12,33 +12,39 @@ use Modules\Product\Models\Product;
 
 class ExportFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = \Modules\Export\Models\Export::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
             'name' => $this->faker->sentence(4),
             'type' => ExportType::getRandomValue(),
-            'filename' => 'test',
+            'filename' => 'test.xml',
             'frequency' => ExportFrequency::getRandomValue(),
-            'parameters' => [
-                'categories' => ['ids' => Category::factory()->count(3)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
-                'brands' => ['ids' => Brand::factory()->count(2)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
-                'products' => ['ids' => Product::factory()->count(5)->create()->pluck('id')->toArray(), 'selected' => $this->faker->boolean],
-                'stock_type' => $this->faker->sentence(4),
-                'in_stock' => Availability::getRandomValue(),
-                'short_description' => $this->faker->boolean,
-                'price' => $this->faker->boolean,
+            'filter' => [
+                'category' => [
+                    'ids' => Category::factory()->count(3)->create()->pluck('id')->toArray(),
+                    'selected' => $this->faker->boolean,
+                ],
+                'brand' => [
+                    'ids' => Brand::factory()->count(2)->create()->pluck('id')->toArray(),
+                    'selected' => $this->faker->boolean,
+                ],
+                'product' => [
+                    'ids' => Product::factory()->count(5)->create()->pluck('id')->toArray(),
+                    'selected' => $this->faker->boolean,
+                ],
+                'stock_type' => [
+                    'ids' => $this->faker->sentence(4),
+                    'selected' => $this->faker->boolean,
+                ],
+                'availability' => [
+                    'ids' => [Availability::getRandomValue()],
+                    'selected' => $this->faker->boolean,
+                ],
+                'has_short_description' => $this->faker->boolean,
+                'has_price' => $this->faker->boolean,
+                'is_price_visible' => $this->faker->boolean,
             ]
         ];
     }

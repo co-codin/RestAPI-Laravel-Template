@@ -2,31 +2,15 @@
 
 namespace Modules\Export\Services;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Export\Enum\ExportType;
 use Modules\Export\Models\Export;
-
+use Modules\Export\Services\Generators\FeedGeneratorInterface;
 
 class ExportService
 {
-    public function determine(Export $export): string
+    public function getGenerator(Export|Model $export): FeedGeneratorInterface
     {
-        return ExportType::getCommand($export->type);
-    }
-
-    public function call(Export $export): void
-    {
-        $command = $this->determine($export);
-
-        Artisan::call($command, [
-            'parameters' => array_merge($export->parameters, [
-                'filename' => $export->filename,
-            ])
-        ]);
-
-        $export->update([
-            'exported_at' => Carbon::now()->toDateTimeString()
-        ]);
+        return app(ExportType::$generators[$export->type]);
     }
 }

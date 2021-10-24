@@ -7,17 +7,17 @@ use Illuminate\Support\Arr;
 
 class ExportFrequency extends BaseEnum
 {
-    const EVERY_30_MINUTES = 1;
+    const MANUALLY = 1;
 
-    const HOURLY = 2;
+    const EVERY_30_MINUTES = 2;
 
-    const EVERY_3_HOURS = 3;
+    const HOURLY = 3;
 
-    const DAILY = 4;
+    const EVERY_3_HOURS = 4;
 
-    const WEEKLY = 5;
+    const DAILY = 5;
 
-    const MANUALLY = 6;
+    const WEEKLY = 6;
 
     public static function getFrequency(int $number)
     {

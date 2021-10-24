@@ -8,8 +8,12 @@ use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
 use Modules\Product\Enums\Availability;
+use Modules\Product\Enums\ProductVariationType;
+use Modules\Product\Helpers\PropertyHelper;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
+use Modules\Property\Enums\PropertyType;
 use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Repositories\IndexableRepositoryTrait;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -28,104 +32,83 @@ class ProductRepository extends BaseRepository implements IndexableRepository
         $this->pushCriteria(ProductRequestCriteria::class);
     }
 
-    public function getProductsForMerchant(array $parameters)
+    public function getProductsForFeed(array $filter = [])
     {
-        $categories = [];
-        $brands = [];
-        $products = [];
-        $stock_type_id = null;
-        $in_stock = null;
-        $short_description = null;
-        $price = null;
+        $product = Arr::get($filter, 'product', []);
+        $brand = Arr::get($filter, 'brand', []);
+        $category = Arr::get($filter, 'category', []);
+        $stock_type = Arr::get($filter, 'stock_type', []);
+        $has_short_description = Arr::get($filter, 'has_short_description');
+        $availability = Arr::get($filter, 'availability', []);
+        $has_price = Arr::get($filter, 'has_price');
+        $is_price_visible = Arr::get($filter, 'is_price_visible');
+        $max_price = Arr::get($filter, 'max_price');
+        $min_price = Arr::get($filter, 'min_price');
 
-        if (array_key_exists('categories', $parameters) && (bool) Arr::get($parameters, 'categories.selected')) {
-            $categories = Arr::get($parameters, 'categories.ids');
-        }
-
-        if (array_key_exists('brands', $parameters) && (bool) Arr::get($parameters, 'brands.selected')) {
-            $brands = Arr::get($parameters, 'brands.ids');
-        }
-
-        if (array_key_exists('products', $parameters) && (bool) Arr::get($parameters, 'products.selected')) {
-            $products = Arr::get($parameters, 'products.ids');
-        }
-
-        if (array_key_exists('stock_type_id', $parameters)) {
-            $stock_type_id = Arr::get($parameters, 'stock_type_id');
-        }
-
-        if (array_key_exists('in_stock', $parameters)) {
-            $in_stock = (bool) Arr::get($parameters, 'in_stock');
-        }
-
-        if (array_key_exists('short_description', $parameters)) {
-            $short_description = (bool) Arr::get($parameters, 'short_description');
-        }
-
-        if (array_key_exists('price', $parameters)) {
-            $price = (bool) Arr::get($parameters, 'price');
-        }
-
-        $query = Product::query();
-
-        if ($products) {
-            $query->whereIn('id', $products);
-        }
-
-        $query->select([
-            'products.id',
-            'products.name',
-            'products.slug',
-            'products.brand_id',
-            'products.image',
-            'products.short_description'
-        ])->with([
-            'productVariations.currency',
-            'category',
-            'brand',
-            'properties',
-        ])->where('status', '=', Status::ACTIVE);
-
-        $query->whereHas('brand', function ($query) use ($brands) {
-            $query->where('brands.status', Status::ACTIVE);
-        });
-
-        if ($brands) {
-            $query->whereIn('brand_id', $brands);
-        }
-
-        if ($categories) {
-            $query->whereHas('categories', function ($query) use ($categories) {
-                $query->whereIn('id', $categories);
+        return Product::query()
+            ->select([
+                'products.id',
+                'products.name',
+                'products.slug',
+                'products.brand_id',
+                'products.image',
+                'products.short_description',
+            ])
+            ->with([
+                'productVariations.currency',
+                'category',
+                'brand',
+                'properties',
+                'mainVariation',
+            ])
+            ->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+                ->join('currencies', 'currency_id', 'currencies.id')
+                ->whereColumn('product_id', 'products.id')
+                ->where('is_enabled', true)
+                ->when(!is_null($has_price), function($query) use ($has_price) {
+                    $method = $has_price ? "whereNotNull" : "whereNull";
+                    return $query->{$method}('price');
+                })
+                ->when(!is_null($is_price_visible), function($query) use ($is_price_visible) {
+                    return $query->where('is_price_visible', $is_price_visible);
+                })
+                ->when($availability && $availability['ids'], function($query) use ($availability) {
+                    $method = $availability['selected'] ? "whereIn" : "whereNotIn";
+                    return $query->{$method}("availability", $availability['ids']);
+                })
+                ->when(!is_null($max_price), function($query) use ($max_price) {
+                    return $query->whereRaw('(rate * price) / 10000 <= ?', [$max_price]);
+                })
+                ->when(!is_null($min_price), function($query) use ($min_price) {
+                    return $query->whereRaw('(rate * price) / 10000 >= ?', [$min_price]);
+                })
+                ->orderByRaw('rate * price ASC')
+                ->take(1),
+            ])
+            ->where('status', '=', Status::ACTIVE)
+            ->havingRaw('main_variation_id is not null')
+            ->whereHas('brand', fn ($query) => $query->select(\DB::raw(1))->where('brands.status', Status::ACTIVE))
+            ->with('mainVariation')
+            ->when($product && $product['ids'], function($query) use ($product) {
+                $method = $product['selected'] ? "whereIn" : "whereNotIn";
+                return $query->{$method}("id", $product['ids']);
+            })
+            ->when($brand && $brand['ids'], function($query) use ($brand) {
+                $method = $brand['selected'] ? "whereIn" : "whereNotIn";
+                return $query->{$method}("brand_id", $brand['ids']);
+            })
+            ->when($category && $category['ids'], function($query) use ($category) {
+                $method = $category['selected'] ? "whereIn" : "whereNotIn";
+                return $query->whereHas('productCategories', fn ($query) => $query->{$method}('category_id', $category['ids']));
+            })
+            ->when($stock_type && $stock_type['ids'], function($query) use ($stock_type) {
+                $method = $stock_type['selected'] ? "whereIn" : "whereNotIn";
+                return $query->{$method}("stock_type_id", $stock_type['ids']);
+            })
+            ->when(!is_null($has_short_description), function ($query) use ($has_short_description) {
+                $method = $has_short_description ? "whereNotNull" : "whereNull";
+                return $query->{$method}('short_description');
             });
-        }
-
-        if (!is_null($stock_type_id)) {
-            $query->where('stock_type_id', $stock_type_id);
-        }
-
-        $query->whereHas('productVariations', function ($query) use ($price, $in_stock, $stock_type_id) {
-            $query->where('product_variations.is_enabled', '=', true);
-
-            if ($price) {
-                $query->where('product_variations.is_price_visible', '=', true);
-            } else {
-                $query->where(function($q) {
-                    $q->orWhere('product_variations.is_price_visible', '=', false)
-                        ->orWhere('product_variations.price', '=', null);
-                });
-            }
-
-            if ($in_stock) {
-                $query->where('product_variations.availability', '=', Availability::InStock);
-            }
-        });
-
-        if (!is_null($short_description)) {
-            $query->where('short_description', $short_description);
-        }
-
-        return $query->get();
     }
 
     public function getItemsToIndex()

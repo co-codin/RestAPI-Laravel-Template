@@ -16,8 +16,7 @@ class Kernel extends ConsoleKernel
     public function __construct(
         Application $app,
         Dispatcher $events
-    )
-    {
+    ) {
         parent::__construct($app, $events);
     }
 
