@@ -30,7 +30,7 @@ class PropertyRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_hidden_from_comparison'),
             ])
             ->allowedIncludes(['filters'])
-            ->allowedSorts(['name', 'key', 'created_at'])
+            ->allowedSorts(['id', 'name', 'key', 'created_at'])
             ;
     }
 
