@@ -167,7 +167,7 @@ class Product extends Model
 
     public function scopeWithMainVariation($query)
     {
-        $query->addSelect(['main_variation_id' => ProductVariation::select('id')
+        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
             ->whereColumn('product_id', 'products.id')
             ->where('is_enabled', true)
             ->join('currencies', 'currency_id', 'currencies.id')
