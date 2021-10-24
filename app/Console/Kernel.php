@@ -28,16 +28,21 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command(CurrencyParseCommand::class)
+            ->description('Парсинг курсов валют ЦБ РФ')
             ->twiceDaily();
 
         app(ExportScheduler::class)
             ->scheduleExportCommands($schedule);
 
         // генерируем карту сайта
-        $schedule->command(GenerateSitemapCommand::class)->weekly();
+        $schedule->command(GenerateSitemapCommand::class)
+            ->description('Генерация карты сайта')
+            ->weekly();
 
         // переиндексируем базу товаров
-        $schedule->command(SearchReindexCommand::class)->twiceDaily();
+        $schedule->command(SearchReindexCommand::class)
+            ->description('Переиндексация товаров в ElasticSearch')
+            ->twiceDaily();
     }
 
     protected function commands(): void
