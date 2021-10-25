@@ -23,16 +23,16 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::partial('website'),
-                AllowedFilter::exact('country'),
+                AllowedFilter::exact('country_id'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('position'),
                 AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes('seo')
+            ->allowedIncludes(['seo', 'country'])
             ->allowedSorts([
-                'id', 'created_at', 'deleted_at', 'updated_at', 'name', 'slug', 'image', 'website', 'country', 'status', 'in_home', 'position'
+                'id', 'created_at', 'deleted_at', 'updated_at', 'name', 'slug', 'image', 'website', 'status', 'in_home', 'position'
             ]);
     }
 

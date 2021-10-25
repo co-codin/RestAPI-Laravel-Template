@@ -26,6 +26,8 @@ class ProductCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',
             'image' => 'required|image',
+            'booklet' => 'sometimes|nullable|file',
+            'video' => 'nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
