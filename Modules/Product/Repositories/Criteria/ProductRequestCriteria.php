@@ -4,6 +4,7 @@
 namespace Modules\Product\Repositories\Criteria;
 
 
+use App\Http\Filters\LiveFilter;
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Product\Http\Filters\CovidProductsFilter;
@@ -53,6 +54,11 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('warranty'),
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
+
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                ])),
 
                 AllowedFilter::custom('properties', new ProductPropertyFilter),
                 AllowedFilter::custom('is_covid', new CovidProductsFilter),

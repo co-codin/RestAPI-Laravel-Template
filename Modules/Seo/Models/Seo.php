@@ -16,6 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $seoable_type
  * @property int $seoable_id
  * @property boolean $is_enabled
+ * @property int $type
  * @property string|null $title
  * @property string|null $description
  * @property string|null $h1
