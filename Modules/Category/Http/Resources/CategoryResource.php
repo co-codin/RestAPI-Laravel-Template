@@ -5,6 +5,7 @@ namespace Modules\Category\Http\Resources;
 use App\Enums\Status;
 use App\Http\Resources\BaseJsonResource;
 use Modules\Category\Models\Category;
+use Modules\Filter\Http\Resources\FilterResource;
 use Modules\Seo\Http\Resources\SeoResource;
 
 /**
@@ -26,6 +27,7 @@ class CategoryResource extends BaseJsonResource
             'is_main' => $this->whenPivotLoaded('product_category', function () {
                 return $this->pivot->is_main;
             }),
+            'filters' => FilterResource::collection($this->whenLoaded('filters')),
         ]);
     }
 }
