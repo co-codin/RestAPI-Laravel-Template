@@ -13,13 +13,6 @@ class PropertyController extends Controller
         protected PropertyRepository $propertyRepository
     ) {}
 
-    public function all()
-    {
-        $properties = $this->propertyRepository->all();
-
-        return PropertyResource::collection($properties);
-    }
-
     public function index()
     {
         $properties = $this->propertyRepository->jsonPaginate();
