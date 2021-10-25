@@ -32,7 +32,7 @@ class ProductRepository extends BaseRepository implements IndexableRepository
         $this->pushCriteria(ProductRequestCriteria::class);
     }
 
-    public function getProductsForFeed(array $filter = [])
+    public function getProductsForFeed(?array $filter = [])
     {
         $product = Arr::get($filter, 'product', []);
         $brand = Arr::get($filter, 'brand', []);
