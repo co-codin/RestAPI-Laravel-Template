@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Export\Database\factories\ExportFactory;
 
-
 /**
  * Class Export
  * @package Modules\Export\Models
@@ -15,18 +14,24 @@ use Modules\Export\Database\factories\ExportFactory;
  * @property int $type
  * @property string filename
  * @property int $frequency
- * @property array $parameters
+ * @property array $filter
  */
 class Export extends Model
 {
     use HasFactory;
 
     protected $guarded = [
-        'id'
+        'id',
+        'exported_at',
     ];
 
+    public $timestamps = [];
+
     protected $casts = [
-        'parameters' => 'array',
+        'frequency' => 'int',
+        'exported_at' => 'datetime',
+        'type' => 'int',
+        'filter' => 'array',
     ];
 
     protected static function newFactory()

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Export\Services\Generator;
+namespace Modules\Export\Services\Generators\Tiu\Entities;
 
 use App\Enums\Status;
 use Bukashk0zzz\YmlGenerator\Model\Category as CategoryYaml;

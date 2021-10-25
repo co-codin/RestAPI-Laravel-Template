@@ -2,9 +2,9 @@
 
 namespace Modules\Export\Services;
 
-use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Collection;
+use Modules\Export\Console\ExportFeedCommand;
 use Modules\Export\Enum\ExportFrequency;
 use Modules\Export\Enum\ExportType;
 use Modules\Export\Models\Export;
@@ -13,26 +13,14 @@ class ExportScheduler
 {
     public function scheduleExportCommands(Schedule $schedule): void
     {
-        $scheduleExports = $this->getAllScheduledExports();
-
-        foreach ($scheduleExports as $export) {
-            $command = ExportType::getCommand($export->type);
+        foreach ($this->getAllScheduledExports() as $export) {
             $frequency = ExportFrequency::getFrequency($export->frequency);
-            $parameters = array_merge(
-                $export->parameters,
-                ['filename' => $export->filename]
-            );
-
-            $schedule->command($command, $parameters)->{$frequency}();
-            $export->update([
-                'exported_at' => Carbon::now()->toDateTimeString()
-            ]);
+            $schedule->command(ExportFeedCommand::class, [$export->id])
+                ->description("Экспорт товаров для " . ExportType::getDescription($export->type))
+                ->{$frequency}();
         }
     }
 
-    /**
-     * @return Export[]|Collection
-     */
     protected function getAllScheduledExports(): Collection
     {
         return Export::query()

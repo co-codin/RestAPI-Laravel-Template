@@ -14,7 +14,14 @@ class ProductPropertyStorage
         $product->properties()->sync(
             collect($properties)
                 ->keyBy('id')
-                ->map(fn($item) => Arr::except($item, 'id'))
+                ->map(fn($item) => Arr::only($item, [
+                    'field_value_ids',
+                    'is_important',
+                    'important_position',
+                    'important_value',
+                    'pretty_key',
+                    'pretty_value',
+                ]))
                 ->toArray()
         );
     }

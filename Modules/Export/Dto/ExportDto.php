@@ -14,7 +14,7 @@ class ExportDto extends BaseDto
 
     public ?int $frequency;
 
-    public ?array $parameters;
+    public ?array $filter;
 
     public ?int $assigned_by_id;
 }

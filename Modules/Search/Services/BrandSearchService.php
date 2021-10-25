@@ -4,6 +4,7 @@
 namespace Modules\Search\Services;
 
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Brand\Models\Brand;
 use Modules\Brand\Repositories\BrandRepository;
@@ -47,20 +48,47 @@ class BrandSearchService extends SearchService
         ];
 
         return [
-            'function_score' => [
-                'query' => [
-                    'multi_match' => [
-                        'fields' => $fields,
-                        'query' => $term,
-                        'type' => 'most_fields',
-                        'fuzziness' => 'AUTO',
-                        'operator' => 'and',
-                        'prefix_length' => 2,
-                        'minimum_should_match' => '70%',
+            'bool' => [
+                'must' => [
+                    'function_score' => [
+                        'query' => [
+                            'multi_match' => [
+                                'fields' => $fields,
+                                'query' => $term,
+                                'type' => 'most_fields',
+                                'fuzziness' => 'AUTO',
+                                'operator' => 'and',
+                                'prefix_length' => 2,
+                                'minimum_should_match' => '70%',
+                            ],
+                        ],
+                        'min_score' => 6
                     ],
                 ],
-                'min_score' => 6
-            ],
+                "filter" => [
+                    "term" => [
+                        'status.id' => Status::ACTIVE
+                    ]
+                ]
+            ]
+        ];
+
+        return [
+//            'function_score' => [
+//                'query' => [
+//                    'multi_match' => [
+//                        'fields' => $fields,
+//                        'query' => $term,
+//                        'type' => 'most_fields',
+//                        'fuzziness' => 'AUTO',
+//                        'operator' => 'and',
+//                        'prefix_length' => 2,
+//                        'minimum_should_match' => '70%',
+//                    ],
+//                ],
+//                'min_score' => 6
+//            ],
+
 //            'bool' => [
 //                    'should' => [
 //                        [

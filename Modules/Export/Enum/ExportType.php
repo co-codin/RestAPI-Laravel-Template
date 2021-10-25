@@ -8,27 +8,26 @@ use Modules\Export\Console\GenerateFacebookMarket;
 use Modules\Export\Console\GenerateGoogleMarket;
 use Modules\Export\Console\GenerateTiuMarket;
 use Modules\Export\Console\GenerateYandexMarket;
+use Modules\Export\Services\Generators\Avito\AvitoFeedGenerator;
+use Modules\Export\Services\Generators\Facebook\FacebookFeedGenerator;
+use Modules\Export\Services\Generators\GoogleMerchant\GoogleMerchantFeedGenerator;
+use Modules\Export\Services\Generators\Tiu\TiuFeedGenerator;
 
 
 class ExportType extends BaseEnum
 {
-    const YANDEX_MARKET = 1;
+    const TIU = 1;
 
-    const TIU = 2;
+    const GOOGLE_MERCHANT = 2;
 
-    const GOOGLE_MERCHANT = 3;
+    const FACEBOOK = 3;
 
-    const FACEBOOK = 4;
+    const AVITO = 4;
 
-    public static function getCommand(int $type): string
-    {
-        $commands = [
-            self::YANDEX_MARKET => GenerateYandexMarket::class,
-            self::TIU => GenerateTiuMarket::class,
-            self::GOOGLE_MERCHANT => GenerateGoogleMarket::class,
-            self::FACEBOOK => GenerateFacebookMarket::class,
-        ];
-
-        return Arr::get($commands, $type);
-    }
+    public static array $generators = [
+        self::TIU => TiuFeedGenerator::class,
+        self::GOOGLE_MERCHANT => GoogleMerchantFeedGenerator::class,
+        self::FACEBOOK => FacebookFeedGenerator::class,
+        self::AVITO => AvitoFeedGenerator::class,
+    ];
 }

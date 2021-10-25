@@ -37,6 +37,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property boolean $has_test_drive
  * @property string|null $booklet
  * @property string|null $video
+ * @property string $siteUrl
  * @property array|null $documents
  * @property int|null $stock_type_id
  * @property Carbon|null $created_at
@@ -49,6 +50,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Collection|ProductCategory[] $productCategories
  * @property-read Collection|Category[] $categories
  * @property-read Collection|ProductVariation[] $productVariations
+ * @property-read ProductVariation|null $mainVariation
  * @property-read Collection|Property[] $properties
  * @property-read Collection|Image[] $images
  * @mixin Eloquent
@@ -179,8 +181,8 @@ class Product extends Model
         return $this->belongsTo(FieldValue::class);
     }
 
-    public function scopeCategoryId()
+    public function getSiteUrlAttribute(): string
     {
-
+        return config('app.site_url') . "/product/{$this->slug}/{$this->id}";
     }
 }

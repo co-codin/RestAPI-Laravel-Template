@@ -28,7 +28,7 @@ class ProductSearchService extends SearchService
                 'id' => $product->id,
                 'slug' => $product->slug,
                 'name' => "{$product->category->product_name} {$product->brand->name} $product->name",
-                'url' => "/product/$product->slug/$product->id",
+                'url' => $product->siteUrl,
                 'type' => 'Товар',
                 'image' => $product->image,
             ];

@@ -61,24 +61,6 @@ return [
         'exception' => MailHelper::emailsToArray(env('NOTIFY_EXCEPTION_EMAIL')),
     ],
 
-    'yandex-market' => [
-        'filename' => env('YANDEX_MARKET_FILENAME', 'ymlmarket'),
-    ],
-
-    'tiu' => [
-        'company_name' => env('APP_NAME')
-    ],
-
-    'google-market' => [
-        'company_name' => env('APP_NAME'),
-        'link' => env('APP_URL'),
-        'description' => env('GOOGLE_MARKET_DESCRIPTION', 'Best store'),
-    ],
-
-    'facebook-market' => [
-        'filename' => env('FACEBOOK_MARKET_FILENAME', 'facebookmarket'),
-    ],
-
     'dellin' => [
         'token' => env('DL_TOKEN'),
         'terminal_url' => env('DL_TERMINAL_URL', 'https://api.dellin.ru/v3/public/terminals.json'),
