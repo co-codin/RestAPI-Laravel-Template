@@ -10,5 +10,7 @@ type ProductVariation {
     availability: Int!
     stock_type: String
 
-    currency: Currency
+    product: Product @belongsTo
+    currency: Currency @belongsTo
+    condition: FieldValue @belongsTo
 }

@@ -16,6 +16,7 @@ type Category {
     productCount: Int! @count(relation: "products")
     products: [Product] @belongsToMany
     filters: [Filter!] @hasMany
+    productCategories: [ProductCategory!] @hasMany
     properties: [Property!] @belongsToMany
     seo: Seo @morphOne
     seoCategoryProducts: Seo @morphOne

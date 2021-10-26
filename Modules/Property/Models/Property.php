@@ -4,9 +4,11 @@ namespace Modules\Property\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Modules\Category\Models\Category;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Database\factories\PropertyFactory;
@@ -27,6 +29,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property ProductPropertyPivot $pivot
+ * @property Category $category
+ * @property Filter[]|Collection $filters
  * @mixin \Eloquent
  * @method static Builder|Property newModelQuery()
  * @method static Builder|Property newQuery()
