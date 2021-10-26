@@ -95,11 +95,11 @@ trait IndexableRepositoryTrait
         $ids = Arr::pluck($result['hits']['hits'], '_id');
 
         $products = $this
-            ->resetCriteria()
             ->findWhereIn('id', $ids)
             ->sortBy(function ($product) use ($ids) {
                 return array_search($product->getKey(), $ids);
-            });
+            })
+            ->values();
 
         return new FilteredCollection($products, $result);
     }
