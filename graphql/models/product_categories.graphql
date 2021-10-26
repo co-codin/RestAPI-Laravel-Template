@@ -1,0 +1,8 @@
+type ProductCategory {
+    product_id: Int!
+    category_id: Int!
+    is_main: Int!
+
+    product: Product! @belongsTo
+    category: Category! @belongsTo
+}
