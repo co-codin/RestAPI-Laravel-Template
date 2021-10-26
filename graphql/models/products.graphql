@@ -20,7 +20,7 @@ type Product {
     productVariations: [ProductVariation!]! @hasMany
     productCategories: [ProductCategory!]! @hasMany
     mainVariation: ProductVariation! @belongsTo
-    category: Category
+    category: Category @belongsTo
     categories: [Category!] @belongsToMany
     properties: [Property!]! @belongsToMany
     images: [Image!] @morphMany
