@@ -77,10 +77,16 @@ class ProductRepository extends BaseRepository implements IndexableRepository
                     return $query->{$method}("availability", $availability['ids']);
                 })
                 ->when(!is_null($max_price), function($query) use ($max_price) {
-                    return $query->whereRaw('(rate * price) / 10000 <= ?', [$max_price]);
+                    return $query->where(function($query) use ($max_price) {
+                        $query->whereNull('price')
+                            ->orWhereRaw('(rate * price) / 10000 <= ?', [$max_price]);
+                    });
                 })
                 ->when(!is_null($min_price), function($query) use ($min_price) {
-                    return $query->whereRaw('(rate * price) / 10000 >= ?', [$min_price]);
+                    return $query->where(function($query) use ($min_price) {
+                        $query->whereNull('price')
+                            ->orWhereRaw('(rate * price) / 10000 >= ?', [$min_price]);
+                    });
                 })
                 ->orderByRaw('rate * price ASC')
                 ->take(1),
