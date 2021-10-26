@@ -4,6 +4,7 @@ namespace Modules\Search\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Modules\Product\Http\Resources\ProductResource;
 use Modules\Search\Http\Requests\SearchRequest;
 use Modules\Search\Services\BrandSearchService;
 use Modules\Search\Services\CategorySearchService;
