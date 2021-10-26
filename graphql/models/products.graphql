@@ -16,13 +16,14 @@ type Product {
     booklet: String
     video: String
     price: MixedPrice
-    brand: Brand!
-    productVariations: [ProductVariation!]!
-    mainVariation: ProductVariation!
-    category: Category
-    categories: [Category!]
-    properties: [Property!]!
-    images: [Image!]
+    brand: Brand! @belongsTo
+    productVariations: [ProductVariation!]! @hasMany
+    productCategories: [ProductCategory!]! @hasMany
+    mainVariation: ProductVariation! @belongsTo
+    category: Category @belongsTo
+    categories: [Category!] @belongsToMany
+    properties: [Property!]! @belongsToMany
+    images: [Image!] @morphMany
     seo: Seo @morphOne
-    stockType: FieldValue
+    stockType: FieldValue @belongsTo
 }

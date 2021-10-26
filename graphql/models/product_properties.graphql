@@ -9,4 +9,5 @@ type ProductPropertyPivot {
     important_position: Int
     important_value: String
     fieldValues: [FieldValue!]
+    property: [Property!] @belongsTo
 }
