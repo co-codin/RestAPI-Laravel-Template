@@ -16,16 +16,6 @@ class SeoRuleCreateRequest extends BaseFormRequest
                 'string',
                 'max:255',
                 'unique:seo_rules,url',
-                new SeoRuleUrlRouteNotIn([
-                    'routes' => [
-                        'product-view',
-                        'amp-product-view',
-                        'news-view',
-                        'brand-view',
-                        'category-root-view',
-                        'category-view'
-                    ]
-                ])
             ],
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];

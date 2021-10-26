@@ -6,9 +6,11 @@ namespace Modules\Product\Models\Pivots;
 
 use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Modules\Property\Models\Property;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
 
 /**
  * Class ProductPropertyPivot
@@ -34,12 +36,12 @@ class ProductPropertyPivot extends Pivot
         'important_position' => 'integer',
     ];
 
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class, 'id', 'property_id');
     }
 
-    public function fieldValues()
+    public function fieldValues(): BelongsToJson
     {
         return $this->belongsToJson(FieldValue::class, 'field_value_ids');
     }

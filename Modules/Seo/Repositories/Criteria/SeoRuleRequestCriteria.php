@@ -2,6 +2,7 @@
 
 namespace Modules\Seo\Repositories\Criteria;
 
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -19,6 +20,10 @@ class SeoRuleRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('url'),
                 AllowedFilter::exact('seo.is_enabled'),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'name' => 'like',
+                    'url' => 'like',
+                ])),
             ])
             ->allowedIncludes('seo')
             ->allowedSorts('id', 'name', 'url', 'created_at', 'updated_at');
