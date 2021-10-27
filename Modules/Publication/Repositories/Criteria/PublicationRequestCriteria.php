@@ -15,10 +15,11 @@ class PublicationRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'logo', 'position', 'is_enabled', 'published_at', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'name', 'url', 'source', 'logo', 'position', 'is_enabled', 'published_at', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
+                AllowedFilter::partial('url'),
                 AllowedFilter::exact('logo'),
                 AllowedFilter::exact('is_enabled'),
             ])
