@@ -44,6 +44,7 @@ class CustomerReviewBuilder extends BaseBuilder
             'comment',
             'logo',
             'product_id',
+            'created_at'
         ];
 
         return $this->filter($fields, $columns)
