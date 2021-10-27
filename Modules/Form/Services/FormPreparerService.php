@@ -31,7 +31,7 @@ class FormPreparerService
             ->setAttributes($data)
             ->setUtm($this->getUtm())
             ->setPage(url()->previous())
-            ->setRoistatVisit($request->get('roistatVisit'));
+            ->setRoistatVisit($request->header('roistat'));
     }
 
     /**
