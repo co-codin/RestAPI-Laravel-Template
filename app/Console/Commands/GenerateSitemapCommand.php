@@ -23,9 +23,14 @@ class GenerateSitemapCommand extends Command
                 }
             })
             ->hasCrawled(function (Url $url, Response $response) {
+                if (str_contains($url->url, '?page')) {
+                    return null;
+                }
+
                 if ($url->path() === "/" || $response->getStatusCode() >= 300) {
                     return null;
                 }
+
                 return $url;
             })
             ->getSitemap()
