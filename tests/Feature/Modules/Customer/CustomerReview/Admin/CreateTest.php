@@ -27,7 +27,7 @@ class CreateTest extends TestCase
                 'type',
                 'video',
                 'review_file',
-                'is_home',
+                'is_in_home',
                 'comment',
                 'logo',
             ]
@@ -39,7 +39,7 @@ class CreateTest extends TestCase
             'type' => $customerReviewData['type'],
             'video' => $customerReviewData['video'],
             'review_file' => $customerReviewData['review_file'],
-            'is_home' => $customerReviewData['is_home'],
+            'is_in_home' => $customerReviewData['is_in_home'],
             'comment' => $customerReviewData['comment'],
             'logo' => $customerReviewData['logo'],
         ]);

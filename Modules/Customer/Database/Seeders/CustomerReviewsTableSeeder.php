@@ -15,7 +15,7 @@ class CustomerReviewsTableSeeder extends Seeder
     public function run()
     {
         CustomerReview::factory()->times(50)->create([
-            'is_home' => false
+            'is_in_home' => false
         ]);
 
         CustomerReview::factory()->times(50)->create();

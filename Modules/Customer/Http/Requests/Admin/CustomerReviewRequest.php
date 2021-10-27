@@ -15,7 +15,7 @@ abstract class CustomerReviewRequest extends BaseFormRequest
     {
         return [
             'type'  => 'nullable-cast:integer',
-            'is_home'  => 'nullable-cast:boolean',
+            'is_in_home'  => 'nullable-cast:boolean',
         ];
     }
 
@@ -27,7 +27,7 @@ abstract class CustomerReviewRequest extends BaseFormRequest
             'type' => 'Тип клиента',
             'video' => 'Ссылка на youtube видео',
             'review_file' => 'Ссылка на файл с отзывом',
-            'is_home' => 'На главной',
+            'is_in_home' => 'На главной',
             'comment' => 'Комментарий к отзыву',
             'logo' => 'Логотип компании',
         ];

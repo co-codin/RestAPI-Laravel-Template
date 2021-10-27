@@ -22,7 +22,7 @@ class ReadTest extends TestCase
                         type
                         video
                         review_file
-                        is_home
+                        is_in_home
                         comment
                         logo
                     }
@@ -61,7 +61,7 @@ class ReadTest extends TestCase
                         type
                         video
                         review_file
-                        is_home
+                        is_in_home
                         comment
                         logo
                     }
