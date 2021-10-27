@@ -19,6 +19,7 @@ class PublicationRequestCriteria implements CriteriaInterface
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
+                AllowedFilter::partial('url'),
                 AllowedFilter::exact('logo'),
                 AllowedFilter::exact('is_enabled'),
             ])
