@@ -40,7 +40,7 @@ class CustomerReviewBuilder extends BaseBuilder
             'type',
             'video',
             'review_file',
-            'is_home',
+            'is_in_home',
             'comment',
             'logo',
             'product_id',
@@ -64,7 +64,7 @@ class CustomerReviewBuilder extends BaseBuilder
             'author',
             'comment',
             'id' => AllowedFilter::exact('id'),
-            'is_home' => AllowedFilter::exact('is_home'),
+            'is_in_home' => AllowedFilter::exact('is_in_home'),
             'type' => AllowedFilter::exact('type'),
             'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
             'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
@@ -89,7 +89,7 @@ class CustomerReviewBuilder extends BaseBuilder
             'post',
             'author',
             'type',
-            'is_home',
+            'is_in_home',
             'product_id',
         ];
 

@@ -20,7 +20,7 @@ class CustomerReviewFactory extends Factory
             'type' => CustomerType::getRandomValue(),
             'video' => 'https://youtu.be/BcIMTGoXj_I',
             'review_file' => '/uploads/test.pdf',
-            'is_home' => $this->faker->boolean,
+            'is_in_home' => $this->faker->boolean,
             'comment' => '<p>' . $this->faker->text() . '</p>',
             'logo' => $imagePath . $this->faker->randomElement(["helix.png", "gemotest_lider.png", "invitro.png", "medi.png"]),
         ];

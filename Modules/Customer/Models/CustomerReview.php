@@ -21,7 +21,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $type
  * @property string|null $video
  * @property string|null $review_file
- * @property int|bool $is_home
+ * @property int|bool $is_in_home
  * @property string $comment
  * @property string|null $logo
  * @property Carbon|null $created_at
@@ -37,7 +37,7 @@ class CustomerReview extends Model
 
     protected $casts = [
         'type' => 'integer',
-        'is_home' => 'boolean'
+        'is_in_home' => 'boolean'
     ];
 
     protected $guarded = [

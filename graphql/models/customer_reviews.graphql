@@ -7,7 +7,7 @@ type CustomerReview {
     type_name: String!
     video: String
     review_file: String
-    is_home: Boolean!
+    is_in_home: Boolean!
     comment: String
     logo: String
     product_id: Int
