@@ -6,17 +6,8 @@ namespace Modules\Redirect\Http\Requests;
 
 use App\Http\Requests\BaseFormRequest;
 
-/**
- * Class RedirectCreateRequest
- * @package Modules\Redirect\Http\Requests\Admin
- */
 class RedirectCreateRequest extends BaseFormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -30,8 +21,8 @@ class RedirectCreateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
-            'source' => 'Старая ссылка',
-            'destination' => 'Новая ссылка',
+            'source' => 'Откуда',
+            'destination' => 'Куда',
             'code' => 'Код',
         ];
     }
