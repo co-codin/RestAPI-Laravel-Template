@@ -23,6 +23,11 @@ class SeoRuleUpdateRequest extends BaseFormRequest
                 'max:255',
                 'unique:seo_rules,url,' . $this->route('seo_rule'),
             ],
+            'text' => [
+                'sometimes',
+                'required',
+                'string',
+            ],
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
