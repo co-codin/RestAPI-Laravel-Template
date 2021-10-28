@@ -14,6 +14,13 @@ class PageController extends Controller
         protected PageRepository $pageRepository
     ) {}
 
+    public function all()
+    {
+        $pages = $this->pageRepository->all();
+
+        return PageResource::collection($pages);
+    }
+
     public function index()
     {
         $pages = $this->pageRepository->jsonPaginate();
