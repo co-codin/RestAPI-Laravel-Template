@@ -49,6 +49,11 @@ class GetPrice extends Form
         return 'submit_a_request';
     }
 
+    public function fbq(): ?string
+    {
+        return 'commercial_offer';
+    }
+
     public function getCategory(): ?Category
     {
         $product = $this->getProduct();

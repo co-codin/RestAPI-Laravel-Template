@@ -23,4 +23,9 @@ class Callback extends Form
     {
         return 'form_send1';
     }
+
+    public function fbq(): ?string
+    {
+        return 'callback_form';
+    }
 }

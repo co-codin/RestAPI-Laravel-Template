@@ -266,6 +266,11 @@ abstract class Form
         return null;
     }
 
+    public function fbq(): ?string
+    {
+        return null;
+    }
+
     public function emailSubject(): string
     {
         return 'Новая заявка с сайта medeq.ru';
@@ -339,6 +344,7 @@ abstract class Form
             'ym' => $this->ym(),
             'ym_id' => config('services.yandex-metrika.id'),
             'ga' => $this->ga(),
+            'fbq' => $this->fbq(),
             'isTestRequest' => $this->isTestRequest(),
         ];
     }
