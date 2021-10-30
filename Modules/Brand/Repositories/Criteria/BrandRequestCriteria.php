@@ -29,17 +29,43 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
                 AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
                 AllowedFilter::trashed(),
+                AllowedFilter::exact('warranty'),
             ])
             ->allowedIncludes(['seo', 'country'])
             ->allowedSorts([
-                'id', 'created_at', 'deleted_at', 'updated_at', 'name', 'slug', 'image', 'website', 'status', 'in_home', 'position'
+                'id',
+                'created_at',
+                'deleted_at',
+                'updated_at',
+                'name',
+                'slug',
+                'image',
+                'website',
+                'status',
+                'in_home',
+                'position',
+                'warranty',
             ]);
     }
 
     public static function allowedBrandFields($prefix = null): array
     {
         $fields = [
-            'id', 'name', 'full_description', 'full_description', 'slug', 'image', 'website', 'country', 'status', 'is_in_home', 'position', 'created_at', 'updated_at', 'deleted_at',
+            'id',
+            'name',
+            'full_description',
+            'full_description',
+            'slug',
+            'image',
+            'website',
+            'country',
+            'status',
+            'is_in_home',
+            'position',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+            'warranty',
         ];
 
         if(!$prefix) {
