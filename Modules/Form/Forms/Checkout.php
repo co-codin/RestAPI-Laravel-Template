@@ -42,6 +42,11 @@ class Checkout extends Form
         return 'submit_a_request';
     }
 
+    public function fbq(): ?string
+    {
+        return 'new_order';
+    }
+
     public function getComments(): string
     {
         $default = parent::getComments();
