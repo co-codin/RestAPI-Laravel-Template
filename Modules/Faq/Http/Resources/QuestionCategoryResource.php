@@ -16,7 +16,7 @@ class QuestionCategoryResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'status' => $this->whenRequested('status', Status::fromValue($this->status)->toArray()),
+            'status' => $this->whenRequested('status', fn() => Status::fromValue($this->status)->toArray()),
             'questions' => QuestionResource::collection($this->whenLoaded('questions')),
         ]);
     }
