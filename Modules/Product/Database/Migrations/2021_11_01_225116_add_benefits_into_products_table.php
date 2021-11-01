@@ -14,7 +14,7 @@ class AddBenefitsIntoProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->json('benefits')->nullable();
+            $table->json('benefits')->after('assigned_by_id')->nullable();
         });
     }
 
