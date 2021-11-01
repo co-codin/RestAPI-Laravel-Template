@@ -12,7 +12,7 @@ class VacancyUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|max:255|string',
-            'slug' => 'sometimes|nullable|string|max:255|string|unique:vacancies,slug,' . $this->route('vacancy'),
+            'slug' => 'sometimes|alpha_dash|alpha_num|nullable|string|max:255|string|unique:vacancies,slug,' . $this->route('vacancy'),
             'short_description' => 'sometimes|required|string|max:255',
             'full_description' => 'sometimes|required',
             'status' => [

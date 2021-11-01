@@ -25,7 +25,7 @@ class PageCreateRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:pages,slug',
+            'slug' => 'required|alpha_dash|alpha_num｜string|max:255|unique:pages,slug',
             'full_description' => 'sometimes|nullable|string|max:255',
             'status' => [
                 'required',
