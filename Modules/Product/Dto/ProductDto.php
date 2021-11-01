@@ -30,7 +30,7 @@ class ProductDto extends BaseDto
 
     public ?array $documents;
 
-    public ?array $peculiarities;
+    public ?array $benefits;
 
     public ?int $assigned_by_id;
 

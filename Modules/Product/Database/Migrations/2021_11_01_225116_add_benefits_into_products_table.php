@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPeculiaritiesIntoProductsTable extends Migration
+class AddBenefitsIntoProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddPeculiaritiesIntoProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->json('peculiarities')->nullable();
+            $table->json('benefits')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddPeculiaritiesIntoProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('peculiarities');
+            $table->dropColumn('benefits');
         });
     }
 }

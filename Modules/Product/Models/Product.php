@@ -73,7 +73,7 @@ class Product extends Model
         'documents' => 'array',
         'has_test_drive' => 'boolean',
         'stock_type_id' => 'integer',
-        'peculiarities' => 'array',
+        'benefits' => 'array',
     ];
 
     protected static function boot()
