@@ -12,7 +12,7 @@ class BrandUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255|unique:brands,slug,' . $this->route('brand'),
+            'slug' => 'sometimes|nullable|string|max:255|alpha_dash|alpha_num|unique:brands,slug,' . $this->route('brand'),
             'status' => [
                 'sometimes',
                 'required',

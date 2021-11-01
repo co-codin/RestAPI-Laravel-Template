@@ -31,7 +31,7 @@ class PageUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'slug' => 'sometimes|nullable|string|max:255|unique:pages,slug,' . $this->route('page'),
+            'slug' => 'sometimes|alpha_dash|alpha_num｜nullable|string|max:255|unique:pages,slug,' . $this->route('page'),
             'parent_id' => 'sometimes|nullable|integer|exists:pages,id',
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];

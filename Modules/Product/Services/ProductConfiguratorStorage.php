@@ -30,20 +30,14 @@ class ProductConfiguratorStorage
     protected function handleExistingData(Product $product, Collection $collection)
     {
         try {
-            $product->productVariations()
-                ->whereNotIn('id', $collection->pluck('id')->toArray())
-                ->delete()
-            ;
+            $product->productVariations()->delete();
         } catch (\Exception $e) {
             DB::rollback();
         }
 
         foreach ($collection as $item) {
             try {
-                $productVariationQuery = $product->productVariations()->where('id', $item['id']);
-                if ($productVariationQuery->exists()) {
-                    $productVariationQuery->update(Arr::except($item, 'id'));
-                }
+                $product->productVariations()->create(Arr::except($item, 'id'));
             } catch (\Exception $e) {
                 DB::rollback();
             }

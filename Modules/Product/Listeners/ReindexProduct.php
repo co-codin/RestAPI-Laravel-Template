@@ -4,14 +4,11 @@ namespace Modules\Product\Listeners;
 
 use Elasticsearch\Client;
 use Modules\Product\Events\ProductSaved;
-use Modules\Search\Services\Indices\ProductIndex;
-use Modules\Search\Services\Indices\ProductSearchResource;
 
 class ReindexProduct
 {
     public function __construct(
         protected Client $elasticsearch,
-        protected ProductIndex $index
     ) {}
 
     public function handle(ProductSaved $event)
@@ -19,9 +16,10 @@ class ReindexProduct
         $model = $event->product;
 
         $this->elasticsearch->index([
-            'index' => $this->index->name(),
+            'index' => $model->getSearchIndex(),
+            'type' => $model->getSearchType(),
             'id' => $model->getKey(),
-            'body' => new ProductSearchResource($model),
+            'body' => $model->toSearchArray(),
         ]);
     }
 }
