@@ -37,7 +37,7 @@ class ProductConfiguratorStorage
 
         foreach ($collection as $item) {
             try {
-                $productVariationQuery = $product->productVariations()->create(Arr::except($item, 'id'));
+                $product->productVariations()->create(Arr::except($item, 'id'));
             } catch (\Exception $e) {
                 DB::rollback();
             }
