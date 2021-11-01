@@ -14,12 +14,15 @@ use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
+use Modules\Product\Enums\Availability;
+use Modules\Product\Enums\ProductVariationCondition;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use function React\Promise\map;
 
 /**
  * Class Product
@@ -71,6 +74,18 @@ class Product extends Model
         'has_test_drive' => 'boolean',
         'stock_type_id' => 'integer',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function(Product $product) {
+            $product->productVariations()->create([
+                'name' => 'Модификация 1',
+                'availability' => Availability::UnderTheOrder,
+                'condition_id' => ProductVariationCondition::NEW,
+            ]);
+        });
+    }
 
     public function getActivitylogOptions(): LogOptions
     {

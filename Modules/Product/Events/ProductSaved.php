@@ -10,10 +10,7 @@ class ProductSaved
 {
     use Dispatchable, SerializesModels;
 
-    public Product $product;
-
-    public function __construct(Product $product)
-    {
-        $this->product = $product;
-    }
+    public function __construct(
+        public $product
+    ){}
 }

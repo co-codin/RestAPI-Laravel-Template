@@ -11,9 +11,7 @@ class PropertyStorage
 {
     public function store(PropertyDto $propertyDto)
     {
-        $attributes = $propertyDto->toArray();
-
-        $property = new Property($attributes);
+        $property = new Property($propertyDto->toArray());
 
         if (!$property->save()) {
             throw new \LogicException('can not create property.');
@@ -24,9 +22,7 @@ class PropertyStorage
 
     public function update(Property $property, PropertyDto $propertyDto)
     {
-        $attributes = $propertyDto->toArray();
-
-        if (!$property->update($attributes)) {
+        if (!$property->update($propertyDto->toArray())) {
             throw new \LogicException('can not update property.');
         }
 
