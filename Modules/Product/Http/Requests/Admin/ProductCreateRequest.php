@@ -43,7 +43,7 @@ class ProductCreateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
-
+            'peculiarities' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.source' => [
