@@ -15,11 +15,11 @@ class CurrencyRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'code', 'rate', 'is_main', 'created_at', 'updated_at', 'deleted_at'])
+            ->allowedFields(['id', 'name', 'iso_code', 'rate', 'is_main', 'created_at', 'updated_at', 'deleted_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
-                AllowedFilter::exact('code'),
+                AllowedFilter::exact('iso_code'),
                 AllowedFilter::exact('rate'),
                 AllowedFilter::exact('is_main'),
                 AllowedFilter::trashed(),

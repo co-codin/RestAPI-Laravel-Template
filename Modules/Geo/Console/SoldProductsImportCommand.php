@@ -49,7 +49,7 @@ class SoldProductsImportCommand extends Command
             $cityName = $soldProduct[SoldProductKeys::CITY];
             $city = City::query()->firstOrCreate([
                 'name' => $cityName,
-                'federal_district' => array_flip(District::asSelectArray())[$soldProduct[SoldProductKeys::FEDERAL_DISTRICT]]
+                'federal_district' => array_flip(District::shortNames())[$soldProduct[SoldProductKeys::FEDERAL_DISTRICT]]
             ]);
 
             SoldProduct::query()->create([
@@ -92,7 +92,7 @@ class SoldProductsImportCommand extends Command
             SoldProductKeys::FEDERAL_DISTRICT => [
                 'required',
                 'string',
-                Rule::in(District::asSelectArray()),
+                Rule::in(District::shortNames()),
             ],
         ];
 
@@ -100,7 +100,7 @@ class SoldProductsImportCommand extends Command
             $validator = Validator::make($soldProduct, $rules);
 
             if ($validator->fails()) {
-                 continue;
+                continue;
             } else {
                 $validatedData->add($validator->valid());
             }

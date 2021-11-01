@@ -4,6 +4,7 @@
 namespace Modules\Redirect\Repositories\Criteria;
 
 
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -17,6 +18,10 @@ class RedirectRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields(['id', 'source', 'destination', 'code', 'created_at', 'updated_at'])
             ->allowedFilters([
+                AllowedFilter::custom('live', new LiveFilter([
+                    'source' => 'like',
+                    'destination' => 'like',
+                ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('source'),
                 AllowedFilter::exact('destination'),
