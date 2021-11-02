@@ -27,4 +27,18 @@ final class District extends BaseEnum implements LocalizedEnum
     const Ural = 6;
     const Siberian = 7;
     const FarEastern = 8;
+
+    public static function shortNames()
+    {
+        return [
+            District::Central => 'Центральный',
+            District::NorthWest => 'Северо-Западный',
+            District::South => 'Южный',
+            District::NorthCaucasian => 'Северо-Кавказский',
+            District::Volga => 'Приволжский',
+            District::Ural => 'Уральский',
+            District::Siberian => 'Сибирский',
+            District::FarEastern => 'Дальневосточный',
+        ];
+    }
 }

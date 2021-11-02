@@ -12,11 +12,6 @@ use App\Http\Requests\BaseFormRequest;
  */
 class RedirectUpdateRequest extends BaseFormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -30,8 +25,8 @@ class RedirectUpdateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
-            'source' => 'Старая ссылка',
-            'destination' => 'Новая ссылка',
+            'source' => 'Откуда',
+            'destination' => 'Куда',
             'code' => 'Код',
         ];
     }

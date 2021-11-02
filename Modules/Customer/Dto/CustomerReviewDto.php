@@ -28,7 +28,7 @@ class CustomerReviewDto extends BaseDto
 
     public UploadedFile|string|null $review_file;
 
-    public bool $is_home = false;
+    public bool $is_in_home = false;
 
     public ?string $comment;
 

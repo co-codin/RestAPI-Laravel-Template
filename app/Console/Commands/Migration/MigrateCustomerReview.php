@@ -36,7 +36,7 @@ class MigrateCustomerReview extends Command
             'type' => $item->type,
             'video' => $item->video,
             'review_file' => !is_null($item->review_file) ? ltrim($item->review_file, "/") : null,
-            'is_home' => $item->in_home === 1,
+            'is_in_home' => $item->is_in_home === 1,
             'comment' => $item->comment,
             'logo' => $item->image,
             'created_at' => $item->created_at,

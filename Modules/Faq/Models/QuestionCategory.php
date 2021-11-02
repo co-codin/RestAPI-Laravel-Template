@@ -28,7 +28,7 @@ class QuestionCategory extends Model
 
     protected $casts = [
         'position' => 'integer',
-        'status' => 'boolean',
+        'status' => 'integer',
     ];
 
     public function questions()

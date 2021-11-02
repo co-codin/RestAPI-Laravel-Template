@@ -28,4 +28,6 @@ class BrandDto extends BaseDto
     public ?string $short_description;
 
     public ?int $assigned_by_id;
+
+    public ?int $warranty;
 }

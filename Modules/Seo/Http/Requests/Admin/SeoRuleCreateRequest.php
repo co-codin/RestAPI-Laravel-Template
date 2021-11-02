@@ -17,6 +17,11 @@ class SeoRuleCreateRequest extends BaseFormRequest
                 'max:255',
                 'unique:seo_rules,url',
             ],
+            'text' => [
+                'sometimes',
+                'nullable',
+                'string',
+            ],
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
