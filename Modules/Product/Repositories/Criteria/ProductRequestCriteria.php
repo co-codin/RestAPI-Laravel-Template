@@ -4,6 +4,7 @@
 namespace Modules\Product\Repositories\Criteria;
 
 
+use App\Filters\ContentFilter;
 use App\Filters\IsEmptyFilter;
 use App\Http\Filters\LiveFilter;
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
@@ -84,6 +85,9 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariations.price'),
                 AllowedFilter::exact('productVariations.availability'),
                 AllowedFilter::exact('productVariations.previous_price'),
+
+                AllowedFilter::custom('unique_content', new ContentFilter('product')),
+                AllowedFilter::custom('no_unique_content', new ContentFilter('product', true)),
             ])
             ->allowedIncludes([
                 'brand',
