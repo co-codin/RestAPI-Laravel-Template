@@ -4,6 +4,7 @@
 namespace Modules\Product\Repositories\Criteria;
 
 
+use App\Filters\IsEmptyFilter;
 use App\Http\Filters\LiveFilter;
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
@@ -59,6 +60,9 @@ class ProductRequestCriteria implements CriteriaInterface
                     'id' => '=',
                     'name' => 'like',
                 ])),
+
+                AllowedFilter::custom('video', new IsEmptyFilter('video')),
+                AllowedFilter::custom('booklet', new IsEmptyFilter('booklet')),
 
                 AllowedFilter::custom('properties', new ProductPropertyFilter),
                 AllowedFilter::custom('is_covid', new CovidProductsFilter),
