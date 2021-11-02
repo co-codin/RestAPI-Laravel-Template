@@ -33,7 +33,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'categories.*.is_main' => 'required|boolean',
             'brand_id' => 'sometimes|integer|exists:brands,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|alpha_dash|alpha_num|unique:products,slug,' . $this->route('product'),
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:products,slug,' . $this->route('product'),
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'short_description' => 'sometimes|nullable|string',
