@@ -62,8 +62,8 @@ class ProductRequestCriteria implements CriteriaInterface
                     'name' => 'like',
                 ])),
 
-                AllowedFilter::custom('video', new IsEmptyFilter('video')),
-                AllowedFilter::custom('booklet', new IsEmptyFilter('booklet')),
+                AllowedFilter::custom('has_video', new IsEmptyFilter('video')),
+                AllowedFilter::custom('has_booklet', new IsEmptyFilter('booklet')),
 
                 AllowedFilter::custom('properties', new ProductPropertyFilter),
                 AllowedFilter::custom('is_covid', new CovidProductsFilter),
