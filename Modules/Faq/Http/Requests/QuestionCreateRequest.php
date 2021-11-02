@@ -17,7 +17,7 @@ class QuestionCreateRequest extends BaseFormRequest
     {
         return [
             'question' => 'required|string|max:255',
-            'slug' => 'sometimes|string|unique:questions,slug|max:255',
+            'slug' => 'sometimes|string|unique:questions,slug|max:255|regex:/^[a-z0-9_\-]*$/',
             'answer' => 'required|string|max:255',
             'status' => [
                 'required',

@@ -12,7 +12,7 @@ class BrandCreateRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'sometimes|nullable|max:255|alpha_dash|alpha_num|unique:brands,slug',
+            'slug' => 'sometimes|nullable|max:255|regex:/^[a-z0-9_\-]*$/|unique:brands,slug',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
