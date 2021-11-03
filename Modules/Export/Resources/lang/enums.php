@@ -14,6 +14,7 @@ return [
     ],
 
     ExportFrequency::class => [
+        ExportFrequency::MANUALLY => 'Ручную',
         ExportFrequency::EVERY_30_MINUTES => 'Каждый 30 секунд',
         ExportFrequency::HOURLY => 'Каждый час',
         ExportFrequency::EVERY_3_HOURS => 'Каждый 3 часа',
