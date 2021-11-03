@@ -36,6 +36,7 @@ class Warranty extends Form
     {
         return [
             'inn.regex' => 'ИНН может содержать от 10 до 15 символов',
+            'file.max' => 'Размер файла в поле :attribute не может быть больше :max Кбайт.'
         ];
     }
 
