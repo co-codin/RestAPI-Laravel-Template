@@ -13,7 +13,7 @@ class CategoryUpdateRequest extends BaseFormRequest
         return [
             'parent_id' => 'sometimes|nullable|integer|exists:categories,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255|unique:categories,slug,' . $this->route('category'),
+            'slug' => 'sometimes|nullable|string|regex:/^[a-z0-9_\-]*$/|max:255|unique:categories,slug,' . $this->route('category'),
             'product_name' => 'sometimes|nullable|string|max:255',
             'full_description' => 'sometimes|nullable|string|max:255',
             'status' => [

@@ -33,7 +33,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'categories.*.is_main' => 'required|boolean',
             'brand_id' => 'sometimes|integer|exists:brands,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|unique:products,slug,' . $this->route('product'),
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:products,slug,' . $this->route('product'),
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'short_description' => 'sometimes|nullable|string',
@@ -44,12 +44,18 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
+                function ($attribute, $value, $fail) {
+                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
+                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+                    }
+                }
             ],
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'is_booklet_changed' => 'sometimes|boolean',
             'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
+            'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.source' => [

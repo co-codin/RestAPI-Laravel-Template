@@ -22,7 +22,7 @@ class BrandFactory extends Factory
             'status' => Status::getRandomValue(),
             'is_in_home' => $this->faker->boolean,
             'position' => $this->faker->randomDigit,
-            'country' => $this->faker->country,
+            'country_id' => $this->faker->randomDigit(),
         ];
     }
 }

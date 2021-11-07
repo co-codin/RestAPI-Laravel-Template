@@ -14,15 +14,16 @@ class ExportRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'type', 'filename', 'frequency', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'name', 'type', 'filename', 'frequency', 'filter', 'created_at', 'exported_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('filename'),
                 AllowedFilter::exact('frequency'),
+                AllowedFilter::exact('exported_at'),
             ])
-            ->allowedSorts('id', 'name', 'type', 'filename', 'frequency', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'name', 'type', 'filename', 'frequency', 'created_at', 'exported_at')
             ;
     }
 }
