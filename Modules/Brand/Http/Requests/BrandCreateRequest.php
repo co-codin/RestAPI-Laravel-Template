@@ -19,7 +19,7 @@ class BrandCreateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'image' => 'nullable|image',
-            'country' => 'sometimes|nullable|string|max:255',
+            'country_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'website' => 'sometimes|nullable|url|string|max:255',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
