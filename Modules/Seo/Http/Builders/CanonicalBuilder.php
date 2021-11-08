@@ -33,6 +33,7 @@ class CanonicalBuilder extends BaseBuilder
             'id',
             'url',
             'canonical',
+            'created_at',
         ];
 
         return $this->filter($fields, $columns)
