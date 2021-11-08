@@ -33,6 +33,7 @@ class CanonicalBuilder extends BaseBuilder
             'id',
             'url',
             'canonical',
+            'created_at',
         ];
 
         return $this->filter($fields, $columns)
@@ -47,6 +48,7 @@ class CanonicalBuilder extends BaseBuilder
     public function getFilters(?array $columns = null): array
     {
         $filters = [
+            'id',
             'url',
             'canonical',
             'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
