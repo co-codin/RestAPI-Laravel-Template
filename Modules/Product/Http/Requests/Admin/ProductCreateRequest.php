@@ -41,7 +41,7 @@ class ProductCreateRequest extends BaseFormRequest
                     }
                 }
             ],
-            'is_in_home' => 'required|boolean',
+            'is_in_home' => 'sometimes|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
