@@ -4,7 +4,7 @@ namespace Modules\Product\Listeners;
 
 use Elasticsearch\Client;
 use Modules\Product\Events\ProductSaved;
-use Modules\Search\Services\Indices\ProductSearchResource;
+use Modules\Product\Http\Resources\Index\ProductSearchResource;
 
 class ReindexProduct
 {
