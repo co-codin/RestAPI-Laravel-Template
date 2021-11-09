@@ -54,10 +54,10 @@ class ProductStorage
         if ($productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         }
-//
-//        if($productDto {
-//            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-//        }
+
+        if ($productDto->booklet) {
+            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
+        }
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
