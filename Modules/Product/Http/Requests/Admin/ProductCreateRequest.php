@@ -25,7 +25,7 @@ class ProductCreateRequest extends BaseFormRequest
             'brand_id' => 'required|integer|exists:brands,id',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug|regex:/^[a-z0-9_\-]*$/',
-            'image' => 'required|image',
+            'image' => 'sometimes|nullable|image',
             'booklet' => 'sometimes|nullable|file',
             'video' => 'nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string',
