@@ -60,9 +60,10 @@ class ProductStorage
         }
 
         if ($productDto->images) {
+            $product->images()->delete();
             foreach ($productDto->images as $image) {
                 $product->images()->create([
-                    'image' => $image
+                    'image' => $image['image']
                 ]);
             }
         }
