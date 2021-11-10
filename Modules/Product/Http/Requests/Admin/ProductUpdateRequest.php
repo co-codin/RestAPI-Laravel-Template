@@ -50,10 +50,11 @@ class ProductUpdateRequest extends BaseFormRequest
                     }
                 }
             ],
+            'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'is_booklet_changed' => 'sometimes|boolean',
-            'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true|nullable|file',
+            'booklet' => 'sometimes|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
             'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
