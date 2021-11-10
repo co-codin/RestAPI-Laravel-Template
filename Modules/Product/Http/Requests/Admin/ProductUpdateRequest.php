@@ -37,7 +37,6 @@ class ProductUpdateRequest extends BaseFormRequest
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'images' => 'sometimes|array',
-            'images.*' => 'required|file',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
