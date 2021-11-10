@@ -59,6 +59,15 @@ class ProductStorage
             $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
         }
 
+        if ($productDto->images) {
+            foreach ($productDto->images as $image) {
+                $image = $this->imageUploader->upload($image);
+                $product->images()->create([
+                    'image' => $image
+                ]);
+            }
+        }
+
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
         }
