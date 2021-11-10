@@ -61,9 +61,11 @@ class ProductStorage
 
         if ($productDto->images) {
             foreach ($productDto->images as $image) {
-
+                $image = $this->imageUploader->upload($image);
+                $product->images()->create([
+                    'image' => $image
+                ]);
             }
-//            $product->images
         }
 
         if (Arr::exists($attributes, 'documents')) {
