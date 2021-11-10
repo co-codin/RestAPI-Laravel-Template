@@ -18,6 +18,8 @@ class ProductDto extends BaseDto
 
     public ?UploadedFile $image;
 
+    public ?array $images;
+
     public ?string $short_description;
 
     public ?string $full_description;
