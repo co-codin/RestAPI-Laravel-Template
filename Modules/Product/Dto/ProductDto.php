@@ -34,7 +34,7 @@ class ProductDto extends BaseDto
 
     public ?int $assigned_by_id;
 
-    public ?string $stock_type;
+    public ?string $stock_type_id;
 
     public ?UploadedFile $booklet;
 

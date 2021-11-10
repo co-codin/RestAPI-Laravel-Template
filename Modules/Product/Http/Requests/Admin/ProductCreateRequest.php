@@ -31,6 +31,7 @@ class ProductCreateRequest extends BaseFormRequest
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
+            'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'status' => [
                 'required',
                 'integer',
