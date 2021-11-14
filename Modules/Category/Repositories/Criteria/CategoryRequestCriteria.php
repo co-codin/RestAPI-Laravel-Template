@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Repositories\Criteria;
 
+use App\Http\Filters\LiveFilter;
 use Modules\Filter\Repositories\Criteria\FilterRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -35,6 +36,11 @@ class CategoryRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('parent_id'),
                 AllowedFilter::scope('is_root'),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                    'slug' => 'like',
+                ])),
                 AllowedFilter::trashed(),
             ])
             ->allowedIncludes([
