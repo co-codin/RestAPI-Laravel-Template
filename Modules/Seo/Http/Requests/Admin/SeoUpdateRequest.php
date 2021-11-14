@@ -15,7 +15,7 @@ class SeoUpdateRequest extends BaseFormRequest
             'title' => 'required_if:is_enabled,1,true|nullable|string',
             'description' => 'required_if:is_enabled,1,true|nullable|string',
             'h1' => 'required_if:is_enabled,1,true|nullable|string',
-            'meta_tags' => 'exclude_unless:is_enabled,1|nullable|array',
+            'meta_tags' => 'nullable|array',
             'meta_tags.*' => 'required|array',
             'meta_tags.*.name' => 'required|string|max:255',
             'meta_tags.*.content' => 'required|string|max:255',
