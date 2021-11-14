@@ -62,13 +62,14 @@ class BrandRequestCriteria implements CriteriaInterface
             'slug',
             'image',
             'website',
-            'country',
             'status',
             'is_in_home',
             'position',
             'created_at',
             'updated_at',
             'deleted_at',
+            'country_id',
+            'country.value'
         ];
 
         if(!$prefix) {
