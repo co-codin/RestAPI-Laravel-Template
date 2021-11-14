@@ -29,7 +29,6 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
                 AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
                 AllowedFilter::trashed(),
-                AllowedFilter::exact('warranty'),
             ])
             ->allowedIncludes(['seo', 'country'])
             ->allowedSorts([
@@ -44,7 +43,6 @@ class BrandRequestCriteria implements CriteriaInterface
                 'status',
                 'in_home',
                 'position',
-                'warranty',
             ]);
     }
 
@@ -65,7 +63,6 @@ class BrandRequestCriteria implements CriteriaInterface
             'created_at',
             'updated_at',
             'deleted_at',
-            'warranty',
         ];
 
         if(!$prefix) {
