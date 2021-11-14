@@ -27,7 +27,6 @@ class BrandUpdateRequest extends BaseFormRequest
             'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
             'assigned_by_id' => 'sometimes|nullable|integer',
-            'warranty' => 'sometimes|required|integer',
         ];
     }
 }
