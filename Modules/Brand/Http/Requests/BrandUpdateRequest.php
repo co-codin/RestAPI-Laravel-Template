@@ -12,7 +12,7 @@ class BrandUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|nullable|string|max:255|unique:brands,slug,' . $this->route('brand'),
+            'slug' => 'sometimes|nullable|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:brands,slug,' . $this->route('brand'),
             'status' => [
                 'sometimes',
                 'required',
@@ -21,13 +21,12 @@ class BrandUpdateRequest extends BaseFormRequest
             'is_in_home' => 'sometimes|boolean',
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
-            'country' => 'sometimes|nullable|string|max:255',
+            'country_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'website' => 'sometimes|nullable|string|url|max:255',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'position' => 'sometimes|nullable|integer',
             'assigned_by_id' => 'sometimes|nullable|integer',
-            'warranty' => 'sometimes|required|integer',
         ];
     }
 }

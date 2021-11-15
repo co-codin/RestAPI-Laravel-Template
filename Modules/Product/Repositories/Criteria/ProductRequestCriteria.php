@@ -4,7 +4,9 @@
 namespace Modules\Product\Repositories\Criteria;
 
 
-use App\Http\Filters\LiveFilter;
+use App\Filters\ContentFilter;
+use App\Filters\IsEmptyFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Product\Http\Filters\CovidProductsFilter;
@@ -55,10 +57,19 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
 
-                AllowedFilter::custom('live', new LiveFilter([
-                    'id' => '=',
-                    'name' => 'like',
-                ])),
+                AllowedFilter::callback('live', function (Builder $query, $value) {
+                    $query->selectRaw('products.id as id, CONCAT(b.name, " ", products.name) as name')
+                        ->join('brands as b', 'b.id', '=', 'products.brand_id');
+
+                    $query->where('products.name', 'like', "%$value%")
+                        ->orWhere('products.id', '=', $value)
+                        ->orWhere('b.name', 'like', "%$value%")
+                    ;
+
+                }),
+
+                AllowedFilter::custom('has_video', new IsEmptyFilter('video')),
+                AllowedFilter::custom('has_booklet', new IsEmptyFilter('booklet')),
 
                 AllowedFilter::custom('properties', new ProductPropertyFilter),
                 AllowedFilter::custom('is_covid', new CovidProductsFilter),
@@ -80,6 +91,9 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariations.price'),
                 AllowedFilter::exact('productVariations.availability'),
                 AllowedFilter::exact('productVariations.previous_price'),
+
+                AllowedFilter::custom('unique_content', new ContentFilter('product')),
+                AllowedFilter::custom('no_unique_content', new ContentFilter('product', true)),
             ])
             ->allowedIncludes([
                 'brand',

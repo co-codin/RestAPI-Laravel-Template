@@ -3,6 +3,7 @@
 namespace Modules\Brand\Repositories\Criteria;
 
 use App\Filters\ToggleFilter;
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -28,8 +29,12 @@ class BrandRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('position'),
                 AllowedFilter::custom('is_flagged', new ToggleFilter('brand')),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                    'slug' => 'like',
+                ])),
                 AllowedFilter::trashed(),
-                AllowedFilter::exact('warranty'),
             ])
             ->allowedIncludes(['seo', 'country'])
             ->allowedSorts([
@@ -44,7 +49,6 @@ class BrandRequestCriteria implements CriteriaInterface
                 'status',
                 'in_home',
                 'position',
-                'warranty',
             ]);
     }
 
@@ -58,14 +62,14 @@ class BrandRequestCriteria implements CriteriaInterface
             'slug',
             'image',
             'website',
-            'country',
             'status',
             'is_in_home',
             'position',
             'created_at',
             'updated_at',
             'deleted_at',
-            'warranty',
+            'country_id',
+            'country.value'
         ];
 
         if(!$prefix) {

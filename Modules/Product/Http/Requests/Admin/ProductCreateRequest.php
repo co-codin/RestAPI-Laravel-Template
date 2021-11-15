@@ -24,21 +24,27 @@ class ProductCreateRequest extends BaseFormRequest
             'categories.*.is_main' => 'required|boolean',
             'brand_id' => 'required|integer|exists:brands,id',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:products,slug',
-            'image' => 'required|image',
+            'slug' => 'required|string|max:255|unique:products,slug|regex:/^[a-z0-9_\-]*$/',
+            'image' => 'sometimes|nullable|image',
             'booklet' => 'sometimes|nullable|file',
             'video' => 'nullable|string|max:255',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
+            'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'status' => [
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
+                function ($attribute, $value, $fail) {
+                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
+                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+                    }
+                }
             ],
-            'is_in_home' => 'required|boolean',
+            'is_in_home' => 'sometimes|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
-
+            'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.source' => [

@@ -21,7 +21,7 @@ class NewsUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'slug' => 'sometimes|nullable|max:255|unique:brands,slug,' . $this->route('news'),
+            'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|max:255|unique:brands,slug,' . $this->route('news'),
             'image' => 'sometimes|required|image',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'sometimes|required|date',

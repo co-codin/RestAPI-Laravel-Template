@@ -18,7 +18,10 @@ class ProductStorage
     public function store(ProductDto $productDto)
     {
         $attributes = $productDto->toArray();
-        $attributes['image'] = $this->imageUploader->upload($productDto->image);
+
+        if ($productDto->image) {
+            $attributes['image'] = $this->imageUploader->upload($productDto->image);
+        }
 
         if($productDto->booklet) {
             $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
@@ -51,10 +54,19 @@ class ProductStorage
         if ($productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         }
-//
-//        if($productDto {
-//            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-//        }
+
+        if ($productDto->booklet) {
+            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
+        }
+
+        if ($productDto->images) {
+            $product->images()->delete();
+            foreach ($productDto->images as $image) {
+                $product->images()->create([
+                    'image' => $image['image']
+                ]);
+            }
+        }
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
