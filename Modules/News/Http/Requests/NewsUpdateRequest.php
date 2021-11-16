@@ -25,7 +25,7 @@ class NewsUpdateRequest extends BaseFormRequest
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'is_in_home' => 'sometimes|boolean',
-            'published_at' => 'sometimes|required|date_format:d-m-Y',
+            'published_at' => 'sometimes|required|date',
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
