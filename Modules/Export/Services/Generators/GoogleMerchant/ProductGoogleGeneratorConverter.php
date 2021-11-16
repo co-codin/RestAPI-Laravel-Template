@@ -28,7 +28,7 @@ class ProductGoogleGeneratorConverter
             ->setProductType($this->model->category->product_name)
             ->setPrice($this->getPrice())
             ->setBrand($this->model->brand->name)
-            ->setGoogleCategory($this->getCategories())
+//            ->setGoogleCategory($this->getCategories())
             ->setCondition('new')
             ->setGtin(false);
 
