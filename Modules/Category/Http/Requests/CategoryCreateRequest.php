@@ -15,7 +15,7 @@ class CategoryCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:categories,slug',
             'product_name' => 'sometimes|nullable|string|max:255',
-            'full_description' => 'sometimes|nullable|string|max:255',
+            'full_description' => 'sometimes|nullable|string',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
