@@ -14,7 +14,7 @@ class NewsCreateRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'short_description' => 'required|string|max:500',
+            'short_description' => 'required|string',
             'full_description' => 'required|string',
             'status' => [
                 'required',

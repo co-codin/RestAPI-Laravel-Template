@@ -14,14 +14,14 @@ class NewsUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'short_description' => 'sometimes|required|string|max:500',
+            'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
             'status' => [
                 'sometimes',
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|max:255|unique:brands,slug,' . $this->route('news'),
+            'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|max:255|unique:news,slug,' . $this->route('news'),
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'is_in_home' => 'sometimes|boolean',
