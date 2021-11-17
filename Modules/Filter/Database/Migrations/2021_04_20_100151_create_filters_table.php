@@ -27,7 +27,6 @@ class CreateFiltersTable extends Migration
             $table->unsignedInteger('position')->nullable();
             $table->json('options')->nullable();
             $table->timestamps();
-//            $table->unique(['category_id', 'slug']);
         });
     }
 
