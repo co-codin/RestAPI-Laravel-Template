@@ -6,6 +6,7 @@ type Property {
     unit: String
     options: String
     description: String
+    is_boolean: Boolean!
     is_hidden_from_product: Boolean!
     is_hidden_from_comparison: Boolean!
     assigned_by_id: Int
