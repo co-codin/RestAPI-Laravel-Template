@@ -25,7 +25,6 @@ class CreateTest extends TestCase
                 'full_description',
                 'image',
                 'status',
-                'is_hidden_in_parents',
                 'is_in_home',
                 'parent_id',
                 'short_properties',

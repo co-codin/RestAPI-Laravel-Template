@@ -21,7 +21,6 @@ class CategoryUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'is_hidden_in_parents' => 'sometimes|boolean',
             'is_in_home' => 'sometimes|boolean',
             'image' => [
                 'sometimes',
