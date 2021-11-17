@@ -7,10 +7,15 @@ namespace Modules\Category\Services;
 use App\Services\File\ImageUploader;
 use Modules\Category\Dto\CategoryDto;
 use Modules\Category\Models\Category;
+use Modules\Filter\Repositories\FilterRepository;
+use Modules\Filter\Services\FilterStorage;
 
 class CategoryStorage
 {
-    public function __construct(protected ImageUploader $imageUploader)
+    public function __construct(
+        protected ImageUploader $imageUploader,
+        protected FilterRepository $filterRepository
+    )
     {
     }
 
@@ -22,7 +27,13 @@ class CategoryStorage
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
 
-        return Category::query()->create($attributes);
+        $category = Category::query()->create($attributes);
+
+        if ($categoryDto->attach_default_filters) {
+            FilterStorage::linkToDefaultFilters($this->filterRepository->findDefaultFilters(), $category->id);
+        }
+
+        return $category;
     }
 
     public function update(Category $category, CategoryDto $categoryDto)

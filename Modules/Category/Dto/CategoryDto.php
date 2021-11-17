@@ -22,6 +22,8 @@ class CategoryDto extends BaseDto
 
     public $is_in_home = false;
 
+    public $attach_default_filters = false;
+
     public ?UploadedFile $image;
 
     public ?int $assigned_by_id;
