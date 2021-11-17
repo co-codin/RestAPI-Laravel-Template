@@ -35,7 +35,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $product_name
  * @property string $full_description
  * @property int $status
- * @property boolean $is_hidden_in_parents
  * @property boolean $is_in_home
  * @property string|null $image
  * @property Category|null $parent
@@ -61,7 +60,6 @@ class Category extends Model
 
     protected $casts = [
         'status' => 'integer',
-        'is_hidden_in_parents' => 'boolean',
         'is_in_home' => 'boolean',
     ];
 
