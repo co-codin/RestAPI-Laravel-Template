@@ -26,7 +26,7 @@ class PropertyDto extends BaseDto
 
     public $is_numeric;
 
-    public $is_multiple;
+    public $is_boolean;
 
     public ?int $assigned_by_id;
 }
