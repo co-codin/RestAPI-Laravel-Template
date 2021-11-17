@@ -44,4 +44,14 @@ class FilterStorage
                 ->update(['position' => $filter['position']]);
         }
     }
+
+    public static function linkToDefaultFilters($defaultFilters, $categoryId)
+    {
+        foreach ($defaultFilters as $filter) {
+            $replicate = $filter->replicate();
+            $replicate->is_default = false;
+            $replicate->category_id = $categoryId;
+            $replicate->save();
+        }
+    }
 }

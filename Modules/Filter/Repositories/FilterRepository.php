@@ -28,4 +28,11 @@ class FilterRepository extends BaseRepository
                 ->orderByRaw('-position DESC');
         })->get(['filters.*']);
     }
+
+    public function findDefaultFilters()
+    {
+        return $this->scopeQuery(function ($builder) {
+            return $builder->where('is_default', true);
+        })->get(['filters.*']);
+    }
 }
