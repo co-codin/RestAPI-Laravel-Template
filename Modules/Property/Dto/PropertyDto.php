@@ -18,6 +18,8 @@ class PropertyDto extends BaseDto
 
     public ?string $description;
 
+    public ?string $unit;
+
     public $is_hidden_from_product;
 
     public $is_hidden_from_comparison;
