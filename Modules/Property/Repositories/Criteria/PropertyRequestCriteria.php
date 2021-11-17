@@ -29,6 +29,7 @@ class PropertyRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_hidden_from_product'),
                 AllowedFilter::exact('is_hidden_from_comparison'),
+                AllowedFilter::exact('is_boolean'),
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
                     'name' => 'like',
@@ -51,6 +52,7 @@ class PropertyRequestCriteria implements CriteriaInterface
             'options',
             'is_hidden_from_product',
             'is_hidden_from_comparison',
+            'is_boolean',
             'created_at',
             'updated_at'
         ];

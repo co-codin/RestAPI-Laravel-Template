@@ -46,7 +46,7 @@ class Property extends Model
         'options' => 'array',
         'is_hidden_from_product' => 'boolean',
         'is_hidden_from_comparison' => 'boolean',
-        'is_multiple' => 'boolean',
+        'is_boolean' => 'boolean',
         'is_numeric' => 'boolean',
     ];
 
