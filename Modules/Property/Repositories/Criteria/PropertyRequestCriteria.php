@@ -4,6 +4,7 @@
 namespace Modules\Property\Repositories\Criteria;
 
 
+use App\Http\Filters\LiveFilter;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Filter\Repositories\Criteria\FilterRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
@@ -28,6 +29,11 @@ class PropertyRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_hidden_from_product'),
                 AllowedFilter::exact('is_hidden_from_comparison'),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                    'key' => 'like',
+                ])),
             ])
             ->allowedIncludes(['filters'])
             ->allowedSorts(['id', 'name', 'key', 'created_at'])
