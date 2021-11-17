@@ -5,7 +5,6 @@ type Category {
     product_name: String
     full_description: String
     status: Int!
-    is_hidden_in_parents: Boolean!
     is_in_home: Boolean!
     image: String
     parent_id: Int

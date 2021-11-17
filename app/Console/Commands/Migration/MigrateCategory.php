@@ -46,7 +46,6 @@ class MigrateCategory extends Command
             'product_name' => $item->product_name,
             'image' => $image,
             'is_in_home' => $item->in_home === 1,
-            'is_hidden_in_parents' => $item->hide_in_parents,
             'full_description' => $item->full_description,
             'assigned_by_id' => 1,
             'created_at' => $item->created_at,

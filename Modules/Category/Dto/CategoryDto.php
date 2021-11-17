@@ -20,8 +20,6 @@ class CategoryDto extends BaseDto
 
     public $status;
 
-    public $is_hidden_in_parents = false;
-
     public $is_in_home = false;
 
     public ?UploadedFile $image;
