@@ -18,7 +18,8 @@ class PropertyCreateRequest extends BaseFormRequest
             'is_hidden_from_comparison' => 'sometimes|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'is_numeric' => 'sometimes|boolean',
-            'is_multiple' => 'sometimes|boolean'
+            'is_multiple' => 'sometimes|boolean',
+            'unit' => 'sometimes|string|max:255',
         ];
     }
 
