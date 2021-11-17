@@ -46,6 +46,7 @@ class PropertyRequestCriteria implements CriteriaInterface
             'id',
             'name',
             'key',
+            'unit',
             'description',
             'options',
             'is_hidden_from_product',
