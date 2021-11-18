@@ -20,7 +20,7 @@ class ProductPropertyController extends Controller
     public function update(int $product, ProductPropertyUpdateRequest $request)
     {
         $productModel = $this->productRepository->find($product);
-        
+
         $this->productPropertyStorage->update($productModel, $request->validated()['properties']);
 
         event(new ProductSaved($productModel));
