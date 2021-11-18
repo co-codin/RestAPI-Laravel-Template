@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
@@ -67,6 +68,15 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                 'admin-test@medeq.ru',
                 'y.cui@medeq.ru',
             ]);
+        });
+    }
+
+    protected function authorization()
+    {
+        $this->gate();
+
+        Telescope::auth(function ($request) {
+            return Http::withToken($request->bearerToken())->get(config('services.auth.url') . '/api/auth/user')->successful();
         });
     }
 }
