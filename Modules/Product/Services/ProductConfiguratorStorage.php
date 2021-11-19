@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 
 class ProductConfiguratorStorage
 {
@@ -13,43 +14,38 @@ class ProductConfiguratorStorage
     {
         DB::beginTransaction();
 
-        $dataWithId = collect($variations)->filter(fn($item) => Arr::exists($item, 'id'));
-        $dataWithoutId = collect($variations)->filter(fn($item) => !Arr::exists($item, 'id'));
-
-        if (count($dataWithId)) {
-            $this->handleExistingData($product, $dataWithId);
-        }
-
-        if (count($dataWithoutId)) {
-            $this->handleNewData($product, $dataWithoutId);
-        }
+        $this->deleteNonExistentVariations($product, $variations);
+        $this->createNewVariations($product, $variations);
+        $this->updateExistingVariations($product, $variations);
 
         DB::commit();
     }
 
-    protected function handleExistingData(Product $product, Collection $collection)
+    protected function deleteNonExistentVariations(Product $product, array $variations)
     {
-        try {
-            $product->productVariations()->delete();
-        } catch (\Exception $e) {
-            DB::rollback();
-        }
+        $ids = collect($variations)->pluck('id')->filter()->unique();
 
-        foreach ($collection as $item) {
-            try {
-                $product->productVariations()->create(Arr::except($item, 'id'));
-            } catch (\Exception $e) {
-                DB::rollback();
-            }
-        }
+        $product->productVariations()
+            ->when($ids->isNotEmpty(), fn($query) => $query->whereNotIn('id', $ids))
+            ->delete();
     }
 
-    protected function handleNewData(Product $product, Collection $collection)
+    protected function createNewVariations(Product $product, array $variations)
     {
-        try {
-            $product->productVariations()->createMany($collection->toArray());
-        } catch (\Exception $e) {
-            DB::rollback();
-        }
+        $newVariations = collect($variations)->filter(fn($item) => !Arr::exists($item, 'id'));
+
+        $product->productVariations()->createMany($newVariations);
+    }
+
+    protected function updateExistingVariations(Product $product, array $variations)
+    {
+        collect($variations)
+            ->filter(fn($variation) => Arr::exists($variation, 'id'))
+            ->each(function($variation) use ($product) {
+                $model = ProductVariation::find($variation['id']);
+                if($model) {
+                    $model->update($variation);
+                }
+            });
     }
 }
