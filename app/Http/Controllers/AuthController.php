@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
+    public function loginPage()
+    {
+        return view('login');
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -17,8 +24,8 @@ class AuthController extends Controller
         $response = Http::post(config('services.auth.url') . '/api/auth/login', $request->all());
 
         if ($response->ok()) {
-            session()->put('access_token', $response['token']);
-            return response()->json([], 200);
+            Cookie::queue('access_token', $response['token']);
+            return redirect('/telescope');
         } else {
             return response()->json(['Unauthenticated user.'], 404);
         }
