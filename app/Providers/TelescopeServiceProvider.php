@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Laravel\Telescope\IncomingEntry;
@@ -54,29 +55,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         ]);
     }
 
-    /**
-     * Register the Telescope gate.
-     *
-     * This gate determines who can access Telescope in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
-    {
-        Gate::define('viewTelescope', function ($user) {
-            return in_array($user->email, [
-                'admin-test@medeq.ru',
-                'y.cui@medeq.ru',
-            ]);
-        });
-    }
-
     protected function authorization()
     {
-        $this->gate();
-
         Telescope::auth(function ($request) {
-            return Http::withToken($request->bearerToken())->get(config('services.auth.url') . '/api/auth/user')->successful();
+            return Cookie::get('access_token');
         });
     }
 }
