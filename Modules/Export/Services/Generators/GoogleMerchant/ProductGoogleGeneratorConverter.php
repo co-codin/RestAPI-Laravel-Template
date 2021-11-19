@@ -26,9 +26,9 @@ class ProductGoogleGeneratorConverter
             ->setImage(\Storage::disk('public')->url($this->model->image))
             ->setAvailability(Availability::IN_STOCK)
             ->setProductType($this->model->category->product_name)
-            ->setPrice($this->getPrice())
+            ->setPrice($this->getPriceInRub())
             ->setBrand($this->model->brand->name)
-            ->setGoogleCategory($this->getCategories())
+//            ->setGoogleCategory($this->getCategories())
             ->setCondition('new')
             ->setGtin(false);
 
@@ -49,6 +49,11 @@ class ProductGoogleGeneratorConverter
     private function getPrice(): string
     {
         return $this->model->mainVariation->price . ' ' . Str::upper($this->model->mainVariation->currency->iso_code);
+    }
+
+    private function getPriceInRub(): string
+    {
+        return $this->model->mainVariation->price_in_rub . ' RUB';
     }
 
     private function getAdditionalImages(): SupportCollection
