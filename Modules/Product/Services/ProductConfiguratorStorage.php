@@ -14,38 +14,11 @@ class ProductConfiguratorStorage
     {
         DB::beginTransaction();
 
-        $this->deleteNonExistentVariations($product, $variations);
-        $this->createNewVariations($product, $variations);
-        $this->updateExistingVariations($product, $variations);
+        (new ProductVariationStorage($product, $variations))
+            ->deleteNonExistentVariations()
+            ->createNewVariations()
+            ->updateExistingVariations();
 
         DB::commit();
-    }
-
-    protected function deleteNonExistentVariations(Product $product, array $variations)
-    {
-        $ids = collect($variations)->pluck('id')->filter()->unique();
-
-        $product->productVariations()
-            ->when($ids->isNotEmpty(), fn($query) => $query->whereNotIn('id', $ids))
-            ->delete();
-    }
-
-    protected function createNewVariations(Product $product, array $variations)
-    {
-        $newVariations = collect($variations)->filter(fn($item) => !Arr::exists($item, 'id'));
-
-        $product->productVariations()->createMany($newVariations);
-    }
-
-    protected function updateExistingVariations(Product $product, array $variations)
-    {
-        collect($variations)
-            ->filter(fn($variation) => Arr::exists($variation, 'id'))
-            ->each(function($variation) use ($product) {
-                $model = ProductVariation::find($variation['id']);
-                if($model) {
-                    $model->update($variation);
-                }
-            });
     }
 }
