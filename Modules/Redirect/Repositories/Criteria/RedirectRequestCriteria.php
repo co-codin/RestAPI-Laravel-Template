@@ -21,6 +21,7 @@ class RedirectRequestCriteria implements CriteriaInterface
                 AllowedFilter::custom('live', new LiveFilter([
                     'source' => 'like',
                     'destination' => 'like',
+                    'id' => '=',
                 ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('source'),
