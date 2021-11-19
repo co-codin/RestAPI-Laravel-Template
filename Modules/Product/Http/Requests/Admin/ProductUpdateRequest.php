@@ -35,6 +35,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:products,slug,' . $this->route('product'),
             'is_image_changed' => 'sometimes|boolean',
+            'has_test_drive' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'images' => 'sometimes|nullable|array',
             'short_description' => 'sometimes|nullable|string',

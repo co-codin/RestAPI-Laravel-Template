@@ -30,6 +30,8 @@ class ProductDto extends BaseDto
 
     public $is_in_home = false;
 
+    public $has_test_drive = false;
+
     public ?array $documents;
 
     public ?array $benefits;
