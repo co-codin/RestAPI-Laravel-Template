@@ -21,8 +21,6 @@ class ProductPropertyController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
-        ray($request->validated()['properties']);
-
         $this->productPropertyStorage->update($productModel, $request->validated()['properties']);
 
         event(new ProductSaved($productModel));
