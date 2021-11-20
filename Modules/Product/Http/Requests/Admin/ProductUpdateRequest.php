@@ -102,7 +102,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'benefits' => 'Особенности',
             'benefits.information' => 'Сводная информация',
             'benefits.information.*.icon' => 'Иконка',
-            'benefits.information.*.description' => 'Иконка',
+            'benefits.information.*.description' => 'Описание',
             'benefits.chips' => 'Фишки',
             'benefits.chips.*.value' => 'Значение',
             'benefits.chips.*.description' => 'Описание',
