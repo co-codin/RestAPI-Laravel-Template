@@ -58,7 +58,6 @@ class ProductUpdateRequest extends BaseFormRequest
             'is_booklet_changed' => 'sometimes|boolean',
             'booklet' => 'sometimes|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
-            'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.source' => [
@@ -85,6 +84,29 @@ class ProductUpdateRequest extends BaseFormRequest
                 new EnumValue(DocumentType::class, false),
             ],
             'documents.*.position' => 'sometimes|nullable|integer|distinct',
+
+            'benefits' => 'sometimes|nullable|array',
+            'benefits.information' => 'sometimes|nullable|array|max:2',
+            'benefits.information.*.icon' => 'required|string|max:255',
+            'benefits.information.*.description' => 'required|string|max:255',
+            'benefits.chips' => 'sometimes|nullable|array|max:3',
+            'benefits.chips.*.value' => 'required|string|max:5',
+            'benefits.chips.*.description' => 'required|string|max:255',
+            'benefits.benefit' => 'string|nullable|max:255',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'benefits' => 'Особенности',
+            'benefits.information' => 'Сводная информация',
+            'benefits.information.*.icon' => 'Иконка',
+            'benefits.information.*.description' => 'Иконка',
+            'benefits.chips' => 'Фишки',
+            'benefits.chips.*.value' => 'Значение',
+            'benefits.chips.*.description' => 'Описание',
+            'benefits.benefit' => 'Особенность',
         ];
     }
 }
