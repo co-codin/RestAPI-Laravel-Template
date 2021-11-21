@@ -28,7 +28,7 @@ class ProductRequestCriteria implements CriteriaInterface
         }
 
         return QueryBuilder::for($model)
-            ->defaultSort('id')
+            ->defaultSort('-id')
             ->allowedFields(array_merge(
                 static::allowedProductFields(),
                 static::allowedProductVariationFields('product_variations'),
