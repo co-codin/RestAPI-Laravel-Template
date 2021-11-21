@@ -31,4 +31,11 @@ class CategoryUpdateRequest extends BaseFormRequest
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'image.required_unless' => 'Поле Изображение обязательно для заполнения, когда Родительская категория заполнена.',
+        ];
+    }
 }
