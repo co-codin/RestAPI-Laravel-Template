@@ -13,7 +13,7 @@ class CategoryCreateRequest extends BaseFormRequest
         return [
             'parent_id' => 'sometimes|nullable|integer|exists:categories,id',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|regex:/^[a-z0-9_\-/]*$/|unique:categories,slug',
+            'slug' => 'required|string|max:255|regex:/^[a-z0-9_\-\/]*$/|unique:categories,slug',
             'product_name' => 'sometimes|nullable|string|max:255',
             'full_description' => 'sometimes|nullable|string',
             'status' => [
