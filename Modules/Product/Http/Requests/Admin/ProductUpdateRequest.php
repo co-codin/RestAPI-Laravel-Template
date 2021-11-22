@@ -41,6 +41,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
+            'warranty_info' => 'sometimes|nullable|string',
             'status' => [
                 'sometimes',
                 'required',
