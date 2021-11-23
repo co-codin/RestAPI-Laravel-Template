@@ -22,7 +22,7 @@ abstract class CustomerReviewRequest extends BaseFormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'Имя клиента',
+            'position' => 'Должность',
             'author' => 'Автор',
             'type' => 'Тип клиента',
             'video' => 'Ссылка на youtube видео',
