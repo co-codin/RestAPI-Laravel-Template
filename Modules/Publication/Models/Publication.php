@@ -34,7 +34,7 @@ class Publication extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'published_at' => 'date:d-m-Y',
+        'published_at' => 'date:Y-m-d',
         'is_enabled' => 'boolean',
     ];
 
