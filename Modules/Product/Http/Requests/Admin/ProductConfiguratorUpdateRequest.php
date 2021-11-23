@@ -19,6 +19,7 @@ class ProductConfiguratorUpdateRequest extends BaseFormRequest
             'variations.*.price' => 'sometimes|nullable|numeric|gt:0',
             'variations.*.previous_price' => 'sometimes|nullable|numeric|gt:0',
             'variations.*.currency_id' => 'sometimes|nullable|integer|exists:currencies,id',
+            'variations.*.condition_id' => 'required|integer|exists:field_values,id',
             'variations.*.is_price_visible' => 'boolean',
             'variations.*.is_enabled' => 'boolean',
             'variations.*.availability' => [
