@@ -1,14 +1,14 @@
 extend type Query {
     customer_reviews(
-        where: _ @whereConditions(columns: ["id", "company_name", "name", "author", "type", "is_in_home"])
-        orderBy: _ @orderBy(columns: ["id", "company_name", "name", "author", "type", "is_in_home"])
+        where: _ @whereConditions(columns: ["id", "company_name", "position", "author", "type", "is_in_home"])
+        orderBy: _ @orderBy(columns: ["id", "company_name", "position", "author", "type", "is_in_home"])
     ): [CustomerReview!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
     all_customer_reviews(
-        where: _ @whereConditions(columns: ["id", "company_name", "name", "author", "type", "is_in_home"])
-        orderBy: _ @orderBy(columns: ["id", "company_name", "name", "author", "type", "is_in_home"])
+        where: _ @whereConditions(columns: ["id", "company_name", "position", "author", "type", "is_in_home"])
+        orderBy: _ @orderBy(columns: ["id", "company_name", "position", "author", "type", "is_in_home"])
     ): [CustomerReview!]!
     @all
     @orderBy(column: "id", direction: "ASC")
