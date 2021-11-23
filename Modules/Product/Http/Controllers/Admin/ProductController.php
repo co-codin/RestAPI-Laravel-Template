@@ -6,7 +6,6 @@ namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Modules\Product\Dto\ProductDto;
-use Modules\Product\Events\ProductSaved;
 use Modules\Product\Http\Requests\Admin\ProductCreateRequest;
 use Modules\Product\Http\Requests\Admin\ProductUpdateRequest;
 use Modules\Product\Http\Resources\ProductResource;
@@ -30,8 +29,6 @@ class ProductController extends Controller
 
         $product = $this->productStorage->store($productDto);
 
-        event(new ProductSaved($product));
-
         return new ProductResource($product);
     }
 
@@ -40,8 +37,6 @@ class ProductController extends Controller
         $productModel = $this->productRepository->find($product);
 
         $productModel = $this->productStorage->update($productModel, ProductDto::fromFormRequest($request));
-
-        event(new ProductSaved($productModel));
 
         return new ProductResource($productModel);
     }
