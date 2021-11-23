@@ -28,7 +28,7 @@ class ProductRequestCriteria implements CriteriaInterface
         }
 
         return QueryBuilder::for($model)
-            ->defaultSort('id')
+            ->defaultSort('-id')
             ->allowedFields(array_merge(
                 static::allowedProductFields(),
                 static::allowedProductVariationFields('product_variations'),
@@ -77,9 +77,10 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::trashed(),
 
                 AllowedFilter::exact('categories.id'),
-                AllowedFilter::callback('categories.is_main', function ($query, $value) {
+                AllowedFilter::callback('categories.parent_category_id', function ($query, $value) {
                     $query->whereHas('productCategories', function ($q) use ($value) {
-                        $q->where('is_main', (bool)$value);
+                        $q->where('is_main', true)
+                            ->where('category_id', $value);
                     });
                 }),
 
@@ -124,6 +125,8 @@ class ProductRequestCriteria implements CriteriaInterface
             'brand_id',
             'stock_type_id',
             'is_enabled',
+            'warranty',
+            'warranty_info',
             'created_at',
             'updated_at',
         ];

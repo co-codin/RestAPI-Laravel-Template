@@ -9,12 +9,14 @@ type Product {
     image: String
     is_in_home: Boolean!
     warranty: Int
+    warranty_info: String
     short_description: String
     full_description: String
     assigned_by_id: Int
     has_test_drive: Boolean!
     booklet: String
     video: String
+    benefits: ProductBenefits
     price: MixedPrice
     brand: Brand! @belongsTo
     productVariations: [ProductVariation!]! @hasMany
@@ -26,4 +28,21 @@ type Product {
     images: [Image!] @morphMany
     seo: Seo @morphOne
     stockType: FieldValue @belongsTo
+}
+
+
+type ProductBenefits {
+    benefit: String
+    chips: [ProductBenefitChip]
+    information: [ProductBenefitInformation]
+}
+
+type ProductBenefitChip {
+    value: String
+    description: String
+}
+
+type ProductBenefitInformation {
+    icon: String
+    description: String
 }

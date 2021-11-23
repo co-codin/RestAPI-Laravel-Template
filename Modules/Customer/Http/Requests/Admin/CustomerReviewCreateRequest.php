@@ -14,7 +14,7 @@ class CustomerReviewCreateRequest extends CustomerReviewRequest
         return [
             'company_name' => 'sometimes|nullable|string|max:255',
             'product_id' => 'sometimes|nullable|integer|exists:products,id',
-            'post' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'type' => [
                 'required',

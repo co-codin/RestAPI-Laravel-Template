@@ -58,7 +58,7 @@ class ValidationExtensionServiceProvider extends ServiceProvider
         });
 
         Validator::extend('is_youtube_link', function ($attribute, string $value, $parameters, $validator) {
-            $re = '/https:\/\/(?:www\.)?youtu\.be\/[a-zA-Z0-9_=-]+$/';
+            $re = '~^(?:https?://)?(?:www[.])?(?:youtube[.]com/watch[?]v=|youtu[.]be/)([^&]{11})~x';
 
             preg_match($re, $value, $matches);
 

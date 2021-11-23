@@ -31,6 +31,7 @@ class ProductCreateRequest extends BaseFormRequest
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
+            'warranty_info' => 'sometimes|nullable|string',
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'status' => [
                 'required',
@@ -38,7 +39,7 @@ class ProductCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
                 function ($attribute, $value, $fail) {
                     if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
-                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля (Полное описание и главная картинка)");
                     }
                 }
             ],

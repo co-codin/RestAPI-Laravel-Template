@@ -31,7 +31,7 @@ class MigrateProductCategory extends Command
         return [
             'product_id' => $item->product_id,
             'category_id' => $item->category_id,
-            'is_main' => $item->is_main,
+            'is_main' => $item->is_main === 1,
         ];
     }
 }

@@ -14,7 +14,7 @@ use Modules\Customer\Enums\CustomerType;
  */
 class CustomerReviewDto extends BaseDto
 {
-    public ?string $post;
+    public ?string $position;
 
     public ?string $company_name;
 
