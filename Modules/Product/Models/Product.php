@@ -79,17 +79,6 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
-        static::created(function(Product $product) {
-            $product->productVariations()->createMany([[
-                'name' => 'Модификация 1',
-                'availability' => Availability::UnderTheOrder,
-                'condition_id' => ProductVariationCondition::NEW,
-            ], [
-                'name' => $product->name,
-                'availability' => Availability::UnderTheOrder,
-                'condition_id' => ProductVariationCondition::NEW,
-            ]]);
-        });
     }
 
     public function getActivitylogOptions(): LogOptions

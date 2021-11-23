@@ -23,7 +23,7 @@ class NewsCreateRequest extends BaseFormRequest
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|max:255|unique:news,slug',
             'image' => 'required|image',
             'is_in_home' => 'sometimes|boolean',
-            'published_at' => 'sometimes|required|date',
+            'published_at' => 'required|date',
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }

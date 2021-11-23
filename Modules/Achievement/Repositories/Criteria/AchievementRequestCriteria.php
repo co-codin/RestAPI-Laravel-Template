@@ -3,6 +3,7 @@
 
 namespace Modules\Achievement\Repositories\Criteria;
 
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -16,6 +17,10 @@ class AchievementRequestCriteria implements CriteriaInterface
             ->defaultSort('position')
             ->allowedFields(['id', 'name', 'image', 'position', 'is_enabled', 'created_at', 'updated_at'])
             ->allowedFilters([
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('image'),

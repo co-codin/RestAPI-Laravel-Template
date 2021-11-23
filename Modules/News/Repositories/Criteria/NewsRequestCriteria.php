@@ -4,6 +4,7 @@
 namespace Modules\News\Repositories\Criteria;
 
 
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -20,6 +21,11 @@ class NewsRequestCriteria implements CriteriaInterface
                 'status', 'image', 'is_in_home', 'published_at',
             ])
             ->allowedFilters([
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'name' => 'like',
+                    'slug' => 'like',
+                ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('slug'),

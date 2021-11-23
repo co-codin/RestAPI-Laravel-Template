@@ -20,7 +20,7 @@ class ReindexProduct
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
             'id' => $model->getKey(),
-            'body' => new ProductSearchResource($model),
+            'body' => with(new ProductSearchResource($model))->toArray(request()),
         ]);
     }
 }
