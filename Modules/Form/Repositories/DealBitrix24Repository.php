@@ -52,6 +52,7 @@ class DealBitrix24Repository implements DealRepository
             ->select(['id', 'title', 'assigned_by_id', 'comments', 'uf_crm_1525856204', 'uf_crm_1525856795'])
             ->whereIn('lead_id', $leadIds)
             ->where('stage_id', '!=', ['won', 'lose', '1', '2', '3'])
+            ->where('assigned_by_id', '!=', '404') // бот удаленные
             ->get();
     }
 
@@ -65,6 +66,7 @@ class DealBitrix24Repository implements DealRepository
             ->select(['id', 'title', 'assigned_by_id', 'comments', '', 'uf_crm_1525856204', 'uf_crm_1525856795'])
             ->whereIn('contact_id', $contactIds)
             ->where('stage_id', '!=', ['won', 'lose', '1', '2', '3'])
+            ->where('assigned_by_id', '!=', '404') // бот удаленные
             ->get();
     }
 
@@ -80,6 +82,7 @@ class DealBitrix24Repository implements DealRepository
                 $query->where('comments', 'like', $params)
                     ->where('stage_id', '!=', ['won', 'lose', '1', '2', '3']);
             })
+            ->where('assigned_by_id', '!=', '404') // бот удаленные
             ->get();
     }
 }
