@@ -18,7 +18,7 @@ class PublicationCreateRequest extends BaseFormRequest
             'url' => 'required|string|max:255|unique:publications,url',
             'source' => 'required|string|max:255',
             'is_enabled' => 'required|boolean',
-            'published_at' => 'sometimes|nullable|date_format:d.m.Y',
+            'published_at' => 'sometimes|required|date',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'logo' => 'sometimes|nullable|image',
         ];
