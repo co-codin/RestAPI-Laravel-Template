@@ -35,7 +35,7 @@ class CustomerReviewBuilder extends BaseBuilder
         $fields = [
             'id',
             'company_name',
-            'post',
+            'position',
             'author',
             'type',
             'video',
@@ -61,7 +61,7 @@ class CustomerReviewBuilder extends BaseBuilder
         $filters = [
             'company_name',
             'product_id',
-            'post',
+            'position',
             'author',
             'comment',
             'id' => AllowedFilter::exact('id'),
@@ -87,7 +87,7 @@ class CustomerReviewBuilder extends BaseBuilder
         $sorts = [
             'id',
             'company_name',
-            'post',
+            'position',
             'author',
             'type',
             'is_in_home',

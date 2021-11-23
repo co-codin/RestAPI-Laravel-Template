@@ -16,5 +16,7 @@ class SeoRuleDto extends BaseDto
 
     public ?string $url;
 
+    public ?string $text;
+
     public ?int $assigned_by_id;
 }

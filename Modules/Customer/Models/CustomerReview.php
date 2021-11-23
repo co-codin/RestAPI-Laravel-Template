@@ -16,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Modules\Customer\Entities\CustomerReview
  *
  * @property int $id
- * @property string $post
+ * @property string $position
  * @property string $author
  * @property int $type
  * @property string|null $video

@@ -14,7 +14,7 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
         return [
             'company_name' => 'sometimes|nullable|string|max:255',
             'product_id' => 'sometimes|nullable|integer|exists:products,id',
-            'name' => 'sometimes|required|string|max:255',
+            'position' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
             'type' => [
                 'sometimes',
