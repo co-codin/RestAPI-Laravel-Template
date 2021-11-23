@@ -15,7 +15,7 @@ class PublicationUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'url' => 'sometimes|required|string|max:255|unique:publications,url,' . $this->route('publication'),
+            'url' => 'sometimes|url|required|string|max:255|unique:publications,url,' . $this->route('publication'),
             'source' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|required|boolean',
             'published_at' => 'sometimes|nullable|date',
