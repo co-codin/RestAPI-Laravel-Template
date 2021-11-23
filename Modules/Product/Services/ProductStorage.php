@@ -6,6 +6,7 @@ use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
+use Modules\Product\Events\ProductSaved;
 use Modules\Product\Models\Product;
 
 class ProductStorage
@@ -41,8 +42,11 @@ class ProductStorage
         );
 
         $product->productVariations()->create([
-            'name' => $product->brand->name . ' ' . $product->name
+            'name' => $product->brand->name . ' ' . $product->name,
+            'condition_id' => 61, // новый
         ]);
+
+        event(new ProductSaved($product));
 
         return $product;
     }
@@ -84,6 +88,8 @@ class ProductStorage
         if (!$product->update($attributes)) {
             throw new \LogicException('can not update product.');
         }
+
+        event(new ProductSaved($product));
 
         return $product;
     }

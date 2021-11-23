@@ -22,8 +22,6 @@ class ProductConfiguratorController extends Controller
 
         $this->productConfiguratorStorage->update($productModel, $request->input('variations'));
 
-        event(new ProductSaved($productModel));
-
         return new ProductResource($productModel);
     }
 }
