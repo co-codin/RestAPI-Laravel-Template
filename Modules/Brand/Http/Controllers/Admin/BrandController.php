@@ -6,7 +6,6 @@ namespace Modules\Brand\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Modules\Brand\Dto\BrandDto;
-use Modules\Brand\Events\BrandSaved;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
 use Modules\Brand\Http\Resources\BrandResource;
@@ -30,8 +29,6 @@ class BrandController extends Controller
 
         $brand = $this->brandStorage->store($brandDto);
 
-        event(new BrandSaved($brand));
-
         return new BrandResource($brand);
     }
 
@@ -40,8 +37,6 @@ class BrandController extends Controller
         $brandModel = $this->brandRepository->find($brand);
 
         $brandModel = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
-
-        event(new BrandSaved($brandModel));
 
         return new BrandResource($brandModel);
     }

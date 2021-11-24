@@ -20,7 +20,7 @@ class ReindexBrand
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
             'id' => $model->getKey(),
-            'body' => new BrandSearchResource($model),
+            'body' => with(new BrandSearchResource($model))->toArray(request()),
         ]);
     }
 }

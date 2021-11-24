@@ -6,6 +6,7 @@ namespace Modules\Brand\Services;
 
 use App\Services\File\ImageUploader;
 use Modules\Brand\Dto\BrandDto;
+use Modules\Brand\Events\BrandSaved;
 use Modules\Brand\Models\Brand;
 
 class BrandStorage
@@ -20,7 +21,11 @@ class BrandStorage
             $attributes['image'] = $this->imageUploader->upload($brandDto->image);
         }
 
-        return Brand::query()->create($attributes);
+        $brand = Brand::query()->create($attributes);
+
+        event(new BrandSaved($brand));
+
+        return $brand;
     }
 
     public function update(Brand $brand, BrandDto $brandDto)
@@ -34,6 +39,8 @@ class BrandStorage
         if (!$brand->update($attributes)) {
             throw new \LogicException('can not update brand');
         }
+
+        event(new BrandSaved($brand));
 
         return $brand;
     }
