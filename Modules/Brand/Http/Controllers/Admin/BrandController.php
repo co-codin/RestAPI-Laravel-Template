@@ -5,7 +5,6 @@ namespace Modules\Brand\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;

@@ -15,10 +15,10 @@ class PublicationUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'url' => 'sometimes|required|string|max:255|unique:publications,url,' . $this->route('publication'),
+            'url' => 'sometimes|url|required|string|max:255|unique:publications,url,' . $this->route('publication'),
             'source' => 'sometimes|required|string|max:255',
             'is_enabled' => 'sometimes|required|boolean',
-            'published_at' => 'sometimes|nullable|date_format:d.m.Y',
+            'published_at' => 'sometimes|nullable|date',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'logo' => 'sometimes|nullable|image',
             'is_logo_changed' => 'sometimes|boolean',
