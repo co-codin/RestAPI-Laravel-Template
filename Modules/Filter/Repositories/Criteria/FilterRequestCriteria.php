@@ -41,7 +41,7 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('options->field'),
             ])
             ->allowedIncludes('category', 'property')
-            ->allowedSorts('name', 'slug', 'id', 'position', 'created_at', 'updated_at')
+            ->allowedSorts('name', 'slug', 'id', 'position', 'type', 'created_at', 'updated_at')
             ;
     }
 
