@@ -43,27 +43,13 @@ class ProductBuilders
     {
         return $builder->whereExists(function (\Illuminate\Database\Query\Builder $builder) use ($categoryIds) {
             $builder
-//                ->select(DB::raw(1))
-//                ->from('product_category as pc')
-//                ->join('products as p', 'pc.product_id', '=', 'p.id')
-//                ->join('product_variations as pv', 'pv.product_id', '=', 'p.id')
-//                ->whereIn('pc.category_id', $categoryIds)
-//                ->whereNotNull('pv.previous_price')
-//                ->where('pv.is_price_visible', true);
                 ->select(DB::raw(1))
-                ->from('products as p')
-                ->join('product_category as pc', 'pc.product_id', '=', 'p.id')
-                ->join('product_variations as pv', 'pv.product_id', '=', 'p.id')
+                ->from('product_category as pc')
+                ->join('product_variations as pv', 'pv.product_id', '=', 'products.id')
+                ->whereRaw('pc.product_id = products.id')
                 ->whereIn('pc.category_id', $categoryIds)
                 ->whereNotNull('pv.previous_price')
-                ->where('pv.is_price_visible', true)
-                ->groupBy('pc.product_id');
+                ->where('pv.is_price_visible', true);
         });
-//                ->select('products.*')
-//                ->join('product_category as pc', 'pc.product_id', '=', 'products.id')
-//                ->join('product_variations as pv', 'pv.product_id', '=', 'products.id')
-//                ->whereIn('pc.category_id', $categoryIds)
-//                ->whereNotNull('pv.previous_price')
-//                ->where('pv.is_price_visible', true);
     }
 }
