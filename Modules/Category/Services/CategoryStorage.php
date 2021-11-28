@@ -6,6 +6,7 @@ namespace Modules\Category\Services;
 
 use App\Services\File\ImageUploader;
 use Modules\Category\Dto\CategoryDto;
+use Modules\Category\Events\CategorySaved;
 use Modules\Category\Models\Category;
 use Modules\Filter\Repositories\FilterRepository;
 use Modules\Filter\Services\FilterStorage;
@@ -15,9 +16,7 @@ class CategoryStorage
     public function __construct(
         protected ImageUploader $imageUploader,
         protected FilterRepository $filterRepository
-    )
-    {
-    }
+    ) {}
 
     public function store(CategoryDto $categoryDto)
     {
@@ -28,6 +27,8 @@ class CategoryStorage
         }
 
         $category = Category::query()->create($attributes);
+
+        event(new CategorySaved($category));
 
         if ($categoryDto->attach_default_filters) {
             FilterStorage::linkToDefaultFilters($this->filterRepository->findDefaultFilters(), $category->id);
@@ -47,6 +48,8 @@ class CategoryStorage
         if (!$category->update($attributes)) {
             throw new \LogicException('can not update category');
         }
+
+        event(new CategorySaved($category));
 
         return $category;
     }
