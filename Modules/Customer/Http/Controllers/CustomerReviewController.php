@@ -3,7 +3,7 @@
 namespace Modules\Customer\Http\Controllers;
 
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Customer\Http\Resources\CustomerReviewResource;
 use Modules\Customer\Models\CustomerReview;
 use Modules\Customer\Repositories\CustomerReviewRepository;

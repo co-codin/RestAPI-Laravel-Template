@@ -6,6 +6,7 @@ use App\Concerns\IsActive;
 use App\Models\FieldValue;
 use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,12 +32,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|integer $country_id
  * @property int|null $position
  * @property string|null $website
- * @property-read Seo $seo
- * @property int|null Seo $seo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Seo $seo
  * @property-read FieldValue $country
+ * @property-read Product[]|Collection $products
  * @mixin \Eloquent
  * @method static Builder|Brand newModelQuery()
  * @method static Builder|Brand newQuery()
@@ -85,13 +86,13 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    protected static function newFactory()
-    {
-        return BrandFactory::new();
-    }
-
     public function country()
     {
         return $this->belongsTo(FieldValue::class);
+    }
+
+    protected static function newFactory()
+    {
+        return BrandFactory::new();
     }
 }
