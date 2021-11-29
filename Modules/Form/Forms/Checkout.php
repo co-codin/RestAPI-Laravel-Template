@@ -7,7 +7,7 @@ use Modules\Product\Models\Product;
 
 class Checkout extends Form
 {
-    public bool $sendToBitrix = false;
+    public bool $sendToBitrix = true;
 
     public function title(): string
     {
@@ -46,13 +46,14 @@ class Checkout extends Form
     {
         $default = parent::getComments();
 
-        $products = collect($this->getAttribute('products'))->map(function ($item) {
-            $product = Product::find($item['id']);
+        $products = collect($this->getAttribute('products'))
+            ->map(function ($item) {
+                $product = Product::find($item['id']);
 
-            return $product->brand->name
-                . " " . $product->name
-                . " - " . $item['number'] . " шт.";
-        })
+                return $product->brand->name
+                    . " " . $product->name
+                    . " - " . $item['number'] . " шт.";
+            })
             ->join("<br>");
 
         return "

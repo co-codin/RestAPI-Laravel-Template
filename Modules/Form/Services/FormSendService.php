@@ -13,9 +13,6 @@ use Modules\Form\Mail\SendDispatchableMail;
 
 class FormSendService
 {
-    /**
-     * @param Form $form
-     */
     public function send(Form $form): void
     {
         $this->toExternalApi($form);
@@ -29,9 +26,6 @@ class FormSendService
         }
     }
 
-    /**
-     * @param Form $form
-     */
     private function toExternalApi(Form $form): void
     {
         /*if ($form->sendToCrm) {
@@ -45,9 +39,6 @@ class FormSendService
         }
     }
 
-    /**
-     * @param Form $form
-     */
     private function toMail(Form $form): void
     {
         $fileAttributeNames = array_keys(request()->allFiles());

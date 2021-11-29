@@ -105,14 +105,14 @@ class LeadCreator
             'utm_content' => $form->getConcreteUtm('utm_content'),
             'utm_term' => $form->getConcreteUtm('utm_term'),
             'uf_crm_56767c2bb8432' => $this->form->getProduct()
-                ? $this->form->getProduct()->brand->title . " " . $this->form->getProduct()->title
+                ? $this->form->getProduct()->brand->name . " " . $this->form->getProduct()->name
                 : "",
             $roistatKey => $form->getRoistatVisit(),
             //'uf_crm_1525856204' => $this->form->getCategory() ?? "",
             //'uf_crm_1525856795' => $this->form->leadType ?? "",
         ]);
 
-        if($lead && $lead instanceof Lead && $lead->id) {
+        if($lead instanceof Lead && $lead->id) {
             Bitrix24::call('bizproc.workflow.start', [
                 'TEMPLATE_ID' => 50,
                 'DOCUMENT_ID' => ['crm', 'CCrmDocumentLead', $lead->id],
