@@ -128,6 +128,8 @@ class ProductRequestCriteria implements CriteriaInterface
             'warranty',
             'warranty_info',
             'group_id',
+            'short_description',
+            'full_description',
             'created_at',
             'updated_at',
         ];
