@@ -45,7 +45,6 @@ class ProductBuilders
             $builder
                 ->select(DB::raw(1))
                 ->from('product_category as pc')
-                ->join('product_variations as pv', 'pv.product_id', '=', 'products.id')
                 ->whereRaw('pc.product_id = products.id')
                 ->whereIn('pc.category_id', $categoryIds);
         });
