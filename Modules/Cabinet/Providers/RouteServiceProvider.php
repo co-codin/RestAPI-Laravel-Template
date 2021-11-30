@@ -62,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
+        Route::middleware('api')
             ->group(module_path('Cabinet', '/Routes/api.php'));
     }
 }
