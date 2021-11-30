@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Cabinet\Database\factories\CabinetFactory;
+use Modules\Category\Models\Category;
 
 class Cabinet extends Model
 {
@@ -20,6 +21,11 @@ class Cabinet extends Model
                 'source' => 'name',
             ]
         ];
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     protected static function newFactory()
