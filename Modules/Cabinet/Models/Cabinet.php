@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Cabinet\Database\factories\CabinetFactory;
 use Modules\Category\Models\Category;
+use Modules\Seo\Models\Seo;
 
 class Cabinet extends Model
 {
@@ -27,6 +28,11 @@ class Cabinet extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
     }
 
     protected static function newFactory()
