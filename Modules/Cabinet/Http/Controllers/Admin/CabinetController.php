@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Cabinet\Http\Controllers;
+namespace Modules\Cabinet\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 
@@ -10,12 +10,17 @@ class CabinetController extends Controller
 
     ) {}
 
-    public function index()
+    public function store()
     {
 
     }
 
-    public function show()
+    public function update()
+    {
+
+    }
+
+    public function destroy()
     {
 
     }
