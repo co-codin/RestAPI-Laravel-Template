@@ -39,7 +39,7 @@ class CabinetController extends Controller
     {
         $cabinetModel = $this->cabinetRepository->find($cabinet);
 
-        $this->cabinetStorage->delete($cabinetModel);
+        $this->cabinetStorage->destroy($cabinetModel);
 
         return response()->noContent();
     }
