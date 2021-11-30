@@ -5,12 +5,13 @@ namespace Modules\Cabinet\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Cabinet\Database\factories\CabinetFactory;
 use Modules\Category\Models\Category;
 
 class Cabinet extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, SoftDeletes;
 
     protected $guarded = ['id'];
 
