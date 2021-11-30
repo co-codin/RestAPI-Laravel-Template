@@ -19,5 +19,6 @@
     "Vacancy": true,
     "Export": true,
     "Geo": true,
-    "Search": true
+    "Search": true,
+    "Cabinet": true
 }

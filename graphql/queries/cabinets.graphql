@@ -1,0 +1,10 @@
+extend type Query {
+    cabinets(
+        where: _ @whereConditions(columns: ["id", "name", "slug", "category_id", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "category_id", "status"])
+    ): [Cabinet!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+
+    cabinet(id: ID @eq, name: String @eq, slug: String @eq): Cabinet @find
+}
