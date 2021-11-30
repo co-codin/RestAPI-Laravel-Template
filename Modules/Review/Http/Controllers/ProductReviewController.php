@@ -3,12 +3,13 @@
 namespace Modules\Review\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Http\Requests\ProductReviewCreateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
 use Modules\Review\Repositories\ProductReviewRepository;
+use Modules\Review\Services\ProductReviewStorage;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductReviewController extends Controller
 {
@@ -30,18 +31,17 @@ class ProductReviewController extends Controller
         );
     }
 
+    /**
+     * @throws UnknownProperties
+     * @throws \Exception
+     */
     public function store(
         ProductReviewCreateRequest $request,
-        ProductReviewService $service,
-    ): Renderable
+        ProductReviewStorage $storage,
+    ): ProductReviewResource
     {
-        $dto = ProductReviewDto::create(
-            array_merge(
-                ['client_id' => \Auth::user()->id,],
-                $request->validated()
-            )
+        return new ProductReviewResource(
+            $storage->store(ProductReviewDto::fromFormRequest($request))
         );
-
-        $service->save($dto);
     }
 }
