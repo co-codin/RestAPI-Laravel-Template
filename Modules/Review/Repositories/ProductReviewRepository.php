@@ -4,9 +4,9 @@
 namespace Modules\Review\Repositories;
 
 
+use App\Repositories\BaseRepository;
 use Modules\Review\Models\ProductReview;
 use Modules\Review\Repositories\Criteria\ProductReviewRequestCriteria;
-use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * @property ProductReview $model

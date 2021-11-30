@@ -42,6 +42,8 @@ class Client extends Authenticatable
 {
     use SoftDeletes, LogsActivity;
 
+    protected $connection = 'mysql-crm';
+
     protected $guarded = [
         'id',
         'phone_verified_at',
