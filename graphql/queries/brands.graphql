@@ -5,7 +5,7 @@ extend type Query {
             "website", "country_id", "is_in_home",
             "position", "assigned_by_id", "status",
         ])
-        getByCategories: [Int!]! @builder(method: "\\Modules\\Brand\\Services\\BrandBuilder@getByCategories")
+        categories: [Int!]! @builder(method: "\\Modules\\Brand\\Services\\BrandBuilder@getByCategories")
         orderBy: _ @orderBy(columns: [
             "id", "name", "slug", "image",
             "website", "country", "is_in_home",
