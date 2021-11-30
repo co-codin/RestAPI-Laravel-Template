@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Achievement\Database\Seeders\AchievementDatabaseSeeder;
 use Modules\Brand\Database\Seeders\BrandDatabaseSeeder;
+use Modules\Cabinet\Database\Seeders\CabinetDatabaseSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Currency\Database\Seeders\CurrencyDatabaseSeeder;
 use Modules\Customer\Database\Seeders\CustomerDatabaseSeeder;
@@ -42,5 +43,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GeoDatabaseSeeder::class);
         $this->call(VacancyDatabaseSeeder::class);
         $this->call(CustomerDatabaseSeeder::class);
+        $this->call(CabinetDatabaseSeeder::class);
     }
 }
