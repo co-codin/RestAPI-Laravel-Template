@@ -1,0 +1,13 @@
+{
+    "name": "Cabinet",
+    "alias": "cabinet",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Cabinet\\Providers\\CabinetServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
