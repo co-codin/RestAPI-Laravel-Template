@@ -58,7 +58,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'group_id' => [
-                'required_with:status',
+                'required_if:status,' . Status::ACTIVE,
                 'nullable',
                 'integer',
                 new EnumValue(ProductGroup::class, false),
