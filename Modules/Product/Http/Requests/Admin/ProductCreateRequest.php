@@ -7,6 +7,7 @@ use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
+use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductCreateRequest extends BaseFormRequest
@@ -45,6 +46,12 @@ class ProductCreateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'group_id' => [
+                'sometimes',
+                'nullable',
+                'integer',
+                new EnumValue(ProductGroup::class, false),
+            ],
             'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
