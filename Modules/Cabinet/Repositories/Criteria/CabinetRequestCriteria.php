@@ -26,7 +26,7 @@ class CabinetRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('status'),
             ])
             ->allowedSorts('id', 'name', 'slug', 'status', 'category_id', 'created_at', 'updated_at', 'deleted_at')
-            ->allowedIncludes(['category'])
+            ->allowedIncludes(['category', 'seo'])
             ;
     }
 }
