@@ -7,6 +7,7 @@ use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
+use Modules\Product\Enums\ProductGroup;
 
 class ProductUpdateRequest extends BaseFormRequest
 {
@@ -56,6 +57,12 @@ class ProductUpdateRequest extends BaseFormRequest
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'group_id' => [
+                'required_if:status',
+                'nullable',
+                'integer',
+                new EnumValue(ProductGroup::class, false),
+            ],
             'is_booklet_changed' => 'sometimes|boolean',
             'booklet' => 'sometimes|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
