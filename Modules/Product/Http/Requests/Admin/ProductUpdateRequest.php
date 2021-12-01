@@ -8,6 +8,7 @@ use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 use Modules\Product\Enums\ProductGroup;
+use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductUpdateRequest extends BaseFormRequest
 {
@@ -23,12 +24,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 'sometimes',
                 'required',
                 'array',
-                function ($attribute, $value, $fail) {
-                    $isMain = array_column($value, 'is_main');
-                    if (count(array_filter($isMain)) > 1) {
-                        $fail('is_main should be unique in array.');
-                    }
-                },
+                new CategoryIsMainRule,
             ],
             'categories.*.id' => 'required|integer|distinct|exists:categories,id',
             'categories.*.is_main' => 'required|boolean',
