@@ -5,6 +5,7 @@ namespace Modules\Review\Services;
 
 
 use Modules\Review\Dto\ProductReviewDto;
+use Modules\Review\Mail\ApprovedProductReviewClientNotify;
 use Modules\Review\Models\ProductReview;
 
 class ProductReviewStorage
@@ -42,6 +43,22 @@ class ProductReviewStorage
     {
         if (!$productReview->delete()) {
             throw new \Exception('Can not delete Product Review');
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function approve(ProductReview $productReview, string $comment, bool $approve = true): void
+    {
+        if (!$productReview->update(['confirm' => $approve])) {
+            throw new \Exception('Can not confirm Product Review');
+        }
+
+        $email = $productReview->client->email;
+
+        if (!is_null($email)) {
+            \Mail::to($email)->queue(new ApprovedProductReviewClientNotify($productReview, $comment));
         }
     }
 }
