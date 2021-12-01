@@ -20,7 +20,7 @@ class ClientAuth
 
         $response = Http::baseUrl(config('services.crm.domain'))
             ->withToken($request->bearerToken())
-            ->get('/clients/me');
+            ->get('/clients/show');
 
         if ($response->failed()) {
             abort(401);

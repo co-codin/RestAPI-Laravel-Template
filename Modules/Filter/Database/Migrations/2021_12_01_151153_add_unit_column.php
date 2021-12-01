@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUnitIntoPropertiesTable extends Migration
+class AddUnitColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddUnitIntoPropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('properties', function (Blueprint $table) {
+        Schema::table('filters', function (Blueprint $table) {
             $table->string('unit')->after('options')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddUnitIntoPropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('properties', function (Blueprint $table) {
+        Schema::table('filters', function (Blueprint $table) {
             $table->dropColumn('unit');
         });
     }
