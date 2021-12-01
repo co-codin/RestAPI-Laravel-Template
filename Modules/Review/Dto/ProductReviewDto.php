@@ -3,8 +3,6 @@
 namespace Modules\Review\Dto;
 
 use App\Dto\BaseDto;
-use Illuminate\Foundation\Http\FormRequest;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductReviewDto extends BaseDto
 {
@@ -27,18 +25,4 @@ class ProductReviewDto extends BaseDto
     public ?int $like;
 
     public ?int $dislike;
-
-    /**
-     * @throws UnknownProperties
-     */
-    public static function fromFormRequest(FormRequest $request): static
-    {
-        $validated = array_merge(
-            ['client_id' => \Auth::user()->id],
-            $request->validated()
-        );
-
-        return (new static($validated))
-            ->visible(array_keys($validated));
-    }
 }

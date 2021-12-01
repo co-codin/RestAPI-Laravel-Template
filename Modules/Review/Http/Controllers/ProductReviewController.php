@@ -40,8 +40,15 @@ class ProductReviewController extends Controller
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
-        return new ProductReviewResource(
-            $storage->store(ProductReviewDto::fromFormRequest($request))
+        $validated = array_merge(
+            ['client_id' => \Auth::user()->id],
+            $request->validated()
         );
+        
+        $productReview = $storage->store(
+            ProductReviewDto::create($validated)->visible($validated)
+        );
+
+        return new ProductReviewResource($productReview);
     }
 }
