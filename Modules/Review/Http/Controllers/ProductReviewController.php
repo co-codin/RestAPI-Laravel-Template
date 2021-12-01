@@ -44,9 +44,9 @@ class ProductReviewController extends Controller
             ['client_id' => \Auth::user()->id],
             $request->validated()
         );
-        
+
         $productReview = $storage->store(
-            ProductReviewDto::create($validated)->visible($validated)
+            ProductReviewDto::create($validated)->visible(array_keys($validated))
         );
 
         return new ProductReviewResource($productReview);
