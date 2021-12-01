@@ -20,5 +20,6 @@
     "Export": true,
     "Geo": true,
     "Search": true,
+    "Cabinet": true,
     "Review": true
 }

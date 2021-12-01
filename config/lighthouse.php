@@ -135,6 +135,7 @@ return [
             'Modules\\Export\\Models',
             'Modules\\Customer\\Models',
             'Modules\\Geo\\Models',
+            'Modules\\Cabinet\\Models',
 
         ],
         'queries' => 'App\\GraphQL\\Queries',

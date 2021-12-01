@@ -51,7 +51,7 @@ class ProductVariationSearchResource extends JsonResource
                 [
                     'name' => 'is_hot',
                     'value' => (!! $this->previous_price && $this->is_price_visible) ? 1 : 0,
-                    'aggregation' => !! $this->previous_price ? 1 : 0,
+                    'aggregation' => (!! $this->previous_price && $this->is_price_visible) ? 1 : 0,
                 ],
                 [
                     'name' => 'condition',

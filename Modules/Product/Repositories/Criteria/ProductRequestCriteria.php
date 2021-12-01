@@ -127,6 +127,9 @@ class ProductRequestCriteria implements CriteriaInterface
             'is_enabled',
             'warranty',
             'warranty_info',
+            'group_id',
+            'short_description',
+            'full_description',
             'created_at',
             'updated_at',
         ];

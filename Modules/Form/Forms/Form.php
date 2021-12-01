@@ -333,7 +333,6 @@ abstract class Form
         return false;
     }
 
-
     public function response(): array
     {
         return [
