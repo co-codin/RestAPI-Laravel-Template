@@ -8,6 +8,8 @@ class ProductReviewDto extends BaseDto
 {
     public ?int $client_id;
 
+    public ?int $product_id;
+
     public ?int $experience;
 
     public ?string $advantages;

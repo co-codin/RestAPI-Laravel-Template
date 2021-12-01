@@ -9,6 +9,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
@@ -16,6 +17,7 @@ use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
+use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
 use Spatie\Activitylog\LogOptions;
@@ -47,6 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
+ * @property-read Collection|ProductReview[] $productReviews
  * @property-read Collection|ProductCategory[] $productCategories
  * @property-read Collection|Category[] $categories
  * @property-read Collection|ProductVariation[] $productVariations
@@ -87,6 +90,11 @@ class Product extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function productReviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
     }
 
     public function brand()

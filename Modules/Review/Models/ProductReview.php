@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Modules\Product\Models\Product;
 use Modules\Review\Database\factories\ProductReviewFactory;
 
 /**
  * Class ProductReview
  * @package Modules\Review\Models
  * @property int $id
+ * @property int $product_id
  * @property int $client_id
  * @property int $experience
  * @property string $advantages
@@ -26,6 +28,7 @@ use Modules\Review\Database\factories\ProductReviewFactory;
  * @property int $dislike
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Product $product
  * @property-read Client $client
  * @mixin \Eloquent
  * @method static Builder|ProductReview newModelQuery()
@@ -43,6 +46,11 @@ class ProductReview extends Model
     protected $casts = [
         'ratings' => 'array',
     ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     public function client(): BelongsTo
     {

@@ -13,6 +13,7 @@ class ProductReviewCreateRequest extends BaseFormRequest
     public function filters(): array
     {
         return [
+            'product_id' => 'nullable-cast:integer',
             'experience' => 'nullable-cast:integer',
             'ratings.*' => 'nullable-cast:integer',
         ];
@@ -21,6 +22,7 @@ class ProductReviewCreateRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
+            'product_id' => 'required|int|exists:products,id',
             'experience' => 'required|integer|enum_value:' . ProductReviewExperience::class,
             'advantages' => 'sometimes|nullable|string|max:255',
             'disadvantages' => 'sometimes|nullable|string|max:255',
@@ -33,6 +35,7 @@ class ProductReviewCreateRequest extends BaseFormRequest
     public function attributes(): array
     {
         return [
+            'product_id' => 'Товар',
             'experience' => 'Опыт использования',
             'advantages' => 'Достоинства',
             'disadvantages' => 'Недостатки',
