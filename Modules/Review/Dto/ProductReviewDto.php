@@ -29,8 +29,6 @@ class ProductReviewDto extends BaseDto
     public ?int $dislike;
 
     /**
-     * @param FormRequest $request
-     * @return static
      * @throws UnknownProperties
      */
     public static function fromFormRequest(FormRequest $request): static

@@ -29,4 +29,15 @@ class ProductReviewCreateRequest extends BaseFormRequest
             'ratings.*' => 'required|int|min:1',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'experience' => 'Опыт использования',
+            'advantages' => 'Достоинства',
+            'disadvantages' => 'Недостатки',
+            'comment' => 'Комментарий',
+            'ratings' => 'Оценки',
+        ];
+    }
 }

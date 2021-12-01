@@ -41,11 +41,7 @@ class ProductReview extends Model
     ];
 
     protected $casts = [
-        'banned_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
-        'email_verified_at' => 'datetime',
-        'settings' => 'array',
-        'social_networks' => 'array',
+        'ratings' => 'array',
     ];
 
     public function client(): BelongsTo

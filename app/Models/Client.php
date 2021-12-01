@@ -51,7 +51,11 @@ class Client extends Authenticatable
     ];
 
     protected $casts = [
-        'ratings' => 'array',
+        'banned_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime',
+        'settings' => 'array',
+        'social_networks' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
