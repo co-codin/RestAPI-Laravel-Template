@@ -22,7 +22,10 @@ class ProductReviewBuilder extends BaseBuilder
             ->defaultSort('-id')
             ->allowedSorts($this->getSorts())
             ->allowedFilters($this->getFilters())
-            ->allowedIncludes(['client']);
+            ->allowedIncludes([
+                'product',
+                'client'
+            ]);
     }
 
     /**
@@ -33,6 +36,7 @@ class ProductReviewBuilder extends BaseBuilder
     {
         $fields = [
             'id',
+            'product_id',
             'client_id',
             'experience',
             'advantages',
@@ -63,6 +67,7 @@ class ProductReviewBuilder extends BaseBuilder
             'disadvantages',
             'comment',
             'id' => AllowedFilter::exact('id'),
+            'product_id' => AllowedFilter::exact('product_id'),
             'client_id' => AllowedFilter::exact('client_id'),
             'experience' => AllowedFilter::exact('experience'),
             'status' => AllowedFilter::exact('status'),
@@ -88,6 +93,7 @@ class ProductReviewBuilder extends BaseBuilder
     {
         $sorts = [
             'id',
+            'product_id',
             'client_id',
             'experience',
             'status',

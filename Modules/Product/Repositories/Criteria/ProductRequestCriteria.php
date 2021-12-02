@@ -12,6 +12,7 @@ use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Product\Http\Filters\CovidProductsFilter;
 use Modules\Product\Http\Filters\ProductPropertyFilter;
 use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
+use Modules\Review\Repositories\Criteria\ProductReviewRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -37,6 +38,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 CategoryRequestCriteria::allowedCategoryFields('category'),
                 CategoryRequestCriteria::allowedCategoryFields('categories'),
                 PropertyRequestCriteria::allowedPropertyFields('properties'),
+                ProductReviewRequestCriteria::allowedProductReviewFields('product_reviews'),
                 [
                     'images.id',
                     'images.image',
@@ -93,11 +95,15 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('productVariations.availability'),
                 AllowedFilter::exact('productVariations.previous_price'),
 
+                AllowedFilter::exact('productReviews.status'),
+                AllowedFilter::exact('productReviews.is_confirmed'),
+
                 AllowedFilter::custom('unique_content', new ContentFilter('product')),
                 AllowedFilter::custom('no_unique_content', new ContentFilter('product', true)),
             ])
             ->allowedIncludes([
                 'brand',
+                'productReviews',
                 'productVariations',
                 'productVariations.currency',
                 'properties',
@@ -109,8 +115,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'mainVariation.currency',
                 'stockType',
             ])
-            ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at')
-            ;
+            ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at');
     }
 
     public static function allowedProductFields($prefix = null)
