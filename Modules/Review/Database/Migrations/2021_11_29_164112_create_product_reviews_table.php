@@ -18,8 +18,8 @@ class CreateProductReviewsTable extends Migration
             $table->foreignId('product_id')->constrained();
             $table->bigInteger('client_id')->unsigned();
             $table->unsignedTinyInteger('experience');
-            $table->string('advantages');
-            $table->string('disadvantages');
+            $table->string('advantages')->nullable();
+            $table->string('disadvantages')->nullable();
             $table->text('comment');
             $table->unsignedTinyInteger('status')->default(1);
             $table->boolean('is_confirmed')->default(false);
