@@ -104,6 +104,7 @@ class ProductRequestCriteria implements CriteriaInterface
             ->allowedIncludes([
                 'brand',
                 'productReviews',
+                'productReviews.client',
                 'productVariations',
                 'productVariations.currency',
                 'properties',

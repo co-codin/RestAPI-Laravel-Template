@@ -10,9 +10,8 @@ use App\Http\Resources\FieldValueResource;
 use Illuminate\Http\Resources\MissingValue;
 use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
-use Modules\Product\Enums\ProductGroup;
-use Modules\Product\Models\ProductVariation;
 use Modules\Property\Http\Resources\PropertyResource;
+use Modules\Review\Http\Resources\ProductReviewResource;
 use Modules\Seo\Http\Resources\SeoResource;
 
 class ProductResource extends BaseJsonResource
@@ -35,6 +34,7 @@ class ProductResource extends BaseJsonResource
             'brand' => new BrandResource($this->whenLoaded('brand')),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'product_reviews' => ProductReviewResource::collection($this->whenLoaded('productReviews')),
         ]);
     }
 }

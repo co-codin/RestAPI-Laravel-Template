@@ -28,6 +28,7 @@ class ProductReviewResource extends BaseJsonResource
                 'value' => $this->is_confirmed,
                 'description' => $this->is_confirmed ? 'Подтвержден' : 'Не подтвержден',
             ],
+            'ratings_avg' => round(array_sum($this->ratings) / count($this->ratings), 1),
             'client' => new ClientResource($this->whenLoaded('client'))
         ]);
     }

@@ -43,7 +43,6 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'dislike' => AllowedFilter::exact('dislike'),
                 'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
                 'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
-                'productReviewsRatingAvg' => AllowedFilter::custom('rating_avg', new ProductReviewRatingAvgFilter(), 'rating_avg'),
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
