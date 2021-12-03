@@ -5,6 +5,7 @@ namespace Modules\Review\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Modules\Review\Dto\ProductReviewDto;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Http\Requests\ProductReviewApproveRequest;
 use Modules\Review\Http\Requests\ProductReviewUpdateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
@@ -76,7 +77,7 @@ class ProductReviewController extends Controller
         $this->storage->approve(
             $this->repository->find($productReviewId),
             $request->validated()['comment'],
-            false
+            ProductReviewStatus::REJECTED
         );
 
         return \response()->noContent();

@@ -5,6 +5,7 @@ namespace Modules\Review\Services;
 
 
 use Modules\Review\Dto\ProductReviewDto;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Mail\ApprovedProductReviewClientNotify;
 use Modules\Review\Models\ProductReview;
 
@@ -49,10 +50,10 @@ class ProductReviewStorage
     /**
      * @throws \Exception
      */
-    public function approve(ProductReview $productReview, string $comment, bool $approve = true): void
+    public function approve(ProductReview $productReview, string $comment, bool $status = ProductReviewStatus::APPROVED): void
     {
-        if (!$productReview->update(['confirm' => $approve])) {
-            throw new \Exception('Can not confirm Product Review');
+        if (!$productReview->update(['status' => $status])) {
+            throw new \Exception('Can not approve/reject Product Review');
         }
 
         $email = $productReview->client->email;

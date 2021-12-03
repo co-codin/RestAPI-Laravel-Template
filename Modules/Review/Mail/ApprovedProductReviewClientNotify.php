@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 
 class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
@@ -29,9 +30,6 @@ class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
 
     /**
      * Create a new message instance.
-     *
-     * @param ProductReview $productReview
-     * @param string $comment
      */
     public function __construct(ProductReview $productReview, string $comment)
     {
@@ -43,17 +41,25 @@ class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
      * Build the message.
      *
      * @return $this
+     * @throws \Exception
      */
     public function build()
     {
-        $productReview = $this->productReview;
-        $approvedText = $productReview->is_confirmed ? 'одобрен' : 'отклонен';
+        $approvedText = match ($this->productReview->status) {
+            ProductReviewStatus::APPROVED => 'одобрен',
+            ProductReviewStatus::REJECTED => 'отклонен',
+            default => throw new \LogicException(
+                'Product Review status expected - '
+                . implode(',', ProductReviewStatus::getValues())
+                . ', got - ' . $this->productReview->status
+            ),
+        };
 
         return $this
             ->from('admin@medeq.ru', 'Medeq')
             ->subject("Ваш отзыв $approvedText")
             ->view('review::mail.product-review-approve-notify', [
-                'productReview' => $productReview,
+                'productReview' => $this->productReview,
                 'comment' => $this->comment,
                 'approvedText' => $approvedText,
             ]);
