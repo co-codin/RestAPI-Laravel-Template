@@ -50,12 +50,15 @@ class ProductReviewStorage
     /**
      * @throws \Exception
      */
-    public function approve(ProductReview $productReview, string $comment, bool $status = ProductReviewStatus::APPROVED): void
+    public function changeStatus(ProductReview $productReview, ProductReviewStatus $status): void
     {
-        if (!$productReview->update(['status' => $status])) {
+        if (!$productReview->update(['status' => $status->value])) {
             throw new \Exception('Can not approve/reject Product Review');
         }
+    }
 
+    public function notifyApproveReject(ProductReview $productReview, string $comment): void
+    {
         $email = $productReview->client->email;
 
         if (!is_null($email)) {

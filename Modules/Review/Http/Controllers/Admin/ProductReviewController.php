@@ -58,8 +58,15 @@ class ProductReviewController extends Controller
         int $productReviewId
     ): Response
     {
-        $this->storage->approve(
-            $this->repository->find($productReviewId),
+        $productReview = $this->repository->find($productReviewId);
+
+        $this->storage->changeStatus(
+            $productReview,
+            ProductReviewStatus::fromValue(ProductReviewStatus::APPROVED)
+        );
+
+        $this->storage->notifyApproveReject(
+            $productReview,
             $request->validated()['comment']
         );
 
@@ -74,10 +81,16 @@ class ProductReviewController extends Controller
         int $productReviewId
     ): Response
     {
-        $this->storage->approve(
+        $productReview = $this->repository->find($productReviewId);
+
+        $this->storage->changeStatus(
             $this->repository->find($productReviewId),
-            $request->validated()['comment'],
-            ProductReviewStatus::REJECTED
+            ProductReviewStatus::fromValue(ProductReviewStatus::REJECTED)
+        );
+
+        $this->storage->notifyApproveReject(
+            $productReview,
+            $request->validated()['comment']
         );
 
         return \response()->noContent();
