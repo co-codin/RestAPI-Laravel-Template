@@ -4,13 +4,20 @@
 namespace App\Http\Middleware;
 
 
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Middleware;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Modules\Form\Helpers\FormRequestHelper;
 
-class ClientFormAuth
+class ClientFormAuth extends Middleware
 {
-    public function handle(Request $request, \Closure $next)
+    /**
+     * @param Request $request
+     * @param \Closure $next
+     * @return RedirectResponse|mixed
+     */
+    public function handle($request, \Closure $next)
     {
         $formHelper = app(FormRequestHelper::class);
 
