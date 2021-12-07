@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Modules\Form\Helpers\FormRequestHelper;
 
-class ClientAuth extends Middleware
+class ClientFormAuth extends Middleware
 {
     /**
      * @param Request $request
@@ -18,15 +19,22 @@ class ClientAuth extends Middleware
      */
     public function handle($request, \Closure $next)
     {
+        $formHelper = app(FormRequestHelper::class);
+
+        if (!$formHelper->getForm()->withAuth) {
+            return $next($request);
+        }
+
         $response = Http::baseUrl(config('services.crm.domain'))
             ->withToken($request->bearerToken())
-            ->get('/clients/show');
+            ->get('/clients/me');
 
         if ($response->failed()) {
             abort(401);
         }
 
         $request->offsetSet('client', $response->json());
+        $formHelper->setClientData($response->json());
 
         return $next($request);
     }

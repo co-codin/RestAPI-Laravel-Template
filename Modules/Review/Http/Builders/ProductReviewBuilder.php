@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Customer\Http\Builders;
+namespace Modules\Review\Http\Builders;
 
 
 use App\Http\Builders\BaseBuilder;
@@ -13,7 +13,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Concerns\SortsQuery;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 
-class CustomerReviewBuilder extends BaseBuilder
+class ProductReviewBuilder extends BaseBuilder
 {
     public function builder(Model|Builder|string $model): SortsQuery|SpatieQueryBuilder
     {
@@ -22,7 +22,10 @@ class CustomerReviewBuilder extends BaseBuilder
             ->defaultSort('-id')
             ->allowedSorts($this->getSorts())
             ->allowedFilters($this->getFilters())
-            ->allowedIncludes(['product']);
+            ->allowedIncludes([
+                'product',
+                'client'
+            ]);
     }
 
     /**
@@ -33,17 +36,19 @@ class CustomerReviewBuilder extends BaseBuilder
     {
         $fields = [
             'id',
-            'company_name',
-            'position',
-            'author',
-            'type',
-            'video',
-            'review_file',
-            'is_in_home',
-            'comment',
-            'logo',
             'product_id',
-            'created_at'
+            'client_id',
+            'experience',
+            'advantages',
+            'disadvantages',
+            'comment',
+            'status',
+            'is_confirmed',
+            'ratings',
+            'like',
+            'dislike',
+            'created_at',
+            'updated_at'
         ];
 
         return $this->filter($fields, $columns)
@@ -58,14 +63,17 @@ class CustomerReviewBuilder extends BaseBuilder
     public function getFilters(?array $columns = null): array
     {
         $filters = [
-            'company_name',
-            'product_id',
-            'position',
-            'author',
+            'advantages',
+            'disadvantages',
             'comment',
             'id' => AllowedFilter::exact('id'),
-            'is_in_home' => AllowedFilter::exact('is_in_home'),
-            'type' => AllowedFilter::exact('type'),
+            'product_id' => AllowedFilter::exact('product_id'),
+            'client_id' => AllowedFilter::exact('client_id'),
+            'experience' => AllowedFilter::exact('experience'),
+            'status' => AllowedFilter::exact('status'),
+            'is_confirmed' => AllowedFilter::exact('is_confirmed'),
+            'like' => AllowedFilter::exact('like'),
+            'dislike' => AllowedFilter::exact('dislike'),
             'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
             'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
         ];
@@ -85,12 +93,13 @@ class CustomerReviewBuilder extends BaseBuilder
     {
         $sorts = [
             'id',
-            'company_name',
-            'position',
-            'author',
-            'type',
-            'is_in_home',
             'product_id',
+            'client_id',
+            'experience',
+            'status',
+            'is_confirmed',
+            'like',
+            'dislike',
         ];
 
         if (!is_null($this->relationDtoCollection)) {

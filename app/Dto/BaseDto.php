@@ -27,7 +27,6 @@ abstract class BaseDto extends DataTransferObject
             ->visible(array_keys($validated));
     }
 
-
     /**
      * @param array $items
      * @return static
@@ -51,7 +50,7 @@ abstract class BaseDto extends DataTransferObject
         return $this;
     }
 
-    public function visible(array $keys): self
+    public function visible(array $keys): static
     {
         $dataTransferObject = clone $this;
 

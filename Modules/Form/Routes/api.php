@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\ClientAuth;
+use App\Http\Middleware\ClientFormAuth;
 use Modules\Form\Http\Controllers\FormController;
 
 Route::prefix('form')->group(function () {
@@ -14,7 +14,7 @@ Route::prefix('form')->group(function () {
 
         return App::call([$controller, 'send']);
     })
-        ->middleware(ClientAuth::class)
+        ->middleware(ClientFormAuth::class)
         ->where('formName', '[a-z0-9_-]+')
         ->name('form-send');
 });
