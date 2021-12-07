@@ -14,7 +14,12 @@ class CreateCabinetCategoryTable extends Migration
     public function up()
     {
         Schema::create('cabinet_category', function (Blueprint $table) {
-
+            $table->foreignId('cabinet_id')->constrained();
+            $table->foreignId('category_id')->constrained();
+            $table->string('name');
+            $table->unsignedInteger('count');
+            $table->string('price')->nullable();
+            $table->unsignedInteger('position')->nullable();
         });
     }
 
