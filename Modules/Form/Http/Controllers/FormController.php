@@ -5,6 +5,7 @@ namespace Modules\Form\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Modules\Form\Http\Requests\FormsRequest;
+use Modules\Form\Mail\SubscribeNotify;
 use Modules\Form\Services\FormPreparerService;
 use Modules\Form\Services\FormSendService;
 
@@ -24,8 +25,27 @@ class FormController extends Controller
     ): JsonResponse
     {
         $form = $prepareDataService->getPreparedForm($request);
-
         $sendService->send($form);
+
+        return response()->json(
+            $request->getForm()->response()
+        );
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function subscribe(
+        FormsRequest $request,
+        FormPreparerService $prepareDataService,
+        FormSendService $sendService
+    ): JsonResponse
+    {
+        $form = $prepareDataService->getPreparedForm($request);
+        $sendService->send($form);
+
+        \Mail::to($form->getEmail())
+            ->queue(new SubscribeNotify());
 
         return response()->json(
             $request->getForm()->response()
