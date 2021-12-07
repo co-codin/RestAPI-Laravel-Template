@@ -31,7 +31,7 @@ class ProductSearchResource extends JsonResource
                 'slug' => Str::slug(Status::getDescription($this->status)),
             ],
             'warranty' => $this->warranty,
-            'group' => $this->group_id ?? 100, // TODO cant sort nulls last and for null set 100
+            'group' => $this->group_id,
             'brand' => new ProductBrandSearchResource($this->brand),
             'category' => new ProductCategorySearchResource($this->category),
             'categories' => ProductCategorySearchResource::collection($this->categories),
