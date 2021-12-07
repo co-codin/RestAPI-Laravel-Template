@@ -408,6 +408,9 @@ class ProductIndex extends BaseIndex
                 'warranty' => [
                     'type' => 'integer',
                 ],
+                'group' => [
+                    'type' => 'integer',
+                ],
                 'popular_score' => [
                     'type' => 'byte',
                 ],
