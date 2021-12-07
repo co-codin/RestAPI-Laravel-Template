@@ -14,6 +14,7 @@ type ProductReview {
     product: Product! @belongsTo
     client: Client! @belongsTo
     count: Int
+    created_at: Date!
 }
 
 type Client {
