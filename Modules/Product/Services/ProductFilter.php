@@ -66,6 +66,9 @@ class ProductFilter
 
     protected array $availableSort = [
         'price' => [
+            'group' => [
+                'order' => 'asc',
+            ],
             'variations.availability_sort_value' => [
                 'order' => 'asc',
                 'nested' => [

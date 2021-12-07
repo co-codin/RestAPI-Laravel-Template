@@ -42,6 +42,7 @@ use function React\Promise\map;
  * @property string|null $video
  * @property string $siteUrl
  * @property array|null $documents
+ * @property int|null $group_id
  * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
