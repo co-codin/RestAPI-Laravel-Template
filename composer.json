@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "bensampo/laravel-enum": "^3.3",
+        "bensampo/laravel-enum": "^4.1",
         "binary-cats/sanitizer": "^8.0",
         "bukashk0zzz/yml-generator": "^1.11",
         "calebporzio/parental": "^1.0",

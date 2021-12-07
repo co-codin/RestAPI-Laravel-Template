@@ -14,7 +14,7 @@ class AddUnitIntoPropertiesTable extends Migration
     public function up()
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->string('unit')->nullable();
+            $table->string('unit')->after('options')->nullable();
         });
     }
 

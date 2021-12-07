@@ -40,6 +40,8 @@ class ProductDto extends BaseDto
 
     public ?int $assigned_by_id;
 
+    public ?int $group_id;
+
     public ?string $stock_type_id;
 
     public ?UploadedFile $booklet;

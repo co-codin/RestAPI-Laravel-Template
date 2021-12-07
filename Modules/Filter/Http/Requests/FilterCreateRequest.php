@@ -38,6 +38,10 @@ class FilterCreateRequest extends BaseFormRequest
             'is_enabled' => 'sometimes|boolean',
             'description' => 'sometimes|nullable|string',
             'options' => 'sometimes|array',
+            'facet' => 'required|array',
+            'facet.name' => 'required_unless:property_id|string',
+            'facet.path' => 'required|string',
+            'facet.value' => 'required_if:type,' . FilterType::CheckMark . '|nullable|string',
         ];
 
         if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {

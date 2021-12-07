@@ -1,0 +1,10 @@
+type Cabinet {
+    id: ID!
+    name: String!
+    slug: String!
+    category_id: Int!
+    category: Category @belongsTo
+    image: String!
+    full_description: String!
+    status: Int!
+}
