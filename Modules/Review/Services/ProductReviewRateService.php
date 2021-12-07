@@ -27,7 +27,7 @@ class ProductReviewRateService
         };
 
         if (!$productReview->save()) {
-            throw new \Exception('');
+            throw new \Exception('Failed to change like/dislike');
         }
 
         $newCookie = unserialize(\Cookie::get('product_review_rate'));
