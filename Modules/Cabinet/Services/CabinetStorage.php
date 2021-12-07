@@ -29,6 +29,17 @@ class CabinetStorage
             $attributes['image'] = $this->imageUploader->upload($cabinetDto->image);
         }
 
+        if ($cabinetDto->categories) {
+            foreach ($cabinetDto->categories as $category) {
+                $cabinet->categories()->attach($category->id, [
+                    'name' => $category->name,
+                    'count' => $category->count,
+                    'price' => $category->price ?: null,
+                    'position' => $category->position ?: null,
+                ]);
+            }
+        }
+
         if (!$cabinet->update($attributes)) {
             throw new \LogicException('can not update cabinet');
         }
