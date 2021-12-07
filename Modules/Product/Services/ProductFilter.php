@@ -68,6 +68,7 @@ class ProductFilter
         'price' => [
             'group' => [
                 'order' => 'asc',
+                'missing' => '_last',
             ],
             'variations.availability_sort_value' => [
                 'order' => 'asc',
