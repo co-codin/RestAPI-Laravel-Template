@@ -18,10 +18,10 @@ class ProductReviewRateMiddleware extends Middleware
      */
     public function handle($request, \Closure $next)
     {
-        $rates = collect(\Cookie::get('product_review_rate') ?? []);
+        $rates = collect(unserialize(\Cookie::get('product_review_rate')) ?? []);
 
-        $prevStatus = (int)($rates->get($request->query('id')) ?? ProductReviewRateStatus::NONE);
-        
+        $prevStatus = (int)($rates->get((int)$request->segment(2)) ?? ProductReviewRateStatus::NONE);
+
         $status = ProductReviewRateStatus::fromValue($request->input('status'));
 
         if ($prevStatus === $status->value) {

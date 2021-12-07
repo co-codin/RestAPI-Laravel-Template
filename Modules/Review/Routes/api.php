@@ -12,5 +12,5 @@ Route::post('product-reviews', [ProductReviewController::class, 'store'])
     ->middleware(ClientAuth::class);
 
 Route::middleware(ProductReviewRateMiddleware::class)->group(function () {
-    Route::match(['put', 'patch'], 'product-reviews-rate/?id={product_review}', [ProductReviewRateController::class, 'rate']);
+    Route::match(['put', 'patch'], 'product-reviews-rate/{product_review}', [ProductReviewRateController::class, 'rate']);
 });

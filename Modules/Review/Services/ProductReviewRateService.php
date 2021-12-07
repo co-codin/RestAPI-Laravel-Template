@@ -10,25 +10,30 @@ class ProductReviewRateService
     /**
      * @throws \Exception
      */
-    public function changeRate(ProductReview $productReview, ProductReviewRateStatus $status): void
+    public function changeRate(ProductReview $productReview, ProductReviewRateStatus $status): array
     {
         $prevStatus = ProductReviewRateStatus::fromValue((int)\request()->offsetGet('prev_status'));
 
         $productReview = match ($prevStatus->value) {
             ProductReviewRateStatus::LIKE => $this->like($productReview, true),
             ProductReviewRateStatus::DISLIKE => $this->dislike($productReview, true),
+            default => $productReview
         };
 
         $productReview = match ($status->value) {
             ProductReviewRateStatus::LIKE => $this->like($productReview),
             ProductReviewRateStatus::DISLIKE => $this->dislike($productReview),
+            default => $productReview
         };
 
         if (!$productReview->save()) {
             throw new \Exception('');
         }
 
-        \Cookie::forever('product_review_rate', $status->value);
+        $newCookie = unserialize(\Cookie::get('product_review_rate'));
+        $newCookie[$productReview->id] = $status->value;
+
+        return $newCookie;
     }
 
     private function like(ProductReview $productReview, bool $decrement = false): ProductReview

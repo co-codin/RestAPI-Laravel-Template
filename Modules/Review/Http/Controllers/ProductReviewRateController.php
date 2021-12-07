@@ -3,6 +3,7 @@
 namespace Modules\Review\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use http\Cookie;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Modules\Review\Enums\ProductReviewRateStatus;
@@ -35,11 +36,13 @@ class ProductReviewRateController extends Controller
     {
         $productReview = $this->repository->find($productReviewId);
 
-        $service->changeRate(
+        $newCookie = $service->changeRate(
             $productReview,
             ProductReviewRateStatus::fromValue($request->validated()['status'])
         );
 
-        return \response()->noContent();
+        return (new Response())->withCookie(
+            \Cookie::forever('product_review_rate', serialize($newCookie))
+        );
     }
 }
