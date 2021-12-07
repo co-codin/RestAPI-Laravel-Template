@@ -25,9 +25,15 @@ class Cabinet extends Model
         ];
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'cabinet_category')
+            ->withPivot([
+                'name',
+                'count',
+                'price',
+                'position',
+            ]);
     }
 
     public function seo()

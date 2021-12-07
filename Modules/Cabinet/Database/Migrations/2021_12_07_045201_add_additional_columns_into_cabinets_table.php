@@ -17,6 +17,8 @@ class AddAdditionalColumnsIntoCabinetsTable extends Migration
             $table->text('welcome_text')->nullable()->after('status');
             $table->json('documents')->nullable()->after('welcome_text');
             $table->json('requirements')->nullable()->after('documents');
+
+            $table->dropColumn('category_id');
         });
     }
 
