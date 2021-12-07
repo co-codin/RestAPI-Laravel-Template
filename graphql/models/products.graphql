@@ -28,6 +28,8 @@ type Product {
     images: [Image!] @morphMany
     seo: Seo @morphOne
     stockType: FieldValue @belongsTo
+    productReviewCount: Int! @count(relation: "productReviews")
+    productReviews: [ProductReview!]  @hasMany(relation: "productReviews")
 }
 
 

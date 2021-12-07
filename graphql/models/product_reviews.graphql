@@ -1,0 +1,30 @@
+type ProductReview {
+    id: ID!
+    product_id: Int!
+    client_id: Int!
+    experience: Int!
+    advantages: String
+    disadvantages: String
+    comment: String!
+    status: Int!
+    is_confirmed: Boolean!
+    ratings: [Int!]!
+    like: Int!
+    dislike: Int!
+    product: Product! @belongsTo
+    client: Client! @belongsTo
+    count: Int
+}
+
+type Client {
+    id: ID!
+    first_name: String
+    middle_name: String
+    last_name: String
+    subject: Int
+    phone: String
+    email: String
+    banned_at: String
+    phone_verified_at: String
+    email_verified_at: String
+}
