@@ -82,7 +82,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::callback('categories.parent_category_id', function ($query, $value) {
                     $query->whereHas('productCategories', function ($q) use ($value) {
                         $q->where('is_main', true)
-                            ->where('category_id', $value);
+                            ->whereIn('category_id', $value);
                     });
                 }),
 

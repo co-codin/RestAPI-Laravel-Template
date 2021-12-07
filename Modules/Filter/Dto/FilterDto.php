@@ -23,4 +23,6 @@ class FilterDto extends BaseDto
     public ?string $description;
 
     public ?array $options;
+
+    public ?array $facet;
 }
