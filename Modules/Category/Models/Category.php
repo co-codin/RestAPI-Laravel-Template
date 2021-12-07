@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\Collection as CollectionNestedset;
 use Kalnoy\Nestedset\NodeTrait;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Product;
@@ -104,6 +105,11 @@ class Category extends Model
     public function filters()
     {
         return $this->hasMany(Filter::class);
+    }
+
+    public function cabinets()
+    {
+        return $this->hasMany(Cabinet::class);
     }
 
     public function scopeIsRoot(Builder $query): Builder

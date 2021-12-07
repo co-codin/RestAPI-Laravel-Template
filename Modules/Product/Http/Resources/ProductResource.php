@@ -10,6 +10,7 @@ use App\Http\Resources\FieldValueResource;
 use Illuminate\Http\Resources\MissingValue;
 use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
+use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Models\ProductVariation;
 use Modules\Property\Http\Resources\PropertyResource;
 use Modules\Seo\Http\Resources\SeoResource;

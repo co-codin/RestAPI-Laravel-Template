@@ -7,6 +7,8 @@ use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
+use Modules\Product\Enums\ProductGroup;
+use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductUpdateRequest extends BaseFormRequest
 {
@@ -22,12 +24,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 'sometimes',
                 'required',
                 'array',
-                function ($attribute, $value, $fail) {
-                    $isMain = array_column($value, 'is_main');
-                    if (count(array_filter($isMain)) > 1) {
-                        $fail('is_main should be unique in array.');
-                    }
-                },
+                new CategoryIsMainRule,
             ],
             'categories.*.id' => 'required|integer|distinct|exists:categories,id',
             'categories.*.is_main' => 'required|boolean',
@@ -56,6 +53,12 @@ class ProductUpdateRequest extends BaseFormRequest
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'group_id' => [
+                'required_if:status,' . Status::ACTIVE,
+                'nullable',
+                'integer',
+                new EnumValue(ProductGroup::class, false),
+            ],
             'is_booklet_changed' => 'sometimes|boolean',
             'booklet' => 'sometimes|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
