@@ -44,7 +44,7 @@ class ProductReviewController extends Controller
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
-        $this->authorize($request);
+        $this->clientAuthorize($request);
 
         $clientData = app(FormRequestHelper::class)->getClientData();
 
@@ -60,7 +60,7 @@ class ProductReviewController extends Controller
         return new ProductReviewResource($productReview);
     }
 
-    protected function authorize(Request $request)
+    protected function clientAuthorize(Request $request)
     {
         $response = Http::baseUrl(config('services.crm.domain'))
             ->withToken($request->bearerToken())
