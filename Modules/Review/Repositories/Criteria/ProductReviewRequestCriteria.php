@@ -30,7 +30,6 @@ class ProductReviewRequestCriteria implements CriteriaInterface
             ->allowedFields(array_merge(
                 self::allowedProductReviewFields(),
                 ProductRequestCriteria::allowedProductFields(),
-                BrandRequestCriteria::allowedBrandFields('product'),
             ))
             ->allowedFilters([
                 'advantages',
@@ -63,6 +62,7 @@ class ProductReviewRequestCriteria implements CriteriaInterface
             ])
             ->allowedIncludes([
                 'product',
+                'product.brand',
                 'client',
                 AllowedInclude::count('productReviewsCount'),
             ]);
