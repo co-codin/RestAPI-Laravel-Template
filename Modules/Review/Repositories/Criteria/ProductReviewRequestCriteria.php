@@ -59,6 +59,8 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'is_confirmed',
                 'like',
                 'dislike',
+                'created_at',
+                'updated_at',
             ])
             ->allowedIncludes([
                 'product',
