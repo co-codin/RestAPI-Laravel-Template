@@ -25,7 +25,7 @@ class PageUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'full_description' => 'sometimes|nullable|string|max:255',
+            'full_description' => 'sometimes|nullable|string',
             'status' => [
                 'sometimes',
                 'required',
