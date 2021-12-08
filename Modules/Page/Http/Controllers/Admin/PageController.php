@@ -2,7 +2,7 @@
 
 namespace Modules\Page\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Page\Dto\PageDto;
 use Modules\Page\Http\Requests\PageCreateRequest;
 use Modules\Page\Http\Requests\PageUpdateRequest;
