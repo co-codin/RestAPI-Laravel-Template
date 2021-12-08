@@ -44,13 +44,9 @@ class ProductResource extends BaseJsonResource
         ]);
 
         if ($this->relationLoaded('productReviews')) {
-            $rating = $this->productReviews
-                ->where('status', ProductReviewStatus::APPROVED)
-                ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
-
             $attributes = array_merge(
                 $attributes,
-                ['rating' => !is_null($rating) ? round($rating, 1) : 0]
+                ['rating' => $this->rating]
             );
         }
 
