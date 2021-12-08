@@ -25,6 +25,8 @@ class NewsDto extends BaseDto
 
     public ?UploadedFile $image;
 
+    public $is_image_changed;
+
     public $is_in_home = false;
 
     public ?string $published_at;
