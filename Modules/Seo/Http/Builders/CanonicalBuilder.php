@@ -6,6 +6,7 @@ namespace Modules\Seo\Http\Builders;
 
 use App\Http\Builders\BaseBuilder;
 use App\Http\Filters\DateFilter;
+use App\Http\Filters\LiveFilter;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -53,6 +54,11 @@ class CanonicalBuilder extends BaseBuilder
             'canonical',
             'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
             'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
+            AllowedFilter::custom('live', new LiveFilter([
+                'id' => '=',
+                'url' => 'like',
+                'canonical' => 'like',
+            ])),
         ];
 
         if (!is_null($this->relationDtoCollection)) {
