@@ -23,7 +23,7 @@ class NewsStorage
     {
         $attributes = $newsDto->toArray();
 
-        if($newsDto->is_image_changed && $newsDto->image) {
+        if ($newsDto->is_image_changed && $newsDto->image) {
             $attributes['image'] = $this->imageUploader->upload($newsDto->image);
         } else {
             $attributes['image'] = null;
