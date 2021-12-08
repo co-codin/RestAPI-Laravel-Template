@@ -7,6 +7,7 @@ namespace Modules\Review\Services;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Mail\ApprovedProductReviewClientNotify;
+use Modules\Review\Mail\NewReviewNotify;
 use Modules\Review\Models\ProductReview;
 
 class ProductReviewStorage
@@ -71,6 +72,6 @@ class ProductReviewStorage
     public function notifyNewReview(ProductReview $productReview): void
     {
         \Mail::to(config('review.new-review-notify-email'))
-            ->queue(new ApprovedProductReviewClientNotify($productReview));
+            ->queue(new NewReviewNotify($productReview));
     }
 }
