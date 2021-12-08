@@ -109,6 +109,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'productVariations.currency',
                 'properties',
                 'category',
+                'category.ancestors',
                 'categories',
                 'seo',
                 'images',
