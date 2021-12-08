@@ -47,7 +47,7 @@ class ProductResource extends BaseJsonResource
 
             $attributes = array_merge(
                 $attributes,
-                ['rating' => !is_null($rating) ? round($rating, 1) : null]
+                ['rating' => !is_null($rating) ? round($rating, 1) : 0]
             );
         }
 

@@ -82,6 +82,13 @@ class Product extends Model
         parent::boot();
     }
 
+    public function getRatingAttribute(): float
+    {
+        $rating = $this->productReviews->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
+
+        return !is_null($rating) ? round($rating, 1) : 0;
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
