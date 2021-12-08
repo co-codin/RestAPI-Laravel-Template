@@ -22,6 +22,8 @@ class ProductReviewStorage
             throw new \Exception('Can not create Product Review');
         }
 
+        $this->notifyNewReview($productReview);
+
         return $productReview;
     }
 
@@ -64,5 +66,11 @@ class ProductReviewStorage
         if (!is_null($email)) {
             \Mail::to($email)->queue(new ApprovedProductReviewClientNotify($productReview, $comment));
         }
+    }
+
+    public function notifyNewReview(ProductReview $productReview): void
+    {
+        \Mail::to(config('review.new-review-notify-email'))
+            ->queue(new ApprovedProductReviewClientNotify($productReview));
     }
 }
