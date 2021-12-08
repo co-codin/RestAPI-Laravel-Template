@@ -1,7 +1,7 @@
 extend type Query {
     cabinets(
-        where: _ @whereConditions(columns: ["id", "name", "slug", "category_id", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "category_id", "status"])
+        where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status"])
     ): [Cabinet!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")

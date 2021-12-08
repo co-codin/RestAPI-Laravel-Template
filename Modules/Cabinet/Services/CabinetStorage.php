@@ -47,7 +47,6 @@ class CabinetStorage
                     'name' => $document->name,
                     'type' => $document->type,
                     'file' => $document->file ?? null,
-                    'url' => $document->url ?? null,
                 ]);
             }
         }
