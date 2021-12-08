@@ -82,6 +82,17 @@ class Category extends Model
             ->withPivot('is_main');
     }
 
+    public function cabinets()
+    {
+        return $this->belongsToMany(Cabinet::class, 'cabinet_category')
+            ->withPivot([
+                'name',
+                'count',
+                'price',
+                'position',
+            ]);
+    }
+
     /**
      * Get the productCategories for the Category.
      */
@@ -105,11 +116,6 @@ class Category extends Model
     public function filters()
     {
         return $this->hasMany(Filter::class);
-    }
-
-    public function cabinets()
-    {
-        return $this->hasMany(Cabinet::class);
     }
 
     public function scopeIsRoot(Builder $query): Builder

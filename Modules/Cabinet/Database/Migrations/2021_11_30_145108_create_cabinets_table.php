@@ -17,10 +17,11 @@ class CreateCabinetsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->foreignId('category_id')->constrained();
             $table->string('image');
             $table->text('full_description');
             $table->unsignedTinyInteger('status')->default(1);
+            $table->text('welcome_text')->nullable();
+            $table->json('requirements')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
