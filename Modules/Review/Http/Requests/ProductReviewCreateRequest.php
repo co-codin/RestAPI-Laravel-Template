@@ -27,7 +27,8 @@ class ProductReviewCreateRequest extends BaseFormRequest
             'advantages' => 'sometimes|nullable|string|max:255',
             'disadvantages' => 'sometimes|nullable|string|max:255',
             'comment' => 'required|string',
-            'ratings' => 'required|array|min:4',
+//            'ratings' => 'required|array|min:4',
+            'ratings' => 'required|array|min:1',
             'ratings.*' => 'required|int|min:1',
         ];
     }
