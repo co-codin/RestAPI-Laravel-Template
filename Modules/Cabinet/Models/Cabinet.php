@@ -2,6 +2,7 @@
 
 namespace Modules\Cabinet\Models;
 
+use App\Models\Document;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +40,11 @@ class Cabinet extends Model
                 'price',
                 'position',
             ]);
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
     }
 
     public function seo()

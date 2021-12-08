@@ -40,6 +40,18 @@ class CabinetStorage
             }
         }
 
+        if ($cabinetDto->documents) {
+            foreach ($cabinetDto->documents as $document) {
+                $cabinet->documents()->create([
+                    'group_name' => $document->group_name,
+                    'name' => $document->name,
+                    'type' => $document->type,
+                    'file' => $document->file ?? null,
+                    'url' => $document->url ?? null,
+                ]);
+            }
+        }
+
         if (!$cabinet->update($attributes)) {
             throw new \LogicException('can not update cabinet');
         }
