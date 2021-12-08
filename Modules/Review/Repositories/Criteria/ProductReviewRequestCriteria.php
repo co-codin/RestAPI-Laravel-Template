@@ -3,6 +3,7 @@
 namespace Modules\Review\Repositories\Criteria;
 
 use App\Http\Filters\DateFilter;
+use App\Http\Filters\LiveFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
@@ -33,6 +34,9 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'advantages',
                 'disadvantages',
                 'comment',
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                ])),
                 'id' => AllowedFilter::exact('id'),
                 'product_id' => AllowedFilter::exact('product_id'),
                 'client_id' => AllowedFilter::exact('client_id'),
