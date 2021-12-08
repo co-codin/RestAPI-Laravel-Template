@@ -12,6 +12,7 @@ class AchievementCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'image' => 'required|image',
             'is_enabled' => 'sometimes|boolean',
+            'position' => 'sometimes|nullable|integer',
         ];
     }
 }

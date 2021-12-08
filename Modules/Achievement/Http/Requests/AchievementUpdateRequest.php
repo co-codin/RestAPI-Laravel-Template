@@ -13,6 +13,7 @@ class AchievementUpdateRequest extends BaseFormRequest
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|exclude_unless:is_image_changed,true|required|image',
             'is_enabled' => 'sometimes|boolean',
+            'position' => 'sometimes|nullable|integer',
         ];
     }
 }
