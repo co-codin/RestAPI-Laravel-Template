@@ -34,7 +34,7 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'advantages',
                 'disadvantages',
                 'comment',
-                AllowedFilter::custom('live', new LiveFilter([
+                'live' => AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
                 ])),
                 'id' => AllowedFilter::exact('id'),
