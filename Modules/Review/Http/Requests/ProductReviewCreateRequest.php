@@ -42,6 +42,7 @@ class ProductReviewCreateRequest extends BaseFormRequest
             'disadvantages' => 'Недостатки',
             'comment' => 'Комментарий',
             'ratings' => 'Оценки',
+            'ratings.main' => 'Общая оценка',
         ];
     }
 }

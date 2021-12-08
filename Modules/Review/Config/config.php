@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Review',
-    'new-review-notify-email' => 'work@lenarx.ru',
+    'new-review-notify-email' => 'content@medeq.ru',
 ];
