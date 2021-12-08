@@ -110,6 +110,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'properties',
                 'category',
                 'category.ancestors',
+                'category.parent',
                 'categories',
                 'seo',
                 'images',
