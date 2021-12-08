@@ -12,6 +12,7 @@ use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
 use Modules\Product\Models\Product;
 use Modules\Property\Http\Resources\PropertyResource;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Http\Resources\ProductReviewResource;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Http\Resources\SeoResource;
@@ -43,11 +44,9 @@ class ProductResource extends BaseJsonResource
         ]);
 
         if ($this->relationLoaded('productReviews')) {
-            $rating = $this->productReviews->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
-
             $attributes = array_merge(
                 $attributes,
-                ['rating' => !is_null($rating) ? round($rating, 1) : 0]
+                ['rating' => $this->rating]
             );
         }
 
