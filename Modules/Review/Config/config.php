@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Review'
+    'name' => 'Review',
+    'new-review-notify-email' => 'work@lenarx.ru',
 ];

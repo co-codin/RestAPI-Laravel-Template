@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Modules\Product\Models\Product;
 use Modules\Review\Database\factories\ProductReviewFactory;
+use Modules\Review\Enums\ProductReviewStatus;
 
 /**
  * Class ProductReview
@@ -66,5 +67,10 @@ class ProductReview extends Model
     protected static function newFactory(): ProductReviewFactory
     {
         return ProductReviewFactory::new();
+    }
+
+    public function scopePublished($query)
+    {
+        $query->where('status', ProductReviewStatus::APPROVED);
     }
 }

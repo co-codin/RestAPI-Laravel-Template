@@ -4,6 +4,7 @@ namespace Modules\Review\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Modules\Form\Helpers\FormRequestHelper;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Http\Requests\ProductReviewCreateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
@@ -40,8 +41,10 @@ class ProductReviewController extends Controller
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
+        $clientData = app(FormRequestHelper::class)->getClientData();
+
         $validated = array_merge(
-            ['client_id' => \Auth::user()->id],
+            ['client_id' => $clientData['auth_id']],
             $request->validated()
         );
 

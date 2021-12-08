@@ -34,7 +34,8 @@ class FormRequestHelper
     #[ArrayShape([
         'auth_name' => "string|null",
         'auth_phone' => "string",
-        'auth_email' => "string|null"
+        'auth_email' => "string|null",
+        'auth_id' => "string|null",
     ])]
     public function getClientData(): array
     {
@@ -55,6 +56,7 @@ class FormRequestHelper
             'auth_name' => !empty(trim($name)) ? $name : null,
             'auth_phone' => $clientData['phone'] ?? null,
             'auth_email' => $clientData['email'] ?? null,
+            'auth_id' => $clientData['id'] ?? null,
         ];
 
         return $this;

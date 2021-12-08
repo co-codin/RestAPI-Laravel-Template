@@ -3,8 +3,10 @@
 namespace Modules\Review\Repositories\Criteria;
 
 use App\Http\Filters\DateFilter;
+use App\Http\Filters\LiveFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -33,6 +35,9 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'advantages',
                 'disadvantages',
                 'comment',
+                'live' => AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                ])),
                 'id' => AllowedFilter::exact('id'),
                 'product_id' => AllowedFilter::exact('product_id'),
                 'client_id' => AllowedFilter::exact('client_id'),
@@ -57,6 +62,7 @@ class ProductReviewRequestCriteria implements CriteriaInterface
             ])
             ->allowedIncludes([
                 'product',
+                'product.brand',
                 'client',
                 AllowedInclude::count('productReviewsCount'),
             ]);
