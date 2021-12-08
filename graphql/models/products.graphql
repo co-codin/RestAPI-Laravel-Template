@@ -18,6 +18,7 @@ type Product {
     video: String
     benefits: ProductBenefits
     price: MixedPrice
+    rating: Float
     brand: Brand! @belongsTo
     productVariations: [ProductVariation!]! @hasMany
     productCategories: [ProductCategory!]! @hasMany
