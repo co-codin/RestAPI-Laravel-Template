@@ -30,4 +30,6 @@ class NewsDto extends BaseDto
     public ?string $published_at;
 
     public ?int $assigned_by_id;
+
+    public ?int $view_num;
 }
