@@ -28,6 +28,7 @@ use Modules\Review\Database\factories\ProductReviewFactory;
  * @property int $dislike
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property float $ratings_avg
  * @property-read Product $product
  * @property-read Client $client
  * @mixin \Eloquent
@@ -55,6 +56,11 @@ class ProductReview extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function getRatingsAvgAttribute(): float
+    {
+        return !is_null($this->ratings) ? round(array_sum($this->ratings) / count($this->ratings), 1) : 0;
     }
 
     protected static function newFactory(): ProductReviewFactory

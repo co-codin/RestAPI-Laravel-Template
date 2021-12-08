@@ -10,15 +10,20 @@ use App\Http\Resources\FieldValueResource;
 use Illuminate\Http\Resources\MissingValue;
 use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Category\Http\Resources\CategoryResource;
+use Modules\Product\Models\Product;
 use Modules\Property\Http\Resources\PropertyResource;
 use Modules\Review\Http\Resources\ProductReviewResource;
+use Modules\Review\Models\ProductReview;
 use Modules\Seo\Http\Resources\SeoResource;
 
+/**
+ * @mixin Product
+ */
 class ProductResource extends BaseJsonResource
 {
     public function toArray($request): array
     {
-        return array_merge(parent::toArray($request), [
+        $attributes = array_merge(parent::toArray($request), [
             'status' => $this->whenRequested('status', [
                 'value' => $this->status,
                 'description' => Status::getDescription($this->status),
@@ -36,5 +41,16 @@ class ProductResource extends BaseJsonResource
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'product_reviews' => ProductReviewResource::collection($this->whenLoaded('productReviews')),
         ]);
+
+        if ($this->relationLoaded('productReviews')) {
+            $rating = $this->productReviews->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
+
+            $attributes = array_merge(
+                $attributes,
+                ['rating' => !is_null($rating) ? round($rating, 1) : null]
+            );
+        }
+
+        return $attributes;
     }
 }
