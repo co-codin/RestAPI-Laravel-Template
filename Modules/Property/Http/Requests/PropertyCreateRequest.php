@@ -19,7 +19,7 @@ class PropertyCreateRequest extends BaseFormRequest
             'assigned_by_id' => 'sometimes|nullable|integer',
             'is_numeric' => 'sometimes|boolean',
             'is_boolean' => 'sometimes|boolean',
-            'unit' => 'sometimes|string|max:50',
+            'unit' => 'sometimes|nullable|string|max:50',
         ];
     }
 
