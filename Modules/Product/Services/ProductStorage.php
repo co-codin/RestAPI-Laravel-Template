@@ -55,18 +55,20 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if ($productDto->is_image_changed && $productDto->image) {
+        if ($productDto->is_main_image_changed && $productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
         } else {
             $attributes['image'] = null;
         }
 
-        if ($productDto->is_image_changed) {
+        if ($productDto->is_images_changed) {
             $product->images()->delete();
-            foreach ($productDto->images as $image) {
-                $product->images()->create([
-                    'image' => $image['image']
-                ]);
+            if ($productDto->images) {
+                foreach ($productDto->images as $image) {
+                    $product->images()->create([
+                        'image' => $image['image']
+                    ]);
+                }
             }
         }
 
@@ -93,7 +95,7 @@ class ProductStorage
             throw new \LogicException('can not update product.');
         }
 
-        event(new ProductSaved($product));
+//        event(new ProductSaved($product));
 
         return $product;
     }
