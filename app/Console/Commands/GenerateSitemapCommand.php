@@ -16,14 +16,16 @@ class GenerateSitemapCommand extends Command
 
     public function handle()
     {
+        $noIndexableUrls = file_get_contents(storage_path('app/sitemap/non-indexable-urls.csv'));
+
         SitemapGenerator::create(config('app.site_url'))
             ->configureCrawler(function (Crawler $crawler) {
                 if ($this->option('ignore-robots')) {
                     $crawler->ignoreRobots();
                 }
             })
-            ->hasCrawled(function (Url $url, Response $response) {
-                if (str_contains($url->url, '?page')) {
+            ->hasCrawled(function (Url $url, Response $response) use($noIndexableUrls) {
+                if (str_contains($url->url, '?page') || str_contains($noIndexableUrls, $url->path())) {
                     return null;
                 }
 
