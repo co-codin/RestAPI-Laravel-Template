@@ -38,6 +38,7 @@ class FilterCreateRequest extends BaseFormRequest
             'is_enabled' => 'sometimes|boolean',
             'description' => 'sometimes|nullable|string',
             'options' => 'sometimes|array',
+            'unit' => 'sometimes|nullable|string|max:50',
             'facet' => 'required|array',
             'facet.name' => 'required_unless:property_id|string',
             'facet.path' => 'required|string',
