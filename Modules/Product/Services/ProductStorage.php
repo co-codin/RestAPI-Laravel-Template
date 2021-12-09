@@ -61,17 +61,19 @@ class ProductStorage
             $attributes['image'] = null;
         }
 
-        if ($productDto->booklet) {
-            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-        }
-
-        if ($productDto->images && $productDto->is_image_changed) {
+        if ($productDto->is_image_changed) {
             $product->images()->delete();
             foreach ($productDto->images as $image) {
                 $product->images()->create([
                     'image' => $image['image']
                 ]);
             }
+        }
+
+        if ($productDto->booklet) {
+            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
+        } else {
+            $attributes['booklet'] = null;
         }
 
         if (Arr::exists($attributes, 'documents')) {
