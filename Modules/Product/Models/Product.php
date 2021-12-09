@@ -89,7 +89,7 @@ class Product extends Model
         $rating = $this->productReviews
             ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
 
-        return !is_null($rating) ? round($rating, 1) : 0;
+        return !is_null($rating) ? round($rating) : 0;
     }
 
     public function getActivitylogOptions(): LogOptions
