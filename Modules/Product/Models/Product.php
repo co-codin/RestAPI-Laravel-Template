@@ -87,7 +87,6 @@ class Product extends Model
     public function getRatingAttribute(): float
     {
         $rating = $this->productReviews
-            ->where('status', ProductReviewStatus::APPROVED)
             ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
 
         return !is_null($rating) ? round($rating, 1) : 0;
@@ -106,7 +105,8 @@ class Product extends Model
 
     public function productReviews(): HasMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->hasMany(ProductReview::class)
+            ->where('status', ProductReviewStatus::APPROVED);
     }
 
     public function brand()

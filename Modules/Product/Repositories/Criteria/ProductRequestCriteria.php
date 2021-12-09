@@ -126,7 +126,7 @@ class ProductRequestCriteria implements CriteriaInterface
         $fields = [
             'id',
             'slug',
-            'status' ,
+            'status',
             'name',
             'image',
             'position',
