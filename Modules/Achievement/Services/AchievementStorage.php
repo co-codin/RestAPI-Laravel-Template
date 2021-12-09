@@ -23,7 +23,9 @@ class AchievementStorage
     {
         $attributes = $achievementDto->toArray();
 
-        $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
+        if ($achievementDto->is_image_changed) {
+            $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
+        }
 
         if (!$achievement->update($attributes)) {
             throw new \LogicException('can not update achievement');
