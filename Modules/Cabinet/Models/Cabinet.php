@@ -2,6 +2,7 @@
 
 namespace Modules\Cabinet\Models;
 
+use App\Models\Document;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,11 @@ class Cabinet extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'documents' => 'array',
+        'requirements' => 'array',
+    ];
+
     public function sluggable(): array
     {
         return [
@@ -25,9 +31,20 @@ class Cabinet extends Model
         ];
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'cabinet_category')
+            ->withPivot([
+                'name',
+                'count',
+                'price',
+                'position',
+            ]);
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
     }
 
     public function seo()

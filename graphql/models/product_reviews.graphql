@@ -11,6 +11,8 @@ type ProductReview {
     ratings: [Int!]!
     like: Int!
     dislike: Int!
+    created_at: Date!
+    ratings_avg: Float!
     product: Product! @belongsTo
     client: Client! @belongsTo
     count: Int
@@ -18,6 +20,7 @@ type ProductReview {
 
 type Client {
     id: ID!
+    avatar: String
     first_name: String
     middle_name: String
     last_name: String

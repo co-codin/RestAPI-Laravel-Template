@@ -28,7 +28,7 @@ class CreateProductReviewsTable extends Migration
             $table->unsignedSmallInteger('dislike')->default(0);
             $table->timestamps();
 
-            $table->unique(['product_id', 'client_id']);
+//            $table->unique(['product_id', 'client_id']);
         });
     }
 

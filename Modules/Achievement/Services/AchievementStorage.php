@@ -22,8 +22,10 @@ class AchievementStorage
     {
         $attributes = $achievementDto->toArray();
 
-        if($achievementDto->image) {
+        if ($achievementDto->is_image_changed && $achievementDto->image) {
             $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
+        } else {
+            $attributes['image'] = null;
         }
 
         if (!$achievement->update($attributes)) {

@@ -3,7 +3,11 @@
 namespace Modules\Review\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\ClientAuth;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Http;
+use Modules\Form\Helpers\FormRequestHelper;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Http\Requests\ProductReviewCreateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
@@ -40,8 +44,12 @@ class ProductReviewController extends Controller
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
+        $this->clientAuthorize($request);
+
+        $clientData = app(FormRequestHelper::class)->getClientData();
+
         $validated = array_merge(
-            ['client_id' => \Auth::user()->id],
+            ['client_id' => $clientData['auth_id']],
             $request->validated()
         );
 
@@ -50,5 +58,18 @@ class ProductReviewController extends Controller
         );
 
         return new ProductReviewResource($productReview);
+    }
+
+    protected function clientAuthorize(Request $request)
+    {
+        $response = Http::baseUrl(config('services.crm.domain'))
+            ->withToken($request->bearerToken())
+            ->get('/clients/show');
+
+        if ($response->failed()) {
+            abort(401);
+        }
+
+        $request->offsetSet('client', $response->json());
     }
 }

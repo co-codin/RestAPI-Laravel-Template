@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Modules\Product\Models\Product;
 use Modules\Review\Database\factories\ProductReviewFactory;
+use Modules\Review\Enums\ProductReviewStatus;
 
 /**
  * Class ProductReview
@@ -28,6 +29,7 @@ use Modules\Review\Database\factories\ProductReviewFactory;
  * @property int $dislike
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property float $ratings_avg
  * @property-read Product $product
  * @property-read Client $client
  * @mixin \Eloquent
@@ -57,8 +59,18 @@ class ProductReview extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getRatingsAvgAttribute(): float
+    {
+        return !is_null($this->ratings) ? round(array_sum($this->ratings) / count($this->ratings), 1) : 0;
+    }
+
     protected static function newFactory(): ProductReviewFactory
     {
         return ProductReviewFactory::new();
+    }
+
+    public function scopePublished($query)
+    {
+        $query->where('status', ProductReviewStatus::APPROVED);
     }
 }

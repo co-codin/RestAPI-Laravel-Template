@@ -25,8 +25,32 @@ class CabinetStorage
     {
         $attributes = $cabinetDto->toArray();
 
-        if ($cabinetDto->image) {
+        if ($cabinetDto->is_image_changed && $cabinetDto->image) {
             $attributes['image'] = $this->imageUploader->upload($cabinetDto->image);
+        } else {
+            $attributes['image'] = null;
+        }
+
+        if ($cabinetDto->categories) {
+            foreach ($cabinetDto->categories as $category) {
+                $cabinet->categories()->attach($category->id, [
+                    'name' => $category->name,
+                    'count' => $category->count,
+                    'price' => $category->price ?: null,
+                    'position' => $category->position ?: null,
+                ]);
+            }
+        }
+
+        if ($cabinetDto->documents) {
+            foreach ($cabinetDto->documents as $document) {
+                $cabinet->documents()->create([
+                    'group_name' => $document->group_name,
+                    'name' => $document->name,
+                    'type' => $document->type,
+                    'file' => $document->file ?? null,
+                ]);
+            }
         }
 
         if (!$cabinet->update($attributes)) {

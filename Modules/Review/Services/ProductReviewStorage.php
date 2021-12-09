@@ -7,6 +7,7 @@ namespace Modules\Review\Services;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Mail\ApprovedProductReviewClientNotify;
+use Modules\Review\Mail\NewReviewNotify;
 use Modules\Review\Models\ProductReview;
 
 class ProductReviewStorage
@@ -21,6 +22,8 @@ class ProductReviewStorage
         if (!$productReview->save()) {
             throw new \Exception('Can not create Product Review');
         }
+
+        $this->notifyNewReview($productReview);
 
         return $productReview;
     }
@@ -64,5 +67,11 @@ class ProductReviewStorage
         if (!is_null($email)) {
             \Mail::to($email)->queue(new ApprovedProductReviewClientNotify($productReview, $comment));
         }
+    }
+
+    public function notifyNewReview(ProductReview $productReview): void
+    {
+        \Mail::to(config('review.new-review-notify-email'))
+            ->queue(new NewReviewNotify($productReview));
     }
 }

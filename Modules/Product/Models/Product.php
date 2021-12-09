@@ -17,6 +17,7 @@ use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -46,6 +47,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property float $rating
  * @property-read Brand $brand
  * @property-read FieldValue $stockType
  * @property-read Category $category
@@ -82,6 +84,14 @@ class Product extends Model
         parent::boot();
     }
 
+    public function getRatingAttribute(): float
+    {
+        $rating = $this->productReviews
+            ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
+
+        return !is_null($rating) ? round($rating) : 0;
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -95,7 +105,8 @@ class Product extends Model
 
     public function productReviews(): HasMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->hasMany(ProductReview::class)
+            ->where('status', ProductReviewStatus::APPROVED);
     }
 
     public function brand()

@@ -109,6 +109,8 @@ class ProductRequestCriteria implements CriteriaInterface
                 'productVariations.currency',
                 'properties',
                 'category',
+                'category.ancestors',
+                'category.parent',
                 'categories',
                 'seo',
                 'images',
@@ -124,7 +126,7 @@ class ProductRequestCriteria implements CriteriaInterface
         $fields = [
             'id',
             'slug',
-            'status' ,
+            'status',
             'name',
             'image',
             'position',

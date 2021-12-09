@@ -4,6 +4,7 @@
 namespace Modules\Faq\Repositories\Criteria;
 
 
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -20,6 +21,12 @@ class QuestionRequestCriteria implements CriteriaInterface
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('question_category_id'),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'question' => 'like',
+                    'answer' => 'like',
+                    'slug' => '=',
+                ])),
                 AllowedFilter::partial('question'),
                 AllowedFilter::partial('answer'),
                 AllowedFilter::partial('slug'),
