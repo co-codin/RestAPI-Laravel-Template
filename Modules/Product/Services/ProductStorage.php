@@ -63,7 +63,9 @@ class ProductStorage
 
         if ($productDto->is_images_changed) {
             $product->images()->delete();
+            var_dump($productDto->images);
             if ($productDto->images) {
+                var_dump($productDto->images);
                 foreach ($productDto->images as $image) {
                     $product->images()->create([
                         'image' => $image['image']
