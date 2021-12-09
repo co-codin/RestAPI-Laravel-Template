@@ -55,15 +55,17 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if ($productDto->image) {
+        if ($productDto->is_image_changed && $productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
+        } else {
+            $attributes['image'] = null;
         }
 
         if ($productDto->booklet) {
             $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
         }
 
-        if ($productDto->images) {
+        if ($productDto->images && $productDto->is_image_changed) {
             $product->images()->delete();
             foreach ($productDto->images as $image) {
                 $product->images()->create([
