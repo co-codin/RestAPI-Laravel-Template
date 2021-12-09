@@ -5,6 +5,7 @@ namespace Modules\Review\Http\Resources;
 use App\Http\Resources\BaseJsonResource;
 use App\Http\Resources\ClientResource;
 use Illuminate\Http\Request;
+use Modules\Review\Enums\ProductReviewExperience;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 
@@ -24,10 +25,10 @@ class ProductReviewResource extends BaseJsonResource
                 'value' => $this->status,
                 'description' => ProductReviewStatus::getDescription($this->status),
             ]),
-            'is_confirmed' => [
-                'value' => $this->is_confirmed,
-                'description' => $this->is_confirmed ? 'Подтвержден' : 'Не подтвержден',
-            ],
+            'experience' => $this->whenRequested('experience', [
+                'value' => $this->experience,
+                'description' => ProductReviewExperience::getDescription($this->experience),
+            ]),
             'ratings_avg' => !is_null($this->ratings) ? round(array_sum($this->ratings) / count($this->ratings), 1) : null,
             'client' => new ClientResource($this->whenLoaded('client'))
         ]);
