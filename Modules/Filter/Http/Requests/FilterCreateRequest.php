@@ -40,7 +40,7 @@ class FilterCreateRequest extends BaseFormRequest
             'options' => 'sometimes|array',
             'unit' => 'sometimes|nullable|string|max:50',
             'facet' => 'required|array',
-            'facet.name' => 'required_unless:property_id|string',
+            'facet.name' => 'required_with:property_id|string',
             'facet.path' => 'required|string',
             'facet.value' => 'required_if:type,' . FilterType::CheckMark . '|nullable|string',
         ];
