@@ -71,17 +71,17 @@ class FilterUpdateRequest extends BaseFormRequest
             'unit' => 'sometimes|nullable|string|max:50',
             'facet' => 'sometimes|array',
             'facet.name' => 'required_with:property_id|string',
-            'facet.path' => 'sometimes|required|string',
+            'facet.path' => 'sometimes|nullable|string',
             'facet.value' => 'required_if:type,' . FilterType::CheckMark . '|nullable',
         ];
 
-        if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {
-            foreach ($fields as $item) {
-                if($item['rules'] ?? null) {
-                    $rules["options.{$item['name']}"] = $item['rules'];
-                }
-            }
-        }
+//        if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {
+//            foreach ($fields as $item) {
+//                if($item['rules'] ?? null) {
+//                    $rules["options.{$item['name']}"] = $item['rules'];
+//                }
+//            }
+//        }
 
         return $rules;
     }
