@@ -34,10 +34,11 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('category_id'),
+                AllowedFilter::exact('is_system'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_enabled'),
                 AllowedFilter::exact('is_default'),
-                AllowedFilter::exact('property_id'),
+                AllowedFilter::exact('property_id', 'facet->property_id'),
                 AllowedFilter::exact('options->field'),
             ])
             ->allowedIncludes('category', 'property')
@@ -49,8 +50,8 @@ class FilterRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id', 'name', 'type', 'slug', 'category_id', 'description', 'facet',
-            'is_enabled', 'is_default', 'property_id', 'options', 'position',
-            'created_at',
+            'is_enabled', 'is_default', 'options', 'position',
+            'created_at', 'is_system',
         ];
 
         if(!$prefix) {
