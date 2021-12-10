@@ -44,17 +44,17 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
-                function ($attribute, $value, $fail) {
-                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
-                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
-                    }
-                }
+//                function ($attribute, $value, $fail) {
+//                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
+//                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+//                    }
+//                }
             ],
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'group_id' => [
-                'required_if:status,' . Status::ACTIVE,
+//                'required_if:status,' . Status::ACTIVE,
                 'nullable',
                 'integer',
                 new EnumValue(ProductGroup::class, false),
