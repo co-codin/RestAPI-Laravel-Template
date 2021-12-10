@@ -23,7 +23,13 @@ class GenerateSitemapCommand extends Command
                 }
             })
             ->hasCrawled(function (Url $url, Response $response) {
-                if (str_contains($url->url, '?page')) {
+                $content = file_get_contents($url->url);
+                if (
+                    str_contains($url->url, '?page')
+                    || str_contains($content, "noindex")
+                    || (str_contains($content, 'canonical') && !str_contains($content, "canonical\" href=\"$url->url\""))
+                    )
+                {
                     return null;
                 }
 
