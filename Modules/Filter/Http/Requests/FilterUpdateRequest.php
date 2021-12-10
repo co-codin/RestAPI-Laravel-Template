@@ -40,6 +40,34 @@ class FilterUpdateRequest extends BaseFormRequest
             'is_enabled' => 'sometimes|boolean',
             'description' => 'sometimes|nullable|string',
             'options' => 'sometimes|array',
+            'options.filter_value' => [
+                'required_if:type,' . FilterType::CheckMark,
+                'nullable'
+            ],
+            'options.seoPrefix' => [
+                'required_if:tyoe' . FilterType::CheckMarkList,
+                'nullable'
+            ],
+            'options.seoTagLabel' => [
+                'required_if:type,' . FilterType::CheckMark,
+                'nullable'
+            ],
+            'options.seoTagLabels' => [
+                'sometimes',
+                'required',
+                'array'
+            ],
+            'options.seoTagLabels.*.key' => [
+                'sometimes',
+                'required',
+                'integer',
+                'exists:properties,id',
+            ],
+            'options.seoTagLabels.*.value' => [
+                'sometimes',
+                'required',
+                'string',
+            ],
             'unit' => 'sometimes|nullable|string|max:50',
             'facet' => 'sometimes|array',
             'facet.name' => 'required_with:property_id|string',
