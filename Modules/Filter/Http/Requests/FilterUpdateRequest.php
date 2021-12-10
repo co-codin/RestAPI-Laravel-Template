@@ -43,6 +43,8 @@ class FilterUpdateRequest extends BaseFormRequest
             'options' => 'sometimes|array',
             'unit' => 'sometimes|nullable|string|max:50',
             'is_system' => 'sometimes|required|boolean',
+
+            // Facet
             'facet' => 'sometimes|required|array',
             'facet.property_id' => [ // обязательно только для пользовательских фильтров
                 'exclude_unless:is_system,false',
@@ -58,8 +60,10 @@ class FilterUpdateRequest extends BaseFormRequest
             ],
             'facet.value' => [
                 'exclude_unless:type,' . FilterType::CheckMark,
-                'required', 'integer', 'exists:field_values,id',
+                'sometimes', 'required', 'integer', 'exists:field_values,id',
             ],
+
+            // Options - SEO
             'options.seoPrefix' => [
                 'exclude_unless:type,' . FilterType::CheckMarkList,
                 'string',
@@ -69,9 +73,11 @@ class FilterUpdateRequest extends BaseFormRequest
                 'exclude_unless:type,' . FilterType::Slider . ',' . FilterType::CheckMark,
                 'string',
                 'nullable',
+                ($this->input("type") == FilterType::Slider ? "regex:<from>" : null),
+                ($this->input("type") == FilterType::Slider ? "regex:<to>" : null),
             ],
             'options.seoTagLabels' => [
-                'exclude_unless:type,' . FilterType::Slider,
+                'exclude_unless:type,' . FilterType::CheckMarkList,
                 'array',
                 'nullable',
             ],
@@ -98,6 +104,13 @@ class FilterUpdateRequest extends BaseFormRequest
             'facet.name' => 'Системное поле',
             'facet.value' => 'Значение для поиска',
             'facet.path' => 'Путь к системному полю',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'options.seoTagLabel.regex' => 'Поле должно содержать переменные <from> и <to>',
         ];
     }
 }

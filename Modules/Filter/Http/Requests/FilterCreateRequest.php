@@ -17,7 +17,7 @@ class FilterCreateRequest extends BaseFormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'name' => 'required|string|max:255',
             'slug' => [
                 'required',
@@ -33,6 +33,13 @@ class FilterCreateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(FilterType::class, false)
             ],
+            'category_id' => 'integer|nullable|exists:categories,id',
+            'is_default' => 'boolean',
+            'is_enabled' => 'boolean',
+            'description' => 'nullable|string',
+            'unit' => 'nullable|string|max:50',
+
+            // Facet
             'facet' => 'required|array',
             'facet.property_id' => [ // обязательно только для пользовательских фильтров
                 'exclude_unless:is_system,false',
@@ -50,22 +57,7 @@ class FilterCreateRequest extends BaseFormRequest
                 'exclude_unless:type,' . FilterType::CheckMark,
                 'required', 'integer', 'exists:field_values,id',
             ],
-            'category_id' => 'integer|nullable|exists:categories,id',
-            'is_default' => 'boolean',
-            'is_enabled' => 'boolean',
-            'description' => 'nullable|string',
-            'unit' => 'nullable|string|max:50',
         ];
-
-        if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {
-            foreach ($fields as $item) {
-                if($item['rules'] ?? null) {
-                    $rules["options.{$item['name']}"] = $item['rules'];
-                }
-            }
-        }
-
-        return $rules;
     }
 
     public function attributes()
