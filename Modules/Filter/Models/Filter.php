@@ -42,6 +42,7 @@ class Filter extends Model
         'type' => 'integer',
         'is_enabled' => 'boolean',
         'is_default' => 'boolean',
+        'is_system' => 'boolean',
         'position' => 'integer',
         'options' => 'json',
         'facet' => 'object',

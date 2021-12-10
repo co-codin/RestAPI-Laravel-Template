@@ -10,11 +10,9 @@ class FilterDto extends BaseDto
 
     public ?string $slug;
 
-    public $property_id;
+    public ?int $type;
 
-    public $type;
-
-    public $category_id;
+    public ?int $category_id;
 
     public $is_enabled;
 
@@ -25,4 +23,6 @@ class FilterDto extends BaseDto
     public ?array $options;
 
     public ?array $facet;
+
+    public $is_system;
 }
