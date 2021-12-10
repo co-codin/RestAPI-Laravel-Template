@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Modules\Category\Models\Category;
 use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
+use Modules\Seo\Models\Seo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -67,6 +68,11 @@ class Filter extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
     }
 
     protected static function newFactory()
