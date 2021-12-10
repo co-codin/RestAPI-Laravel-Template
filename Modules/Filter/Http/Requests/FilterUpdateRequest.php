@@ -45,7 +45,7 @@ class FilterUpdateRequest extends BaseFormRequest
                 'nullable'
             ],
             'options.seoPrefix' => [
-                'required_if:tyoe' . FilterType::CheckMarkList,
+                'required_if:type' . FilterType::CheckMarkList,
                 'nullable'
             ],
             'options.seoTagLabel' => [
