@@ -11,6 +11,7 @@ use Modules\Filter\Database\factories\FilterFactory;
 use Modules\Property\Models\Property;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class Filter
@@ -34,7 +35,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Filter extends Model
 {
     use HasFactory,
-        LogsActivity;
+        LogsActivity,
+        HasJsonRelationships;
 
     protected $guarded = ['id'];
 
@@ -55,7 +57,7 @@ class Filter extends Model
 
     public function property()
     {
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Property::class, 'facet->property_id');
     }
 
     public function getActivitylogOptions(): LogOptions
