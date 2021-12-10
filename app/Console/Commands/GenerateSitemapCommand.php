@@ -28,7 +28,8 @@ class GenerateSitemapCommand extends Command
                     str_contains($url->url, '?page')
                     || str_contains($content, "noindex")
                     || (str_contains($content, 'canonical') && !str_contains($content, "canonical\" href=\"$url->url\""))
-                    ) {
+                    )
+                {
                     return null;
                 }
 
