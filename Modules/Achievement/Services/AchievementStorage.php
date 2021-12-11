@@ -13,6 +13,7 @@ class AchievementStorage
     public function store(AchievementDto $achievementDto)
     {
         $attributes = $achievementDto->toArray();
+
         $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
 
         return Achievement::query()->create($attributes);
@@ -22,10 +23,8 @@ class AchievementStorage
     {
         $attributes = $achievementDto->toArray();
 
-        if ($achievementDto->is_image_changed && $achievementDto->image) {
+        if ($achievementDto->is_image_changed) {
             $attributes['image'] = $this->imageUploader->upload($achievementDto->image);
-        } else {
-            $attributes['image'] = null;
         }
 
         if (!$achievement->update($attributes)) {
