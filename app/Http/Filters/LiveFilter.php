@@ -19,7 +19,11 @@ class LiveFilter implements Filter
             if ($words = explode(' ', $value)) {
                 foreach (\Arr::wrap($this->columns) as $column => $operator) {
                     foreach ($words as $word) {
-                        $query->orWhere($column, $operator, $operator === "like" ? "%$word%": $word);
+                        if ($column === 'name') {
+                            $query->where($column, $operator, $operator === "like" ? "%$word%": $word);
+                        } else {
+                            $query->orWhere($column, $operator, $operator === "like" ? "%$word%": $word);
+                        }
                     }
                 }
             }
