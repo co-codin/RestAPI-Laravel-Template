@@ -57,8 +57,6 @@ class ProductStorage
 
         if ($productDto->is_main_image_changed && $productDto->image) {
             $attributes['image'] = $this->imageUploader->upload($productDto->image);
-        } else {
-            $attributes['image'] = null;
         }
 
         if ($productDto->is_images_changed) {
