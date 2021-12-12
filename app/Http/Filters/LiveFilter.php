@@ -18,12 +18,12 @@ class LiveFilter implements Filter
         $query->where(function($query) use ($value) {
             if ($words = explode(' ', $value)) {
                 foreach (\Arr::wrap($this->columns) as $column => $operator) {
-                    foreach ($words as $word) {
-                        if ($column === 'name') {
+                    if ($column === 'name') {
+                        foreach ($words as $word) {
                             $query->where($column, $operator, $operator === "like" ? "%$word%": $word);
-                        } else {
-                            $query->orWhere($column, $operator, $operator === "like" ? "%$word%": $word);
                         }
+                    } else {
+                        $query->orWhere($column, $operator, $operator === "like" ? "%$value%": $value);
                     }
                 }
             }
