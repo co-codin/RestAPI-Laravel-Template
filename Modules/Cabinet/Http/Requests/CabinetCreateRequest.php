@@ -14,7 +14,6 @@ class CabinetCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'slug' => 'sometimes|nullable|max:255|regex:/^[a-z0-9_\-]*$/|unique:cabinets,slug',
             'image' => 'required|image',
-            'category_id' => 'required|integer|exists:categories,id',
             'full_description' => 'required|string',
             'status' => [
                 'required',
