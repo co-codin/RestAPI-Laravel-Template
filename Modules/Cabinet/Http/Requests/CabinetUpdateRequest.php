@@ -15,7 +15,6 @@ class CabinetUpdateRequest extends BaseFormRequest
             'slug' => 'sometimes|nullable|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cabinets,slug,' . $this->route('cabinet'),
             'is_image_changed' => 'sometimes|boolean',
             'image' => 'sometimes|required|image',
-            'category_id' => 'sometimes|required|integer|exists:categories,id',
             'full_description' => 'sometimes|required|string',
             'status' => [
                 'sometimes',
