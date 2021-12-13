@@ -30,12 +30,6 @@ class CabinetUpdateRequest extends BaseFormRequest
             'requirements' => 'sometimes|nullable|array',
             'requirements.*.key' => 'required|string|max:255',
             'requirements.*.value' => 'required|string|max:255',
-            'categories' => 'sometimes|nullable|array',
-            'categories.*.id' => 'required|integer',
-            'categories.*.name' => 'required|string',
-            'categories.*.count' => 'required|integer',
-            'categories.*.price' => 'sometimes|nullable|numeric',
-            'categories.*.position' => 'sometimes|nullable|integer',
         ];
     }
 }
