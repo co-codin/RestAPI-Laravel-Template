@@ -24,8 +24,6 @@ class NewsController extends Controller
     {
         $news = $this->newsRepository->find($news);
 
-        dispatch(new UpdateViewJob($news));
-
         return new NewsResource($news);
     }
 }
