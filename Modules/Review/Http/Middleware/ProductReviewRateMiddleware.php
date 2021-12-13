@@ -7,7 +7,7 @@ namespace Modules\Review\Http\Middleware;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Middleware;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Modules\Review\Enums\ProductReviewRateStatus;
+use App\Enums\RateStatus;
 
 class ProductReviewRateMiddleware extends Middleware
 {
@@ -20,9 +20,9 @@ class ProductReviewRateMiddleware extends Middleware
     {
         $rates = collect(unserialize(\Cookie::get('product_review_rate')) ?? []);
 
-        $prevStatus = (int)($rates->get((int)$request->route('product_review')) ?? ProductReviewRateStatus::NONE);
+        $prevStatus = (int)($rates->get((int)$request->route('product_review')) ?? RateStatus::NONE);
 
-        $status = ProductReviewRateStatus::fromValue($request->input('status'));
+        $status = RateStatus::fromValue($request->input('status'));
 
         if ($prevStatus === $status->value) {
             abort(403);

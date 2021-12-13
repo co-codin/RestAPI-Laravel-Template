@@ -2,7 +2,7 @@
 
 namespace Modules\Review\Services;
 
-use Modules\Review\Enums\ProductReviewRateStatus;
+use App\Enums\RateStatus;
 use Modules\Review\Models\ProductReview;
 
 class ProductReviewRateService
@@ -10,19 +10,19 @@ class ProductReviewRateService
     /**
      * @throws \Exception
      */
-    public function changeRate(ProductReview $productReview, ProductReviewRateStatus $status): array
+    public function changeRate(ProductReview $productReview, RateStatus $status): array
     {
-        $prevStatus = ProductReviewRateStatus::fromValue((int)\request()->offsetGet('prev_status'));
+        $prevStatus = RateStatus::fromValue((int)\request()->offsetGet('prev_status'));
 
         $productReview = match ($prevStatus->value) {
-            ProductReviewRateStatus::LIKE => $this->like($productReview, true),
-            ProductReviewRateStatus::DISLIKE => $this->dislike($productReview, true),
+            RateStatus::LIKE => $this->like($productReview, true),
+            RateStatus::DISLIKE => $this->dislike($productReview, true),
             default => $productReview
         };
 
         $productReview = match ($status->value) {
-            ProductReviewRateStatus::LIKE => $this->like($productReview),
-            ProductReviewRateStatus::DISLIKE => $this->dislike($productReview),
+            RateStatus::LIKE => $this->like($productReview),
+            RateStatus::DISLIKE => $this->dislike($productReview),
             default => $productReview
         };
 

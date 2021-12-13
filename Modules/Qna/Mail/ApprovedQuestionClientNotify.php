@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Review\Mail;
+namespace Modules\Qna\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Modules\Review\Enums\ProductReviewStatus;
-use Modules\Review\Models\ProductReview;
+use Modules\Qna\Enums\QuestionStatus;
+use Modules\Qna\Models\Question;
 
-class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
+class ApprovedQuestionClientNotify extends Mailable implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
      * Create a new message instance.
      */
     public function __construct(
-        private ProductReview $productReview,
+        private Question $question,
         private string $comment
     ) {}
 
@@ -40,21 +40,21 @@ class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $approvedText = match ($this->productReview->status) {
-            ProductReviewStatus::APPROVED => 'одобрен',
-            ProductReviewStatus::REJECTED => 'отклонен',
+        $approvedText = match ($this->question->status) {
+            QuestionStatus::APPROVED => 'одобрен',
+            QuestionStatus::REJECTED => 'отклонен',
             default => throw new \LogicException(
-                'Product Review status expected - '
-                . implode(',', ProductReviewStatus::getValues())
-                . ', got - ' . $this->productReview->status
+                'Question status expected - '
+                . implode(',', QuestionStatus::getValues())
+                . ', got - ' . $this->question->status
             ),
         };
 
         return $this
             ->from('admin@medeq.ru', 'Medeq')
-            ->subject("Ваш отзыв $approvedText")
-            ->view('review::mail.product-review-approve-notify', [
-                'productReview' => $this->productReview,
+            ->subject("Ваш вопрос $approvedText")
+            ->view('review::mail.question-approve-notify', [
+                'question' => $this->question,
                 'comment' => $this->comment,
                 'approvedText' => $approvedText,
             ]);

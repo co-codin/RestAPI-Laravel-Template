@@ -2,13 +2,10 @@
 
 namespace Modules\Review\Http\Controllers;
 
+use App\Enums\RateStatus;
 use App\Http\Controllers\Controller;
-use http\Cookie;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Modules\Review\Enums\ProductReviewRateStatus;
-use Modules\Review\Http\Requests\ProductReviewRateRequest;
-use Modules\Review\Http\Resources\ProductReviewResource;
+use App\Http\Requests\RateRequest;
 use Modules\Review\Repositories\ProductReviewRepository;
 use Modules\Review\Services\ProductReviewRateService;
 
@@ -18,18 +15,11 @@ class ProductReviewRateController extends Controller
         private ProductReviewRepository $repository
     ) {}
 
-    public function index(): AnonymousResourceCollection
-    {
-        return ProductReviewResource::collection(
-            $this->repository->jsonPaginate()
-        );
-    }
-
     /**
      * @throws \Exception
      */
     public function rate(
-        ProductReviewRateRequest $request,
+        RateRequest $request,
         ProductReviewRateService $service,
         int $productReviewId
     ): Response
@@ -38,7 +28,7 @@ class ProductReviewRateController extends Controller
 
         $newCookie = $service->changeRate(
             $productReview,
-            ProductReviewRateStatus::fromValue($request->validated()['status'])
+            RateStatus::fromValue($request->validated()['status'])
         );
 
         return (new Response())->withCookie(

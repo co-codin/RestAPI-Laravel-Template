@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Review\Http\Requests;
+namespace App\Http\Requests;
 
 use App\Http\RequestFilters\SanitizesInput;
-use App\Http\Requests\BaseFormRequest;
-use Modules\Review\Enums\ProductReviewRateStatus;
+use App\Enums\RateStatus;
 
-class ProductReviewRateRequest extends BaseFormRequest
+class RateRequest extends BaseFormRequest
 {
     use SanitizesInput;
 
@@ -20,7 +19,7 @@ class ProductReviewRateRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|int|enum_value:' . ProductReviewRateStatus::class,
+            'status' => 'required|int|enum_value:' . RateStatus::class,
         ];
     }
 }

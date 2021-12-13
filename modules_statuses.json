@@ -21,5 +21,6 @@
     "Geo": true,
     "Search": true,
     "Cabinet": true,
-    "Review": true
+    "Review": true,
+    "Qna": true
 }
