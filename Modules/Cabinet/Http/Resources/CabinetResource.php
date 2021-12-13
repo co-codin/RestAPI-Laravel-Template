@@ -14,7 +14,7 @@ class CabinetResource extends BaseJsonResource
         return array_merge(parent::toArray($request), [
             'status' => $this->whenRequested('status', fn() => Status::fromValue($this->status)->toArray()),
             'seo' => new SeoResource($this->whenLoaded('seo')),
-            'category' => new CategoryResource($this->whenLoaded('category')),
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ]);
     }
 }
