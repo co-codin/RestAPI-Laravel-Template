@@ -18,11 +18,7 @@ class ProductDto extends BaseDto
 
     public ?UploadedFile $image;
 
-    public $is_images_changed;
-
-    public $is_main_image_changed;
-
-    public ?array $images;
+    public $is_image_changed;
 
     public ?string $short_description;
 
@@ -47,6 +43,8 @@ class ProductDto extends BaseDto
     public ?int $group_id;
 
     public ?string $stock_type_id;
+
+    public $is_booklet_changed;
 
     public ?UploadedFile $booklet;
 
