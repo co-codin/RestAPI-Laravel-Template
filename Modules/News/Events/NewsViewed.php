@@ -9,10 +9,10 @@ class NewsViewed
 {
     use SerializesModels;
 
-    public $news;
+    public $news_single;
 
-    public function __construct(News $news)
+    public function __construct(News $news_single)
     {
-        $this->news = $news;
+        $this->news_single = $news_single;
     }
 }

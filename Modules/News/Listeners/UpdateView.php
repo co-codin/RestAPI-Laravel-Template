@@ -25,9 +25,8 @@ class UpdateView
      */
     public function handle($event)
     {
-        var_dump($event->news->view_num);
-        $event->news->update([
-            'view_num' => $event->news->view_num ? $event->news->view_num + 1 : 1
+        $event->news_single->update([
+            'view_num' => $event->news_single->view_num ? $event->news_single->view_num + 1 : 1
         ]);
     }
 }
