@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Http;
 use Modules\Form\Helpers\FormRequestHelper;
+use Modules\Qna\Http\Resources\QuestionResource;
 use Modules\Qna\Repositories\QuestionRepository;
-use Modules\Review\Dto\ProductReviewDto;
-use Modules\Review\Http\Requests\ProductReviewCreateRequest;
-use Modules\Review\Http\Resources\ProductReviewResource;
-use Modules\Review\Services\ProductReviewStorage;
+use Modules\Qna\Dto\QuestionDto;
+use Modules\Qna\Http\Requests\QuestionCreateRequest;
+use Modules\Qna\Services\QuestionStorage;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class QuestionController extends Controller
@@ -22,14 +22,14 @@ class QuestionController extends Controller
 
     public function index(): AnonymousResourceCollection
     {
-        return ProductReviewResource::collection(
+        return QuestionResource::collection(
             $this->repository->jsonPaginate()
         );
     }
 
-    public function show(int $productReviewId): ProductReviewResource
+    public function show(int $productReviewId): QuestionResource
     {
-        return new ProductReviewResource(
+        return new QuestionResource(
             $this->repository->find($productReviewId)
         );
     }
@@ -39,9 +39,9 @@ class QuestionController extends Controller
      * @throws \Exception
      */
     public function store(
-        ProductReviewCreateRequest $request,
-        ProductReviewStorage $storage,
-    ): ProductReviewResource
+        QuestionCreateRequest $request,
+        QuestionStorage $storage,
+    ): QuestionResource
     {
         $this->clientAuthorize($request);
 
@@ -53,13 +53,13 @@ class QuestionController extends Controller
         );
 
         $productReview = $storage->store(
-            ProductReviewDto::create($validated)->visible(array_keys($validated))
+            QuestionDto::create($validated)->visible(array_keys($validated))
         );
 
-        return new ProductReviewResource($productReview);
+        return new QuestionResource($productReview);
     }
 
-    protected function clientAuthorize(Request $request)
+    protected function clientAuthorize(Request $request): void
     {
         $response = Http::baseUrl(config('services.crm.domain'))
             ->withToken($request->bearerToken())
