@@ -55,10 +55,10 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if ($productDto->is_main_image_changed && $productDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($productDto->image);
-        } else {
-            $attributes['image'] = null;
+        if($productDto->is_images_changed) {
+            $attributes['image'] = $productDto->image
+                ? $this->imageUploader->upload($productDto->image)
+                : null;
         }
 
         if ($productDto->is_images_changed) {
