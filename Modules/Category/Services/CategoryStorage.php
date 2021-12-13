@@ -41,8 +41,12 @@ class CategoryStorage
     {
         $attributes = $categoryDto->toArray();
 
-        if ($categoryDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
+        ray($attributes);
+
+        if ($categoryDto->is_image_changed) {
+            $attributes['image'] = !$categoryDto->image
+                ? null
+                : $this->imageUploader->upload($categoryDto->image);
         }
 
         if (!$category->update($attributes)) {

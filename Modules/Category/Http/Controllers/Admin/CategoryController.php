@@ -34,7 +34,9 @@ class CategoryController extends Controller
     {
         $categoryModel = $this->categoryRepository->find($category);
 
-        $categoryModel = $this->categoryStorage->update($categoryModel, (new CategoryDto($request->validated()))->only(...$request->keys()));
+        $categoryModel = $this->categoryStorage->update(
+            $categoryModel, CategoryDto::fromFormRequest($request)
+        );
 
         return new CategoryResource($categoryModel);
     }
