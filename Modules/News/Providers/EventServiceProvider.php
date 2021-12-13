@@ -2,7 +2,7 @@
 
 namespace Modules\News\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\News\Events\NewsViewed;
 use Modules\News\Listeners\UpdateView;
 
