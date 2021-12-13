@@ -15,9 +15,9 @@ class ProductImageUpdateRequest extends FormRequest
             'images.*.id' => 'integer|nullable|exists:images,id',
             'images*.image' => 'required|string|distinct',
             'images*.position' => 'integer|nullable',
-            'images*.caption' => 'string|nullable',
-            'images*.alt' => 'string|nullable',
-            'images*.title' => 'string|nullable',
+            'images*.caption' => 'string|nullable|max:255',
+            'images*.alt' => 'string|nullable|max:255',
+            'images*.title' => 'string|nullable|max:255',
         ];
     }
 }
