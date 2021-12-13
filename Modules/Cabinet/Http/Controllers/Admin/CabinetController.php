@@ -2,7 +2,7 @@
 
 namespace Modules\Cabinet\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Cabinet\Dto\CabinetDto;
 use Modules\Cabinet\Http\Requests\CabinetCreateRequest;
 use Modules\Cabinet\Http\Requests\CabinetUpdateRequest;
