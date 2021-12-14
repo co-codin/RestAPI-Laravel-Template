@@ -10,16 +10,14 @@ class CabinetDocumentStorage
     {
         $cabinet->documents()->delete();
             foreach ($documents as $document) {
-                foreach($document['docs'] as $doc) {
-                    $cabinet->documents()->create([
-                        'name' => $doc['name'],
-                        'group_name' => $document['group_name'],
-                        'type' => $doc['type'],
-                        'source' => $doc['source'],
-                        'file' => $doc['file'] ?? null,
-                        'link' => $doc['link'] ?? null,
-                    ]);
-                }
+                $cabinet->documents()->create([
+                    'name' => $document['name'],
+                    'group_name' => $document['group_name'],
+                    'type' => $document['type'],
+                    'source' => $document['source'],
+                    'file' => $document['file'] ?? null,
+                    'link' => $document['link'] ?? null,
+                ]);
             }
     }
 }
