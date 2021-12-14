@@ -14,19 +14,19 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
         return [
             'documents' => 'required|array',
             'documents.*.group_name' => 'required|string|max:255',
-            'documents.*.name' => 'required|string|max:255',
-            'documents.*.type' => [
+            'documents.*.docs.*.name' => 'required|string|max:255',
+            'documents.*.docs.*.type' => [
                 'required',
                 'integer',
                 new EnumValue(DocumentTypeEnum::class, false)
             ],
-            'documents.*.source' => [
+            'documents.*.docs.*.source' => [
                 'required',
                 'integer',
                 new EnumValue(DocumentSourceEnum::class, false)
             ],
-            'documents.*.file' => 'required_if:documents.*.source,', DocumentSourceEnum::FILE . '|file',
-            'documents.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|string',
+            'documents.*.docs.*.file' => 'required_if:documents.*.source,', DocumentSourceEnum::FILE . '|file',
+            'documents.*.docs.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|string',
         ];
     }
 }
