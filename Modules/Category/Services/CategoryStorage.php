@@ -41,8 +41,6 @@ class CategoryStorage
     {
         $attributes = $categoryDto->toArray();
 
-        ray($attributes);
-
         if ($categoryDto->is_image_changed) {
             $attributes['image'] = !$categoryDto->image
                 ? null
