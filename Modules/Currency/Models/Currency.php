@@ -32,6 +32,10 @@ class Currency extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_main' => 'boolean',
+    ];
+
     public function getRateAttribute($value)
     {
         return $value / 100;

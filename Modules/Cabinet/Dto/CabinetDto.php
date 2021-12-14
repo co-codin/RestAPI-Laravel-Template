@@ -15,8 +15,6 @@ class CabinetDto extends BaseDto
 
     public $is_image_changed;
 
-    public ?int $category_id;
-
     public ?string $full_description;
 
     public ?int $status;

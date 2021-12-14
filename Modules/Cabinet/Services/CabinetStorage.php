@@ -25,10 +25,8 @@ class CabinetStorage
     {
         $attributes = $cabinetDto->toArray();
 
-        if ($cabinetDto->is_image_changed && $cabinetDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($cabinetDto->image);
-        } else {
-            $attributes['image'] = null;
+        if ($cabinetDto->is_image_changed) {
+            $attributes['image'] = $cabinetDto->image ? $this->imageUploader->upload($cabinetDto->image) : null;
         }
 
         if ($cabinetDto->categories) {

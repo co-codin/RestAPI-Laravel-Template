@@ -55,27 +55,16 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if ($productDto->is_main_image_changed && $productDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($productDto->image);
-        } else {
-            $attributes['image'] = null;
+        if($productDto->is_image_changed) {
+            $attributes['image'] = $productDto->image
+                ? $this->imageUploader->upload($productDto->image)
+                : null;
         }
 
-        if ($productDto->is_images_changed) {
-            $product->images()->delete();
-            if ($productDto->images) {
-                foreach ($productDto->images as $image) {
-                    $product->images()->create([
-                        'image' => $image['image']
-                    ]);
-                }
-            }
-        }
-
-        if ($productDto->booklet) {
-            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-        } else {
-            $attributes['booklet'] = null;
+        if($productDto->is_booklet_changed) {
+            $attributes['booklet'] = $productDto->booklet
+                ? $this->fileUploader->upload($productDto->booklet)
+                : null;
         }
 
         if (Arr::exists($attributes, 'documents')) {

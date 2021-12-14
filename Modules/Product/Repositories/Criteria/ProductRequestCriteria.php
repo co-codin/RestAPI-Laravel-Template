@@ -118,7 +118,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'mainVariation.currency',
                 'stockType',
             ])
-            ->allowedSorts('id', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at');
+            ->allowedSorts('id', 'slug', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at');
     }
 
     public static function allowedProductFields($prefix = null)

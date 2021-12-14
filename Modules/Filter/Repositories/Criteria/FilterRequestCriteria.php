@@ -21,6 +21,7 @@ class FilterRequestCriteria implements CriteriaInterface
             ->allowedFields(array_merge(
                 self::allowedFilterFields(),
                 CategoryRequestCriteria::allowedCategoryFields('category'),
+                CategoryRequestCriteria::allowedCategoryFields('category.ancestors'),
                 PropertyRequestCriteria::allowedPropertyFields('property'),
             ))
             ->allowedFilters([
@@ -41,7 +42,7 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('property_id', 'facet->property_id'),
                 AllowedFilter::exact('options->field'),
             ])
-            ->allowedIncludes('category', 'property')
+            ->allowedIncludes('category', 'property', 'category.ancestors')
             ->allowedSorts('name', 'slug', 'id', 'position', 'type', 'created_at', 'updated_at')
             ;
     }

@@ -24,6 +24,8 @@ class CategoryDto extends BaseDto
 
     public $attach_default_filters = false;
 
+    public $is_image_changed;
+
     public ?UploadedFile $image;
 
     public ?int $assigned_by_id;

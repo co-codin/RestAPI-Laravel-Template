@@ -22,10 +22,11 @@ class CategoryUpdateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'is_in_home' => 'sometimes|boolean',
+            'is_image_changed' => 'sometimes|boolean',
             'image' => [
                 'sometimes',
+                'exclude_unless:is_image_changed,true,1',
                 'required_unless:parent_id,null',
-                'exclude_unless:is_image_changed,true',
                 'nullable',
                 'image',
             ],
