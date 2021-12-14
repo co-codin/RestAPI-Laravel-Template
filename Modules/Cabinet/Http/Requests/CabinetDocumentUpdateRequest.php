@@ -25,8 +25,8 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(DocumentSourceEnum::class, false)
             ],
-            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|file',
-            'documents.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|string',
+            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|nullable|file',
+            'documents.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
         ];
     }
 }
