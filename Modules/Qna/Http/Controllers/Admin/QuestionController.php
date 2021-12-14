@@ -55,7 +55,7 @@ class QuestionController extends Controller
      */
     public function approve(
         QuestionApproveOrRejectRequest $request,
-        int                            $questionId
+        int $questionId
     ): Response
     {
         $question = $this->repository->find($questionId);
@@ -78,7 +78,7 @@ class QuestionController extends Controller
      */
     public function reject(
         QuestionApproveOrRejectRequest $request,
-        int                            $questionId
+        int $questionId
     ): Response
     {
         $question = $this->repository->find($questionId);

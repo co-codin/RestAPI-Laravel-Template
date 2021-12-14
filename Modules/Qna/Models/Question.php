@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Modules\Qna\Database\factories\QuestionFactory;
+use Modules\Qna\Enums\QuestionStatus;
 
 /**
  * Class Question
@@ -37,8 +38,12 @@ class Question extends Model
 
     public function answers(): HasMany
     {
-        return $this->hasMany(Answer::class)
-            ->where('status', AnswerStatus::APPROVED);
+        return $this->hasMany(Answer::class);
+    }
+
+    public function scopePublished($query): void
+    {
+        $query->where('status', QuestionStatus::APPROVED);
     }
 
     protected static function newFactory()

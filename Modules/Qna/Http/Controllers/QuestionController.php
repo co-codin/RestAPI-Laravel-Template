@@ -2,11 +2,9 @@
 
 namespace Modules\Qna\Http\Controllers;
 
+use App\Helpers\ClientAuthHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Http;
-use Modules\Form\Helpers\FormRequestHelper;
 use Modules\Qna\Http\Resources\QuestionResource;
 use Modules\Qna\Repositories\QuestionRepository;
 use Modules\Qna\Dto\QuestionDto;
@@ -43,9 +41,9 @@ class QuestionController extends Controller
         QuestionStorage $storage,
     ): QuestionResource
     {
-        $this->clientAuthorize($request);
+        ClientAuthHelper::authorize($request);
 
-        $clientData = app(FormRequestHelper::class)->getClientData();
+        $clientData = app(ClientAuthHelper::class)->getClientData();
 
         $validated = array_merge(
             ['client_id' => $clientData['auth_id']],
@@ -57,18 +55,5 @@ class QuestionController extends Controller
         );
 
         return new QuestionResource($productReview);
-    }
-
-    protected function clientAuthorize(Request $request): void
-    {
-        $response = Http::baseUrl(config('services.crm.domain'))
-            ->withToken($request->bearerToken())
-            ->get('/clients/show');
-
-        if ($response->failed()) {
-            abort(401);
-        }
-
-        $request->offsetSet('client', $response->json());
     }
 }

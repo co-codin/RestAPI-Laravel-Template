@@ -5,7 +5,6 @@ namespace Modules\Qna\Http\Resources;
 use App\Http\Resources\BaseJsonResource;
 use App\Http\Resources\ClientResource;
 use Illuminate\Http\Request;
-use Modules\Qna\Enums\QuestionStatus;
 use Modules\Qna\Models\Question;
 
 /**
@@ -20,7 +19,8 @@ class AnswerResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'question' => new QuestionResource($this->whenLoaded('question'))
+            'question' => new QuestionResource($this->whenLoaded('question')),
+            'client' => new ClientResource($this->whenLoaded('client'))
         ]);
     }
 }

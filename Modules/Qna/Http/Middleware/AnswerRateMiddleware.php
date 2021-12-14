@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Review\Http\Middleware;
+namespace Modules\Qna\Http\Middleware;
 
 
 use App\Helpers\RateHelper;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class ProductReviewRateMiddleware extends Middleware
+class AnswerRateMiddleware extends Middleware
 {
     /**
      * @param Request $request
@@ -18,10 +18,10 @@ class ProductReviewRateMiddleware extends Middleware
      */
     public function handle($request, \Closure $next)
     {
-        $rates = collect(unserialize(\Cookie::get('product_review_rate')) ?? []);
-        $productReviewId = (int)$request->route('product_review');
+        $rates = collect(unserialize(\Cookie::get('answer_rate')) ?? []);
+        $answerId = (int)$request->route('answer');
 
-        RateHelper::rate($request, $rates, $productReviewId);
+        RateHelper::rate($request, $rates, $answerId);
 
         return $next($request);
     }

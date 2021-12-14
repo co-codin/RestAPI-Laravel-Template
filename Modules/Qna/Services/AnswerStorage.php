@@ -6,9 +6,6 @@ namespace Modules\Qna\Services;
 
 use Modules\Qna\Models\Answer;
 use Modules\Qna\Dto\AnswerDto;
-use Modules\Qna\Enums\AnswerStatus;
-use Modules\Qna\Mail\ApprovedAnswerClientNotify;
-use Modules\Qna\Mail\NewAnswerNotify;
 
 class AnswerStorage
 {
@@ -45,16 +42,6 @@ class AnswerStorage
     {
         if (!$answer->delete()) {
             throw new \Exception('Can not delete Answer');
-        }
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function changeStatus(Answer $answer, AnswerStatus $status): void
-    {
-        if (!$answer->update(['status' => $status->value])) {
-            throw new \Exception('Can not approve/reject Answer');
         }
     }
 }

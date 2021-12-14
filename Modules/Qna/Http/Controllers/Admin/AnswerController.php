@@ -5,7 +5,6 @@ namespace Modules\Qna\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Modules\Qna\Dto\AnswerDto;
-use Modules\Qna\Http\Requests\AnswerApproveOrRejectRequest;
 use Modules\Qna\Http\Requests\AnswerRequest;
 use Modules\Qna\Http\Resources\AnswerResource;
 use Modules\Qna\Repositories\AnswerRepository;
@@ -18,6 +17,19 @@ class AnswerController extends Controller
         private AnswerRepository $repository,
         private AnswerStorage $storage
     ) {}
+
+    /**
+     * @throws UnknownProperties
+     * @throws \Exception
+     */
+    public function store(AnswerRequest $request): AnswerResource
+    {
+        $customerReview = $this->storage->store(
+            AnswerDto::fromFormRequest($request)
+        );
+
+        return new AnswerResource($customerReview);
+    }
 
     /**
      * @throws UnknownProperties

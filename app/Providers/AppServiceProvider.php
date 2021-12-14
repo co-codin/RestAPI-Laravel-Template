@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\ClientAuthHelper;
 use App\Notifications\JobFailedNotification;
 use Carbon\Carbon;
 use Elasticsearch\Client;
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->singleton(ClientAuthHelper::class);
+
         $this->app->register(MacrosServiceProvider::class);
 
         $this->app->bind(Client::class, function ($app) {
