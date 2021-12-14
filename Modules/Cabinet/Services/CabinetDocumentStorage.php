@@ -3,6 +3,7 @@
 namespace Modules\Cabinet\Services;
 
 use App\Services\File\FileUploader;
+use Illuminate\Support\Arr;
 use Modules\Cabinet\Models\Cabinet;
 
 class CabinetDocumentStorage
@@ -15,7 +16,10 @@ class CabinetDocumentStorage
     {
         $cabinet->documents()->delete();
             foreach ($documents as $document) {
-                $document['file'] = $document['file'] ? $this->fileUploader->upload($document['file']) : null;
+                if (Arr::exists($document, 'file')) {
+                    $path = $this->fileUploader->upload($document['file']);
+                    $document['file'] = $path;
+                }
                 $cabinet->documents()->create([
                     'name' => $document['name'],
                     'group_name' => $document['group_name'],
