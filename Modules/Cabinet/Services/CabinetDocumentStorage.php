@@ -28,8 +28,8 @@ class CabinetDocumentStorage
                     'group_name' => $document['group_name'],
                     'type' => $document['type'],
                     'source' => $document['source'],
-                    'file' => $document['file'] ?? null,
-                    'link' => $document['link'] ?? null,
+                    'file' => $document['file'],
+                    'link' => $document['link'],
                 ]);
             }
     }
