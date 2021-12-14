@@ -109,7 +109,7 @@ class ProductStorage
     {
         $attributes['documents'] = collect($attributes['documents'])->map(function ($document) {
             if (Arr::exists($document, 'file')) {
-                $path = $this->fileUploader->upload( $document['file']);
+                $path = $this->fileUploader->upload($document['file']);
                 $document['file'] = $path;
             }
             return $document;
