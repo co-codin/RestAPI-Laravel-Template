@@ -13,6 +13,7 @@ class ProductQuestionCreateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'nullable-cast:integer',
+            'client_id' => 'nullable-cast:integer',
         ];
     }
 
@@ -20,6 +21,7 @@ class ProductQuestionCreateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'required|int|exists:products,id',
+            'client_id' => 'required|int|exists:mysql-crm.clients,id',
             'text' => 'sometimes|nullable|string',
         ];
     }
@@ -28,6 +30,7 @@ class ProductQuestionCreateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'Товар',
+            'client_id' => 'Клиент',
             'text' => 'Комментарий',
         ];
     }

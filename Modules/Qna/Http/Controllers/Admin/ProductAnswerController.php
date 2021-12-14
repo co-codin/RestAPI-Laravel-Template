@@ -37,11 +37,11 @@ class ProductAnswerController extends Controller
      */
     public function update(
         ProductAnswerRequest $request,
-        int $answerId
+        int $productAnswerId
     ): ProductAnswerResource
     {
         $answer = $this->storage->update(
-            $this->repository->find($answerId),
+            $this->repository->find($productAnswerId),
             ProductAnswerDto::fromFormRequest($request)
         );
 
@@ -51,10 +51,10 @@ class ProductAnswerController extends Controller
     /**
      * @throws \Exception
      */
-    public function destroy(int $answerId): Response
+    public function destroy(int $productAnswerId): Response
     {
         $this->storage->delete(
-            $this->repository->find($answerId)
+            $this->repository->find($productAnswerId)
         );
 
         return \response()->noContent();
