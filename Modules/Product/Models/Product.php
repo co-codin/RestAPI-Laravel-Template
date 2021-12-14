@@ -17,7 +17,6 @@ use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
-use Modules\Qna\Models\ProductQuestion;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
