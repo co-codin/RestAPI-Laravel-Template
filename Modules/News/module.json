@@ -5,7 +5,8 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\News\\Providers\\NewsServiceProvider"
+        "Modules\\News\\Providers\\NewsServiceProvider",
+        "Modules\\News\\Providers\\EventServiceProvider"
     ],
     "aliases": {},
     "files": [],

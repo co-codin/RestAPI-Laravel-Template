@@ -3,7 +3,6 @@
 namespace Modules\News\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class NewsServiceProvider extends ServiceProvider
 {
