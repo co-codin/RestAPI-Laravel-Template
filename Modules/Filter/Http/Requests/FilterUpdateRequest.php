@@ -52,7 +52,7 @@ class FilterUpdateRequest extends BaseFormRequest
             ],
             'facet.name' => [ // обязательно только для системных фильтров
                 'exclude_unless:is_system,true',
-                'required', 'string', 'max:255', 'regex:/^[a-z0-9_-]+$/i',
+                'required', 'string', 'max:255',
             ],
             'facet.path' => [ // обязательно только для системных фильтров
                 'exclude_unless:is_system,true',

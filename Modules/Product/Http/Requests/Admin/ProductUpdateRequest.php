@@ -32,10 +32,8 @@ class ProductUpdateRequest extends BaseFormRequest
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:products,slug,' . $this->route('product'),
             'has_test_drive' => 'sometimes|boolean',
-            'is_main_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_main_image_changed,true|required|image',
-            'is_images_changed' => 'sometimes|boolean',
-            'images' => 'sometimes|nullable|array',
+            'is_image_changed' => 'sometimes|boolean',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true,1|required|image',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
@@ -45,23 +43,23 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
-                function ($attribute, $value, $fail) {
-                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
-                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
-                    }
-                }
+//                function ($attribute, $value, $fail) {
+//                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
+//                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+//                    }
+//                }
             ],
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'group_id' => [
-                'required_if:status,' . Status::ACTIVE,
+//                'required_if:status,' . Status::ACTIVE,
                 'nullable',
                 'integer',
                 new EnumValue(ProductGroup::class, false),
             ],
             'is_booklet_changed' => 'sometimes|boolean',
-            'booklet' => 'sometimes|nullable|file',
+            'booklet' => 'sometimes|exclude_unless:is_image_changed,true,1|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',
