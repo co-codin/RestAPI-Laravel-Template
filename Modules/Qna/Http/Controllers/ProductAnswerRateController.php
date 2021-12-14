@@ -5,9 +5,9 @@ namespace Modules\Qna\Http\Controllers;
 use App\Enums\RateStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RateRequest;
+use App\Services\RateService;
 use Illuminate\Http\Response;
 use Modules\Qna\Repositories\ProductAnswerRepository;
-use Modules\Qna\Services\ProductAnswerRateService;
 
 class ProductAnswerRateController extends Controller
 {
@@ -19,17 +19,20 @@ class ProductAnswerRateController extends Controller
      * @throws \Exception
      */
     public function rate(
-        RateRequest              $request,
-        ProductAnswerRateService $service,
-        int                      $productAnswerId
+        RateRequest $request,
+        RateService $service,
+        int $productAnswerId
     ): Response
     {
         $productAnswer = $this->repository->find($productAnswerId);
 
-        $newCookie = $service->changeRate(
+        $data = $service->changeRate(
             $productAnswer,
             RateStatus::fromValue($request->validated()['status'])
         );
+
+        $newCookie = unserialize(\Cookie::get('product_answer_rate'));
+        $newCookie[$data['id']] = $data['status'];
 
         return (new Response())->withCookie(
             \Cookie::forever('product_answer_rate', serialize($newCookie))
