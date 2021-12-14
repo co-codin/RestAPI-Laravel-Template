@@ -14,7 +14,9 @@ class CabinetDocumentStorage
                     'name' => $document['name'],
                     'group_name' => $document['group_name'],
                     'type' => $document['type'],
-                    'file' => $document['file'],
+                    'source' => $document['source'],
+                    'file' => $document['file'] ?? null,
+                    'link' => $document['link'] ?? null,
                 ]);
             }
     }
