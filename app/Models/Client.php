@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
+use Modules\Qna\Models\ProductQuestion;
 use Modules\Review\Models\ProductReview;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,6 +31,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Collection|ProductReview[] $productReviews
+ * @property-read Collection|ProductQuestion[] $productQuestions
  * @mixin \Eloquent
  * @method static QueryBuilder|Client withoutTrashed()
  * @method static QueryBuilder|Client withTrashed()
@@ -74,5 +76,10 @@ class Client extends Authenticatable
     public function productReviews(): HasMany
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function productQuestions(): HasMany
+    {
+        return $this->hasMany(ProductQuestion::class);
     }
 }

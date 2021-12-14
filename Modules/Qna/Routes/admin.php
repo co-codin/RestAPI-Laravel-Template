@@ -1,11 +1,12 @@
 <?php
 
-use Modules\Qna\Http\Controllers\Admin\QuestionController;
+use Modules\Qna\Http\Controllers\Admin\ProductAnswerController;
+use Modules\Qna\Http\Controllers\Admin\ProductQuestionController;
 
-Route::apiResource('questions', QuestionController::class)->except(['index', 'show', 'store']);
+Route::apiResource('product_questions', ProductQuestionController::class)->except(['index', 'show', 'store']);
 
-Route::put('questions/{question}/approve', [QuestionController::class, 'approve']);
-Route::put('questions/{question}/reject', [QuestionController::class, 'reject']);
+Route::put('product_questions/{product_question}/approve', [ProductQuestionController::class, 'approve']);
+Route::put('product_questions/{product_question}/reject', [ProductQuestionController::class, 'reject']);
 
 
-Route::apiResource('answers', QuestionController::class)->except(['index', 'show']);
+Route::apiResource('product_answers', ProductAnswerController::class)->except(['index', 'show']);

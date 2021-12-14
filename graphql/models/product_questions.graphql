@@ -1,0 +1,13 @@
+type ProductQuestion {
+    id: ID!
+    product_id: Int!
+    client_id: Int!
+    status: Int!
+    text: String!
+    created_at: Date!
+    client: Client! @belongsTo
+    product: Product! @belongsTo
+    productAnswers: [ProductAnswer!]  @hasMany(relation: "answers")
+    productAnswerCount: Int! @count(relation: "answers")
+    count: Int
+}

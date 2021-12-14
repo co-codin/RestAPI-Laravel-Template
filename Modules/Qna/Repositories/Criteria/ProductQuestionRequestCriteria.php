@@ -6,13 +6,14 @@ use App\Http\Filters\DateFilter;
 use App\Http\Filters\LiveFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class AnswerRequestCriteria implements CriteriaInterface
+class ProductQuestionRequestCriteria implements CriteriaInterface
 {
     /**
      * @param string|Builder|Model $model
@@ -22,49 +23,50 @@ class AnswerRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-//        return (new ProductAnswerBuilder())->builder($model);
+//        return (new ProductQuestionBuilder())->builder($model);
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
-                self::allowedProductAnswerFields(),
+                self::allowedProductQuestionFields(),
+                ProductRequestCriteria::allowedProductFields(),
             ))
             ->allowedFilters([
                 'text',
-                'name',
                 'live' => AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
                 ])),
                 'id' => AllowedFilter::exact('id'),
-                'question_id' => AllowedFilter::exact('question_id'),
-                'like' => AllowedFilter::exact('like'),
-                'dislike' => AllowedFilter::exact('dislike'),
+                'product_id' => AllowedFilter::exact('product_id'),
+                'client_id' => AllowedFilter::exact('client_id'),
+                'status' => AllowedFilter::exact('status'),
                 'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
                 'id',
-                'question_id',
+                'product_id',
+                'client_id',
+                'status',
                 'text',
-                'name',
-                'like',
-                'dislike',
                 'created_at',
             ])
             ->allowedIncludes([
-                'productQuestion',
-                AllowedInclude::count('productAnswersCount'),
+                'product',
+                'product.brand',
+                'client',
+                'productAnswers',
+                AllowedInclude::count('productQuestionsCount'),
             ]);
     }
 
-    public static function allowedProductAnswerFields($prefix = null): array
+    public static function allowedProductQuestionFields($prefix = null): array
     {
         $fields = [
             'id',
-            'question_id',
+            'product_id',
+            'client_id',
+            'status',
             'text',
-            'name',
-            'like',
-            'dislike',
             'created_at',
         ];
 

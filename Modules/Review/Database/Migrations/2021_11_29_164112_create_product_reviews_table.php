@@ -16,7 +16,7 @@ class CreateProductReviewsTable extends Migration
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            $table->bigInteger('client_id')->unsigned();
+            $table->bigInteger('client_id')->unsigned()->nullable();
             $table->unsignedTinyInteger('experience');
             $table->string('advantages')->nullable();
             $table->string('disadvantages')->nullable();
@@ -28,7 +28,7 @@ class CreateProductReviewsTable extends Migration
             $table->unsignedSmallInteger('dislike')->default(0);
             $table->timestamps();
 
-//            $table->unique(['product_id', 'client_id']);
+            $table->index('client_id');
         });
     }
 

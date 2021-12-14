@@ -17,17 +17,3 @@ type ProductReview {
     client: Client! @belongsTo
     count: Int
 }
-
-type Client {
-    id: ID!
-    avatar: String
-    first_name: String
-    middle_name: String
-    last_name: String
-    subject: Int
-    phone: String
-    email: String
-    banned_at: String
-    phone_verified_at: String
-    email_verified_at: String
-}

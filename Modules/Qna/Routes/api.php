@@ -1,15 +1,16 @@
 <?php
 
-use Modules\Qna\Http\Controllers\AnswerRateController;
-use Modules\Qna\Http\Controllers\QuestionController;
-use Modules\Qna\Http\Middleware\AnswerRateMiddleware;
+use Modules\Qna\Http\Controllers\ProductAnswerRateController;
+use Modules\Qna\Http\Controllers\ProductAnswerController;
+use Modules\Qna\Http\Controllers\ProductQuestionController;
+use Modules\Qna\Http\Middleware\ProductAnswerRateMiddleware;
 
-Route::apiResource('questions', QuestionController::class)
+Route::apiResource('product_questions', ProductQuestionController::class)
     ->only('index', 'show', 'store');
 
-Route::apiResource('questions', QuestionController::class)
+Route::apiResource('product_answers', ProductAnswerController::class)
     ->only('index', 'show');
 
-Route::middleware(AnswerRateMiddleware::class)->group(function () {
-    Route::match(['put', 'patch'], 'answers-rate/{answer}', [AnswerRateController::class, 'rate']);
+Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
+    Route::match(['put', 'patch'], 'product_answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate']);
 });
