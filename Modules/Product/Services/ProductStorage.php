@@ -84,7 +84,7 @@ class ProductStorage
             throw new \LogicException('can not update product.');
         }
 
-//        event(new ProductSaved($product));
+        event(new ProductSaved($product));
 
         return $product;
     }
