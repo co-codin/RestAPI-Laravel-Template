@@ -26,6 +26,8 @@ class CustomerReviewDto extends BaseDto
 
     public ?string $video;
 
+    public $is_review_file_changed;
+
     public UploadedFile|string|null $review_file;
 
     public bool $is_in_home = false;
@@ -35,6 +37,8 @@ class CustomerReviewDto extends BaseDto
     public $is_file_changed;
 
     public ?string $comment;
+
+    public $is_logo_changed;
 
     public UploadedFile|string|null $logo;
 

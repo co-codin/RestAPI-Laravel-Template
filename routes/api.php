@@ -12,5 +12,6 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     });
 });
 
-Route::get('/field-values', [FieldValueController::class, 'index']);
+Route::resource('field-values', FieldValueController::class)
+    ->only(['index', 'show']);
 

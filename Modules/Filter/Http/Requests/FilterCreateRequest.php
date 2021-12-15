@@ -17,7 +17,7 @@ class FilterCreateRequest extends BaseFormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'name' => 'required|string|max:255',
             'slug' => [
                 'required',
@@ -25,34 +25,51 @@ class FilterCreateRequest extends BaseFormRequest
                 'max:255',
                 'regex:/^[a-z0-9_]+$/i',
                 Rule::unique('filters')
-                    ->where('category_id', $this->category_id)
+                    ->where('category_id', $this->input('category_id'))
             ],
-            'property_id' => 'required|integer|exists:properties,id',
+            'is_system' => 'required|boolean',
             'type' => [
                 'required',
                 'integer',
                 new EnumValue(FilterType::class, false)
             ],
-            'category_id' => 'required|integer|exists:categories,id',
-            'is_default' => 'sometimes|boolean',
-            'is_enabled' => 'sometimes|boolean',
-            'description' => 'sometimes|nullable|string',
-            'options' => 'sometimes|array',
-            'unit' => 'sometimes|nullable|string|max:50',
+            'category_id' => 'integer|nullable|exists:categories,id',
+            'is_default' => 'boolean',
+            'is_enabled' => 'boolean',
+            'description' => 'nullable|string',
+            'unit' => 'nullable|string|max:50',
+
+            // Facet
             'facet' => 'required|array',
-            'facet.name' => 'required_with:property_id|string',
-            'facet.path' => 'required|string',
-            'facet.value' => 'required_if:type,' . FilterType::CheckMark . '|nullable',
+            'facet.property_id' => [ // обязательно только для пользовательских фильтров
+                'exclude_unless:is_system,false',
+                'required', 'integer', 'exists:properties,id',
+            ],
+            'facet.name' => [ // обязательно только для системных фильтров
+                'exclude_unless:is_system,true',
+                'required', 'string', 'max:255',
+            ],
+            'facet.path' => [ // обязательно только для системных фильтров
+                'exclude_unless:is_system,true',
+                'string', 'nullable', 'max:255', 'regex:/^[a-z0-9_-]+$/i',
+            ],
+            'facet.value' => [
+                'exclude_unless:type,' . FilterType::CheckMark,
+                'required', 'integer', 'exists:field_values,id',
+            ],
         ];
+    }
 
-        if(($type = $this->input('type')) && $fields = Arr::get(FilterType::fields(), $type)) {
-            foreach ($fields as $item) {
-                if($item['rules'] ?? null) {
-                    $rules["options.{$item['name']}"] = $item['rules'];
-                }
-            }
-        }
-
-        return $rules;
+    public function attributes()
+    {
+        return [
+            'type' => 'Метод отображения',
+            'category_id' => 'Категория',
+            'is_system' => 'Тип',
+            'facet.property_id' => 'Характеристика',
+            'facet.name' => 'Системное поле',
+            'facet.value' => 'Значение для поиска',
+            'facet.path' => 'Путь к системному полю',
+        ];
     }
 }

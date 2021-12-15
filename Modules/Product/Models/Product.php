@@ -6,6 +6,7 @@ use App\Concerns\IsActive;
 use App\Models\FieldValue;
 use App\Models\Image;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -168,7 +169,8 @@ class Product extends Model
 
     public function images()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'imageable')
+            ->orderBy('position');
     }
 
     public function mainVariation()
@@ -200,6 +202,11 @@ class Product extends Model
             ->orderByRaw('rate * price ASC')
             ->take(1),
         ])->with('mainVariation');
+    }
+
+    public function scopeHasActiveVariation(Builder $query)
+    {
+        return $query->havingRaw('main_variation_id is not null');
     }
 
     public function stockType()

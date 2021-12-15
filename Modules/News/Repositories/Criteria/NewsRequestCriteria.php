@@ -18,7 +18,7 @@ class NewsRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'name', 'slug', 'short_description', 'full_description',
-                'status', 'image', 'is_in_home', 'published_at',
+                'status', 'image', 'is_in_home', 'published_at', 'category',
             ])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([
@@ -27,6 +27,7 @@ class NewsRequestCriteria implements CriteriaInterface
                     'slug' => 'like',
                 ])),
                 AllowedFilter::exact('id'),
+                AllowedFilter::partial('category'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::partial('short_description'),
@@ -39,7 +40,7 @@ class NewsRequestCriteria implements CriteriaInterface
             ])
             ->allowedIncludes('seo')
             ->allowedSorts([
-                'id', 'name', 'slug', 'status', 'image', 'is_in_home', 'published_at',
+                'id', 'name', 'slug', 'status', 'image', 'is_in_home', 'published_at', 'category',
             ]);
     }
 }

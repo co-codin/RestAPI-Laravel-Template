@@ -8,6 +8,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Currency\Console\CurrencyParseCommand;
+use Modules\Export\Console\ExportAllFeedsCommand;
 use Modules\Export\Services\ExportScheduler;
 use Modules\Search\Console\SearchReindexCommand;
 
@@ -29,7 +30,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(CurrencyParseCommand::class)
             ->description('Парсинг курсов валют ЦБ РФ')
-            ->twiceDaily();
+            ->twiceDaily()
+            ->after(function () {
+                \Artisan::call(ExportAllFeedsCommand::class);
+            });
 
         app(ExportScheduler::class)
             ->scheduleExportCommands($schedule);

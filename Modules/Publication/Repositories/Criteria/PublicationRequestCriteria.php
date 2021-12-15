@@ -29,7 +29,7 @@ class PublicationRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('logo'),
                 AllowedFilter::exact('is_enabled'),
             ])
-            ->allowedSorts('id', 'name', 'logo', 'position', 'is_enabled', 'published_at', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'url', 'name', 'logo', 'position', 'is_enabled', 'published_at', 'created_at', 'updated_at')
             ;
     }
 }

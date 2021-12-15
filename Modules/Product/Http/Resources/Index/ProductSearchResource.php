@@ -7,6 +7,7 @@ use App\Models\FieldValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Modules\Property\Models\Property;
@@ -40,6 +41,7 @@ class ProductSearchResource extends JsonResource
             'popular_score' => $this->getSearchScore(),
             'facets' => array_merge($this->systemFacets(), $this->propertyFacets()),
             'numeric_facets' => array_merge($this->numericPropertyFacets()),
+            'availability_sort_value' => $this->isAvailableForSale() ? 1 : 2,
         ];
     }
 
@@ -175,5 +177,14 @@ class ProductSearchResource extends JsonResource
         }
 
         return 6;
+    }
+
+    protected function isAvailableForSale(): bool
+    {
+        return in_array($this->group_id, [
+            ProductGroup::PRIORITY,
+            ProductGroup::REORIENTATED,
+            ProductGroup::SIMPLIFIED,
+        ]);
     }
 }

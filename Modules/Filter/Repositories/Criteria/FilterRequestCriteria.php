@@ -5,11 +5,13 @@ namespace Modules\Filter\Repositories\Criteria;
 
 
 use App\Http\Filters\LiveFilter;
+use App\Http\Sorts\NullsLast;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FilterRequestCriteria implements CriteriaInterface
@@ -21,6 +23,7 @@ class FilterRequestCriteria implements CriteriaInterface
             ->allowedFields(array_merge(
                 self::allowedFilterFields(),
                 CategoryRequestCriteria::allowedCategoryFields('category'),
+                CategoryRequestCriteria::allowedCategoryFields('category.ancestors'),
                 PropertyRequestCriteria::allowedPropertyFields('property'),
             ))
             ->allowedFilters([
@@ -34,23 +37,32 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('category_id'),
+                AllowedFilter::exact('is_system'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_enabled'),
                 AllowedFilter::exact('is_default'),
-                AllowedFilter::exact('property_id'),
+                AllowedFilter::exact('property_id', 'facet->property_id'),
                 AllowedFilter::exact('options->field'),
             ])
-            ->allowedIncludes('category', 'property')
-            ->allowedSorts('name', 'slug', 'id', 'position', 'type', 'created_at', 'updated_at')
-            ;
+            ->allowedIncludes('category', 'property', 'category.ancestors')
+            ->allowedSorts([
+                'id',
+                'name',
+                'slug',
+                AllowedSort::custom('position', new NullsLast),
+                'type',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+            ]);
     }
 
     public static function allowedFilterFields($prefix = null): array
     {
         $fields = [
             'id', 'name', 'type', 'slug', 'category_id', 'description', 'facet',
-            'is_enabled', 'is_default', 'property_id', 'options', 'position',
-            'created_at',
+            'is_enabled', 'is_default', 'options', 'position',
+            'created_at', 'is_system',
         ];
 
         if(!$prefix) {

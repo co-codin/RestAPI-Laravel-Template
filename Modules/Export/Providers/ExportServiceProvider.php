@@ -3,6 +3,7 @@
 namespace Modules\Export\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Export\Console\ExportAllFeedsCommand;
 use Modules\Export\Console\ExportFeedCommand;
 use Modules\Export\Console\GenerateFacebookMarket;
 use Modules\Export\Console\GenerateGoogleMarket;
@@ -87,6 +88,7 @@ class ExportServiceProvider extends ServiceProvider
     {
         $this->commands([
             ExportFeedCommand::class,
+            ExportAllFeedsCommand::class,
         ]);
     }
 

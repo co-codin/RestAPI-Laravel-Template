@@ -47,7 +47,7 @@ class FilterController extends Controller
 
     public function sort(FilterSortRequest $request)
     {
-        $this->filterStorage->sort($request->get('filters'));
+        $this->filterStorage->sort($request->input('filters'));
 
         return response()->noContent();
     }
