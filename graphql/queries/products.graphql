@@ -22,5 +22,5 @@ extend type Query {
         id: ID @eq,
         slug: String @eq
         withMainVariation: Boolean @scope(name: "withMainVariation")
-    ): Product @find(scopes: ["visible"])
+    ): Product @find(scopes: ["visible", "hasActiveVariation"])
 }

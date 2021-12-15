@@ -21,7 +21,7 @@ class ExportScheduler
         }
     }
 
-    protected function getAllScheduledExports(): Collection
+    public function getAllScheduledExports(): Collection
     {
         return Export::query()
             ->where('frequency', '!=', ExportFrequency::MANUALLY)

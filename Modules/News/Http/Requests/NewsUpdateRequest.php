@@ -28,6 +28,7 @@ class NewsUpdateRequest extends BaseFormRequest
             'published_at' => 'sometimes|required|date',
             'view_num' => 'sometimes|nullable|integer',
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'category' => 'string|nullable|max:255',
         ];
     }
 
@@ -35,6 +36,7 @@ class NewsUpdateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата публикации',
+            'category' => 'Рубрика',
         ];
     }
 }

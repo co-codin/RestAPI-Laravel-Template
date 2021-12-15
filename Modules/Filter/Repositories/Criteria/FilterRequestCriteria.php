@@ -5,11 +5,13 @@ namespace Modules\Filter\Repositories\Criteria;
 
 
 use App\Http\Filters\LiveFilter;
+use App\Http\Sorts\NullsLast;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FilterRequestCriteria implements CriteriaInterface
@@ -43,8 +45,16 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('options->field'),
             ])
             ->allowedIncludes('category', 'property', 'category.ancestors')
-            ->allowedSorts('name', 'slug', 'id', 'position', 'type', 'created_at', 'updated_at')
-            ;
+            ->allowedSorts([
+                'id',
+                'name',
+                'slug',
+                AllowedSort::custom('position', new NullsLast),
+                'type',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+            ]);
     }
 
     public static function allowedFilterFields($prefix = null): array

@@ -4,6 +4,7 @@ type News {
     id: ID!
     name: String!
     slug: String!
+    category: String
     short_description: String
     full_description: String
     formatted_full_description: String

@@ -414,6 +414,9 @@ class ProductIndex extends BaseIndex
                 'popular_score' => [
                     'type' => 'byte',
                 ],
+                'availability_sort_value' => [
+                    'type' => 'byte',
+                ],
                 'brand' => [
                     'properties' => [
                         'name' => [

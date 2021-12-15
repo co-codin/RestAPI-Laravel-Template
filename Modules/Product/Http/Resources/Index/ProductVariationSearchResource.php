@@ -69,15 +69,6 @@ class ProductVariationSearchResource extends JsonResource
         ];
     }
 
-    protected function isAvailableForSale(): bool
-    {
-        return in_array($this->availability, [
-            Availability::InStock,
-            Availability::UnderTheOrder,
-            Availability::ComingSoon,
-        ]);
-    }
-
     protected function aggregation(string|array|null $key, string|array|null $value): array|null
     {
         if (!$key || !$value) {
@@ -90,5 +81,13 @@ class ProductVariationSearchResource extends JsonResource
         return collect($key)->map(fn($key, $index) => $key . "|||" . $value[$index])
             ->values()
             ->toArray();
+    }
+    protected function isAvailableForSale(): bool
+    {
+        return in_array($this->availability, [
+            Availability::InStock,
+            Availability::UnderTheOrder,
+            Availability::ComingSoon,
+        ]);
     }
 }
