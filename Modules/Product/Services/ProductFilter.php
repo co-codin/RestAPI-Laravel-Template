@@ -66,11 +66,8 @@ class ProductFilter
 
     protected array $availableSort = [
         'price' => [
-            'variations.availability_sort_value' => [
+            'availability_sort_value' => [
                 'order' => 'asc',
-                'nested' => [
-                    'path' => 'variations',
-                ]
             ],
             'variations.price_in_rub' => [
                 'order' => 'asc',
@@ -100,11 +97,8 @@ class ProductFilter
             ],
         ],
         '-price' => [
-            'variations.availability_sort_value' => [
+            'availability_sort_value' => [
                 'order' => 'asc',
-                'nested' => [
-                    'path' => 'variations',
-                ]
             ],
             'variations.price_in_rub' => [
                 'order' => 'desc',
