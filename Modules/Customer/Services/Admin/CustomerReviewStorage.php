@@ -28,7 +28,13 @@ class CustomerReviewStorage
      */
     public function store(CustomerReviewDto $dto): CustomerReview
     {
-        $attributes = $this->getPreparedAttributes($dto);
+        $attributes = $dto->toArray();
+        $attributes['logo'] = $this->imageUploader->upload($dto->logo);
+
+        if ($dto->review_file && $dto->review_file instanceof UploadedFile) {
+            $attributes['review_file'] = $this->fileUploader->upload($dto->review_file);
+        }
+
         $customerReview = new CustomerReview($attributes);
 
         if (!$customerReview->save()) {
@@ -46,7 +52,19 @@ class CustomerReviewStorage
      */
     public function update(CustomerReview $customerReview, CustomerReviewDto $dto): CustomerReview
     {
-        $attributes = $this->getPreparedAttributes($dto);
+        $attributes = $dto->toArray();
+
+        if($dto->is_logo_changed) {
+            $attributes['logo'] = ! $dto->logo
+                ? null
+                : $this->imageUploader->upload($dto->logo);
+        }
+
+        if($dto->is_review_file_changed) {
+            $attributes['review_file'] = ! $dto->review_file
+                ? null
+                : $this->fileUploader->upload($dto->review_file);
+        }
 
         if (!$customerReview->update($attributes)) {
             throw new \Exception('Не удалось обновить отзыв клиента - id' . $customerReview->id);
@@ -67,24 +85,5 @@ class CustomerReviewStorage
         }
 
         return $customerReview;
-    }
-
-    /**
-     * @param CustomerReviewDto $dto
-     * @return array
-     */
-    private function getPreparedAttributes(CustomerReviewDto $dto): array
-    {
-        $attributes = $dto->toArray();
-
-        if ($dto->logo && $dto->logo instanceof UploadedFile) {
-            $attributes['logo'] = $this->imageUploader->upload($dto->logo);
-        }
-
-        if ($dto->review_file && $dto->review_file instanceof UploadedFile) {
-            $attributes['review_file'] = $this->fileUploader->upload($dto->review_file);
-        }
-
-        return $attributes;
     }
 }

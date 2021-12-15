@@ -12,8 +12,8 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
     public function rules(): array
     {
         return [
-            'company_name' => 'sometimes|nullable|string|max:255',
-            'product_id' => 'sometimes|nullable|integer|exists:products,id',
+//            'company_name' => 'sometimes|nullable|string|max:255',
+//            'product_id' => 'sometimes|nullable|integer|exists:products,id',
             'position' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
             'type' => [
@@ -23,11 +23,12 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
                 new EnumValue(CustomerType::class, false)
             ],
             'video' => 'sometimes|nullable|string|is_youtube_link|max:255',
-            'review_file' => 'sometimes|nullable|file',
-            'is_in_home' => 'sometimes|nullable|boolean',
+            'is_review_file_changed' => 'sometimes|boolean',
+            'review_file' => 'sometimes|exclude_unless:is_review_file_changed,true,1|required|file',
+            'is_in_home' => 'sometimes|boolean',
             'comment' => 'sometimes|required|string',
-            'logo' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
-            'is_image_changed' => 'sometimes|boolean',
+            'is_logo_changed' => 'sometimes|boolean',
+            'logo' => 'sometimes|exclude_unless:is_logo_changed,true,1|required|image',
         ];
     }
 }
