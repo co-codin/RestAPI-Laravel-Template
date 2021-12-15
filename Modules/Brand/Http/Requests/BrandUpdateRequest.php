@@ -20,7 +20,7 @@ class BrandUpdateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'is_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true,1|nullable|image',
             'country_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'website' => 'sometimes|nullable|string|url|max:255',
             'short_description' => 'sometimes|nullable|string',
