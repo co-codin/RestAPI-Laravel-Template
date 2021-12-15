@@ -23,11 +23,12 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
                 new EnumValue(CustomerType::class, false)
             ],
             'video' => 'sometimes|nullable|string|is_youtube_link|max:255',
-            'review_file' => 'sometimes|nullable|file',
             'is_in_home' => 'sometimes|nullable|boolean',
             'comment' => 'sometimes|required|string',
             'logo' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
+            'review_file' => 'sometimes|exclude_unless:is_file_changed,true|nullable|file',
             'is_image_changed' => 'sometimes|boolean',
+            'is_file_changed' => 'sometimes|boolean',
         ];
     }
 }

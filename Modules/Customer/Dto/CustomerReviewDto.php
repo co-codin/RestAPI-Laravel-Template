@@ -30,7 +30,13 @@ class CustomerReviewDto extends BaseDto
 
     public bool $is_in_home = false;
 
+    public $is_image_changed;
+
+    public $is_file_changed;
+
     public ?string $comment;
 
     public UploadedFile|string|null $logo;
+
+
 }
