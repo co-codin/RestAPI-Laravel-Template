@@ -28,7 +28,6 @@ class ProductVariationSearchResource extends JsonResource
             'availability' => $this->availability,
             'is_price_visible' => $this->is_price_visible ? 1 : 2,
             'is_hot' => (!! $this->previous_price && $this->is_price_visible) ? 1 : 2,
-            'availability_sort_value' => $this->isAvailableForSale() ? 1 : 2,
             'facets' => [
                 [
                     'name' => 'is_enabled',
@@ -67,15 +66,6 @@ class ProductVariationSearchResource extends JsonResource
                 ['name' => 'price_in_rub', 'value' => $this->price_in_rub],
             ],
         ];
-    }
-
-    protected function isAvailableForSale(): bool
-    {
-        return in_array($this->availability, [
-            Availability::InStock,
-            Availability::UnderTheOrder,
-            Availability::ComingSoon,
-        ]);
     }
 
     protected function aggregation(string|array|null $key, string|array|null $value): array|null
