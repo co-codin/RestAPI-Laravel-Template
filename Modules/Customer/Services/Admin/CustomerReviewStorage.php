@@ -77,12 +77,12 @@ class CustomerReviewStorage
     {
         $attributes = $dto->toArray();
 
-        if ($dto->is_image_changed && $dto->logo) {
-            $attributes['logo'] = $this->imageUploader->upload($dto->logo);
+        if ($dto->is_image_changed) {
+            $attributes['logo'] = $dto->logo ? $this->imageUploader->upload($dto->logo) : null;
         }
 
-        if ($dto->is_file_changed && $dto->review_file) {
-            $attributes['review_file'] = $this->fileUploader->upload($dto->review_file);
+        if ($dto->is_file_changed) {
+            $attributes['review_file'] = $dto->review_file ? $this->fileUploader->upload($dto->review_file) : null;
         }
 
         return $attributes;
