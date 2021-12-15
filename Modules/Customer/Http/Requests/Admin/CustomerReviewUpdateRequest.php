@@ -25,8 +25,8 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
             'video' => 'sometimes|nullable|string|is_youtube_link|max:255',
             'is_in_home' => 'sometimes|nullable|boolean',
             'comment' => 'sometimes|required|string',
-            'logo' => 'sometimes|exclude_unless:is_image_changed,true|nullable|image',
-            'review_file' => 'sometimes|exclude_unless:is_file_changed,true|nullable|file',
+            'logo' => 'sometimes|exclude_unless:is_image_changed,true,1|nullable|image',
+            'review_file' => 'sometimes|exclude_unless:is_file_changed,true,1|nullable|file',
             'is_image_changed' => 'sometimes|boolean',
             'is_file_changed' => 'sometimes|boolean',
         ];
