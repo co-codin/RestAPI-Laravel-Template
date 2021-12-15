@@ -5,6 +5,7 @@ namespace App\Repositories\Criteria;
 
 
 use App\Filters\ToggleFilter;
+use App\Http\Filters\LiveFilter;
 use App\Http\Filters\PartialRightFilter;
 use App\Http\Sorts\FieldLength;
 use Prettus\Repository\Contracts\CriteriaInterface;
@@ -26,6 +27,10 @@ class FieldValueRequestCriteria implements CriteriaInterface
                 'updated_at',
             ])
             ->allowedFilters([
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                    'value' => 'like',
+                ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::custom('value', new PartialRightFilter),

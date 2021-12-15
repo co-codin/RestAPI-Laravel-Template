@@ -5,4 +5,5 @@ use App\Http\Controllers\Admin\FieldValueController;
 
 Route::post('/upload', UploadController::class)->name('admin.upload');
 
-Route::post('/field-values', [FieldValueController::class, 'store'])->name('field-values.store');
+Route::resource('field-values', FieldValueController::class)
+    ->only(['store', 'update', 'destroy']);

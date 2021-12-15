@@ -18,4 +18,10 @@ class FieldValueController extends Controller
 
         return FieldValueResource::collection($fieldValues);
     }
+    public function show(int $fieldValue)
+    {
+        $fieldValue = $this->fieldValueRepository->find($fieldValue);
+
+        return new FieldValueResource($fieldValue);
+    }
 }
