@@ -563,6 +563,9 @@ class ProductIndex extends BaseIndex
                         'is_hot' => [
                             'type' => 'byte',
                         ],
+                        'availability_sort_value' => [
+                            'type' => 'byte',
+                        ],
                         'facets' => [
                             'type' => 'nested',
                             'properties' => [
