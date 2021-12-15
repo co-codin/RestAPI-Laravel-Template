@@ -26,7 +26,7 @@ class CustomerReviewUpdateRequest extends CustomerReviewRequest
             'is_in_home' => 'sometimes|nullable|boolean',
             'comment' => 'sometimes|required|string',
             'logo' => 'sometimes|exclude_unless:is_image_changed,true,1|required|image',
-            'review_file' => 'sometimes|exclude_unless:is_file_changed,true,1|nullable|file',
+            'review_file' => 'sometimes|exclude_unless:is_file_changed,true,1|required|file',
             'is_image_changed' => 'sometimes|boolean',
             'is_file_changed' => 'sometimes|boolean',
         ];
