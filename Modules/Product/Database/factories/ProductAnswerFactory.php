@@ -14,7 +14,7 @@ class ProductAnswerFactory extends Factory
     public function definition()
     {
         return [
-            'question_id' => ProductQuestion::inRandomOrder()->first()->id,
+            'product_question_id' => ProductQuestion::inRandomOrder()->first()->id,
             'text' => $this->faker->sentence(10),
             'first_name' => $this->faker->name(),
             'last_name' => $this->faker->name(),

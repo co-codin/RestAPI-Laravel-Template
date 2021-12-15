@@ -54,7 +54,7 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
                 'product.brand',
                 'client',
                 'productAnswers',
-                AllowedInclude::count('productQuestionsCount'),
+                AllowedInclude::count('productAnswersCount'),
             ]);
     }
 

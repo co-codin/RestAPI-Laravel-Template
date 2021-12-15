@@ -7,7 +7,7 @@ namespace Modules\Product\Services\Qna;
 use Modules\Product\Dto\ProductQuestionDto;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Mail\ApprovedProductQuestionClientNotify;
-use Modules\Qna\Mail\NewQuestionNotify;
+use Modules\Product\Mail\NewQuestionNotify;
 use Modules\Product\Models\ProductQuestion;
 use function config;
 
@@ -72,7 +72,7 @@ class ProductQuestionStorage
 
     public function notifyNewQuestion(ProductQuestion $question): void
     {
-        \Mail::to(config('qna.new-answer-notify-email'))
+        \Mail::to(config('product.new-question-notify-email'))
             ->queue(new NewQuestionNotify($question));
     }
 }

@@ -15,7 +15,7 @@ class CreateProductAnswersTable extends Migration
     {
         Schema::create('product_answers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('question_id')->unsigned();
+            $table->bigInteger('product_question_id')->unsigned();
             $table->string('text');
             $table->string('first_name');
             $table->string('last_name');
@@ -24,7 +24,7 @@ class CreateProductAnswersTable extends Migration
             $table->unsignedTinyInteger('dislike');
             $table->timestamp('created_at');
 
-            $table->foreign('question_id')->references('id')->on('product_questions')->onDelete('cascade');
+            $table->foreign('product_question_id')->references('id')->on('product_questions')->onDelete('cascade');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateProductAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('product_answers');
     }
 }

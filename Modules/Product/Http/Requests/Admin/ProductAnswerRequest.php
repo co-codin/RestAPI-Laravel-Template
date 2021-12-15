@@ -12,14 +12,14 @@ class ProductAnswerRequest extends BaseFormRequest
     public function filters(): array
     {
         return [
-            'question_id' => 'nullable-cast:integer',
+            'product_question_id' => 'nullable-cast:integer',
         ];
     }
 
     public function rules(): array
     {
         return [
-            'question_id' => 'required|int|exists:question,id',
+            'product_question_id' => 'required|int|exists:question,id',
             'text' => 'required|string',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -31,7 +31,7 @@ class ProductAnswerRequest extends BaseFormRequest
     public function attributes(): array
     {
         return [
-            'question_id' => 'Вопрос',
+            'product_question_id' => 'Вопрос',
             'text' => 'Текст ответа',
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',

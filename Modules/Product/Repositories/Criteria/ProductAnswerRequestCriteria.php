@@ -12,7 +12,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class AnswerRequestCriteria implements CriteriaInterface
+class ProductAnswerRequestCriteria implements CriteriaInterface
 {
     /**
      * @param string|Builder|Model $model
@@ -35,7 +35,7 @@ class AnswerRequestCriteria implements CriteriaInterface
                     'id' => '=',
                 ])),
                 'id' => AllowedFilter::exact('id'),
-                'question_id' => AllowedFilter::exact('question_id'),
+                'product_question_id' => AllowedFilter::exact('product_question_id'),
                 'like' => AllowedFilter::exact('like'),
                 'dislike' => AllowedFilter::exact('dislike'),
                 'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
@@ -43,7 +43,7 @@ class AnswerRequestCriteria implements CriteriaInterface
             ])
             ->allowedSorts([
                 'id',
-                'question_id',
+                'product_question_id',
                 'text',
                 'name',
                 'like',
@@ -52,7 +52,6 @@ class AnswerRequestCriteria implements CriteriaInterface
             ])
             ->allowedIncludes([
                 'productQuestion',
-                AllowedInclude::count('productAnswersCount'),
             ]);
     }
 
@@ -60,7 +59,7 @@ class AnswerRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id',
-            'question_id',
+            'product_question_id',
             'text',
             'name',
             'like',

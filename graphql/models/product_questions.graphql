@@ -7,7 +7,6 @@ type ProductQuestion {
     created_at: Date!
     client: Client! @belongsTo
     product: Product! @belongsTo
-    productAnswers: [ProductAnswer!]  @hasMany(relation: "answers")
-    productAnswerCount: Int! @count(relation: "answers")
-    count: Int
+    productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
+    productAnswerCount: Int! @count(relation: "productAnswers")
 }

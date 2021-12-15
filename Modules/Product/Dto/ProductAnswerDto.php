@@ -6,7 +6,7 @@ use App\Dto\BaseDto;
 
 class ProductAnswerDto extends BaseDto
 {
-    public ?int $question_id;
+    public ?int $product_question_id;
 
     public ?string $text;
 

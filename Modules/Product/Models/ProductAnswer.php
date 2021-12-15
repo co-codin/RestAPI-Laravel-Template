@@ -13,7 +13,7 @@ use Modules\Product\Database\factories\ProductAnswerFactory;
  * Class ProductAnswer
  * @package Modules\Product\Models
  * @property int $id
- * @property int $question_id
+ * @property int $product_question_id
  * @property string $text
  * @property string $name
  * @property int $like
