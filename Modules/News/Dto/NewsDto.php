@@ -23,6 +23,8 @@ class NewsDto extends BaseDto
 
     public ?string $slug;
 
+    public ?string $category;
+
     public ?UploadedFile $image;
 
     public $is_image_changed;
