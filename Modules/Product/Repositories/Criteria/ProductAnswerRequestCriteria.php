@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductAnswerRequestCriteria implements CriteriaInterface
@@ -22,7 +21,6 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-//        return (new ProductAnswerBuilder())->builder($model);
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(

@@ -6,7 +6,6 @@ use App\Http\Filters\DateFilter;
 use App\Http\Filters\LiveFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -24,7 +23,6 @@ class ProductReviewRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-//        return (new ProductReviewBuilder())->builder($model);
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(

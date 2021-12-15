@@ -15,8 +15,8 @@ class ProductQuestionFactory extends Factory
     public function definition()
     {
         return [
-            'product_id' => Product::inRandomOrder()->first()->id,
-            'client_id' => Client::inRandomOrder()->first()->id,
+            'product_id' => Product::factory(),
+            'client_id' => Client::factory(),
             'status' => ProductQuestionStatus::getRandomValue(),
             'text' => $this->faker->sentence(10),
             'created_at' => $this->faker->dateTime(),

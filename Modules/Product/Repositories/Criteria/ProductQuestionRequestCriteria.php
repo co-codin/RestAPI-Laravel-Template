@@ -22,7 +22,6 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-//        return (new ProductQuestionBuilder())->builder($model);
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
