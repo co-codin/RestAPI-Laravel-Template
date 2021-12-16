@@ -70,7 +70,7 @@ class ProductQuestionStorage
         }
     }
 
-    public function notifyNewQuestion(ProductQuestion $question): void
+    private function notifyNewQuestion(ProductQuestion $question): void
     {
         \Mail::to(config('product.new-question-notify-email'))
             ->queue(new NewQuestionNotify($question));
