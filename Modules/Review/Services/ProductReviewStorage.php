@@ -60,7 +60,7 @@ class ProductReviewStorage
         }
     }
 
-    public function notifyApproveReject(ProductReview $productReview, string $comment): void
+    public function notifyApproveOrReject(ProductReview $productReview, string $comment): void
     {
         $email = $productReview->client->email;
 

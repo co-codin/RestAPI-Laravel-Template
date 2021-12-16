@@ -15,7 +15,6 @@ use function request;
 class FormRequestHelper
 {
     private ?Form $form = null;
-    private ?array $clientData = null;
 
     public function getForm(): Form
     {
@@ -29,37 +28,6 @@ class FormRequestHelper
         return $this->form = app(
             DirectoryHelper::FORMS_PATH_WITH_BACKSLASH . "\\" . Str::studly($requestData['formName'])
         );
-    }
-
-    #[ArrayShape([
-        'auth_name' => "string|null",
-        'auth_phone' => "string",
-        'auth_email' => "string|null",
-        'auth_id' => "string|null",
-    ])]
-    public function getClientData(): array
-    {
-        if (!is_null($this->clientData)) {
-            return $this->clientData;
-        }
-
-        $this->setClientData(request()->client);
-
-        return $this->clientData;
-    }
-
-    public function setClientData(?array $clientData = null): self
-    {
-        $name = \Arr::get($clientData,'first_name') . ' ' . \Arr::get($clientData,'last_name');
-
-        $this->clientData = [
-            'auth_name' => !empty(trim($name)) ? $name : null,
-            'auth_phone' => $clientData['phone'] ?? null,
-            'auth_email' => $clientData['email'] ?? null,
-            'auth_id' => $clientData['id'] ?? null,
-        ];
-
-        return $this;
     }
 
     #[ArrayShape([

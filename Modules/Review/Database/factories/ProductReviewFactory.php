@@ -2,7 +2,9 @@
 
 namespace Modules\Review\Database\factories;
 
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Product\Models\Product;
 use Modules\Review\Enums\ProductReviewExperience;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
@@ -16,7 +18,8 @@ class ProductReviewFactory extends Factory
         $experiences = ProductReviewExperience::getValues();
 
         return [
-            'client_id' => $this->faker->randomDigit(),
+            'product_id' => Product::inRandomOrder()->first()->id,
+            'client_id' => Client::inRandomOrder()->first()->id,
             'experience' => $this->faker->numberBetween(min($experiences),max($experiences)),
             'short_description' => $this->faker->sentence(10),
             'advantages' => $this->faker->sentence(),

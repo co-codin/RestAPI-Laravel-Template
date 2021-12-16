@@ -38,7 +38,7 @@ class QuestionReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $question->id,
-                            'question' => $question->question,
+                            'question' => $question->productQuestion,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -66,7 +66,7 @@ class QuestionReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $question->id,
-                            'question' => $question->question,
+                            'question' => $question->productQuestion,
                         ]
                     ],
                 ]

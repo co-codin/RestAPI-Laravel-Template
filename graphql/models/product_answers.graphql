@@ -1,0 +1,12 @@
+type ProductAnswer {
+    id: ID!
+    product_question_id: Int!
+    text: String!
+    first_name: String!
+    last_name: String!
+    person: String
+    like: Int
+    dislike: Int
+    date: Date!
+    productQuestion: ProductQuestion! @belongsTo
+}

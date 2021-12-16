@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\ClientFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
+use Modules\Product\Models\ProductQuestion;
 use Modules\Review\Models\ProductReview;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,6 +33,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Collection|ProductReview[] $productReviews
+ * @property-read Collection|ProductQuestion[] $productQuestions
  * @mixin \Eloquent
  * @method static QueryBuilder|Client withoutTrashed()
  * @method static QueryBuilder|Client withTrashed()
@@ -40,7 +44,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Client extends Authenticatable
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes, LogsActivity, HasFactory;
 
     protected $connection = 'mysql-crm';
 
@@ -74,5 +78,15 @@ class Client extends Authenticatable
     public function productReviews(): HasMany
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function productQuestions(): HasMany
+    {
+        return $this->hasMany(ProductQuestion::class);
+    }
+
+    protected static function newFactory(): ClientFactory
+    {
+        return ClientFactory::new();
     }
 }

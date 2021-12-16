@@ -31,6 +31,8 @@ type Product {
     stockType: FieldValue @belongsTo
     productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
     productReviews: [ProductReview!]  @hasMany(relation: "productReviews", scopes: ["published"])
+    productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
+    productQuestions: [ProductQuestion!]  @hasMany(relation: "productQuestions", scopes: ["published"])
 }
 
 

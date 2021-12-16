@@ -24,18 +24,13 @@ class ApprovedProductReviewClientNotify extends Mailable implements ShouldQueue
      */
     public int $backoff = 60;
 
-    private ProductReview $productReview;
-
-    private string $comment;
-
     /**
      * Create a new message instance.
      */
-    public function __construct(ProductReview $productReview, string $comment)
-    {
-        $this->productReview = $productReview;
-        $this->comment = $comment;
-    }
+    public function __construct(
+        private ProductReview $productReview,
+        private string $comment
+    ) {}
 
     /**
      * Build the message.

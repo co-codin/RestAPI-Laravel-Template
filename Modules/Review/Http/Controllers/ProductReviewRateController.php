@@ -2,15 +2,12 @@
 
 namespace Modules\Review\Http\Controllers;
 
+use App\Enums\RateStatus;
 use App\Http\Controllers\Controller;
-use http\Cookie;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Services\RateService;
 use Illuminate\Http\Response;
-use Modules\Review\Enums\ProductReviewRateStatus;
-use Modules\Review\Http\Requests\ProductReviewRateRequest;
-use Modules\Review\Http\Resources\ProductReviewResource;
+use App\Http\Requests\RateRequest;
 use Modules\Review\Repositories\ProductReviewRepository;
-use Modules\Review\Services\ProductReviewRateService;
 
 class ProductReviewRateController extends Controller
 {
@@ -18,28 +15,24 @@ class ProductReviewRateController extends Controller
         private ProductReviewRepository $repository
     ) {}
 
-    public function index(): AnonymousResourceCollection
-    {
-        return ProductReviewResource::collection(
-            $this->repository->jsonPaginate()
-        );
-    }
-
     /**
      * @throws \Exception
      */
     public function rate(
-        ProductReviewRateRequest $request,
-        ProductReviewRateService $service,
+        RateRequest $request,
+        RateService $service,
         int $productReviewId
     ): Response
     {
         $productReview = $this->repository->find($productReviewId);
 
-        $newCookie = $service->changeRate(
+        $data = $service->changeRate(
             $productReview,
-            ProductReviewRateStatus::fromValue($request->validated()['status'])
+            RateStatus::fromValue($request->validated()['status'])
         );
+
+        $newCookie = unserialize(\Cookie::get('product_review_rate'));
+        $newCookie[$data['id']] = $data['status'];
 
         return (new Response())->withCookie(
             \Cookie::forever('product_review_rate', serialize($newCookie))

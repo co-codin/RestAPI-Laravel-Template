@@ -4,6 +4,7 @@
 namespace App\Http\Middleware;
 
 
+use App\Helpers\ClientAuthHelper;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Middleware;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class ClientFormAuth extends Middleware
         }
 
         $request->offsetSet('client', $response->json());
-        $formHelper->setClientData($response->json());
+        app(ClientAuthHelper::class)->setClientData($response->json());
 
         return $next($request);
     }

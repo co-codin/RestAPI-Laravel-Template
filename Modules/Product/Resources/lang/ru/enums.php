@@ -2,6 +2,7 @@
 
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
+use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Enums\ProductVariationCondition;
 use Modules\Product\Enums\ProductGroup;
 
@@ -29,5 +30,11 @@ return [
         ProductGroup::REORIENTATED => 'Переориентация продаж',
         ProductGroup::SIMPLIFIED => 'Упрощенная продажа',
         ProductGroup::IMPOSSIBLE => 'Невозможные к продаже',
+    ],
+
+    ProductQuestionStatus::class => [
+        ProductQuestionStatus::IN_MODERATION => 'На рассмотрении',
+        ProductQuestionStatus::APPROVED => 'Одобрен',
+        ProductQuestionStatus::REJECTED => 'Отклонен',
     ],
 ];

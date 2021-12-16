@@ -17,4 +17,17 @@ class CabinetCategoryUpdateRequest extends BaseFormRequest
             'categories.*.position' => 'sometimes|nullable|integer',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'categories' => 'Категории',
+            'categories.*.id' => 'ID',
+            'categories.*.name' => 'Название',
+            'categories.*.count' => 'Количество',
+            'categories.*.price' => 'Цена',
+            'categories.*.position' => 'Позиция',
+        ];
+    }
 }
+
