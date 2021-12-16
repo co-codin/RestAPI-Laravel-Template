@@ -27,8 +27,8 @@ class CabinetDocumentStorage
                     'document_group_id' => $document['document_group_id'],
                     'type' => $doc['type'],
                     'source' => $doc['source'],
-                    'file' => $doc['file'],
-                    'link' => $doc['link'],
+                    'file' => !is_null($doc['file']) ? $doc['file'] : null,
+                    'link' => !is_null($doc['link']) ? $doc['link'] : null,
                 ]);
             }
         }
