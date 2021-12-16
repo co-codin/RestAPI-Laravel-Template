@@ -35,11 +35,11 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
         return [
             'documents' => 'Документы',
             'documents.*.document_group_id' => 'ID группы',
-            'documents.*.name' => 'Название',
-            'documents.*.type' => 'Тип',
-            'documents.*.source' => 'Источник',
-            'documents.*.file' => 'Файл',
-            'documents.*.link' => 'Ссылка',
+            'documents.*.docs.*.name' => 'Название',
+            'documents.*.docs.*.type' => 'Тип',
+            'documents.*.docs.*.source' => 'Источник',
+            'documents.*.docs.*.file' => 'Файл',
+            'documents.*.docs.*.link' => 'Ссылка',
         ];
     }
 }
