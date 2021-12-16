@@ -32,8 +32,10 @@ class BrandStorage
     {
         $attributes = $brandDto->toArray();
 
-        if ($brandDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($brandDto->image);
+        if($brandDto->is_image_changed) {
+            $attributes['image'] = $brandDto->image
+                ? $this->imageUploader->upload($brandDto->image)
+                : null;
         }
 
         if (!$brand->update($attributes)) {
