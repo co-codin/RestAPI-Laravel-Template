@@ -25,7 +25,7 @@ class CabinetDocumentStorage
                 }
                 $cabinet->documents()->create([
                     'name' => $document['name'],
-                    'group_name' => $document['group_name'],
+                    'document_group_id' => $document['document_group_id'],
                     'type' => $document['type'],
                     'source' => $document['source'],
                     'file' => $document['file'],

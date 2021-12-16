@@ -16,7 +16,7 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->morphs('documentable');
-            $table->string('group_name');
+            $table->foreignId('document_group_id')->constrained();
             $table->string('name');
             $table->integer('type');
             $table->integer('source');
