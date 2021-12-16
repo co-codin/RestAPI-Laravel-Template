@@ -37,7 +37,7 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
                 'product_id' => AllowedFilter::exact('product_id'),
                 'client_id' => AllowedFilter::exact('client_id'),
                 'status' => AllowedFilter::exact('status'),
-                'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
+                'date' => AllowedFilter::custom('date', new DateFilter(), 'date'),
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
@@ -46,7 +46,7 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
                 'client_id',
                 'status',
                 'text',
-                'created_at',
+                'date',
             ])
             ->allowedIncludes([
                 'product',
@@ -65,7 +65,7 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
             'client_id',
             'status',
             'text',
-            'created_at',
+            'date',
         ];
 
         if (!$prefix) {

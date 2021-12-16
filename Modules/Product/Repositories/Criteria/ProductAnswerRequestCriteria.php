@@ -34,7 +34,7 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
                 'product_question_id' => AllowedFilter::exact('product_question_id'),
                 'like' => AllowedFilter::exact('like'),
                 'dislike' => AllowedFilter::exact('dislike'),
-                'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
+                'date' => AllowedFilter::custom('date', new DateFilter(), 'date'),
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
@@ -44,7 +44,7 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
                 'name',
                 'like',
                 'dislike',
-                'created_at',
+                'date',
             ])
             ->allowedIncludes([
                 'productQuestion',
@@ -60,7 +60,7 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
             'name',
             'like',
             'dislike',
-            'created_at',
+            'date',
         ];
 
         if (!$prefix) {

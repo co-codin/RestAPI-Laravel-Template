@@ -14,5 +14,5 @@ class ProductQuestionDto extends BaseDto
 
     public ?string $text;
 
-    public ?string $created_at;
+    public ?string $date;
 }

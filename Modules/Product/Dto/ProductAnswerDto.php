@@ -20,5 +20,5 @@ class ProductAnswerDto extends BaseDto
 
     public ?int $dislike;
 
-    public ?string $created_at;
+    public ?string $date;
 }

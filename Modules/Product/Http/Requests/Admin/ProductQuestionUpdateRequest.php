@@ -22,7 +22,7 @@ class ProductQuestionUpdateRequest extends BaseFormRequest
         return [
             'status' => 'required|integer|enum_value:' . ProductQuestionStatus::class,
             'text' => 'sometimes|nullable|string',
-            'created_at' => 'sometimes|nullable|string',
+            'date' => 'sometimes|nullable|string',
         ];
     }
 }

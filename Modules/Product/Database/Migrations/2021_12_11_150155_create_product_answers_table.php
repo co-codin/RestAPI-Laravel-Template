@@ -15,16 +15,14 @@ class CreateProductAnswersTable extends Migration
     {
         Schema::create('product_answers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_question_id')->unsigned();
+            $table->foreignId('product_question_id')->constrained();
             $table->string('text');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('person')->nullable();
             $table->unsignedTinyInteger('like');
             $table->unsignedTinyInteger('dislike');
-            $table->timestamp('created_at');
-
-            $table->foreign('product_question_id')->references('id')->on('product_questions')->onDelete('cascade');
+            $table->timestamp('date');
         });
     }
 

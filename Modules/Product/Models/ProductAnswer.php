@@ -18,7 +18,7 @@ use Modules\Product\Database\factories\ProductAnswerFactory;
  * @property string $name
  * @property int $like
  * @property int $dislike
- * @property Carbon|null $created_at
+ * @property Carbon|null $date
  * @property-read ProductQuestion $productQuestion
  * @mixin \Eloquent
  * @method static Builder|ProductQuestion newModelQuery()

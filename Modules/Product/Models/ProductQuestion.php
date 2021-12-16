@@ -21,7 +21,7 @@ use Modules\Product\Enums\ProductQuestionStatus;
  * @property int|null $client_id
  * @property int $status
  * @property string $text
- * @property Carbon|null $created_at
+ * @property Carbon|null $date
  * @property-read Collection|ProductAnswer[] $productAnswers
  * @property-read Product $product
  * @property-read Client $client

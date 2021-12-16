@@ -16,10 +16,10 @@ class CreateProductQuestionsTable extends Migration
         Schema::create('product_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            $table->bigInteger('client_id')->unsigned()->nullable();
+            $table->bigInteger('client_id')->unsigned();
             $table->unsignedTinyInteger('status');
             $table->string('text');
-            $table->timestamp('created_at');
+            $table->timestamp('date');
 
             $table->index('client_id');
         });

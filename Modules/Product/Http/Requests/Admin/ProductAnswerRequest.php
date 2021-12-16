@@ -24,7 +24,7 @@ class ProductAnswerRequest extends BaseFormRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'person' => 'sometimes|nullable|string|max:255',
-            'created_at' => 'sometimes|nullable|string|min:4',
+            'date' => 'sometimes|nullable|string',
         ];
     }
 
@@ -36,7 +36,7 @@ class ProductAnswerRequest extends BaseFormRequest
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
             'person' => 'Название лица оставившего ответ',
-            'created_at' => 'Дата создания',
+            'date' => 'Дата создания',
         ];
     }
 }

@@ -20,7 +20,7 @@ class ProductAnswerFactory extends Factory
             'last_name' => $this->faker->name(),
             'like' => $this->faker->numberBetween(0, 30),
             'dislike' => $this->faker->numberBetween(0, 30),
-            'created_at' => $this->faker->dateTime(),
+            'date' => $this->faker->dateTime(),
         ];
     }
 }
