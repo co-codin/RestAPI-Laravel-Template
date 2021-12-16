@@ -30,6 +30,8 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 ProductRequestCriteria::allowedProductFields(),
             ))
             ->allowedFilters([
+                'first_name',
+                'last_name',
                 'advantages',
                 'disadvantages',
                 'comment',
@@ -52,6 +54,8 @@ class ProductReviewRequestCriteria implements CriteriaInterface
                 'id',
                 'product_id',
                 'client_id',
+                'first_name',
+                'last_name',
                 'experience',
                 'status',
                 'is_confirmed',
@@ -74,6 +78,8 @@ class ProductReviewRequestCriteria implements CriteriaInterface
             'id',
             'product_id',
             'client_id',
+            'first_name',
+            'last_name',
             'experience',
             'advantages',
             'disadvantages',

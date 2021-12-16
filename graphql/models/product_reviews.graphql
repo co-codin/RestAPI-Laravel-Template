@@ -1,7 +1,9 @@
 type ProductReview {
     id: ID!
     product_id: Int!
-    client_id: Int!
+    client_id: Int
+    first_name: String
+    last_name: String
     experience: Int!
     advantages: String
     disadvantages: String

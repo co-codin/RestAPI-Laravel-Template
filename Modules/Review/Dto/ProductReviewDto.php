@@ -6,9 +6,13 @@ use App\Dto\BaseDto;
 
 class ProductReviewDto extends BaseDto
 {
+    public ?int $product_id;
+
     public ?int $client_id;
 
-    public ?int $product_id;
+    public ?string $first_name;
+
+    public ?string $last_name;
 
     public ?int $experience;
 
