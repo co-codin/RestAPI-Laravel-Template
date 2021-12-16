@@ -29,4 +29,17 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
             'documents.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'documents' => 'Документы',
+            'categories.*.group_name' => 'Название группы',
+            'categories.*.name' => 'Название',
+            'categories.*.type' => 'Тип',
+            'categories.*.source' => 'Источник',
+            'categories.*.file' => 'Файл',
+            'categories.*.link' => 'Ссылка',
+        ];
+    }
 }
