@@ -18,7 +18,7 @@ class CabinetDocumentStorage
         $cabinet->documents()->delete();
         foreach ($documents as $document) {
             foreach ($document['docs'] as $doc) {
-                if (Arr::exists($doc, 'file') && $doc['file'] instanceof UploadedFile) {
+                if (Arr::exists($doc, 'file') && !is_null($doc['file']) ) {
                     $path = $this->fileUploader->upload($doc['file']);
                     $doc['file'] = $path;
                 }
