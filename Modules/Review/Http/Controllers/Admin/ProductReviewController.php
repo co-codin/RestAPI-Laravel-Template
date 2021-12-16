@@ -65,7 +65,7 @@ class ProductReviewController extends Controller
             ProductReviewStatus::fromValue(ProductReviewStatus::APPROVED)
         );
 
-        $this->storage->notifyApproveReject(
+        $this->storage->notifyApproveOrReject(
             $productReview,
             $request->validated()['comment']
         );
@@ -88,7 +88,7 @@ class ProductReviewController extends Controller
             ProductReviewStatus::fromValue(ProductReviewStatus::REJECTED)
         );
 
-        $this->storage->notifyApproveReject(
+        $this->storage->notifyApproveOrReject(
             $productReview,
             $request->validated()['comment']
         );

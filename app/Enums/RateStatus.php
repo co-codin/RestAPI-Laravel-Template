@@ -1,15 +1,13 @@
 <?php
 
-namespace Modules\Review\Enums;
-
-use App\Enums\BaseEnum;
+namespace App\Enums;
 
 /**
  * @method static static LIKE()
  * @method static static DISLIKE()
  * @method static static NONE()
  */
-class ProductReviewRateStatus extends BaseEnum
+class RateStatus extends BaseEnum
 {
     const LIKE = 1;
     const DISLIKE = 2;

@@ -18,7 +18,6 @@ use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
-use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -54,6 +53,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Category $category
  * @property-read Seo $seo
  * @property-read Collection|ProductReview[] $productReviews
+ * @property-read Collection|ProductQuestion[] $productQuestions
  * @property-read Collection|ProductCategory[] $productCategories
  * @property-read Collection|Category[] $categories
  * @property-read Collection|ProductVariation[] $productVariations
@@ -106,8 +106,12 @@ class Product extends Model
 
     public function productReviews(): HasMany
     {
-        return $this->hasMany(ProductReview::class)
-            ->where('status', ProductReviewStatus::APPROVED);
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function productQuestions(): HasMany
+    {
+        return $this->hasMany(ProductQuestion::class);
     }
 
     public function brand()

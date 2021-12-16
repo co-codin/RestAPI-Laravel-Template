@@ -2,6 +2,7 @@
 
 namespace Modules\Form\Http\Requests;
 
+use App\Helpers\ClientAuthHelper;
 use Illuminate\Foundation\Http\FormRequest as FormRequestAlias;
 use JetBrains\PhpStorm\ArrayShape;
 use Modules\Form\Forms\Form;
@@ -35,11 +36,12 @@ class FormsRequest extends FormRequestAlias
 
     #[ArrayShape([
         'auth_name' => "string|null",
-        'auth_phone' => "string",
-        'auth_email' => "string|null"
+        'auth_phone' => "string|null",
+        'auth_email' => "string|null",
+        'auth_id' => "string|null",
     ])]
     public function getClientData(): array
     {
-        return app(FormRequestHelper::class)->getClientData();
+        return app(ClientAuthHelper::class)->getClientData();
     }
 }

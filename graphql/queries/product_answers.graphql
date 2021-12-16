@@ -1,0 +1,19 @@
+extend type Query {
+    product_answers(
+        where: _ @whereConditions(columns: ["id", "product_question_id"])
+        orderBy: _ @orderBy(columns: ["id", "name", "date"])
+    ): [ProductAnswer!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+
+    all_product_answers(
+        where: _ @whereConditions(columns: ["id", "product_question_id"])
+        orderBy: _ @orderBy(columns: ["id", "name", "date"])
+    ): [ProductAnswer!]!
+    @all
+    @orderBy(column: "id", direction: "ASC")
+
+    product_answer(
+        id: ID @eq
+    ): ProductAnswer @find
+}

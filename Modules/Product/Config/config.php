@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Product'
+    'name' => 'Product',
+    'new-question-notify-email' => 'content@medeq.ru',
 ];
