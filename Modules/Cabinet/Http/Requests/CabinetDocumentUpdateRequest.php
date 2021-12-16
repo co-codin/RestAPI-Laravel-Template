@@ -13,7 +13,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'required|array',
-            'documents.*.group_id' => 'required|integer|exists:document_groups,id',
+            'documents.*.document_group_id' => 'required|integer|exists:document_groups,id',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.type' => [
                 'required',
@@ -34,7 +34,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'Документы',
-            'documents.*.group_name' => 'Название группы',
+            'documents.*.document_group_id' => 'ID группы',
             'documents.*.name' => 'Название',
             'documents.*.type' => 'Тип',
             'documents.*.source' => 'Источник',
