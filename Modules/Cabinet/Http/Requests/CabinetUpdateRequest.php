@@ -23,8 +23,19 @@ class CabinetUpdateRequest extends BaseFormRequest
             ],
             'welcome_text' => 'sometimes|nullable|string',
             'requirements' => 'sometimes|nullable|array',
+            'requirements.*.group_name' => 'required|string|max:255',
             'requirements.*.key' => 'required|string|max:255',
             'requirements.*.value' => 'required|string|max:255',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'requirements' => 'Требования',
+            'requirements.*.group_name' => 'Название группы',
+            'requirements.*.key' => 'Название',
+            'requirements.*.value' => 'Значение',
         ];
     }
 }
