@@ -35,6 +35,15 @@ class ProductAnswer extends Model
         'id'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(static function (self $productAnswer) {
+            $productAnswer->date = $productAnswer->freshTimestamp();
+        });
+    }
+
     public function productQuestion(): BelongsTo
     {
         return $this->belongsTo(ProductQuestion::class);
