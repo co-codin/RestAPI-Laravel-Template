@@ -40,6 +40,15 @@ class ProductQuestion extends Model
         'id'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(static function (self $productQuestion) {
+            $productQuestion->date = $productQuestion->freshTimestamp();
+        });
+    }
+
     public function productAnswers(): HasMany
     {
         return $this->hasMany(ProductAnswer::class);

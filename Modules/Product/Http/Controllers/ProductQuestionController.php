@@ -4,7 +4,6 @@ namespace Modules\Product\Http\Controllers;
 
 use App\Helpers\ClientAuthHelper;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Product\Dto\ProductQuestionDto;
 use Modules\Product\Enums\ProductQuestionStatus;
@@ -52,7 +51,6 @@ class ProductQuestionController extends Controller
             [
                 'client_id' => $clientData['auth_id'],
                 'status' => ProductQuestionStatus::IN_MODERATION,
-                'date' => Carbon::now()->toDateTimeString(),
             ],
             $request->validated()
         );
