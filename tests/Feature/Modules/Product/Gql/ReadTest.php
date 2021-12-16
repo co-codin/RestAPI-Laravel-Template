@@ -5,6 +5,7 @@ namespace Tests\Feature\Modules\Product\Gql;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductAnswer;
 use Modules\Product\Models\ProductQuestion;
+use Modules\Review\Models\ProductReview;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
@@ -215,6 +216,77 @@ class ReadTest extends TestCase
                         [
                             'id' => $productAnswer->id,
                             'product_question_id' => $productAnswer->product_question_id,
+                        ]
+                    ],
+                ]
+            ],
+        ]);
+    }
+
+    public function test_product_reviews_can_be_viewed(): void
+    {
+        $productReview = ProductReview::factory()->create();
+
+        $response = $this->graphQL('
+            {
+                product_reviews {
+                    data {
+                        id
+                        product_id
+                        client_id
+                        product {
+                            id
+                            name
+                        }
+                    }
+                    paginatorInfo {
+                        currentPage
+                        lastPage
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'product_reviews' => [
+                    'data' => [
+                        [
+                            'id' => $productReview->id,
+                            'product_id' => $productReview->product_id,
+                            'client_id' => $productReview->client_id,
+                        ]
+                    ],
+                    'paginatorInfo' => [
+                        'currentPage' => 1,
+                        'lastPage' => 1,
+                    ]
+                ]
+            ],
+        ]);
+
+        $response = $this->graphQL('
+            {
+                product_reviews(where: { column: ID, operator: EQ, value: ' . $productReview->id .'  }) {
+                    data {
+                        id
+                        experience
+                        status
+                        is_confirmed
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'product_reviews' => [
+                    'data' => [
+                        [
+                            'id' => $productReview->id,
+                            'experience' => $productReview->experience,
+                            'status' => $productReview->status,
+                            'is_confirmed' => $productReview->is_confirmed,
                         ]
                     ],
                 ]

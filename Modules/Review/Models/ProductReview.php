@@ -17,7 +17,9 @@ use Modules\Review\Enums\ProductReviewStatus;
  * @package Modules\Review\Models
  * @property int $id
  * @property int $product_id
- * @property int $client_id
+ * @property int|null $client_id
+ * @property string|null $first_name
+ * @property string|null $last_name
  * @property int $experience
  * @property string $advantages
  * @property string $disadvantages
