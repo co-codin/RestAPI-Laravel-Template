@@ -23,9 +23,7 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(array_merge(
-                self::allowedProductAnswerFields(),
-            ))
+            ->allowedFields(self::allowedProductAnswerFields())
             ->allowedFilters([
                 'text',
                 'name',

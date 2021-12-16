@@ -21,5 +21,6 @@ Route::apiResource('product_answers', ProductAnswerController::class)
     ->only('index', 'show');
 
 Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
-    Route::match(['put', 'patch'], 'product_answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate']);
+    Route::match(['put', 'patch'], 'product_answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate'])
+        ->name('product_answers.rate');
 });

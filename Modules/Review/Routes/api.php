@@ -8,5 +8,6 @@ Route::apiResource('product-reviews', ProductReviewController::class)
     ->only('index', 'show', 'store');
 
 Route::middleware(ProductReviewRateMiddleware::class)->group(function () {
-    Route::match(['put', 'patch'], 'product-reviews-rate/{product_review}', [ProductReviewRateController::class, 'rate']);
+    Route::match(['put', 'patch'], 'product-reviews-rate/{product_review}', [ProductReviewRateController::class, 'rate'])
+        ->name('product_reviews.rate');
 });
