@@ -13,7 +13,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'required|array',
-            'documents.*.group_name' => 'required|string|max:255',
+            'documents.*.group_id' => 'required|integer|exists:document_groups,id',
             'documents.*.name' => 'required|string|max:255',
             'documents.*.type' => [
                 'required',
