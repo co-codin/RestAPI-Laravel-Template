@@ -18,7 +18,6 @@ class Cabinet extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'documents' => 'array',
         'requirements' => 'array',
     ];
 
