@@ -31,7 +31,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property integer $status
  * @property string|null $image
  * @property boolean $is_in_home
+ * @property int $view_num
  * @property Carbon $published_at
+ * @property int $assigned_by_id
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property ?Seo $seo
