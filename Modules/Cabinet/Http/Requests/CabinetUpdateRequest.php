@@ -26,6 +26,7 @@ class CabinetUpdateRequest extends BaseFormRequest
             'requirements.*.group_name' => 'required|string|max:255',
             'requirements.*.requirements.*.key' => 'required|string|max:255',
             'requirements.*.requirements.*.value' => 'required|string|max:255',
+            'requirements.*.requirements.*.position' => 'sometimes|nullable|integer',
         ];
     }
 
@@ -34,8 +35,9 @@ class CabinetUpdateRequest extends BaseFormRequest
         return [
             'requirements' => 'Требования',
             'requirements.*.group_name' => 'Название группы',
-            'requirements.*.key' => 'Название',
-            'requirements.*.value' => 'Значение',
+            'requirements.*.requirements.*.key' => 'Название',
+            'requirements.*.requirements.*.value' => 'Значение',
+            'requirements.*.requirements.*.position' => 'Позиция',
         ];
     }
 }
