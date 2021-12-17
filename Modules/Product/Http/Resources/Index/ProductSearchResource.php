@@ -101,6 +101,13 @@ class ProductSearchResource extends JsonResource
                     $this->stockType->value,
                 ): null,
             ],
+            [
+                'name' => 'group',
+                'value' => $this->group_id,
+                'aggregation' => $this->group_id ? $this->aggregation(
+                    $this->group_id, ProductGroup::getDescription($this->group_id)
+                ): null,
+            ],
         ];
     }
 
