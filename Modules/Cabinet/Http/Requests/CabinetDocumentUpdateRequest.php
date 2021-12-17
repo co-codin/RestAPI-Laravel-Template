@@ -27,6 +27,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
             ],
             'documents.*.docs.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|nullable|file',
             'documents.*.docs.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
+            'documents.*.docs.*.position' => 'sometimes|nullable|integer',
         ];
     }
 
@@ -40,6 +41,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
             'documents.*.docs.*.source' => 'Источник',
             'documents.*.docs.*.file' => 'Файл',
             'documents.*.docs.*.link' => 'Ссылка',
+            'documents.*.docs.*.position' => 'Позиция',
         ];
     }
 }

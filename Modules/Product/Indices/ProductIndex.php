@@ -409,7 +409,7 @@ class ProductIndex extends BaseIndex
                     'type' => 'integer',
                 ],
                 'group' => [
-                    'type' => 'integer',
+                    'type' => 'float',
                 ],
                 'popular_score' => [
                     'type' => 'byte',
