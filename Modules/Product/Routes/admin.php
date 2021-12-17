@@ -17,12 +17,12 @@ Route::put('products/{product}/images', [ProductImageController::class, 'update'
 Route::resource('products', ProductController::class)->except(['index', 'show']);
 
 
-Route::apiResource('product_answers', ProductAnswerController::class)->except(['index', 'show']);
+Route::apiResource('product-answers', ProductAnswerController::class)->except(['index', 'show']);
 
-Route::apiResource('product_questions', ProductQuestionController::class)->except(['index', 'show', 'store']);
+Route::apiResource('product-questions', ProductQuestionController::class)->except(['index', 'show', 'store']);
 
-Route::put('product_questions/{product_question}/approve', [ProductQuestionController::class, 'approve'])->name('product_questions.approve');
-Route::put('product_questions/{product_question}/reject', [ProductQuestionController::class, 'reject'])->name('product_questions.reject');
+Route::put('product-questions/{product_question}/approve', [ProductQuestionController::class, 'approve'])->name('product-questions.approve');
+Route::put('product-questions/{product_question}/reject', [ProductQuestionController::class, 'reject'])->name('product-questions.reject');
 
 
 

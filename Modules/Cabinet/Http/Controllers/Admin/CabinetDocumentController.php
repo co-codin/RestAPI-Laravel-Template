@@ -19,7 +19,7 @@ class CabinetDocumentController extends Controller
     {
         $cabinetModel = $this->cabinetRepository->find($cabinet);
 
-        $this->cabinetDocumentStorage->update($cabinetModel, $request->input('documents'));
+        $this->cabinetDocumentStorage->update($cabinetModel, $request->validated()['documents']);
 
         return new CabinetResource($cabinetModel);
     }

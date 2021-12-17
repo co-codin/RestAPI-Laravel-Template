@@ -34,9 +34,20 @@ class ProductQuestion extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $guarded = [
         'id'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(static function (self $productQuestion) {
+            $productQuestion->date = $productQuestion->freshTimestamp();
+        });
+    }
 
     public function productAnswers(): HasMany
     {
