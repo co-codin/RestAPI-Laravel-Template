@@ -129,7 +129,7 @@ class ProductFilter
             ],
         ],
         'popular' => [
-            'group' => [
+            'group_sort' => [
                 'order' => 'asc',
                 'missing' => '_last',
             ],

@@ -411,6 +411,9 @@ class ProductIndex extends BaseIndex
                 'group' => [
                     'type' => 'integer',
                 ],
+                'group_sort_value' => [
+                    'type' => 'integer',
+                ],
                 'popular_score' => [
                     'type' => 'byte',
                 ],
