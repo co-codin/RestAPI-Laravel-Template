@@ -30,7 +30,6 @@ class ProductResource extends BaseJsonResource
                 'value' => $this->status,
                 'description' => Status::getDescription($this->status),
             ]),
-            'group_sort_value' => $this->getGroupSortValue(),
             'product_variations' => new MissingValue(),
             'main_variation' => new MissingValue(),
             'stock_type' => new MissingValue(),
@@ -53,18 +52,5 @@ class ProductResource extends BaseJsonResource
         }
 
         return $attributes;
-    }
-
-    protected function getGroupSortValue(): int
-    {
-        if($this->group_id === ProductGroup::IMPOSSIBLE) {
-            return 100; // 4 группа должна быть в самом конце
-        }
-
-        if(!$this->group_id) {
-            return 5; // не везде указана группа, потом уберем вообще этот метод, там где не заполнено, должно быть до 4 группы
-        }
-
-        return $this->group_id;
     }
 }
