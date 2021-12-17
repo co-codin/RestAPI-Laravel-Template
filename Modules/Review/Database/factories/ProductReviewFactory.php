@@ -20,6 +20,8 @@ class ProductReviewFactory extends Factory
         return [
             'product_id' => Product::inRandomOrder()->first()->id,
             'client_id' => Client::inRandomOrder()->first()->id,
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
             'experience' => $this->faker->numberBetween(min($experiences),max($experiences)),
             'short_description' => $this->faker->sentence(10),
             'advantages' => $this->faker->sentence(),

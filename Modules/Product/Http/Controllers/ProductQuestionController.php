@@ -6,6 +6,7 @@ use App\Helpers\ClientAuthHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Product\Dto\ProductQuestionDto;
+use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Http\Requests\ProductQuestionCreateRequest;
 use Modules\Product\Http\Resources\ProductQuestionResource;
 use Modules\Product\Repositories\ProductQuestionRepository;
@@ -47,7 +48,10 @@ class ProductQuestionController extends Controller
         $clientData = app(ClientAuthHelper::class)->getClientData();
 
         $validated = array_merge(
-            ['client_id' => $clientData['auth_id']],
+            [
+                'client_id' => $clientData['auth_id'],
+                'status' => ProductQuestionStatus::IN_MODERATION,
+            ],
             $request->validated()
         );
 

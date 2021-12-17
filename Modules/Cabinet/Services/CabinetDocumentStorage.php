@@ -16,21 +16,21 @@ class CabinetDocumentStorage
     public function update(Cabinet $cabinet, array $documents)
     {
         $cabinet->documents()->delete();
-            foreach ($documents as $document) {
-                if (Arr::exists($document, 'file') && $document['file'] instanceof UploadedFile) {
-                    $path = $this->fileUploader->upload($document['file']);
-                    $document['file'] = $path;
-                } else {
-                    $document['file'] = null;
+        foreach ($documents as $document) {
+            foreach ($document['docs'] as $doc) {
+                if (Arr::exists($doc, 'file') && !is_null($doc['file']) ) {
+                    $path = $this->fileUploader->upload($doc['file']);
+                    $doc['file'] = $path;
                 }
                 $cabinet->documents()->create([
-                    'name' => $document['name'],
-                    'group_name' => $document['group_name'],
-                    'type' => $document['type'],
-                    'source' => $document['source'],
-                    'file' => $document['file'],
-                    'link' => $document['link'],
+                    'name' => $doc['name'],
+                    'document_group_id' => $document['document_group_id'],
+                    'type' => $doc['type'],
+                    'source' => $doc['source'],
+                    'file' => !is_null($doc['file']) ? $doc['file'] : null,
+                    'link' => !is_null($doc['link']) ? $doc['link'] : null,
                 ]);
             }
+        }
     }
 }

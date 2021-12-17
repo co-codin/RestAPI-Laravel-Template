@@ -13,20 +13,20 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'required|array',
-            'documents.*.group_name' => 'required|string|max:255',
-            'documents.*.name' => 'required|string|max:255',
-            'documents.*.type' => [
+            'documents.*.document_group_id' => 'required|integer|exists:document_groups,id',
+            'documents.*.docs.*.name' => 'required|string|max:255',
+            'documents.*.docs.*.type' => [
                 'required',
                 'integer',
                 new EnumValue(DocumentTypeEnum::class, false)
             ],
-            'documents.*.source' => [
+            'documents.*.docs.*.source' => [
                 'required',
                 'integer',
                 new EnumValue(DocumentSourceEnum::class, false)
             ],
-            'documents.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|nullable|file',
-            'documents.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
+            'documents.*.docs.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|nullable|file',
+            'documents.*.docs.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
         ];
     }
 
@@ -34,12 +34,12 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'Документы',
-            'categories.*.group_name' => 'Название группы',
-            'categories.*.name' => 'Название',
-            'categories.*.type' => 'Тип',
-            'categories.*.source' => 'Источник',
-            'categories.*.file' => 'Файл',
-            'categories.*.link' => 'Ссылка',
+            'documents.*.document_group_id' => 'ID группы',
+            'documents.*.docs.*.name' => 'Название',
+            'documents.*.docs.*.type' => 'Тип',
+            'documents.*.docs.*.source' => 'Источник',
+            'documents.*.docs.*.file' => 'Файл',
+            'documents.*.docs.*.link' => 'Ссылка',
         ];
     }
 }

@@ -14,13 +14,13 @@ Route::post('/products/filter', [ProductFilterController::class, 'index'])
 Route::resource('products', ProductController::class)->only(['index', 'show']);
 
 
-Route::apiResource('product_questions', ProductQuestionController::class)
+Route::apiResource('product-questions', ProductQuestionController::class)
     ->only('index', 'show', 'store');
 
-Route::apiResource('product_answers', ProductAnswerController::class)
+Route::apiResource('product-answers', ProductAnswerController::class)
     ->only('index', 'show');
 
 Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
-    Route::match(['put', 'patch'], 'product_answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate'])
-        ->name('product_answers.rate');
+    Route::match(['put', 'patch'], 'product-answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate'])
+        ->name('product-answers.rate');
 });
