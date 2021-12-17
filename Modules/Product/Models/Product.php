@@ -78,6 +78,7 @@ class Product extends Model
         'has_test_drive' => 'boolean',
         'stock_type_id' => 'integer',
         'benefits' => 'array',
+        'group_id' => 'integer',
     ];
 
     protected static function boot()
