@@ -20,7 +20,7 @@ class ProductQuestionCreateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'required|int|exists:products,id',
-            'text' => 'sometimes|nullable|string',
+            'text' => 'required|string',
         ];
     }
 
