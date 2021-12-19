@@ -47,7 +47,7 @@ class ProductAnswerRequestCriteria implements CriteriaInterface
                 'date',
             ])
             ->allowedIncludes([
-                'productQuestion',
+                'productQuestion', 'productQuestion.product', 'productQuestion.product.brand',
             ]);
     }
 
