@@ -11,6 +11,7 @@ class CabinetUpdateRequest extends BaseFormRequest
     public function rules()
     {
         return [
+            'category_id' => 'sometimes|required|integer|exists:categories,id',
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|nullable|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cabinets,slug,' . $this->route('cabinet'),
             'is_image_changed' => 'sometimes|boolean',
@@ -33,6 +34,7 @@ class CabinetUpdateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
+            'welcome_text' => 'Приветственный текст',
             'requirements' => 'Требования',
             'requirements.*.group_name' => 'Название группы',
             'requirements.*.requirements.*.key' => 'Название',

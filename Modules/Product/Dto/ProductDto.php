@@ -28,6 +28,10 @@ class ProductDto extends BaseDto
 
     public ?string $warranty_info;
 
+    public ?string $arbitrary_warranty_info;
+
+    public ?bool $is_arbitrary_warranty;
+
     public ?int $status = Status::INACTIVE;
 
     public $is_in_home = false;

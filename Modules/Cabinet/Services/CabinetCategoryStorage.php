@@ -16,6 +16,7 @@ class CabinetCategoryStorage
                     'name',
                     'price',
                     'count',
+                    'position',
                 ]))
                 ->toArray()
         );

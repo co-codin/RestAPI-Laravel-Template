@@ -38,6 +38,8 @@ class ProductUpdateRequest extends BaseFormRequest
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
             'warranty_info' => 'sometimes|nullable|string',
+            'is_arbitrary_warranty' => 'sometimes|boolean',
+            'arbitrary_warranty_info' => 'sometimes|nullable|string',
             'status' => [
                 'sometimes',
                 'required',
