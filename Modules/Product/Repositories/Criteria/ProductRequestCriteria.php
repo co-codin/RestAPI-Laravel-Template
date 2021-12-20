@@ -120,7 +120,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'productQuestions',
                 'productAnswers',
             ])
-            ->allowedSorts('id', 'slug', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at');
+            ->allowedSorts('id', 'slug', 'name', 'warranty', 'is_arbitrary_warranty', 'created_at', 'updated_at', 'deleted_at');
     }
 
     public static function allowedProductFields($prefix = null)
@@ -137,6 +137,8 @@ class ProductRequestCriteria implements CriteriaInterface
             'is_enabled',
             'warranty',
             'warranty_info',
+            'is_arbitrary_warranty',
+            'arbitrary_warranty_info',
             'group_id',
             'short_description',
             'full_description',

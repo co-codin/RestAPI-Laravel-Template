@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Http\Requests\ProductReviewApproveRequest;
+use Modules\Review\Http\Requests\Admin\ProductReviewCreateRequest as ProductReviewCreateAdminRequest;
 use Modules\Review\Http\Requests\ProductReviewUpdateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
 use Modules\Review\Repositories\ProductReviewRepository;
@@ -19,6 +20,22 @@ class ProductReviewController extends Controller
         private ProductReviewRepository $repository,
         private ProductReviewStorage $storage
     ) {}
+
+    /**
+     * @throws UnknownProperties
+     * @throws \Exception
+     */
+    public function store(
+        ProductReviewCreateAdminRequest $request,
+        ProductReviewStorage $storage,
+    ): ProductReviewResource
+    {
+        $productReview = $storage->store(
+            ProductReviewDto::fromFormRequest($request)
+        );
+
+        return new ProductReviewResource($productReview);
+    }
 
     /**
      * @throws UnknownProperties
