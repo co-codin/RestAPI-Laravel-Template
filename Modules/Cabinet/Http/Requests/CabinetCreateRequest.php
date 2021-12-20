@@ -22,4 +22,11 @@ class CabinetCreateRequest extends BaseFormRequest
             ],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'welcome_text' => 'Приветственный текст',
+        ];
+    }
 }

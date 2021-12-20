@@ -33,6 +33,7 @@ class CabinetUpdateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
+            'welcome_text' => 'Приветственный текст',
             'requirements' => 'Требования',
             'requirements.*.group_name' => 'Название группы',
             'requirements.*.requirements.*.key' => 'Название',
