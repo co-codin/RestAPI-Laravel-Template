@@ -35,6 +35,10 @@ class ProductAnswer extends Model
         'id'
     ];
 
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     protected static function boot()
     {
         parent::boot();

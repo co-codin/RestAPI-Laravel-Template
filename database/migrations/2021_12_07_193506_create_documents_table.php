@@ -22,6 +22,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('source');
             $table->string('file')->nullable();
             $table->string('link')->nullable();
+            $table->unsignedInteger('position')->nullable();
             $table->timestamps();
         });
     }

@@ -32,6 +32,7 @@ class ProductQuestionRequestCriteria implements CriteriaInterface
                 'text',
                 'live' => AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
+                    'text' => 'like',
                 ])),
                 'id' => AllowedFilter::exact('id'),
                 'product_id' => AllowedFilter::exact('product_id'),

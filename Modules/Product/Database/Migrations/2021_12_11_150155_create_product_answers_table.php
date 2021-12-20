@@ -20,8 +20,8 @@ class CreateProductAnswersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('person')->nullable();
-            $table->unsignedTinyInteger('like');
-            $table->unsignedTinyInteger('dislike');
+            $table->unsignedTinyInteger('like')->default(0);
+            $table->unsignedTinyInteger('dislike')->default(0);
             $table->timestamp('date');
         });
     }

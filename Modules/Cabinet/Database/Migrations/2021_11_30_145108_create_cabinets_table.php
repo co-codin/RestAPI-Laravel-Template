@@ -22,6 +22,7 @@ class CreateCabinetsTable extends Migration
             $table->unsignedTinyInteger('status')->default(1);
             $table->text('welcome_text')->nullable();
             $table->json('requirements')->nullable();
+            $table->unsignedInteger('position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
