@@ -38,14 +38,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $status
  * @property boolean $is_in_home
  * @property string|null $image
- * @property Category|null $parent
- * @property Category[]|CollectionNestedset $children
- * @property Category[]|CollectionNestedset $ancestors
- * @property Category[]|CollectionNestedset $descendants
- * @property Seo|null $seo
+ * @property array|null $review_ratings
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Category|null $parent
+ * @property-read Seo|null $seo
+ * @property-read Category[]|CollectionNestedset $children
+ * @property-read Category[]|CollectionNestedset $ancestors
+ * @property-read Category[]|CollectionNestedset $descendants
  * @property-read Collection|ProductCategory[] $productCategories
  * @property-read Collection|Product[] $products
  * @mixin \Eloquent
@@ -62,6 +63,7 @@ class Category extends Model
     protected $casts = [
         'status' => 'integer',
         'is_in_home' => 'boolean',
+        'review_ratings' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
