@@ -28,6 +28,7 @@ class CabinetFactory extends Factory
             'image' => UploadedFile::fake()->image('test.png'),
             'full_description' => $this->faker->text,
             'status' => Status::getRandomValue(),
+            'welcome_text' => $this->faker->text,
         ];
     }
 }

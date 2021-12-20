@@ -26,4 +26,6 @@ class CabinetDto extends BaseDto
     public ?array $requirements;
 
     public ?array $categories;
+
+    public ?array $documents;
 }

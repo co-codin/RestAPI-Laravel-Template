@@ -2,6 +2,8 @@
 
 namespace Modules\Product\Http\Requests\Admin;
 
+use App\Enums\DocumentSourceEnum;
+use App\Enums\DocumentTypeEnum;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
@@ -63,32 +65,23 @@ class ProductUpdateRequest extends BaseFormRequest
             'is_booklet_changed' => 'sometimes|boolean',
             'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true,1|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
-            'documents' => 'sometimes|nullable|array',
+
+            'documents' => 'sometimes|required|array',
             'documents.*.name' => 'required|string|max:255',
-            'documents.*.source' => [
+            'documents.*.docs' => 'required|array',
+            'documents.*.docs.*.name' => 'required|string|max:255',
+            'documents.*.docs.*.source' => [
                 'required',
                 'integer',
-                new EnumValue(DocumentSource::class, false),
+                new EnumValue(DocumentSourceEnum::class, false)
             ],
-
-            'documents.*.file' => [
-                'required_if:documents.*.source,' . DocumentSource::FILE,
-                'file',
-                'exclude_unless:documents.*.source,' . DocumentSource::URL
-            ],
-
-            'documents.*.url' => [
-                'required_if:documents.*.source,' . DocumentSource::URL,
-                'file',
-                'exclude_unless:documents.*.url,' . DocumentSource::FILE
-            ],
-
-            'documents.*.type' => [
+            'documents.*.docs.*.type' => [
                 'required',
                 'integer',
-                new EnumValue(DocumentType::class, false),
+                new EnumValue(DocumentTypeEnum::class, false)
             ],
-            'documents.*.position' => 'sometimes|nullable|integer|distinct',
+            'documents.*.docs.*.file' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::FILE . '|required|string|max:255',
+            'documents.*.docs.*.link' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::LINK . '|required|url|max:255',
 
             'benefits' => 'sometimes|nullable|array',
             'benefits.information' => 'sometimes|nullable|array|max:2',
@@ -112,6 +105,13 @@ class ProductUpdateRequest extends BaseFormRequest
             'benefits.chips.*.value' => 'Значение',
             'benefits.chips.*.description' => 'Описание',
             'benefits.benefit' => 'Особенность',
+            'documents' => 'Документы',
+            'documents.*.name' => 'Название группы',
+            'documents.*.docs.*.name' => 'Название',
+            'documents.*.docs.*.source' => 'Источник',
+            'documents.*.docs.*.type' => 'Тип',
+            'documents.*.docs.*.file' => 'Файл',
+            'documents.*.docs.*.link' => 'Ссылка',
         ];
     }
 }

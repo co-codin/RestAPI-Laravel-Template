@@ -19,6 +19,7 @@ class Cabinet extends Model
 
     protected $casts = [
         'requirements' => 'array',
+        'documents' => 'array',
     ];
 
     public function sluggable(): array
@@ -39,11 +40,6 @@ class Cabinet extends Model
                 'price',
                 'position',
             ]);
-    }
-
-    public function documents()
-    {
-        return $this->morphMany(Document::class, 'documentable');
     }
 
     public function seo()
