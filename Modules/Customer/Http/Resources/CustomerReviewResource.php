@@ -27,10 +27,6 @@ class CustomerReviewResource extends BaseJsonResource
                 'value' => $this->type,
                 'description' => CustomerType::getDescription($this->type),
             ]),
-            'is_in_home' => $this->whenRequested('is_in_home', [
-                'value' => $this->is_in_home,
-                'description' => $this->is_in_home ? 'На главной странице': 'Не на главной странице',
-            ]),
         ]);
     }
 }

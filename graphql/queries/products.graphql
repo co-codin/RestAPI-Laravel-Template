@@ -2,8 +2,7 @@ extend type Query {
     products(
         where: _ @whereConditions(columns: [
             "id", "name", "slug", "brand_id", "status", "image",
-            "warranty", "short_description", "full_description", "assigned_by_id", "is_in_home",
-            "is_arbitrary_warranty"
+            "warranty", "short_description", "full_description", "assigned_by_id", "is_in_home", "group_id"
         ])
         withMainVariation: Boolean @scope(name: "withMainVariation")
         withPrice: Boolean @scope(name: "withPrice")
@@ -14,7 +13,7 @@ extend type Query {
         category: Int @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@rootCategory")
         hasBrand: _ @whereHasConditions(columns: ["id", "country_id", "name", "slug"])
         hasProductVariations: _ @whereHasConditions(columns: ["id", "name", "is_price_visible", "is_enabled", "currency_id", "price", "availability", "previous_price"])
-        orderBy: _ @orderBy(columns: ["id", "name", "warranty", "assigned_by_id", "is_in_home", "price", "is_arbitrary_warranty"])
+        orderBy: _ @orderBy(columns: ["id", "name", "warranty", "assigned_by_id", "is_in_home", "price"])
     ): [Product!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")

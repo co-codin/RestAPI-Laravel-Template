@@ -19,7 +19,7 @@ class ProductAnswerRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'product_question_id' => 'required|int|exists:question,id',
+            'product_question_id' => 'required|int|exists:product_questions,id',
             'text' => 'required|string',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',

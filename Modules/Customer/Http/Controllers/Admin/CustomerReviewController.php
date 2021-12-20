@@ -50,7 +50,7 @@ class CustomerReviewController extends Controller
 
         $this->storage->update(
             $customerReview,
-            CustomerReviewDto::create($request->validated())->only(...$request->keys())
+            CustomerReviewDto::fromFormRequest($request)
         );
 
         return new CustomerReviewResource($customerReview);
