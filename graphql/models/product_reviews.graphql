@@ -8,7 +8,7 @@ type ProductReview {
     advantages: String
     disadvantages: String
     comment: String!
-    status: Int!
+    status: ProductReviewStatusEnum!
     is_confirmed: Boolean!
     ratings: [Int!]!
     like: Int!
@@ -17,4 +17,10 @@ type ProductReview {
     ratings_avg: Float!
     product: Product! @belongsTo
     client: Client! @belongsTo
+}
+
+enum ProductReviewStatusEnum {
+    InModeration @enum(value: 1)
+    Approved @enum(value: 2)
+    Rejected @enum(value: 3)
 }

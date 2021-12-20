@@ -60,8 +60,8 @@ class CategoryRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id', 'name', 'slug', 'product_name', 'full_description', 'image', '_lft', '_rgt',
-            'status', 'is_in_home', 'parent_id',
-            'created_at', 'updated_at', 'deleted_at',
+            'status', 'is_in_home', 'parent_id', 'created_at',
+            'updated_at', 'deleted_at', 'review_ratings'
         ];
 
         if(!$prefix) {
