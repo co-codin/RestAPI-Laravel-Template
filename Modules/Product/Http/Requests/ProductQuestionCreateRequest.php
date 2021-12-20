@@ -28,7 +28,7 @@ class ProductQuestionCreateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'Товар',
-            'text' => 'Комментарий',
+            'text' => 'Вопрос',
         ];
     }
 }
