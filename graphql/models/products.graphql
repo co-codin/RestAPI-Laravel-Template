@@ -10,6 +10,8 @@ type Product {
     is_in_home: Boolean!
     warranty: Int
     warranty_info: String
+    is_arbitrary_warranty: Boolean!
+    arbitrary_warranty_info: String
     short_description: String
     full_description: String
     assigned_by_id: Int
