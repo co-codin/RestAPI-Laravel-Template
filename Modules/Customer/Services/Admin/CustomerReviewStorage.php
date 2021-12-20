@@ -55,8 +55,6 @@ class CustomerReviewStorage
      */
     public function update(CustomerReview $customerReview, CustomerReviewDto $dto): CustomerReview
     {
-        ray($dto->toArray());
-
         $attributes = $dto->toArray();
 
         if ($dto->is_image_changed) {
