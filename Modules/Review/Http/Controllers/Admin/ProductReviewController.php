@@ -82,10 +82,12 @@ class ProductReviewController extends Controller
             ProductReviewStatus::fromValue(ProductReviewStatus::APPROVED)
         );
 
-        $this->storage->notifyApproveOrReject(
-            $productReview,
-            $request->validated()['comment']
-        );
+        if ($productReview?->client?->email) {
+            $this->storage->notifyApproveOrReject(
+                $productReview,
+                $request->validated()['comment']
+            );
+        }
 
         return \response()->noContent();
     }
