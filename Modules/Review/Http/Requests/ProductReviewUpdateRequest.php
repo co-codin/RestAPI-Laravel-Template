@@ -22,14 +22,16 @@ class ProductReviewUpdateRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|integer|enum_value:' . ProductReviewStatus::class,
-            'is_confirmed' => 'required|boolean',
+            'first_name' => 'sometimes|required|string|max:255',
+            'last_name' => 'sometimes|required|string|max:255',
+            'status' => 'sometimes|required|integer|enum_value:' . ProductReviewStatus::class,
+            'is_confirmed' => 'sometimes|required|boolean',
             'advantages' => 'sometimes|nullable|string|max:255',
-            'experience' => 'required|integer|enum_value:' . ProductReviewExperience::class,
+            'experience' => 'sometimes|required|integer|enum_value:' . ProductReviewExperience::class,
             'disadvantages' => 'sometimes|nullable|string|max:255',
-            'comment' => 'required|string',
-            'ratings' => 'required|array|min:1',
-            'ratings.*' => 'required|int|min:1',
+            'comment' => 'sometimes|required|string',
+            'ratings' => 'sometimes|required|array|min:1',
+            'ratings.*' => 'sometimes|required|int|min:1',
         ];
     }
 }
