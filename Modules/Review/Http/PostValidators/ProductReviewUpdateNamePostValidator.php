@@ -4,7 +4,7 @@ namespace Modules\Review\Http\PostValidators;
 
 use App\Http\PostValidators\BasePostValidator;
 
-class ProductReviewUpdatePostValidator extends BasePostValidator
+class ProductReviewUpdateNamePostValidator extends BasePostValidator
 {
     protected function check(): void
     {

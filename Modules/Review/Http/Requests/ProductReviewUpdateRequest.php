@@ -7,7 +7,7 @@ use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Validator;
 use Modules\Review\Enums\ProductReviewExperience;
 use Modules\Review\Enums\ProductReviewStatus;
-use Modules\Review\Http\PostValidators\ProductReviewUpdatePostValidator;
+use Modules\Review\Http\PostValidators\ProductReviewUpdateNamePostValidator;
 
 class ProductReviewUpdateRequest extends BaseFormRequest
 {
@@ -42,7 +42,7 @@ class ProductReviewUpdateRequest extends BaseFormRequest
     {
         $validator->after(function (Validator $validator) {
             if ($validator->errors()->isEmpty()) {
-                ProductReviewUpdatePostValidator::run($validator);
+                ProductReviewUpdateNamePostValidator::run($validator);
             }
         });
     }
