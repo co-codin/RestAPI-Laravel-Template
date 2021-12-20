@@ -34,6 +34,8 @@ type Product {
     productReviews: [ProductReview!]  @hasMany(relation: "productReviews", scopes: ["published"])
     productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
     productQuestions: [ProductQuestion!]  @hasMany(relation: "productQuestions", scopes: ["published"])
+    productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
+    productAnswerCount: Int @count(relation: "productAnswers")
 }
 
 

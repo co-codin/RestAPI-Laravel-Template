@@ -117,6 +117,8 @@ class ProductRequestCriteria implements CriteriaInterface
                 'mainVariation',
                 'mainVariation.currency',
                 'stockType',
+                'productQuestions',
+                'productAnswers',
             ])
             ->allowedSorts('id', 'slug', 'name', 'warranty', 'created_at', 'updated_at', 'deleted_at');
     }

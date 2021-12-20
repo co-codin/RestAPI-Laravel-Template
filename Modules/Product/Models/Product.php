@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
+use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Review\Models\ProductReview;
@@ -113,6 +115,14 @@ class Product extends Model
     public function productQuestions(): HasMany
     {
         return $this->hasMany(ProductQuestion::class);
+    }
+
+    public function productAnswers(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            ProductAnswer::class,
+            ProductQuestion::class,
+        )->where('product_questions.status', '=', ProductQuestionStatus::APPROVED);
     }
 
     public function brand()
