@@ -7,6 +7,8 @@ use Illuminate\Http\UploadedFile;
 
 class CabinetDto extends BaseDto
 {
+    public ?int $category_id;
+
     public ?string $name;
 
     public ?string $slug;
