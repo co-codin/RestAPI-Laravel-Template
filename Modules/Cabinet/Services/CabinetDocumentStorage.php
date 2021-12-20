@@ -29,6 +29,7 @@ class CabinetDocumentStorage
                     'source' => $doc['source'],
                     'file' => !is_null($doc['file']) ? $doc['file'] : null,
                     'link' => !is_null($doc['link']) ? $doc['link'] : null,
+                    'position' => !is_null($doc['position']) ? $doc['position'] : null,
                 ]);
             }
         }
