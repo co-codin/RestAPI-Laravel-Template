@@ -75,7 +75,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 Rule::in(['Техническая документация', 'Сертификаты']),
             ],
             'documents.*.docs' => 'required|array',
-            'documents.*.docs.*.name' => 'required|string|max:255',
+            'documents.*.docs.*.name' => 'nullable|string|max:255',
             'documents.*.docs.*.source' => [
                 'required',
                 'integer',
