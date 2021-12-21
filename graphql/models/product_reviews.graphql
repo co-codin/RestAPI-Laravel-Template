@@ -16,7 +16,7 @@ type ProductReview {
     created_at: Date!
     ratings_avg: Float!
     product: Product! @belongsTo
-    client: Client! @belongsTo
+    client: Client @belongsTo
 }
 
 enum ProductReviewStatusEnum {

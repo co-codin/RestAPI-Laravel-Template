@@ -13,21 +13,21 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'required|array',
-            'documents.*.document_group_id' => 'required|integer|exists:document_groups,id',
+            'documents.*.name' => 'required|string|max:255',
+            'documents.*.docs' => 'required|array',
             'documents.*.docs.*.name' => 'required|string|max:255',
-            'documents.*.docs.*.type' => [
-                'required',
-                'integer',
-                new EnumValue(DocumentTypeEnum::class, false)
-            ],
             'documents.*.docs.*.source' => [
                 'required',
                 'integer',
                 new EnumValue(DocumentSourceEnum::class, false)
             ],
-            'documents.*.docs.*.file' => 'required_if:documents.*.source,' . DocumentSourceEnum::FILE . '|nullable|file',
-            'documents.*.docs.*.link' => 'required_if:documents.*.source,' . DocumentSourceEnum::LINK . '|nullable|string',
-            'documents.*.docs.*.position' => 'sometimes|nullable|integer',
+            'documents.*.docs.*.type' => [
+                'required',
+                'integer',
+                new EnumValue(DocumentTypeEnum::class, false)
+            ],
+            'documents.*.docs.*.file' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::FILE . '|required|string|max:255',
+            'documents.*.docs.*.link' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::LINK . '|required|url|max:255',
         ];
     }
 
@@ -35,13 +35,12 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
     {
         return [
             'documents' => 'Документы',
-            'documents.*.document_group_id' => 'ID группы',
+            'documents.*.name' => 'Название группы',
             'documents.*.docs.*.name' => 'Название',
-            'documents.*.docs.*.type' => 'Тип',
             'documents.*.docs.*.source' => 'Источник',
+            'documents.*.docs.*.type' => 'Тип',
             'documents.*.docs.*.file' => 'Файл',
             'documents.*.docs.*.link' => 'Ссылка',
-            'documents.*.docs.*.position' => 'Позиция',
         ];
     }
 }

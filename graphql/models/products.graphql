@@ -1,4 +1,5 @@
 scalar MixedPrice @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+scalar Documents @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
 
 type Product {
     id: ID!
@@ -22,6 +23,7 @@ type Product {
     price: MixedPrice
     group_id: Int
     rating: Float
+    documents: Documents
     brand: Brand! @belongsTo
     productVariations: [ProductVariation!]! @hasMany
     productCategories: [ProductCategory!]! @hasMany
