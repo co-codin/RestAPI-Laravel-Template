@@ -18,7 +18,7 @@ return [
 
     DocumentTypeEnum::class => [
         DocumentTypeEnum::BOOKLET => 'Брошюра',
-        DocumentTypeEnum::CERTIFICATE_RU => 'Сертификат РУ',
+        DocumentTypeEnum::CERTIFICATE_RU => 'Регистрационное удостоверение',
         DocumentTypeEnum::CERTIFICATE_DS => 'Сертификат ДС',
         DocumentTypeEnum::TECHNICAL_PROPERTIES => 'Технические характеристики',
         DocumentTypeEnum::INSTRUCTION => 'Инструкция',
