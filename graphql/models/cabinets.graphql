@@ -7,11 +7,18 @@ type Cabinet {
     full_description: String!
     status: Int!
     welcome_text: String
+    view_num: Int
     documents: [Document!] @morphMany
     requirements: [Requirement]
 }
 
 type Requirement {
+    group_name: String!
+    requirements: [Req!]!
+}
+
+type Req {
     key: String!
     value: String!
+    position: Int
 }

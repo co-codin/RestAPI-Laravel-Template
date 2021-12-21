@@ -2,7 +2,7 @@ type ProductQuestion {
     id: ID!
     product_id: Int!
     client_id: Int
-    status: Int!
+    status: ProductQuestionStatusEnum!
     text: String!
     date: Date!
     first_name: String
@@ -11,4 +11,10 @@ type ProductQuestion {
     product: Product! @belongsTo
     productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
     productAnswerCount: Int! @count(relation: "productAnswers")
+}
+
+enum ProductQuestionStatusEnum {
+    InModeration @enum(value: 1)
+    Approved @enum(value: 2)
+    Rejected @enum(value: 3)
 }
