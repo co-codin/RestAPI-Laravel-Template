@@ -1,7 +1,6 @@
 <?php
 
-namespace Modules\News\Listeners;
-
+namespace Modules\Cabinet\Listeners;
 
 class UpdateView
 {
