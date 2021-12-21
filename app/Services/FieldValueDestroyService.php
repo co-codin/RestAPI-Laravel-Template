@@ -10,10 +10,12 @@ class FieldValueDestroyService
 {
     public function delete(FieldValue $fieldValue): void
     {
-        $this->checkValueInProductProperties($fieldValue->id);
-        $this->checkValueInBrands($fieldValue->id);
-        $this->checkValueInProductStockType($fieldValue->id);
-        $this->checkValueInProductVariationCondition($fieldValue->id);
+//        $this->checkValueInProductProperties($fieldValue->id);
+//        $this->checkValueInBrands($fieldValue->id);
+//        $this->checkValueInProductStockType($fieldValue->id);
+//        $this->checkValueInProductVariationCondition($fieldValue->id);
+        $this->checkValueInFilterOptions($fieldValue->id);
+        throw new \LogicException('can not delete field value');
 
         if (!$fieldValue->delete()) {
             throw new \LogicException('can not delete field value');
@@ -70,6 +72,7 @@ class FieldValueDestroyService
     {
         $inOptions = \DB::table('filters')
             ->where('options->seoTagLabels->key', $id)
+            ->orWhere('options->seoTagLabels->key', "$id")
 //            ->whereJsonContains('options->seoTagLabels->key', $id)
             ->exists();
 
