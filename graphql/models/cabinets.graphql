@@ -2,6 +2,7 @@ type Cabinet {
     id: ID!
     name: String!
     slug: String!
+    category_id: Int!
     categories: [Category!] @belongsToMany
     category: Category @belongsTo
     image: String!
