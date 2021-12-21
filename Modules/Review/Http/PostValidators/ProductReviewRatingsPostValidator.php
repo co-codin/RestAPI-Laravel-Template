@@ -25,7 +25,12 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             $this->addError('product_id', 'У товара нету основной категории');
         }
 
-        $allowedReviewRatings = collect(json_decode($category->review_ratings, true, 512, JSON_THROW_ON_ERROR))->pluck('name');
+        $reviewRatings = json_decode($category->review_ratings, true, 512, JSON_THROW_ON_ERROR);
+        $allowedReviewRatings = collect($reviewRatings)->pluck('name');
+
+        if ($allowedReviewRatings->isEmpty()) {
+            $this->addError('product_id', 'У категории товара нету разрешенных оценок для отзывов');
+        }
 
         $rejectedRatings = collect(array_keys($request->input('ratings')))->diff($allowedReviewRatings);
 
