@@ -14,7 +14,7 @@ class CabinetRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields([
-                'id', 'name', 'image', 'slug',
+                'id', 'name', 'image', 'slug', 'view_num',
                 'image', 'full_description', 'status',
                 'created_at', 'updated_at', 'deleted_at'
             ])
@@ -25,7 +25,7 @@ class CabinetRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('categories.id'),
             ])
-            ->allowedSorts('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'deleted_at')
+            ->allowedSorts('id', 'name', 'slug', 'status', 'view_num', 'created_at', 'updated_at', 'deleted_at')
             ->allowedIncludes(['categories', 'seo', 'documents.documentGroup'])
             ;
     }

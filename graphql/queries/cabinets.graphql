@@ -1,17 +1,17 @@
 extend type Query {
     cabinets(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num"])
     ): [Cabinet!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
     allCabinets(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num"])
     ): [Cabinet!]!
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    cabinet(id: ID @eq, name: String @eq, slug: String @eq): Cabinet @find
+    cabinet(id: ID @eq, name: String @eq, slug: String @eq): Cabinet @find @event(dispatch: "Modules\\Cabinet\\Events\\CabinetViewed")
 }
