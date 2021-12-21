@@ -26,6 +26,11 @@ class CategoryStorage
             $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
         }
 
+        // default value of review criteria
+        $attributes['review_ratings'] = [
+            ['name' => 'Общая оценка'],
+        ];
+
         $category = Category::query()->create($attributes);
 
         event(new CategorySaved($category));
