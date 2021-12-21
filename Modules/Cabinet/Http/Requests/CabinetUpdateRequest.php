@@ -23,6 +23,7 @@ class CabinetUpdateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'welcome_text' => 'sometimes|nullable|string',
+            'view_num' => 'sometimes|nullable|integer',
             'requirements' => 'sometimes|nullable|array',
             'requirements.*.group_name' => 'required|string|max:255',
             'requirements.*.requirements.*.key' => 'required|string|max:255',
