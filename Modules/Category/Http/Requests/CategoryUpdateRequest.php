@@ -51,6 +51,14 @@ class CategoryUpdateRequest extends BaseFormRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'review_ratings' => "Критерии",
+            'review_ratings.*.name' => "",
+        ];
+    }
+
     public function messages(): array
     {
         return [

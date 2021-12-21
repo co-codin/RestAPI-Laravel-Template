@@ -47,4 +47,12 @@ class CategoryCreateRequest extends BaseFormRequest
             'attach_default_filters' => 'sometimes|nullable|boolean',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'review_ratings' => "Критерии",
+            'review_ratings.*.name' => "",
+        ];
+    }
 }
