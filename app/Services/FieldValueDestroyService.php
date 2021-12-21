@@ -65,4 +65,16 @@ class FieldValueDestroyService
             throw new \LogicException('Вы не можете удалить это значение, т.к. оно используется у вариаций товаров');
         }
     }
+
+    private function checkValueInFilterOptions(int $id): void
+    {
+        $inOptions = \DB::table('filters')
+            ->where('options->seoTagLabels->key', $id)
+//            ->whereJsonContains('options->seoTagLabels->key', $id)
+            ->exists();
+
+        if ($inOptions) {
+            throw new \LogicException('Вы не можете удалить это значение, т.к. оно используется в опциях у фильтров');
+        }
+    }
 }
