@@ -1,14 +1,14 @@
 extend type Query {
     cabinets(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num"])
     ): [Cabinet!]!
     @paginate
     @orderBy(column: "id", direction: "ASC")
 
     allCabinets(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num"])
     ): [Cabinet!]!
     @all
     @orderBy(column: "id", direction: "ASC")
