@@ -3,11 +3,25 @@
 namespace Modules\Category\Http\Requests;
 
 use App\Enums\Status;
+use App\Http\RequestFilters\SanitizesInput;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 
 class CategoryUpdateRequest extends BaseFormRequest
 {
+    use SanitizesInput;
+
+    public function filters(): array
+    {
+        return [
+            'parent_id' => 'nullable-cast:int',
+            'status' => 'nullable-cast:int',
+            'is_in_home' => 'nullable-cast:bool',
+            'is_image_changed' => 'nullable-cast:bool',
+            'assigned_by_id' => 'nullable-cast:int',
+        ];
+    }
+
     public function rules()
     {
         return [
@@ -31,6 +45,9 @@ class CategoryUpdateRequest extends BaseFormRequest
                 'image',
             ],
             'assigned_by_id' => 'sometimes|nullable|integer',
+            'review_ratings' => 'required_unless:parent_id,null|nullable|array|min:4',
+            'review_ratings.*' => 'required|array|min:1',
+            'review_ratings.*.*' => 'required|string|max:50',
         ];
     }
 

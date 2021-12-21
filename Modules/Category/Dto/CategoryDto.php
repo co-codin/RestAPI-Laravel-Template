@@ -29,4 +29,6 @@ class CategoryDto extends BaseDto
     public ?UploadedFile $image;
 
     public ?int $assigned_by_id;
+
+    public ?array $review_ratings;
 }

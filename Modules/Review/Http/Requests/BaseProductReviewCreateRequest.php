@@ -4,7 +4,9 @@ namespace Modules\Review\Http\Requests;
 
 use App\Http\RequestFilters\SanitizesInput;
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Validator;
 use Modules\Review\Enums\ProductReviewExperience;
+use Modules\Review\Http\PostValidators\ProductReviewRatingsPostValidator;
 
 abstract class BaseProductReviewCreateRequest extends BaseFormRequest
 {
@@ -46,5 +48,14 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
             'ratings' => 'Оценки',
             'ratings.main' => 'Общая оценка',
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            if ($validator->errors()->isEmpty()) {
+                ProductReviewRatingsPostValidator::run($validator);
+            }
+        });
     }
 }
