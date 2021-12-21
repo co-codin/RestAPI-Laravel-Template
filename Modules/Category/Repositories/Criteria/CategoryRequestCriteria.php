@@ -48,6 +48,7 @@ class CategoryRequestCriteria implements CriteriaInterface
                 'descendants',
                 'children',
                 'seo',
+                'seoCategoryProducts',
                 'filters',
                 AllowedInclude::count('productsCount'),
             ])
