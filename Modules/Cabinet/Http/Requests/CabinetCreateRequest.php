@@ -17,6 +17,7 @@ class CabinetCreateRequest extends BaseFormRequest
             'image' => 'required|image',
             'full_description' => 'required|string',
             'welcome_text' => 'sometimes|required|nullable|string',
+            'view_num' => 'sometimes|nullable|integer',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),

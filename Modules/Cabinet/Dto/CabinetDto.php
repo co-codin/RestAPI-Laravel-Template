@@ -23,6 +23,8 @@ class CabinetDto extends BaseDto
 
     public ?string $welcome_text;
 
+    public ?int $view_num;
+
     public ?array $requirements;
 
     public ?array $categories;
