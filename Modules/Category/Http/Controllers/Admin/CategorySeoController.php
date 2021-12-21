@@ -21,9 +21,12 @@ class CategorySeoController extends Controller
     public function update(SeoUpdateRequest $request, int $category)
     {
         $category = $this->categoryRepository->skipCriteria()->find($category);
+        $relation = $request->input('type') == 2
+            ? $category->seoCategoryProducts()
+            : $category->seo();
 
         $seo = $this->seoStorage->update(
-            $category->seo(),
+            $relation,
             new SeoDto($request->validated())
         );
 
