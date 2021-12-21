@@ -67,7 +67,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true,1|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
 
-            'documents' => 'sometimes|required|array',
+            'documents' => 'sometimes|nullable|array',
             'documents.*.name' => [
                 'required',
                 'string',
