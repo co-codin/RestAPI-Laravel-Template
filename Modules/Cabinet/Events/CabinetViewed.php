@@ -4,7 +4,6 @@ namespace Modules\Cabinet\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Modules\Cabinet\Models\Cabinet;
-use Modules\News\Models\News;
 
 class CabinetViewed
 {
