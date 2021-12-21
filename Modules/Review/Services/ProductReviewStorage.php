@@ -62,16 +62,21 @@ class ProductReviewStorage
 
     public function notifyApproveOrReject(ProductReview $productReview, string $comment): void
     {
-        $email = $productReview->client->email;
+        $email = $productReview?->client?->email;
 
         if (!is_null($email)) {
-            \Mail::to($email)->queue(new ApprovedProductReviewClientNotify($productReview, $comment));
+            \Mail::to($email)
+                ->queue(new ApprovedProductReviewClientNotify($productReview, $comment));
         }
     }
 
     public function notifyNewReview(ProductReview $productReview): void
     {
-        \Mail::to(config('review.new-review-notify-email'))
-            ->queue(new NewReviewNotify($productReview));
+        $email = $productReview?->client?->email;
+
+        if (!is_null($email)) {
+            \Mail::to(config('review.new-review-notify-email'))
+                ->queue(new NewReviewNotify($productReview));
+        }
     }
 }

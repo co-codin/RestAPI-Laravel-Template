@@ -19,7 +19,7 @@ Route::resource('products', ProductController::class)->except(['index', 'show'])
 
 Route::apiResource('product-answers', ProductAnswerController::class)->except(['index', 'show']);
 
-Route::apiResource('product-questions', ProductQuestionController::class)->except(['index', 'show', 'store']);
+Route::apiResource('product-questions', ProductQuestionController::class)->except(['index', 'show']);
 
 Route::put('product-questions/{product_question}/approve', [ProductQuestionController::class, 'approve'])->name('product-questions.approve');
 Route::put('product-questions/{product_question}/reject', [ProductQuestionController::class, 'reject'])->name('product-questions.reject');

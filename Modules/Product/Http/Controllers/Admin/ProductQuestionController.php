@@ -8,6 +8,7 @@ use Modules\Product\Dto\ProductQuestionDto;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Http\Requests\Admin\ProductQuestionApproveOrRejectRequest;
 use Modules\Product\Http\Requests\Admin\ProductQuestionUpdateRequest;
+use Modules\Product\Http\Requests\Admin\ProductQuestionCreateRequest;
 use Modules\Product\Http\Resources\ProductQuestionResource;
 use Modules\Product\Repositories\ProductQuestionRepository;
 use Modules\Product\Services\Qna\ProductQuestionStorage;
@@ -19,6 +20,19 @@ class ProductQuestionController extends Controller
         private ProductQuestionRepository $repository,
         private ProductQuestionStorage $storage
     ) {}
+
+    /**
+     * @throws UnknownProperties
+     * @throws \Exception
+     */
+    public function store(
+        ProductQuestionCreateRequest $request,
+    ): ProductQuestionResource
+    {
+        $productQuestion = $this->storage->store(ProductQuestionDto::fromFormRequest($request));
+
+        return new ProductQuestionResource($productQuestion);
+    }
 
     /**
      * @throws UnknownProperties

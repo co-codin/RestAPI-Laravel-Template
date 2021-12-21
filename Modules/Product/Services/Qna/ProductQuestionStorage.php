@@ -63,16 +63,21 @@ class ProductQuestionStorage
 
     public function notifyApproveOrReject(ProductQuestion $question, string $comment): void
     {
-        $email = $question->client->email;
+        $email = $question?->client?->email;
 
         if (!is_null($email)) {
-            \Mail::to($email)->queue(new ApprovedProductQuestionClientNotify($question, $comment));
+            \Mail::to($email)
+                ->queue(new ApprovedProductQuestionClientNotify($question, $comment));
         }
     }
 
     private function notifyNewQuestion(ProductQuestion $question): void
     {
-        \Mail::to(config('product.new-question-notify-email'))
-            ->queue(new NewQuestionNotify($question));
+        $email = $question?->client?->email;
+
+        if (!is_null($email)) {
+            \Mail::to(config('product.new-question-notify-email'))
+                ->queue(new NewQuestionNotify($question));
+        }
     }
 }
