@@ -44,7 +44,8 @@ class ProductReview extends Model
     use HasFactory;
 
     protected $guarded = [
-        'id'
+        'id',
+        'status'
     ];
 
     protected $casts = [

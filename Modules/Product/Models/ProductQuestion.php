@@ -37,7 +37,8 @@ class ProductQuestion extends Model
     public $timestamps = false;
 
     protected $guarded = [
-        'id'
+        'id',
+        'status'
     ];
 
     protected $casts = [

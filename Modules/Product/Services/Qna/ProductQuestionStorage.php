@@ -56,7 +56,9 @@ class ProductQuestionStorage
      */
     public function changeStatus(ProductQuestion $question, ProductQuestionStatus $status): void
     {
-        if (!$question->update(['status' => $status->value])) {
+        $question->status = $status->value;
+
+        if (!$question->save()) {
             throw new \Exception('Can not approve/reject Question');
         }
     }

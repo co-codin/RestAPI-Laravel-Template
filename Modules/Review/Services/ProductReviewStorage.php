@@ -55,7 +55,9 @@ class ProductReviewStorage
      */
     public function changeStatus(ProductReview $productReview, ProductReviewStatus $status): void
     {
-        if (!$productReview->update(['status' => $status->value])) {
+        $productReview->status = $status->value;
+
+        if (!$productReview->save()) {
             throw new \Exception('Can not approve/reject Product Review');
         }
     }
