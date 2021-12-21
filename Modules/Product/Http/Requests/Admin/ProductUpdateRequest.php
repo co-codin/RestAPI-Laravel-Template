@@ -67,7 +67,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true,1|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
 
-            'documents' => 'sometimes|nullable|array',
+            'documents' => 'sometimes|required|array',
             'documents.*.name' => [
                 'required',
                 'string',
@@ -75,7 +75,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 Rule::in(['Техническая документация', 'Сертификаты']),
             ],
             'documents.*.docs' => 'required|array',
-            'documents.*.docs.*.name' => 'required|string|max:255',
+            'documents.*.docs.*.name' => 'nullable|string|max:255',
             'documents.*.docs.*.source' => [
                 'required',
                 'integer',
