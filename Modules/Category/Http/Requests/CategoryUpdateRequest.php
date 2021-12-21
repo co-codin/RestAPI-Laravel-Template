@@ -45,7 +45,7 @@ class CategoryUpdateRequest extends BaseFormRequest
                 'image',
             ],
             'assigned_by_id' => 'sometimes|nullable|integer',
-            'review_ratings' => 'sometimes|required_unless:parent_id,null|nullable|array|min:4',
+            'review_ratings' => 'sometimes|required_unless:parent_id,null|nullable|array|min:1',
             'review_ratings.*' => 'required|array|min:1',
             'review_ratings.*.name' => 'required|string|max:50',
         ];
