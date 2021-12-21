@@ -32,11 +32,21 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             $this->addError('product_id', 'У категории товара нету разрешенных оценок для отзывов');
         }
 
-        $rejectedRatings = collect(array_keys($request->input('ratings')))->diff($allowedReviewRatings);
+        $ratingKeys = collect(array_keys($request->input('ratings')));
+
+        $rejectedRatings = $ratingKeys->diff($allowedReviewRatings);
 
         if ($rejectedRatings->isNotEmpty()) {
             foreach ($rejectedRatings as $rating) {
                 $this->addError("ratings.$rating", "Оценка $rating не может быть добавлена к данному товару");
+            }
+        }
+
+        $requiredRatings = $allowedReviewRatings->diff($ratingKeys);
+
+        if ($requiredRatings->isNotEmpty()) {
+            foreach ($requiredRatings as $rating) {
+                $this->addError("ratings.$rating", "Оценка $rating должна быть добавлена к данному товару");
             }
         }
     }
