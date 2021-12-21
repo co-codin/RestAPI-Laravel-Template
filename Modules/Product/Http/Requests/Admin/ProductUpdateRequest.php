@@ -7,6 +7,7 @@ use App\Enums\DocumentTypeEnum;
 use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rule;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 use Modules\Product\Enums\ProductGroup;
@@ -67,7 +68,12 @@ class ProductUpdateRequest extends BaseFormRequest
             'video' => 'sometimes|nullable|string|max:255',
 
             'documents' => 'sometimes|required|array',
-            'documents.*.name' => 'required|string|max:255',
+            'documents.*.name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::in(['Техническая документация', 'Сертификаты']),
+            ],
             'documents.*.docs' => 'required|array',
             'documents.*.docs.*.name' => 'required|string|max:255',
             'documents.*.docs.*.source' => [
