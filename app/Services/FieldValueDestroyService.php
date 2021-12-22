@@ -15,6 +15,7 @@ class FieldValueDestroyService
         $this->checkValueInProductStockType($fieldValue->id);
         $this->checkValueInProductVariationCondition($fieldValue->id);
         $this->checkValueInFilterOptions($fieldValue->id);
+        $this->checkValueInFilterFacet($fieldValue->id);
 
         if (!$fieldValue->delete()) {
             throw new \LogicException('can not delete field value');
@@ -74,7 +75,18 @@ class FieldValueDestroyService
             ->exists();
 
         if ($inOptions) {
-            throw new \LogicException('Вы не можете удалить это значение, т.к. оно используется в опциях у фильтров');
+            throw new \LogicException('Вы не можете удалить это значение, т.к. оно используется в seo метках у фильтров');
+        }
+    }
+
+    private function checkValueInFilterFacet(int $id): void
+    {
+        $inOptions = \DB::table('filters')
+            ->whereJsonContains('facet->value', $id)
+            ->exists();
+
+        if ($inOptions) {
+            throw new \LogicException('Вы не можете удалить это значение, т.к. оно используется в поле значений для поиска у фильтров');
         }
     }
 }
