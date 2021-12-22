@@ -20,8 +20,8 @@ class CreateProductReviewsTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->unsignedTinyInteger('experience');
-            $table->string('advantages')->nullable();
-            $table->string('disadvantages')->nullable();
+            $table->text('advantages')->nullable();
+            $table->text('disadvantages')->nullable();
             $table->text('comment');
             $table->unsignedTinyInteger('status')->default(1);
             $table->boolean('is_confirmed')->default(false);
