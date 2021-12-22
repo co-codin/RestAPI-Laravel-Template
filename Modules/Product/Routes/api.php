@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\ProductAnalogController;
 use Modules\Product\Http\Controllers\ProductAnswerController;
 use Modules\Product\Http\Controllers\ProductAnswerRateController;
 use Modules\Product\Http\Controllers\ProductController;
@@ -24,3 +25,6 @@ Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
     Route::match(['put', 'patch'], 'product-answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate'])
         ->name('product-answers.rate');
 });
+
+Route::apiResource('product-analogs', ProductAnalogController::class)
+    ->only('index', 'show');

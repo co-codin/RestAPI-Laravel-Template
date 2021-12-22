@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -54,6 +55,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
+ * @property-read Collection|ProductAnalog[] $productAnalogs
  * @property-read Collection|ProductReview[] $productReviews
  * @property-read Collection|ProductQuestion[] $productQuestions
  * @property-read Collection|ProductCategory[] $productCategories
@@ -154,6 +156,11 @@ class Product extends Model
             'category_id'
         )
             ->where('product_category.is_main', '=', true);
+    }
+
+    public function analogs(): HasMany
+    {
+        return $this->hasMany(ProductAnalog::class);
     }
 
     public function categories()

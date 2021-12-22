@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\Admin\ProductAnalogController;
 use Modules\Product\Http\Controllers\Admin\ProductAnswerController;
 use Modules\Product\Http\Controllers\Admin\ProductConfiguratorController;
 use Modules\Product\Http\Controllers\Admin\ProductController;
@@ -25,4 +26,4 @@ Route::put('product-questions/{product_question}/approve', [ProductQuestionContr
 Route::put('product-questions/{product_question}/reject', [ProductQuestionController::class, 'reject'])->name('product-questions.reject');
 
 
-
+Route::apiResource('product-analogs', ProductAnalogController::class)->except(['index', 'show']);
