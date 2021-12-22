@@ -12,6 +12,7 @@ type Cabinet {
     view_num: Int
     documents: [Document!] @morphMany
     requirements: [Requirement]
+    seo: Seo @morphOne
 }
 
 type Requirement {
