@@ -26,8 +26,8 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
         return [
             'product_id' => 'required|int|exists:products,id',
             'experience' => 'required|integer|enum_value:' . ProductReviewExperience::class,
-            'advantages' => 'sometimes|nullable|string|max:255',
-            'disadvantages' => 'sometimes|nullable|string|max:255',
+            'advantages' => 'sometimes|nullable|string',
+            'disadvantages' => 'sometimes|nullable|string',
             'comment' => 'required|string',
             'ratings' => 'required|array',
         ];
