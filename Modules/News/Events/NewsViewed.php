@@ -3,6 +3,7 @@
 namespace Modules\News\Events;
 
 use Illuminate\Queue\SerializesModels;
+use Modules\News\Models\News;
 
 class NewsViewed
 {
@@ -10,7 +11,7 @@ class NewsViewed
 
     public $news_single;
 
-    public function __construct($news_single)
+    public function __construct(?News $news_single)
     {
         $this->news_single = $news_single;
     }
