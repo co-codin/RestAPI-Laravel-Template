@@ -16,7 +16,6 @@ class ProductQuestionUpdateRequest extends BaseFormRequest
     {
         return [
             'product_id' => 'nullable-cast:integer',
-            'status' => 'nullable-cast:integer',
         ];
     }
 
@@ -27,7 +26,6 @@ class ProductQuestionUpdateRequest extends BaseFormRequest
             'client_id' => 'sometimes|required|int|exists:mysql-crm.clients,id',
             'first_name' => 'sometimes|required|string|max:255',
             'last_name' => 'sometimes|required|string|max:255',
-            'status' => 'required|integer|enum_value:' . ProductQuestionStatus::class,
             'text' => 'sometimes|nullable|string',
             'date' => 'sometimes|nullable|string',
         ];
@@ -40,7 +38,6 @@ class ProductQuestionUpdateRequest extends BaseFormRequest
             'client_id' => 'Клиент',
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
-            'status' => 'статус',
             'text' => 'Текст вопрос',
             'date' => 'Дата создания',
         ];
