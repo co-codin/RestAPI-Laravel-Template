@@ -4,7 +4,6 @@ namespace Modules\News\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Modules\News\Http\Resources\NewsResource;
-use Modules\News\Jobs\UpdateViewJob;
 use Modules\News\Repositories\NewsRepository;
 
 class NewsController extends Controller

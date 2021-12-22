@@ -3,6 +3,7 @@
 namespace Modules\Cabinet\Events;
 
 use Illuminate\Queue\SerializesModels;
+use Modules\Cabinet\Models\Cabinet;
 
 class CabinetViewed
 {
@@ -10,7 +11,7 @@ class CabinetViewed
 
     public $cabinet;
 
-    public function __construct($cabinet)
+    public function __construct(?Cabinet $cabinet)
     {
         $this->cabinet = $cabinet;
     }

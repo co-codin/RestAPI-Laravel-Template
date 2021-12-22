@@ -13,5 +13,5 @@ extend type Query {
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    cabinet(id: ID @eq, name: String @eq, slug: String @eq): Cabinet @find @event(dispatch: "Modules\\Cabinet\\Events\\CabinetViewed")
+    cabinet(id: ID @eq, name: String @eq, slug: String @eq): Cabinet @first @event(dispatch: "Modules\\Cabinet\\Events\\CabinetViewed")
 }
