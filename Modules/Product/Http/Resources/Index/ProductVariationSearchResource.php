@@ -3,11 +3,9 @@
 namespace Modules\Product\Http\Resources\Index;
 
 
-use App\Models\FieldValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 use Modules\Product\Enums\Availability;
-use Modules\Product\Enums\ProductVariationCondition;
 use Modules\Product\Models\ProductVariation;
 
 /**
