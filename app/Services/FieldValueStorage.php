@@ -21,4 +21,26 @@ class FieldValueStorage
 
         return $fieldValue;
     }
+
+    public function delete(FieldValue $fieldValue)
+    {
+        $this->checkValueInProductProperties($fieldValue->id);
+
+        if (!$fieldValue->delete()) {
+            throw new \LogicException('can not delete field value');
+        }
+    }
+
+    protected function checkValueInProductProperties($id)
+    {
+        $inProductProperties = \DB::table('product_property')
+            ->whereRaw("JSON_CONTAINS(field_value_ids, '?', '$')", [$id])
+            ->exists();
+
+        if(!$inProductProperties) {
+            return;
+        }
+
+        throw new \LogicException("Вы не можете удалить это значение, так как оно используется в характеристиках");
+    }
 }

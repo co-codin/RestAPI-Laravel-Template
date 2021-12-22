@@ -7,9 +7,7 @@ use App\Http\Requests\Admin\FieldValueCreateRequest;
 use App\Http\Requests\Admin\FieldValueUpdateRequest;
 use App\Http\Resources\FieldValueResource;
 use App\Repositories\FieldValueRepository;
-use App\Services\FieldValueDestroyService;
 use App\Services\FieldValueStorage;
-use Illuminate\Http\Response;
 
 class FieldValueController extends Controller
 {
@@ -34,11 +32,11 @@ class FieldValueController extends Controller
         return new FieldValueResource($fieldValueModel);
     }
 
-    public function destroy(FieldValueDestroyService $destroyService, int $fieldValueId): Response
+    public function destroy(int $field_value)
     {
-        $fieldValue = $this->fieldValueRepository->find($fieldValueId);
+        $fieldValueModel = $this->fieldValueRepository->find($field_value);
 
-        $destroyService->delete($fieldValue);
+        $this->fieldValueStorage->delete($fieldValueModel);
 
         return response()->noContent();
     }
