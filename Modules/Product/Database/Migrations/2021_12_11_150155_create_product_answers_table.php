@@ -16,7 +16,7 @@ class CreateProductAnswersTable extends Migration
         Schema::create('product_answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_question_id')->constrained();
-            $table->string('text');
+            $table->text('text');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('person')->nullable();

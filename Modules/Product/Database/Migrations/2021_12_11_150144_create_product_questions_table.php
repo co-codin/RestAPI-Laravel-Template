@@ -17,8 +17,8 @@ class CreateProductQuestionsTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->bigInteger('client_id')->unsigned();
-            $table->unsignedTinyInteger('status');
-            $table->string('text');
+            $table->unsignedTinyInteger('status')->default(1);
+            $table->text('text');
             $table->timestamp('date');
 
             $table->index('client_id');
