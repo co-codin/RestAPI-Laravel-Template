@@ -3,8 +3,6 @@
 namespace Modules\Product\Http\Requests\Admin;
 
 
-use BenSampo\Enum\Rules\EnumValue;
-use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Http\Requests\BaseProductQuestionCreateRequest;
 
 class ProductQuestionCreateRequest extends BaseProductQuestionCreateRequest
