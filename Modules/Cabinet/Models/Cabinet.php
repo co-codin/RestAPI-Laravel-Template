@@ -2,6 +2,7 @@
 
 namespace Modules\Cabinet\Models;
 
+use App\Concerns\IsActive;
 use App\Models\Document;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Modules\Seo\Models\Seo;
 
 class Cabinet extends Model
 {
-    use HasFactory, Sluggable, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes, IsActive;
 
     protected $guarded = ['id'];
 
