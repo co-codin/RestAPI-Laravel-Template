@@ -20,14 +20,6 @@ class ProductAnalogStorage
                 return $value;
             });
 
-        if (!ProductAnalog::insert($productAnalogsData->toArray())) {
-            throw new \Exception('Can not create Product Analog');
-        }
-
-        $productAnalogs = $productAnalogsData->map(
-            fn($productAnalogData) => new ProductAnalog($productAnalogData)
-        );
-
-        return new Collection($productAnalogs);
+        return $product->analogs()->createMany($productAnalogsData);
     }
 }
