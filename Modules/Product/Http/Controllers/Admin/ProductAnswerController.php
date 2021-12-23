@@ -61,11 +61,17 @@ class ProductAnswerController extends Controller
         return \response()->noContent();
     }
 
+    /**
+     * Get all added unique question repliers
+     * @return array
+     */
     public function persons()
     {
         return ProductAnswer::query()
             ->select(['first_name', 'last_name', 'person'])
             ->groupBy(['first_name', 'last_name', 'person'])
+            ->orderBy('last_name')
+            ->orderBy('first_name')
             ->get();
     }
 }
