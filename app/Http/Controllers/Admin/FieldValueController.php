@@ -42,7 +42,7 @@ class FieldValueController extends Controller
             $destroyService->delete($fieldValue);
         }
         catch (\LogicException $exception) {
-            abort(404, $exception->getMessage());
+            abort(Response::HTTP_FORBIDDEN, $exception->getMessage());
         }
 
         return response()->noContent();
