@@ -16,7 +16,7 @@ Route::put('products/{product}/images', [ProductImageController::class, 'update'
 
 Route::resource('products', ProductController::class)->except(['index', 'show']);
 
-
+Route::get('product-answers/persons', [ProductAnswerController::class, 'persons']);
 Route::apiResource('product-answers', ProductAnswerController::class)->except(['index', 'show']);
 
 Route::apiResource('product-questions', ProductQuestionController::class)->except(['index', 'show']);
