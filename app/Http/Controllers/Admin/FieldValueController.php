@@ -38,7 +38,12 @@ class FieldValueController extends Controller
     {
         $fieldValue = $this->fieldValueRepository->find($fieldValueId);
 
-        $destroyService->delete($fieldValue);
+        try {
+            $destroyService->delete($fieldValue);
+        }
+        catch (\LogicException $exception) {
+            abort(404, $exception->getMessage());
+        }
 
         return response()->noContent();
     }
