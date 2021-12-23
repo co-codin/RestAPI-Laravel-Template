@@ -12,24 +12,24 @@ class ProductAnalogRequest extends BaseFormRequest
     public function filters(): array
     {
         return [
-            'product_id' => 'nullable-cast:integer',
-            'analog_id' => 'nullable-cast:integer',
+            '*.analog_id' => 'nullable-cast:integer',
+            '*.position' => 'nullable-cast:integer',
         ];
     }
 
     public function rules(): array
     {
         return [
-            'product_id' => 'required|int|exists:products,id',
-            'analog_id' => 'required|int|exists:products,id',
+            '*.analog_id' => 'required|int|exists:products,id',
+            '*.position' => 'required|int|min:1',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'product_id' => 'Товар',
-            'analog_id' => 'Аналог',
+            '*.analog_id' => 'Аналог',
+            '*.position' => 'Позиция',
         ];
     }
 }

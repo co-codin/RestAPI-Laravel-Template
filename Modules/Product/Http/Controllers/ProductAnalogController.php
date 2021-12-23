@@ -6,25 +6,18 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Product\Http\Resources\ProductAnalogResource;
-use Modules\Product\Repositories\ProductAnalogRepository;
+use Modules\Product\Repositories\ProductRepository;
 
 class ProductAnalogController extends Controller
 {
     public function __construct(
-        private ProductAnalogRepository $repository
+        private ProductRepository $repository
     ) {}
 
-    public function index(): AnonymousResourceCollection
+    public function show(int $productId): AnonymousResourceCollection
     {
-        return ProductAnalogResource::collection(
-            $this->repository->jsonPaginate()
-        );
-    }
+        $product = $this->repository->find($productId);
 
-    public function show(int $productAnalogId): ProductAnalogResource
-    {
-        return new ProductAnalogResource(
-            $this->repository->find($productAnalogId)
-        );
+        return ProductAnalogResource::collection($product->analogs);
     }
 }

@@ -16,6 +16,7 @@ use Modules\Product\Database\factories\ProductAnalogFactory;
  * @property int $id
  * @property int $product_id
  * @property int $analog_id
+ * @property int $position
  * @property-read Product $product
  * @property-read Collection|Product[] $analogs
  * @mixin \Eloquent

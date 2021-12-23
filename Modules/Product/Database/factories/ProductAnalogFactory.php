@@ -15,6 +15,7 @@ class ProductAnalogFactory extends Factory
         return [
             'product_id' => Product::factory(),
             'analog_id' => Product::factory(),
+            'position' => $this->faker->randomNumber(),
         ];
     }
 }

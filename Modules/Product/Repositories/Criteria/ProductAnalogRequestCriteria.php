@@ -25,11 +25,13 @@ class ProductAnalogRequestCriteria implements CriteriaInterface
             ->allowedFilters([
                 'product_id' => AllowedFilter::exact('product_id'),
                 'analog_id' => AllowedFilter::exact('analog_id'),
+                'position' => AllowedFilter::exact('position'),
                 AllowedFilter::trashed(),
             ])
             ->allowedSorts([
                 'product_id',
                 'analog_id',
+                'position',
             ])
             ->allowedIncludes([
                 'product', 'analogs',
@@ -41,6 +43,7 @@ class ProductAnalogRequestCriteria implements CriteriaInterface
         $fields = [
             'product_id',
             'analog_id',
+            'position',
         ];
 
         if (!$prefix) {

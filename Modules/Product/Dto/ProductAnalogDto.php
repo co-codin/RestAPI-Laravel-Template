@@ -9,4 +9,6 @@ class ProductAnalogDto extends BaseDto
     public int $product_id;
 
     public int $analog_id;
+
+    public int $position;
 }

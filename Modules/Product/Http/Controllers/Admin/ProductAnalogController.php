@@ -5,59 +5,33 @@ namespace Modules\Product\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
-use Modules\Product\Dto\ProductAnalogDto;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Product\Http\Requests\Admin\ProductAnalogRequest;
 use Modules\Product\Http\Resources\ProductAnalogResource;
-use Modules\Product\Repositories\ProductAnalogRepository;
+use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Services\ProductAnalogStorage;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductAnalogController extends Controller
 {
     public function __construct(
-        protected ProductAnalogStorage $productStorage,
-        protected ProductAnalogRepository $productRepository
+        protected ProductAnalogStorage $productAnalogStorage,
+        protected ProductRepository $productRepository
     ) {}
 
     /**
      * @throws UnknownProperties
      * @throws \Exception
      */
-    public function store(ProductAnalogRequest $request): ProductAnalogResource
-    {
-        $product = $this->productStorage->store(
-            ProductAnalogDto::fromFormRequest($request)
-        );
-
-        return new ProductAnalogResource($product);
-    }
-
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
-    public function update(ProductAnalogRequest $request, int $productId): ProductAnalogResource
+    public function update(ProductAnalogRequest $request, int $productId): AnonymousResourceCollection
     {
         $product = $this->productRepository->find($productId);
 
-        $product = $this->productStorage->update(
+        $productAnalogs = $this->productAnalogStorage->update(
             $product,
-            ProductAnalogDto::fromFormRequest($request)
+            $request->validated()
         );
 
-        return new ProductAnalogResource($product);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function destroy(int $productId): Response
-    {
-        $product = $this->productRepository->find($productId);
-
-        $this->productStorage->delete($product);
-
-        return response()->noContent();
+        return ProductAnalogResource::collection($productAnalogs);
     }
 }

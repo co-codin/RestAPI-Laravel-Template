@@ -26,4 +26,4 @@ Route::put('product-questions/{product_question}/approve', [ProductQuestionContr
 Route::put('product-questions/{product_question}/reject', [ProductQuestionController::class, 'reject'])->name('product-questions.reject');
 
 
-Route::apiResource('product-analogs', ProductAnalogController::class)->except(['index', 'show']);
+Route::match(['put', 'patch'], 'products/{product_id}/analogs', [ProductAnalogController::class, 'update']);

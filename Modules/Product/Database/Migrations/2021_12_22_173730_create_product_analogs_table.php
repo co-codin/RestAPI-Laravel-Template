@@ -17,7 +17,7 @@ class CreateProductAnalogsTable extends Migration
             $table->primary(['product_id', 'analog_id']);
             $table->foreignId('product_id')->constrained();
             $table->bigInteger('analog_id')->unsigned();
-//            $table->unsignedSmallInteger('position')->nullable();
+            $table->unsignedSmallInteger('position');
 
             $table->foreign('analog_id')->references('id')->on('products')->onDelete('cascade');
         });

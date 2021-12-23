@@ -26,5 +26,4 @@ Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
         ->name('product-answers.rate');
 });
 
-Route::apiResource('product-analogs', ProductAnalogController::class)
-    ->only('index', 'show');
+Route::get('products/{product_id}/analogs', [ProductAnalogController::class, 'show']);

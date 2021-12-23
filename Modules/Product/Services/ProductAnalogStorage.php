@@ -2,44 +2,32 @@
 
 namespace Modules\Product\Services;
 
-use Modules\Product\Dto\ProductAnalogDto;
+use Illuminate\Database\Eloquent\Collection;
+use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductAnalog;
 
 class ProductAnalogStorage
 {
     /**
      * @throws \Exception
+     * @return ProductAnalog[]|Collection
      */
-    public function store(ProductAnalogDto $productAnalogDto): ProductAnalog
+    public function update(Product $product, array $validated): Collection
     {
-        $productAnalog = new ProductAnalog($productAnalogDto->toArray());
+        $productAnalogsData = collect($validated)
+            ->map(function ($value) use ($product) {
+                $value['product_id'] = $product->id;
+                return $value;
+            });
 
-        if (!$productAnalog->save()) {
+        if (!ProductAnalog::insert($productAnalogsData->toArray())) {
             throw new \Exception('Can not create Product Analog');
         }
 
-        return $productAnalog;
-    }
+        $productAnalogs = $productAnalogsData->map(
+            fn($productAnalogData) => new ProductAnalog($productAnalogData)
+        );
 
-    /**
-     * @throws \Exception
-     */
-    public function update(ProductAnalog $productAnalog, ProductAnalogDto $productAnalogDto): ProductAnalog
-    {
-        if (!$productAnalog->update($productAnalogDto->toArray())) {
-            throw new \Exception('Can not update Product Analog');
-        }
-
-        return $productAnalog;
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function delete(ProductAnalog $productAnalog): void
-    {
-        if (!$productAnalog->delete()) {
-            throw new \Exception('Can not delete Product Analog');
-        }
+        return new Collection($productAnalogs);
     }
 }
