@@ -10,6 +10,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Currency\Console\CurrencyParseCommand;
 use Modules\Export\Console\ExportAllFeedsCommand;
 use Modules\Export\Services\ExportScheduler;
+use Modules\Product\Console\ProductAnalogSearchCommand;
 use Modules\Search\Console\SearchReindexCommand;
 
 class Kernel extends ConsoleKernel
@@ -24,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CurrencyParseCommand::class,
         SearchReindexCommand::class,
+        ProductAnalogSearchCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
