@@ -49,6 +49,7 @@ class ProductRequestCriteria implements CriteriaInterface
             ->when(in_array("mainVariation", $includes), fn($query) => $query->withMainVariation())
             ->allowedFilters([
                 AllowedFilter::exact('id'),
+                AllowedFilter::exact('article'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('brand_id'),
@@ -127,6 +128,7 @@ class ProductRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id',
+            'article',
             'slug',
             'status',
             'name',

@@ -1,7 +1,7 @@
 extend type Query {
     products(
         where: _ @whereConditions(columns: [
-            "id", "name", "slug", "brand_id", "status", "image",
+            "id", "name", "slug", "brand_id", "status", "image", "article",
             "warranty", "short_description", "full_description", "assigned_by_id", "is_in_home", "group_id"
         ])
         withMainVariation: Boolean @scope(name: "withMainVariation")

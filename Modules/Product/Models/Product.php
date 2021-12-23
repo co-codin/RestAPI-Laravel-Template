@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Dealer\Entities\Dealer;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
@@ -30,6 +31,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class Product
  * @package Modules\Product\Models
  * @property int $id
+ * @property int $article
  * @property string $name
  * @property string $slug
  * @property int $brand_id
@@ -68,7 +70,7 @@ class Product extends Model
 {
     use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'article'];
 
     protected $casts = [
 //        'type' => 'integer',
@@ -86,6 +88,10 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
+
+        static::creating(function (Product $product) {
+            $product->article = (Product::withTrashed()->max('article') ?? 0) + 1;
+        });
     }
 
     public function getRatingAttribute(): float
