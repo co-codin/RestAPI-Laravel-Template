@@ -11,7 +11,7 @@ class CabinetViewed
 
     public $cabinet;
 
-    public function __construct(Cabinet $cabinet)
+    public function __construct(?Cabinet $cabinet)
     {
         $this->cabinet = $cabinet;
     }

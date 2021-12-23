@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\FieldValueResource;
 use App\Repositories\FieldValueRepository;
-use Illuminate\Http\Request;
 
 class FieldValueController extends Controller
 {
@@ -18,9 +17,9 @@ class FieldValueController extends Controller
 
         return FieldValueResource::collection($fieldValues);
     }
-    public function show(int $fieldValue)
+    public function show(int $fieldValueId)
     {
-        $fieldValue = $this->fieldValueRepository->find($fieldValue);
+        $fieldValue = $this->fieldValueRepository->find($fieldValueId);
 
         return new FieldValueResource($fieldValue);
     }

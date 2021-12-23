@@ -11,7 +11,7 @@ class NewsViewed
 
     public $news_single;
 
-    public function __construct(News $news_single)
+    public function __construct(?News $news_single)
     {
         $this->news_single = $news_single;
     }
