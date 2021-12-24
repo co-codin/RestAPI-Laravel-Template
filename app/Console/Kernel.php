@@ -49,6 +49,11 @@ class Kernel extends ConsoleKernel
         $schedule->command(SearchReindexCommand::class)
             ->description('Переиндексация товаров в ElasticSearch')
             ->twiceDaily();
+
+        // ищем аналоги товаров
+        $schedule->command(ProductAnalogSearchCommand::class)
+            ->description('Поиск аналогов товаров')
+            ->daily();
     }
 
     protected function commands(): void

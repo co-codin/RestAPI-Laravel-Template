@@ -14,7 +14,7 @@ class AddIsManuallyAnalogsColumnToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('is_manually_analogs')->default(false);
+            $table->boolean('is_manually_analogs')->default(false)->after('benefits');
         });
     }
 
