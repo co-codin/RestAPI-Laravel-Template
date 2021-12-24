@@ -2,13 +2,17 @@
 
 namespace Modules\Product\Models;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Database\factories\ProductAnalogFactory;
+use Modules\Product\Enums\ProductGroup;
 
 /**
  * Class ProductAnalog
@@ -17,7 +21,7 @@ use Modules\Product\Database\factories\ProductAnalogFactory;
  * @property int $product_id
  * @property int $analog_id
  * @property int $position
- * @property-read Product $product
+ * @property-read Collection|Product[] $products
  * @property-read Collection|Product[] $analogs
  * @mixin \Eloquent
  * @method static Builder|ProductQuestion newModelQuery()
@@ -34,9 +38,9 @@ class ProductAnalog extends Model
         'id',
     ];
 
-    public function product(): BelongsTo
+    public function products(): HasMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product::class);
     }
 
     public function analogs(): HasMany

@@ -20,6 +20,7 @@ type Product {
     booklet: String
     video: String
     benefits: ProductBenefits
+    is_manually_analogs: Boolean!
     price: MixedPrice
     group_id: Int
     rating: Float

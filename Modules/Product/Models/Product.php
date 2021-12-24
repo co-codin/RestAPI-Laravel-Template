@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\Concerns\IsActive;
+use App\Enums\Status;
 use App\Models\FieldValue;
 use App\Models\Image;
 use Eloquent;
@@ -14,11 +15,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
+use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Enums\ProductQuestionStatus;
+use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Review\Models\ProductReview;
@@ -46,6 +51,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $siteUrl
  * @property array|null $documents
  * @property int|null $group_id
+ * @property array|null $benefits
+ * @property int $is_manually_analogs
  * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -55,7 +62,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
- * @property-read Collection|ProductAnalog[] $productAnalogs
+ * @property-read Collection|ProductAnalog[] $analogs
  * @property-read Collection|ProductReview[] $productReviews
  * @property-read Collection|ProductQuestion[] $productQuestions
  * @property-read Collection|ProductCategory[] $productCategories
@@ -82,6 +89,7 @@ class Product extends Model
         'has_test_drive' => 'boolean',
         'stock_type_id' => 'integer',
         'benefits' => 'array',
+        'is_manually_analogs' => 'boolean',
         'group_id' => 'integer',
     ];
 
@@ -158,18 +166,26 @@ class Product extends Model
             ->where('product_category.is_main', '=', true);
     }
 
-    public function analogs(): HasMany
+    public function productAnalogs(): HasMany
     {
         return $this->hasMany(ProductAnalog::class);
     }
 
-    public function categories()
+    public function analogs(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(self::class, 'product_analog')
+            ->using(ProductAnalogPivot::class)
+            ->withPivot(['position']);
+    }
+
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'product_category')
             ->withPivot('is_main');
     }
 
-    public function properties()
+    public function properties(): BelongsToMany
     {
         return $this
             ->belongsToMany(Property::class, 'product_property')
@@ -224,6 +240,23 @@ class Product extends Model
             ->orderByRaw('rate * price ASC')
             ->take(1),
         ])->with('mainVariation');
+    }
+
+    public function scopeOnlyActiveAnalogs(Builder $query): Builder
+    {
+        return $query->whereExists(function (QueryBuilder $query) {
+            $query
+                ->select(DB::raw(1))
+                ->from('product_analog as pa')
+                ->whereColumn('products.id', 'pa.product_id')
+                ->join('products as p', 'p.id', '=', 'pa.analog_id')
+                ->where('p.status', Status::ACTIVE)
+                ->where(function (QueryBuilder $query) {
+                    $query
+                        ->where('p.group_id', ProductGroup::PRIORITY)
+                        ->orWhere('p.group_id', ProductGroup::REORIENTATED);
+                });
+        });
     }
 
     public function scopeHasActiveVariation(Builder $query)

@@ -15,7 +15,7 @@ class ProductAnalogResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'product' => new ProductResource($this->whenLoaded('product')),
+            'products' => ProductResource::collection($this->whenLoaded('products')),
             'analogs' => ProductResource::collection($this->whenLoaded('analogs')),
         ]);
     }

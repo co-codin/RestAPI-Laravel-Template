@@ -58,6 +58,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('warranty'),
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
+                AllowedFilter::exact('is_manually_analogs'),
 
                 AllowedFilter::callback('live', function (Builder $query, $value) {
                     $query->selectRaw('products.id as id, CONCAT(b.name, " ", products.name) as name')
@@ -119,6 +120,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'stockType',
                 'productQuestions',
                 'productAnswers',
+                'analogs',
             ])
             ->allowedSorts('id', 'slug', 'name', 'warranty', 'is_arbitrary_warranty', 'created_at', 'updated_at', 'deleted_at');
     }
@@ -142,6 +144,7 @@ class ProductRequestCriteria implements CriteriaInterface
             'group_id',
             'short_description',
             'full_description',
+            'is_manually_analogs',
             'created_at',
             'updated_at',
         ];

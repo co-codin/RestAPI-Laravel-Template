@@ -4,9 +4,12 @@
 namespace Modules\Product\Services;
 
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
+use Modules\Product\Enums\ProductGroup;
 
 class ProductBuilders
 {

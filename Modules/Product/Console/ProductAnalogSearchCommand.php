@@ -17,7 +17,7 @@ class ProductAnalogSearchCommand extends Command
 
     public function handle(): void
     {
-        \Db::table('product_analogs')->delete();
+        \Db::table('product_analog')->delete();
 
         $productProperties = \DB::table('product_property as pp')
             ->select(['pp.product_id', 'pp.property_id', 'pp.field_value_ids'])
@@ -86,7 +86,7 @@ class ProductAnalogSearchCommand extends Command
                 ];
             });
 
-            \Db::table('product_analogs')->insert($analogsData->toArray());
+            \Db::table('product_analog')->insert($analogsData->toArray());
         }
     }
 }

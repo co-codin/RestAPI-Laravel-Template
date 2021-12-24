@@ -42,6 +42,8 @@ class ProductDto extends BaseDto
 
     public ?array $benefits;
 
+    public ?bool $is_manually_analogs;
+
     public ?int $assigned_by_id;
 
     public ?int $group_id;
