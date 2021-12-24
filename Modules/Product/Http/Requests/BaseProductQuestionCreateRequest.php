@@ -6,7 +6,6 @@ namespace Modules\Product\Http\Requests;
 
 use App\Http\RequestFilters\SanitizesInput;
 use App\Http\Requests\BaseFormRequest;
-use Modules\Review\Enums\ProductReviewExperience;
 
 class BaseProductQuestionCreateRequest extends BaseFormRequest
 {
@@ -34,6 +33,7 @@ class BaseProductQuestionCreateRequest extends BaseFormRequest
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
             'text' => 'Вопрос',
+            'date' => 'Дата написания',
         ];
     }
 }
