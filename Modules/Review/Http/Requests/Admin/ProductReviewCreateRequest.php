@@ -11,6 +11,7 @@ class ProductReviewCreateRequest extends BaseProductReviewCreateRequest
         return array_merge(parent::rules(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'created_at' => 'required|date',
         ]);
     }
 }
