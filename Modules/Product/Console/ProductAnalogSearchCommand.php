@@ -5,6 +5,7 @@ namespace Modules\Product\Console;
 use App\Enums\Status;
 use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder;
+use Modules\Product\Enums\ProductGroup;
 
 class ProductAnalogSearchCommand extends Command
 {
@@ -17,7 +18,7 @@ class ProductAnalogSearchCommand extends Command
     public function handle(): void
     {
         \Db::table('product_analogs')->delete();
-        
+
         $productProperties = \DB::table('product_property as pp')
             ->select(['pp.product_id', 'pp.property_id', 'pp.field_value_ids'])
             ->join('products as p', 'p.id', '=', 'pp.product_id')
@@ -25,8 +26,8 @@ class ProductAnalogSearchCommand extends Command
             ->where('p.is_manually_analogs', false)
             ->where(function (Builder $query) {
                 $query
-                    ->where('p.group_id', 1)
-                    ->orWhere('p.group_id', 2);
+                    ->where('p.group_id', ProductGroup::PRIORITY)
+                    ->orWhere('p.group_id', ProductGroup::REORIENTATED);
             })
             ->orderBy('pp.product_id')
             ->get();
@@ -46,8 +47,8 @@ class ProductAnalogSearchCommand extends Command
                 ->where('p.is_manually_analogs', false)
                 ->where(function (Builder $query) {
                     $query
-                        ->where('p.group_id', 1)
-                        ->orWhere('p.group_id', 2);
+                        ->where('p.group_id', ProductGroup::PRIORITY)
+                        ->orWhere('p.group_id', ProductGroup::REORIENTATED);
                 })
                 ->where(function (Builder $query) use ($properties) {
                     foreach ($properties as $key => $property) {
