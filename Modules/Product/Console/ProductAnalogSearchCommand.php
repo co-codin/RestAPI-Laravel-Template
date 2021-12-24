@@ -33,19 +33,16 @@ class ProductAnalogSearchCommand extends Command
                         ->join('products as p', 'p.id', '=', 'pp.product_id')
                         ->where('pp.product_id', '!=', $productId)
                         ->where('p.status', Status::ACTIVE)
-                        ->where('p.is_manually_analogs', false)
-                        ->where(function ($query) use ($productProperties) {
-                            foreach ($productProperties as $key => $property) {
-                                $where = !$key ? 'where' : 'orWhere';
+                        ->where('p.is_manually_analogs', false);
 
+                    foreach ($productProperties as $property) {
+                        $analogs = $analogs
+                            ->orWhere(function ($query) use ($property) {
                                 $query
-                                    ->{$where}(function ($query) use ($property) {
-                                        $query
-                                            ->where('pp.property_id', $property->property_id)
-                                            ->where('pp.field_value_ids', $property->field_value_ids);
-                                    });
-                            }
-                        });
+                                    ->where('pp.property_id', $property->property_id)
+                                    ->where('pp.field_value_ids', $property->field_value_ids);
+                            });
+                    }
 
                     $analogs = $analogs
                         ->groupBy('analog_id')
