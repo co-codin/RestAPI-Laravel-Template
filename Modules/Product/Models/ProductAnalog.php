@@ -48,6 +48,22 @@ class ProductAnalog extends Model
         return $this->hasMany(Product::class, 'id', 'analog_id');
     }
 
+    public function scopeOnlyActiveAnalogs(Builder $query): Builder
+    {
+        return $query->whereExists(function (QueryBuilder $query) {
+            $query
+                ->select(DB::raw(1))
+                ->from('products as p')
+                ->whereColumn('p.id', 'product_analog.analog_id')
+                ->where('p.status', Status::ACTIVE)
+                ->where(function (QueryBuilder $query) {
+                    $query
+                        ->where('p.group_id', ProductGroup::PRIORITY)
+                        ->orWhere('p.group_id', ProductGroup::REORIENTATED);
+                });
+        });
+    }
+
     protected static function newFactory(): ProductAnalogFactory
     {
         return ProductAnalogFactory::new();

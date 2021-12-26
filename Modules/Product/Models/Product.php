@@ -58,11 +58,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property float $rating
+ * @property-read ProductAnalogPivot $pivot
  * @property-read Brand $brand
  * @property-read FieldValue $stockType
  * @property-read Category $category
  * @property-read Seo $seo
- * @property-read Collection|ProductAnalog[] $analogs
+ * @property-read Collection|Product[] $analogs
  * @property-read Collection|ProductReview[] $productReviews
  * @property-read Collection|ProductQuestion[] $productQuestions
  * @property-read Collection|ProductCategory[] $productCategories
@@ -174,7 +175,7 @@ class Product extends Model
     public function analogs(): BelongsToMany
     {
         return $this
-            ->belongsToMany(self::class, 'product_analog')
+            ->belongsToMany(self::class, 'product_analog', 'product_id', 'analog_id')
             ->using(ProductAnalogPivot::class)
             ->withPivot(['position']);
     }
@@ -244,6 +245,7 @@ class Product extends Model
 
     public function scopeOnlyActiveAnalogs(Builder $query): Builder
     {
+        return $query->where('products.status', 1);
         return $query->whereExists(function (QueryBuilder $query) {
             $query
                 ->select(DB::raw(1))

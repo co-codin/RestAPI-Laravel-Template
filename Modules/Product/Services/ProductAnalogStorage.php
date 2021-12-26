@@ -20,6 +20,13 @@ class ProductAnalogStorage
                 return $value;
             });
 
-        return $product->analogs()->createMany($productAnalogsData);
+        $productAnalogs = null;
+
+        \DB::transaction(function () use ($product, $productAnalogsData, &$productAnalogs) {
+            $product->analogs()->detach();
+            $productAnalogs = $product->analogs()->createMany($productAnalogsData);
+        });
+
+        return $productAnalogs;
     }
 }

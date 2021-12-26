@@ -1,0 +1,6 @@
+type ProductAnalogPivot {
+    product_id: Int!
+    analog_id: Int!
+    position: Int!
+    analogs: [Product!]! @belongsTo
+}
