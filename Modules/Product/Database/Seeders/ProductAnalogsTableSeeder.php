@@ -3,8 +3,9 @@
 namespace Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Product\Models\ProductAnalog;
 
-class ProductDatabaseSeeder extends Seeder
+class ProductAnalogsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,9 +14,6 @@ class ProductDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            ProductsTableSeeder::class,
-            ProductAnalogsTableSeeder::class
-        ]);
+        ProductAnalog::factory()->count(1000)->create();
     }
 }

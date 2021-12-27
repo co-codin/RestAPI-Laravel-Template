@@ -13,7 +13,7 @@ class ProductAnalogFactory extends Factory
     public function definition()
     {
         return [
-            'product_id' => Product::factory(),
+            'product_id' => Product::inRandomOrder()->first()?->id ?? Product::factory(),
             'analog_id' => Product::factory(),
             'position' => $this->faker->randomNumber(),
         ];

@@ -29,10 +29,6 @@ class ProductAnalog extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [
-        'id',
-    ];
-
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
