@@ -18,6 +18,7 @@ class ProductReviewUpdateRequest extends BaseFormRequest
         return [
             'product_id' => 'nullable-cast:integer',
             'is_confirmed' => 'nullable-cast:bool',
+            'ratings.*.rate' => 'nullable-cast:integer',
         ];
     }
 
@@ -34,7 +35,6 @@ class ProductReviewUpdateRequest extends BaseFormRequest
             'disadvantages' => 'sometimes|nullable|string',
             'comment' => 'sometimes|required|string',
             'ratings' => 'sometimes|required|array|min:1',
-            'ratings.*' => 'sometimes|required|int|min:1',
             'created_at' => 'required|date',
         ];
     }
