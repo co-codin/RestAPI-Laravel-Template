@@ -34,7 +34,7 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
         $reviewRatingAttributes = [];
 
         foreach ($allowedReviewRatings as $nameReviewRating) {
-            $reviewRatingAttributes["ratings.$nameReviewRating"] = $nameReviewRating;
+            $reviewRatingAttributes["ratings.*.name"] = $nameReviewRating;
         }
 
         $v = \Validator::make(
@@ -42,10 +42,11 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             [
 //            'ratings' => 'required|array|min:4',
                 'ratings' => 'required|array|min:1',
-                'ratings.*' => 'required|int|min:1',
+                'ratings.*.name' => 'required|string|max:255',
+                'ratings.*.rate' => 'required|int|min:1',
             ],
             [],
-            $reviewRatingAttributes
+            $reviewRatingAttributes + ['ratings.*.rate' => 'Рейтинг']
         );
 
         if ($v->errors()->isNotEmpty()) {
@@ -62,7 +63,7 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             $this->addError('product_id', 'У категории товара нету разрешенных оценок для отзывов');
         }
 
-        $ratingKeys = collect(array_keys($request->input('ratings')));
+        $ratingKeys = collect($request->input('ratings.*.name'));
 
         $rejectedRatings = $ratingKeys->diff($allowedReviewRatings);
 
