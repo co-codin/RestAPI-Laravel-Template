@@ -25,6 +25,7 @@ use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -124,12 +125,14 @@ class Product extends Model
 
     public function productReviews(): HasMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->hasMany(ProductReview::class)
+            ->where('status', ProductReviewStatus::APPROVED);
     }
 
     public function productQuestions(): HasMany
     {
-        return $this->hasMany(ProductQuestion::class);
+        return $this->hasMany(ProductQuestion::class)
+            ->where('status', ProductQuestionStatus::APPROVED);
     }
 
     public function productAnswers(): HasManyThrough
