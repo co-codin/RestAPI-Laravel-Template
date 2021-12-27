@@ -23,7 +23,7 @@ type Category {
     seo: Seo @morphOne
     seoCategoryProducts: Seo @morphOne
     count: Int
-    cabinetCategoryPivot: CabinetCategoryPivot
+    pivot: CabinetCategoryPivot
 }
 
 type ReviewRatings {
