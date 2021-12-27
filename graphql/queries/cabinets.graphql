@@ -8,7 +8,7 @@ extend type Query {
 
     allCabinets(
         where: _ @whereConditions(columns: ["id", "name", "slug", "status"])
-        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug", "status", "view_num", "pivot.position"])
     ): [Cabinet!]!
     @all
     @orderBy(column: "id", direction: "ASC")
