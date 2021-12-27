@@ -123,12 +123,14 @@ class Product extends Model
             ->logOnlyDirty();
     }
 
+    // TODO add active product reviews for website - after that, change frontend
     public function productReviews(): HasMany
     {
         return $this->hasMany(ProductReview::class)
             ->where('status', ProductReviewStatus::APPROVED);
     }
 
+    // TODO add active product questions for website - after that, change frontend
     public function productQuestions(): HasMany
     {
         return $this->hasMany(ProductQuestion::class)
