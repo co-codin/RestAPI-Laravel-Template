@@ -8,6 +8,7 @@ use App\Concerns\Searchable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
+use Modules\Product\Http\Resources\ProductResource;
 use Modules\Search\Collections\FilteredCollection;
 
 trait IndexableRepositoryTrait
@@ -99,7 +100,8 @@ trait IndexableRepositoryTrait
             ->sortBy(function ($product) use ($ids) {
                 return array_search($product->getKey(), $ids);
             })
-            ->values();
+            ->values()
+            ->mapInto(ProductResource::class);
 
         return new FilteredCollection($products, $result);
     }
