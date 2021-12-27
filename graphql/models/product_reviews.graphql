@@ -10,7 +10,7 @@ type ProductReview {
     comment: String!
     status: ProductReviewStatusEnum!
     is_confirmed: Boolean!
-    ratings: [Int!]!
+    ratings: [ProductReviewRatings!]!
     like: Int!
     dislike: Int!
     created_at: Date!
@@ -23,4 +23,9 @@ enum ProductReviewStatusEnum {
     InModeration @enum(value: 1)
     Approved @enum(value: 2)
     Rejected @enum(value: 3)
+}
+
+type ProductReviewRatings {
+    name: String!
+    rate: Int!
 }

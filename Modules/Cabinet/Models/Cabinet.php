@@ -3,7 +3,6 @@
 namespace Modules\Cabinet\Models;
 
 use App\Concerns\IsActive;
-use App\Models\Document;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
