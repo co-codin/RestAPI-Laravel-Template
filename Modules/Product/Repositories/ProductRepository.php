@@ -130,20 +130,4 @@ class ProductRepository extends BaseRepository implements IndexableRepository
             ]);
         });
     }
-
-
-    protected function buildCollection(array $result) : FilteredCollection
-    {
-        $ids = Arr::pluck($result['hits']['hits'], '_id');
-
-        $products = $this
-            ->findWhereIn('id', $ids)
-            ->sortBy(function ($product) use ($ids) {
-                return array_search($product->getKey(), $ids);
-            })
-            ->values()
-            ->mapInto(ProductResource::class);
-
-        return new FilteredCollection($products, $result);
-    }
 }
