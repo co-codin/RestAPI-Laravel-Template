@@ -100,8 +100,7 @@ trait IndexableRepositoryTrait
             ->sortBy(function ($product) use ($ids) {
                 return array_search($product->getKey(), $ids);
             })
-            ->values()
-            ->mapInto(ProductResource::class);
+            ->values();
 
         return new FilteredCollection($products, $result);
     }
