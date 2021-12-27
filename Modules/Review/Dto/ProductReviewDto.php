@@ -31,4 +31,6 @@ class ProductReviewDto extends BaseDto
     public ?int $like;
 
     public ?int $dislike;
+
+    public ?string $created_at;
 }

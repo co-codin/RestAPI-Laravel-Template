@@ -12,6 +12,7 @@ class ProductQuestionCreateRequest extends BaseProductQuestionCreateRequest
         return array_merge(parent::rules(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'date' => 'required|date',
         ]);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Modules\Product\Dto\ProductAnswerDto;
 use Modules\Product\Http\Requests\Admin\ProductAnswerRequest;
 use Modules\Product\Http\Resources\ProductAnswerResource;
+use Modules\Product\Models\ProductAnswer;
 use Modules\Product\Repositories\ProductAnswerRepository;
 use Modules\Product\Services\Qna\ProductAnswerStorage;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -58,5 +59,19 @@ class ProductAnswerController extends Controller
         );
 
         return \response()->noContent();
+    }
+
+    /**
+     * Get all added unique question repliers
+     * @return array
+     */
+    public function persons()
+    {
+        return ProductAnswer::query()
+            ->select(['first_name', 'last_name', 'person'])
+            ->groupBy(['first_name', 'last_name', 'person'])
+            ->orderBy('last_name')
+            ->orderBy('first_name')
+            ->get();
     }
 }

@@ -50,7 +50,7 @@ class ProductQuestion extends Model
         parent::boot();
 
         static::creating(static function (self $productQuestion) {
-            $productQuestion->date = $productQuestion->freshTimestamp();
+            $productQuestion->date = $productQuestion->date ?? $productQuestion->freshTimestamp();
         });
     }
 

@@ -3,6 +3,7 @@ scalar Documents @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
 
 type Product {
     id: ID!
+    article: Int
     name: String!
     slug: String!
     brand_id: Int

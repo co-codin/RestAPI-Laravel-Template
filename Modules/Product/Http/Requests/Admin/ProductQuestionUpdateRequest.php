@@ -27,7 +27,7 @@ class ProductQuestionUpdateRequest extends BaseFormRequest
             'first_name' => 'sometimes|required|string|max:255',
             'last_name' => 'sometimes|required|string|max:255',
             'text' => 'sometimes|nullable|string',
-            'date' => 'sometimes|nullable|string',
+            'date' => 'sometimes|required|date',
         ];
     }
 

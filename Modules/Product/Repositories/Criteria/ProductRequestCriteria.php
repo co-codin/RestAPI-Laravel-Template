@@ -51,6 +51,7 @@ class ProductRequestCriteria implements CriteriaInterface
             ->when(in_array("mainVariation", $includes), fn($query) => $query->withMainVariation())
             ->allowedFilters([
                 AllowedFilter::exact('id'),
+                AllowedFilter::exact('article'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('brand_id'),
@@ -123,13 +124,14 @@ class ProductRequestCriteria implements CriteriaInterface
                 'analogs',
                 'activeAnalogs',
             ])
-            ->allowedSorts('id', 'slug', 'name', 'warranty', 'is_arbitrary_warranty', 'created_at', 'updated_at', 'deleted_at');
+            ->allowedSorts('id', 'article', 'slug', 'name', 'warranty', 'is_arbitrary_warranty', 'created_at', 'updated_at', 'deleted_at');
     }
 
     public static function allowedProductFields($prefix = null)
     {
         $fields = [
             'id',
+            'article',
             'slug',
             'status',
             'name',
