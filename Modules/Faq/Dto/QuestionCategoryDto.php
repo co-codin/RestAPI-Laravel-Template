@@ -13,4 +13,6 @@ class QuestionCategoryDto extends BaseDto
     public ?string $slug;
 
     public ?int $status;
+
+    public ?int $position;
 }
