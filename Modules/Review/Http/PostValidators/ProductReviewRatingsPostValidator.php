@@ -32,7 +32,6 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
         $allowedReviewRatings = collect($reviewRatings)->pluck('name');
 
         $ratings = collect($request->input('ratings.*.name'));
-        dd($request->input('ratings'));
 
         $reviewRatingAttributes = [];
 
