@@ -36,7 +36,7 @@ class BrandRequestCriteria implements CriteriaInterface
                 ])),
                 AllowedFilter::trashed(),
             ])
-            ->allowedIncludes(['seo', 'country'])
+            ->allowedIncludes(['seo', 'country', 'products'])
             ->allowedSorts([
                 'id',
                 'created_at',
