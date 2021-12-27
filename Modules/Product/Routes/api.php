@@ -6,6 +6,7 @@ use Modules\Product\Http\Controllers\ProductAnswerRateController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductFilterController;
 use Modules\Product\Http\Controllers\ProductQuestionController;
+use Modules\Product\Http\Controllers\VariationLinkController;
 use Modules\Product\Http\Middleware\ProductAnswerRateMiddleware;
 
 Route::post('/products/filter', [ProductFilterController::class, 'index'])
@@ -24,3 +25,7 @@ Route::middleware(ProductAnswerRateMiddleware::class)->group(function () {
     Route::match(['put', 'patch'], 'product-answers-rate/{product_answer}', [ProductAnswerRateController::class, 'rate'])
         ->name('product-answers.rate');
 });
+
+
+Route::apiResource('variation-links', VariationLinkController::class)
+    ->only('index', 'show', 'store');

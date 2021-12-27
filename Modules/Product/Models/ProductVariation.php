@@ -4,8 +4,10 @@ namespace Modules\Product\Models;
 
 use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Currency\Models\Currency;
@@ -34,6 +36,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read Product $product
  * @property-read Currency $currency
  * @property-read FieldValue $condition
+ * @property-read Collection|VariationLink[] $variationLinks
  * @mixin \Eloquent
  * @method static Builder|ProductVariation newModelQuery()
  * @method static Builder|ProductVariation newQuery()
@@ -76,6 +79,11 @@ class ProductVariation extends Model
     public function currency()
     {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function variationLinks(): HasMany
+    {
+        return $this->hasMany(VariationLink::class);
     }
 
     protected static function newFactory()
