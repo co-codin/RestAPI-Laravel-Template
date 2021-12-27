@@ -24,8 +24,8 @@ type CabinetDoc {
     name: String!
     source: Int!
     type: Int!
-    file: String!
-    link: String!
+    file: String
+    link: String
 }
 
 type Requirement {
