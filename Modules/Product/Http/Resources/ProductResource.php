@@ -42,6 +42,8 @@ class ProductResource extends BaseJsonResource
             'category' => new CategoryResource($this->whenLoaded('category')),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'product_reviews' => ProductReviewResource::collection($this->whenLoaded('productReviews')),
+            'analogs' => ProductReviewResource::collection($this->whenLoaded('analogs')),
+            'activeAnalogs' => ProductReviewResource::collection($this->whenLoaded('activeAnalogs')),
         ]);
 
         if ($this->relationLoaded('productReviews')) {

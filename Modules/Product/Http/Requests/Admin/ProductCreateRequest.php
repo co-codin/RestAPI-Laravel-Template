@@ -52,6 +52,7 @@ class ProductCreateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(ProductGroup::class, false),
             ],
+            'is_manually_analogs' => 'sometimes|boolean',
             'benefits' => 'sometimes|nullable|array',
             'documents' => 'sometimes|nullable|array',
             'documents.*.name' => 'required|string|max:255',

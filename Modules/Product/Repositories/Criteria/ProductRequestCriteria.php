@@ -34,6 +34,8 @@ class ProductRequestCriteria implements CriteriaInterface
                 static::allowedProductFields(),
                 static::allowedProductVariationFields('product_variations'),
                 static::allowedProductVariationFields('main_variation'),
+                static::allowedProductAnalogFields('analogs'),
+                static::allowedProductAnalogFields('active_analogs'),
                 BrandRequestCriteria::allowedBrandFields('brand'),
                 CategoryRequestCriteria::allowedCategoryFields('category'),
                 CategoryRequestCriteria::allowedCategoryFields('categories'),
@@ -59,6 +61,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('warranty'),
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
+                AllowedFilter::exact('is_manually_analogs'),
 
                 AllowedFilter::callback('live', function (Builder $query, $value) {
                     $query->selectRaw('products.id as id, CONCAT(b.name, " ", products.name) as name')
@@ -66,9 +69,7 @@ class ProductRequestCriteria implements CriteriaInterface
 
                     $query->where('products.name', 'like', "%$value%")
                         ->orWhere('products.id', '=', $value)
-                        ->orWhere('b.name', 'like', "%$value%")
-                    ;
-
+                        ->orWhere('b.name', 'like', "%$value%");
                 }),
 
                 AllowedFilter::custom('has_video', new IsEmptyFilter('video')),
@@ -120,6 +121,8 @@ class ProductRequestCriteria implements CriteriaInterface
                 'stockType',
                 'productQuestions',
                 'productAnswers',
+                'analogs',
+                'activeAnalogs',
             ])
             ->allowedSorts('id', 'article', 'slug', 'name', 'warranty', 'is_arbitrary_warranty', 'created_at', 'updated_at', 'deleted_at');
     }
@@ -144,6 +147,7 @@ class ProductRequestCriteria implements CriteriaInterface
             'group_id',
             'short_description',
             'full_description',
+            'is_manually_analogs',
             'created_at',
             'updated_at',
         ];
@@ -173,6 +177,21 @@ class ProductRequestCriteria implements CriteriaInterface
         ];
 
         if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
+    }
+
+    public static function allowedProductAnalogFields($prefix = null): array
+    {
+        $fields = [
+            'product_id',
+            'analog_id',
+            'position',
+        ];
+
+        if (!$prefix) {
             return $fields;
         }
 
