@@ -7,13 +7,11 @@ namespace Modules\Product\Repositories;
 use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
-use Modules\Product\Enums\Availability;
-use Modules\Product\Enums\ProductVariationType;
-use Modules\Product\Helpers\PropertyHelper;
+use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
-use Modules\Property\Enums\PropertyType;
+use Modules\Search\Collections\FilteredCollection;
 use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Repositories\IndexableRepositoryTrait;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -131,5 +129,21 @@ class ProductRepository extends BaseRepository implements IndexableRepository
                 },
             ]);
         });
+    }
+
+
+    protected function buildCollection(array $result) : FilteredCollection
+    {
+        $ids = Arr::pluck($result['hits']['hits'], '_id');
+
+        $products = $this
+            ->findWhereIn('id', $ids)
+            ->sortBy(function ($product) use ($ids) {
+                return array_search($product->getKey(), $ids);
+            })
+            ->values()
+            ->mapInto(ProductResource::class);
+
+        return new FilteredCollection($products, $result);
     }
 }
