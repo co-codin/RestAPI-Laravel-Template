@@ -15,7 +15,7 @@ class CustomerReviewFactory extends Factory
         $imagePath = "/uploads/test/reviews/";
 
         return [
-            'post' => $this->faker->name(),
+            'position' => $this->faker->name(),
             'author' => $this->faker->name(),
             'type' => CustomerType::getRandomValue(),
             'video' => 'https://youtu.be/BcIMTGoXj_I',
