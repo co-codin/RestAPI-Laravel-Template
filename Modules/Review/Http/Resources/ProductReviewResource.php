@@ -20,6 +20,8 @@ class ProductReviewResource extends BaseJsonResource
      */
     public function toArray($request): array
     {
+        $ratingsRate = \Arr::pluck($this->ratings ?? [], 'rate');
+
         return array_merge(parent::toArray($request), [
             'status' => $this->whenRequested('status', [
                 'value' => $this->status,
@@ -29,7 +31,7 @@ class ProductReviewResource extends BaseJsonResource
                 'value' => $this->experience,
                 'description' => ProductReviewExperience::getDescription($this->experience),
             ]),
-            'ratings_avg' => !is_null($this->ratings) ? round(array_sum($this->ratings) / count($this->ratings), 1) : null,
+            'ratings_avg' => !empty($ratingsRate) ? round(array_sum($ratingsRate) / count($ratingsRate), 1) : 0,
             'client' => new ClientResource($this->whenLoaded('client'))
         ]);
     }

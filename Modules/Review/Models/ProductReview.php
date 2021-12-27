@@ -64,7 +64,9 @@ class ProductReview extends Model
 
     public function getRatingsAvgAttribute(): float
     {
-        return !is_null($this->ratings) ? round(array_sum($this->ratings) / count($this->ratings), 1) : 0;
+        $ratingsRate = \Arr::pluck($this->ratings ?? [], 'rate');
+
+        return !empty($ratingsRate) ? round(array_sum($ratingsRate) / count($ratingsRate), 1) : 0;
     }
 
     protected static function newFactory(): ProductReviewFactory
