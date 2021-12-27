@@ -43,6 +43,8 @@ type Product {
     productAnswerCount: Int @count(relation: "productAnswers")
     analogs: [Product!]  @belongsToMany(relation: "analogs")
     analogsCount: Int! @count(relation: "analogs")
+    activeAnalogs: [Product!]  @belongsToMany(relation: "activeAnalogs")
+    activeAnalogsCount: Int! @count(relation: "activeAnalogs")
 }
 
 

@@ -15,9 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
@@ -180,6 +178,18 @@ class Product extends Model
             ->withPivot(['position']);
     }
 
+    public function activeAnalogs(): BelongsToMany
+    {
+        return $this
+            ->analogs()
+            ->where('products.status', Status::ACTIVE)
+            ->where(function (Builder $query) {
+                $query
+                    ->where('products.group_id', ProductGroup::PRIORITY)
+                    ->orWhere('products.group_id', ProductGroup::REORIENTATED);
+            });
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'product_category')
@@ -241,24 +251,6 @@ class Product extends Model
             ->orderByRaw('rate * price ASC')
             ->take(1),
         ])->with('mainVariation');
-    }
-
-    public function scopeOnlyActiveAnalogs(Builder $query): Builder
-    {
-        return $query->where('products.status', 1);
-        return $query->whereExists(function (QueryBuilder $query) {
-            $query
-                ->select(DB::raw(1))
-                ->from('product_analog as pa')
-                ->whereColumn('products.id', 'pa.product_id')
-                ->join('products as p', 'p.id', '=', 'pa.analog_id')
-                ->where('p.status', Status::ACTIVE)
-                ->where(function (QueryBuilder $query) {
-                    $query
-                        ->where('p.group_id', ProductGroup::PRIORITY)
-                        ->orWhere('p.group_id', ProductGroup::REORIENTATED);
-                });
-        });
     }
 
     public function scopeHasActiveVariation(Builder $query)

@@ -13,8 +13,6 @@ extend type Query {
         hot: Boolean @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@getHotProducts")
         category: Int @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@rootCategory")
         hasBrand: _ @whereHasConditions(columns: ["id", "country_id", "name", "slug"])
-#        onlyActiveAnalogs: Boolean @scope(name: "onlyActiveAnalogs")
-#        onlyActiveAnalogs: Boolean @builder(method: "\\Modules\\Product\\Services\\ProductBuilders@onlyActiveAnalogs")
         hasProductVariations: _ @whereHasConditions(columns: ["id", "name", "is_price_visible", "is_enabled", "currency_id", "price", "availability", "previous_price"])
         orderBy: _ @orderBy(columns: ["id", "name", "warranty", "assigned_by_id", "is_in_home", "price", "is_manually_analogs"])
     ): [Product!]!
@@ -25,6 +23,5 @@ extend type Query {
         id: ID @eq,
         slug: String @eq
         withMainVariation: Boolean @scope(name: "withMainVariation")
-#        onlyActiveAnalogs: Boolean @scope(name: "onlyActiveAnalogs")
     ): Product @find(scopes: ["visible", "hasActiveVariation"])
 }
