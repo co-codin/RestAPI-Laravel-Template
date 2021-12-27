@@ -28,6 +28,10 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             $this->addError('product_id', 'У товара нету основной категории');
         }
 
+        if (is_null($category->review_ratings)) {
+            return;
+        }
+
         $reviewRatings = json_decode($category?->review_ratings, true, 512, JSON_THROW_ON_ERROR);
         $allowedReviewRatings = collect($reviewRatings)->pluck('name');
 
