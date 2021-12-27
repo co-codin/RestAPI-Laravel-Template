@@ -181,7 +181,8 @@ class Product extends Model
         return $this
             ->belongsToMany(self::class, 'product_analog', 'product_id', 'analog_id')
             ->using(ProductAnalogPivot::class)
-            ->withPivot(['position']);
+            ->withPivot(['position'])
+            ->orderByPivot('position');
     }
 
     public function activeAnalogs(): BelongsToMany
