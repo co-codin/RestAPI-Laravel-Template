@@ -17,7 +17,7 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
         return [
             'product_id' => 'nullable-cast:integer',
             'experience' => 'nullable-cast:integer',
-            'ratings.*' => 'nullable-cast:integer',
+            'ratings.*.rate' => 'nullable-cast:integer',
         ];
     }
 
