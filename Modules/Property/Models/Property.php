@@ -28,7 +28,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_numeric
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property ProductPropertyPivot $pivot
+ * @property-read ProductPropertyPivot $pivot
  * @property Category $category
  * @property Filter[]|Collection $filters
  * @mixin \Eloquent

@@ -15,13 +15,13 @@ class ProductPropertyFilter implements Filter
     {
         $this->validate($value);
 
-        foreach ($value as $property) {
-            $query->whereExists(function($query) use($property) {
+        foreach ($value as $propertyValue) {
+            $query->whereExists(function($query) use($propertyValue) {
                 $query->select(DB::raw(1))
                     ->from('product_property as pp')
                     ->whereColumn('pp.product_id', 'products.id')
-                    ->where('pp.property_id', $property['id'])
-                    ->whereJsonContains('pp.value', $property['value']);
+                    ->where('pp.property_id', $propertyValue['id'])
+                    ->whereJsonContains('pp.value', $propertyValue['value']);
             });
         }
     }

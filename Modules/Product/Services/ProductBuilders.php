@@ -4,9 +4,12 @@
 namespace Modules\Product\Services;
 
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
+use Modules\Product\Enums\ProductGroup;
 
 class ProductBuilders
 {
@@ -39,9 +42,27 @@ class ProductBuilders
         });
     }
 
+    public function onlyActiveAnalogs(Builder $builder, bool $active): Builder
+    {
+        $method = $active ? "whereExists" : "whereNotExists";
+
+        return $builder->{$method}(function (QueryBuilder $query) {
+            $query
+                ->select(DB::raw(1))
+                ->from('product_analog as pa')
+                ->whereColumn('products.id', 'pa.analog_id')
+                ->where('products.status', Status::ACTIVE)
+                ->where(function (QueryBuilder $query) {
+                    $query
+                        ->where('products.group_id', ProductGroup::PRIORITY)
+                        ->orWhere('products.group_id', ProductGroup::REORIENTATED);
+                });
+        });
+    }
+
     public function getProductsByCategories(Builder $builder, array $categoryIds): Builder
     {
-        return $builder->whereExists(function (\Illuminate\Database\Query\Builder $builder) use ($categoryIds) {
+        return $builder->whereExists(function (QueryBuilder $builder) use ($categoryIds) {
             $builder
                 ->select(DB::raw(1))
                 ->from('product_category as pc')
@@ -52,7 +73,7 @@ class ProductBuilders
 
     public function getHotProducts(Builder $builder, bool $hot): Builder
     {
-        return $builder->whereExists(function (\Illuminate\Database\Query\Builder $builder) use ($hot) {
+        return $builder->whereExists(function (QueryBuilder $builder) use ($hot) {
             $builder
                 ->select(DB::raw(1))
                 ->from('product_variations as pv')

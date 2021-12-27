@@ -89,6 +89,8 @@ class ProductUpdateRequest extends BaseFormRequest
             'documents.*.docs.*.file' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::FILE . '|required|string|max:255',
             'documents.*.docs.*.link' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::LINK . '|required|url|max:255',
 
+            'is_manually_analogs' => 'sometimes|boolean',
+
             'benefits' => 'sometimes|nullable|array',
             'benefits.information' => 'sometimes|nullable|array|max:2',
             'benefits.information.*.icon' => 'required|string|max:255',

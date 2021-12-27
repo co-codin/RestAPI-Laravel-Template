@@ -21,6 +21,7 @@ type Product {
     booklet: String
     video: String
     benefits: ProductBenefits
+    is_manually_analogs: Boolean!
     price: MixedPrice
     group_id: Int
     rating: Float
@@ -35,12 +36,16 @@ type Product {
     images: [Image!] @morphMany
     seo: Seo @morphOne
     stockType: FieldValue @belongsTo
-    productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
     productReviews: [ProductReview!]  @hasMany(relation: "productReviews", scopes: ["published"])
-    productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
+    productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
     productQuestions: [ProductQuestion!]  @hasMany(relation: "productQuestions", scopes: ["published"])
+    productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
     productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
     productAnswerCount: Int @count(relation: "productAnswers")
+    analogs: [Product!]  @belongsToMany(relation: "analogs")
+    analogsCount: Int! @count(relation: "analogs")
+    activeAnalogs: [Product!]  @belongsToMany(relation: "activeAnalogs")
+    activeAnalogsCount: Int! @count(relation: "activeAnalogs")
 }
 
 

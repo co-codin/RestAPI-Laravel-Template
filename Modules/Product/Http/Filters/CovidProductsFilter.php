@@ -14,7 +14,7 @@ class CovidProductsFilter implements Filter
 
     public function __invoke(Builder $query, $value, string $property)
     {
-        $query->whereExists(function($query) use ($value) {
+        $query->whereExists(function($query) {
             $query->select(DB::raw(1))
                 ->from('product_property as pp')
                 ->whereColumn('pp.product_id', 'products.id')
