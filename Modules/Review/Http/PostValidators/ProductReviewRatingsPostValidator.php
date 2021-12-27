@@ -35,21 +35,26 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
         $reviewRatings = json_decode($category?->review_ratings, true, 512, JSON_THROW_ON_ERROR);
         $allowedReviewRatings = collect($reviewRatings)->pluck('name');
 
+        $ratings = collect($request->input('ratings.*.name'));
+
         $reviewRatingAttributes = [];
 
-        foreach ($allowedReviewRatings as $nameReviewRating) {
-            $reviewRatingAttributes["ratings.$nameReviewRating"] = $nameReviewRating;
+        foreach ($ratings as $key => $name) {
+            $reviewRatingAttributes["ratings.$key.name"] = $name;
+            $reviewRatingAttributes["ratings.$key.rate"] = "Рейтинг у оценки $name";
         }
 
         $v = \Validator::make(
             ['ratings' => $request->input('ratings')],
             [
-//            'ratings' => 'required|array|min:4',
-                'ratings' => 'required|array|min:1',
-                'ratings.*' => 'required|int|min:1',
+//            'ratings.*' => 'required|array|min:4',
+                'ratings' => 'required|array',
+                'ratings.*' => 'required|array|min:1',
+                'ratings.*.name' => 'required|string|distinct|max:255',
+                'ratings.*.rate' => 'required|int|min:1',
             ],
             [],
-            $reviewRatingAttributes
+            $reviewRatingAttributes + ['ratings' => 'Оценки',]
         );
 
         if ($v->errors()->isNotEmpty()) {
@@ -66,21 +71,19 @@ class ProductReviewRatingsPostValidator extends BasePostValidator
             $this->addError('product_id', 'У категории товара нету разрешенных оценок для отзывов');
         }
 
-        $ratingKeys = collect(array_keys($request->input('ratings')));
-
-        $rejectedRatings = $ratingKeys->diff($allowedReviewRatings);
+        $rejectedRatings = $ratings->diff($allowedReviewRatings);
 
         if ($rejectedRatings->isNotEmpty()) {
-            foreach ($rejectedRatings as $rating) {
-                $this->addError("ratings.$rating", "Оценка $rating не может быть добавлена к данному товару");
+            foreach ($rejectedRatings as $key => $rating) {
+                $this->addError("ratings.$key", "Оценка $rating не может быть добавлена к данному товару");
             }
         }
 
-        $requiredRatings = $allowedReviewRatings->diff($ratingKeys);
+        $requiredRatings = $allowedReviewRatings->diff($ratings);
 
         if ($requiredRatings->isNotEmpty()) {
             foreach ($requiredRatings as $rating) {
-                $this->addError("ratings.$rating", "Оценка $rating должна быть добавлена к данному товару");
+                $this->addError("ratings", "Оценка $rating должна быть добавлена к данному товару");
             }
         }
     }
