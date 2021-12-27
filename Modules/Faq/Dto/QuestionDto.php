@@ -15,4 +15,6 @@ class QuestionDto extends BaseDto
     public mixed $status;
 
     public mixed $question_category_id;
+
+    public ?int $position;
 }
