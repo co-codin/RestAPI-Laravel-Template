@@ -42,7 +42,7 @@ class ProductVariationStorage
             ->filter(fn(array $variation): bool => !Arr::exists($variation, 'id'));
 
         foreach ($newVariationsData as $variationData) {
-            $productVariation = ProductVariation::create(Arr::except($variationData, 'links'));
+            $productVariation = $this->product->productVariations()->create(Arr::except($variationData, 'links'));
 
             if (Arr::exists($variationData, 'links')) {
                 $productVariation->variationLinks()->createMany($variationData['links']);
@@ -62,10 +62,13 @@ class ProductVariationStorage
                 $model?->update($variationWithoutLinks);
 
                 if (Arr::exists($variationData, 'links')) {
-                    $model->variationLinks
-                        ->each(function(array $variationLinkData) {
-                            VariationLink::firstOrCreate($variationLinkData['id'], Arr::except($variationLinkData, 'id'));
-                        });
+                    foreach ($variationData['links'] as $link) {
+                        if (Arr::exists($link, 'id')) {
+                            $model->variationLinks()->update(Arr::except($link, 'id'));
+                        } else {
+                            $model->variationLinks()->create($link);
+                        }
+                    }
                 }
             });
 

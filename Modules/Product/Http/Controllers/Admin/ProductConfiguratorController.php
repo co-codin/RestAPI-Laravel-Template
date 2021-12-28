@@ -24,6 +24,6 @@ class ProductConfiguratorController extends Controller
 
         $this->productConfiguratorStorage->update($product, $request->input('variations'));
 
-        return new ProductResource($product);
+        return new ProductResource($product->load(['productVariations', 'productVariations.variationLinks']));
     }
 }

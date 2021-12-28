@@ -12,7 +12,7 @@ class ProductVariationResource extends BaseJsonResource
     {
         return array_merge(parent::toArray($request), [
             'currency' => $this->whenLoaded('currency'),
-            'variationLinks' => VariationLinkResource::collection($this->whenLoaded('variationLinks')),
+            'variation_links' => VariationLinkResource::collection($this->whenLoaded('variationLinks')),
         ]);
     }
 }
