@@ -64,12 +64,10 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_manually_analogs'),
 
                 AllowedFilter::callback('live', function (Builder $query, $value) {
-                    $query->selectRaw('products.id as id, CONCAT(b.name, " ", products.name) as name')
-                        ->join('brands as b', 'b.id', '=', 'products.brand_id');
-
-                    $query->where('products.name', 'like', "%$value%")
-                        ->orWhere('products.id', '=', $value)
-                        ->orWhere('b.name', 'like', "%$value%");
+                    $query->where(function($query) use($value) {
+                        $query->where('products.name', 'like', "%$value%")
+                            ->orWhere('products.id', '=', $value);
+                    });
                 }),
 
                 AllowedFilter::custom('has_video', new IsEmptyFilter('video')),
