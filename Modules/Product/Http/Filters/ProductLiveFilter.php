@@ -28,7 +28,7 @@ class ProductLiveFilter implements Filter
                                         ->select('products.id')
                                         ->from('products')
                                         ->join('brands', 'products.brand_id', '=', 'brands.id')
-                                        ->where('brands.name', 'like', '%'. $term . '%')
+                                        ->where('brands.name_normalized', 'like', '%'. $term . '%')
                                 );
                         }, 'matches');
             });
