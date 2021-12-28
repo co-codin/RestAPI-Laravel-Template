@@ -2,12 +2,9 @@
 
 namespace Modules\Product\Services;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Events\ProductSaved;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductVariation;
 
 class ProductConfiguratorStorage
 {
@@ -18,7 +15,7 @@ class ProductConfiguratorStorage
     {
         DB::beginTransaction();
 
-        (new ProductVariationStorage($product, Arr::except($variations, 'links')))
+        (new ProductVariationStorage($product, $variations))
             ->deleteNonExistentVariations()
             ->createNewVariations()
             ->updateExistingVariations();

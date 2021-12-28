@@ -6,15 +6,16 @@ namespace Modules\Product\Services;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
+use Modules\Product\Models\VariationLink;
 
 class ProductVariationStorage
 {
     private Product $product;
 
-    private Collection $variations;
+    private SupportCollection $variations;
 
     public function __construct(Product $product, array $variations)
     {
@@ -37,10 +38,16 @@ class ProductVariationStorage
 
     public function createNewVariations(): static
     {
-        $newVariations = $this->variations
+        $newVariationsData = $this->variations
             ->filter(fn(array $variation): bool => !Arr::exists($variation, 'id'));
 
-        $this->product->productVariations()->createMany($newVariations);
+        foreach ($newVariationsData as $variationData) {
+            $productVariation = ProductVariation::create(Arr::except($variationData, 'links'));
+
+            if (Arr::exists($variationData, 'links')) {
+                $productVariation->variationLinks()->createMany($variationData['links']);
+            }
+        }
 
         return $this;
     }
@@ -49,9 +56,17 @@ class ProductVariationStorage
     {
         $this->variations
             ->filter(fn(array $variation): bool => Arr::exists($variation, 'id'))
-            ->each(function($variation) {
-                $model = ProductVariation::find($variation['id']);
-                $model?->update($variation);
+            ->each(function(array $variationData) {
+                $variationWithoutLinks = Arr::except($variationData, 'links');
+                $model = ProductVariation::find($variationWithoutLinks['id']);
+                $model?->update($variationWithoutLinks);
+
+                if (Arr::exists($variationData, 'links')) {
+                    $model->variationLinks
+                        ->each(function(array $variationLinkData) {
+                            VariationLink::firstOrCreate($variationLinkData['id'], Arr::except($variationLinkData, 'id'));
+                        });
+                }
             });
 
         return $this;
