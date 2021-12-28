@@ -10,9 +10,22 @@ type Cabinet {
     status: Int!
     welcome_text: String
     view_num: Int
-    documents: [Document!] @morphMany
+    documents: [CabinetDocument!]
     requirements: [Requirement]
     seo: Seo @morphOne
+}
+
+type CabinetDocument{
+    name: String!
+    docs: [CabinetDoc]
+}
+
+type CabinetDoc {
+    name: String!
+    source: Int!
+    type: Int!
+    file: String
+    link: String
 }
 
 type Requirement {

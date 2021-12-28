@@ -8,6 +8,7 @@ use App\Concerns\Searchable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
+use Modules\Product\Http\Resources\ProductResource;
 use Modules\Search\Collections\FilteredCollection;
 
 trait IndexableRepositoryTrait

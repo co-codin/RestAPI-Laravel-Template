@@ -18,13 +18,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
-use Modules\Dealer\Entities\Dealer;
 use Modules\Product\Database\factories\ProductFactory;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
 use Modules\Property\Models\Property;
+use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
 use Modules\Seo\Models\Seo;
 use App\Concerns\Searchable;
@@ -122,14 +122,18 @@ class Product extends Model
             ->logOnlyDirty();
     }
 
+    // TODO add active product reviews for website - after that, change frontend
     public function productReviews(): HasMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->hasMany(ProductReview::class)
+            ->where('status', ProductReviewStatus::APPROVED);
     }
 
+    // TODO add active product questions for website - after that, change frontend
     public function productQuestions(): HasMany
     {
-        return $this->hasMany(ProductQuestion::class);
+        return $this->hasMany(ProductQuestion::class)
+            ->where('status', ProductQuestionStatus::APPROVED);
     }
 
     public function productAnswers(): HasManyThrough

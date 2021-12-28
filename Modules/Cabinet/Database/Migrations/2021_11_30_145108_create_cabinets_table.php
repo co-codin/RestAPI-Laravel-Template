@@ -25,6 +25,7 @@ class CreateCabinetsTable extends Migration
             $table->json('requirements')->nullable();
             $table->json('documents')->nullable();
             $table->unsignedInteger('position')->nullable();
+            $table->unsignedInteger('view_num')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
