@@ -21,9 +21,9 @@ use Modules\Product\Database\factories\ProductAnswerFactory;
  * @property Carbon|null $date
  * @property-read ProductQuestion $productQuestion
  * @mixin \Eloquent
- * @method static Builder|ProductQuestion newModelQuery()
- * @method static Builder|ProductQuestion newQuery()
- * @method static Builder|ProductQuestion query()
+ * @method static Builder|ProductAnswer newModelQuery()
+ * @method static Builder|ProductAnswer newQuery()
+ * @method static Builder|ProductAnswer query()
  */
 class ProductAnswer extends Model
 {
