@@ -23,6 +23,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array|null $check
  * @property int $currency_id
  * @property int $price
+ * @property int|null $price_in_rub
+ * @property float|int|null $previous_price
+ * @property bool $is_price_visible
  * @property int $availability
  * @property Carbon|null $info_updated_at
  * @property Carbon|null $created_at
@@ -43,8 +46,15 @@ class VariationLink extends Model
     ];
 
     protected $casts = [
+        'product_variation_id' => 'integer',
+        'supplier' => 'integer',
         'check' => 'array',
-        'is_default' => 'boolean'
+        'is_default' => 'boolean',
+        'price' => 'integer',
+        'previous_price' => 'integer',
+        'currency_id' => 'integer',
+        'is_price_visible' => 'boolean',
+        'availability' => 'integer',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -66,6 +76,35 @@ class VariationLink extends Model
     public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function getPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPriceAttribute($value): void
+    {
+        $this->attributes['price'] = $value
+            ? $value * 100
+            : null;
+    }
+
+    public function getPreviousPriceAttribute($value): float|int|null
+    {
+        return $value ? $value / 100 : null;
+    }
+
+    public function setPreviousPriceAttribute($value): void
+    {
+        $this->attributes['previous_price'] = $value
+            ? $value * 100
+            : null;
+    }
+
+    public function getPriceInRubAttribute() : int
+    {
+        return $this->price ? ceil($this->price * $this->currency->rate) : 0;
     }
 
     protected static function newFactory(): VariationLinkFactory
