@@ -13,4 +13,5 @@ type ProductVariation {
     product: Product @belongsTo
     currency: Currency @belongsTo
     condition: FieldValue @belongsTo
+    variationLinks: [VariationLink] @hasMany
 }

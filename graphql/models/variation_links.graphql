@@ -1,0 +1,20 @@
+type VariationLink {
+    id: ID!
+    product_variation_id: Int!
+    supplier: Int!
+    key: String!
+    is_default: Boolean!
+    check: [VariationLinkCheck!]
+    currency_id: Int!
+    price: Int!
+    availability: Int!
+    info_updated_at: String
+
+    productVariation: ProductVariation @belongsTo
+    currency: Currency @belongsTo
+}
+
+type VariationLinkCheck {
+    element: String!
+    value: String!
+}

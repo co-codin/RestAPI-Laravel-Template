@@ -9,7 +9,6 @@ use Modules\Product\Http\Controllers\Admin\ProductImageController;
 use Modules\Product\Http\Controllers\Admin\ProductPropertyController;
 use Modules\Product\Http\Controllers\Admin\ProductQuestionController;
 use Modules\Product\Http\Controllers\Admin\ProductSeoController;
-use Modules\Product\Http\Controllers\Admin\VariationLinkController;
 
 Route::patch('products/{product}/seo', [ProductSeoController::class, 'update']);
 Route::put('products/{product}/properties', [ProductPropertyController::class, 'update'])->name('product.property.update');
@@ -28,5 +27,3 @@ Route::put('product-questions/{product_question}/reject', [ProductQuestionContro
 
 
 Route::match(['put', 'patch'], 'products/{product_id}/analogs', [ProductAnalogController::class, 'update']);
-
-Route::apiResource('variation-links', VariationLinkController::class)->except(['index', 'show']);
