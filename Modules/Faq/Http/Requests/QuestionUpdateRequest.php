@@ -24,7 +24,8 @@ class QuestionUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'question_category_id' => 'sometimes|required|integer|exists:question_categories,id'
+            'question_category_id' => 'sometimes|required|integer|exists:question_categories,id',
+            'position' => 'sometimes|nullable|integer',
         ];
     }
 

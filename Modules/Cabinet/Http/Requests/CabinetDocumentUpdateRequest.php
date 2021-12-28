@@ -14,6 +14,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
         return [
             'documents' => 'required|array',
             'documents.*.name' => 'required|string|max:255',
+            'documents.*.position' => 'sometimes|nullable|integer',
             'documents.*.docs' => 'required|array',
             'documents.*.docs.*.name' => 'required|string|max:255',
             'documents.*.docs.*.source' => [
@@ -26,6 +27,7 @@ class CabinetDocumentUpdateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(DocumentTypeEnum::class, false)
             ],
+            'documents.*.docs.*.position' => 'sometimes|nullable|integer',
             'documents.*.docs.*.file' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::FILE . '|required|string|max:255',
             'documents.*.docs.*.link' => 'exclude_unless:documents.*.docs.*.source,' . DocumentSourceEnum::LINK . '|required|url|max:255',
         ];
