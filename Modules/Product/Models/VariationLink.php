@@ -55,6 +55,7 @@ class VariationLink extends Model
         'currency_id' => 'integer',
         'is_price_visible' => 'boolean',
         'availability' => 'integer',
+        'info_updated_at' => 'datetime',
     ];
 
     public function getActivitylogOptions(): LogOptions
