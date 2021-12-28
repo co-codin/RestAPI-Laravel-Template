@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\Brand\Repositories\Criteria\BrandRequestCriteria;
 use Modules\Category\Repositories\Criteria\CategoryRequestCriteria;
 use Modules\Product\Http\Filters\CovidProductsFilter;
+use Modules\Product\Http\Filters\ProductLiveFilter;
 use Modules\Product\Http\Filters\ProductPropertyFilter;
 use Modules\Property\Repositories\Criteria\PropertyRequestCriteria;
 use Modules\Review\Repositories\Criteria\ProductReviewRequestCriteria;
@@ -63,12 +64,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('full_description'),
                 AllowedFilter::exact('is_manually_analogs'),
 
-                AllowedFilter::callback('live', function (Builder $query, $value) {
-                    $query->where(function($query) use($value) {
-                        $query->where('products.name', 'like', "%$value%")
-                            ->orWhere('products.id', '=', $value);
-                    });
-                }),
+                AllowedFilter::custom('live', new ProductLiveFilter),
 
                 AllowedFilter::custom('has_video', new IsEmptyFilter('video')),
                 AllowedFilter::custom('has_booklet', new IsEmptyFilter('booklet')),
