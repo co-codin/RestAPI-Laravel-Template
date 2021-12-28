@@ -8,7 +8,7 @@ class VariationLinkDto extends BaseDto
 {
     public ?int $product_variation_id;
 
-    public ?string $supplier;
+    public ?int $supplier;
 
     public ?string $key;
 

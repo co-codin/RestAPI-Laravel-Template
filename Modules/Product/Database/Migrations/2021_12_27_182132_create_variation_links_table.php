@@ -16,12 +16,12 @@ class CreateVariationLinksTable extends Migration
         Schema::create('variation_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variation_id')->constrained();
-            $table->string('supplier');
+            $table->unsignedTinyInteger('supplier');
             $table->string('key');
             $table->boolean('is_default')->default(0);
-            $table->json('check');
+            $table->json('check')->nullable();
             $table->foreignId('currency_id')->constrained();
-            $table->integer('price');
+            $table->unsignedBigInteger('price');
             $table->unsignedTinyInteger('availability');
 
             $table->timestamp('info_updated_at');

@@ -17,10 +17,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @package Modules\Product\Models
  * @property int $id
  * @property int $product_variation_id
- * @property string $supplier
+ * @property int $supplier
  * @property string $key
  * @property boolean $is_default
- * @property array $check
+ * @property array|null $check
  * @property int $currency_id
  * @property int $price
  * @property int $availability

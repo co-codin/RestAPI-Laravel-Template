@@ -3,7 +3,6 @@
 namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Events\ProductSaved;
 use Modules\Product\Http\Requests\Admin\ProductConfiguratorUpdateRequest;
 use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Repositories\ProductRepository;
@@ -16,12 +15,15 @@ class ProductConfiguratorController extends Controller
         protected ProductRepository $productRepository
     ) {}
 
-    public function update(int $product, ProductConfiguratorUpdateRequest $request)
+    /**
+     * @throws \Throwable
+     */
+    public function update(ProductConfiguratorUpdateRequest $request, int $productId): ProductResource
     {
-        $productModel = $this->productRepository->find($product);
+        $product = $this->productRepository->find($productId);
 
-        $this->productConfiguratorStorage->update($productModel, $request->input('variations'));
+        $this->productConfiguratorStorage->update($product, $request->input('variations'));
 
-        return new ProductResource($productModel);
+        return new ProductResource($product);
     }
 }

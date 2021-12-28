@@ -11,11 +11,14 @@ use Modules\Product\Models\ProductVariation;
 
 class ProductConfiguratorStorage
 {
-    public function update(Product $product, array $variations)
+    /**
+     * @throws \Throwable
+     */
+    public function update(Product $product, array $variations): void
     {
         DB::beginTransaction();
 
-        (new ProductVariationStorage($product, $variations))
+        (new ProductVariationStorage($product, Arr::except($variations, 'links')))
             ->deleteNonExistentVariations()
             ->createNewVariations()
             ->updateExistingVariations();
