@@ -23,6 +23,7 @@ class QuestionCategoryUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
+            'position' => 'sometimes|nullable|integer',
         ];
     }
 }

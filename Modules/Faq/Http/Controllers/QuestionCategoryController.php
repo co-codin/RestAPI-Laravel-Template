@@ -12,6 +12,13 @@ class QuestionCategoryController extends Controller
         protected QuestionCategoryRepository $questionCategoryRepository
     ) {}
 
+    public function all()
+    {
+        $questionCategories = $this->questionCategoryRepository->all();
+
+        return QuestionCategoryResource::collection($questionCategories);
+    }
+
     public function index()
     {
         $questionCategories = $this->questionCategoryRepository->jsonPaginate();
