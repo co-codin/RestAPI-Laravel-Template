@@ -20,7 +20,7 @@ class ProductLiveFilter implements Filter
                         ->from(function ($query) use ($term) {
                             $query->select('products.id')
                                 ->from('products')
-                                ->where('products.name', 'like', '%'. $term . '%')
+                                ->where('products.name_normalized', 'like', '%'. $term . '%')
                                 ->orWhere('products.id', '=', $term)
                                 ->orWhere('products.article', '=', $term)
                                 ->union(
