@@ -22,6 +22,7 @@ class ProductLiveFilter implements Filter
                                 ->from('products')
                                 ->where('products.name', 'like', '%'. $term . '%')
                                 ->orWhere('products.id', '=', $term)
+                                ->orWhere('products.article', '=', $term)
                                 ->union(
                                     $query->newQuery()
                                         ->select('products.id')
