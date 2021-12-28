@@ -14,19 +14,20 @@ class ProductLiveFilter implements Filter
         collect(str_getcsv($value, ' ', '"'))
             ->filter()
             ->each(function ($term) use ($query) {
-                $term = '%'.preg_replace('/[^A-ZА-Яа-яa-z0-9]/', '', $term).'%';
+                $term = preg_replace('/[^A-ZА-Яа-яa-z0-9]/', '', $term);
                 $query->whereIn('id', function ($query) use ($term) {
                     $query->select('id')
                         ->from(function ($query) use ($term) {
                             $query->select('products.id')
                                 ->from('products')
-                                ->where('products.name', 'like', $term)
+                                ->where('products.name', 'like', '%'. $term . '%')
+                                ->orWhere('products.id', '=', $term)
                                 ->union(
                                     $query->newQuery()
                                         ->select('products.id')
                                         ->from('products')
                                         ->join('brands', 'products.brand_id', '=', 'brands.id')
-                                        ->where('brands.name', 'like', $term)
+                                        ->where('brands.name', 'like', '%'. $term . '%')
                                 );
                         }, 'matches');
             });
