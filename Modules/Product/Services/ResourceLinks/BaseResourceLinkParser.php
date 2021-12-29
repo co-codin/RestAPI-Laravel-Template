@@ -12,8 +12,9 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     protected Document $document;
     protected BaseParse $baseParseService;
 
-    abstract protected function getPriceXpath(): string;
-    abstract protected function getAvailabilityXpath(): string;
+    abstract public function getCurrencyId(): int;
+    abstract protected function getPriceXpath(): ?string;
+    abstract protected function getAvailabilityXpath(): ?string;
     abstract protected function matchAvailability(string $availability): ?Availability;
 
     public function __construct(protected VariationLink $variationLink)
@@ -29,7 +30,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     {
         $price = $this->document->xpath($this->getPriceXpath() . '/text()');
 
-        if (count($price) < 1) {
+        if (empty($price)) {
             throw new \Exception('');
         }
 
@@ -45,7 +46,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     {
         $availability = $this->document->xpath($this->getAvailabilityXpath() . '/text()');
 
-        if (count($availability) < 1) {
+        if (empty($availability)) {
             throw new \Exception('');
         }
 

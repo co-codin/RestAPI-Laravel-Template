@@ -9,14 +9,17 @@ use Modules\Product\Services\ResourceLinks\BaseResourceLinkParser;
 
 class DealMedParser extends BaseResourceLinkParser
 {
-    public int $currencyId = 1;
+    public function getCurrencyId(): int
+    {
+        return 1;
+    }
 
-    protected function getPriceXpath(): string
+    protected function getPriceXpath(): ?string
     {
         return '//*[@id="content"]/div/div[1]/div/span/span[1]';
     }
 
-    protected function getAvailabilityXpath(): string
+    protected function getAvailabilityXpath(): ?string
     {
         return '//*[@id="content"]/div/div[1]/div/div[3]/span';
     }
