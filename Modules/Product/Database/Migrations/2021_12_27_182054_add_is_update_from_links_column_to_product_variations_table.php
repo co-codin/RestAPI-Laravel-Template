@@ -14,7 +14,7 @@ class AddIsUpdateFromLinksColumnToProductVariationsTable extends Migration
     public function up()
     {
         Schema::table('product_variations', function (Blueprint $table) {
-            $table->boolean('is_update_from_links')->default(1);
+            $table->boolean('is_update_from_links')->default(1)->after('condition_id');
         });
     }
 

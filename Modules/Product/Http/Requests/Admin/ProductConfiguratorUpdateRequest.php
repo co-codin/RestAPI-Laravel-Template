@@ -82,7 +82,6 @@ class ProductConfiguratorUpdateRequest extends BaseFormRequest
             'links.*.currency_id' => 'required|int|exists:currencies,id',
             'links.*.price' => 'required|int|min:1',
             'links.*.availability' => 'required|int|enum_value:' . Availability::class,
-            'links.*.info_updated_at' => 'required|date',
         ];
 
         return $this->prefix($rules, $prefix)->toArray();
