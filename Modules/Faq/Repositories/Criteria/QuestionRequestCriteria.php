@@ -17,7 +17,7 @@ class QuestionRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(['id', 'question_category_id', 'question', 'status', 'position', 'slug',
-                'answer', 'created_at', 'updated_at', 'deleted_at'])
+                'answer', 'created_at', 'updated_at', 'deleted_at', 'published_at'])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('question_category_id'),
@@ -34,7 +34,7 @@ class QuestionRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('position'),
             ])
             ->allowedSorts('id', 'question_category_id', 'question', 'status', 'position', 'slug',
-                'answer', 'created_at', 'updated_at', 'deleted_at')
+                'answer', 'created_at', 'updated_at', 'deleted_at', 'published_at')
             ->allowedIncludes('question_category')
             ;
     }
