@@ -17,4 +17,11 @@ class VacancyDto extends BaseDto
     public ?string $full_description;
 
     public ?int $status;
+
+    public ?string $experience;
+
+    public ?string $timetable;
+
+    public ?string $occupation;
+
 }

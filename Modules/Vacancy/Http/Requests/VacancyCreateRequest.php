@@ -20,6 +20,9 @@ class VacancyCreateRequest extends FormRequest
                 'integer',
                 new EnumValue(Status::class, false),
             ],
+            'experience' => 'sometimes|nullable|string',
+            'timetable' => 'sometimes|nullable|string',
+            'occupation' => 'sometimes|nullable|string',
         ];
     }
 }
