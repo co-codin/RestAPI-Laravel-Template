@@ -13,7 +13,7 @@ class VacancyCreateRequest extends FormRequest
         return [
             'name' => 'required|max:255|string',
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|string|max:255|string|unique:vacancies,slug',
-            'short_description' => 'required|string|max:255',
+            'short_description' => 'required|string',
             'full_description' => 'required',
             'status' => [
                 'required',
