@@ -9,11 +9,12 @@ use Modules\Product\Models\VariationLink;
 
 abstract class BaseResourceLinkParser extends BaseResourceLink
 {
-    private Document $document;
-    private BaseParse $baseParseService;
+    protected Document $document;
+    protected BaseParse $baseParseService;
 
     abstract protected function getPriceXpath(): string;
     abstract protected function getAvailabilityXpath(): string;
+    abstract protected function matchAvailability(string $availability): ?Availability;
 
     public function __construct(protected VariationLink $variationLink)
     {
@@ -21,11 +22,14 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         $this->document = $this->baseParseService->getDocument($variationLink->resource);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getPrice(): int
     {
-        $price = $this->document->xpath("{$this->getPriceXpath()}/text()");
+        $price = $this->document->xpath($this->getPriceXpath() . '/text()');
 
-        if (count($price) !== 1) {
+        if (count($price) < 1) {
             throw new \Exception('');
         }
 
@@ -34,28 +38,26 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         return (int)$price;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getAvailability(): Availability
     {
-        $availability = $this->document->xpath("{$this->getAvailabilityXpath()}/text()");
+        $availability = $this->document->xpath($this->getAvailabilityXpath() . '/text()');
 
-        if (count($availability) !== 1) {
+        if (count($availability) < 1) {
             throw new \Exception('');
         }
 
-        $availability = $this->baseParseService->removeWhiteSpace($availability[0]);
+        foreach ($availability as $item) {
+            $item = $this->baseParseService->removeWhiteSpace($item);
+            $availabilityEnum = $this->matchAvailability($item);
 
-        return $this->matchAvailability($availability);
-    }
+            if (!is_null($availabilityEnum)) {
+                return $availabilityEnum;
+            }
+        }
 
-    protected function matchAvailability(string $inStock): Availability
-    {
-        return match ($inStock) {
-            'В наличии' => Availability::IN_STOCK(),
-            '' => Availability::UNDER_THE_ORDER(),
-            'Ожидается поставка' => Availability::COMING_SOON(),
-//            '' => Availability::OUT_OF_PRODUCTION(),
-//            '' => Availability::MISSING_REG_CERTIFICATE(),
-            default => throw new \Exception('')
-        };
+        throw new \Exception('');
     }
 }
