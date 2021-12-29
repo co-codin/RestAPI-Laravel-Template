@@ -73,7 +73,7 @@ class ProductConfiguratorUpdateRequest extends BaseFormRequest
             'links.*' => 'required|array',
             'links.*.id' => 'sometimes|nullable|int|distinct|exists:variation_links,id',
             'links.*.supplier' => 'required|int|enum_value:' . SupplierEnum::class,
-            'links.*.key' => 'required|string|max:255',
+            'links.*.resource' => 'required|string|max:255',
             'links.*.is_default' => 'required|boolean',
             'links.*.check' => 'sometimes|nullable|array',
             'links.*.check.*' => 'required|array',

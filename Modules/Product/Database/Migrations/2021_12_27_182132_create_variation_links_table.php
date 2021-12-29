@@ -17,7 +17,7 @@ class CreateVariationLinksTable extends Migration
             $table->id();
             $table->foreignId('product_variation_id')->constrained();
             $table->unsignedTinyInteger('supplier');
-            $table->string('key');
+            $table->string('resource');
             $table->boolean('is_default')->default(0);
             $table->json('check')->nullable();
             $table->foreignId('currency_id')->constrained();

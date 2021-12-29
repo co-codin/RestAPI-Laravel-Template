@@ -10,7 +10,7 @@ class VariationLinkDto extends BaseDto
 
     public ?int $supplier;
 
-    public ?string $key;
+    public ?string $resource;
 
     public ?bool $is_default;
 

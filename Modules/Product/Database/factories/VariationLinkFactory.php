@@ -18,7 +18,7 @@ class VariationLinkFactory extends Factory
         return [
             'product_variation_id' => ProductVariation::factory(),
             'supplier' => SupplierEnum::getRandomValue(),
-            'key' => $this->faker->url(),
+            'resource' => $this->faker->url(),
             'is_default' => false,
             'check' => [
                 ['element' => $this->faker->randomNumber(), 'value' => $this->faker->sentence],

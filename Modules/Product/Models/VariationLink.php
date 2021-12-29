@@ -18,7 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property int $product_variation_id
  * @property int $supplier
- * @property string $key
+ * @property string $resource
  * @property boolean $is_default
  * @property array|null $check
  * @property int $currency_id
