@@ -26,10 +26,12 @@ class DealMedParser extends BaseResourceLinkParser
 
     protected function matchAvailability(string $availability): ?Availability
     {
+        $availability = \Str::lower($availability);
+
         return match (true) {
-            str_contains($availability, 'В наличии') => Availability::IN_STOCK(),
+            str_contains($availability, 'в наличии') => Availability::IN_STOCK(),
             $availability === '' => Availability::UNDER_THE_ORDER(),
-            str_contains($availability, 'Ожидается поставка') => Availability::COMING_SOON(),
+            str_contains($availability, 'ожидается поставка') => Availability::COMING_SOON(),
             default => null
         };
     }

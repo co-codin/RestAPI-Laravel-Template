@@ -22,8 +22,8 @@ class MedComplexParser extends BaseResourceLinkParser
 
     protected function getAvailabilityXpath(): ?string
     {
-//        return $this->variationLink->xpath?->availability;
-        return '/html/body/div[1]/section/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/div[1]/noindex/div';
+        return $this->variationLink->xpath?->availability;
+//        return '/html/body/div[1]/section/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/div[1]/noindex/div';
     }
 
     /**
@@ -56,21 +56,45 @@ class MedComplexParser extends BaseResourceLinkParser
      */
     public function getAvailability(): Availability
     {
-        $watchButton = $this->document->xpath('/html/body/div[1]/section/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/a/text()');
+        $button = $this->document->xpath("//div[contains(@class, 'price-card-footer')]")[0]
+            ?->first('.product-page-buy-button')
+            ?->first('.btn::text()');
 
-        if (!empty($watchButton)) {
+        if ($button === "Смотреть") {
             return Availability::UNDER_THE_ORDER();
         }
 
-        return self::getAvailability();
+        if (!is_null($this->getAvailabilityXpath())) {
+            return self::getAvailability();
+        }
+
+        $availability = $this->document->xpath(
+            "//div[contains(@class, 'price-card-body_price')]"
+            . "/div[contains(@class, 'product-status')]"
+        )[0]
+            ?->first('.product-where::text()');
+
+        if (is_null($availability)) {
+            throw new \Exception('');
+        }
+
+        $availability = $this->baseParseService->removeWhiteSpace($availability);
+
+        $availabilityEnum = $this->matchAvailability($availability);
+
+        if (!is_null($availabilityEnum)) {
+            return $availabilityEnum;
+        }
+
+        throw new \Exception('');
     }
 
     protected function matchAvailability(string $availability): ?Availability
     {
-        return match ($availability) {
-            'В наличии' => Availability::IN_STOCK(),
+        return match (\Str::lower($availability)) {
+            'в наличии' => Availability::IN_STOCK(),
             '' => Availability::UNDER_THE_ORDER(),
-            'Ожидается поставка' => Availability::COMING_SOON(),
+            'ожидается поставка' => Availability::COMING_SOON(),
             default => null
         };
     }

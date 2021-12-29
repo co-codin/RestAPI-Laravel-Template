@@ -29,7 +29,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_enabled
  * @property int $availability
  * @property int $condition_id
- * @property string|null $stock_type
+ * @property bool $is_update_from_links
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -58,6 +58,7 @@ class ProductVariation extends Model
         'availability' => 'integer',
         'options' => 'array',
         'condition_id' => 'integer',
+        'is_update_from_links' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions
