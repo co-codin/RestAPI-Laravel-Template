@@ -7,13 +7,13 @@ namespace App\Services\Parse;
 use DiDom\Document;
 use DOMDocument;
 
-abstract class BaseParse
+class BaseParse
 {
     /**
      * @param string $source html or url
      * @return Document
      */
-    protected function getDocument(string $source): Document
+    public function getDocument(string $source): Document
     {
         $html = $source;
 
@@ -27,7 +27,7 @@ abstract class BaseParse
         return new Document($dom);
     }
 
-    protected function getHtml(string $url): bool|string
+    public function getHtml(string $url): bool|string
     {
         return file_get_contents($url);
         $ch = curl_init();
@@ -42,17 +42,23 @@ abstract class BaseParse
         return $res;
     }
 
-    protected function removeWhiteSpace(string $text): string
+    public function removeWhiteSpace(string $text, bool $all = false): string
     {
-        return str_replace([
+        $whiteSpaces = [
             "  ", " \t", "\t", " \r", " \n", "\n",
             "\t\t", "\t ", "\t\r", "\t\n",
             "\r\r", "\r ", "\r\t", "\r\n",
             "\n\n", "\n ", "\n\t", "\n\r"
-        ], '', $text);
+        ];
+
+        if ($all) {
+            $whiteSpaces = array_merge($whiteSpaces, [" "]);
+        }
+
+        return str_replace($whiteSpaces, '', $text);
     }
 
-    protected function formatMonth(string $date): string
+    public function formatMonth(string $date): string
     {
         $months = [
             'январь' => 'января',

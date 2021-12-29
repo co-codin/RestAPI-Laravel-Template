@@ -5,8 +5,8 @@ namespace Modules\Product\Enums;
 
 
 use App\Enums\BaseEnum;
-use Modules\Product\Services\Parsers\DealMedParser;
-use Modules\Product\Services\Parsers\MedComplexParser;
+use Modules\Product\Services\ResourceLinks\Parsers\DealMedParser;
+use Modules\Product\Services\ResourceLinks\Parsers\MedComplexParser;
 
 class SupplierEnum extends BaseEnum
 {
