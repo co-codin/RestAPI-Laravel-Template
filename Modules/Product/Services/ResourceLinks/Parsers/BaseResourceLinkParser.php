@@ -89,9 +89,13 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         }
 
         $message = match (true) {
-            $response->serverError() => 'Ошибка сервера на странице',
-            $response->clientError() => 'Страница не найдена',
-            $response->redirect() => 'Ссылка содержит редирект',
+            $response->serverError() => "Ошибка сервера на странице",
+            $response->clientError() => "Страница не найдена",
+//            $response->redirect() || ($variationLink->resource !== (string)$response->effectiveUri()) =>
+            $response->redirect() =>
+                "Ссылка содержит редирект."
+                . " Указанная ссылка: $variationLink->resource."
+                . " Конечная ссылка: " . $response->effectiveUri(),
             default => "Страница недоступна. Код ответа: {$response->status()}"
         };
 
