@@ -20,7 +20,7 @@ class ProductVariationLinkCommand extends Command
      */
     public function handle(): void
     {
-        $variationLinks = $this->getVariationLinks();
+        $variationLinks = VariationLink::query()->with('productVariation')->get();
 
         foreach ($variationLinks as $variationLink) {
             $service = $this->getResourceService($variationLink);
@@ -42,14 +42,6 @@ class ProductVariationLinkCommand extends Command
                 ]);
             }
         }
-    }
-
-    /**
-     * @return Collection|VariationLink[]
-     */
-    private function getVariationLinks(): Collection
-    {
-        return VariationLink::with('productVariation')->get();
     }
 
     private function getResourceService(VariationLink $variationLink): BaseResourceLink

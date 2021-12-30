@@ -23,7 +23,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     /**
      * @throws \Exception
      */
-    public function getPrice(): int
+    protected function getPriceByXpath(): int
     {
         $price = $this->document->xpath($this->getPriceXpath() . '/text()');
 
@@ -39,7 +39,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     /**
      * @throws \Exception
      */
-    public function getAvailability(): Availability
+    protected function getAvailabilityByXpath(): Availability
     {
         $availability = $this->document->xpath($this->getAvailabilityXpath() . '/text()');
 

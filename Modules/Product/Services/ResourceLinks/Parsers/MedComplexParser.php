@@ -20,7 +20,7 @@ class MedComplexParser extends BaseResourceLinkParser
     public function getPrice(): int
     {
         if (!is_null($this->getPriceXpath())) {
-            return parent::getPrice();
+            return $this->getPriceByXpath();
         }
 
         $price = $this->document->xpath(
@@ -45,7 +45,7 @@ class MedComplexParser extends BaseResourceLinkParser
     public function getAvailability(): Availability
     {
         if (!is_null($this->getAvailabilityXpath())) {
-            return parent::getAvailability();
+            return $this->getAvailabilityByXpath();
         }
 
         $availability = $this->document->xpath(
