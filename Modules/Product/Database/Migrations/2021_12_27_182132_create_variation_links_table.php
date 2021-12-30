@@ -23,6 +23,7 @@ class CreateVariationLinksTable extends Migration
             $table->foreignId('currency_id')->constrained();
             $table->unsignedBigInteger('price');
             $table->unsignedTinyInteger('availability');
+            $table->json('xpath')->nullable();
 
             $table->timestamp('info_updated_at');
             $table->timestamps();

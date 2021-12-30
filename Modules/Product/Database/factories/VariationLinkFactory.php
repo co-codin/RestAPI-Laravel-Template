@@ -27,6 +27,10 @@ class VariationLinkFactory extends Factory
             'currency_id' => Currency::factory(),
             'price' => $this->faker->numberBetween(12312, 9812302),
             'availability' => Availability::getRandomValue(),
+            'xpath' => [
+                'price' => 'price xpath',
+                'availability' => 'availability xpath',
+            ],
             'info_updated_at' => $this->faker->dateTime(),
         ];
     }

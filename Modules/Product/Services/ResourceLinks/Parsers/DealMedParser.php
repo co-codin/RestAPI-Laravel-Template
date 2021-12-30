@@ -14,14 +14,56 @@ class DealMedParser extends BaseResourceLinkParser
         return 1;
     }
 
-    protected function getPriceXpath(): ?string
+    /**
+     * @throws \Exception
+     */
+    public function getPrice(): int
     {
-        return '//*[@id="content"]/div/div[1]/div/span/span[1]';
+        if (!is_null($this->getPriceXpath())) {
+            return self::getPrice();
+        }
+
+        $price = $this->document->xpath("//div[contains(@class, 'ordcen')]")[0]
+            ?->first('.price')
+            ?->first('.price-value::text()');
+
+        if (is_null($price)) {
+            throw new \Exception('');
+        }
+
+        $price = $this->baseParseService->removeWhiteSpace($price, true);
+
+        return (int)$price;
     }
 
-    protected function getAvailabilityXpath(): ?string
+    /**
+     * @throws \Exception
+     */
+    public function getAvailability(): Availability
     {
-        return '//*[@id="content"]/div/div[1]/div/div[3]/span';
+        if (!is_null($this->getAvailabilityXpath())) {
+            return self::getAvailability();
+        }
+
+        $availability = $this->document->xpath(
+            "//div[contains(@class, 'ordcen')]"
+        )[0]
+            ?->first('.stock-on-product-card-info-block')
+            ?->first('span.stock::text()');
+
+        if (is_null($availability)) {
+            throw new \Exception('');
+        }
+
+        $availability = $this->baseParseService->removeWhiteSpace($availability);
+
+        $availabilityEnum = $this->matchAvailability($availability);
+
+        if (!is_null($availabilityEnum)) {
+            return $availabilityEnum;
+        }
+
+        throw new \Exception('');
     }
 
     protected function matchAvailability(string $availability): ?Availability

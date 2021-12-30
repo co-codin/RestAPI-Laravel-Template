@@ -4,10 +4,11 @@ type VariationLink {
     supplier: Int!
     key: String!
     is_default: Boolean!
-    check: [VariationLinkCheck!]
+    check: [[VariationLinkCheck!]]
     currency_id: Int!
     price: Int!
     availability: Int!
+    xpath: [VariationLinkXpath!]
     info_updated_at: String
 
     productVariation: ProductVariation @belongsTo
@@ -17,4 +18,9 @@ type VariationLink {
 type VariationLinkCheck {
     element: String!
     value: String!
+}
+
+type VariationLinkXpath {
+    price: String!
+    availability: String!
 }

@@ -14,18 +14,6 @@ class MedComplexParser extends BaseResourceLinkParser
         return 1;
     }
 
-    protected function getPriceXpath(): ?string
-    {
-        return $this->variationLink->xpath?->price;
-//        return '/html/body/div[1]/section/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/div[2]/div[1]/div[1]/div/span[1]';
-    }
-
-    protected function getAvailabilityXpath(): ?string
-    {
-        return $this->variationLink->xpath?->availability;
-//        return '/html/body/div[1]/section/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/div[1]/noindex/div';
-    }
-
     /**
      * @throws \Exception
      */
@@ -56,14 +44,6 @@ class MedComplexParser extends BaseResourceLinkParser
      */
     public function getAvailability(): Availability
     {
-        $button = $this->document->xpath("//div[contains(@class, 'price-card-footer')]")[0]
-            ?->first('.product-page-buy-button')
-            ?->first('.btn::text()');
-
-        if ($button === "Смотреть") {
-            return Availability::UNDER_THE_ORDER();
-        }
-
         if (!is_null($this->getAvailabilityXpath())) {
             return self::getAvailability();
         }

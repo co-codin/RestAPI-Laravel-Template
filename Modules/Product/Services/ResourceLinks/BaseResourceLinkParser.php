@@ -13,8 +13,6 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     protected BaseParse $baseParseService;
 
     abstract public function getCurrencyId(): int;
-    abstract protected function getPriceXpath(): ?string;
-    abstract protected function getAvailabilityXpath(): ?string;
     abstract protected function matchAvailability(string $availability): ?Availability;
 
     public function __construct(protected VariationLink $variationLink)
@@ -60,5 +58,15 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         }
 
         throw new \Exception('');
+    }
+
+    protected function getPriceXpath(): ?string
+    {
+        return \Arr::get($this->variationLink->xpath, 'price');
+    }
+
+    protected function getAvailabilityXpath(): ?string
+    {
+        return \Arr::get($this->variationLink->xpath ,'availability');
     }
 }

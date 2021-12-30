@@ -22,5 +22,7 @@ class VariationLinkDto extends BaseDto
 
     public ?int $availability;
 
+    public ?array $xpath;
+
     public ?string $info_updated_at;
 }

@@ -27,6 +27,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property float|int|null $previous_price
  * @property bool $is_price_visible
  * @property int $availability
+ * @property array|null $xpath
  * @property Carbon|null $info_updated_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -56,6 +57,7 @@ class VariationLink extends Model
         'is_price_visible' => 'boolean',
         'availability' => 'integer',
         'info_updated_at' => 'datetime',
+        'xpath' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
