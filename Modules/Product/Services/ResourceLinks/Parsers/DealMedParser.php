@@ -5,7 +5,6 @@ namespace Modules\Product\Services\ResourceLinks\Parsers;
 
 
 use Modules\Product\Enums\Availability;
-use Modules\Product\Services\ResourceLinks\BaseResourceLinkParser;
 
 class DealMedParser extends BaseResourceLinkParser
 {
@@ -28,7 +27,7 @@ class DealMedParser extends BaseResourceLinkParser
             ?->first('.price-value::text()');
 
         if (is_null($price)) {
-            throw new \Exception('');
+            throw new \Exception('Не найдена цена на странице');
         }
 
         $price = $this->baseParseService->removeWhiteSpace($price, true);
@@ -52,18 +51,18 @@ class DealMedParser extends BaseResourceLinkParser
             ?->first('span.stock::text()');
 
         if (is_null($availability)) {
-            throw new \Exception('');
+            throw new \Exception('Не найдено наличие на странице');
         }
 
         $availability = $this->baseParseService->removeWhiteSpace($availability);
 
         $availabilityEnum = $this->matchAvailability($availability);
 
-        if (!is_null($availabilityEnum)) {
-            return $availabilityEnum;
+        if (is_null($availabilityEnum)) {
+            throw new \Exception("Значение наличия не прошло проверку. Наличие на странице: $availability");
         }
 
-        throw new \Exception('');
+        return $availabilityEnum;
     }
 
     protected function matchAvailability(string $availability): ?Availability
@@ -72,7 +71,6 @@ class DealMedParser extends BaseResourceLinkParser
 
         return match (true) {
             str_contains($availability, 'в наличии') => Availability::IN_STOCK(),
-            $availability === '' => Availability::UNDER_THE_ORDER(),
             str_contains($availability, 'ожидается поставка') => Availability::COMING_SOON(),
             default => null
         };

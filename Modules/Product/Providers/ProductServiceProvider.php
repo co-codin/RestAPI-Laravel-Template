@@ -4,6 +4,7 @@ namespace Modules\Product\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Product\Reporters\VariationLinkReporter;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,8 @@ class ProductServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->singleton(VariationLinkReporter::class);
     }
 
     protected function registerConfig()

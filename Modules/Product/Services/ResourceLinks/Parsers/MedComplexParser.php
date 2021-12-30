@@ -5,7 +5,6 @@ namespace Modules\Product\Services\ResourceLinks\Parsers;
 
 
 use Modules\Product\Enums\Availability;
-use Modules\Product\Services\ResourceLinks\BaseResourceLinkParser;
 
 class MedComplexParser extends BaseResourceLinkParser
 {
@@ -31,7 +30,7 @@ class MedComplexParser extends BaseResourceLinkParser
             ?->first('span::text()');
 
         if (is_null($price)) {
-            throw new \Exception('');
+            throw new \Exception('Не найдена цена на странице');
         }
 
         $price = $this->baseParseService->removeWhiteSpace($price, true);
@@ -55,25 +54,24 @@ class MedComplexParser extends BaseResourceLinkParser
             ?->first('.product-where::text()');
 
         if (is_null($availability)) {
-            throw new \Exception('');
+            throw new \Exception('Не найдено наличие на странице');
         }
 
         $availability = $this->baseParseService->removeWhiteSpace($availability);
 
         $availabilityEnum = $this->matchAvailability($availability);
 
-        if (!is_null($availabilityEnum)) {
-            return $availabilityEnum;
+        if (is_null($availabilityEnum)) {
+            throw new \Exception('Значение наличия не прошло проверку');
         }
 
-        throw new \Exception('');
+        return $availabilityEnum;
     }
 
     protected function matchAvailability(string $availability): ?Availability
     {
         return match (\Str::lower($availability)) {
             'в наличии' => Availability::IN_STOCK(),
-            '' => Availability::UNDER_THE_ORDER(),
             'ожидается поставка' => Availability::COMING_SOON(),
             default => null
         };
