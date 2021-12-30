@@ -12,7 +12,6 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     protected Document $document;
     protected BaseParse $baseParseService;
 
-    abstract public function getCurrencyId(): int;
     abstract protected function matchAvailability(string $availability): ?Availability;
 
     public function __construct(protected VariationLink $variationLink)
