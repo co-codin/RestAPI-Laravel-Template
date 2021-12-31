@@ -3,6 +3,9 @@
 namespace Modules\Product\Reporters;
 
 use Illuminate\Support\Collection as SupportCollection;
+use JetBrains\PhpStorm\ArrayShape;
+use Modules\Form\Mail\VariationLinkReportsNotify;
+use Modules\Product\Enums\VariationLinkReportType;
 
 class VariationLinkReporter
 {

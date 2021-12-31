@@ -3,7 +3,9 @@
 namespace Modules\Product\Services\ResourceLinks;
 
 use Modules\Product\Enums\Availability;
+use Modules\Product\Enums\VariationLinkReportType;
 use Modules\Product\Models\VariationLink;
+use Modules\Product\Reporters\VariationLinkReporter;
 
 abstract class BaseResourceLink
 {
