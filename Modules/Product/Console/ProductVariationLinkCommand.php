@@ -5,6 +5,7 @@ namespace Modules\Product\Console;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Modules\Product\Enums\SupplierEnum;
+use Modules\Product\Enums\VariationLinkReportType;
 use Modules\Product\Models\VariationLink;
 use Modules\Product\Reporters\VariationLinkReporter;
 use Modules\Product\Services\ResourceLinks\BaseResourceLink;
@@ -26,7 +27,7 @@ class ProductVariationLinkCommand extends Command
                 $this->variationLinkUpdate($resourceService, $variationLink);
                 $this->productVariationUpdate($variationLink);
             } catch (\Throwable $e) {
-                $variationLinkReporter->setReport($variationLink->id, $e->getMessage());
+                continue;
             }
         }
 
@@ -52,6 +53,12 @@ class ProductVariationLinkCommand extends Command
         $variationLink->info_updated_at = Carbon::now()->toDateTimeString();
 
         if (!$variationLink->save()) {
+            app(VariationLinkReporter::class)->setReport(
+                $variationLink->id,
+                VariationLinkReportType::VARIATION_LINK_UPDATE(),
+                'Ошибка при обновлении связи'
+            );
+
             throw new \Exception('Ошибка при обновлении связи');
         }
     }
@@ -69,6 +76,12 @@ class ProductVariationLinkCommand extends Command
             ];
 
             if (!$variationLink->productVariation->update($productVariationData)) {
+                app(VariationLinkReporter::class)->setReport(
+                    $variationLink->id,
+                    VariationLinkReportType::PRODUCT_VARIATION_UPDATE(),
+                    'Ошибка при обновлении модификации'
+                );
+
                 throw new \Exception('Ошибка при обновлении модификации');
             }
         }

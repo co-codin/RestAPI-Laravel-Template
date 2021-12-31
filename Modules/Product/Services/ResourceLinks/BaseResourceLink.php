@@ -13,5 +13,7 @@ abstract class BaseResourceLink
 
     abstract public function getAvailability(): Availability;
 
-    abstract public function __construct(VariationLink $variationLink);
+    public function __construct(
+        protected VariationLink $variationLink,
+    ) {}
 }

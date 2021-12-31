@@ -13,15 +13,21 @@ class VariationLinkReporter
         $this->reports = collect([]);
     }
 
-    public function setReport(int $variationLinkId, string $message): void
+    public function setReport(int $variationLinkId, VariationLinkReportType $reportType, string $message): void
     {
         $this->reports->push([
             'id' => $variationLinkId,
+            'type' => $reportType->value,
             'message' => $message
         ]);
     }
 
-    public function getReport(int $variationLinkId): ?string
+    #[ArrayShape([
+        'id' => "int",
+        'type' => "int",
+        'message' => "string",
+    ])]
+    public function getReport(int $variationLinkId): ?array
     {
         return $this->reports->where('id', $variationLinkId)->first();
     }
@@ -33,12 +39,7 @@ class VariationLinkReporter
 
     public function sendReports(): void
     {
-        $done = false;
-
-        if ($this->reports->isEmpty()) {
-            $done = true;
-        }
-
-//        (new VariationLinkReportsNotify())->dispatch($this->reports, $done);
+        \Mail::to(config('product.variation-link.reports.email'))
+            ->queue(new VariationLinkReportsNotify($this->reports));
     }
 }

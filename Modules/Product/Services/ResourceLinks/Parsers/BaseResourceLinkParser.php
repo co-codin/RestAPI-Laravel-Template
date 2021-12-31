@@ -11,7 +11,6 @@ use Modules\Product\Services\ResourceLinks\BaseResourceLink;
 abstract class BaseResourceLinkParser extends BaseResourceLink
 {
     protected Document $document;
-    protected VariationLink $variationLink;
     protected BaseParse $baseParseService;
 
     abstract protected function matchAvailability(string $availability): ?Availability;
@@ -21,10 +20,10 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
      */
     public function __construct(VariationLink $variationLink)
     {
-        $this->checkLinkResource($variationLink);
+        parent::__construct($variationLink);
 
         $this->baseParseService = new BaseParse();
-        $this->variationLink = $variationLink;
+        $this->checkLinkResource();
         $this->document = $this->baseParseService->getDocument($variationLink->resource);
     }
 
@@ -36,6 +35,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         $price = $this->document->xpath($this->getPriceXpath() . '/text()');
 
         if (empty($price)) {
+            $this->priceReport('Не найдена цена на странице');
             throw new \Exception('');
         }
 
@@ -52,7 +52,8 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
         $availability = $this->document->xpath($this->getAvailabilityXpath() . '/text()');
 
         if (empty($availability)) {
-            throw new \Exception('');
+            $this->availabilityReport('Не найдено наличие на странице');
+            throw new \Exception('Не найдено наличие на странице');
         }
 
         foreach ($availability as $item) {
@@ -64,7 +65,8 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
             }
         }
 
-        throw new \Exception('');
+        $this->availabilityReport("Значение наличия не прошло проверку. Наличие на странице:" . implode(', ', $availability));
+        throw new \Exception('Значение наличия не прошло проверку');
     }
 
     protected function getPriceXpath(): ?string
@@ -80,9 +82,9 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
     /**
      * @throws \Exception
      */
-    private function checkLinkResource(VariationLink $variationLink): void
+    private function checkLinkResource(): void
     {
-        $response = \Http::get($variationLink->resource);
+        $response = \Http::get($this->variationLink->resource);
 
         if ($response->successful()) {
             return;
@@ -94,11 +96,12 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
 //            $response->redirect() || ($variationLink->resource !== (string)$response->effectiveUri()) =>
             $response->redirect() =>
                 "Ссылка содержит редирект."
-                . " Указанная ссылка: $variationLink->resource."
+                . " Указанная ссылка: {$this->variationLink->resource}."
                 . " Конечная ссылка: " . $response->effectiveUri(),
             default => "Страница недоступна. Код ответа: {$response->status()}"
         };
 
+        $this->statusCodeReport($message);
         throw new \Exception($message);
     }
 }

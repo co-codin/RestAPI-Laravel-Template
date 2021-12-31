@@ -27,6 +27,7 @@ class DealMedParser extends BaseResourceLinkParser
             ?->first('.price-value::text()');
 
         if (is_null($price)) {
+            $this->priceReport('Не найдена цена на странице');
             throw new \Exception('Не найдена цена на странице');
         }
 
@@ -51,6 +52,7 @@ class DealMedParser extends BaseResourceLinkParser
             ?->first('span.stock::text()');
 
         if (is_null($availability)) {
+            $this->availabilityReport('Не найдено наличие на странице');
             throw new \Exception('Не найдено наличие на странице');
         }
 
@@ -59,6 +61,7 @@ class DealMedParser extends BaseResourceLinkParser
         $availabilityEnum = $this->matchAvailability($availability);
 
         if (is_null($availabilityEnum)) {
+            $this->availabilityReport("Значение наличия не прошло проверку. Наличие на странице: $availability");
             throw new \Exception("Значение наличия не прошло проверку. Наличие на странице: $availability");
         }
 
