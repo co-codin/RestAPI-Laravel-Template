@@ -45,7 +45,7 @@ class ProductReview extends Model
 
     protected $guarded = [
         'id',
-        'status'
+        'status',
     ];
 
     protected $casts = [
