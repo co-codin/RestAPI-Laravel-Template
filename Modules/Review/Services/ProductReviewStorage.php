@@ -33,6 +33,7 @@ class ProductReviewStorage
      */
     public function update(ProductReview $productReview, ProductReviewDto $productReviewDto): ProductReview
     {
+        var_dump($productReviewDto->toArray());
         if (!$productReview->update($productReviewDto->toArray())) {
             throw new \Exception('Can not update Product Review');
         }
