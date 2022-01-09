@@ -46,6 +46,10 @@ class ProductReviewController extends Controller
         int $productReviewId
     ): ProductReviewResource
     {
+        dd(
+            ProductReviewDto::fromFormRequest($request)
+        );
+        
         $productReview = $this->storage->update(
             $this->repository->find($productReviewId),
             ProductReviewDto::fromFormRequest($request)
