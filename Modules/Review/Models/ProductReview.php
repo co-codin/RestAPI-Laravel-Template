@@ -50,7 +50,6 @@ class ProductReview extends Model
 
     protected $casts = [
         'ratings' => 'array',
-        'answered_at' => 'date:Y-m-d',
     ];
 
     public function product(): BelongsTo

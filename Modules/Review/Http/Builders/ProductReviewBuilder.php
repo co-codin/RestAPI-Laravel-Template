@@ -49,7 +49,6 @@ class ProductReviewBuilder extends BaseBuilder
             'dislike',
             'created_at',
             'updated_at',
-            'answered_at',
         ];
 
         return $this->filter($fields, $columns)
@@ -76,7 +75,6 @@ class ProductReviewBuilder extends BaseBuilder
             'like' => AllowedFilter::exact('like'),
             'dislike' => AllowedFilter::exact('dislike'),
             'created_at' => AllowedFilter::custom('created_at', new DateFilter(), 'created_at'),
-            'answered_at' => AllowedFilter::custom('answered_at', new DateFilter(), 'answered_at'),
             'updated_at' => AllowedFilter::custom('created_at', new DateFilter(), 'updated_at'),
         ];
 
@@ -102,7 +100,6 @@ class ProductReviewBuilder extends BaseBuilder
             'is_confirmed',
             'like',
             'dislike',
-            'answered_at',
         ];
 
         if (!is_null($this->relationDtoCollection)) {
