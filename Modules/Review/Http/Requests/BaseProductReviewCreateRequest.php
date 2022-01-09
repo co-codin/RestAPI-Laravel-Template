@@ -30,6 +30,7 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
             'disadvantages' => 'sometimes|nullable|string',
             'comment' => 'required|string',
             'ratings' => 'required|array',
+            'answered_at' => 'sometimes|nullable|date',
         ];
     }
 
@@ -45,6 +46,7 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
             'comment' => 'Комментарий',
             'ratings' => 'Оценки',
             'created_at' => 'Дата написания',
+            'answered_at' => 'Дата написания ответа',
         ];
     }
 
