@@ -30,7 +30,6 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
             'disadvantages' => 'sometimes|nullable|string',
             'comment' => 'required|string',
             'ratings' => 'required|array',
-            'answered_at' => 'sometimes|nullable|date',
         ];
     }
 
