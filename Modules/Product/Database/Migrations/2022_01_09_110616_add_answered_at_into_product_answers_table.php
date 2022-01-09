@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAnsweredAtIntoProductReviewsTable extends Migration
+class AddAnsweredAtIntoProductAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAnsweredAtIntoProductReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::table('product_reviews', function (Blueprint $table) {
-            $table->timestamp('answered_at')->after('dislike')->nullable();
+        Schema::table('product_answers', function (Blueprint $table) {
+            $table->timestamp('answered_at')->after('date')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddAnsweredAtIntoProductReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::table('product_reviews', function (Blueprint $table) {
+        Schema::table('product_answers', function (Blueprint $table) {
             $table->dropColumn('answered_at');
         });
     }

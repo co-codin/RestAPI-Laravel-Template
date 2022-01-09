@@ -1,5 +1,3 @@
-scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-
 type ProductReview {
     id: ID!
     product_id: Int!
@@ -19,7 +17,6 @@ type ProductReview {
     ratings_avg: Float!
     product: Product! @belongsTo
     client: Client @belongsTo
-    answered_at: Date!
 }
 
 enum ProductReviewStatusEnum {
