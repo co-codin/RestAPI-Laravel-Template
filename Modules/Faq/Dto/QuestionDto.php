@@ -17,6 +17,4 @@ class QuestionDto extends BaseDto
     public mixed $question_category_id;
 
     public ?int $position;
-
-    public ?string $published_at;
 }
