@@ -36,6 +36,7 @@ class ProductReviewUpdateRequest extends BaseFormRequest
             'comment' => 'sometimes|required|string',
             'ratings' => 'sometimes|required|array|min:1',
             'created_at' => 'required|date',
+            'answered_at' => 'sometimes|nullable|date',
         ];
     }
 
@@ -53,6 +54,7 @@ class ProductReviewUpdateRequest extends BaseFormRequest
             'comment' => 'Комментарий',
             'ratings' => 'Оценки',
             'created_at' => 'Дата написания',
+            'answered_at' => 'Дата написания ответа'
         ];
     }
 
