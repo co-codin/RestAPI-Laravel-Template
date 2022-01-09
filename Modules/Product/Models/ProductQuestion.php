@@ -43,6 +43,7 @@ class ProductQuestion extends Model
 
     protected $casts = [
         'date' => 'datetime',
+        'questioned_at' => 'date:Y-m-d',
     ];
 
     protected static function boot()
