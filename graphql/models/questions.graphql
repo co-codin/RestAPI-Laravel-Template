@@ -1,5 +1,3 @@
-scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-
 type Question {
     question_category_id: Int!
     id: ID!
@@ -8,6 +6,5 @@ type Question {
     answer: String!
     status: Boolean!
     position: Int
-    published_at: Date!
     question_category: QuestionCategory! @belongsTo
 }

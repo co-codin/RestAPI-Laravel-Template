@@ -24,7 +24,6 @@ class QuestionCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'question_category_id' => 'required|integer|exists:question_categories,id',
-            'published_at' => 'sometimes|nullable|date',
         ];
     }
 

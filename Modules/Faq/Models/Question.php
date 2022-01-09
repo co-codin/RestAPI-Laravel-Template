@@ -32,10 +32,6 @@ class Question extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'published_at' => 'date:Y-m-d',
-    ];
-
     public function questionCategory()
     {
         return $this->belongsTo(QuestionCategory::class);
