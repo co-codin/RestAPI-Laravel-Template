@@ -23,9 +23,9 @@ class VacancyUpdateRequest extends FormRequest
             'experience' => 'sometimes|nullable|string',
             'timetable' => 'sometimes|nullable|string',
             'occupation' => 'sometimes|nullable|string',
-            'duty' => 'sometimes|nullable|string',
-            'requirement' => 'sometimes|nullable|string',
-            'condition' => 'sometimes|nullable|string',
+            'duty' => 'sometimes|required|string',
+            'requirement' => 'sometimes|required|string',
+            'condition' => 'sometimes|required|string',
         ];
     }
 }
