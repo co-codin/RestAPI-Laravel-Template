@@ -14,7 +14,6 @@ class VacancyCreateRequest extends FormRequest
             'name' => 'required|max:255|string',
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|string|max:255|string|unique:vacancies,slug',
             'short_description' => 'required|string',
-            'full_description' => 'required',
             'status' => [
                 'required',
                 'integer',
@@ -23,6 +22,9 @@ class VacancyCreateRequest extends FormRequest
             'experience' => 'sometimes|nullable|string',
             'timetable' => 'sometimes|nullable|string',
             'occupation' => 'sometimes|nullable|string',
+            'duty' => 'sometimes|nullable|string',
+            'requirement' => 'sometimes|nullable|string',
+            'condition' => 'sometimes|nullable|string',
         ];
     }
 }

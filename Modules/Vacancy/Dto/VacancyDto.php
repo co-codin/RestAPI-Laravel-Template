@@ -14,8 +14,6 @@ class VacancyDto extends BaseDto
 
     public ?string $short_description;
 
-    public ?string $full_description;
-
     public ?int $status;
 
     public ?string $experience;
@@ -24,4 +22,9 @@ class VacancyDto extends BaseDto
 
     public ?string $occupation;
 
+    public ?string $duty;
+
+    public ?string $requirement;
+
+    public ?string $condition;
 }
