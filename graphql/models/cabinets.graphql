@@ -30,6 +30,8 @@ type CabinetDoc {
 
 type Requirement {
     group_name: String!
+    column_key: String!
+    column_value: String!
     requirements: [Req!]!
 }
 
