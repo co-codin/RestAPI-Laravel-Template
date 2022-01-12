@@ -42,7 +42,28 @@ class VariationLinkReporter
 
     public function sendReports(): void
     {
+        $productIds = \DB::table('variation_links as vl')
+            ->select(['vl.id', 'vl.supplier', 'pv.name as variation_name', 'pv.product_id'])
+            ->join('product_variations as pv', 'pv.id', '=', 'vl.product_variation_id')
+            ->whereIn('vl.id', $this->reports->pluck('id'))
+            ->get()
+            ->map(fn(object $object): array => (array)$object);
+
+        $withProductIds = $this->reports->map(function (array $report) use ($productIds) {
+            $productIdData = $productIds
+                ->where('id', $report['id'])
+                ->first();
+
+            $report['product_id'] = $productIdData['product_id'];
+            $report['supplier'] = $productIdData['supplier'];
+            $report['variation_name'] = $productIdData['variation_name'];
+
+            return $report;
+        });
+
+        $sortedReports = $withProductIds->sortBy(['product_id', 'id', 'supplier', 'type']);
+
         \Mail::to(config('product.variation-link.reports.email'))
-            ->queue(new VariationLinkReportsNotify($this->reports));
+            ->queue(new VariationLinkReportsNotify($sortedReports));
     }
 }

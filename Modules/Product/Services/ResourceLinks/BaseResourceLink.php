@@ -18,4 +18,38 @@ abstract class BaseResourceLink
     public function __construct(
         protected VariationLink $variationLink,
     ) {}
+
+    protected function statusCodeReport(string $message): void
+    {
+        $this->report(VariationLinkReportType::STATUS_CODE(), $message);
+    }
+
+    protected function checkReport(string $message): void
+    {
+        $this->report(VariationLinkReportType::CHECK(), $message);
+    }
+
+    protected function priceReport(string $message): void
+    {
+        $this->report(VariationLinkReportType::PRICE(), $message);
+    }
+
+    protected function availabilityReport(string $message): void
+    {
+        $this->report(VariationLinkReportType::AVAILABILITY(), $message);
+    }
+
+    protected function doneReport(string $message): void
+    {
+        $this->report(VariationLinkReportType::DONE(), $message);
+    }
+
+    protected function report(VariationLinkReportType $reportType, string $message): void
+    {
+        app(VariationLinkReporter::class)->setReport(
+            $this->variationLink->id,
+            $reportType,
+            $message
+        );
+    }
 }
