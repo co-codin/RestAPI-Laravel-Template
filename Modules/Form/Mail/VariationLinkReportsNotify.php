@@ -44,9 +44,11 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
             ->from('admin@medeq.ru', 'Medeq')
             ->subject("Парсер коммерческой информации завершил работу")
             ->html("")
-            ->attachData(stream_get_contents($stream), 'report-' . Carbon::now()->toDateTimeString() . '.csv', [
-                'mime' => 'text/csv',
-            ]);
+            ->attachData(
+                stream_get_contents($stream),
+                'report-' . Carbon::now()->toDateTimeString() . '.csv',
+                ['mime' => 'text/csv',]
+            );
 
         fclose($stream);
 

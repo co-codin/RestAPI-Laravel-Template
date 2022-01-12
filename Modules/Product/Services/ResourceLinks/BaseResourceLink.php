@@ -9,8 +9,6 @@ use Modules\Product\Reporters\VariationLinkReporter;
 
 abstract class BaseResourceLink
 {
-    abstract public function getCurrencyId(): int;
-
     abstract public function getPrice(): int;
 
     abstract public function getAvailability(): Availability;
@@ -18,6 +16,11 @@ abstract class BaseResourceLink
     public function __construct(
         protected VariationLink $variationLink,
     ) {}
+
+    public function getCurrencyId(): int
+    {
+        return 1;
+    }
 
     protected function statusCodeReport(string $message, string $comment = ''): void
     {

@@ -8,11 +8,6 @@ use Modules\Product\Enums\Availability;
 
 class MedComplexParser extends BaseResourceLinkParser
 {
-    public function getCurrencyId(): int
-    {
-        return 1;
-    }
-
     /**
      * @throws \Exception
      */
