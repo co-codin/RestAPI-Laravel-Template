@@ -16,12 +16,18 @@ class VariationLinkReporter
         $this->reports = collect([]);
     }
 
-    public function setReport(int $variationLinkId, VariationLinkReportType $reportType, string $message): void
+    public function setReport(
+        int $variationLinkId,
+        VariationLinkReportType $reportType,
+        string $message,
+        string $comment = ''
+    ): void
     {
         $this->reports->push([
             'id' => $variationLinkId,
             'type' => $reportType->value,
-            'message' => $message
+            'message' => $message,
+            'comment' => $comment
         ]);
     }
 
@@ -29,6 +35,7 @@ class VariationLinkReporter
         'id' => "int",
         'type' => "int",
         'message' => "string",
+        'comment' => "string",
     ])]
     public function getReport(int $variationLinkId): ?array
     {

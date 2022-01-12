@@ -19,37 +19,38 @@ abstract class BaseResourceLink
         protected VariationLink $variationLink,
     ) {}
 
-    protected function statusCodeReport(string $message): void
+    protected function statusCodeReport(string $message, string $comment = ''): void
     {
-        $this->report(VariationLinkReportType::STATUS_CODE(), $message);
+        $this->report(VariationLinkReportType::STATUS_CODE(), $message, $comment);
     }
 
-    protected function checkReport(string $message): void
+    protected function checkReport(string $message, string $comment = ''): void
     {
-        $this->report(VariationLinkReportType::CHECK(), $message);
+        $this->report(VariationLinkReportType::CHECK(), $message, $comment);
     }
 
-    protected function priceReport(string $message): void
+    protected function priceReport(string $message, string $comment = ''): void
     {
-        $this->report(VariationLinkReportType::PRICE(), $message);
+        $this->report(VariationLinkReportType::PRICE(), $message, $comment);
     }
 
-    protected function availabilityReport(string $message): void
+    protected function availabilityReport(string $message, string $comment = ''): void
     {
-        $this->report(VariationLinkReportType::AVAILABILITY(), $message);
+        $this->report(VariationLinkReportType::AVAILABILITY(), $message, $comment);
     }
 
-    protected function doneReport(string $message): void
+    protected function doneReport(string $message, string $comment = ''): void
     {
-        $this->report(VariationLinkReportType::DONE(), $message);
+        $this->report(VariationLinkReportType::DONE(), $message, $comment);
     }
 
-    protected function report(VariationLinkReportType $reportType, string $message): void
+    protected function report(VariationLinkReportType $reportType, string $message, string $comment = ''): void
     {
         app(VariationLinkReporter::class)->setReport(
             $this->variationLink->id,
             $reportType,
-            $message
+            $message,
+            $comment
         );
     }
 }

@@ -36,7 +36,7 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
 
         if (empty($price)) {
             $this->priceReport('Не найдена цена на странице');
-            throw new \Exception('');
+            throw new \Exception('Не найдена цена на странице');
         }
 
         $price = $this->baseParseService->removeWhiteSpace($price[0], true);
@@ -65,7 +65,11 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
             }
         }
 
-        $this->availabilityReport("Значение наличия не прошло проверку. Наличие на странице:" . implode(', ', $availability));
+        $this->availabilityReport(
+            "Значение наличия не прошло проверку.",
+            "Наличие на странице:" . implode(', ', $availability)
+        );
+
         throw new \Exception('Значение наличия не прошло проверку');
     }
 
@@ -90,18 +94,29 @@ abstract class BaseResourceLinkParser extends BaseResourceLink
             return;
         }
 
-        $message = match (true) {
-            $response->serverError() => "Ошибка сервера на странице",
-            $response->clientError() => "Страница не найдена",
-//            $response->redirect() || ($variationLink->resource !== (string)$response->effectiveUri()) =>
-            $response->redirect() =>
-                "Ссылка содержит редирект."
-                . " Указанная ссылка: {$this->variationLink->resource}."
-                . " Конечная ссылка: " . $response->effectiveUri(),
-            default => "Страница недоступна. Код ответа: {$response->status()}"
-        };
+        switch (true) {
+            case $response->serverError():
+                $message = "Ошибка сервера на странице";
+                break;
+            case $response->clientError():
+                $message = "Страница не найдена";
+                break;
+//            case $response->redirect() || ($variationLink->resource !== (string)$response->effectiveUri()): {
+            case $response->redirect():
+            {
+                $message = "Ссылка содержит редирект.";
+                $comment = "Указанная ссылка: {$this->variationLink->resource}."
+                . " Конечная ссылка: " . $response->effectiveUri();
+            }
+                break;
+            default: {
+                $message = "Страница недоступна.";
+                $comment = "Код ответа: {$response->status()}";
+            }
+                break;
+        }
 
-        $this->statusCodeReport($message);
+        $this->statusCodeReport($message, $comment ?? '');
         throw new \Exception($message);
     }
 }

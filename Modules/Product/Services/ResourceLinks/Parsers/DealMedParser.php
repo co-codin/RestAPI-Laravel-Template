@@ -61,7 +61,11 @@ class DealMedParser extends BaseResourceLinkParser
         $availabilityEnum = $this->matchAvailability($availability);
 
         if (is_null($availabilityEnum)) {
-            $this->availabilityReport("Значение наличия не прошло проверку. Наличие на странице: $availability");
+            $this->availabilityReport(
+                "Значение наличия не прошло проверку.",
+                "Наличие на странице: $availability"
+            );
+
             throw new \Exception("Значение наличия не прошло проверку. Наличие на странице: $availability");
         }
 

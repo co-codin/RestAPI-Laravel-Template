@@ -2,6 +2,7 @@
 
 namespace Modules\Form\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -37,6 +38,26 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
      */
     public function build()
     {
+        $stream = $this->getCsvStream();
+
+        $mailable = $this
+            ->from('admin@medeq.ru', 'Medeq')
+            ->subject("Парсер коммерческой информации завершил работу")
+            ->html("")
+            ->attachData(stream_get_contents($stream), 'report-' . Carbon::now()->toDateTimeString() . '.csv', [
+                'mime' => 'text/csv',
+            ]);
+
+        fclose($stream);
+
+        return $mailable;
+    }
+
+    /**
+     * @return resource|false
+     */
+    private function getCsvStream(): mixed
+    {
         $stream = fopen('php://temp', "rb+");
 
         $content = [
@@ -60,29 +81,19 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
                     $product?->brand->name . ' '
                     . $product?->name . ' '
                     . $report['variation_name']
-                ) ?? 'not find product';
+                ) ?? 'product not found';
 
             $content['variationLinkId'] = $report['id'];
             $content['supplier'] = SupplierEnum::getDescription($report['supplier']);
             $content['message'] = $report['message'];
             $content['variationLinkEditUrl'] = config('app.site_url') . "/admin/products/{$report['product_id']}/configurator";
-            $content['comment'] = $report['comment'] ?? 'comment';
+            $content['comment'] = $report['comment'];
 
             fputcsv($stream, $content, ',');
         }
 
         rewind($stream);
 
-        $mailable = $this
-            ->from('admin@medeq.ru', 'Medeq')
-            ->subject("Парсер коммерческой информации завершил работу")
-            ->html("")
-            ->attachData(stream_get_contents($stream), 'kek.csv', [
-                'mime' => 'text/csv',
-            ]);
-
-        fclose($stream);
-
-        return $mailable;
+        return $stream;
     }
 }
