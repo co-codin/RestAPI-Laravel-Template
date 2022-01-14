@@ -8,8 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Collection as SupportCollection;
-use Modules\Product\Enums\SupplierEnum;
+use Modules\Product\Dto\VariationLinkReportDtoCollection;
 use Modules\Product\Models\Product;
 
 class VariationLinkReportsNotify extends Mailable implements ShouldQueue
@@ -27,7 +26,7 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
     public int $backoff = 60;
 
     public function __construct(
-        private SupportCollection $reports
+        private VariationLinkReportDtoCollection $reports
     ) {}
 
     /**
@@ -74,7 +73,7 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
         fputcsv($stream, $content, ',');
 
         foreach ($this->reports as $report) {
-            $product = Product::with(['brand'])->find($report['product_id']);
+            $product = Product::with(['brand'])->find($report->productId);
 
             $content = [];
 
@@ -82,14 +81,14 @@ class VariationLinkReportsNotify extends Mailable implements ShouldQueue
                 (
                     $product?->brand->name . ' '
                     . $product?->name . ' '
-                    . $report['variation_name']
+                    . $report->variationName
                 ) ?? 'product not found';
 
-            $content['variationLinkId'] = $report['id'];
-            $content['supplier'] = SupplierEnum::getDescription($report['supplier']);
-            $content['message'] = $report['message'];
-            $content['variationLinkEditUrl'] = config('app.site_url') . "/admin/products/{$report['product_id']}/configurator";
-            $content['comment'] = $report['comment'];
+            $content['variationLinkId'] = $report->id;
+            $content['supplier'] = $report->supplier->description;
+            $content['message'] = $report->message;
+            $content['variationLinkEditUrl'] = config('app.site_url') . "/admin/products/{$report->productId}/configurator";
+            $content['comment'] = $report->comment;
 
             fputcsv($stream, $content, ',');
         }

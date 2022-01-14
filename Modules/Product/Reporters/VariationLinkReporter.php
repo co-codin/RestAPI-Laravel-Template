@@ -5,17 +5,24 @@ namespace Modules\Product\Reporters;
 use Illuminate\Support\Collection as SupportCollection;
 use JetBrains\PhpStorm\ArrayShape;
 use Modules\Form\Mail\VariationLinkReportsNotify;
+use Modules\Product\Dto\VariationLinkReportDto;
+use Modules\Product\Dto\VariationLinkReportDtoCollection;
+use Modules\Product\Enums\SupplierEnum;
 use Modules\Product\Enums\VariationLinkReportType;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class VariationLinkReporter
 {
-    private SupportCollection $reports;
+    private VariationLinkReportDtoCollection $reports;
 
     public function __construct()
     {
-        $this->reports = collect([]);
+        $this->reports = new VariationLinkReportDtoCollection([]);
     }
 
+    /**
+     * @throws UnknownProperties
+     */
     public function setReport(
         int $variationLinkId,
         VariationLinkReportType $reportType,
@@ -23,26 +30,22 @@ class VariationLinkReporter
         string $comment = ''
     ): void
     {
-        $this->reports->push([
-            'id' => $variationLinkId,
-            'type' => $reportType->value,
-            'message' => $message,
-            'comment' => $comment
-        ]);
+        $this->reports->push(
+            VariationLinkReportDto::create([
+                'id' => $variationLinkId,
+                'type' => $reportType,
+                'message' => $message,
+                'comment' => $comment
+            ])
+        );
     }
 
-    #[ArrayShape([
-        'id' => "int",
-        'type' => "int",
-        'message' => "string",
-        'comment' => "string",
-    ])]
-    public function getReport(int $variationLinkId): ?array
+    public function getReport(int $variationLinkId): ?VariationLinkReportDto
     {
         return $this->reports->where('id', $variationLinkId)->first();
     }
 
-    public function getReports(): SupportCollection
+    public function getReports(): VariationLinkReportDtoCollection
     {
         return $this->reports;
     }
@@ -56,19 +59,19 @@ class VariationLinkReporter
             ->get()
             ->map(fn(object $object): array => (array)$object);
 
-        $withProductIds = $this->reports->map(function (array $report) use ($productIds) {
+        $withProductIds = $this->reports->map(function (VariationLinkReportDto $report) use ($productIds): VariationLinkReportDto {
             $productIdData = $productIds
-                ->where('id', $report['id'])
+                ->where('id', $report->id)
                 ->first();
 
-            $report['product_id'] = $productIdData['product_id'];
-            $report['supplier'] = $productIdData['supplier'];
-            $report['variation_name'] = $productIdData['variation_name'];
+            $report->productId = $productIdData['product_id'];
+            $report->supplier = SupplierEnum::fromValue($productIdData['supplier']);
+            $report->variationName = $productIdData['variation_name'];
 
             return $report;
         });
 
-        $sortedReports = $withProductIds->sortBy(['product_id', 'id', 'supplier', 'type']);
+        $sortedReports = $withProductIds->sortBy(['productId', 'id', 'supplier.value', 'type.value']);
 
         \Mail::to(config('product.variation-link.reports.email'))
             ->queue(new VariationLinkReportsNotify($sortedReports));
