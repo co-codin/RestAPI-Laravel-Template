@@ -2,8 +2,6 @@
 
 namespace Modules\Product\Reporters;
 
-use Illuminate\Support\Collection as SupportCollection;
-use JetBrains\PhpStorm\ArrayShape;
 use Modules\Form\Mail\VariationLinkReportsNotify;
 use Modules\Product\Dto\VariationLinkReportDto;
 use Modules\Product\Dto\VariationLinkReportDtoCollection;
@@ -52,6 +50,17 @@ class VariationLinkReporter
 
     public function sendReports(): void
     {
+        if ($this->reports->isEmpty()) {
+            return;
+        }
+
+        $sortedReports = $this
+            ->withAdditionalData()
+            ->sortBy(['productId', 'id', 'supplier.value', 'type.value']);
+
+
+    private function withAdditionalData(): VariationLinkReportDtoCollection
+    {
         $productIds = \DB::table('variation_links as vl')
             ->select(['vl.id', 'vl.supplier', 'pv.name as variation_name', 'pv.product_id'])
             ->join('product_variations as pv', 'pv.id', '=', 'vl.product_variation_id')
@@ -59,7 +68,7 @@ class VariationLinkReporter
             ->get()
             ->map(fn(object $object): array => (array)$object);
 
-        $withProductIds = $this->reports->map(function (VariationLinkReportDto $report) use ($productIds): VariationLinkReportDto {
+        return $this->reports->map(function (VariationLinkReportDto $report) use ($productIds): VariationLinkReportDto {
             $productIdData = $productIds
                 ->where('id', $report->id)
                 ->first();
@@ -70,10 +79,5 @@ class VariationLinkReporter
 
             return $report;
         });
-
-        $sortedReports = $withProductIds->sortBy(['productId', 'id', 'supplier.value', 'type.value']);
-
-        \Mail::to(config('product.variation-link.reports.email'))
-            ->queue(new VariationLinkReportsNotify($sortedReports));
     }
 }
