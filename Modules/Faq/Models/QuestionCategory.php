@@ -4,6 +4,7 @@ namespace Modules\Faq\Models;
 
 use App\Concerns\IsActive;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,13 @@ class QuestionCategory extends Model
                 'source' => 'name',
             ]
         ];
+    }
+
+    public function scopeWithActiveQuestions(Builder $query)
+    {
+        return $query->whereHas('questions', function ($q) {
+            $q->where('status', '=', 1);
+        });
     }
 
     protected static function newFactory()
