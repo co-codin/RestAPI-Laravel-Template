@@ -2,63 +2,62 @@
 
 namespace Modules\Product\Models;
 
-use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Modules\Currency\Models\Currency;
-use Modules\Product\Database\factories\ProductVariationFactory;
+use Modules\Product\Database\factories\VariationLinkFactory;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
- * Class ProductVariation
+ * Class VariationLink
  * @package Modules\Product\Models
  * @property int $id
- * @property int $product_id
- * @property string $name
- * @property float|int|null $price
+ * @property int $product_variation_id
+ * @property int $supplier
+ * @property string $resource
+ * @property boolean $is_default
+ * @property array|null $check
+ * @property int $currency_id
+ * @property int $price
  * @property int|null $price_in_rub
  * @property float|int|null $previous_price
- * @property int|null $currency_id
  * @property bool $is_price_visible
- * @property bool $is_enabled
  * @property int $availability
- * @property int $condition_id
- * @property bool $is_update_from_links
+ * @property array|null $xpath
+ * @property Carbon|null $info_updated_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
- * @property-read Product $product
+ * @property-read ProductVariation $productVariation
  * @property-read Currency $currency
- * @property-read FieldValue $condition
- * @property-read Collection|VariationLink[] $variationLinks
  * @mixin \Eloquent
- * @method static Builder|ProductVariation newModelQuery()
- * @method static Builder|ProductVariation newQuery()
- * @method static Builder|ProductVariation query()
+ * @method static Builder|VariationLink newModelQuery()
+ * @method static Builder|VariationLink newQuery()
+ * @method static Builder|VariationLink query()
  */
-class ProductVariation extends Model
+class VariationLink extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, LogsActivity;
 
-    protected $guarded = ['id'];
+    protected $guarded = [
+        'id'
+    ];
 
     protected $casts = [
-        'product_id' => 'integer',
+        'product_variation_id' => 'integer',
+        'supplier' => 'integer',
+        'check' => 'array',
+        'is_default' => 'boolean',
         'price' => 'integer',
         'previous_price' => 'integer',
         'currency_id' => 'integer',
         'is_price_visible' => 'boolean',
-        'is_enabled' => 'boolean',
         'availability' => 'integer',
-        'options' => 'array',
-        'condition_id' => 'integer',
-        'is_update_from_links' => 'boolean',
+        'info_updated_at' => 'datetime',
+        'xpath' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -72,29 +71,14 @@ class ProductVariation extends Model
             ->logOnlyDirty();
     }
 
-    public function product()
+    public function productVariation(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductVariation::class);
     }
 
-    public function currency()
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
-    }
-
-    public function variationLinks(): HasMany
-    {
-        return $this->hasMany(VariationLink::class);
-    }
-
-    protected static function newFactory()
-    {
-        return ProductVariationFactory::new();
-    }
-
-    public function condition()
-    {
-        return $this->belongsTo(FieldValue::class);
     }
 
     public function getPriceAttribute($value): float|int|null
@@ -124,5 +108,10 @@ class ProductVariation extends Model
     public function getPriceInRubAttribute() : int
     {
         return $this->price ? ceil($this->price * $this->currency->rate) : 0;
+    }
+
+    protected static function newFactory(): VariationLinkFactory
+    {
+        return VariationLinkFactory::new();
     }
 }

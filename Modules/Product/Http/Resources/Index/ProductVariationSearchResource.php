@@ -83,9 +83,9 @@ class ProductVariationSearchResource extends JsonResource
     protected function isAvailableForSale(): bool
     {
         return in_array($this->availability, [
-            Availability::InStock,
-            Availability::UnderTheOrder,
-            Availability::ComingSoon,
+            Availability::IN_STOCK,
+            Availability::UNDER_THE_ORDER,
+            Availability::COMING_SOON,
         ]);
     }
 }

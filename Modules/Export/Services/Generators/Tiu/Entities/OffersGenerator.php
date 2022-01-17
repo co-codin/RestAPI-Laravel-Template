@@ -36,7 +36,7 @@ class OffersGenerator
 
                 $offer = (new OfferSimple())
                     ->setId($product->id)
-                    ->setAvailable((int) $variation->availability === Availability::InStock)
+                    ->setAvailable((int) $variation->availability === Availability::IN_STOCK)
                     ->setPictures($pictures)
                     ->setDescription($product->short_description)
                     ->setUrl($product->siteUrl)

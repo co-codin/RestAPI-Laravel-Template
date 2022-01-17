@@ -6,12 +6,11 @@ namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\Seo\Dto\CanonicalDto;
 use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-abstract class BaseDto extends DataTransferObject
+abstract class BaseDto extends DataTransferObject implements Arrayable
 {
     protected array $visibleKeys = [];
 

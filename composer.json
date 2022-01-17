@@ -20,6 +20,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.10",
         "guzzlehttp/guzzle": "^7.0.1",
+        "imangazaliev/didom": "^1.18",
         "jenssegers/date": "^4.0",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^8.12",
@@ -43,7 +44,10 @@
         "staudenmeir/eloquent-json-relations": "^1.1",
         "symfony/postmark-mailer": "^5.3",
         "vitalybaev/google-merchant-feed": "^2.1",
-        "wildbit/swiftmailer-postmark": "^3.3"
+        "wildbit/swiftmailer-postmark": "^3.3",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

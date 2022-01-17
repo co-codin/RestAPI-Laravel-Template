@@ -2,16 +2,16 @@
 
 namespace Modules\Product\Services;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Events\ProductSaved;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductVariation;
 
 class ProductConfiguratorStorage
 {
-    public function update(Product $product, array $variations)
+    /**
+     * @throws \Throwable
+     */
+    public function update(Product $product, array $variations): void
     {
         DB::beginTransaction();
 
