@@ -45,11 +45,12 @@ class ProductReview extends Model
 
     protected $guarded = [
         'id',
-        'status'
+        'status',
     ];
 
     protected $casts = [
         'ratings' => 'array',
+        'answered_at' => 'date:Y-m-d',
     ];
 
     public function product(): BelongsTo

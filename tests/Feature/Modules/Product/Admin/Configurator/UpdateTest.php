@@ -67,7 +67,7 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => Availability::ComingSoon,
+                        'availability' => Availability::COMING_SOON,
                     ]
                 ],
             ],
@@ -99,7 +99,7 @@ class UpdateTest extends TestCase
                         'name' => $newName = 'new_name',
                         'is_price_visible' => true,
                         'is_enabled' => true,
-                        'availability' => Availability::ComingSoon,
+                        'availability' => Availability::COMING_SOON,
                     ],
                     $productVariationData = ProductVariation::factory()->raw([
                         'product_id' => null

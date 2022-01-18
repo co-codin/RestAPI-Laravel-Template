@@ -45,6 +45,7 @@ abstract class BaseProductReviewCreateRequest extends BaseFormRequest
             'comment' => 'Комментарий',
             'ratings' => 'Оценки',
             'created_at' => 'Дата написания',
+            'answered_at' => 'Дата написания отзыва',
         ];
     }
 

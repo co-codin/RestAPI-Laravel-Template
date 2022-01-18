@@ -13,6 +13,7 @@ class ProductQuestionCreateRequest extends BaseProductQuestionCreateRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'date' => 'required|date',
+            'questioned_at' => 'sometimes|nullable|date',
         ]);
     }
 }

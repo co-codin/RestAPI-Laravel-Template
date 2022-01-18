@@ -19,9 +19,9 @@ use Modules\Product\Database\factories\ProductAnalogFactory;
  * @property-read Collection|Product[] $products
  * @property-read Collection|Product[] $analogs
  * @mixin \Eloquent
- * @method static Builder|ProductQuestion newModelQuery()
- * @method static Builder|ProductQuestion newQuery()
- * @method static Builder|ProductQuestion query()
+ * @method static Builder|ProductAnalog newModelQuery()
+ * @method static Builder|ProductAnalog newQuery()
+ * @method static Builder|ProductAnalog query()
  */
 class ProductAnalog extends Model
 {

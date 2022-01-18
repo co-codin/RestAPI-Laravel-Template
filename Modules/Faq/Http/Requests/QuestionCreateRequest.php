@@ -18,12 +18,12 @@ class QuestionCreateRequest extends BaseFormRequest
         return [
             'question' => 'required|string|max:255',
             'slug' => 'sometimes|string|unique:questions,slug|max:255|regex:/^[a-z0-9_\-]*$/',
-            'answer' => 'required|string|max:255',
+            'answer' => 'required|string',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'question_category_id' => 'required|integer|exists:question_categories,id'
+            'question_category_id' => 'required|integer|exists:question_categories,id',
         ];
     }
 

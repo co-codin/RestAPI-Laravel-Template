@@ -18,7 +18,7 @@ class QuestionUpdateRequest extends BaseFormRequest
         return [
             'question' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:questions,slug,' . $this->route('question'),
-            'answer' => 'sometimes|required|string|max:255',
+            'answer' => 'sometimes|required|string',
             'status' => [
                 'sometimes',
                 'required',

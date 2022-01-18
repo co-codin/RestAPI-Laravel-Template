@@ -6,6 +6,7 @@ namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection as SupportCollection;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 abstract class BaseDtoCollection extends SupportCollection
 {
@@ -18,6 +19,7 @@ abstract class BaseDtoCollection extends SupportCollection
     /**
      * DtoCollection constructor.
      * @param BaseDto[]|array $items
+     * @throws UnknownProperties
      */
     public function __construct($items = [])
     {
@@ -25,9 +27,9 @@ abstract class BaseDtoCollection extends SupportCollection
         $dto = $this->getSingleDtoClass();
 
         $items = array_map(
-            static fn (BaseDto|array $data): BaseDto => $data instanceof $dto
-                ? $data
-                : $dto::create($data),
+            static fn (mixed $data): mixed => is_array($data)
+                ? $dto::create($data)
+                : $data,
             $items
         );
 

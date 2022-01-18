@@ -11,6 +11,7 @@ use Modules\Currency\Console\CurrencyParseCommand;
 use Modules\Export\Console\ExportAllFeedsCommand;
 use Modules\Export\Services\ExportScheduler;
 use Modules\Product\Console\ProductAnalogSearchCommand;
+use Modules\Product\Console\ProductVariationLinkCommand;
 use Modules\Search\Console\SearchReindexCommand;
 
 class Kernel extends ConsoleKernel
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
         CurrencyParseCommand::class,
         SearchReindexCommand::class,
         ProductAnalogSearchCommand::class,
+        ProductVariationLinkCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
