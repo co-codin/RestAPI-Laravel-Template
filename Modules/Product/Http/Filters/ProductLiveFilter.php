@@ -27,6 +27,18 @@ class ProductLiveFilter implements Filter
                                     $query->newQuery()
                                         ->select('products.id')
                                         ->from('products')
+                                        ->join('product_category', function ($join) {
+                                            $join->on('products.id', '=', 'product_category.product_id')
+                                                ->where('product_category.is_main', true);
+                                        })
+                                        ->join('categories', 'product_category.category_id', '=', 'categories.id')
+                                        ->where('product_category.is_main', true)
+                                        ->where('categories.name_normalized', 'like', '%'. $term . '%')
+                                )
+                                ->union(
+                                    $query->newQuery()
+                                        ->select('products.id')
+                                        ->from('products')
                                         ->join('brands', 'products.brand_id', '=', 'brands.id')
                                         ->where('brands.name_normalized', 'like', '%'. $term . '%')
                                 );

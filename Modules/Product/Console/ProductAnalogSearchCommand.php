@@ -18,7 +18,7 @@ class ProductAnalogSearchCommand extends Command
     public function handle(): void
     {
         \Db::table('product_analog')->delete();
- 
+
         $productProperties = \DB::table('product_property as pp')
             ->select(['pp.product_id', 'pp.property_id', 'pp.field_value_ids'])
             ->join('products as p', 'p.id', '=', 'pp.product_id')
