@@ -6,6 +6,6 @@ class UpdateView
 {
     public function handle($event)
     {
-        $event->cabinet->view_num = (int) $event->cabinet->view_num + 1;
+        $event->cabinet?->increment('view_num');
     }
 }
