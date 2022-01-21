@@ -16122,7 +16122,7 @@
 
     namespace Nuwave\Lighthouse { 
             /**
-     * The main entrypoint to start and end GraphQL execution.
+     * The main entrypoint to GraphQL execution.
      *
      */ 
         class GraphQL {
@@ -17018,6 +17018,17 @@
      
 }
 
+    namespace Nwidart\Modules { 
+            /**
+     * 
+     *
+     */ 
+        class Collection {
+         
+    }
+     
+}
+
     namespace Illuminate\Validation { 
             /**
      * 
@@ -17034,6 +17045,17 @@
         {
                         return \Illuminate\Validation\Rule::phone();
         }
+         
+    }
+     
+}
+
+    namespace Spatie\QueryBuilder { 
+            /**
+     * 
+     *
+     */ 
+        class QueryBuilderRequest {
          
     }
      
