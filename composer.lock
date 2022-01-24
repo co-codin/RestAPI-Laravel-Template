@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c68cf294f4858c2cd4f217d031fad628",
+    "content-hash": "ae54154cd2aea5b0a5cbe4e0288bc311",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -147,21 +147,21 @@
         },
         {
             "name": "binary-cats/sanitizer",
-            "version": "8.0.0",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/binary-cats/sanitizer.git",
-                "reference": "9e2c8bafb55c73fa012a954913fecd6df2068c06"
+                "reference": "1e15f5980786a0eb8eb32fb888a45dabdea71f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/binary-cats/sanitizer/zipball/9e2c8bafb55c73fa012a954913fecd6df2068c06",
-                "reference": "9e2c8bafb55c73fa012a954913fecd6df2068c06",
+                "url": "https://api.github.com/repos/binary-cats/sanitizer/zipball/1e15f5980786a0eb8eb32fb888a45dabdea71f71",
+                "reference": "1e15f5980786a0eb8eb32fb888a45dabdea71f71",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^8.0",
-                "illuminate/validation": "^8.0",
+                "illuminate/support": "^8.0|^9.0",
+                "illuminate/validation": "^8.0|^9.0",
                 "nesbot/carbon": "^2.0"
             },
             "require-dev": {
@@ -193,7 +193,7 @@
                     "email": "cyrill.kalita@gmail.com"
                 }
             ],
-            "description": "Data sanitizer and Laravel 8 form requests with input sanitation.",
+            "description": "Data sanitizer and Laravel form requests with input sanitation.",
             "keywords": [
                 "binary cats",
                 "input",
@@ -205,9 +205,9 @@
                 "transform input"
             ],
             "support": {
-                "source": "https://github.com/binary-cats/sanitizer/tree/8.0.0"
+                "source": "https://github.com/binary-cats/sanitizer/tree/9.0.0"
             },
-            "time": "2020-11-28T16:40:16+00:00"
+            "time": "2022-01-18T20:33:46+00:00"
         },
         {
             "name": "brick/math",
@@ -15402,9 +15402,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0",
+        "ext-curl": "*",
         "ext-dom": "*",
-        "ext-libxml": "*",
-        "ext-curl": "*"
+        "ext-libxml": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
