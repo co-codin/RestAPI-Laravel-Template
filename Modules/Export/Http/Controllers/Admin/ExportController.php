@@ -2,6 +2,7 @@
 
 namespace Modules\Export\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\Export\Dto\ExportDto;
 use Modules\Export\Http\Requests\ExportCreateRequest;
@@ -54,6 +55,12 @@ class ExportController extends Controller
     {
         $exportModel = $this->exportRepository->find($export);
 
-        $this->exportService->getGenerator($exportModel);
+        $generator = $this->exportService->getGenerator($exportModel);
+
+        $generator->generate($exportModel);
+
+        $exportModel->update([
+            'exported_at' => Carbon::now(),
+        ]);
     }
 }
