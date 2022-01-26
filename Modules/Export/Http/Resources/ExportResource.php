@@ -20,8 +20,14 @@ class ExportResource extends BaseJsonResource
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [
-            'type' => $this->whenRequested('type', fn() => ExportType::fromValue($this->type)->toArray()),
-            'frequency' => $this->whenRequested('frequency', fn() => ExportFrequency::fromValue($this->frequency)->toArray()),
+            'type' => $this->whenRequested('type', [
+                'value' => $this->type,
+                'description' => ExportType::getDescription($this->type),
+            ]),
+            'frequency' => $this->whenRequested('frequency', [
+                'value' => $this->frequency,
+                'description' => ExportFrequency::getDescription($this->frequency),
+            ]),
         ]);
     }
 }
