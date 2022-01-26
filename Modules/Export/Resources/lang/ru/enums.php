@@ -15,10 +15,10 @@ return [
 
     ExportFrequency::class => [
         ExportFrequency::MANUALLY => 'Ручную',
-        ExportFrequency::EVERY_30_MINUTES => 'Каждый 30 минут',
-        ExportFrequency::HOURLY => 'Каждый час',
-        ExportFrequency::EVERY_3_HOURS => 'Каждый 3 часа',
-        ExportFrequency::DAILY => 'Каждый день',
-        ExportFrequency::WEEKLY => 'Каждую неделю',
+        ExportFrequency::EVERY_30_MINUTES => 'Раз в 30 минут',
+        ExportFrequency::HOURLY => 'Раз в час',
+        ExportFrequency::EVERY_3_HOURS => 'Раз в 3 часа',
+        ExportFrequency::DAILY => 'Раз в день',
+        ExportFrequency::WEEKLY => 'Раз в неделю',
     ],
 ];
