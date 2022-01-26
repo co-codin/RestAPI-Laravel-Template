@@ -54,6 +54,6 @@ class ExportController extends Controller
     {
         $exportModel = $this->exportRepository->find($export);
 
-        $this->exportService->call($exportModel);
+        $this->exportService->getGenerator($exportModel);
     }
 }
