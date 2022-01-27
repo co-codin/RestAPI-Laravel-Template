@@ -22,7 +22,6 @@ class Export extends Model
 
     protected $guarded = [
         'id',
-        'exported_at',
     ];
 
     public $timestamps = [];
