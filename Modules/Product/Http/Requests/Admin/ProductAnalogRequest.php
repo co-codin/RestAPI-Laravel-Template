@@ -21,7 +21,7 @@ class ProductAnalogRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'is_manually_analogs' => 'required|int|exists:products,id',
+            'is_manually_analogs' => 'required|boolean',
             'analogs.*.analog_id' => [
                 'required',
                 'int',
