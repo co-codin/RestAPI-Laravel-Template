@@ -33,6 +33,6 @@ class GoogleMerchantFeedGenerator implements FeedGeneratorInterface
 
         $feedXml = $feed->build();
 
-        File::put(storage_path('app/feeds') . '/' . $export->filename . '.xml', $feedXml);
+        File::put(storage_path('app/public/feeds') . '/' . $export->filename . '.xml', $feedXml);
     }
 }
