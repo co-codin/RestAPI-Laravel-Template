@@ -9,13 +9,14 @@ class BrandBuilder
 {
     public function getByCategories(Builder $builder, array $categoryIds): Builder
     {
-
         return $builder
-            ->select(\DB::raw(1))
-            ->from('products as p')
-            ->join('product_category as pc', 'pc.product_id', '=', 'p.id')
-            ->whereIn('pc.category_id', $categoryIds)
-            ->whereRaw('p.brand_id = brands.id');
-
+            ->whereExists(function (\Illuminate\Database\Query\Builder $query) use ($categoryIds) {
+                $query
+                    ->select(\DB::raw(1))
+                    ->from('products as p')
+                    ->join('product_category as pc', 'pc.product_id', '=', 'p.id')
+                    ->whereIn('pc.category_id', $categoryIds)
+                    ->whereRaw('p.brand_id = brands.id');
+            });
     }
 }
