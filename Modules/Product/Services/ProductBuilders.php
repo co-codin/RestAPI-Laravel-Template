@@ -82,6 +82,7 @@ class ProductBuilders
             if ($hot) {
                 $builder
                     ->whereNotNull('pv.previous_price')
+                    ->whereNotNull('pv.price')
                     ->where('pv.is_price_visible', true);
             } else {
                 $builder
