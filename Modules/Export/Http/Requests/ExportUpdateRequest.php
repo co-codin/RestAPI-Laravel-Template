@@ -33,4 +33,20 @@ class ExportUpdateRequest extends FormRequest
             'assigned_by_id' => 'sometimes|nullable|integer',
         ], $this->filterRules());
     }
+
+    public function attributes()
+    {
+       return [
+           'filter.min_price' => 'Минимальная цена',
+           'filter.max_price' => 'Максимальная цена',
+       ];
+    }
+
+    public function messages()
+    {
+        return [
+            'filter.max_price.gt' => 'Максимальная цена должна быть больше минимальной',
+            'filter.min_price.lt' => 'Минимальная цена должна быть меньше максимальной',
+        ];
+    }
 }
