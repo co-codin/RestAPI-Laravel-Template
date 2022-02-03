@@ -52,6 +52,7 @@ class News extends Model
         'status' => 'integer',
         'is_in_home' => 'boolean',
         'published_at' => 'date:Y-m-d',
+        'sources' => 'array',
     ];
 
     public function sluggable(): array
