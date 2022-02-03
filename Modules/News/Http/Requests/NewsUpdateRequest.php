@@ -29,6 +29,9 @@ class NewsUpdateRequest extends BaseFormRequest
             'view_num' => 'sometimes|nullable|integer',
             'assigned_by_id' => 'sometimes|nullable|integer',
             'category' => 'string|nullable|max:255',
+            'sources' => 'sometimes|nullable|array',
+            'sources.*.source_name' => 'required|string|max:255',
+            'sources.*.source_link' => 'required|string|max:255',
         ];
     }
 
