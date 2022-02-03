@@ -26,6 +26,8 @@ class CabinetUpdateRequest extends BaseFormRequest
             'view_num' => 'sometimes|nullable|integer',
             'requirements' => 'sometimes|nullable|array',
             'requirements.*.group_name' => 'required|string|max:255',
+            'requirements.*.column_key' => 'required|string|max:255',
+            'requirements.*.column_value' => 'required|string|max:255',
             'requirements.*.requirements.*.key' => 'required|string|max:255',
             'requirements.*.requirements.*.value' => 'required|string|max:255',
             'requirements.*.requirements.*.position' => 'sometimes|nullable|integer',

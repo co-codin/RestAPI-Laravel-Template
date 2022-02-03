@@ -13,14 +13,19 @@ class VacancyUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|max:255|string',
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|string|max:255|string|unique:vacancies,slug,' . $this->route('vacancy'),
-            'short_description' => 'sometimes|required|string|max:255',
-            'full_description' => 'sometimes|required',
+            'short_description' => 'sometimes|required|string',
             'status' => [
                 'sometimes',
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
             ],
+            'experience' => 'sometimes|nullable|string',
+            'timetable' => 'sometimes|nullable|string',
+            'occupation' => 'sometimes|nullable|string',
+            'duty' => 'sometimes|required|string',
+            'requirement' => 'sometimes|required|string',
+            'condition' => 'sometimes|required|string',
         ];
     }
 }

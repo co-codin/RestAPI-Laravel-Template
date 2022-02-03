@@ -12,6 +12,7 @@ class ProductReviewCreateRequest extends BaseProductReviewCreateRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'created_at' => 'required|date',
+            'answered_at' => 'sometimes|nullable|date',
         ]);
     }
 }

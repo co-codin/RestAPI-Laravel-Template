@@ -6,11 +6,18 @@ namespace Modules\Product\Enums;
 
 use App\Enums\BaseEnum;
 
+/**
+ * @method static static IN_STOCK()
+ * @method static static UNDER_THE_ORDER()
+ * @method static static COMING_SOON()
+ * @method static static OUT_OF_PRODUCTION()
+ * @method static static MISSING_REG_CERTIFICATE()
+ */
 class Availability extends BaseEnum
 {
-    const InStock = 1;
-    const UnderTheOrder = 2;
-    const ComingSoon = 3;
-    const OutOfProduction = 4;
-    const MissingRegCertificate = 5;
+    const IN_STOCK = 1;
+    const UNDER_THE_ORDER = 2;
+    const COMING_SOON = 3;
+    const OUT_OF_PRODUCTION = 4;
+    const MISSING_REG_CERTIFICATE = 5;
 }

@@ -1,3 +1,5 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
 type ProductQuestion {
     id: ID!
     product_id: Int!
@@ -9,6 +11,7 @@ type ProductQuestion {
     last_name: String
     client: Client @belongsTo
     product: Product! @belongsTo
+    questioned_at: Date
     productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
     productAnswerCount: Int! @count(relation: "productAnswers")
 }

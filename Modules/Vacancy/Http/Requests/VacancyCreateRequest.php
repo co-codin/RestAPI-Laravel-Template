@@ -13,13 +13,18 @@ class VacancyCreateRequest extends FormRequest
         return [
             'name' => 'required|max:255|string',
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|string|max:255|string|unique:vacancies,slug',
-            'short_description' => 'required|string|max:255',
-            'full_description' => 'required',
+            'short_description' => 'required|string',
             'status' => [
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
             ],
+            'experience' => 'sometimes|nullable|string',
+            'timetable' => 'sometimes|nullable|string',
+            'occupation' => 'sometimes|nullable|string',
+            'duty' => 'required|string',
+            'requirement' => 'required|string',
+            'condition' => 'required|string',
         ];
     }
 }
