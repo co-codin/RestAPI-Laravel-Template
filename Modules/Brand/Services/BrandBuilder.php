@@ -19,6 +19,7 @@ class BrandBuilder
                     ->join('categories as c', 'c.parent_id', '=', 'pc.category_id')
                     ->whereIn('pc.category_id', $categoryIds)
                     ->orWhereIn('c.parent_id', $categoryIds)
+                    ->orWhereIn('c.id', $categoryIds)
                     ->whereRaw('p.brand_id = brands.id');
             });
     }
