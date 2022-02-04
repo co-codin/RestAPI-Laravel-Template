@@ -15,8 +15,8 @@ class BrandBuilder
                 $query->select(DB::raw(1))
                     ->from('product_category as pc')
                     ->leftJoin('products as p', 'pc.product_id', '=', 'p.id')
+                    ->leftJoin('brands as b', 'p.brand_id', '=', 'b.id')
                     ->whereIn('pc.category_id', $categoryIds)
-                    ->whereRaw('p.brand_id = brands.id')
                     ;
 
 //
