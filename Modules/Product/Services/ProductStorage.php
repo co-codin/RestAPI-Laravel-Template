@@ -6,6 +6,7 @@ use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Events\ProductSaved;
 use Modules\Product\Models\Product;
 
@@ -43,6 +44,7 @@ class ProductStorage
 
         $product->productVariations()->create([
             'name' => $product->brand->name . ' ' . $product->name,
+            'availability' => Availability::UNDER_THE_ORDER,
             'condition_id' => 61, // новый
         ]);
 
