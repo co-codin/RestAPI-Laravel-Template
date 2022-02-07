@@ -20,10 +20,6 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if ($productDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($productDto->image);
-        }
-
         if($productDto->booklet) {
             $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
         }
@@ -57,8 +53,7 @@ class ProductStorage
 
         if($productDto->is_image_changed) {
             $attributes['image'] = $productDto->image
-                ? $this->imageUploader->upload($productDto->image)
-                : null;
+                ?: null;
         }
 
         if($productDto->is_booklet_changed) {
