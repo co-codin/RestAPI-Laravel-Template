@@ -4,22 +4,15 @@
 namespace Modules\Brand\Services;
 
 
-use App\Services\File\ImageUploader;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Events\BrandSaved;
 use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
-
     public function store(BrandDto $brandDto)
     {
         $attributes = $brandDto->toArray();
-
-        if ($brandDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($brandDto->image);
-        }
 
         $brand = Brand::query()->create($attributes);
 
@@ -34,8 +27,7 @@ class BrandStorage
 
         if($brandDto->is_image_changed) {
             $attributes['image'] = $brandDto->image
-                ? $this->imageUploader->upload($brandDto->image)
-                : null;
+                ?: null;
         }
 
         if (!$brand->update($attributes)) {
