@@ -16,7 +16,7 @@ class ProductDto extends BaseDto
 
     public ?string $slug;
 
-    public ?UploadedFile $image;
+    public UploadedFile|string|null $image;
 
     public $is_image_changed;
 
