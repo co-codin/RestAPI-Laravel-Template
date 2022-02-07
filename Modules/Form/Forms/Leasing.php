@@ -16,8 +16,8 @@ class Leasing extends Form
         return [
             'product' => 'required|integer|exists:products,id',
             'approximate_price' => 'required|integer',
-            'advance_amount' => 'required|integer',
-            'leasing_term' => 'required|string|max:255',
+            'advance_amount' => 'required|integer|max:100',
+            'leasing_term' => 'required|integer|max:60',
             'initial_payment' => 'required|integer',
             'monthly_payment' => 'required|integer',
         ];
