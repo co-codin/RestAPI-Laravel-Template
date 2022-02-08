@@ -11,6 +11,8 @@ use Illuminate\Validation\Rule;
 use Modules\Product\Enums\DocumentSource;
 use Modules\Product\Enums\DocumentType;
 use Modules\Product\Enums\ProductGroup;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductCategory;
 use Modules\Product\Rules\CategoryIsMainRule;
 
 class ProductUpdateRequest extends BaseFormRequest
@@ -48,11 +50,26 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
-//                function ($attribute, $value, $fail) {
-//                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
-//                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
-//                    }
-//                }
+                function ($attribute, $value, $fail) {
+                    if (in_array($value, [Status::ACTIVE, Status::ONLY_URL])) {
+                        $product = Product::query()->where('id', '=', $this->route('id'))->first();
+                        $productCategory = ProductCategory::query()->where('product_id', '=', $this->route('id'))->first();
+
+                        $flag = $productCategory->exists() &&
+                            $product->brand_id &&
+                            $product->name &&
+                            $product->slug &&
+                            $product->group_id &&
+                            $product->short_description &&
+                            $product->full_description &&
+                            $product->image &&
+                            ($product->warranty_info || $product->arbitrary_warranty_info)
+                            ;
+                        if (!$flag) {
+                            $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
+                        }
+                    }
+                }
             ],
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
