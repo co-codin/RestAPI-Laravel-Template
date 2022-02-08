@@ -55,7 +55,7 @@ class ProductUpdateRequest extends BaseFormRequest
                         $product = Product::query()->where('id', '=', $this->route('id'))->first();
                         $productCategory = ProductCategory::query()->where('product_id', '=', $this->route('id'))->first();
 
-                        $flag = $productCategory->exists() &&
+                        $flag = $productCategory &&
                             $product->brand_id &&
                             $product->name &&
                             $product->slug &&
