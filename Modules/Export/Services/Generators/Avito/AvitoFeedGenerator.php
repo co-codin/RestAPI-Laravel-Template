@@ -26,8 +26,8 @@ class AvitoFeedGenerator implements FeedGeneratorInterface
             'AllowEmail', 'ManagerName', 'ContactPhone', 'ContactEmail',
             'ImageNames', 'ImageUrls'
         ];
-
-        $file = fopen(storage_path('app/feeds/' . $export->filename . '.csv'), 'w+');
+        
+        $file = fopen(storage_path('app/public/feeds/' . $export->filename . '.csv'), 'w+');
         fputcsv($file, $headers);
 
         $products = $this->productRepository->getProductsForFeed($export->filter)->get();
