@@ -52,9 +52,8 @@ class ProductUpdateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
                 function ($attribute, $value, $fail) {
                     if (in_array($value, [Status::ACTIVE, Status::ONLY_URL])) {
-                        $product = Product::query()->where('id', '=', $this->route('id'))->first();
-                        $productCategory = ProductCategory::query()->where('product_id', '=', $this->route('id'))->first();
-
+                        $product = Product::query()->where('id', '=', $this->route('product'))->first();
+                        $productCategory = ProductCategory::query()->where('product_id', '=', $this->route('product'))->exists();
                         $flag = $productCategory &&
                             $product->brand_id &&
                             $product->name &&
@@ -65,6 +64,7 @@ class ProductUpdateRequest extends BaseFormRequest
                             $product->image &&
                             ($product->warranty_info || $product->arbitrary_warranty_info)
                             ;
+
                         if (!$flag) {
                             $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
                         }
