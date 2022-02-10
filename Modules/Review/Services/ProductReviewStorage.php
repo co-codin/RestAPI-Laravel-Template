@@ -74,9 +74,7 @@ class ProductReviewStorage
 
     public function notifyNewReview(ProductReview $productReview): void
     {
-        $email = $productReview?->client?->email;
-
-        if (!is_null($email)) {
+        if (!is_null($productReview?->client)) {
             \Mail::to(config('review.new-review-notify-email'))
                 ->queue(new NewReviewNotify($productReview));
         }
