@@ -2,6 +2,7 @@
 
 namespace Modules\Brand\Services;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -17,7 +18,7 @@ class BrandBuilder
                     ->join('product_category as pc', 'pc.product_id', '=', 'p.id')
                     ->join('categories as c', 'c.parent_id', '=', 'pc.category_id')
                     ->whereIn('pc.category_id', $categoryIds)
-                    ->whereRaw('p.status = 1')
+                    ->where('p.status', '=', Status::ACTIVE)
                     ->whereRaw('p.brand_id = brands.id');
 
             });
