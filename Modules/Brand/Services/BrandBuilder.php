@@ -17,7 +17,6 @@ class BrandBuilder
                     ->leftJoin('products as p', 'pc.product_id', '=', 'p.id')
                     ->leftJoin('brands as b', 'p.brand_id', '=', 'b.id')
                     ->whereIn('pc.category_id', $categoryIds)
-                    ->whereIN('p.status', [Status::ACTIVE, Status::ONLY_URL])
                     ->whereRaw('p.brand_id = brands.id');
 
 //
