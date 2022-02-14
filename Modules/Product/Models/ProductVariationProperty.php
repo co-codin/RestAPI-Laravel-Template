@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Property\Models\Property;
 
 class ProductVariationProperty extends Model
 {
@@ -13,5 +14,13 @@ class ProductVariationProperty extends Model
         'property_id' => 'integer',
     ];
 
-//    public
+    public function productVariation()
+    {
+        return $this->belongsTo(ProductVariation::class);
+    }
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }
