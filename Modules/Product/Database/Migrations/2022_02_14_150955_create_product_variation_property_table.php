@@ -14,7 +14,6 @@ class CreateProductVariationPropertyTable extends Migration
     public function up()
     {
         Schema::create('product_variation_property', function (Blueprint $table) {
-            $table->primary(['property_id', 'product_variation_id']);
             $table->foreignId('property_id')->constrained();
             $table->foreignId('product_variation_id')->constrained();
 
