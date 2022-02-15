@@ -23,7 +23,7 @@ class CategoryHotProductsField
                             ->select('c.id')
                             ->from('categories as c')
                             ->whereBetween('id', [$category->_lft + 1, $category->_rgt]);
-                    }, 'categoryIds', 'pc.category_id', '=', 'categoryIds.id')
+                    }, 'descendants', 'pc.category_id', '=', 'descendants.id')
                     ->whereRaw('pc.product_id = products.id');
             })
             ->get();
