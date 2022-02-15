@@ -14,4 +14,5 @@ type ProductVariation {
     currency: Currency @belongsTo
     condition: FieldValue @belongsTo
     variationLinks: [VariationLink] @hasMany
+    pivot: ProductVariationPropertyPivot
 }

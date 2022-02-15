@@ -1,5 +1,3 @@
-type ProductVariationProperty {
-    property_id: Int!
-    product_variation_id: Int!
-    field_value_ids: Mixed
+type ProductVariationPropertyPivot {
+    fieldValues: [FieldValue!]
 }
