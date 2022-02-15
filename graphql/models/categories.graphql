@@ -25,6 +25,7 @@ type Category {
     seoCategoryProducts: Seo @morphOne
     count: Int
     pivot: CabinetCategoryPivot
+    brands: [Brand!] @field(resolver: "\\Modules\\Category\\Services\\CategoryBrandsField")
 }
 
 type ReviewRatings {
