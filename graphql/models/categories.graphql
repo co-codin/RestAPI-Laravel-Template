@@ -26,6 +26,7 @@ type Category {
     count: Int
     pivot: CabinetCategoryPivot
     brands: [Brand!] @field(resolver: "\\Modules\\Category\\Services\\CategoryBrandsField")
+    hotProducts: [Product!] @field(resolver: "\\Modules\\Category\\Services\\CategoryHotProductsField")
 }
 
 type ReviewRatings {
