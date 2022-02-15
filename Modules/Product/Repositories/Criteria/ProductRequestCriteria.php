@@ -103,7 +103,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 'productReviews.client',
                 'productVariations',
                 'productVariations.currency',
-                'productVariationProperties',
+                'productVariations.productVariationProperties',
                 'properties',
                 'category',
                 'category.ancestors',
