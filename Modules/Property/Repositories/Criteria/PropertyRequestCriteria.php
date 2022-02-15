@@ -53,6 +53,7 @@ class PropertyRequestCriteria implements CriteriaInterface
             'options',
             'is_hidden_from_product',
             'is_hidden_from_comparison',
+            'is_in_variations',
             'is_boolean',
             'created_at',
             'updated_at'
