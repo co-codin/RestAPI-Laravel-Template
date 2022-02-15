@@ -17,31 +17,14 @@ class CategoryHotProductsField
             ->whereExists(function (Builder $builder) use ($category) {
                 $builder
                     ->select(DB::raw(1))
-                    ->from('products as p')
-                    ->whereRaw('p.id = products.id')
-                    ->joinSub("
-                        SELECT DISTINCT
-                            pc.product_id
-                        FROM
-                            product_category as pc
-                        JOIN (
-                            SELECT
-                                c.id
-                            FROM
-                                categories as c
-                            JOIN (
-                                SELECT
-                                    _lft, _rgt
-                                FROM
-                                    categories
-                                WHERE
-                                    id = {$category->id}
-                            ) as nodes
-                            WHERE
-                                id BETWEEN (nodes._lft + 1) and nodes._rgt
-                        ) as categoryIds ON pc.category_id = categoryIds.id
-                    ",
-                        'p1', 'p1.product_id', '=', 'p.id');
+                    ->from('product_category as pc')
+                    ->joinSub(function (Builder $query) use ($category) {
+                        $query
+                            ->select('c.id')
+                            ->from('categories as c')
+                            ->whereBetween('id', [$category->_lft + 1, $category->_rgt]);
+                    }, 'categoryIds', 'pc.category_id', '=', 'categoryIds.id')
+                    ->whereRaw('pc.product_id = products.id');
             })
             ->get();
     }
