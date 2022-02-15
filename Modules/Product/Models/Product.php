@@ -23,6 +23,7 @@ use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
+use Modules\Product\Models\Pivots\ProductVariationPropertyPivot;
 use Modules\Property\Models\Property;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
@@ -207,13 +208,24 @@ class Product extends Model
             ->withPivot('is_main');
     }
 
+    public function productVariationProperties(): BelongsToMany
+    {
+        return $this->belongsToMany(ProductVariationProperty::class, 'product_variation_property')
+            ->using(ProductVariationPropertyPivot::class)
+            ->withPivot([
+                'field_value_ids',
+            ]);
+    }
+
     public function properties(): BelongsToMany
     {
         return $this
             ->belongsToMany(Property::class, 'product_property')
             ->using(ProductPropertyPivot::class)
             ->withPivot([
-                'field_value_ids', 'value', 'pretty_key', 'pretty_value', 'is_important', 'important_position', 'important_value'
+                'field_value_ids', 'value', 'pretty_key', 'pretty_value',
+                'is_important', 'important_position', 'important_value',
+                'is_in_variations',
             ]);
     }
 

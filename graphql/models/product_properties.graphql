@@ -6,6 +6,7 @@ type ProductPropertyPivot {
     pretty_key: String
     pretty_value: String
     is_important: Boolean
+    is_in_variations: Boolean
     important_position: Int
     important_value: String
     fieldValues: [FieldValue!]
