@@ -4,7 +4,6 @@ use App\Http\Controllers\FieldValueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentGroupController;
-use App\Http\Controllers\Admin\SearchController;
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -21,4 +20,3 @@ Route::resource('field-values', FieldValueController::class)
 Route::resource('document-groups', DocumentGroupController::class)
     ->only(['index']);
 
-Route::get('global-search', SearchController::class)->name('admin.search');
