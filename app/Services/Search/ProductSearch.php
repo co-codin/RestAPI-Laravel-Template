@@ -9,7 +9,10 @@ class ProductSearch implements SearchInterface
 {
     public function search($query, array $mapping)
     {
-        $builder = Product::query()->where
-        dd($query, $mapping);
+        $builder = Product::query()->where([
+
+        ]);
+
+        return $builder;
     }
 }
