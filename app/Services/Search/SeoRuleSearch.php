@@ -12,7 +12,7 @@ class SeoRuleSearch implements SearchInterface
         $builder = DB::table('seo_rules')
             ->select([
                 'seo_rules.id',
-                'seo.*',
+                'seo_rules.name',
                 DB::raw("'seo-rules' AS type"),
                 DB::raw("'SEO правила' AS type_ru"),
                 DB::raw("
