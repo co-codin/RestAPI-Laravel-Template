@@ -13,4 +13,4 @@ Route::resource('field-values', FieldValueController::class)
 Route::resource('document-groups', DocumentGroupController::class)
     ->only(['store']);
 
-Route::get('search', SearchController::class)->name('admin.search');
+//Route::get('search', SearchController::class)->name('admin.search');

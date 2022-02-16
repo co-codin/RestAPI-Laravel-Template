@@ -2,14 +2,15 @@
 
 namespace App\Services\Search;
 
+use App\Services\Interfaces\SearchInterface;
 use Modules\Product\Models\Product;
 
-class ProductSearch
+class ProductSearch implements SearchInterface
 {
     protected $model = Product::class;
 
-    public function search()
+    public function search($query, array $mapping)
     {
-
+        dd($query, $mapping);
     }
 }

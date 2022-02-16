@@ -2,13 +2,14 @@
 
 namespace App\Services\Search;
 
+use App\Services\Interfaces\SearchInterface;
 use Modules\Page\Models\Page;
 
-class PageSearch
+class PageSearch implements SearchInterface
 {
     protected $model = Page::class;
 
-    public function search()
+    public function search($query, array $mapping)
     {
         // query builder ! builder !
     }
