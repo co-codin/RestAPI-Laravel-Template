@@ -38,13 +38,13 @@ class SearchController extends Controller
 
             $builders[] = $builder;
         }
-        
 
         $count = 0;
         $n1 = $builders[0];
         $n2 = $builders[1];
         $globalBuilder = null;
 
+        $n1->unionAll($n2);
 
         while ($count < count($builders)) {
             $globalBuilder = $n2->unionAll($n1);
@@ -54,10 +54,6 @@ class SearchController extends Controller
             $count++;
         }
 
-        dd(
-            $globalBuilder
-        );
-
-//        return $globalBuilder->get();
+        return $globalBuilder->get();
     }
 }
