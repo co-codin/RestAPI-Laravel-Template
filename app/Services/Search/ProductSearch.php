@@ -7,10 +7,9 @@ use Modules\Product\Models\Product;
 
 class ProductSearch implements SearchInterface
 {
-    protected $model = Product::class;
-
     public function search($query, array $mapping)
     {
+        $builder = Product::query()->where
         dd($query, $mapping);
     }
 }

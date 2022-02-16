@@ -13,14 +13,12 @@ class SearchController extends Controller
     protected $mappings = [
         [
             'service' => ProductSearch::class,
-            'is_first' => true,
             'columns' => [
                 'name',
             ],
         ],
 //        [
 //            'service' => PageSearch::class,
-//            'is_first' => false,
 //            'columns' => [
 //                'name',
 //            ]
@@ -35,6 +33,10 @@ class SearchController extends Controller
             $builder = (new $mapping['service'])->search(
                 $request->get("term"),
                 $mapping
+            );
+
+            dd(
+                $builder
             );
 
             $globalBuilder->union($builder);
