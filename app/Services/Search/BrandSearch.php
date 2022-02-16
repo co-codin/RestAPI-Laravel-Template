@@ -36,6 +36,6 @@ class BrandSearch implements SearchInterface
             );
         }
 
-        return $builder;
+        return $builder->get();
     }
 }

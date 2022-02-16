@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GlobalSearchRequest;
+use App\Services\Search\BrandSearch;
+use App\Services\Search\CategorySearch;
+use App\Services\Search\NewsSearch;
 use App\Services\Search\PageSearch;
 use App\Services\Search\ProductSearch;
+use App\Services\Search\SeoRuleSearch;
 
 class SearchController extends Controller
 {
@@ -24,36 +28,48 @@ class SearchController extends Controller
                 'seo.title', 'seo.description', 'seo.h1',
             ]
         ],
+        [
+            'service' => BrandSearch::class,
+            'columns' => [
+                'name', 'full_description',
+                'seo.title', 'seo.description', 'seo.h1',
+            ],
+        ],
+        [
+            'service' => NewsSearch::class,
+            'columns' => [
+                'name', 'full_description',
+                'seo.title', 'seo.description', 'seo.h1',
+            ],
+        ],
+        [
+            'service' => CategorySearch::class,
+            'columns' => [
+                'name', 'full_description',
+                'seo.title', 'seo.description', 'seo.h1',
+            ],
+        ],
+        [
+            'service' => SeoRuleSearch::class,
+            'columns' => [
+                'name', 'text',
+                'seo.title', 'seo.description', 'seo.h1',
+            ],
+        ],
     ];
 
     public function __invoke(GlobalSearchRequest $request)
     {
-        $builders = [];
+        $data = collect();
 
         foreach ($this->mappings as $mapping) {
-            $builder = (new $mapping['service'])->search(
+            $item = (new $mapping['service'])->search(
                 $request->get("term"),
                 $mapping
             );
-
-            $builders[] = $builder;
+            $data->add($item);
         }
 
-        $count = 0;
-        $n1 = $builders[0];
-        $n2 = $builders[1];
-        $globalBuilder = null;
-
-        $n1->unionAll($n2);
-
-        while ($count < count($builders)) {
-            $globalBuilder = $n2->unionAll($n1);
-            $n1 = $n2;
-            $n2 = $globalBuilder;
-
-            $count++;
-        }
-
-        return $globalBuilder->get();
+        return $data->flatten()->groupBy('type_ru');
     }
 }

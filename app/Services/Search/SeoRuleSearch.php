@@ -36,6 +36,6 @@ class SeoRuleSearch implements SearchInterface
             );
         }
 
-        return $builder;
+        return $builder->get();
     }
 }

@@ -36,6 +36,6 @@ class PageSearch implements SearchInterface
             );
         }
 
-        return $builder;
+        return $builder->get();
     }
 }

@@ -5,28 +5,28 @@ namespace App\Services\Search;
 use App\Services\Interfaces\SearchInterface;
 use Illuminate\Support\Facades\DB;
 
-class ProductSearch implements SearchInterface
+class CategorySearch implements SearchInterface
 {
     public function search($query, array $mapping)
     {
-        $builder = DB::table('products')
+        $builder = DB::table('categories')
             ->select([
-                'products.id',
+                'categories.id',
                 'seo.*',
-                DB::raw("'products' AS type"),
-                DB::raw("'Товары' AS type_ru"),
+                DB::raw("'categories' AS type"),
+                DB::raw("'Категории' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', 'https://medeq.ru', 'product', slug, products.id) AS public_url
+                    CONCAT_WS('/', 'https://medeq.ru', 'store', slug) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', 'https://control.medeq.ru/products', products.id, 'update') AS admin_url
+                    CONCAT_WS('/', 'https://control.medeq.ru/categories', categories.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {
-                $leftJoin->on('seo.seoable_id', '=', 'products.id')
-                    ->where('seo.seoable_type', 'LIKE', '%product%');
+                $leftJoin->on('seo.seoable_id', '=', 'categories.id')
+                    ->where('seo.seoable_type', 'LIKE', '%category%');
             })
-            ;
+        ;
 
         foreach ($mapping['columns'] as $column) {
             $builder->orWhere(
