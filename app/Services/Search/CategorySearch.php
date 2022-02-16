@@ -12,7 +12,7 @@ class CategorySearch implements SearchInterface
         $builder = DB::table('categories')
             ->select([
                 'categories.id',
-                'seo.*',
+                'categories.name',
                 DB::raw("'categories' AS type"),
                 DB::raw("'Категории' AS type_ru"),
                 DB::raw("

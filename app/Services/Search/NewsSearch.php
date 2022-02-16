@@ -12,7 +12,7 @@ class NewsSearch implements SearchInterface
         $builder = DB::table('news')
             ->select([
                 'news.id',
-                'seo.*',
+                'news.name',
                 DB::raw("'news' AS type"),
                 DB::raw("'Новости' AS type_ru"),
                 DB::raw("

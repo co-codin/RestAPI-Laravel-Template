@@ -12,7 +12,7 @@ class BrandSearch implements SearchInterface
         $builder = DB::table('brands')
             ->select([
                 'brands.id',
-                'seo.*',
+                'brands.name',
                 DB::raw("'brands' AS type"),
                 DB::raw("'Производители' AS type_ru"),
                 DB::raw("

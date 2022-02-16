@@ -12,7 +12,7 @@ class PageSearch implements SearchInterface
         $builder = DB::table('pages')
             ->select([
                 'pages.id',
-                'seo.*',
+                'pages.name',
                 DB::raw("'pages' AS type"),
                 DB::raw("'Страницы' AS type_ru"),
                 DB::raw("
