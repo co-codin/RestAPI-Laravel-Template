@@ -70,6 +70,19 @@ class SearchController extends Controller
             $data->add($item);
         }
 
-        return $data->flatten()->groupBy('type_ru');
+        $data = $data->flatten();
+
+        if (!$data->isEmpty()) {
+            return $data->groupBy('type_ru');
+        } else {
+            return [
+                "Товары" => [],
+                "Производители" => [],
+                "SEO правила" => [],
+                "Страницы" => [],
+                "Категории" => [],
+                "Новости" => [],
+            ];
+        }
     }
 }
