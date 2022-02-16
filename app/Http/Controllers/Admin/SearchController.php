@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GlobalSearchRequest;
 use App\Services\Search\PageSearch;
 use App\Services\Search\ProductSearch;
+use Illuminate\Database\Query\Builder;
 
 class SearchController extends Controller
 {
@@ -19,6 +20,7 @@ class SearchController extends Controller
         ],
 //        [
 //            'service' => PageSearch::class,
+//            'is_first' => false,
 //            'columns' => [
 //                'name',
 //            ]
@@ -27,15 +29,15 @@ class SearchController extends Controller
 
     public function __invoke(GlobalSearchRequest $request)
     {
+        $globalBuilder = new Builder();
+
         foreach ($this->mappings as $mapping) {
-            $class = $mapping['service'];
+            $builder = (new $mapping['service'])->search(
+                $request->get("term"),
+                $mapping
+            );
 
-            (new $class)->search($request->get("term"), $mapping);
-
-//            $builder = $mapping['service']->seach(
-//                $request->get("term"),
-//                $mapping
-//            );
+            $globalBuilder->union($builder);
         }
     }
 }
