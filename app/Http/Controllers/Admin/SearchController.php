@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GlobalSearchRequest;
 use App\Services\Search\PageSearch;
 use App\Services\Search\ProductSearch;
-use Illuminate\Database\Query\Builder;
 
 class SearchController extends Controller
 {
@@ -14,20 +13,22 @@ class SearchController extends Controller
         [
             'service' => ProductSearch::class,
             'columns' => [
-                'name',
+                'name', 'full_description', 'short_description',
+                'seo.title', 'seo.description', 'seo.h1',
             ],
         ],
-//        [
-//            'service' => PageSearch::class,
-//            'columns' => [
-//                'name',
-//            ]
-//        ],
+        [
+            'service' => PageSearch::class,
+            'columns' => [
+                'name', 'full_description',
+                'seo.title', 'seo.description', 'seo.h1',
+            ]
+        ],
     ];
 
     public function __invoke(GlobalSearchRequest $request)
     {
-        $globalBuilder = new Builder();
+        $builders = [];
 
         foreach ($this->mappings as $mapping) {
             $builder = (new $mapping['service'])->search(
@@ -35,11 +36,22 @@ class SearchController extends Controller
                 $mapping
             );
 
-            dd(
-                $builder
-            );
-
-            $globalBuilder->union($builder);
+            $builders[] = $builder;
         }
+
+        $count = 0;
+        $n1 = $builders[0];
+        $n2 = $builders[1];
+        $globalBuilder = null;
+
+        while ($count < count($builders)) {
+            $globalBuilder = $n2->unionAll($n1);
+            $n1 = $n2;
+            $n2 = $globalBuilder;
+
+            $count++;
+        }
+
+        return $globalBuilder->get();
     }
 }
