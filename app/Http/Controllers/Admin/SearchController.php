@@ -9,7 +9,7 @@ use App\Services\Search\ProductSearch;
 
 class SearchController extends Controller
 {
-    protected $mappings = [
+    protected array $mappings = [
         [
             'service' => ProductSearch::class,
             'columns' => [
