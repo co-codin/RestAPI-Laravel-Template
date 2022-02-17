@@ -12,7 +12,6 @@ class ProductSearch implements SearchInterface
         $builder = DB::table('products')
             ->select([
                 'products.id',
-                'products.name',
                 DB::raw("'products' AS type"),
                 DB::raw("'Товары' AS type_ru"),
                 DB::raw("
@@ -22,7 +21,7 @@ class ProductSearch implements SearchInterface
                     CONCAT_WS('/', 'https://control.medeq.ru/products', products.id, 'update') AS admin_url
                 "),
                 DB::raw("
-                    CONCAT_WS(' ', brands.name, products.name) AS product_full_name
+                    CONCAT_WS(' ', brands.name, products.name) AS name
                 "),
             ])
             ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
