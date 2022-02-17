@@ -2,10 +2,10 @@
 
 namespace App\Services\Search;
 
-use App\Services\Interfaces\SearchInterface;
+use App\Services\Abstracts\SearchAbstract;
 use Illuminate\Support\Facades\DB;
 
-class SeoRuleSearch implements SearchInterface
+class SeoRuleSearch extends SearchAbstract
 {
     public function search($query, array $mapping)
     {
@@ -16,10 +16,10 @@ class SeoRuleSearch implements SearchInterface
                 DB::raw("'seo-rules' AS type"),
                 DB::raw("'SEO правила' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', 'https://medeq.ru', seo_rules.url) AS public_url
+                    CONCAT_WS('/', {$this->getSiteUrl()}, seo_rules.url) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', 'https://control.medeq.ru/seo-rules', seo_rules.id, 'update') AS admin_url
+                    CONCAT_WS('/', {$this->getAdminUrl()}, 'seo-rules', seo_rules.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {

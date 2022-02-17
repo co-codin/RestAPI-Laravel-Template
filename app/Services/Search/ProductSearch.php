@@ -2,10 +2,10 @@
 
 namespace App\Services\Search;
 
-use App\Services\Interfaces\SearchInterface;
+use App\Services\Abstracts\SearchAbstract;
 use Illuminate\Support\Facades\DB;
 
-class ProductSearch implements SearchInterface
+class ProductSearch extends SearchAbstract
 {
     public function search($query, array $mapping)
     {
@@ -16,10 +16,10 @@ class ProductSearch implements SearchInterface
                 DB::raw("'products' AS type"),
                 DB::raw("'Товары' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', 'https://medeq.ru', 'product', products.slug, products.id) AS public_url
+                    CONCAT_WS('/', {$this->getSiteUrl()}, 'product', products.slug, products.id) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', 'https://control.medeq.ru/products', products.id, 'update') AS admin_url
+                    CONCAT_WS('/', {$this->getAdminUrl()}, 'products', products.id, 'update') AS admin_url
                 "),
                 DB::raw("
                     CONCAT_WS(' ', brands.name, products.name) AS name

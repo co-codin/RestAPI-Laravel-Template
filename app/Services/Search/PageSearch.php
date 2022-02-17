@@ -2,12 +2,12 @@
 
 namespace App\Services\Search;
 
-use App\Services\Interfaces\SearchInterface;
+use App\Services\Abstracts\SearchAbstract;
 use Illuminate\Support\Facades\DB;
 
-class PageSearch implements SearchInterface
+class PageSearch extends SearchAbstract
 {
-    public function search($query, array $mapping)
+    public function extends($query, array $mapping)
     {
         $builder = DB::table('pages')
             ->select([
@@ -16,10 +16,10 @@ class PageSearch implements SearchInterface
                 DB::raw("'pages' AS type"),
                 DB::raw("'Страницы' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', 'https://medeq.ru', 'page', slug) AS public_url
+                    CONCAT_WS('/', {$this->getSiteUrl()}, 'page', slug) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', 'https://control.medeq.ru/pages', pages.id, 'update') AS admin_url
+                    CONCAT_WS('/', {$this->getAdminUrl()}, 'pages', pages.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {
