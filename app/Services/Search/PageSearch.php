@@ -16,10 +16,10 @@ class PageSearch extends SearchAbstract
                 DB::raw("'pages' AS type"),
                 DB::raw("'Страницы' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getSiteUrl()}, 'page', slug) AS public_url
+                    CONCAT_WS('/', '{$this->getSiteUrl()}', 'page', slug) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getAdminUrl()}, 'pages', pages.id, 'update') AS admin_url
+                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'pages', pages.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {

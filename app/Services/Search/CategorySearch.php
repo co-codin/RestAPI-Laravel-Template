@@ -16,10 +16,10 @@ class CategorySearch extends SearchAbstract
                 DB::raw("'categories' AS type"),
                 DB::raw("'Категории' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getSiteUrl()}, 'store', slug) AS public_url
+                    CONCAT_WS('/', '{$this->getSiteUrl()}', 'store', slug) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getAdminUrl()}, 'categories', categories.id, 'update') AS admin_url
+                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'categories', categories.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {

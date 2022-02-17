@@ -19,3 +19,5 @@ Route::resource('field-values', FieldValueController::class)
 
 Route::resource('document-groups', DocumentGroupController::class)
     ->only(['index']);
+
+Route::get('global-search', \App\Http\Controllers\Admin\SearchController::class);
