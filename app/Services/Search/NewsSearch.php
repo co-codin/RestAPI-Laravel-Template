@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class NewsSearch extends SearchAbstract
 {
-    public function extends($query, array $mapping)
+    public function search($query, array $mapping)
     {
         $builder = DB::table('news')
             ->select([
