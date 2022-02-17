@@ -12,6 +12,7 @@ class ProductSearch implements SearchInterface
         $builder = DB::table('products')
             ->select([
                 'products.id',
+                'products.slug',
                 DB::raw("'products' AS type"),
                 DB::raw("'Товары' AS type_ru"),
                 DB::raw("
