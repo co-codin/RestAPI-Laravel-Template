@@ -16,10 +16,10 @@ class ProductSearch extends SearchAbstract
                 DB::raw("'products' AS type"),
                 DB::raw("'Товары' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getSiteUrl()}, 'product', products.slug, products.id) AS public_url
+                    CONCAT_WS('/', '{$this->getSiteUrl()}', 'product', products.slug, products.id) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getAdminUrl()}, 'products', products.id, 'update') AS admin_url
+                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'products', products.id, 'update') AS admin_url
                 "),
                 DB::raw("
                     CONCAT_WS(' ', brands.name, products.name) AS name

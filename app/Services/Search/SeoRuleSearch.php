@@ -16,10 +16,10 @@ class SeoRuleSearch extends SearchAbstract
                 DB::raw("'seo-rules' AS type"),
                 DB::raw("'SEO правила' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getSiteUrl()}, seo_rules.url) AS public_url
+                    CONCAT_WS('/', '{$this->getSiteUrl()}', seo_rules.url) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', {$this->getAdminUrl()}, 'seo-rules', seo_rules.id, 'update') AS admin_url
+                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'seo-rules', seo_rules.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {
