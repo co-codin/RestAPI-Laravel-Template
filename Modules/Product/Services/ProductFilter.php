@@ -133,7 +133,7 @@ class ProductFilter
                 'order' => 'asc',
                 'missing' => '_last',
             ],
-            'variations.availability_sort_value' => [
+            'variations.availability' => [
                 'order' => 'asc',
                 'nested' => [
                     'path' => 'variations',
@@ -160,6 +160,12 @@ class ProductFilter
                         ],
                     ],
                 ]
+            ],
+            'brand.name' => [
+                'order' => 'asc',
+            ],
+            'name' => [
+                'order' => 'asc',
             ],
         ],
     ];
