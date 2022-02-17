@@ -55,9 +55,9 @@ class ProductStorage
 
         if($productDto->is_image_changed) {
             $attributes['image'] = $productDto->image
-                ? $this->imageUploader->upload($productDto->image)
-                : null;
+                ?: null;
         }
+
 
         if($productDto->is_booklet_changed) {
             $attributes['booklet'] = $productDto->booklet
