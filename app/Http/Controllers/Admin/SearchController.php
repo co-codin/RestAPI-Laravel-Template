@@ -17,7 +17,7 @@ class SearchController extends Controller
         [
             'service' => ProductSearch::class,
             'columns' => [
-                'name', 'full_description', 'short_description',
+                'products.name', 'products.full_description', 'products.short_description',
                 'seo.title', 'seo.description', 'seo.h1',
             ],
         ],

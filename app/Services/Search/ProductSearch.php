@@ -16,7 +16,7 @@ class ProductSearch implements SearchInterface
                 DB::raw("'products' AS type"),
                 DB::raw("'Товары' AS type_ru"),
                 DB::raw("
-                    CONCAT_WS('/', 'https://medeq.ru', 'product', slug, products.id) AS public_url
+                    CONCAT_WS('/', 'https://medeq.ru', 'product', products.slug, products.id) AS public_url
                 "),
                 DB::raw("
                     CONCAT_WS('/', 'https://control.medeq.ru/products', products.id, 'update') AS admin_url
@@ -25,11 +25,11 @@ class ProductSearch implements SearchInterface
                     CONCAT_WS(' ', brands.name, products.name) AS product_full_name
                 "),
             ])
+            ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
             ->leftJoin('seo', function ($leftJoin) {
                 $leftJoin->on('seo.seoable_id', '=', 'products.id')
                     ->where('seo.seoable_type', 'LIKE', '%product%');
             })
-            ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
             ;
 
         foreach ($mapping['columns'] as $column) {
