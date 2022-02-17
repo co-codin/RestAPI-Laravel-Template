@@ -58,6 +58,7 @@ return [
 
     'asset_url' => env('ASSET_URL'),
     'site_url' => env('SITE_URL'),
+    'admin_url' => env('ADMIN_URL'),
     'storage_url' => env('STORAGE_URL'),
 
     /*
