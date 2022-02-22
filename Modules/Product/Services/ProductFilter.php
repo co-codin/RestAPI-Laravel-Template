@@ -142,12 +142,6 @@ class ProductFilter
             'popular_score' => [
                 'order' => 'asc',
             ],
-            'variations.is_price_visible' => [
-                'order' => 'asc',
-                'nested' => [
-                    'path' => 'variations',
-                ]
-            ],
             'variations.price_in_rub' => [
                 'order' => 'asc',
                 'nested' => [
