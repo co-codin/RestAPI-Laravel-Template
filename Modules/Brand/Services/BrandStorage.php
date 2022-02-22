@@ -17,10 +17,6 @@ class BrandStorage
     {
         $attributes = $brandDto->toArray();
 
-        if ($brandDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($brandDto->image);
-        }
-
         $brand = Brand::query()->create($attributes);
 
         event(new BrandSaved($brand));
@@ -32,10 +28,10 @@ class BrandStorage
     {
         $attributes = $brandDto->toArray();
 
-        if($brandDto->is_image_changed) {
-            $attributes['image'] = $brandDto->image
-                ? $this->imageUploader->upload($brandDto->image)
-                : null;
+        if ($brandDto->is_image_changed) {
+            $attributes['image'] = !$brandDto->image
+                ? null
+                : $this->imageUploader->upload($brandDto->image);
         }
 
         if (!$brand->update($attributes)) {
