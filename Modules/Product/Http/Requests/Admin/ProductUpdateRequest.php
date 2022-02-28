@@ -98,7 +98,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'benefits.chips' => 'sometimes|nullable|array|max:3',
             'benefits.chips.*.value' => 'required|string|max:5',
             'benefits.chips.*.description' => 'required|string|max:255',
-            'benefits.benefit' => 'string|nullable|max:255',
+            'benefits.benefit' => 'string|nullable|max:500',
         ];
     }
 
