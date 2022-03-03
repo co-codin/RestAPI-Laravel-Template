@@ -53,18 +53,6 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if($productDto->is_image_changed) {
-            $attributes['image'] = $productDto->image
-                ?: null;
-        }
-
-
-        if($productDto->is_booklet_changed) {
-            $attributes['booklet'] = $productDto->booklet
-                ? $this->fileUploader->upload($productDto->booklet)
-                : null;
-        }
-
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
         }
