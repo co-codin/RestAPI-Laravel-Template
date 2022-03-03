@@ -21,10 +21,6 @@ class ProductStorage
     {
         $attributes = $productDto->toArray();
 
-        if($productDto->booklet) {
-            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-        }
-
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
         }
