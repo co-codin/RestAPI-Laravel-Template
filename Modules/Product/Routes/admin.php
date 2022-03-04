@@ -9,6 +9,9 @@ use Modules\Product\Http\Controllers\Admin\ProductImageController;
 use Modules\Product\Http\Controllers\Admin\ProductPropertyController;
 use Modules\Product\Http\Controllers\Admin\ProductQuestionController;
 use Modules\Product\Http\Controllers\Admin\ProductSeoController;
+use Modules\Product\Http\Controllers\Admin\ProductVariationPropertyController;
+
+Route::put('products/variations/property', [ProductVariationPropertyController::class, 'update'])->name('product.variation.property.update');
 
 Route::patch('products/{product}/seo', [ProductSeoController::class, 'update']);
 Route::put('products/{product}/properties', [ProductPropertyController::class, 'update'])->name('product.property.update');

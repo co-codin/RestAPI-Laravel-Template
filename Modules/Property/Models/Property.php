@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Modules\Category\Models\Category;
 use Modules\Filter\Models\Filter;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
+use Modules\Product\Models\ProductVariationProperty;
 use Modules\Property\Database\factories\PropertyFactory;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -57,6 +58,14 @@ class Property extends Model
                 'source' => 'name',
             ]
         ];
+    }
+
+    public function productVariationProperties()
+    {
+        return $this->belongsToMany(ProductVariationProperty::class, 'product_variation_property')
+            ->withPivot([
+                'field_value_ids'
+            ]);
     }
 
     public function getActivitylogOptions(): LogOptions

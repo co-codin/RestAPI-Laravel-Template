@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Modules\Currency\Models\Currency;
 use Modules\Product\Database\factories\ProductVariationFactory;
+use Modules\Product\Models\Pivots\ProductVariationPropertyPivot;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -75,6 +77,15 @@ class ProductVariation extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function productVariationProperties(): BelongsToMany
+    {
+        return $this->belongsToMany(ProductVariationProperty::class, 'product_variation_property')
+            ->using(ProductVariationPropertyPivot::class)
+            ->withPivot([
+                'field_value_ids',
+            ]);
     }
 
     public function currency()
