@@ -59,8 +59,7 @@ class ExportController extends Controller
 
         $generator->generate($exportModel);
 
-        $exportModel->update([
-            'exported_at' => Carbon::now(),
-        ]);
+        $exportModel->exported_at = Carbon::now();
+        $exportModel->save();
     }
 }
