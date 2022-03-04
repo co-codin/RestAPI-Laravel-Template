@@ -6,6 +6,7 @@ use App\Services\File\FileUploader;
 use App\Services\File\ImageUploader;
 use Illuminate\Support\Arr;
 use Modules\Product\Dto\ProductDto;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Events\ProductSaved;
 use Modules\Product\Models\Product;
 
@@ -19,10 +20,6 @@ class ProductStorage
     public function store(ProductDto $productDto)
     {
         $attributes = $productDto->toArray();
-
-        if($productDto->booklet) {
-            $attributes['booklet'] = $this->fileUploader->upload($productDto->booklet);
-        }
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);
@@ -39,6 +36,7 @@ class ProductStorage
 
         $product->productVariations()->create([
             'name' => $product->brand->name . ' ' . $product->name,
+            'availability' => Availability::UNDER_THE_ORDER,
             'condition_id' => 61, // новый
         ]);
 
@@ -50,17 +48,6 @@ class ProductStorage
     public function update(Product $product, ProductDto $productDto)
     {
         $attributes = $productDto->toArray();
-
-        if($productDto->is_image_changed) {
-            $attributes['image'] = $productDto->image
-                ?: null;
-        }
-
-        if($productDto->is_booklet_changed) {
-            $attributes['booklet'] = $productDto->booklet
-                ? $this->fileUploader->upload($productDto->booklet)
-                : null;
-        }
 
         if (Arr::exists($attributes, 'documents')) {
             $attributes = $this->handleWithDocuments($attributes);

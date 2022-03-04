@@ -4,7 +4,6 @@ namespace Modules\Product\Dto;
 
 use App\Dto\BaseDto;
 use App\Enums\Status;
-use Illuminate\Http\UploadedFile;
 
 class ProductDto extends BaseDto
 {
@@ -16,9 +15,7 @@ class ProductDto extends BaseDto
 
     public ?string $slug;
 
-    public UploadedFile|string|null $image;
-
-    public $is_image_changed;
+    public string|null $image;
 
     public ?string $short_description;
 
@@ -52,7 +49,7 @@ class ProductDto extends BaseDto
 
     public $is_booklet_changed;
 
-    public ?UploadedFile $booklet;
+    public string|null $booklet;
 
     public ?string $video;
 }

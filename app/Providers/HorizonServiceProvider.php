@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Cookie;
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
@@ -22,20 +23,10 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         // Horizon::routeSlackNotificationsTo('slack-webhook-url', '#channel');
     }
 
-    /**
-     * Register the Horizon gate.
-     *
-     * This gate determines who can access Horizon in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
+    protected function authorization()
     {
-        Gate::define('viewHorizon', function ($user = null) {
-            return false;
-            return in_array($user->email, [
-                'work@lenarx.ru', 'd.bormisov@medeq.ru', 'admin@medeq.ru'
-            ]);
+        Horizon::auth(function ($request) {
+            return Cookie::get('access_token');
         });
     }
 
