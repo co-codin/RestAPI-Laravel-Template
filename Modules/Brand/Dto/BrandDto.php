@@ -11,8 +11,6 @@ class BrandDto extends BaseDto
 
     public ?string $slug;
 
-    public $is_image_changed;
-
     public UploadedFile|string|null $image;
 
     public ?string $website;

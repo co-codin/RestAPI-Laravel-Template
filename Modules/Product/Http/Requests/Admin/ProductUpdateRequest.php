@@ -37,8 +37,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:products,slug,' . $this->route('product'),
             'has_test_drive' => 'sometimes|boolean',
-            'is_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_image_changed,true,1|required|string',
+            'image' => 'sometimes|required|string',
             'short_description' => 'sometimes|nullable|string',
             'full_description' => 'sometimes|nullable|string',
             'warranty' => 'sometimes|nullable|integer',
@@ -80,8 +79,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 'integer',
                 new EnumValue(ProductGroup::class, false),
             ],
-            'is_booklet_changed' => 'sometimes|boolean',
-            'booklet' => 'sometimes|exclude_unless:is_booklet_changed,true,1|nullable|file',
+            'booklet' => 'sometimes|nullable|file',
             'video' => 'sometimes|nullable|string|max:255',
 
             'documents' => 'sometimes|nullable|array',
@@ -115,7 +113,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'benefits.chips' => 'sometimes|nullable|array|max:3',
             'benefits.chips.*.value' => 'required|string|max:5',
             'benefits.chips.*.description' => 'required|string|max:255',
-            'benefits.benefit' => 'string|nullable|max:255',
+            'benefits.benefit' => 'string|nullable|max:500',
         ];
     }
 

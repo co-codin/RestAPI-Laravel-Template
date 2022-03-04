@@ -8,21 +8,23 @@ use App\Enums\Status;
 use Illuminate\Database\Query\Builder;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Product\Models\Product;
 
 class CategoryBrandsField
 {
     public function __invoke(Category $category)
     {
         return Brand::query()
+            ->selectRaw('brands.*, COUNT(*) as categoryProductCount')
+            ->join('products', 'products.brand_id', 'brands.id')
             ->whereExists(function (Builder $query) use ($category) {
-                $query->select('*')
+                return $query->selectRaw('1')
                     ->from('product_category as pc')
-                    ->leftJoin('products as p', 'pc.product_id', '=', 'p.id')
-                    ->leftJoin('brands as b', 'p.brand_id', '=', 'b.id')
-                    ->whereIn('pc.category_id', $category->descendants->pluck('id')->add($category->id))
-                    ->where('p.status', '=', Status::ACTIVE)
-                    ->whereRaw('p.brand_id = brands.id');
+                    ->whereColumn('pc.product_id', 'products.id')
+                    ->whereIn('pc.category_id', $category->descendants->pluck('id')->add($category->id));
             })
+            ->where('products.status', Status::ACTIVE)
+            ->groupBy('brands.id')
             ->get();
     }
 }

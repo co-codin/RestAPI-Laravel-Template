@@ -75,9 +75,7 @@ class ProductQuestionStorage
 
     private function notifyNewQuestion(ProductQuestion $question): void
     {
-        $email = $question?->client?->email;
-
-        if (!is_null($email)) {
+        if (!is_null($question?->client)) {
             \Mail::to(config('product.new-question-notify-email'))
                 ->queue(new NewQuestionNotify($question));
         }

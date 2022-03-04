@@ -12,6 +12,7 @@ type Brand {
     short_description: String
     assigned_by_id: Int
     productCount: Int! @count(relation: "products")
+    categoryProductCount: Int
     products: [Product!]  @hasMany(relation: "products")
     country: FieldValue  @belongsTo
     seo: Seo @morphOne
