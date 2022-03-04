@@ -27,7 +27,7 @@ class SatomFeedGenerator implements FeedGeneratorInterface
     public function generate(Export|Model $export): void
     {
         $settings = $this->settings
-            ->setOutputFile(storage_path('app/public/feeds') . '/' . $export->filename . '.xml')
+            ->setOutputFile(storage_path('app/feeds') . '/' . $export->filename . '.xml')
             ->setEncoding('UTF-8');
 
         $shopInfo = $this->shopInfo

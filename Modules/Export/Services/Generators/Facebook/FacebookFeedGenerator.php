@@ -20,7 +20,7 @@ class FacebookFeedGenerator implements FeedGeneratorInterface
 
     public function generate(Export|Model $export): void
     {
-        $file = fopen(storage_path("app/feeds/$export->filename.csv") , 'w');
+        $file = fopen(storage_path("app/$export->filename.csv") , 'w');
 
         fputcsv($file, array('id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand'));
 
