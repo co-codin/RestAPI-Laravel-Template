@@ -10,7 +10,7 @@ class AchievementCreateRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'required|image',
+            'image' => 'required|string',
             'is_enabled' => 'sometimes|boolean',
         ];
     }
