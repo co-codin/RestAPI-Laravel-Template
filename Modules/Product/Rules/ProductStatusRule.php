@@ -25,6 +25,8 @@ class ProductStatusRule implements Rule
                 ($product->warranty_info || $product->arbitrary_warranty_info)
             ;
         }
+
+        return true;
     }
 
     /**
