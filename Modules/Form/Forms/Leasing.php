@@ -14,8 +14,12 @@ class Leasing extends Form
     public function rules(): array
     {
         return [
-//            'name' => 'required|string|max:255',
-            'message' => 'required|string',
+            'product' => 'required|integer|exists:products,id',
+            'approximate_price' => 'required|integer',
+            'advance_amount' => 'required|integer|max:100',
+            'leasing_term' => 'required|integer|max:60',
+            'initial_payment' => 'required|integer',
+            'monthly_payment' => 'required|integer',
         ];
     }
 
@@ -33,7 +37,11 @@ class Leasing extends Form
     {
         return [
             'auth_name' => 'Имя',
-            'message' => 'Ваше сообщение',
+            'approximate_price' => 'Примерная стоимость',
+            'advance_amount' => 'Размер аванса',
+            'leasing_term' => 'Срок лизинга',
+            'initial_payment' => 'Первоначальный взнос',
+            'monthly_payment' => 'Ежемесячный платеж',
         ];
     }
 
@@ -42,12 +50,21 @@ class Leasing extends Form
         $default = parent::getComments();
 
         $name = $this->getAuthName();
-        $message = $this->getAttribute('message');
+
+        $approximatePrice = $this->getAttribute('approximate_price');
+        $advanceAmount = $this->getAttribute('advance_amount');
+        $leasingTerm = $this->getAttribute('leasing_term');
+        $initialPayment = $this->getAttribute('initial_payment');
+        $monthlyPayment = $this->getAttribute('monthly_payment');
 
         return "
                 $default
                 <br><b>Имя:</b> $name
-                <br><b>Сообщение:</b> $message
+                <br><b>Примерная стоимость:</b> $approximatePrice
+                <br><b>Размер аванса:</b> $advanceAmount
+                <br><b>Срок лизинга:</b> $leasingTerm
+                <br><b>Первоначальный взнос:</b> $initialPayment
+                <br><b>Ежемесячный платеж:</b> $monthlyPayment
                 ";
     }
 }

@@ -18,7 +18,7 @@ class NewsRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'name', 'slug', 'short_description', 'full_description',
-                'status', 'image', 'is_in_home', 'published_at', 'category',
+                'status', 'image', 'is_in_home', 'published_at', 'category', 'sources',
             ])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([

@@ -133,7 +133,7 @@ class ProductFilter
                 'order' => 'asc',
                 'missing' => '_last',
             ],
-            'variations.availability_sort_value' => [
+            'variations.availability' => [
                 'order' => 'asc',
                 'nested' => [
                     'path' => 'variations',
@@ -141,12 +141,6 @@ class ProductFilter
             ],
             'popular_score' => [
                 'order' => 'asc',
-            ],
-            'variations.is_price_visible' => [
-                'order' => 'asc',
-                'nested' => [
-                    'path' => 'variations',
-                ]
             ],
             'variations.price_in_rub' => [
                 'order' => 'asc',
@@ -160,6 +154,12 @@ class ProductFilter
                         ],
                     ],
                 ]
+            ],
+            'brand.name' => [
+                'order' => 'asc',
+            ],
+            'name' => [
+                'order' => 'asc',
             ],
         ],
     ];

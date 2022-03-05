@@ -46,8 +46,8 @@ trait ExportFilterRequest
             'filter.has_short_description' => 'sometimes|nullable|boolean',
             'filter.has_price' => 'sometimes|nullable|boolean',
             'filter.is_price_visible' => 'sometimes|nullable|boolean',
-            'filter.max_price' => 'sometimes|nullable|numeric',
-            'filter.min_price' => 'sometimes|nullable|numeric',
+            'filter.max_price' => 'sometimes|nullable|numeric|gte:filter.min_price',
+            'filter.min_price' => 'sometimes|nullable|numeric|lte:filter.max_price',
         ];
     }
 }

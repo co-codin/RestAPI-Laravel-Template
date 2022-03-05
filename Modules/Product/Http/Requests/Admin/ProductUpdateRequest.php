@@ -8,10 +8,9 @@ use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Product\Enums\DocumentSource;
-use Modules\Product\Enums\DocumentType;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Rules\CategoryIsMainRule;
+use Modules\Product\Rules\ProductStatusRule;
 
 class ProductUpdateRequest extends BaseFormRequest
 {
@@ -47,11 +46,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
-//                function ($attribute, $value, $fail) {
-//                    if ($value === Status::ACTIVE && is_null($this->get('full_description')) && is_null($this->get('image'))) {
-//                        $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
-//                    }
-//                }
+                new ProductStatusRule,
             ],
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',

@@ -14,6 +14,7 @@ type Category {
     review_ratings: [ReviewRatings!]
     parent: Category @belongsTo
     ancestors: [Category] @belongsToMany
+    descendants: [Category]
     children: [Category] @belongsTo
     productCount: Int! @count(relation: "products")
     products: [Product] @belongsToMany
@@ -24,6 +25,8 @@ type Category {
     seoCategoryProducts: Seo @morphOne
     count: Int
     pivot: CabinetCategoryPivot
+    brands: [Brand!] @field(resolver: "\\Modules\\Category\\Services\\CategoryBrandsField")
+    hotProducts: [Product!] @field(resolver: "\\Modules\\Category\\Services\\CategoryHotProductsField")
 }
 
 type ReviewRatings {

@@ -33,6 +33,7 @@ class ProductPropertyPivot extends Pivot
         'field_value_ids' => 'json',
         'value' => 'json',
         'is_important' => 'boolean',
+        'is_in_variations' => 'boolean',
         'important_position' => 'integer',
     ];
 

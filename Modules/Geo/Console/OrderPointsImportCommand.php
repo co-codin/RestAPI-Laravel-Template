@@ -42,6 +42,7 @@ class OrderPointsImportCommand extends Command
             foreach ($city['terminals']['terminal'] as $terminal) {
                 $cityModel->orderPoints()->create([
                     'address' => $terminal['fullAddress'],
+                    'short_address' => $terminal['address'],
                     'coordinate' => [
                         'lat' => (float) $terminal['latitude'],
                         'long' => (float) $terminal['longitude'],

@@ -21,6 +21,7 @@ class ProductPropertyStorage
                     'important_value',
                     'pretty_key',
                     'pretty_value',
+                    'is_in_variations',
                 ]))
                 ->toArray()
         );

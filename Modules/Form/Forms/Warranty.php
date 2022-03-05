@@ -18,7 +18,7 @@ class Warranty extends Form
             'email' => 'required|string|email|max:255',
             'contact_person' => 'required|string|max:255',
             'message' => 'nullable|string|external_links',
-            'file' => 'required|file|mimes:pdf,xlsx,xls,doc,docx,pptx,pps,ppt,jpeg,bmp,png|max:1024',
+            'file' => 'required|file|mimes:pdf,xlsx,xls,doc,docx,pptx,pps,ppt,jpeg,bmp,png|max:5120',
         ];
     }
 

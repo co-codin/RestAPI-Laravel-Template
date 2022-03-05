@@ -9,8 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
         "bensampo/laravel-enum": "^4.1",
-        "binary-cats/sanitizer": "^8.0",
+        "binary-cats/sanitizer": "^9.0",
         "bukashk0zzz/yml-generator": "^1.11",
         "calebporzio/parental": "^1.0",
         "cviebrock/eloquent-sluggable": "^8.0",
@@ -44,10 +47,7 @@
         "staudenmeir/eloquent-json-relations": "^1.1",
         "symfony/postmark-mailer": "^5.3",
         "vitalybaev/google-merchant-feed": "^2.1",
-        "wildbit/swiftmailer-postmark": "^3.3",
-        "ext-dom": "*",
-        "ext-libxml": "*",
-        "ext-curl": "*"
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

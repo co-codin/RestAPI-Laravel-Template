@@ -2,11 +2,8 @@
 
 namespace Modules\Export\Http\Controllers\Admin;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Artisan;
-use Modules\Export\Console\GenerateYandexMarket;
 use Modules\Export\Dto\ExportDto;
 use Modules\Export\Http\Requests\ExportCreateRequest;
 use Modules\Export\Http\Requests\ExportUpdateRequest;
@@ -58,6 +55,11 @@ class ExportController extends Controller
     {
         $exportModel = $this->exportRepository->find($export);
 
-        $this->exportService->call($exportModel);
+        $generator = $this->exportService->getGenerator($exportModel);
+
+        $generator->generate($exportModel);
+
+        $exportModel->exported_at = Carbon::now();
+        $exportModel->save();
     }
 }

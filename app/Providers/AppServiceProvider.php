@@ -16,6 +16,12 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        if (\App::environment('local')) {
+            \DB::listen(function ($query) {
+                logger(\Str::replaceArray('?', $query->bindings, $query->sql));
+            });
+        }
+
         $this->app->singleton(ClientAuthHelper::class);
 
         $this->app->register(MacrosServiceProvider::class);

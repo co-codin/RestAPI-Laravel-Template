@@ -4,15 +4,12 @@
 namespace Modules\Brand\Services;
 
 
-use App\Services\File\ImageUploader;
 use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Events\BrandSaved;
 use Modules\Brand\Models\Brand;
 
 class BrandStorage
 {
-    public function __construct(protected ImageUploader $imageUploader) {}
-
     public function store(BrandDto $brandDto)
     {
         $attributes = $brandDto->toArray();
