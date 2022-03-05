@@ -135,6 +135,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'documents.*.docs.*.type' => 'Тип',
             'documents.*.docs.*.file' => 'Файл',
             'documents.*.docs.*.link' => 'Ссылка',
+            'name' => 'Модель',
         ];
     }
 }
