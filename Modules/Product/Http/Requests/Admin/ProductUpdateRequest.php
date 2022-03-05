@@ -8,12 +8,9 @@ use App\Enums\Status;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Product\Enums\DocumentSource;
-use Modules\Product\Enums\DocumentType;
 use Modules\Product\Enums\ProductGroup;
-use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductCategory;
 use Modules\Product\Rules\CategoryIsMainRule;
+use Modules\Product\Rules\ProductStatusRule;
 
 class ProductUpdateRequest extends BaseFormRequest
 {
@@ -49,26 +46,7 @@ class ProductUpdateRequest extends BaseFormRequest
                 'required',
                 'integer',
                 new EnumValue(Status::class, false),
-                function ($attribute, $value, $fail) {
-                    if (in_array($value, [Status::ACTIVE, Status::ONLY_URL])) {
-                        $product = Product::query()->where('id', '=', $this->route('product'))->first();
-                        $productCategory = ProductCategory::query()->where('product_id', '=', $this->route('product'))->exists();
-                        $flag = $productCategory &&
-                            $product->brand_id &&
-                            $product->name &&
-                            $product->slug &&
-                            $product->group_id &&
-                            $product->short_description &&
-                            $product->full_description &&
-                            $product->image &&
-                            ($product->warranty_info || $product->arbitrary_warranty_info)
-                            ;
-
-                        if (!$flag) {
-                            $fail("Вы не можете включить отображение товара, так как не заполнены обязательные поля");
-                        }
-                    }
-                }
+                new ProductStatusRule,
             ],
             'stock_type_id' => 'sometimes|nullable|integer|exists:field_values,id',
             'is_in_home' => 'sometimes|required|boolean',
