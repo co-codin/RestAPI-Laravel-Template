@@ -5,11 +5,7 @@ use App\Http\Controllers\Admin\FieldValueController;
 use App\Http\Controllers\Admin\DocumentGroupController;
 use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController;
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', [AuthController::class, 'login'])->name('admin.login');
-});
 
 Route::post('/upload', UploadController::class)->name('admin.upload');
 

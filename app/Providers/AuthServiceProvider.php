@@ -26,13 +26,5 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
-
-//        Auth::viaRequest('custom-token', function (Request $request) {
-//            $token = session()->get('access_token');
-//
-//            $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
-//
-//            return $response->json();
-//        });
     }
 }
