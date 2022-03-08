@@ -3,10 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Http;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,12 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth::viaRequest('custom-token', function (Request $request) {
-            $token = session()->get('access_token');
+        Passport::routes();
 
-            $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
-
-            return $response->json();
-        });
+//        Auth::viaRequest('custom-token', function (Request $request) {
+//            $token = session()->get('access_token');
+//
+//            $response = Http::withToken($token)->get(config('services.auth.url') . '/api/auth/user');
+//
+//            return $response->json();
+//        });
     }
 }
