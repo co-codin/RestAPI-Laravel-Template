@@ -42,7 +42,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'custom-token',
+            'driver' => 'passport',
+            'provider' => 'users',
         ],
     ],
 
@@ -64,14 +65,10 @@ return [
     */
 
     'providers' => [
-//        'users' => [
-//            'driver' => 'eloquent',
-//        ],
-
-         'users' => [
-             'driver' => 'database',
-             'table' => 'users',
-         ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => \Modules\User\Models\User::class,
+        ],
     ],
 
     /*
