@@ -28,6 +28,7 @@ class FilterCreateRequest extends BaseFormRequest
                     ->where('category_id', $this->input('category_id'))
             ],
             'is_system' => 'required|boolean',
+            'is_hide_links_from_code' => 'required|boolean',
             'type' => [
                 'required',
                 'integer',
@@ -70,6 +71,7 @@ class FilterCreateRequest extends BaseFormRequest
             'facet.name' => 'Системное поле',
             'facet.value' => 'Значение для поиска',
             'facet.path' => 'Путь к системному полю',
+            'is_hide_links_from_code' => 'Скрыть ссылки фильтра из кода сайта',
         ];
     }
 }

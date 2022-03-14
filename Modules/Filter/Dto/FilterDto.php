@@ -25,4 +25,6 @@ class FilterDto extends BaseDto
     public ?array $facet;
 
     public $is_system;
+
+    public $is_hide_links_from_code;
 }
