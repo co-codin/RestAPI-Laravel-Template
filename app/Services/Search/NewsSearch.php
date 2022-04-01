@@ -19,7 +19,7 @@ class NewsSearch extends SearchAbstract
                     CONCAT_WS('/', '{$this->getSiteUrl()}', 'news', slug) AS public_url
                 "),
                 DB::raw("
-                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'pages', news.id, 'update') AS admin_url
+                    CONCAT_WS('/', '{$this->getAdminUrl()}', 'news', news.id, 'update') AS admin_url
                 ")
             ])
             ->leftJoin('seo', function ($leftJoin) {
