@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Modules\User\Models\User;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -19,15 +20,17 @@ abstract class TestCase extends BaseTestCase
         Storage::fake('public');
     }
 
-    protected function getToken()
+    protected function authenticateUser()
     {
-        $data = [
+        User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
+
+        $response = $this->json('POST', route('auth.login'), [
             'email' => 'admin@medeq.ru',
             'password' => 'admin1',
-        ];
+        ]);
 
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $data);
-
-        return $response->json()['token'];
+        return $this->withToken($response->json('token'));
     }
 }
