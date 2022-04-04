@@ -21,19 +21,11 @@ class CreateTest extends TestCase
 
     public function test_authenticated_can_create_achievement()
     {
-        User::factory()->create([
-            'email' => 'admin@medeq.ru'
-        ]);
-
-        $response = $this->json('POST', route('auth.login'), [
-            'email' => 'admin@medeq.ru',
-            'password' => 'admin1',
-        ]);
-
+        $this->authenticateUser();
 
         $achievementData = Achievement::factory()->raw();
 
-        $response = $this->withToken($response->json('token'))->json('POST', route('admin.achievements.store'), $achievementData);
+        $response = $this->json('POST', route('admin.achievements.store'), $achievementData);
 
         $response->assertCreated();
         $response->assertJsonStructure([

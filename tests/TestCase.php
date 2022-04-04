@@ -31,6 +31,6 @@ abstract class TestCase extends BaseTestCase
             'password' => 'admin1',
         ]);
 
-        return $this->withToken($response->json('token'));
+        $this->withToken($response->json('token'));
     }
 }
