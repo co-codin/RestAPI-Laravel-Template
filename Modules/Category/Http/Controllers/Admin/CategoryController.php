@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $categoryDto = CategoryDto::fromFormRequest($request);
 
         if (!$categoryDto->assigned_by_id) {
-            $categoryDto->assigned_by_id = auth('api')->id();
+            $categoryDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $category = $this->categoryStorage->store($categoryDto);

@@ -24,7 +24,7 @@ class PropertyController extends Controller
         $propertyDto = PropertyDto::fromFormRequest($request);
 
         if (!$propertyDto->assigned_by_id) {
-            $propertyDto->assigned_by_id = auth('api')->id();
+            $propertyDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $property = $this->propertyStorage->store($propertyDto);

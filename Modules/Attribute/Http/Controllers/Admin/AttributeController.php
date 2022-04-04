@@ -22,7 +22,7 @@ class AttributeController extends Controller
         $attributeDto = AttributeDto::fromFormRequest($request);
 
         if (!$attributeDto->assigned_by_id) {
-            $attributeDto->assigned_by_id = auth('api')->id();
+            $attributeDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $attribute = $this->attributeStorage->store($attributeDto);
