@@ -8,13 +8,23 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_attribute()
-//    {
-//        //
-//    }
+    public function test_unauthenticated_cannot_update_attribute()
+    {
+        $achievement = Attribute::factory()->create([
+            'is_default' => true,
+        ]);
+
+        $response = $this->json('PATCH', route('admin.attributes.update', $achievement), [
+            'is_default' => false
+        ]);
+
+        $response->assertStatus(401);
+    }
 
     public function test_authenticated_can_update_attribute()
     {
+        $this->authenticateUser();
+
         $achievement = Attribute::factory()->create([
             'is_default' => true,
         ]);

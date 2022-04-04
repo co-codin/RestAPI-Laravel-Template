@@ -3,6 +3,7 @@
 namespace Modules\Brand\Database\factories;
 
 use App\Enums\Status;
+use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\UploadedFile;
 use Modules\Brand\Models\Brand;
@@ -22,7 +23,7 @@ class BrandFactory extends Factory
             'status' => Status::getRandomValue(),
             'is_in_home' => $this->faker->boolean,
             'position' => $this->faker->randomDigit,
-            'country_id' => $this->faker->randomDigit(),
+            'country_id' => FieldValue::factory()
         ];
     }
 }

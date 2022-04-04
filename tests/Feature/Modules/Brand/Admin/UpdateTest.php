@@ -4,22 +4,30 @@
 namespace Tests\Feature\Modules\Brand\Admin;
 
 use App\Enums\Status;
-use Illuminate\Http\UploadedFile;
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_brand()
-//    {
-//        //
-//    }
-
-    public function test_authenticated_can_update_brand()
+    public function test_unauthenticated_cannot_update_brand()
     {
         $brand = Brand::factory()->create([
             'status' => Status::ONLY_URL,
-            'image' => UploadedFile::fake()->image('test.jpg'),
+        ]);
+
+        $response = $this->json('PATCH', route('admin.brands.update', $brand), [
+            'status' => Status::ACTIVE,
+        ]);
+
+        $response->assertStatus(401);
+    }
+
+    public function test_authenticated_can_update_brand()
+    {
+        $this->authenticateUser();
+
+        $brand = Brand::factory()->create([
+            'status' => Status::ONLY_URL,
         ]);
 
         $response = $this->json('PATCH', route('admin.brands.update', $brand), [
@@ -36,6 +44,8 @@ class UpdateTest extends TestCase
 
     public function test_brand_slug_should_be_unique()
     {
+        $this->authenticateUser();
+
         Brand::factory()->create([
             'slug' => 'slug'
         ]);
