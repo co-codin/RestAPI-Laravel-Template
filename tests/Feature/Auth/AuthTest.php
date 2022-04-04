@@ -9,15 +9,6 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    public function test_login_api()
-    {
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $this->getRightData());
-        $this->assertEquals($response->status(), 200);
-
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $this->getWrongData());
-        $this->assertEquals($response->status(), 422);
-    }
-
     public function test_login_endpoint()
     {
         $response = $this->json('POST', route('auth.login'), $this->getRightData());
