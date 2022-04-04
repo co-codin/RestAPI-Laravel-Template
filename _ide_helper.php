@@ -1822,7 +1822,7 @@
                     /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */ 
         public static function user()
@@ -1857,7 +1857,7 @@
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */ 
         public static function onceUsingId($id)
@@ -1935,7 +1935,7 @@
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */ 
         public static function loginUsingId($id, $remember = false)
@@ -1987,7 +1987,7 @@
          *
          * @param string $password
          * @param string $attribute
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */ 
@@ -2011,7 +2011,7 @@
                     /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @static 
          */ 
         public static function getLastAttempted()
@@ -2125,7 +2125,7 @@
                     /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */ 
         public static function getUser()
@@ -2171,7 +2171,7 @@
                     /**
          * Determine if the current user is authenticated. If not, throw an exception.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */ 
@@ -16252,156 +16252,6 @@
      
 }
 
-    namespace Laravel\Octane\Facades { 
-            /**
-     * 
-     *
-     * @see \Laravel\Octane\Octane
-     */ 
-        class Octane {
-                    /**
-         * Get a Swoole table instance.
-         *
-         * @param string $table
-         * @return \Swoole\Table 
-         * @static 
-         */ 
-        public static function table($table)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->table($table);
-        }
-                    /**
-         * Format an exception to a string that should be returned to the client.
-         *
-         * @param \Throwable $e
-         * @param bool $debug
-         * @return string 
-         * @static 
-         */ 
-        public static function formatExceptionForClient($e, $debug = false)
-        {
-                        return \Laravel\Octane\Octane::formatExceptionForClient($e, $debug);
-        }
-                    /**
-         * Concurrently resolve the given callbacks via background tasks, returning the results.
-         * 
-         * Results will be keyed by their given keys - if a task did not finish, the tasks value will be "false".
-         *
-         * @param array $tasks
-         * @param int $waitMilliseconds
-         * @return array 
-         * @throws \Laravel\Octane\Exceptions\TaskException
-         * @throws \Laravel\Octane\Exceptions\TaskTimeoutException
-         * @static 
-         */ 
-        public static function concurrently($tasks, $waitMilliseconds = 3000)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->concurrently($tasks, $waitMilliseconds);
-        }
-                    /**
-         * Get the task dispatcher.
-         *
-         * @return \Laravel\Octane\Contracts\DispatchesTasks 
-         * @static 
-         */ 
-        public static function tasks()
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->tasks();
-        }
-                    /**
-         * Get the listeners that will prepare the Laravel application for a new request.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function prepareApplicationForNextRequest()
-        {
-                        return \Laravel\Octane\Octane::prepareApplicationForNextRequest();
-        }
-                    /**
-         * Get the listeners that will prepare the Laravel application for a new operation.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function prepareApplicationForNextOperation()
-        {
-                        return \Laravel\Octane\Octane::prepareApplicationForNextOperation();
-        }
-                    /**
-         * Get the container bindings / services that should be pre-resolved by default.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function defaultServicesToWarm()
-        {
-                        return \Laravel\Octane\Octane::defaultServicesToWarm();
-        }
-                    /**
-         * Register a Octane route.
-         *
-         * @param string $method
-         * @param string $uri
-         * @param \Closure $callback
-         * @return void 
-         * @static 
-         */ 
-        public static function route($method, $uri, $callback)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        $instance->route($method, $uri, $callback);
-        }
-                    /**
-         * Determine if a route exists for the given method and URI.
-         *
-         * @param string $method
-         * @param string $uri
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasRouteFor($method, $uri)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->hasRouteFor($method, $uri);
-        }
-                    /**
-         * Invoke the route for the given method and URI.
-         *
-         * @param \Illuminate\Http\Request $request
-         * @param string $method
-         * @param string $uri
-         * @return \Symfony\Component\HttpFoundation\Response 
-         * @static 
-         */ 
-        public static function invokeRoute($request, $method, $uri)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->invokeRoute($request, $method, $uri);
-        }
-                    /**
-         * Register a callback to be called every N seconds.
-         *
-         * @param string $key
-         * @param callable $callback
-         * @param int $seconds
-         * @param bool $immediate
-         * @return \Laravel\Octane\Swoole\InvokeTickCallable 
-         * @static 
-         */ 
-        public static function tick($key, $callback, $seconds = 1, $immediate = true)
-        {
-                        /** @var \Laravel\Octane\Octane $instance */
-                        return $instance->tick($key, $callback, $seconds, $immediate);
-        }
-         
-    }
-     
-}
-
     namespace Medeq\Bitrix24\Facades { 
             /**
      * Class Bitrix24
@@ -20880,7 +20730,6 @@ namespace  {
             class Image extends \Intervention\Image\Facades\Image {}
             class Date extends \Jenssegers\Date\Date {}
             class Horizon extends \Laravel\Horizon\Horizon {}
-            class Octane extends \Laravel\Octane\Facades\Octane {}
             class Bitrix24 extends \Medeq\Bitrix24\Facades\Bitrix24 {}
             class graphql extends \Nuwave\Lighthouse\GraphQL {}
             class Module extends \Nwidart\Modules\Facades\Module {}
