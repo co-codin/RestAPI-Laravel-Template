@@ -24,7 +24,7 @@ class RedirectController extends Controller
         $redirectDto = RedirectDto::fromFormRequest($request);
 
         if (!$redirectDto->assigned_by_id) {
-            $redirectDto->assigned_by_id = auth('api')->id();
+            $redirectDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $redirectModel = $this->redirectStorage->store($redirectDto);
