@@ -16,12 +16,12 @@ class AuthController extends Controller
 
         if (!auth()->attempt($data)) {
             return response(['error_message' => 'Incorrect Details.
-            Please try again']);
+            Please try again'], 404);
         }
 
         $token = auth()->user()->createToken('API Token')->plainTextToken;
 
-        return response(['user' => auth()->user(), 'token' => $token]);
+        return response(['user' => auth()->user(), 'token' => $token], 200);
     }
 
     public function logout()
