@@ -56,7 +56,7 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_question()
+    public function test_user_can_view_a_single_question()
     {
         $question = Question::factory()->create();
 
