@@ -22,7 +22,7 @@ class SoldProductFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word(),
+            'name' => $this->faker->word(),
             'product_id' => Product::factory(),
             'city_id' => City::factory(),
             'type' => $this->faker->randomDigit(),
