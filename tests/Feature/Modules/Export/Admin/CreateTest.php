@@ -9,13 +9,19 @@ use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_export()
-//    {
-//        //
-//    }
+    public function test_unauthenticated_cannot_create_export()
+    {
+        $exportData = Export::factory()->raw();
+
+        $response = $this->json('POST', route('admin.exports.store'), $exportData);
+
+        $response->assertStatus(401);
+    }
 
     public function test_authenticated_can_create_export()
     {
+        $this->authenticateUser();
+
         $exportData = Export::factory()->raw();
 
         $response = $this->json('POST', route('admin.exports.store'), $exportData);

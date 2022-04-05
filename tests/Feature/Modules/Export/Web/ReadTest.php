@@ -25,7 +25,6 @@ class ReadTest extends TestCase
                     "type",
                     "filename",
                     "frequency",
-                    "parameters",
                     "created_at",
                     "updated_at",
                 ]
@@ -69,7 +68,6 @@ class ReadTest extends TestCase
                 "type",
                 "filename",
                 "frequency",
-                "parameters",
                 "created_at",
                 "updated_at",
             ]
