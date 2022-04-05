@@ -51,6 +51,8 @@ class UpdateTest extends TestCase
 
     public function test_category_slug_should_be_unique()
     {
+        $this->authenticateUser();
+
         Category::factory()->create([
             'slug' => 'slug'
         ]);

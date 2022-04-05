@@ -8,13 +8,19 @@ use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_currency()
-//    {
-//        //
-//    }
+    public function test_unauthenticated_cannot_create_currency()
+    {
+        $currencyData = Currency::factory()->raw();
+
+        $response = $this->json('POST', route('admin.currencies.store'), $currencyData);
+
+        $response->assertStatus(401);
+    }
 
     public function test_authenticated_can_create_currency()
     {
+        $this->authenticateUser();
+
         $currencyData = Currency::factory()->raw();
 
         $response = $this->json('POST', route('admin.currencies.store'), $currencyData);
