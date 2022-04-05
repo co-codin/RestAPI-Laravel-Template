@@ -43,7 +43,7 @@ class FilterUpdateRequest extends BaseFormRequest
             'options' => 'sometimes|array',
             'unit' => 'sometimes|nullable|string|max:50',
             'is_system' => 'sometimes|required|boolean',
-            'is_hide_links_from_code' => 'required|boolean',
+            'is_hide_links_from_code' => 'sometimes|required|boolean',
 
             // Facet
             'facet' => 'sometimes|required|array',
