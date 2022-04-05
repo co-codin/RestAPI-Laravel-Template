@@ -81,4 +81,11 @@ class ProductCreateRequest extends BaseFormRequest
             ],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'Модель',
+        ];
+    }
 }

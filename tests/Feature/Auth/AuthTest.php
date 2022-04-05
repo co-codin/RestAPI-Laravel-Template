@@ -4,18 +4,18 @@
 namespace Tests\Feature\Auth;
 
 
-use Illuminate\Support\Facades\Http;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    public function test_login_api()
+    protected function setUp(): void
     {
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $this->getRightData());
-        $this->assertEquals($response->status(), 200);
+        parent::setUp();
 
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $this->getWrongData());
-        $this->assertEquals($response->status(), 422);
+        User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
     }
 
     public function test_login_endpoint()
@@ -29,27 +29,20 @@ class AuthTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_me_api()
-    {
-        $response = Http::post(config('services.auth.url') . '/api/auth/login', $this->getRightData());
-
-        $response = Http::withToken($response['token'])->get(config('services.auth.url') . '/api/auth/user');
-
-        $this->assertEquals($response->status(), 200);
-    }
-
     public function test_me_endpoint()
     {
-        $this->json('POST', route('auth.login'), $this->getRightData());
+        $response = $this->json('POST', route('auth.login'), $this->getRightData());
 
-        $response = $this->json('GET', route('auth.user'));
+        $token = $response->json('token');
+
+        $response = $this->withToken($token)->json('GET', route('auth.user'));
 
         $response->assertStatus(200);
 
         $this->assertNotEmpty($response->json());
     }
 
-    public function test_me_endpoint_opposite()
+    public function test_failed_me_endpoint()
     {
         $response = $this->json('GET', route('auth.user'));
 
@@ -58,9 +51,11 @@ class AuthTest extends TestCase
 
     public function test_logout()
     {
-        $this->json('POST', route('auth.login'), $this->getRightData());
+        $response = $this->json('POST', route('auth.login'), $this->getRightData());
 
-        $response = $this->json('POST', route('auth.logout'), $this->getRightData());
+        $token = $response->json('token');
+
+        $response = $this->withToken($token)->json('POST', route('auth.logout'));
 
         $response->assertStatus(200);
         $this->assertEmpty(session()->get('access_token'));

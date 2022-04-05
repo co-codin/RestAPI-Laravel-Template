@@ -22,7 +22,7 @@ class SeoRuleController extends Controller
         $seoRuleDto = SeoRuleDto::fromFormRequest($request);
 
         if (!$seoRuleDto->assigned_by_id) {
-            $seoRuleDto->assigned_by_id = auth('api')->id();
+            $seoRuleDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $seoRule = $this->seoRuleStorage->store($seoRuleDto);
