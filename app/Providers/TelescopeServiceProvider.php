@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\EntryType;
 use Illuminate\Support\Collection;
 use Laravel\Telescope\IncomingEntry;
@@ -54,11 +55,9 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         ]);
     }
 
-    protected function authorization()
+    protected function gate()
     {
-        Telescope::auth(function ($request) {
-            return Cookie::get('access_token');
-        });
+        Gate::define('viewTelescope', fn($user) => true);
     }
 
     protected function filterEntries()
