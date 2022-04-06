@@ -25,7 +25,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 
     protected function gate()
     {
-        Gate::define('viewTelescope', fn($user) => true);
+        Gate::define('viewHorizon', fn($user) => true);
     }
 
     /**
