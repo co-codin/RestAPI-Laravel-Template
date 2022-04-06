@@ -11,18 +11,20 @@ use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_news()
-//    {
-//        //
-//    }
+    public function test_unauthenticated_cannot_create_news()
+    {
+        $newsData = News::factory()->raw();
+
+        $response = $this->json('POST', route('admin.news.store'), $newsData);
+
+        $response->assertStatus(401);
+    }
 
     public function test_authenticated_can_create_news()
     {
-        Storage::fake('public');
+        $this->authenticateUser();
 
-        $newsData = News::factory()->raw([
-            'image' => UploadedFile::fake()->image('test-file.jpg'),
-        ]);
+        $newsData = News::factory()->raw();
 
         $response = $this->json('POST', route('admin.news.store'), $newsData);
 

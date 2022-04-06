@@ -28,7 +28,7 @@ class NewsFactory extends Factory
             'status' => Status::getRandomValue(),
             'is_in_home' => $this->faker->boolean,
             'image' => '/uploads/test/news/news' . $this->faker->randomElement([1, 2]) . '.jpg',
-            'published_at' => Carbon::now(),
+            'published_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ];
     }
 }

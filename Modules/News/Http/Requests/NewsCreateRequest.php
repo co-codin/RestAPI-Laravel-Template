@@ -21,7 +21,7 @@ class NewsCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]*$/|nullable|max:255|unique:news,slug',
-            'image' => 'required|image',
+            'image' => 'required|string',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'required|date',
             'view_num' => 'sometimes|nullable|integer',
