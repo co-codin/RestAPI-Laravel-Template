@@ -12,16 +12,12 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_page()
-//    {
-//        //
-//    }
 
     public function test_authenticated_can_update_product()
     {
-        $product = Product::factory()->create([
-            'image' => UploadedFile::fake()->image('test.jpg'),
-        ]);
+        $this->authenticateUser();
+
+        $product = Product::factory()->create();
 
         $response = $this->json('PATCH', route('admin.products.update', $product), [
             'name' => $newName = 'new name',
@@ -35,9 +31,7 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_documents_in_product()
     {
-        $product = Product::factory()->create([
-            'image' => UploadedFile::fake()->image('test.jpg'),
-        ]);
+        $product = Product::factory()->create();
 
         $response = $this->json('PATCH', route('admin.products.update', $product), [
             'name' => $newName = 'new name',
