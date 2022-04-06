@@ -11,13 +11,29 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_property_in_product()
-//    {
-//        //
-//    }
+    public function test_unauthenticated_cannot_update_property_in_product()
+    {
+        $product = Product::factory()->create();
+
+        $property = Property::factory()->create();
+
+        $response = $this->json('PUT', route('admin.product.property.update', $product), [
+            'properties' => [
+                [
+                    'id' => $property->id,
+                    'pretty_key' => $prettyKey = 'test_key',
+                    'pretty_value' => $prettyValue = 'test_value',
+                ],
+            ]
+        ]);
+
+        $response->assertStatus(401);
+    }
 
     public function test_authenticated_can_update_property_in_product()
     {
+        $this->authenticateUser();
+
         $product = Product::factory()->create();
 
         $property = Property::factory()->create();

@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Modules\Product\Admin\Configurator;
 
-use Illuminate\Http\UploadedFile;
 use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
@@ -12,16 +11,11 @@ use function React\Promise\map;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_configurator()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_create_configurator()
     {
-        $product = Product::factory()->create([
-            'image' => UploadedFile::fake()->image('test.jpg'),
-        ]);
+        $this->authenticateUser();
+
+        $product = Product::factory()->create();
 
         $response = $this->json(
             'PUT',
@@ -36,6 +30,10 @@ class UpdateTest extends TestCase
                     ]),
                 ],
             ],
+        );
+
+        dd(
+            $response->json()
         );
 
         $response->assertNoContent();
