@@ -22,7 +22,6 @@ class CreateTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 'name',
-                'slug',
             ]
         ]);
         $this->assertDatabaseHas('vacancies', [

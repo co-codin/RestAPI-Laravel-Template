@@ -23,9 +23,11 @@ class VacancyFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'slug' => $this->faker->unique()->sentence(4),
             'short_description' => $this->faker->sentence(10),
             'status' => Status::ACTIVE,
+            'duty' => $this->faker->word,
+            'requirement' => $this->faker->word,
+            'condition' => $this->faker->word,
         ];
     }
 }
