@@ -8,15 +8,6 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    public function test_unauthenticated_cannot_delete_customer_review()
-    {
-        $customerReview = CustomerReview::factory()->create();
-
-        $response = $this->json('DELETE', route('admin.customer-reviews.destroy', $customerReview));
-
-        $response->assertStatus(401);
-    }
-
     public function test_authenticated_can_delete_customer_review()
     {
         $this->authenticateUser();

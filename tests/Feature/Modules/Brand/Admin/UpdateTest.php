@@ -9,19 +9,6 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_update_brand()
-    {
-        $brand = Brand::factory()->create([
-            'status' => Status::ONLY_URL,
-        ]);
-
-        $response = $this->json('PATCH', route('admin.brands.update', $brand), [
-            'status' => Status::ACTIVE,
-        ]);
-
-        $response->assertStatus(401);
-    }
-
     public function test_authenticated_can_update_brand()
     {
         $this->authenticateUser();

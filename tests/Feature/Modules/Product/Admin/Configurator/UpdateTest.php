@@ -4,8 +4,6 @@
 namespace Tests\Feature\Modules\Product\Admin\Configurator;
 
 use App\Models\FieldValue;
-use Modules\Currency\Models\Currency;
-use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Tests\TestCase;

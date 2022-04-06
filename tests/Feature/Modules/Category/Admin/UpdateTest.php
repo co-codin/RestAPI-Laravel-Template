@@ -9,23 +9,6 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_update_category()
-    {
-        $parentCategory = Category::factory()->create();
-
-        $category = Category::factory()->create([
-            'status' => Status::ONLY_URL,
-        ]);
-
-        $response = $this->json('PATCH', route('admin.categories.update', $category), [
-            'name' => $newName = 'new name',
-            'status' => Status::ACTIVE,
-            'parent_id' => $parentCategory->id,
-        ]);
-
-        $response->assertStatus(401);
-    }
-
     public function test_authenticated_can_update_category()
     {
         $this->authenticateUser();
