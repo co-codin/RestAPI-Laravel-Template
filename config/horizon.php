@@ -71,10 +71,7 @@ return [
     |
     */
 
-    'middleware' => [
-        'api',
-        Authenticate::class
-    ],
+    'middleware' => ['web', 'auth.basic'],
 
     /*
     |--------------------------------------------------------------------------
