@@ -10,6 +10,8 @@ class ReadTest extends TestCase
 {
     public function test_authenticated_user_can_view_properties()
     {
+        $this->authenticateUser();
+
         Property::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('properties.index'));
@@ -21,7 +23,6 @@ class ReadTest extends TestCase
                 [
                     "id",
                     "name",
-                    "type",
                     "options",
                     "description",
                     "is_hidden_from_product",
@@ -50,7 +51,6 @@ class ReadTest extends TestCase
             'data' => [
                 "id",
                 "name",
-                "type",
                 "options",
                 "description",
                 "is_hidden_from_product",

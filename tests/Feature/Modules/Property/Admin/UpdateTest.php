@@ -9,13 +9,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_property()
-//    {
-//        //
-//    }
-
-    public function test_authenticated_can_update_property()
+    public function test_authenticated_can_update_a_property()
     {
+        $this->authenticateUser();
+
         $property = Property::factory()->create();
 
         $response = $this->json('PATCH', route('admin.properties.update', $property), [
