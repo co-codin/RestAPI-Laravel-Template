@@ -19,12 +19,10 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
-                    "title",
+                    "name",
                     "product_id",
                     "city_id",
-                    "category_id",
                     "type",
-                    "status",
                 ]
             ],
             'links' => [
@@ -62,12 +60,10 @@ class ReadTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "title",
+                "name",
                 "product_id",
                 "city_id",
-                "category_id",
                 "type",
-                "status",
             ]
         ]);
     }
