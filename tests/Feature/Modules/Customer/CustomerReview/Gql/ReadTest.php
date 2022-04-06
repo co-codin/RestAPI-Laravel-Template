@@ -17,7 +17,7 @@ class ReadTest extends TestCase
                 customer_reviews {
                     data {
                         id
-                        post
+                        company_name
                         author
                         type
                         video
@@ -40,7 +40,7 @@ class ReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $customerReview->id,
-                            'post' => $customerReview->post,
+                            'company_name' => $customerReview->company_name,
                         ]
                     ],
                     'paginatorInfo' => [
@@ -56,7 +56,7 @@ class ReadTest extends TestCase
                 customer_reviews(where: { column: ID, operator: EQ, value: ' . $customerReview->id .'  }) {
                     data {
                         id
-                        post
+                        company_name
                         author
                         type
                         video
@@ -75,7 +75,7 @@ class ReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $customerReview->id,
-                            'post' => $customerReview->post,
+                            'company_name' => $customerReview->company_name,
                         ]
                     ],
                 ]

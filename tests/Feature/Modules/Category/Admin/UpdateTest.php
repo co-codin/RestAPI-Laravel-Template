@@ -9,13 +9,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_category()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_update_category()
     {
+        $this->authenticateUser();
+
         $parentCategory = Category::factory()->create();
 
         $category = Category::factory()->create([
@@ -37,6 +34,8 @@ class UpdateTest extends TestCase
 
     public function test_category_slug_should_be_unique()
     {
+        $this->authenticateUser();
+
         Category::factory()->create([
             'slug' => 'slug'
         ]);

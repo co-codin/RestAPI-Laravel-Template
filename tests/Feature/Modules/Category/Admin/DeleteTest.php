@@ -8,18 +8,15 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_delete_category()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_delete_category()
     {
+        $this->authenticateUser();
+
         $category = Category::factory()->create();
 
         $response = $this->deleteJson(route('admin.categories.destroy', $category));
 
-        $response->assertNoContent(204);
+        $response->assertNoContent();
 
         $this->assertSoftDeleted($category);
     }

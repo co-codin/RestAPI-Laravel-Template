@@ -29,7 +29,6 @@ class ReadTest extends TestCase
                     'status',
                     'is_in_home',
                     'parent_id',
-                    'short_properties',
                     'created_at',
                     'updated_at',
                     'deleted_at',

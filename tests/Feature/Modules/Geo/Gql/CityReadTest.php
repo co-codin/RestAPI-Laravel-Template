@@ -16,8 +16,10 @@ class CityReadTest extends TestCase
                 cities {
                     data {
                         id
-                        region_name
                         name
+                        slug
+                        status
+                        is_default
                     }
                     paginatorInfo {
                         currentPage
@@ -27,13 +29,14 @@ class CityReadTest extends TestCase
             }
         ');
 
+
+
         $response->assertJson([
             'data' => [
                 'cities' => [
                     'data' => [
                         [
                             'id' => $city->id,
-                            'region_name' => $city->region_name,
                             'name' => $city->name,
                         ]
                     ],
@@ -50,7 +53,7 @@ class CityReadTest extends TestCase
                 cities(where: { column: ID, operator: EQ, value: ' . $city->id .'  }) {
                     data {
                         id
-                        region_name
+                        slug
                         name
                     }
                 }
@@ -63,7 +66,7 @@ class CityReadTest extends TestCase
                     'data' => [
                         [
                             'id' => $city->id,
-                            'region_name' => $city->region_name,
+                            'slug' => $city->slug,
                             'name' => $city->name
                         ]
                     ],

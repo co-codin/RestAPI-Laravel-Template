@@ -8,15 +8,6 @@ use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_create_attribute()
-    {
-        $attributeData = Attribute::factory()->raw();
-
-        $response = $this->json('POST', route('admin.attributes.store'), $attributeData);
-
-        $response->assertStatus(401);
-    }
-
     public function test_authenticated_can_create_attribute()
     {
         $this->authenticateUser();

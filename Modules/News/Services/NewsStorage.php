@@ -13,19 +13,12 @@ class NewsStorage
 
     public function store(NewsDto $newsDto)
     {
-        $attributes = $newsDto->toArray();
-        $attributes['image'] = $this->imageUploader->upload($newsDto->image);
-
-        return News::query()->create($attributes);
+        return News::query()->create($newsDto->toArray());
     }
 
     public function update(News $news, NewsDto $newsDto)
     {
         $attributes = $newsDto->toArray();
-
-        if ($newsDto->is_image_changed && $newsDto->image) {
-            $attributes['image'] = $newsDto->image ? $this->imageUploader->upload($newsDto->image) : null;
-        }
 
         if (!$news->update($attributes)) {
             throw new \LogicException('can not update news');

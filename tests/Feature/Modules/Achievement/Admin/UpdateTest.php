@@ -8,19 +8,6 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_unauthenticated_cannot_update_achievement()
-    {
-        $achievement = Achievement::factory()->create([
-            'is_enabled' => true,
-        ]);
-
-        $response = $this->json('PATCH', route('admin.achievements.update', $achievement), [
-            'is_enabled' => false
-        ]);
-
-        $response->assertStatus(401);
-    }
-
     public function test_authenticated_can_update_achievement()
     {
         $this->authenticateUser();

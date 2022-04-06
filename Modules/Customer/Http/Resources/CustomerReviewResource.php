@@ -7,19 +7,8 @@ use Modules\Customer\Enums\CustomerType;
 use Modules\Customer\Models\CustomerReview;
 use Illuminate\Http\Request;
 
-/**
- * Class CustomerReviewResource
- * @package Modules\Customer\Http\Resources
- * @mixin CustomerReview
- */
 class CustomerReviewResource extends BaseJsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param Request
-     * @return array
-     */
     public function toArray($request): array
     {
         return array_merge(parent::toArray($request), [

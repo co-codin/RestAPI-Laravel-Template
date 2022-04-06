@@ -19,10 +19,17 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
-                    "region_name",
-                    "region_name_with_type",
+                    "federal_district",
+                    "region_id",
                     "name",
                     "slug",
+                    "status",
+                    "is_default",
+                    "coordinate",
+                    "dial_code",
+                    "postal_index",
+                    "region_phone",
+                    "email",
                     "created_at",
                     "updated_at",
                 ]
@@ -62,10 +69,17 @@ class ReadTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "region_name",
-                "region_name_with_type",
+                "federal_district",
+                "region_id",
                 "name",
                 "slug",
+                "status",
+                "is_default",
+                "coordinate",
+                "dial_code",
+                "postal_index",
+                "region_phone",
+                "email",
                 "created_at",
                 "updated_at",
             ]

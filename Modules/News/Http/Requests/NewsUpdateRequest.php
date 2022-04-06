@@ -23,7 +23,7 @@ class NewsUpdateRequest extends BaseFormRequest
             ],
             'slug' => 'sometimes|regex:/^[a-z0-9_\-]+$/|nullable|max:255|unique:news,slug,' . $this->route('news'),
             'is_image_changed' => 'sometimes|boolean',
-            'image' => 'sometimes|exclude_unless:is_image_changed,true,1|required|image',
+            'image' => 'sometimes|exclude_unless:is_image_changed,true,1|required|string',
             'is_in_home' => 'sometimes|boolean',
             'published_at' => 'sometimes|required|date',
             'view_num' => 'sometimes|nullable|integer',
