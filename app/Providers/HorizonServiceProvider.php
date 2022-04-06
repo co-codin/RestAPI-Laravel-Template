@@ -23,13 +23,6 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         // Horizon::routeSlackNotificationsTo('slack-webhook-url', '#channel');
     }
 
-    protected function authorization()
-    {
-        Horizon::auth(function ($request) {
-            return Cookie::get('access_token');
-        });
-    }
-
     /**
      * Register any application services.
      *
