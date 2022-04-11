@@ -19,31 +19,20 @@ class QuestionCategoryReadTest extends TestCase
         $response = $this->graphQL('
             {
                 questionCategories {
-                    data {
-                        id
-                        name
-                        slug
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
+                    id
+                    name
+                    slug
                 }
             }
         ');
 
+
         $response->assertJson([
             'data' => [
                 'questionCategories' => [
-                    'data' => [
-                        [
-                            'id' => $questionCategory->id,
-                            'name' => $questionCategory->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                    [
+                        'id' => $questionCategory->id,
+                        'name' => $questionCategory->name,
                     ]
                 ]
             ],
@@ -52,10 +41,8 @@ class QuestionCategoryReadTest extends TestCase
         $response = $this->graphQL('
             {
                 questionCategories(where: { column: ID, operator: EQ, value: ' . $questionCategory->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
+                    id
+                    name
                 }
             }
         ');
@@ -63,12 +50,10 @@ class QuestionCategoryReadTest extends TestCase
         $response->assertJson([
             'data' => [
                 'questionCategories' => [
-                    'data' => [
-                        [
-                            'id' => $questionCategory->id,
-                            'name' => $questionCategory->name,
-                        ]
-                    ],
+                    [
+                        'id' => $questionCategory->id,
+                        'name' => $questionCategory->name,
+                    ]
                 ]
             ],
         ]);

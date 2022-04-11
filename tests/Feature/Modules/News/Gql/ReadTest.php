@@ -13,7 +13,7 @@ class ReadTest extends TestCase
     public function test_news_can_be_viewed()
     {
         $news = News::factory()->create([
-            'status' => Status::INACTIVE,
+            'status' => Status::ACTIVE,
         ]);
 
         $response = $this->graphQL('
@@ -30,6 +30,7 @@ class ReadTest extends TestCase
                 }
             }
         ');
+
 
         $response->assertJson([
             'data' => [

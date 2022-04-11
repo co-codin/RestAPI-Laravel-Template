@@ -2,7 +2,6 @@
 
 namespace Modules\Customer\Http\Controllers;
 
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Http\Controllers\Controller;
 use Modules\Customer\Http\Resources\CustomerReviewResource;
 use Modules\Customer\Models\CustomerReview;
@@ -14,23 +13,14 @@ class CustomerReviewController extends Controller
         private CustomerReviewRepository $repository
     ) {}
 
-    /**
-     * Display a listing of the resource.
-     * @return AnonymousResourceCollection
-     */
-    public function index(): AnonymousResourceCollection
+    public function index()
     {
         $customerReviews = $this->repository->jsonPaginate();
 
         return CustomerReviewResource::collection($customerReviews);
     }
 
-    /**
-     * Show the specified resource.
-     * @param CustomerReview $customerReview
-     * @return CustomerReviewResource
-     */
-    public function show(CustomerReview $customerReview): CustomerReviewResource
+    public function show(CustomerReview $customerReview)
     {
         return new CustomerReviewResource($customerReview);
     }

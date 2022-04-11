@@ -13,7 +13,7 @@ class ReadTest extends TestCase
     {
         QuestionCategory::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('question_categories.index'));
+        $response = $this->json('GET', route('question-categories.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -59,7 +59,7 @@ class ReadTest extends TestCase
     {
         $questionCategory = QuestionCategory::factory()->create();
 
-        $response = $this->json('GET', route('question_categories.show', $questionCategory));
+        $response = $this->json('GET', route('question-categories.show', $questionCategory));
 
         $response->assertOk();
         $response->assertJsonStructure([

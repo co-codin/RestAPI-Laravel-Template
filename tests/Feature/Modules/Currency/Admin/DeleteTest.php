@@ -8,13 +8,10 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_delete_currency()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_delete_currency()
     {
+        $this->authenticateUser();
+
         $currency = Currency::factory()->create();
 
         $response = $this->deleteJson(route('admin.currencies.destroy', $currency));

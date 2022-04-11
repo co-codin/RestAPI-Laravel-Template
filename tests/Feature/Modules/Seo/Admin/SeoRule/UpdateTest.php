@@ -10,13 +10,10 @@ use function route;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_seo_rule()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_update_seo_rule()
     {
+        $this->authenticateUser();
+
         $seoRule = SeoRule::factory()->create();
 
         $response = $this->json('PATCH', route('admin.seo-rules.update', $seoRule), [

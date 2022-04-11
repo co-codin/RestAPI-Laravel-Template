@@ -38,6 +38,7 @@ class FilterRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('category_id'),
                 AllowedFilter::exact('is_system'),
+                AllowedFilter::exact('is_hide_links_from_code'),
                 AllowedFilter::partial('description'),
                 AllowedFilter::exact('is_enabled'),
                 AllowedFilter::exact('is_default'),
@@ -61,7 +62,7 @@ class FilterRequestCriteria implements CriteriaInterface
     {
         $fields = [
             'id', 'name', 'type', 'slug', 'category_id', 'description', 'facet',
-            'is_enabled', 'is_default', 'options', 'position',
+            'is_enabled', 'is_default', 'options', 'position', 'is_hide_links_from_code',
             'created_at', 'is_system',
         ];
 

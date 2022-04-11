@@ -8,6 +8,7 @@ type Filter {
     category_id: Int!
     is_enabled: Boolean!
     is_default: Boolean!
+    is_hide_links_from_code: Boolean!
     description: String
     position: Int
     unit: String

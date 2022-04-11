@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Modules\Category\Admin;
 
-use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Tests\TestCase;
 
@@ -11,6 +10,8 @@ class CreateTest extends TestCase
 {
     public function test_authenticated_can_create_category()
     {
+        $this->authenticateUser();
+
         $categoryData = Category::factory()->raw();
 
         $response = $this->json('POST', route('admin.categories.store'), $categoryData);
@@ -25,9 +26,7 @@ class CreateTest extends TestCase
                 'full_description',
                 'image',
                 'status',
-                'is_in_home',
                 'parent_id',
-                'short_properties',
                 'created_at',
                 'updated_at',
             ]

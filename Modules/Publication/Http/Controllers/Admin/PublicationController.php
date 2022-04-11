@@ -23,7 +23,7 @@ class PublicationController extends Controller
         $publicationDto = PublicationDto::fromFormRequest($request);
 
         if (!$publicationDto->assigned_by_id) {
-            $publicationDto->assigned_by_id = auth('api')->id();
+            $publicationDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $publication = $this->publicationStorage->store($publicationDto);

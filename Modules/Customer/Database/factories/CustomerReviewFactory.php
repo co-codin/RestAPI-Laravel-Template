@@ -15,14 +15,13 @@ class CustomerReviewFactory extends Factory
         $imagePath = "/uploads/test/reviews/";
 
         return [
+            'company_name' => $this->faker->name(),
             'position' => $this->faker->name(),
             'author' => $this->faker->name(),
             'type' => CustomerType::getRandomValue(),
             'video' => 'https://youtu.be/BcIMTGoXj_I',
-            'review_file' => '/uploads/test.pdf',
             'is_in_home' => $this->faker->boolean,
             'comment' => '<p>' . $this->faker->text() . '</p>',
-            'logo' => $imagePath . $this->faker->randomElement(["helix.png", "gemotest_lider.png", "invitro.png", "medi.png"]),
         ];
     }
 }

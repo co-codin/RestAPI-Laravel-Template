@@ -9,13 +9,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_export()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_update_export()
     {
+        $this->authenticateUser();
+
         $export = Export::factory()->create();
 
         $response = $this->json('PATCH', route('admin.exports.update', $export), [

@@ -5,17 +5,15 @@ namespace Tests\Feature\Modules\Achievement\Admin;
 
 use Illuminate\Support\Facades\Storage;
 use Modules\Achievement\Models\Achievement;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_create_achievement()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_create_achievement()
     {
+        $this->authenticateUser();
+
         $achievementData = Achievement::factory()->raw();
 
         $response = $this->json('POST', route('admin.achievements.store'), $achievementData);

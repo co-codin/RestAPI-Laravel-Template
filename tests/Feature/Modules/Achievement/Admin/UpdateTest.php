@@ -8,13 +8,10 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_achievement()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_update_achievement()
     {
+        $this->authenticateUser();
+
         $achievement = Achievement::factory()->create([
             'is_enabled' => true,
         ]);

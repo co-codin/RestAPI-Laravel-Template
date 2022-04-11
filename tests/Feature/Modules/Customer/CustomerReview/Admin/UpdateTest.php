@@ -8,24 +8,21 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-//    public function test_unauthenticated_cannot_update_customer_review()
-//    {
-//        //
-//    }
-
     public function test_authenticated_can_update_customer_review()
     {
+        $this->authenticateUser();
+
         $customerReview = CustomerReview::factory()->create();
 
         $response = $this->json('PATCH',
             route('admin.customer-reviews.update', $customerReview), [
-                'post' => $newName = 'new post',
+                'company_name' => $newName = 'new post',
             ]
         );
 
         $response->assertOk();
         $this->assertDatabaseHas('customer_reviews', [
-            'post' => $newName,
+            'company_name' => $newName,
         ]);
     }
 }

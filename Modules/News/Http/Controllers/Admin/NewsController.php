@@ -24,7 +24,7 @@ class NewsController extends Controller
         $newsDto = NewsDto::fromFormRequest($request);
 
         if (!$newsDto->assigned_by_id) {
-            $newsDto->assigned_by_id = auth('api')->id();
+            $newsDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $news = $this->newsStorage->store($newsDto);

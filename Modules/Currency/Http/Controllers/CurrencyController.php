@@ -27,4 +27,11 @@ class CurrencyController extends Controller
 
         return new CurrencyResource($currency);
     }
+
+    public function rate(int $currency)
+    {
+        $currency = $this->currencyRepository->find($currency);
+
+        return $currency->rate;
+    }
 }

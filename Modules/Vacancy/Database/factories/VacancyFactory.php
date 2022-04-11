@@ -2,6 +2,7 @@
 namespace Modules\Vacancy\Database\factories;
 
 use App\Enums\Status;
+use Modules\Vacancy\Models\Vacancy;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class VacancyFactory extends Factory
@@ -11,7 +12,7 @@ class VacancyFactory extends Factory
      *
      * @var string
      */
-    protected $model = \Modules\Vacancy\Models\Vacancy::class;
+    protected $model = Vacancy::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +23,11 @@ class VacancyFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'slug' => $this->faker->unique()->sentence(4),
             'short_description' => $this->faker->sentence(10),
-            'full_description' => $this->faker->sentence(30),
             'status' => Status::ACTIVE,
+            'duty' => $this->faker->word,
+            'requirement' => $this->faker->word,
+            'condition' => $this->faker->word,
         ];
     }
 }

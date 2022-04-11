@@ -9,6 +9,10 @@ class ProductVariationProperty extends Model
 {
     protected $guarded = ['id'];
 
+    protected $table = 'product_variation_property';
+
+    public $timestamps = false;
+
     protected $casts = [
         'product_variation_id' => 'integer',
         'property_id' => 'integer',

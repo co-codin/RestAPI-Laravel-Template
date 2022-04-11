@@ -12,22 +12,14 @@ class ReadTest extends TestCase
 {
     public function test_vacancies_can_be_viewed()
     {
-        $vacancy = Vacancy::factory()->create([
-            'status' => Status::INACTIVE,
-        ]);
+        $vacancy = Vacancy::factory()->create();
 
         $response = $this->graphQL('
             {
                 vacancies {
-                    data {
-                        id
-                        name
-                        slug
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
+                   id
+                   name
+                   slug
                 }
             }
         ');
@@ -35,15 +27,9 @@ class ReadTest extends TestCase
         $response->assertJson([
             'data' => [
                 'vacancies' => [
-                    'data' => [
-                        [
-                            'id' => $vacancy->id,
-                            'name' => $vacancy->name,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                    [
+                        'id' => $vacancy->id,
+                        'name' => $vacancy->name,
                     ]
                 ]
             ],
@@ -52,10 +38,8 @@ class ReadTest extends TestCase
         $response = $this->graphQL('
             {
                 vacancies(where: { column: ID, operator: EQ, value: ' . $vacancy->id .'  }) {
-                    data {
-                        id
-                        name
-                    }
+                    id
+                    name
                 }
             }
         ');
@@ -63,12 +47,10 @@ class ReadTest extends TestCase
         $response->assertJson([
             'data' => [
                 'vacancies' => [
-                    'data' => [
-                        [
-                            'id' => $vacancy->id,
-                            'name' => $vacancy->name,
-                        ]
-                    ],
+                    [
+                        'id' => $vacancy->id,
+                        'name' => $vacancy->name,
+                    ]
                 ]
             ],
         ]);

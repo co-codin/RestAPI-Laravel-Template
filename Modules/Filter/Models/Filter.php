@@ -48,6 +48,7 @@ class Filter extends Model
         'position' => 'integer',
         'options' => 'json',
         'facet' => 'object',
+        'is_hide_links_from_code' => 'boolean',
     ];
 
     public function category()

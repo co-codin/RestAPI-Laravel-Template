@@ -33,7 +33,7 @@ class CanonicalController extends Controller
         $canonicalDto = CanonicalDto::fromFormRequest($request);
 
         if (!$canonicalDto->assigned_by_id) {
-            $canonicalDto->assigned_by_id = auth('api')->id();
+            $canonicalDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $canonical = $this->storage->store($canonicalDto);

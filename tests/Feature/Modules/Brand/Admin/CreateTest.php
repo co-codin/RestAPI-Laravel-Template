@@ -11,13 +11,12 @@ class CreateTest extends TestCase
 {
     public function test_authenticated_can_create_brand()
     {
-        $this->withoutExceptionHandling();
+        $this->authenticateUser();
 
         $brandData = Brand::factory()->raw();
 
-        $response = $this->json('POST', route('admin.brands.store'), array_merge($brandData, [
-            'image' => UploadedFile::fake()->image('test.jpg'),
-        ]));
+        $response = $this->json('POST', route('admin.brands.store'), $brandData);
+
 
         $response->assertCreated();
         $response->assertJsonStructure([

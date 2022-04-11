@@ -9,23 +9,19 @@ class SoldProductReadTest extends TestCase
 {
     public function test_sold_products_can_be_viewed()
     {
-        $soldProduct = SoldProduct::factory()->create();
+        $soldProduct = SoldProduct::factory()->create([
+            'is_enabled' => true,
+        ]);
 
         $response = $this->graphQL('
             {
                 sold_products {
-                    data {
-                        id
-                        title
-                        product_id
-                        city_id
-                        type
-                        is_enabled
-                    }
-                    paginatorInfo {
-                        currentPage
-                        lastPage
-                    }
+                    id
+                    name
+                    product_id
+                    city_id
+                    type
+                    is_enabled
                 }
             }
         ');
@@ -33,15 +29,9 @@ class SoldProductReadTest extends TestCase
         $response->assertJson([
             'data' => [
                 'sold_products' => [
-                    'data' => [
-                        [
-                            'id' => $soldProduct->id,
-                            'title' => $soldProduct->title,
-                        ]
-                    ],
-                    'paginatorInfo' => [
-                        'currentPage' => 1,
-                        'lastPage' => 1,
+                    [
+                        'id' => $soldProduct->id,
+                        'name' => $soldProduct->name,
                     ]
                 ]
             ],
@@ -50,14 +40,12 @@ class SoldProductReadTest extends TestCase
         $response = $this->graphQL('
             {
                 sold_products(where: { column: ID, operator: EQ, value: ' . $soldProduct->id .'  }) {
-                    data {
-                        id
-                        title
-                        product_id
-                        city_id
-                        type
-                        is_enabled
-                    }
+                    id
+                    name
+                    product_id
+                    city_id
+                    type
+                    is_enabled
                 }
             }
         ');
@@ -65,12 +53,10 @@ class SoldProductReadTest extends TestCase
         $response->assertJson([
             'data' => [
                 'sold_products' => [
-                    'data' => [
-                        [
-                            'id' => $soldProduct->id,
-                            'title' => $soldProduct->title,
-                        ]
-                    ],
+                    [
+                        'id' => $soldProduct->id,
+                        'name' => $soldProduct->name,
+                    ]
                 ]
             ],
         ]);

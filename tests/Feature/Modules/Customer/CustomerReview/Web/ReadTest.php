@@ -22,7 +22,7 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
-                    "post",
+                    "company_name",
                     "author",
                     "type",
                     "video",

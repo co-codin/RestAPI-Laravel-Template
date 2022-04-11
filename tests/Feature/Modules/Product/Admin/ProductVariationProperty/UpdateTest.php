@@ -10,6 +10,8 @@ class UpdateTest extends TestCase
 {
     public function test_authenticated_can_update_product_variation_property()
     {
+        $this->authenticateUser();
+
         $productVariation = ProductVariation::factory()->create();
 
         $property = Property::factory()->create();
@@ -19,5 +21,6 @@ class UpdateTest extends TestCase
             'product_variation_id' => $productVariation->id,
         ]);
 
+        $response->assertNoContent();
     }
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller
         $productDto = ProductDto::fromFormRequest($request);
 
         if (!$productDto->assigned_by_id) {
-            $productDto->assigned_by_id = auth('api')->id();
+            $productDto->assigned_by_id = auth('sanctum')->id();
         }
 
         $product = $this->productStorage->store($productDto);
