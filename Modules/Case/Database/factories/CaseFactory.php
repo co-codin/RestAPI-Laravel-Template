@@ -24,6 +24,7 @@ class CaseFactory extends Factory
             'city_id' => City::factory(),
             'name' => $this->faker->word,
             'description' => $this->faker->sentence,
+            'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',
             'published_at' => $this->faker->date(),
             'is_enabled' => $this->faker->boolean,
         ];
