@@ -22,5 +22,6 @@
     "Search": true,
     "Cabinet": true,
     "Review": true,
-    "User": true
+    "User": true,
+    "Case": true
 }
