@@ -14,14 +14,14 @@ class CaseUpdateRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'city_id' => 'required|integer|exists:cities,id',
-            'name' => 'required|string|max:255',
-            'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug',
-            'short_description' => 'required|string',
-            'full_description' => 'required|string',
-            'is_enabled' => 'required|boolean',
-            'published_at' => 'required|date',
-            'image' => 'required|string',
+            'city_id' => 'sometimes|required|integer|exists:cities,id',
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug,' . $this->route('case'),
+            'short_description' => 'sometimes|required|string',
+            'full_description' => 'sometimes|required|string',
+            'is_enabled' => 'sometimes|required|boolean',
+            'published_at' => 'sometimes|required|date',
+            'image' => 'sometimes|required|string',
         ];
     }
 
