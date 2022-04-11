@@ -13,13 +13,6 @@ class CityController extends Controller
         protected CityRepository $cityRepository
     ) {}
 
-    public function all()
-    {
-        $cities = $this->cityRepository->all();
-
-        return CityResource::collection($cities);
-    }
-
     public function index()
     {
         $cities = $this->cityRepository->jsonPaginate();
