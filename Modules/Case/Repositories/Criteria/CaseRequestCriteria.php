@@ -29,6 +29,7 @@ class CaseRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('is_enabled'),
             ])
             ->allowedSorts('id', 'name', 'slug', 'image', 'city_id', 'is_enabled', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at')
+            ->allowedIncludes('city')
             ;
     }
 }
