@@ -15,18 +15,20 @@ class CaseRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'image', 'city_id', 'is_enabled', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'name', 'slug', 'image', 'city_id', 'is_enabled', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
                     'name' => 'like',
+                    'slug' => 'like',
                 ])),
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
+                AllowedFilter::exact('slug'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('is_enabled'),
             ])
-            ->allowedSorts('id', 'name', 'image', 'city_id', 'is_enabled', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'name', 'slug', 'image', 'city_id', 'is_enabled', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at')
             ;
     }
 }

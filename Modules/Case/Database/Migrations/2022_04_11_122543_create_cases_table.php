@@ -17,6 +17,7 @@ class CreateCasesTable extends Migration
             $table->id();
             $table->foreignId('city_id')->constrained();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->text('short_description');
             $table->text('full_description');
             $table->string('image');
