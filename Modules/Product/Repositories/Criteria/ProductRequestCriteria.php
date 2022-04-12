@@ -63,6 +63,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('short_description'),
                 AllowedFilter::partial('full_description'),
                 AllowedFilter::exact('is_manually_analogs'),
+                AllowedFilter::exact('country_id'),
 
                 AllowedFilter::custom('live', new ProductLiveFilter),
 
@@ -143,6 +144,8 @@ class ProductRequestCriteria implements CriteriaInterface
             'short_description',
             'full_description',
             'is_manually_analogs',
+            'country_id',
+            'country.value',
             'created_at',
             'updated_at',
         ];

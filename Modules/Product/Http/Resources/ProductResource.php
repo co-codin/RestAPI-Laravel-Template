@@ -44,6 +44,7 @@ class ProductResource extends BaseJsonResource
             'product_reviews' => ProductReviewResource::collection($this->whenLoaded('productReviews')),
             'analogs' => self::collection($this->whenLoaded('analogs')),
             'activeAnalogs' => self::collection($this->whenLoaded('activeAnalogs')),
+            'country' => new FieldValueResource($this->whenLoaded('country')),
         ]);
 
         if ($this->relationLoaded('productReviews')) {

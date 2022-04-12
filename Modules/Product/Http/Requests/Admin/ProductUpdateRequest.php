@@ -92,6 +92,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'benefits.chips.*.value' => 'required|string|max:5',
             'benefits.chips.*.description' => 'required|string|max:255',
             'benefits.benefit' => 'string|nullable|max:500',
+            'country_id' => 'sometimes|nullable|integer|exists:field_values,id',
         ];
     }
 
@@ -114,6 +115,7 @@ class ProductUpdateRequest extends BaseFormRequest
             'documents.*.docs.*.file' => 'Файл',
             'documents.*.docs.*.link' => 'Ссылка',
             'name' => 'Модель',
+            'country_id' => 'Страна производства',
         ];
     }
 }

@@ -22,6 +22,7 @@ type Product {
     video: String
     benefits: ProductBenefits
     is_manually_analogs: Boolean!
+    country_id: Int
     price: MixedPrice
     group_id: Int
     rating: Float
@@ -46,6 +47,7 @@ type Product {
     analogsCount: Int! @count(relation: "analogs")
     activeAnalogs: [Product!]  @belongsToMany(relation: "activeAnalogs")
     activeAnalogsCount: Int! @count(relation: "activeAnalogs")
+    country: FieldValue @belongsTo
 }
 
 

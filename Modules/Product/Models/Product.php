@@ -53,6 +53,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int|null $group_id
  * @property array|null $benefits
  * @property int $is_manually_analogs
+ * @protected int|null $country_id
  * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -279,5 +280,10 @@ class Product extends Model
     public function getSiteUrlAttribute(): string
     {
         return config('app.site_url') . "/product/{$this->slug}/{$this->id}";
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(FieldValue::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace Modules\Product\Database\factories;
 
 use App\Enums\Status;
+use App\Models\FieldValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Brand\Models\Brand;
 
@@ -23,6 +24,7 @@ class ProductFactory extends Factory
             'warranty' => $this->faker->randomElement([12, 24, 36, 48, 60]),
             'short_description' => $this->faker->text(200),
             'full_description' => $this->faker->text(),
+            'country_id' => FieldValue::factory()
         ];
     }
 }
