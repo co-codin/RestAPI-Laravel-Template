@@ -1,0 +1,10 @@
+extend type Query {
+    case_models(
+        where: _ @whereConditions(columns: ["id", "name", "is_enabled", "published_at"])
+        orderBy: _ @orderBy(columns: ["id", "name", "is_enabled", "published_at"])
+    ): [CaseModel!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+
+    case_model(id: ID @eq, name: String @eq): CaseModel @find(scopes: ["visible"])
+}

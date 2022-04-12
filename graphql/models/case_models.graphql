@@ -1,0 +1,10 @@
+type CaseModel {
+    id: ID!
+    name: String!
+    slug: String!
+    image: String!
+    short_description: String!
+    full_description: String!
+    city_id: Int!
+    city: City  @belongsTo
+}
