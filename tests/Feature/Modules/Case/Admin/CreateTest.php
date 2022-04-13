@@ -25,7 +25,7 @@ class CreateTest extends TestCase
                 'short_description',
                 'full_description',
                 'image',
-                'is_enabled',
+                'status',
                 'created_at',
                 'updated_at',
             ]

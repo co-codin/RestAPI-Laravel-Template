@@ -7,4 +7,5 @@ type CaseModel {
     full_description: String!
     city_id: Int!
     city: City  @belongsTo
+    status: Int!
 }

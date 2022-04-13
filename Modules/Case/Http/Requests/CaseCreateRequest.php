@@ -2,7 +2,9 @@
 
 namespace Modules\Case\Http\Requests;
 
+use App\Enums\Status;
 use App\Http\Requests\BaseFormRequest;
+use BenSampo\Enum\Rules\EnumValue;
 
 class CaseCreateRequest extends BaseFormRequest
 {
@@ -19,7 +21,10 @@ class CaseCreateRequest extends BaseFormRequest
             'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
-            'is_enabled' => 'required|boolean',
+            'status' => [
+                'required',
+                new EnumValue(Status::class, false),
+            ],
             'published_at' => 'required|date',
             'image' => 'required|string',
         ];

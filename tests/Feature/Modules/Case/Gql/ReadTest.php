@@ -19,6 +19,15 @@ class ReadTest extends TestCase
                         id
                         name
                         slug
+                        image
+                        short_description
+                        full_description
+                        city_id
+                        status
+                        city {
+                            id
+                            name
+                        }
                     }
                     paginatorInfo {
                         currentPage
@@ -51,6 +60,16 @@ class ReadTest extends TestCase
                     data {
                         id
                         name
+                        slug
+                        image
+                        short_description
+                        full_description
+                        city_id
+                        status
+                        city {
+                            id
+                            name
+                        }
                     }
                 }
             }

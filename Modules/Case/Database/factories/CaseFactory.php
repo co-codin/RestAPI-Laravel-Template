@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Case\Database\factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Geo\Models\City;
 
@@ -28,7 +29,7 @@ class CaseFactory extends Factory
             'full_description' => $this->faker->sentence,
             'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',
             'published_at' => $this->faker->date(),
-            'is_enabled' => $this->faker->boolean,
+            'status' => Status::getRandomValue(),
         ];
     }
 }
