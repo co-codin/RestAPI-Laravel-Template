@@ -52,4 +52,6 @@ class ProductDto extends BaseDto
     public string|null $booklet;
 
     public ?string $video;
+
+    public ?int $country_id;
 }
