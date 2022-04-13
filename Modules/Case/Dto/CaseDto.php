@@ -20,5 +20,5 @@ class CaseDto extends BaseDto
 
     public ?string $published_at;
 
-    public mixed $is_enabled = 1;
+    public ?int $status;
 }
