@@ -22,7 +22,7 @@ class CreateCasesTable extends Migration
             $table->text('full_description');
             $table->string('image');
             $table->date('published_at');
-            $table->boolean('is_enabled')->default(true);
+            $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

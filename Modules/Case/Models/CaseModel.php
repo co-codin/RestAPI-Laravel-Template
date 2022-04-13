@@ -2,6 +2,7 @@
 
 namespace Modules\Case\Models;
 
+use App\Concerns\IsActive;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Modules\Geo\Models\City;
 
 class CaseModel extends Model
 {
-    use HasFactory;
+    use HasFactory, IsActive;
 
     protected $table = 'cases';
 
@@ -18,17 +19,12 @@ class CaseModel extends Model
 
     protected $casts = [
         'published_at' => 'date:Y-m-d',
-        'is_enabled' => 'boolean',
+        'status' => 'integer',
     ];
 
     public function city()
     {
         return $this->belongsTo(City::class);
-    }
-
-    public function scopeIsEnabled(Builder $query): Builder
-    {
-        return $query->where('is_enabled', '=', true);
     }
 
     protected static function newFactory()
