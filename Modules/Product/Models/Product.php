@@ -53,7 +53,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int|null $group_id
  * @property array|null $benefits
  * @property int $is_manually_analogs
- * @protected int|null $country_id
+ * @property  int|null $country_id
  * @property int|null $stock_type_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -73,6 +73,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read ProductVariation|null $mainVariation
  * @property-read Collection|Property[] $properties
  * @property-read Collection|Image[] $images
+ * @property-read FieldValue $country
  * @mixin Eloquent
  */
 class Product extends Model

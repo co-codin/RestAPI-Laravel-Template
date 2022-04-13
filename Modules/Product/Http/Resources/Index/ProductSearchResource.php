@@ -79,6 +79,13 @@ class ProductSearchResource extends JsonResource
                 ) : null,
             ],
             [
+                'name' => 'product.country',
+                'value' => $this->country_id,
+                'aggregation' => $this->country_id ? $this->aggregation(
+                    $this->country_id, $this->country->value,
+                ) : null,
+            ],
+            [
                 'name' => 'category',
                 'value' => $this->category->id,
                 'aggregation' => $this->aggregation(
