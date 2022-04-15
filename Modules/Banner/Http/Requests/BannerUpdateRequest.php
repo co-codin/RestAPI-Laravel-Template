@@ -19,6 +19,9 @@ class BannerUpdateRequest extends BaseFormRequest
             ],
             'is_in_home' => 'sometimes|boolean',
             'images' => 'required|array',
+            'images.desktop' => 'required|string',
+            'images.tablet' => 'required|string',
+            'images.mobile' => 'required|string',
             'position' => 'sometimes|nullable|integer',
             'url' => 'required|url|max:255',
         ];
