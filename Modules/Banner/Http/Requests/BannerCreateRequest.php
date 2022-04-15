@@ -11,7 +11,7 @@ class BannerCreateRequest extends BaseFormRequest
     public function rules()
     {
         return  [
-            'name' => 'required|string|max:255|unique',
+            'name' => 'required|string|max:255|unique:banners,name',
             'page' => [
                 'required',
                 'string',
