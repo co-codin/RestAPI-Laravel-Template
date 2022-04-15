@@ -23,5 +23,6 @@
     "Cabinet": true,
     "Review": true,
     "User": true,
-    "Case": true
+    "Case": true,
+    "Banner": true
 }
