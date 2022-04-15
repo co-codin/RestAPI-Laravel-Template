@@ -16,6 +16,7 @@ class Banner extends Model
     protected $casts = [
         'is_enabled' => 'boolean',
         'position' => 'integer',
+        'images' => 'array',
     ];
 
     protected static function newFactory()
