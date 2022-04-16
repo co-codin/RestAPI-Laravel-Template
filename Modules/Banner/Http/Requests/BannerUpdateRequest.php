@@ -23,7 +23,7 @@ class BannerUpdateRequest extends BaseFormRequest
             'images.tablet' => 'required|string',
             'images.mobile' => 'required|string',
             'position' => 'sometimes|nullable|integer',
-            'url' => 'required|url|max:255',
+            'url' => 'required|string|max:255',
         ];
     }
 }
