@@ -118,6 +118,7 @@ return [
         'models' => [
             'App\\Models',
             'Modules\\Achievement\\Models',
+            'Modules\\Banner\\Models',
             'Modules\\Brand\\Models',
             'Modules\\Category\\Models',
             'Modules\\Faq\\Models',
