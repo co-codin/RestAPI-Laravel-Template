@@ -49,6 +49,7 @@ class BannerRequestCriteria implements CriteriaInterface
             'id',
             'name',
             'url',
+            'images',
             'position',
             'is_enabled',
             'created_at',
