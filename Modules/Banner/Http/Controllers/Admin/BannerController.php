@@ -3,6 +3,7 @@
 namespace Modules\Banner\Http\Controllers\Admin;
 
 use Modules\Banner\Http\Requests\BannerCreateRequest;
+use Modules\Banner\Http\Requests\BannersSortRequest;
 use Modules\Banner\Http\Requests\BannerUpdateRequest;
 use Modules\Banner\Http\Resources\BannerResource;
 use Modules\Banner\Repositories\BannerRepository;
@@ -36,6 +37,13 @@ class BannerController
         $bannerModel = $this->bannerRepository->find($banner);
 
         $this->bannerStorage->delete($bannerModel);
+
+        return response()->noContent();
+    }
+
+    public function sort(BannersSortRequest $request)
+    {
+        $this->bannerStorage->sort($request->input('banners'));
 
         return response()->noContent();
     }
