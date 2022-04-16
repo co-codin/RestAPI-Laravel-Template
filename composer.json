@@ -23,6 +23,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.10",
         "guzzlehttp/guzzle": "^7.0.1",
+        "haydenpierce/class-finder": "^0.4.3",
         "imangazaliev/didom": "^1.18",
         "jenssegers/date": "^4.0",
         "kalnoy/nestedset": "^6.0",
