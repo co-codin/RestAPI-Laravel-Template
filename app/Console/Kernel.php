@@ -32,6 +32,10 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('telescope:prune --hours=744')->daily();
+
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
+
         $schedule->command(CurrencyParseCommand::class)
             ->description('Парсинг курсов валют ЦБ РФ')
             ->twiceDaily()
