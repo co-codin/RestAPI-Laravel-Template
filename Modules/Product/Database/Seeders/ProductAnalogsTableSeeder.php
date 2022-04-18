@@ -14,6 +14,6 @@ class ProductAnalogsTableSeeder extends Seeder
      */
     public function run()
     {
-        ProductAnalog::factory()->count(1000)->create();
+//        ProductAnalog::factory()->count(1000)->create();
     }
 }
