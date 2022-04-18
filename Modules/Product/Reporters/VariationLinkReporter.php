@@ -57,7 +57,7 @@ class VariationLinkReporter
         $sortedReports = $this
             ->withAdditionalData()
             ->sortBy(['productId', 'id', 'supplier.value', 'type.value']);
-
+    }
 
     private function withAdditionalData(): VariationLinkReportDtoCollection
     {

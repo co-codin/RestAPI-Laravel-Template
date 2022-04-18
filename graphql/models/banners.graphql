@@ -1,0 +1,15 @@
+type Banner {
+    id: ID!
+    name: String!
+    is_enabled: Boolean!
+    url: String!
+    page: String!
+    images: BannerImage
+    position: Int
+}
+
+type BannerImage {
+    desktop: String!
+    tablet: String!
+    mobile: String!
+}

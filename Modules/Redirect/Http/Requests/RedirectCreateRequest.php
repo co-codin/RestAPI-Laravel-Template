@@ -5,6 +5,8 @@ namespace Modules\Redirect\Http\Requests;
 
 
 use App\Http\Requests\BaseFormRequest;
+use BenSampo\Enum\Rules\EnumValue;
+use Modules\Redirect\Enums\RedirectCode;
 
 class RedirectCreateRequest extends BaseFormRequest
 {
@@ -13,7 +15,12 @@ class RedirectCreateRequest extends BaseFormRequest
         return [
             'source' => 'required|string|max:255|unique:redirects,source',
             'destination' => 'required|string|max:255',
-            'code' => 'sometimes|integer|digits:3|in:301,302',
+            'code' => [
+                'sometimes',
+                'integer',
+                'digits:3',
+                new EnumValue(RedirectCode::class, false),
+            ],
             'assigned_by_id' => 'sometimes|nullable|integer',
         ];
     }

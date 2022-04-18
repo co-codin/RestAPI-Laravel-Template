@@ -26,4 +26,13 @@ class BannerStorage
             throw new \LogicException('can not delete banner');
         }
     }
+
+    public function sort(array $banners)
+    {
+        foreach ($banners as $banner) {
+            Banner::query()
+                ->where('id', $banner['id'])
+                ->update(['position' => $banner['position']]);
+        }
+    }
 }
