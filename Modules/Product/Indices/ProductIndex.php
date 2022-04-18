@@ -386,6 +386,9 @@ class ProductIndex extends BaseIndex
                 'id' => [
                     'type' => 'integer',
                 ],
+                'article' => [
+                    'type' => 'keyword',
+                ],
                 'name' => [
                     'type' => 'keyword',
                 ],

@@ -24,16 +24,9 @@ class ProductsTableSeeder extends Seeder
 //            ->hasProductVariations(2)
             ->create(['brand_id' => 1])
             ->each(function (Product $product) {
-                $categories = Category::query()
-                    ->select('id')
-                    ->inRandomOrder()
-                    ->whereNotNull('parent_id')
-                    ->limit(1)
-                    ->get();
+                $category = Category::query()->select('id')->inRandomOrder()->whereNotNull('parent_id')->first();
 
-                $product->categories()->sync($categories->pluck('id')->mapWithKeys(function ($item, $key) {
-                    return [$item => ['is_main' => $key ? 2 : 1]];
-                }));
+                $product->categories()->attach($category->id, ['is_main' => true]);
 
                 $values = [];
 

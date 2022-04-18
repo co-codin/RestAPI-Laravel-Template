@@ -23,6 +23,7 @@ class ProductSearchResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'article' => $this->article,
             'full_name' => "{$this->category->product_name} {$this->brand->name} $this->name",
             'name' => $this->name,
             'slug' => $this->slug,
