@@ -3,10 +3,10 @@ version: '3'
 services:
     workspace:
         build:
-            context: ./docker/8.0
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
+          context: ./vendor/laravel/sail/runtimes/8.0
+          dockerfile: Dockerfile
+          args:
+            WWWGROUP: '${WWWGROUP}'
         image: sail-8.0/app
         extra_hosts:
           - 'host.docker.internal:host-gateway'
@@ -52,17 +52,6 @@ services:
             - sail
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
-    kibana:
-        build:
-          context: ./docker/kibana
-        environment:
-          - elasticsearch.hosts=http://elasticsearch:9200
-        ports:
-          - 5601:5601
-        networks:
-          - sail
-        depends_on:
-          - elasticsearch
     elasticsearch:
         build:
           context: ./docker/elasticsearch
