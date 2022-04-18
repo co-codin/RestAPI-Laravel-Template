@@ -38,7 +38,7 @@ class ProductSearchService extends SearchService
     protected function getQuery(string $term): array
     {
         $fields = [
-            'article',
+            'article^2',
             'full_name.with_ru_en',
             'full_name.without_ru_en',
             'full_name.shingle',
