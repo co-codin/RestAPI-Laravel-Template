@@ -42,6 +42,7 @@ class ProductSearchService extends SearchService
             'full_name.without_ru_en',
             'full_name.shingle',
             'full_name',
+            'article',
         ];
 
         return [
