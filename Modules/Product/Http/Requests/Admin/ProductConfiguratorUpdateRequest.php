@@ -38,7 +38,7 @@ class ProductConfiguratorUpdateRequest extends BaseFormRequest
             ],
             'variations.*.id' => 'distinct|integer|exists:product_variations,id',
             'variations.*.name' => 'required|string|max:255',
-            'variations.*.price' => 'required_if:variations.*.is_price_visible,true|nullable|numeric|lt:variations.*.previous_price',
+            'variations.*.price' => 'required_if:variations.*.is_price_visible,true|nullable|numeric',
             'variations.*.previous_price' => 'nullable|numeric|gt:0|gt:variations.*.price',
             'variations.*.currency_id' => 'required|integer|exists:currencies,id',
             'variations.*.condition_id' => 'required|integer|exists:field_values,id',
