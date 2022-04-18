@@ -17,7 +17,7 @@ class BannerCreateRequest extends BaseFormRequest
                 'string',
                 new EnumValue(BannerPage::class, false)
             ],
-            'is_in_home' => 'sometimes|boolean',
+            'is_enabled' => 'sometimes|boolean',
             'images' => 'required|array',
             'images.desktop' => 'required|string',
             'images.tablet' => 'required|string',
