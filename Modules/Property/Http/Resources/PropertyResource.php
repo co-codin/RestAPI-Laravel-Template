@@ -5,6 +5,7 @@ namespace Modules\Property\Http\Resources;
 
 
 use App\Http\Resources\BaseJsonResource;
+use App\Models\FieldValue;
 use Modules\Category\Http\Resources\CategoryResource;
 use Modules\Filter\Http\Resources\FilterResource;
 use Modules\Property\Models\Property;
@@ -22,6 +23,9 @@ class PropertyResource extends BaseJsonResource
             'filters' => FilterResource::collection($this->whenLoaded('filters')),
             'field_value_ids' => $this->whenPivotLoaded('product_property', function () {
                 return $this->pivot->field_value_ids;
+            }),
+            'fieldValues' => $this->whenPivotLoaded('product_property', function () {
+                return FieldValue::whereIn('id', \Arr::wrap($this->pivot->field_value_ids))->pluck('value');
             }),
             'value' => $this->whenPivotLoaded('product_property', function () {
                 return $this->pivot->value;
