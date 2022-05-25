@@ -22,6 +22,7 @@ class CreateContactsTable extends Migration
             $table->string('phone');
             $table->string('photo');
             $table->tinyInteger('position')->nullable();
+            $table->boolean('is_enabled')->default(true);
             $table->timestamps();
         });
     }

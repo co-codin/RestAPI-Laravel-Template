@@ -26,6 +26,7 @@ class ContactFactory extends Factory
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
             'photo' => $this->faker->imageUrl(),
+            'is_enabled' => $this->faker->boolean,
         ];
     }
 }

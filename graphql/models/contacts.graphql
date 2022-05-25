@@ -7,4 +7,5 @@ type Contact {
     phone: String!
     photo: String!
     position: Int
+    is_enabled: Boolean!
 }
