@@ -15,7 +15,7 @@ class ContactRequestCriteria implements CriteriaInterface
             ->defaultSort('-id')
             ->allowedFields([
                 'id', 'first_name', 'last_name', 'job_position', 'email',
-                'phone', 'photo', 'position', 'is_enabled',
+                'phone', 'image', 'position', 'is_enabled',
                 'created_at', 'updated_at',
             ])
             ->allowedFilters([

@@ -13,9 +13,7 @@ class CabinetDto extends BaseDto
 
     public ?string $slug;
 
-    public ?UploadedFile $image;
-
-    public $is_image_changed;
+    public UploadedFile|string|null $image;
 
     public ?string $full_description;
 

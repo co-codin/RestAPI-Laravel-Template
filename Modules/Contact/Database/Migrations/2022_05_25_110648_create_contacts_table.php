@@ -20,7 +20,7 @@ class CreateContactsTable extends Migration
             $table->string('job_position');
             $table->string('email');
             $table->string('phone');
-            $table->string('photo');
+            $table->string('image');
             $table->tinyInteger('position')->nullable();
             $table->boolean('is_enabled')->default(true);
             $table->timestamps();
