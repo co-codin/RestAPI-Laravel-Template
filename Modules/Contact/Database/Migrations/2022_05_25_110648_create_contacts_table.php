@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('photo');
-            $table->tinyInteger('position');
+            $table->tinyInteger('position')->nullable();
             $table->timestamps();
         });
     }

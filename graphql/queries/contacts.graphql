@@ -1,0 +1,8 @@
+extend type Query {
+    contacts(
+        where: _ @whereConditions(columns: ["id", "last_name"])
+        orderBy: _ @orderBy(columns: ["id", "last_name", "position"])
+    ): [Contact!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+}

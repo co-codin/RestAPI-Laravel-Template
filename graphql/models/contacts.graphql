@@ -1,0 +1,10 @@
+type Contact {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    job_position: String!
+    email: String!
+    phone: String!
+    photo: String!
+    position: Int
+}
