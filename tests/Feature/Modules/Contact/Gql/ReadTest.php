@@ -22,7 +22,6 @@ class ReadTest extends TestCase
                         job_position
                         email
                         image
-                        photo
                         position
                         is_enabled
                     }
@@ -61,7 +60,6 @@ class ReadTest extends TestCase
                         job_position
                         email
                         image
-                        photo
                         position
                         is_enabled
                     }
