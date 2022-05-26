@@ -29,4 +29,13 @@ class ContactStorage
             throw new \LogicException('can not delete contact');
         }
     }
+
+    public function sort(array $contacts)
+    {
+        foreach ($contacts as $contact) {
+            Contact::query()
+                ->where('id', $contact['id'])
+                ->update(['position' => $contact['position']]);
+        }
+    }
 }

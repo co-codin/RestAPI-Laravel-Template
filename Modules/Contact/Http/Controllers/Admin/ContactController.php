@@ -6,6 +6,7 @@ namespace Modules\Contact\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Modules\Contact\Dto\ContactDto;
 use Modules\Contact\Http\Requests\ContactCreateRequest;
+use Modules\Contact\Http\Requests\ContactSortRequest;
 use Modules\Contact\Http\Requests\ContactUpdateRequest;
 use Modules\Contact\Http\Resources\ContactResource;
 use Modules\Contact\Repositories\ContactRepository;
@@ -40,7 +41,14 @@ class ContactController extends Controller
     {
         $contactModel = $this->contactRepository->find($contact);
 
-        $this->contactStorage->delete($contactModel);
+        $this->contactStorage->destroy($contactModel);
+
+        return response()->noContent();
+    }
+
+    public function sort(ContactSortRequest $request)
+    {
+        $this->contactStorage->sort($request->input('contacts'));
 
         return response()->noContent();
     }
