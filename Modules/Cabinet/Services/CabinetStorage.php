@@ -14,20 +14,12 @@ class CabinetStorage
     {
         $attributes = $cabinetDto->toArray();
 
-        if ($cabinetDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($cabinetDto->image);
-        }
-
         return Cabinet::query()->create($attributes);
     }
 
     public function update(Cabinet $cabinet, CabinetDto $cabinetDto)
     {
         $attributes = $cabinetDto->toArray();
-
-        if ($cabinetDto->is_image_changed) {
-            $attributes['image'] = $cabinetDto->image ? $this->imageUploader->upload($cabinetDto->image) : null;
-        }
 
         if ($cabinetDto->categories) {
             foreach ($cabinetDto->categories as $category) {

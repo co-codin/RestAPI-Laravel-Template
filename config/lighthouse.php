@@ -139,7 +139,7 @@ return [
             'Modules\\Cabinet\\Models',
             'Modules\\Review\\Models',
             'Modules\\Case\\Models',
-
+            'Modules\\Contact\\Models',
         ],
         'queries' => 'App\\GraphQL\\Queries',
 //        'mutations' => 'App\\GraphQL\\Mutations',

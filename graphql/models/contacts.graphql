@@ -1,0 +1,11 @@
+type Contact {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    job_position: String!
+    email: String!
+    image: String!
+    photo: String!
+    position: Int
+    is_enabled: Boolean!
+}
