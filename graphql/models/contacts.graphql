@@ -5,7 +5,7 @@ type Contact {
     job_position: String!
     email: String!
     image: String!
-    photo: String!
+    image: String!
     position: Int
     is_enabled: Boolean!
 }

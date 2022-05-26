@@ -25,7 +25,7 @@ class ContactFactory extends Factory
             'job_position' => $this->faker->word,
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
-            'photo' => $this->faker->imageUrl(),
+            'image' => $this->faker->imageUrl(),
             'is_enabled' => $this->faker->boolean,
         ];
     }
