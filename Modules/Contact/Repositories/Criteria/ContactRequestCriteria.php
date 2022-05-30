@@ -20,6 +20,7 @@ class ContactRequestCriteria implements CriteriaInterface
             ])
             ->allowedFilters([
                 AllowedFilter::exact('id'),
+                AllowedFilter::partial('first_name'),
                 AllowedFilter::partial('last_name'),
                 AllowedFilter::exact('is_enabled'),
             ])
