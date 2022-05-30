@@ -25,9 +25,6 @@ class CurrencyParseCommand extends Command
 
             if ($rate = $rates->get($currency->iso_code)) {
                 $value = $rate['Value'];
-                if ($currency->iso_code === 'CNY') {
-                    $value = $value / 10;
-                }
                 $currency->rate = round($value, 2);
                 $currency->save();
             }
