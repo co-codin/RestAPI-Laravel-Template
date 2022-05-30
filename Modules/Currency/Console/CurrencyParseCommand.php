@@ -24,7 +24,11 @@ class CurrencyParseCommand extends Command
         Currency::all()->each(function (Currency $currency) use ($rates) {
 
             if ($rate = $rates->get($currency->iso_code)) {
-                $currency->rate = round($rate['Value'], 2);
+                $value = $rate['Value'];
+                if ($currency->iso_code === 'CNY') {
+                    $value = $value / 10;
+                }
+                $currency->rate = round($value, 2);
                 $currency->save();
             }
         });
