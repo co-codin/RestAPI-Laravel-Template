@@ -1,9 +1,9 @@
 extend type Query {
-    case_models(
+    all_case_models(
         where: _ @whereConditions(columns: ["id", "name", "status", "published_at"])
         orderBy: _ @orderBy(columns: ["id", "name", "status", "published_at"])
     ): [CaseModel!]!
-    @paginate
+    @all
     @orderBy(column: "id", direction: "ASC")
 
     case_model(id: ID @eq, name: String @eq): CaseModel @find(scopes: ["active"])
