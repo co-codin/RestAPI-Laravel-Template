@@ -21,4 +21,6 @@ class CaseDto extends BaseDto
     public ?string $published_at;
 
     public ?int $status;
+
+    public ?array $products;
 }

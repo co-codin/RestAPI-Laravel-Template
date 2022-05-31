@@ -11,4 +11,5 @@ type CaseModel {
     city: City  @belongsTo
     status: Int!
     published_at: Date
+    products: [Product!] @belongsToMany
 }
