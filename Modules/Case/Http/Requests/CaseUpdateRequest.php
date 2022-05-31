@@ -18,7 +18,7 @@ class CaseUpdateRequest extends BaseFormRequest
         return [
             'city_id' => 'sometimes|required|integer|exists:cities,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug,' . $this->route('case'),
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug,' . $this->route('case_model'),
             'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
             'status' => [
