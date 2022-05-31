@@ -6,5 +6,5 @@ extend type Query {
     @all
     @orderBy(column: "id", direction: "ASC")
 
-    case_model(id: ID @eq, name: String @eq): CaseModel @find(scopes: ["active"])
+    case_model(id: ID @eq, slug: String @eq): CaseModel @find(scopes: ["active"])
 }
