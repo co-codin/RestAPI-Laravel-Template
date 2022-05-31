@@ -29,7 +29,7 @@ class CaseUpdateRequest extends BaseFormRequest
             'published_at' => 'sometimes|required|date',
             'image' => 'sometimes|required|string',
             'products' => 'sometimes|required|array',
-            'products.*.id' => 'required|integer|exists:products,id',
+            'products.*.id' => 'required|integer|distinct|exists:products,id',
         ];
     }
 

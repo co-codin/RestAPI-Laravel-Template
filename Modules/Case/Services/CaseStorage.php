@@ -27,6 +27,10 @@ class CaseStorage
     {
         $attributes = $caseDto->toArray();
 
+        if ($caseDto->products) {
+            $caseModel->products()->sync($caseDto->products);
+        }
+
         if (!$caseModel->update($attributes)) {
             throw new \LogicException('can not update case');
         }
