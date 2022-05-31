@@ -29,7 +29,7 @@ class CaseRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('status'),
             ])
             ->allowedSorts('id', 'name', 'slug', 'image', 'city_id', 'status', 'short_description', 'full_description', 'published_at', 'created_at', 'updated_at')
-            ->allowedIncludes('city')
+            ->allowedIncludes('city', 'products')
             ;
     }
 }

@@ -3,6 +3,7 @@
 namespace Modules\Case\Models;
 
 use App\Concerns\IsActive;
+use Google\Service\AdExchangeBuyer\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,11 @@ class CaseModel extends Model
         'published_at' => 'date:Y-m-d',
         'status' => 'integer',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'case_product');
+    }
 
     public function city()
     {
