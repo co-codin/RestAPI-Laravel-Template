@@ -30,7 +30,7 @@ type Product {
     brand: Brand! @belongsTo
     productVariations: [ProductVariation!]! @hasMany
     productCategories: [ProductCategory!]! @hasMany
-    mainVariation: ProductVariation! @belongsTo
+    mainVariation: ProductVariation @belongsTo
     category: Category @belongsTo
     categories: [Category!] @belongsToMany
     properties: [Property!]! @belongsToMany
