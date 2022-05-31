@@ -21,7 +21,7 @@ class CreateCasesTable extends Migration
             $table->text('short_description');
             $table->text('full_description');
             $table->string('image');
-            $table->date('published_at');
+            $table->timestamp('published_at');
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
