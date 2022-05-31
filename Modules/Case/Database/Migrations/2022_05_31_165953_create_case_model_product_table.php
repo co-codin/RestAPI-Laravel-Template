@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCaseProductTable extends Migration
+class CreateCaseModelProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateCaseProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('case_product', function (Blueprint $table) {
-            $table->foreignId('case_id')->constrained();
+        Schema::create('case_model_product', function (Blueprint $table) {
+            $table->primary(['case_model_id', 'product_id']);
+            $table->foreignId('case_model_id')->constrained();
             $table->foreignId('product_id')->constrained();
         });
     }

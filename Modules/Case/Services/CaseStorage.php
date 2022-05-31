@@ -28,7 +28,10 @@ class CaseStorage
         $attributes = $caseDto->toArray();
 
         if ($caseDto->products) {
-            $caseModel->products()->sync($caseDto->products);
+            $caseModel->products()->sync(collect($caseDto->products)
+                ->keyBy('id')
+                ->map(fn($item) => \Arr::except($item, 'id'))
+                ->toArray());
         }
 
         if (!$caseModel->update($attributes)) {

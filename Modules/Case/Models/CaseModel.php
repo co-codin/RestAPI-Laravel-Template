@@ -3,18 +3,15 @@
 namespace Modules\Case\Models;
 
 use App\Concerns\IsActive;
-use Google\Service\AdExchangeBuyer\Product;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Case\Database\factories\CaseFactory;
+use Modules\Case\Database\factories\CaseModelFactory;
 use Modules\Geo\Models\City;
+use Modules\Product\Models\Product;
 
 class CaseModel extends Model
 {
     use HasFactory, IsActive;
-
-    protected $table = 'cases';
 
     protected $guarded = ['id'];
 
@@ -25,7 +22,7 @@ class CaseModel extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'case_product');
+        return $this->belongsToMany(Product::class, 'case_model_product');
     }
 
     public function city()
@@ -35,6 +32,6 @@ class CaseModel extends Model
 
     protected static function newFactory()
     {
-        return CaseFactory::new();
+        return CaseModelFactory::new();
     }
 }
