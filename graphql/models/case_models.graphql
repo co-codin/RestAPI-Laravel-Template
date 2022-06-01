@@ -13,5 +13,11 @@ type CaseModel {
     city: City  @belongsTo
     status: Int!
     published_at: String!
+    images: [CaseGalleryImage]
     products: [Product!] @belongsToMany
+}
+
+type CaseGalleryImage {
+    image: String!
+    caption: String!
 }

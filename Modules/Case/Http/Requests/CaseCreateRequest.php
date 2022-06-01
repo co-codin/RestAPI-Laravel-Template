@@ -29,6 +29,9 @@ class CaseCreateRequest extends BaseFormRequest
             ],
             'published_at' => 'required|string|max:255',
             'image' => 'required|string',
+            'images' => 'nullable|array',
+            'images.*.image' => 'required|string|max:255',
+            'images.*.caption' => 'required|string|max:255',
         ];
     }
 
@@ -38,6 +41,9 @@ class CaseCreateRequest extends BaseFormRequest
             'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
             'note' => 'Заметка',
+            'images' => 'Галерея',
+            'images.*.image' => 'Изображение',
+            'images.*.caption' => 'Подпись к изображению',
         ];
     }
 }

@@ -17,6 +17,7 @@ class CaseModel extends Model
 
     protected $casts = [
         'status' => 'integer',
+        'images' => 'array'
     ];
 
     public function products()

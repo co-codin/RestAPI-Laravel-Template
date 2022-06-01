@@ -15,7 +15,7 @@ class CaseRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->defaultSort('-id')
-            ->allowedFields(['id', 'name', 'slug', 'image', 'city_id', 'status', 'short_description', 'full_description', 'summary', 'note', 'published_at', 'created_at', 'updated_at'])
+            ->allowedFields(['id', 'name', 'slug', 'image', 'images', 'city_id', 'status', 'short_description', 'full_description', 'summary', 'note', 'published_at', 'created_at', 'updated_at'])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
@@ -32,7 +32,7 @@ class CaseRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('status'),
             ])
-            ->allowedSorts('id', 'name', 'slug', 'image', 'city_id', 'status', 'short_description', 'full_description', 'summary', 'note', 'published_at', 'created_at', 'updated_at')
+            ->allowedSorts('id', 'name', 'slug', 'image', 'images', 'city_id', 'status', 'short_description', 'full_description', 'summary', 'note', 'published_at', 'created_at', 'updated_at')
             ->allowedIncludes('city', 'products')
             ;
     }

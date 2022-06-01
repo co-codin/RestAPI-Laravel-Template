@@ -22,6 +22,8 @@ class CaseDto extends BaseDto
 
     public ?string $image;
 
+    public ?array $images;
+
     public ?string $published_at;
 
     public ?int $status;
