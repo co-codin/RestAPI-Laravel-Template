@@ -7,6 +7,7 @@ type CaseModel {
     image: String!
     short_description: String!
     full_description: String!
+    summary: String!
     city_id: Int!
     city: City  @belongsTo
     status: Int!

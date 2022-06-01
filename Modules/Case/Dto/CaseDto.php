@@ -16,6 +16,8 @@ class CaseDto extends BaseDto
 
     public ?string $full_description;
 
+    public ?string $summary;
+
     public ?string $image;
 
     public ?string $published_at;

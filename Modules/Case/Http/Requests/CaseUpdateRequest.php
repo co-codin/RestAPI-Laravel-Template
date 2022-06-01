@@ -21,6 +21,7 @@ class CaseUpdateRequest extends BaseFormRequest
             'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug,' . $this->route('case_model'),
             'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
+            'summary' => 'required|string|max:255',
             'status' => [
                 'sometimes',
                 'required',
@@ -37,6 +38,7 @@ class CaseUpdateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата публикации',
+            'summary' => 'Что сделано?',
         ];
     }
 }

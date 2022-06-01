@@ -21,6 +21,7 @@ class CaseCreateRequest extends BaseFormRequest
             'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
+            'summary' => 'required|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
@@ -34,6 +35,7 @@ class CaseCreateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата публикации',
+            'summary' => 'Что сделано?',
         ];
     }
 }

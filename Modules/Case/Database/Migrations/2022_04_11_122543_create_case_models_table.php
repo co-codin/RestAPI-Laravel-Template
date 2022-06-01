@@ -20,6 +20,7 @@ class CreateCaseModelsTable extends Migration
             $table->string('slug')->unique();
             $table->text('short_description');
             $table->text('full_description');
+            $table->string('summary');
             $table->string('image');
             $table->timestamp('published_at');
             $table->unsignedTinyInteger('status')->default(1);
