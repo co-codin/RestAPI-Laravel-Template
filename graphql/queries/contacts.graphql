@@ -3,6 +3,6 @@ extend type Query {
         where: _ @whereConditions(columns: ["id", "last_name", "is_enabled"])
         orderBy: _ @orderBy(columns: ["id", "last_name", "position"])
     ): [Contact!]!
-    @paginate
+    @all
     @orderBy(column: "id", direction: "ASC")
 }
