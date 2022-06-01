@@ -26,7 +26,7 @@ class CaseCreateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'published_at' => 'required|date',
+            'published_at' => 'required|string|max:255',
             'image' => 'required|string',
         ];
     }
@@ -34,7 +34,7 @@ class CaseCreateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
-            'published_at' => 'Дата публикации',
+            'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
         ];
     }

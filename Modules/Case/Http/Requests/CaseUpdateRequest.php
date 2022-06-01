@@ -27,7 +27,7 @@ class CaseUpdateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'published_at' => 'sometimes|required|date',
+            'published_at' => 'sometimes|required|string|max:255',
             'image' => 'sometimes|required|string',
             'products' => 'sometimes|required|array',
             'products.*.id' => 'required|integer|distinct|exists:products,id',
@@ -37,7 +37,7 @@ class CaseUpdateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
-            'published_at' => 'Дата публикации',
+            'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
         ];
     }

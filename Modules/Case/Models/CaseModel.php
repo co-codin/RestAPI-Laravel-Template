@@ -16,7 +16,6 @@ class CaseModel extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'published_at' => 'date:Y-m-d',
         'status' => 'integer',
     ];
 

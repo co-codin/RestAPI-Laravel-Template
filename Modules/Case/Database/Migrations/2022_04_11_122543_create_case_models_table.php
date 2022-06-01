@@ -22,7 +22,7 @@ class CreateCaseModelsTable extends Migration
             $table->text('full_description');
             $table->string('summary');
             $table->string('image');
-            $table->timestamp('published_at');
+            $table->string('published_at');
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
