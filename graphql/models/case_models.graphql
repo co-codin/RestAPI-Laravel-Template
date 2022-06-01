@@ -8,6 +8,7 @@ type CaseModel {
     short_description: String!
     full_description: String!
     summary: String!
+    note: String
     city_id: Int!
     city: City  @belongsTo
     status: Int!

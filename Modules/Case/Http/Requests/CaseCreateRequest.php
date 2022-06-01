@@ -22,6 +22,7 @@ class CaseCreateRequest extends BaseFormRequest
             'short_description' => 'required|string',
             'full_description' => 'required|string',
             'summary' => 'required|string|max:255',
+            'note' => 'nullable|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
@@ -36,6 +37,7 @@ class CaseCreateRequest extends BaseFormRequest
         return [
             'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
+            'note' => 'Заметка',
         ];
     }
 }

@@ -22,6 +22,7 @@ class CaseUpdateRequest extends BaseFormRequest
             'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
             'summary' => 'required|string|max:255',
+            'note' => 'sometimes|nullable|string|max:255',
             'status' => [
                 'sometimes',
                 'required',
@@ -39,6 +40,7 @@ class CaseUpdateRequest extends BaseFormRequest
         return [
             'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
+            'note' => 'Заметка',
         ];
     }
 }

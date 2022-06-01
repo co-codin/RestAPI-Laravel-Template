@@ -21,6 +21,7 @@ class CreateCaseModelsTable extends Migration
             $table->text('short_description');
             $table->text('full_description');
             $table->string('summary');
+            $table->string('note')->nullable();
             $table->string('image');
             $table->string('published_at');
             $table->unsignedTinyInteger('status')->default(1);
