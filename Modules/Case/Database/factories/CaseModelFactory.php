@@ -5,7 +5,7 @@ use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Geo\Models\City;
 
-class CaseFactory extends Factory
+class CaseModelFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

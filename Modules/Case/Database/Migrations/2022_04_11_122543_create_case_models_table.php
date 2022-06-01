@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCasesTable extends Migration
+class CreateCaseModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cases', function (Blueprint $table) {
+        Schema::create('case_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('city_id')->constrained();
             $table->string('name');
@@ -21,7 +21,7 @@ class CreateCasesTable extends Migration
             $table->text('short_description');
             $table->text('full_description');
             $table->string('image');
-            $table->date('published_at');
+            $table->timestamp('published_at');
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ class CreateCasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cases');
+        Schema::dropIfExists('case_models');
     }
 }
