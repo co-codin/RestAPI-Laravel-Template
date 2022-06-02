@@ -1,3 +1,5 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
 type CaseModel {
     id: ID!
     name: String!
@@ -5,7 +7,17 @@ type CaseModel {
     image: String!
     short_description: String!
     full_description: String!
+    summary: String!
+    note: String
     city_id: Int!
     city: City  @belongsTo
     status: Int!
+    published_at: String!
+    images: [CaseGalleryImage]
+    products: [Product!] @belongsToMany
+}
+
+type CaseGalleryImage {
+    image: String!
+    caption: String!
 }

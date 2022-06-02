@@ -21,19 +21,29 @@ class CaseCreateRequest extends BaseFormRequest
             'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
+            'summary' => 'required|string|max:255',
+            'note' => 'nullable|string|max:255',
             'status' => [
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'published_at' => 'required|date',
+            'published_at' => 'required|string|max:255',
             'image' => 'required|string',
+            'images' => 'nullable|array',
+            'images.*.image' => 'required|string|max:255',
+            'images.*.caption' => 'required|string|max:255',
         ];
     }
 
     public function attributes()
     {
         return [
-            'published_at' => 'Дата публикации',
+            'published_at' => 'Дата поставки',
+            'summary' => 'Что сделано?',
+            'note' => 'Заметка',
+            'images' => 'Галерея',
+            'images.*.image' => 'Изображение',
+            'images.*.caption' => 'Подпись к изображению',
         ];
     }
 }

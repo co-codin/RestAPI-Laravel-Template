@@ -24,5 +24,6 @@
     "Review": true,
     "User": true,
     "Case": true,
-    "Banner": true
+    "Banner": true,
+    "Contact": true
 }

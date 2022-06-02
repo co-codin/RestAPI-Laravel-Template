@@ -5,7 +5,7 @@ use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Geo\Models\City;
 
-class CaseFactory extends Factory
+class CaseModelFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -28,8 +28,9 @@ class CaseFactory extends Factory
             'short_description' => $this->faker->sentence,
             'full_description' => $this->faker->sentence,
             'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',
-            'published_at' => $this->faker->date(),
+            'published_at' => $this->faker->word,
             'status' => Status::getRandomValue(),
+            'summary' => $this->faker->sentence,
         ];
     }
 }
