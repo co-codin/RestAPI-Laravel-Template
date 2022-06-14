@@ -34,12 +34,6 @@ class ProductFilterBuilder
             ->setSort($request->input('orderBy') ?? 'popular')
             ->getItems();
 
-        $data = new FilteredProductResourceCollection($products);
-
-        dd(
-            $data
-        );
-        
-        return $data;
+        return new FilteredProductResourceCollection($products);
     }
 }

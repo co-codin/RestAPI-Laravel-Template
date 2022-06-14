@@ -1,13 +1,3 @@
-type ProductFilter {
-    data: [Product!]!
-    meta: [ProductFilterMeta!]!
-}
-
-type ProductFilterMeta {
-    total: String
-    aggregations: String
-}
-
 input ProductFilterField {
     products: String
     brand: String
