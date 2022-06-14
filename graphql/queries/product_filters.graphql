@@ -1,6 +1,7 @@
 extend type Query {
     getProductFilters(
-        filters: [Int!]!
+        filters: [ProductFilterType!]
+        page: [ProductFilterPage!]
     ): [ProductFilter!]!
     @field(resolver: "\\Modules\\Product\\Builder\\ProductFilterBuilder@getProductFilters")
 }

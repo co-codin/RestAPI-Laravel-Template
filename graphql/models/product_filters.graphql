@@ -8,13 +8,7 @@ type ProductFilterMeta {
     aggregations: String
 }
 
-
-type ProductFilterRequest {
-    filters: [ProductFilterType!]
-    page: [ProductFilterPage!]
-}
-
-type ProductFilterType {
+input ProductFilterType {
     name: String!
     value: String!
     is_default: Boolean
@@ -22,7 +16,7 @@ type ProductFilterType {
     filter_type: FilterTypeEnum!
 }
 
-type ProductFilterPage {
+input ProductFilterPage {
     size: Int
     number: Int
 }
