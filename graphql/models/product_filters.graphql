@@ -1,0 +1,9 @@
+type ProductFilter {
+    data: [Product!]!
+    meta: [ProductFilterMeta!]!
+}
+
+type ProductFilterMeta {
+    total: String
+    aggregations: String
+}
