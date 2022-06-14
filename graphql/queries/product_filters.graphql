@@ -2,8 +2,9 @@ extend type Query {
     getProductFilters(
         filters: [ProductFilterType!]
         page: [ProductFilterPage!]
-        include: String!
+        include: String
         fields: [ProductFilterField!]
+        orderBy: String
     ): [ProductFilter!]!
     @field(resolver: "\\Modules\\Product\\Builder\\ProductFilterBuilder@getProductFilters")
 }

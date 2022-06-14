@@ -18,7 +18,7 @@ input ProductFilterField {
 
 input ProductFilterType {
     name: String!
-    value: [Int!]
+    value: Int!
     is_default: Int!
     path: String
     filter_type: String!

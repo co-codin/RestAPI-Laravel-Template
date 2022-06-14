@@ -3,8 +3,10 @@
 namespace Modules\Product\Builder;
 
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Http\Request;
 use Modules\Product\Http\Resources\FilteredProductResourceCollection;
 use Modules\Product\Services\ProductFilter;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ProductFilterBuilder
 {
@@ -16,15 +18,28 @@ class ProductFilterBuilder
         $rootValue, array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo
-    ): FilteredProductResourceCollection
+    )
     {
+        foreach ($args['filters'] as &$filter) {
+            $filter['type'] = $filter['filter_type'];
+            unset($filter['filter_type']);
+        }
+
+        $request = new Request($args);
+
         $products = $this->productFilter
-            ->setFilters($args['filters'] ?? [])
-            ->setPage($args['page.number'] ?? 1)
-            ->setSize($args['page.size'] ?? 15)
-            ->setSort($args['orderBy'] ?? 'popular')
+            ->setFilters($request->input('filters') ?? [])
+            ->setPage($request->input('page.number') ?? 1)
+            ->setSize($request->input('page.size') ?? 15)
+            ->setSort($request->input('orderBy') ?? 'popular')
             ->getItems();
 
-        return new FilteredProductResourceCollection($products);
+        $data = new FilteredProductResourceCollection($products);
+
+        dd(
+            $data
+        );
+        
+        return $data;
     }
 }
