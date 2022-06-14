@@ -2,6 +2,8 @@ extend type Query {
     getProductFilters(
         filters: [ProductFilterType!]
         page: [ProductFilterPage!]
+        include: String!
+        fields: [ProductFilterField!]
     ): [ProductFilter!]!
     @field(resolver: "\\Modules\\Product\\Builder\\ProductFilterBuilder@getProductFilters")
 }

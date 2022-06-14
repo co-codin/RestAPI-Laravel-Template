@@ -8,21 +8,23 @@ type ProductFilterMeta {
     aggregations: String
 }
 
+input ProductFilterField {
+    products: String
+    brand: String
+    category: String
+    properties: String
+    product_reviews: String
+}
+
 input ProductFilterType {
     name: String!
-    value: String!
-    is_default: Boolean
+    value: [Int!]
+    is_default: Int!
     path: String
-    filter_type: FilterTypeEnum!
+    filter_type: String!
 }
 
 input ProductFilterPage {
     size: Int
     number: Int
-}
-
-
-enum FilterTypeEnum {
-    TERMS @enum(value: "terms")
-    RANGE @enum(value: "range")
 }
