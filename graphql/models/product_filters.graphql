@@ -7,3 +7,28 @@ type ProductFilterMeta {
     total: String
     aggregations: String
 }
+
+
+type ProductFilterRequest {
+    filters: [ProductFilterType!]
+    page: [ProductFilterPage!]
+}
+
+type ProductFilterType {
+    name: String!
+    value: String!
+    is_default: Boolean
+    path: String
+    filter_type: FilterTypeEnum!
+}
+
+type ProductFilterPage {
+    size: Int
+    number: Int
+}
+
+
+enum FilterTypeEnum {
+    TERMS @enum(value: "terms")
+    RANGE @enum(value: "range")
+}
