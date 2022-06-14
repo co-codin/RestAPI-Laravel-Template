@@ -1,5 +1,3 @@
-scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
-
 extend type Query {
     getProductFilters(
         filters: [ProductFilterType!]
@@ -7,6 +5,6 @@ extend type Query {
         include: String
         fields: [ProductFilterField!]
         orderBy: String
-    ): JSON
+    ): ProductFilter
     @field(resolver: "\\Modules\\Product\\Builder\\ProductFilterBuilder@getProductFilters")
 }
