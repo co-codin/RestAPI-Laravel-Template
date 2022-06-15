@@ -70,7 +70,7 @@ class ClientServiceProvider extends ServiceProvider
             $sourcePath => $viewPath
         ], ['views', $this->moduleNameLower . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
     }
 
     /**
@@ -97,16 +97,5 @@ class ClientServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }
