@@ -3,12 +3,13 @@
 namespace Modules\Client\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Client\Http\Requests\FastRegisterRequest;
+use Modules\Client\Http\Requests\ClientFastRegisterRequest;
+use Modules\Client\Http\Requests\ClientRegisterRequest;
 use Modules\Client\Models\Client;
 
 class ClientRegisterController extends Controller
 {
-    public function fastRegister(FastRegisterRequest $request)
+    public function fastRegister(ClientFastRegisterRequest $request)
     {
         $client = Client::firstOrCreate(['phone' => $request->validated()['phone']]);
 
@@ -16,5 +17,10 @@ class ClientRegisterController extends Controller
             'id' => $client->id,
             'phone' => $client->phone,
         ], 201);
+    }
+
+    public function register(ClientRegisterRequest $request)
+    {
+        return Client::query()->create($request->validated());
     }
 }
