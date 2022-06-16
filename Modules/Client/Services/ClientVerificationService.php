@@ -2,6 +2,8 @@
 
 namespace Modules\Client\Services;
 
+use Modules\Client\Channels\SmscRuSmsChannel;
+use Modules\Client\Channels\SmscRuVoiceChannel;
 use Modules\Client\Enums\VerifyType;
 use Modules\Client\Helpers\CodeVerifyHelper;
 use Modules\Client\Models\Client;
@@ -14,7 +16,6 @@ class ClientVerificationService
         $code = CodeVerifyHelper::setCode($uniqueKey);
 
         if ($verifyType->value === VerifyType::EMAIL) {
-            /** $uniqueKey - email */
             Mail::raw("Код подтверждения: {$code}", function ($message) use ($uniqueKey) {
                 $message->to($uniqueKey)->subject("Код подтверждения");
             });
@@ -32,17 +33,11 @@ class ClientVerificationService
         $client->notifyNow(new PhoneVerifyNotification(), [$channel]);
     }
 
-    /**
-     * @throws VerifyException
-     */
     public function verify(string $uniqueKey, string $code): void
     {
         CodeVerifyHelper::validateCode($uniqueKey, $code);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function setVerifiedAt(Client $client): void
     {
         $client->phone_verified_at = Carbon::now();
