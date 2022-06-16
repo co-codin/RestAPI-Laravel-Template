@@ -34,6 +34,7 @@
         "laravel/telescope": "^4.6",
         "laravel/tinker": "^2.5",
         "medeq/bitrix24": "dev-master",
+        "medeq/smsc-ru": "dev-master",
         "mll-lab/graphql-php-scalars": "^5.4",
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.3",

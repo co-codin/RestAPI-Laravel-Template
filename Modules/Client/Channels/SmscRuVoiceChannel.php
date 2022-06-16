@@ -27,7 +27,7 @@ class SmscRuVoiceChannel
 
         return $this->sendMessage($to, $message);
     }
-    
+
     protected function getRecipients($notifiable, Notification $notification): array
     {
         $to = $notifiable->routeNotificationFor('smscru', $notification);
