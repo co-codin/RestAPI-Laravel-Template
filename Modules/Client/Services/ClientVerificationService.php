@@ -5,6 +5,7 @@ namespace Modules\Client\Services;
 use Modules\Client\Enums\VerifyType;
 use Modules\Client\Helpers\CodeVerifyHelper;
 use Modules\Client\Models\Client;
+use Illuminate\Support\Facades\Mail;
 
 class ClientVerificationService
 {
