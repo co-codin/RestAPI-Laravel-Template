@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Modules\Client\Helpers\CodeVerifyHelper;
 use Modules\Client\Notifications\Messages\ProstorSmsMessage;
+use NotificationChannels\SmscRu\SmscRuMessage;
 
 class PhoneVerifyNotification extends Notification
 {
