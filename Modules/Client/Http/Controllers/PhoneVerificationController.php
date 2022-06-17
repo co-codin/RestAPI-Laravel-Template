@@ -48,14 +48,10 @@ class PhoneVerificationController extends Controller
 
         $token = auth('client-api')->user()->createToken('API Token')->plainTextToken;
 
-        $bearerTokenResponse = [
+        return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $ttl
-        ];
-
-        return response()->json(
-            array_merge(['success' => true], $bearerTokenResponse)
-        );
+            'success' => true
+        ]);
     }
 }

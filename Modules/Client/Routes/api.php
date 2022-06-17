@@ -2,6 +2,7 @@
 
 use Modules\Client\Http\Controllers\ClientRegisterController;
 use Modules\Client\Http\Controllers\PhoneVerificationController;
+use Modules\Client\Http\Controllers\ClientController;
 
 Route::prefix('clients')->group(function() {
     Route::post('fast-register', [ClientRegisterController::class, 'fastRegister']);
@@ -9,4 +10,10 @@ Route::prefix('clients')->group(function() {
 
     Route::post('send-code', [PhoneVerificationController::class, 'sendCode']);
     Route::post('verify', [PhoneVerificationController::class, 'verifyCode']);
+
+    Route::middleware('auth:client-api')->group(function () {
+        // обновление данных клиента
+        Route::match(['put', 'patch'], 'update', [ClientController::class, 'update']);
+        Route::get('show', [ClientController::class, 'show']);
+    });
 });
