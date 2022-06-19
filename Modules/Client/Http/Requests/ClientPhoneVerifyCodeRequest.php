@@ -4,6 +4,7 @@ namespace Modules\Client\Http\Requests;
 
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Validator;
+use Modules\Client\Http\Validators\ClientPhoneVerifyCodePostValidator;
 
 class ClientPhoneVerifyCodeRequest extends BaseFormRequest
 {
@@ -17,6 +18,10 @@ class ClientPhoneVerifyCodeRequest extends BaseFormRequest
 
     public function withValidator(Validator $validator): void
     {
-
+        $validator->after(function (Validator $validator) {
+            if ($validator->errors()->isEmpty()) {
+                ClientPhoneVerifyCodePostValidator::run($validator);
+            }
+        });
     }
 }
