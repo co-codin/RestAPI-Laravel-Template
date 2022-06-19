@@ -41,6 +41,11 @@ class Client extends Authenticatable
             ->logOnlyDirty();
     }
 
+    public function clientPayers()
+    {
+        return $this->hasMany(ClientPayer::class);
+    }
+
     protected static function newFactory()
     {
         return ClientFactory::new();

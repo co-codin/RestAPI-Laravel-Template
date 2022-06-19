@@ -15,16 +15,18 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('inn')->nullable();
-            $table->string('name');
-            $table->unsignedTinyInteger('type');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->unsignedTinyInteger('subject');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string('company')->nullable();
-            $table->string('clinic_name')->nullable();
-            $table->smallInteger('pass_series')->nullable();
-            $table->mediumInteger('pass_num')->nullable();
+            $table->string('avatar')->nullable();
+            $table->json('settings')->nullable();
+            $table->json('social_networks')->nullable();
+            $table->timestamp('phone_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('banned_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
