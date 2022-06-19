@@ -2,9 +2,9 @@
 
 namespace Modules\Client\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class ClientActivityStoreRequest extends FormRequest
+class ClientActivityStoreRequest extends BaseFormRequest
 {
     public function rules(): array
     {

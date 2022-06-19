@@ -3,7 +3,6 @@
 namespace Modules\Client\Services;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -12,12 +11,12 @@ use Image;
 class ClientAvatarService
 {
     public function store(
-        Authenticatable $user,
+        Authenticatable $client,
         UploadedFile $image,
         array $crop,
     ): string
     {
-        $existAvatar = $user->avatar;
+        $existAvatar = $client->avatar;
 
         $fileName = uniqid('', true) . '.' . $image->getClientOriginalExtension();
 
@@ -34,6 +33,13 @@ class ClientAvatarService
         }
 
         return $path;
+    }
+
+    public function destroy(Authenticatable $client): void
+    {
+        if (!File::delete(public_path($client->avatar)) || !$client->update(['avatar' => null])) {
+            throw new \Exception('Avatar cannot be deleted ');
+        }
     }
 
     protected function getUploadPath(): string

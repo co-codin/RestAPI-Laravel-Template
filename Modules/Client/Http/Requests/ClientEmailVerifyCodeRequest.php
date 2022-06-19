@@ -2,11 +2,11 @@
 
 namespace Modules\Client\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Support\Facades\Validator;
 use Modules\Client\Http\Validators\ClientEmailVerifyCodePostValidator;
 
-class ClientEmailVerifyCodeRequest extends FormRequest
+class ClientEmailVerifyCodeRequest extends BaseFormRequest
 {
     public function rules(): array
     {

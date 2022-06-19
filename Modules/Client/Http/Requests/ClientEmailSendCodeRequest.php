@@ -2,9 +2,9 @@
 
 namespace Modules\Client\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class ClientEmailSendCodeRequest extends FormRequest
+class ClientEmailSendCodeRequest extends BaseFormRequest
 {
     public function rules(): array
     {
