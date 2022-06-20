@@ -11,10 +11,11 @@ use Modules\Client\Services\ClientVerificationService;
 
 class PhoneVerificationController extends Controller
 {
-    public function sendCode(
-        ClientSendCodeRequest $request,
-        ClientVerificationService $clientVerificationService
-    )
+    public function __construct(
+        protected ClientVerificationService $clientVerificationService
+    ){}
+
+    public function sendCode(ClientSendCodeRequest $request)
     {
         $phone = $request->validated()['phone'];
 
@@ -25,7 +26,7 @@ class PhoneVerificationController extends Controller
 
         abort_if((bool)$client->banned_at, 403, 'Пользователь с указанным номером заблокирован');
 
-        $clientVerificationService->send(
+        $this->clientVerificationService->send(
             $client->phone,
             VerifyType::fromValue($verifyType),
             $client,
@@ -36,13 +37,10 @@ class PhoneVerificationController extends Controller
         ]);
     }
 
-    public function verifyCode(
-        ClientVerifyCodeRequest $request,
-        ClientVerificationService $clientVerificationService
-    ) {
+    public function verifyCode(ClientVerifyCodeRequest $request) {
         $client = Client::wherePhone($request->validated()['phone'])->first();
 
-        $clientVerificationService->setVerifiedAt($client);
+        $this->clientVerificationService->setVerifiedAt($client);
 
         $token = $client->createToken('API Token')->plainTextToken;
 
