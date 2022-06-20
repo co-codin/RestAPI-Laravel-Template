@@ -44,9 +44,7 @@ class PhoneVerificationController extends Controller
 
         $clientVerificationService->setVerifiedAt($client);
 
-        auth('client-api')->login($client);
-
-        $token = auth('client-api')->user()->createToken('API Token')->plainTextToken;
+        $token = $client->createToken('API Token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
