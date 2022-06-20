@@ -186,6 +186,8 @@ return [
         \Nuwave\Lighthouse\Defer\DeferServiceProvider::class,
         \App\Providers\SpatieQueryBuilderServiceProvider::class,
         App\Providers\ValidationExtensionServiceProvider::class,
+
+        NotificationChannels\SmscRu\SmscRuServiceProvider::class,
     ],
 
     /*
