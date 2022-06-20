@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapApiRoutes()
     {
-        Route::middleware('guest:client-api')
+        Route::as('clients.')
             ->group(module_path('Client', '/Routes/api.php'));
     }
 }
