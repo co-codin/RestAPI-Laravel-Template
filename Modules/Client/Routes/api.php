@@ -9,6 +9,7 @@ use Modules\Client\Http\Controllers\ClientAvatarUpdateController;
 use Modules\Client\Http\Controllers\ClientPayerController;
 use Modules\Client\Http\Controllers\ClientCartController;
 use Modules\Client\Http\Controllers\ClientFavoriteController;
+use Modules\Client\Http\Controllers\ClientAuthController;
 
 Route::prefix('clients')->group(function() {
     Route::post('fast-register', [ClientRegisterController::class, 'fastRegister']);
@@ -48,9 +49,5 @@ Route::prefix('clients')->group(function() {
 
     Route::apiResource('payers', ClientPayerController::class);
 
-    // cart
-    Route::resource('client/carts', ClientCartController::class);
-
-    // favorite
-    Route::resource('client/favorites', ClientFavoriteController::class);
+    Route::post('logout', [ClientAuthController::class, 'logout']);
 });
