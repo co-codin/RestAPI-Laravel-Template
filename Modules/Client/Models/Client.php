@@ -45,4 +45,17 @@ class Client extends Authenticatable
     {
         return $this->hasMany(ClientPayer::class);
     }
+
+    public function routeNotificationForSmscru(): string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Route notifications for the prostor sms channel.
+     */
+    public function routeNotificationForProstorSms(): string
+    {
+        return $this->phone;
+    }
 }

@@ -30,8 +30,7 @@ class ClientVerificationService
             VerifyType::SMS => SmscRuSmsChannel::class,
         };
 
-        Client::unguard();
-        $client = new Client(['phone' => $client->phone]);
+        $client = Client::query()->where(['phone' => $client->phone])->first();
         $client->notifyNow(new PhoneVerifyNotification(), [$channel]);
     }
 
