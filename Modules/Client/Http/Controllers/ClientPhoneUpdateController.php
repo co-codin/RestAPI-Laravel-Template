@@ -22,13 +22,12 @@ class ClientPhoneUpdateController extends Controller
     }
 
     public function sendCode(ClientPhoneSendCodeRequest $request) {
-        $phone = $request->validated()['phone'];
         $verifyType = $request->validated()['verify_type'];
 
         $this->clientVerificationService->send(
-            $phone,
+            $request->validated()['phone'],
             VerifyType::fromValue($verifyType),
-            new Client(['phone' => $phone]),
+            auth('client-api')->user()
         );
 
         return response()->json([

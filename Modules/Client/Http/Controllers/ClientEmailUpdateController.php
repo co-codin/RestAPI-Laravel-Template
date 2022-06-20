@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Client\Enums\VerifyType;
 use Modules\Client\Http\Requests\ClientEmailSendCodeRequest;
 use Modules\Client\Http\Requests\ClientEmailVerifyCodeRequest;
+use Modules\Client\Models\Client;
 use Modules\Client\Services\ClientVerificationService;
 
 class ClientEmailUpdateController extends Controller
@@ -22,7 +23,7 @@ class ClientEmailUpdateController extends Controller
             auth('client-api')->user()
         );
 
-        return response()->json([]);
+        return response()->json();
     }
 
     public function verify(ClientEmailVerifyCodeRequest $request)

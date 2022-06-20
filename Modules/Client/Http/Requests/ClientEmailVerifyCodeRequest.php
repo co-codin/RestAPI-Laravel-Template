@@ -3,7 +3,7 @@
 namespace Modules\Client\Http\Requests;
 
 use App\Http\Requests\BaseFormRequest;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator;
 use Modules\Client\Http\Validators\ClientEmailVerifyCodePostValidator;
 
 class ClientEmailVerifyCodeRequest extends BaseFormRequest

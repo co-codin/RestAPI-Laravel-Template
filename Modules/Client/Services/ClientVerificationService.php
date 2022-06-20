@@ -13,7 +13,7 @@ use Modules\Client\Notifications\PhoneVerifyNotification;
 
 class ClientVerificationService
 {
-    public function send(string $uniqueKey, VerifyType $verifyType, Client $client): void
+    public function send(string $uniqueKey, VerifyType $verifyType, Mixed $client): void
     {
         $code = CodeVerifyHelper::setCode($uniqueKey);
 
@@ -30,7 +30,6 @@ class ClientVerificationService
             VerifyType::SMS => SmscRuSmsChannel::class,
         };
 
-        $client = Client::query()->where(['phone' => $client->phone])->first();
         $client->notifyNow(new PhoneVerifyNotification(), [$channel]);
     }
 
