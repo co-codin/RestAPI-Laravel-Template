@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Modules\Client\Traits\Bannable;
 use Spatie\Activitylog\LogOptions;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Client extends Authenticatable
 {
-    use SoftDeletes, LogsActivity, Bannable;
+    use SoftDeletes, Bannable, HasApiTokens, LogsActivity;
 
     protected $guarded = [
         'id',
