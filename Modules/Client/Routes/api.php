@@ -7,8 +7,6 @@ use Modules\Client\Http\Controllers\ClientPhoneUpdateController;
 use Modules\Client\Http\Controllers\ClientEmailUpdateController;
 use Modules\Client\Http\Controllers\ClientAvatarUpdateController;
 use Modules\Client\Http\Controllers\ClientPayerController;
-use Modules\Client\Http\Controllers\ClientCartController;
-use Modules\Client\Http\Controllers\ClientFavoriteController;
 use Modules\Client\Http\Controllers\ClientAuthController;
 
 Route::prefix('clients')->group(function() {
