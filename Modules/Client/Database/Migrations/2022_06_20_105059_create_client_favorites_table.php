@@ -15,7 +15,8 @@ class CreateClientFavoritesTable extends Migration
     {
         Schema::create('client_favorites', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('client_id')->constrained();
+            $table->foreignId('product_variation_id')->unique()->constrained();
             $table->timestamps();
         });
     }
