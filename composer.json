@@ -39,6 +39,7 @@
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.3",
         "nwidart/laravel-modules": "^8.2",
+        "predis/predis": "^2.0",
         "prettus/l5-repository": "^2.7",
         "propaganistas/laravel-phone": "^4.3",
         "sentry/sentry-laravel": "^2.8",
