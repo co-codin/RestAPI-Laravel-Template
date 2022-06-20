@@ -28,4 +28,10 @@ class PhoneVerifyNotification extends Notification
         $code = CodeVerifyHelper::getCode($notifiable->phone);
         return SmscRuMessage::create("Код авторизации $code");
     }
+
+    public function toSmscRuVoiceCall(mixed $notifiable): SmscRuMessage
+    {
+        $code = CodeVerifyHelper::getCode($notifiable->phone);
+        return SmscRuMessage::create("Код авторизации $code");
+    }
 }
