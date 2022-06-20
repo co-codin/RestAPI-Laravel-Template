@@ -2,17 +2,15 @@
 
 namespace Modules\Client\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Modules\Client\Database\factories\ClientFactory;
 use Modules\Client\Traits\Bannable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Client extends Authenticatable
 {
-    use HasFactory, SoftDeletes, LogsActivity, Bannable;
+    use SoftDeletes, LogsActivity, Bannable;
 
     protected $guarded = [
         'id',
@@ -44,10 +42,5 @@ class Client extends Authenticatable
     public function clientPayers()
     {
         return $this->hasMany(ClientPayer::class);
-    }
-
-    protected static function newFactory()
-    {
-        return ClientFactory::new();
     }
 }
