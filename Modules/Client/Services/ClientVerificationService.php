@@ -29,14 +29,14 @@ class ClientVerificationService
             VerifyType::VOICE => SmscRuVoiceChannel::class,
             VerifyType::SMS => SmscRuSmsChannel::class,
         };
-        
+
         Client::unguard();
         $client = new Client(['phone' => $client->phone]);
         $client->notifyNow(new PhoneVerifyNotification(), [$channel]);
 
         dd(
             $verifyType->value
-        )
+        );
     }
 
     public function verify(string $uniqueKey, string $code): void
