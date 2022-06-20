@@ -47,7 +47,7 @@ return [
         ],
 
         'client-api' => [
-            'driver' => 'passport',
+            'driver' => 'sanctum',
             'provider' => 'clients',
         ],
     ],
@@ -73,6 +73,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => \Modules\User\Models\User::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => \Modules\Client\Models\Client::class,
         ],
     ],
 
