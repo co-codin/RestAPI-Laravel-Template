@@ -92,6 +92,9 @@ class ProductIndex extends BaseIndex
                         'country_id' => [
                             'type' => 'integer',
                         ],
+                        'name' => [
+                            'type' => 'keyword',
+                        ],
                         'status' => [
                             'properties' => [
                                 'id' => [
