@@ -39,6 +39,9 @@ class BrandIndex extends BaseIndex
     {
         return [
             'properties' => [
+                'name' => [
+                    'type' => 'keyword',
+                ],
                 'slug' => [
                     'type' => 'keyword',
                 ],
