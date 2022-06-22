@@ -9,24 +9,3 @@ type ProductFilterMeta {
     total: Int
     aggregations: Mixed
 }
-
-input ProductFilterField {
-    products: String
-    brand: String
-    category: String
-    properties: String
-    product_reviews: String
-}
-
-input ProductFilterType {
-    name: String!
-    value: Int!
-    is_default: Int!
-    path: String
-    filter_type: String!
-}
-
-input ProductFilterPage {
-    size: Int
-    number: Int
-}
