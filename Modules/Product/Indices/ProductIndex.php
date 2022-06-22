@@ -239,8 +239,6 @@ class ProductIndex extends BaseIndex
                 'phonetic' => [
                     "tokenizer" => "standard",
                     "filter" => [
-                        "my_phonetic_english",
-                        "my_phonetic_cyrillic",
                         "lowercase",
                         "stop",
                     ],
@@ -284,20 +282,6 @@ class ProductIndex extends BaseIndex
                 'myLatinTransform' => [
                     'type' => 'icu_transform',
                     'id' => 'Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC',
-                ],
-                'my_phonetic_cyrillic' => [
-                    'type' => 'phonetic',
-                    'encoder' => 'beider_morse',
-                    'rule_type' => 'approx',
-                    'name_type' => 'generic',
-                    'languageset' => ["cyrillic"],
-                ],
-                'my_phonetic_english' => [
-                    'type' => 'phonetic',
-                    'encoder' => 'beider_morse',
-                    'rule_type' => 'approx',
-                    'name_type' => 'generic',
-                    'languageset' => ["english"],
                 ],
                 'custom_word_delimiter_graph' => [
                     'type' => 'word_delimiter_graph',
