@@ -277,14 +277,6 @@ class ProductIndex extends BaseIndex
                     'min_gram' => 2,
                     'max_gram' => 10,
                 ],
-                'ru_RU' => [
-                    'type' => 'hunspell',
-                    'language' => 'ru_RU',
-                ],
-                'en_US' => [
-                    'type' => 'hunspell',
-                    'language' => 'en_US',
-                ],
                 'synonyms' => [
                     'type' => 'synonym',
                     'synonyms_path' => 'analysis/synonyms.txt',
