@@ -275,10 +275,6 @@ class ProductIndex extends BaseIndex
                     'min_gram' => 2,
                     'max_gram' => 10,
                 ],
-                'synonyms' => [
-                    'type' => 'synonym',
-                    'synonyms_path' => 'analysis/synonyms.txt',
-                ],
                 'myLatinTransform' => [
                     'type' => 'icu_transform',
                     'id' => 'Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC',
@@ -301,7 +297,6 @@ class ProductIndex extends BaseIndex
 //                                'my_phonetic_english,my_phonetic_cyrillic,lowercase',
                         'myLatinTransform,lowercase',
                         'custom_word_delimiter_graph,lowercase',
-                        'lowercase,synonyms',
                     ],
                 ],
                 'russian_stop' => [
