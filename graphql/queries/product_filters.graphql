@@ -1,9 +1,9 @@
 extend type Query {
     getProductFilters(
-        filters: [ProductFilterType!]
-        page: [ProductFilterPage!]
+        filters: Mixed
+        page: Mixed
         include: String
-        fields: [ProductFilterField!]
+        fields: Mixed
         orderBy: String
     ): ProductFilter
     @field(resolver: "\\Modules\\Product\\Builder\\ProductFilterBuilder@getProductFilters")

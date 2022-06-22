@@ -7,7 +7,7 @@ type ProductFilter {
 
 type ProductFilterMeta {
     total: Int
-    aggregations: JSON
+    aggregations: Mixed
 }
 
 input ProductFilterField {
