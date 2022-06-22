@@ -45,31 +45,6 @@ class ProductIndex extends BaseIndex
     {
         return [
             'properties' => [
-                'full_name' => [
-                    'type' => 'text',
-                    'fields' => [
-                        'without_ru_en' => [
-                            'type' => 'text',
-                            'analyzer' => 'en_US_ru_RU_index',
-                            'search_analyzer' => 'en_US_ru_RU_search'
-                        ],
-                        'with_ru_en' => [
-                            'type' => 'text',
-                            'analyzer' => 'en_US_ru_RU_index_char',
-                            'search_analyzer' => 'en_US_ru_RU_search_char'
-                        ],
-                        'shingle' => [
-                            'type' => 'text',
-                            'analyzer' => 'shingle',
-                        ],
-                        'phonetic' => [
-                            'type' => 'text',
-                            'analyzer' => 'phonetic',
-                        ],
-                    ],
-//                        'analyzer' => 'en_US_ru_RU_index',
-//                        'search_analyzer' => 'en_US_ru_RU_search'
-                ],
                 'id' => [
                     'type' => 'integer',
                 ],
@@ -109,29 +84,6 @@ class ProductIndex extends BaseIndex
                 ],
                 'brand' => [
                     'properties' => [
-                        'name' => [
-                            'type' => 'keyword',
-                            'fields' => [
-                                'without_ru_en' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'en_US_ru_RU_index',
-                                    'search_analyzer' => 'en_US_ru_RU_search'
-                                ],
-                                'with_ru_en' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'en_US_ru_RU_index_char',
-                                    'search_analyzer' => 'en_US_ru_RU_search_char'
-                                ],
-                                'shingle' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'shingle',
-                                ],
-                                'phonetic' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'phonetic',
-                                ],
-                            ],
-                        ],
                         'id' => [
                             'type' => 'integer',
                         ],
