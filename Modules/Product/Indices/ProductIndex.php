@@ -32,7 +32,6 @@ class ProductIndex extends BaseIndex
             'index' => [
                 'max_ngram_diff' => 10
             ],
-            'analysis' => $this->analysis()
         ];
     }
 
