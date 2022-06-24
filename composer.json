@@ -55,14 +55,15 @@
         "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
         "brianium/paratest": "^6.2",
-        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.6",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.3.3",
+        "spatie/laravel-ignition": "^1.0",
         "spatie/laravel-ray": "^1.17"
     },
     "config": {
