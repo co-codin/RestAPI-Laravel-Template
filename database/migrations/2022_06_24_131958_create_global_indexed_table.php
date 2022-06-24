@@ -21,7 +21,9 @@ return new class extends Migration
             $table->index('is_in_home');
             $table->index('status');
             $table->index('group_id');
+            $table->index('country_id');
             $table->index(['is_in_home', 'status', 'group_id']);
+            $table->index(['status', 'country_id', 'group_id']);
         });
 
         Schema::table('product_reviews', function (Blueprint $table) {
@@ -43,6 +45,12 @@ return new class extends Migration
         Schema::table('publications', function (Blueprint $table) {
             $table->index(['is_enabled']);
         });
+
+        Schema::table('news', function (Blueprint $table) {
+            $table->index(['is_in_home']);
+            $table->index(['status']);
+            $table->index(['is_in_home', 'status']);
+        });
     }
 
     /**
@@ -59,8 +67,9 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropIndex(['is_in_home']);
             $table->dropIndex(['status']);
-            $table->dropIndex(['group_id']);
-            $table->dropIndex(['is_in_home', 'status', 'group_id']);
+            $table->index('country_id');
+            $table->index(['is_in_home', 'status', 'group_id']);
+            $table->index(['status', 'country_id', 'group_id']);
         });
 
         Schema::table('product_reviews', function (Blueprint $table) {
@@ -81,6 +90,12 @@ return new class extends Migration
 
         Schema::table('publications', function (Blueprint $table) {
             $table->dropIndex(['is_enabled']);
+        });
+
+        Schema::table('news', function (Blueprint $table) {
+            $table->dropIndex(['is_in_home']);
+            $table->dropIndex(['status']);
+            $table->dropIndex(['is_in_home', 'status']);
         });
     }
 };
