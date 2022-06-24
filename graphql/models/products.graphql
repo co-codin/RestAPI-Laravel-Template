@@ -37,7 +37,7 @@ type Product {
     images: [Image!] @morphMany
     seo: Seo @morphOne
     stockType: FieldValue @belongsTo
-    productReviews: [ProductReview!]  @hasMany(relation: "productReviews", scopes: ["published"])
+    productReviews: [ProductReview!]  @hasMany(scopes: ["published"])
     productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
     productQuestions: [ProductQuestion!]  @hasMany(relation: "productQuestions", scopes: ["published"])
     productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
