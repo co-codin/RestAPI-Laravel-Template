@@ -72,6 +72,7 @@ return new class extends Migration
             $table->dropIndex(['is_in_home']);
             $table->dropIndex(['status']);
             $table->dropIndex(['country_id']);
+            $table->dropIndex(['group_id']);
             $table->dropIndex(['is_in_home', 'status', 'group_id']);
             $table->dropIndex(['status', 'country_id', 'group_id']);
         });
