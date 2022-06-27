@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateProductsRussiaView extends Migration
@@ -13,11 +11,7 @@ class CreateProductsRussiaView extends Migration
      */
     public function up()
     {
-        Schema::create('', function (Blueprint $table) {
-            $table->id();
 
-            $table->timestamps();
-        });
     }
 
     /**
@@ -27,6 +21,6 @@ class CreateProductsRussiaView extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('');
+        DB::statement("DROP VIEW products_russia_view");
     }
 }

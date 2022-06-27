@@ -10,7 +10,6 @@ class CreateProductsHotView extends Migration
      * @return void
      */
     public function up()
-//        AND pp.property_id = 259 AND WHERE json_contains('field_value_ids', 1)
     {
         DB::statement("CREATE VIEW products_hot_view AS
                         SELECT
