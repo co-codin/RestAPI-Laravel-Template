@@ -83,9 +83,9 @@ class Product extends Model
 {
     use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity, ProductScopes;
 
-    const COVID_PROPERTY_ID = 259;
-
     protected $guarded = ['id', 'article'];
+
+    const COVID_PROPERTY_ID = 259;
 
     protected $casts = [
 //        'type' => 'integer',

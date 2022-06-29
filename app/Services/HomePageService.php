@@ -5,30 +5,31 @@ namespace App\Services;
 use App\Enums\Status;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Brand\Repositories\BrandRepository;
+use Modules\News\Repositories\NewsRepository;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Publication\Repositories\PublicationRepository;
 
 class HomePageService
 {
-    const COVID_PROPERTY_ID = 259;
-
     public function __construct(
         protected ProductRepository $productRepository,
         protected BrandRepository $brandRepository,
         protected BannerRepository $bannerRepository,
-        protected PublicationRepository $publicationRepository
+        protected PublicationRepository $publicationRepository,
+        protected NewsRepository $newsRepository
     ) {}
 
     public function all()
     {
-//        $productsHotBuilder = $this->getProductsHot();
-//        $productsRussiaBuilder = $this->getProductsRussia();
-//        $productsCovidBuilder = $this->getProductsCovid();
-//
-//        return $productsHotBuilder->merge([
-//            $productsRussiaBuilder, $productsCovidBuilder,
-//        ])->all();
+        return [
+            'productsHot' => $this->getProductsHot(),
+            'productsRussia' => $this->getProductsRussia(),
+            'productsCovid' => $this->getProductsCovid(),
+            'homeBrands' => $this->getBrands(),
+            'publications' => $this->getPublications(),
+            'news' => $this->getNews()
+        ];
     }
 
     public function getProductsHot()
@@ -104,11 +105,24 @@ class HomePageService
 
     public function getPublications()
     {
-
+        return $this->publicationRepository
+            ->orderBy('published_at', 'desc')
+            ->findWhere([
+                'is_enabled' => true
+            ])
+            ->take(4)
+            ->all();
     }
 
     public function getNews()
     {
-
+        return $this->newsRepository
+            ->orderBy('published_at', 'desc')
+            ->findWhere([
+                'is_in_home' => true,
+                'status' => Status::ACTIVE
+            ])
+            ->take(4)
+            ->all();
     }
 }
