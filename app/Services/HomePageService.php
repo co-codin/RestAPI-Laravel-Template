@@ -29,7 +29,7 @@ class HomePageService
             'homeBrands' => $this->getBrands(),
             'publications' => $this->getPublications(),
             'news' => $this->getNews(),
-            'getBanners' => $this->getBanners(),
+            'banners' => $this->getBanners(),
         ];
     }
 
