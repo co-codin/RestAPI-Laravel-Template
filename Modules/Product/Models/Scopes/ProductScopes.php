@@ -10,7 +10,7 @@ use Modules\Product\Models\ProductVariation;
 
 trait ProductScopes
 {
-    public function scopeWithPrice($query)
+    public function scopeWithPrice(Builder $query)
     {
         $query->addSelect(['price' => ProductVariation::selectRaw('rate * price')
             ->whereColumn('product_id', 'products.id')

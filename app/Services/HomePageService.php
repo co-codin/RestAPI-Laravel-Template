@@ -36,13 +36,17 @@ class HomePageService
     {
         return $this->productRepository
             ->scopeQuery(function ($query) {
-                return $query->withMainVariation()->hot(true)->fromCovid(false);
+                $query->hot(true);
+                $query->fromCovid(false);
+                $query->withMainVariation();
+
+                return $query;
             })
             ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
-                'group_id' => ProductGroup::IMPOSSIBLE
+                'group_id' => ProductGroup::PRIORITY
             ])
             ->take(20)
             ->all();
