@@ -3,18 +3,21 @@
 namespace App\Services;
 
 use App\Enums\Status;
-use Illuminate\Support\Facades\DB;
+use Modules\Banner\Repositories\BannerRepository;
+use Modules\Brand\Repositories\BrandRepository;
 use Modules\Product\Enums\ProductGroup;
-use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductVariation;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Publication\Repositories\PublicationRepository;
 
 class HomePageService
 {
     const COVID_PROPERTY_ID = 259;
 
     public function __construct(
-        protected ProductRepository $productRepository
+        protected ProductRepository $productRepository,
+        protected BrandRepository $brandRepository,
+        protected BannerRepository $bannerRepository,
+        protected PublicationRepository $publicationRepository
     ) {}
 
     public function all()
@@ -32,8 +35,9 @@ class HomePageService
     {
         return $this->productRepository
             ->scopeQuery(function ($query) {
-                return $query->withMainVariation();
+                return $query->withMainVariation()->hot(true)->fromCovid(false);
             })
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -47,6 +51,10 @@ class HomePageService
     public function getProductsRussia()
     {
         return $this->productRepository
+            ->scopeQuery(function ($query) {
+                return $query->withMainVariation();
+            })
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
             ->findWhere([
                 'status' => Status::ACTIVE,
                 'country_id' => 13, // Russia
@@ -59,6 +67,10 @@ class HomePageService
     public function getProductsCovid()
     {
         return $this->productRepository
+            ->scopeQuery(function ($query) {
+                return $query->withMainVariation()->fromCovid(true);
+            })
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -70,12 +82,24 @@ class HomePageService
 
     public function getBrands()
     {
-
+        return $this->brandRepository
+            ->orderBy('position')
+            ->findWhere([
+                'is_in_home' => true,
+                'status' => Status::ACTIVE,
+            ])
+            ->all();
     }
 
     public function getBanners()
     {
-
+        return $this->bannerRepository
+            ->orderBy('position')
+            ->findWhere([
+                'is_enabled' => true,
+                'page' => 'home-page'
+            ])
+            ->all();
     }
 
     public function getPublications()

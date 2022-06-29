@@ -31,22 +31,32 @@ trait ProductScopes
         ])->with('mainVariation');
     }
 
-    public function scopeHot(Builder $query)
+    public function scopeHot(Builder $query, bool $hot)
     {
-        $query->whereExists(function (QueryBuilder $builder) {
+        $query->whereExists(function (QueryBuilder $builder) use ($hot) {
             $builder
                 ->select(DB::raw(1))
                 ->from('product_variations as pv')
-                ->whereRaw('pv.product_id = products.id')
-                ->whereNotNull('pv.previous_price')
-                ->whereNotNull('pv.price')
-                ->where('pv.is_price_visible', true);
+                ->whereRaw('pv.product_id = products.id');
+
+            if ($hot) {
+                $builder
+                    ->whereNotNull('pv.previous_price')
+                    ->whereNotNull('pv.price')
+                    ->where('pv.is_price_visible', true);
+            } else {
+                $builder
+                    ->where('pv.is_price_visible', false)
+                    ->orWhereNull('pv.previous_price');
+            }
         });
     }
 
-    public function scopeFromCovid(Builder $query)
+    public function scopeFromCovid(Builder $query, bool $fromCovid)
     {
-        return $query->whereNotExists(function ($query) {
+        $method = $fromCovid ? "whereExists" : "whereNotExists";
+
+        $query->{$method}(function ($query) {
             $query->select(DB::raw(1))
                 ->from('product_property as pp')
                 ->whereColumn('pp.product_id', 'products.id')

@@ -12,6 +12,6 @@ class HomePageController extends Controller
 
     public function index()
     {
-        return $this->homePageService->getProductsHot();
+        return $this->homePageService->getBrands();
     }
 }
