@@ -3,11 +3,18 @@
 namespace App\Services;
 
 use App\Enums\Status;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
+use Modules\Product\Repositories\ProductRepository;
 
 class HomePageService
 {
+    public function __construct(
+        protected ProductRepository $productRepository
+    ) {}
+
     public function all()
     {
         $productsHotBuilder = $this->getProductsHot();
@@ -21,37 +28,23 @@ class HomePageService
 
     public function getProductsHot()
     {
-        return Product::query()
-            ->where([
-                ['is_in_home', '=', true],
-                ['status', '=', Status::ACTIVE],
-                ['group_id', '=', ProductGroup::IMPOSSIBLE],
-            ])
-            ->with(
-                ['stockType' => function ($query) {
-                    $query->select('value');
-                }],
-                ['category' => function ($query) {
-                    $query->select('name');
-                }],
-                ['brand' => function ($query) {
-                    $query->select('name');
-                }],
-                ['mainVariation' => function ($query) {
-                    $query->select(['id', 'price', 'previous_price', 'is_price_visible', 'currency_id', 'stock_type']);
-                }],
-                ['mainVariation.currency' => function ($query) {
-                    $query->select('rate');
-                }],
-                ['images' => function ($query) {
-                    $query->select('image');
-                }],
-                ['productReviews' => function ($query) {
-                    $query->select('ratings');
-                }],
-            )
+        $this->productRepository->findWhere([
+            ['is_in_home', '=', true],
+            ['status', '=', Status::ACTIVE],
+            ['group_id', '=', ProductGroup::IMPOSSIBLE],
+            [DB::raw(1), 'NOT EXIST']
+        ])
+            ->scopeQuery(function($query) {
+                $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+                    ->whereColumn('product_id', 'products.id')
+                    ->where('is_enabled', true)
+                    ->leftJoin('currencies', 'currency_id', 'currencies.id')
+                    ->orderByRaw('rate * price ASC')
+                    ->take(1),
+                ]);
+            })
             ->take(20)
-            ->get();
+            ->all();
     }
 
     public function getProductsRussia()
