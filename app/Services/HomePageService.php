@@ -11,28 +11,29 @@ use Modules\Product\Repositories\ProductRepository;
 
 class HomePageService
 {
+    const COVID_PROPERTY_ID = 259;
+
     public function __construct(
         protected ProductRepository $productRepository
     ) {}
 
     public function all()
     {
-        $productsHotBuilder = $this->getProductsHot();
-        $productsRussiaBuilder = $this->getProductsRussia();
-        $productsCovidBuilder = $this->getProductsCovid();
-
-        return $productsHotBuilder->merge([
-            $productsRussiaBuilder, $productsCovidBuilder,
-        ])->all();
+//        $productsHotBuilder = $this->getProductsHot();
+//        $productsRussiaBuilder = $this->getProductsRussia();
+//        $productsCovidBuilder = $this->getProductsCovid();
+//
+//        return $productsHotBuilder->merge([
+//            $productsRussiaBuilder, $productsCovidBuilder,
+//        ])->all();
     }
 
     public function getProductsHot()
     {
-        $this->productRepository->findWhere([
+        return $this->productRepository->findWhere([
             ['is_in_home', '=', true],
             ['status', '=', Status::ACTIVE],
             ['group_id', '=', ProductGroup::IMPOSSIBLE],
-            [DB::raw(1), 'NOT EXIST']
         ])
             ->scopeQuery(function($query) {
                 $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
@@ -42,10 +43,27 @@ class HomePageService
                     ->orderByRaw('rate * price ASC')
                     ->take(1),
                 ]);
+
+                $query->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('product_property as pp')
+                        ->whereColumn('pp.product_id', 'products.id')
+                        ->where('pp.property_id', static::COVID_PROPERTY_ID)
+                        ->whereJsonContains('pp.field_value_ids', 1);
+                });
+
+                $query
+                    ->select(DB::raw(1))
+                    ->from('product_variations as pv')
+                    ->whereRaw('pv.product_id = products.id')
+                    ->whereNotNull('pv.previous_price')
+                    ->whereNotNull('pv.price')
+                    ->where('pv.is_price_visible', true);
             })
             ->take(20)
             ->all();
     }
+
 
     public function getProductsRussia()
     {
