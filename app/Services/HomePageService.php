@@ -31,6 +31,9 @@ class HomePageService
     public function getProductsHot()
     {
         return $this->productRepository
+            ->scopeQuery(function ($query) {
+                return $query->withMainVariation();
+            })
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -43,12 +46,26 @@ class HomePageService
 
     public function getProductsRussia()
     {
-        return Product::query()->get();
+        return $this->productRepository
+            ->findWhere([
+                'status' => Status::ACTIVE,
+                'country_id' => 13, // Russia
+                'group_id' => ProductGroup::IMPOSSIBLE
+            ])
+            ->take(20)
+            ->all();
     }
 
     public function getProductsCovid()
     {
-        return Product::query()->get();
+        return $this->productRepository
+            ->findWhere([
+                'is_in_home' => true,
+                'status' => Status::ACTIVE,
+                'group_id' => ProductGroup::IMPOSSIBLE
+            ])
+            ->take(20)
+            ->all();
     }
 
     public function getBrands()

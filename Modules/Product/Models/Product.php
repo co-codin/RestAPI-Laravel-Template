@@ -25,6 +25,7 @@ use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
+use Modules\Product\Models\Scopes\ProductScopes;
 use Modules\Property\Models\Property;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
@@ -80,7 +81,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Product extends Model
 {
-    use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity;
+    use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity, ProductScopes;
 
     const COVID_PROPERTY_ID = 259;
 
@@ -249,56 +250,6 @@ class Product extends Model
     public function getPriceAttribute($value): float|int|null
     {
         return $value ? $value / 10000 : null;
-    }
-
-    public function scopeWithPrice($query)
-    {
-        $query->addSelect(['price' => ProductVariation::selectRaw('rate * price')
-            ->whereColumn('product_id', 'products.id')
-            ->join('currencies', 'currency_id', 'currencies.id')
-            ->orderByRaw('rate * price ASC')
-            ->take(1),
-        ]);
-    }
-
-    public function scopeWithMainVariation(Builder $query)
-    {
-        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
-            ->whereColumn('product_id', 'products.id')
-            ->where('is_enabled', true)
-            ->leftJoin('currencies', 'currency_id', 'currencies.id')
-            ->orderByRaw('rate * price ASC')
-            ->take(1),
-        ])->with('mainVariation');
-    }
-
-    public function scopeHot(Builder $query)
-    {
-        $query->whereExists(function (QueryBuilder $builder) {
-            $builder
-                ->select(DB::raw(1))
-                ->from('product_variations as pv')
-                ->whereRaw('pv.product_id = products.id')
-                ->whereNotNull('pv.previous_price')
-                ->whereNotNull('pv.price')
-                ->where('pv.is_price_visible', true);
-        });
-    }
-
-    public function scopeFromCovid(Builder $query)
-    {
-        return $query->whereNotExists(function ($query) {
-            $query->select(DB::raw(1))
-                ->from('product_property as pp')
-                ->whereColumn('pp.product_id', 'products.id')
-                ->where('pp.property_id', static::COVID_PROPERTY_ID)
-                ->whereJsonContains('pp.field_value_ids', 1);
-        });
-    }
-
-    public function scopeHasActiveVariation(Builder $query)
-    {
-        return $query->havingRaw('main_variation_id is not null');
     }
 
     public function stockType()
