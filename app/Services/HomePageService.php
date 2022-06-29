@@ -28,7 +28,8 @@ class HomePageService
             'productsCovid' => $this->getProductsCovid(),
             'homeBrands' => $this->getBrands(),
             'publications' => $this->getPublications(),
-            'news' => $this->getNews()
+            'news' => $this->getNews(),
+            'getBanners' => $this->getBanners(),
         ];
     }
 
