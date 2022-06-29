@@ -50,6 +50,8 @@ class ProductRequestCriteria implements CriteriaInterface
                 ],
             ))
             ->when(in_array("mainVariation", $includes), fn($query) => $query->withMainVariation())
+            ->when(in_array("hot", $includes), fn($query) => $query->hot())
+            ->when(in_array("fromCovid", $includes), fn($query) => $query->fromCovid())
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('article'),

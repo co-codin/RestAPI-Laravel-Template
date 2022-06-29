@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
@@ -79,6 +81,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Product extends Model
 {
     use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity;
+
+    const COVID_PROPERTY_ID = 259;
 
     protected $guarded = ['id', 'article'];
 
@@ -257,7 +261,7 @@ class Product extends Model
         ]);
     }
 
-    public function scopeWithMainVariation($query)
+    public function scopeWithMainVariation(Builder $query)
     {
         $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
             ->whereColumn('product_id', 'products.id')
@@ -266,6 +270,30 @@ class Product extends Model
             ->orderByRaw('rate * price ASC')
             ->take(1),
         ])->with('mainVariation');
+    }
+
+    public function scopeHot(Builder $query)
+    {
+        $query->whereExists(function (QueryBuilder $builder) {
+            $builder
+                ->select(DB::raw(1))
+                ->from('product_variations as pv')
+                ->whereRaw('pv.product_id = products.id')
+                ->whereNotNull('pv.previous_price')
+                ->whereNotNull('pv.price')
+                ->where('pv.is_price_visible', true);
+        });
+    }
+
+    public function scopeFromCovid(Builder $query)
+    {
+        return $query->whereNotExists(function ($query) {
+            $query->select(DB::raw(1))
+                ->from('product_property as pp')
+                ->whereColumn('pp.product_id', 'products.id')
+                ->where('pp.property_id', static::COVID_PROPERTY_ID)
+                ->whereJsonContains('pp.field_value_ids', 1);
+        });
     }
 
     public function scopeHasActiveVariation(Builder $query)

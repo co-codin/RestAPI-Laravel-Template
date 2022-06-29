@@ -30,36 +30,12 @@ class HomePageService
 
     public function getProductsHot()
     {
-        return $this->productRepository->findWhere([
-            ['is_in_home', '=', true],
-            ['status', '=', Status::ACTIVE],
-            ['group_id', '=', ProductGroup::IMPOSSIBLE],
-        ])
-            ->scopeQuery(function($query) {
-                $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
-                    ->whereColumn('product_id', 'products.id')
-                    ->where('is_enabled', true)
-                    ->leftJoin('currencies', 'currency_id', 'currencies.id')
-                    ->orderByRaw('rate * price ASC')
-                    ->take(1),
-                ]);
-
-                $query->whereNotExists(function ($query) {
-                    $query->select(DB::raw(1))
-                        ->from('product_property as pp')
-                        ->whereColumn('pp.product_id', 'products.id')
-                        ->where('pp.property_id', static::COVID_PROPERTY_ID)
-                        ->whereJsonContains('pp.field_value_ids', 1);
-                });
-
-                $query
-                    ->select(DB::raw(1))
-                    ->from('product_variations as pv')
-                    ->whereRaw('pv.product_id = products.id')
-                    ->whereNotNull('pv.previous_price')
-                    ->whereNotNull('pv.price')
-                    ->where('pv.is_price_visible', true);
-            })
+        return $this->productRepository
+            ->findWhere([
+                'is_in_home' => true,
+                'status' => Status::ACTIVE,
+                'group_id' => ProductGroup::IMPOSSIBLE
+            ])
             ->take(20)
             ->all();
     }
