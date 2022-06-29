@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\HomePageResource;
 use App\Services\HomePageService;
 
 class HomePageController extends Controller
@@ -12,6 +13,6 @@ class HomePageController extends Controller
 
     public function index()
     {
-        return $this->homePageService->getBrands();
+        return HomePageResource::collection($this->homePageService->all());
     }
 }
