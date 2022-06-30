@@ -7,18 +7,19 @@ namespace Modules\Product\Repositories;
 use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
-use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
-use Modules\Search\Collections\FilteredCollection;
+use Modules\Product\Repositories\Traits\HomePageTrait;
 use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Repositories\IndexableRepositoryTrait;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository extends BaseRepository implements IndexableRepository
 {
-    use IndexableRepositoryTrait;
+    use IndexableRepositoryTrait, HomePageTrait;
+
+    const COVID_PROPERTY_ID = 259;
 
     public function model()
     {
