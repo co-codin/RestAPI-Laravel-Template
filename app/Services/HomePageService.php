@@ -44,7 +44,7 @@ class HomePageService
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
-                'group_id' => ProductGroup::IMPOSSIBLE
+                ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
             ->map(function ($product) {
@@ -63,7 +63,7 @@ class HomePageService
             ->findWhere([
                 'status' => Status::ACTIVE,
                 'country_id' => 13, // Russia
-                'group_id' => ProductGroup::IMPOSSIBLE
+                ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
             ->map(function ($product) {
@@ -81,7 +81,7 @@ class HomePageService
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
-                'group_id' => ProductGroup::IMPOSSIBLE
+                ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
             ->map(function ($product) {
@@ -147,6 +147,7 @@ class HomePageService
 
     protected function transformProduct($product)
     {
+
         $product->brand = $product->brand->only('name');
 
         if ($product->stockType) {
@@ -154,7 +155,11 @@ class HomePageService
         }
 
         $product->category = $product->category->only('name');
-        $product->images = $product->images->only('image');
+        $product->images = $product->images->map(function ($image) {
+            return [
+                'image' => $image->image
+            ];
+        });
 
         if ($product->productReviews) {
             $product->productReviews = $product->productReviews->only('ratings');
