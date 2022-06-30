@@ -97,11 +97,16 @@ class HomePageService
     {
         return $this->brandRepository
             ->orderBy('position')
+            ->with('products')
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
             ])
-            ->all();
+            ->map(function ($brand) {
+                $brand->productCount = count($brand->products);
+
+                return $brand->only('id', 'name', 'slug', 'productCount');
+            });
     }
 
     public function getBanners()
