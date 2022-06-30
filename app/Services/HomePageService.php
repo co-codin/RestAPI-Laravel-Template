@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\Status;
-use Illuminate\Support\Arr;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\News\Repositories\NewsRepository;
@@ -39,17 +38,13 @@ class HomePageService
     {
         return $this->productRepository
             ->scopeQuery(function ($query) {
-                $query->hot(true);
-                $query->fromCovid(false);
-                $query->withMainVariation();
-
-                return $query;
+                return $query->hot(true)->fromCovid(false)->withMainVariation();
             })
             ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
-                'group_id' => ProductGroup::PRIORITY
+                'group_id' => ProductGroup::IMPOSSIBLE
             ])
             ->take(20)
             ->map(function ($product) {
