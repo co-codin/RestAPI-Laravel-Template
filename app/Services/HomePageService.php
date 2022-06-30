@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\Status;
+use Illuminate\Support\Arr;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\News\Repositories\NewsRepository;
@@ -50,7 +51,9 @@ class HomePageService
                 'group_id' => ProductGroup::PRIORITY
             ])
             ->take(20)
-            ->all();
+            ->map(function ($product) {
+                return $this->transformProduct($product);
+            });
     }
 
 
@@ -67,7 +70,9 @@ class HomePageService
                 'group_id' => ProductGroup::IMPOSSIBLE
             ])
             ->take(20)
-            ->all();
+            ->map(function ($product) {
+                return $this->transformProduct($product);
+            });
     }
 
     public function getProductsCovid()
@@ -83,7 +88,9 @@ class HomePageService
                 'group_id' => ProductGroup::IMPOSSIBLE
             ])
             ->take(20)
-            ->all();
+            ->map(function ($product) {
+                return $this->transformProduct($product);
+            });
     }
 
     public function getBrands()
@@ -129,5 +136,28 @@ class HomePageService
             ])
             ->take(4)
             ->all();
+    }
+
+    protected function transformProduct($product)
+    {
+        $product->brand = $product->brand->only('name');
+
+        if ($product->stockType) {
+            $product->stockType = $product->stockType->only('value');
+        }
+
+        $product->category = $product->category->only('name');
+        $product->images = $product->images->only('image');
+
+        if ($product->productReviews) {
+            $product->productReviews = $product->productReviews->only('ratings');
+        }
+
+
+        return $product->only(
+            'id', 'name', 'article', 'image', 'slug', 'group_id',
+            'brand', 'stockType', 'category', 'images', 'productReviews',
+            'rating', 'productReviewCount', 'productAnswerCount'
+        );
     }
 }
