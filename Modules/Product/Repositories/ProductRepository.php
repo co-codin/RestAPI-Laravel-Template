@@ -10,14 +10,13 @@ use Illuminate\Support\Arr;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
-use Modules\Product\Repositories\Traits\HomePageTrait;
 use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Repositories\IndexableRepositoryTrait;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository extends BaseRepository implements IndexableRepository
 {
-    use IndexableRepositoryTrait, HomePageTrait;
+    use IndexableRepositoryTrait;
 
     const COVID_PROPERTY_ID = 259;
 
