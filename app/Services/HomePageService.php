@@ -10,6 +10,7 @@ use Modules\News\Repositories\NewsRepository;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Publication\Repositories\PublicationRepository;
+use Modules\Review\Models\ProductReview;
 
 class HomePageService
 {
@@ -44,7 +45,7 @@ class HomePageService
 
                 return $query;
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -63,7 +64,7 @@ class HomePageService
             ->scopeQuery(function ($query) {
                 return $query->withMainVariation();
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'status' => Status::ACTIVE,
                 'country_id' => 13, // Russia
@@ -81,7 +82,7 @@ class HomePageService
             ->scopeQuery(function ($query) {
                 return $query->withMainVariation()->fromCovid(true);
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews'])
+            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -117,7 +118,9 @@ class HomePageService
                 'is_enabled' => true,
                 'page' => 'home-page'
             ])
-            ->all();
+            ->map(function ($banner) {
+                return $banner->only('url', 'images');
+            });
     }
 
     public function getPublications()
@@ -128,7 +131,9 @@ class HomePageService
                 'is_enabled' => true
             ])
             ->take(4)
-            ->all();
+            ->map(function ($publication) {
+                return $publication->only('id', 'name', 'source', 'url', 'logo', 'published_at');
+            });
     }
 
     public function getNews()
@@ -140,7 +145,9 @@ class HomePageService
                 'status' => Status::ACTIVE
             ])
             ->take(4)
-            ->all();
+            ->map(function ($news) {
+                return $news->only('id', 'short_description', 'name', 'slug', 'image', 'published_at', 'view_num');
+            });
     }
 
     protected function transformProduct($product)
@@ -156,8 +163,15 @@ class HomePageService
 
         if ($product->productReviews) {
             $product->productReviews = $product->productReviews->only('ratings');
+            $product->productReviewCount = count($product->productReviews);
+
+            $rating = $product->productReviews
+                ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
+
+            $product->rating = !is_null($rating) ? floor($rating) : 0;
         }
 
+        $product->productAnswerCount = count($product->productAnswers);
 
         return $product->only(
             'id', 'name', 'article', 'image', 'slug', 'group_id',
