@@ -4,13 +4,17 @@ namespace App\Services;
 
 use App\Enums\Status;
 use App\Repositories\Criteria\ProductHomePageCriteria;
+use Illuminate\Support\Arr;
 use Modules\Banner\Repositories\BannerRepository;
+use Modules\Banner\Repositories\Criteria\BannerHomePageCriteria;
 use Modules\Brand\Repositories\BrandRepository;
+use Modules\Brand\Repositories\Criteria\BrandHomePageCriteria;
+use Modules\News\Repositories\Criteria\NewsHomePageCriteria;
 use Modules\News\Repositories\NewsRepository;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Publication\Repositories\Criteria\PublicationHomePageCriteria;
 use Modules\Publication\Repositories\PublicationRepository;
-use Modules\Review\Models\ProductReview;
 
 class HomePageService
 {
@@ -20,7 +24,11 @@ class HomePageService
         protected BannerRepository $bannerRepository,
         protected PublicationRepository $publicationRepository,
         protected NewsRepository $newsRepository
-    ) {}
+    ) {
+        $this->productRepository
+            ->resetCriteria()
+            ->pushCriteria(ProductHomePageCriteria::class);
+    }
 
     public function all()
     {
@@ -38,8 +46,6 @@ class HomePageService
     public function getProductsHot()
     {
         return $this->productRepository
-            ->resetCriteria()
-            ->pushCriteria(ProductHomePageCriteria::class)
             ->scopeQuery(function ($query) {
                 return $query
                     ->hot(true)
@@ -52,11 +58,10 @@ class HomePageService
                 'status' => Status::ACTIVE,
                 ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
-
             ->take(20)
-//            ->map(function ($product) {
-//                return $this->transformProduct($product);
-//            })
+            ->map(function ($product) {
+                return $this->transformProduct($product);
+            })
             ;
     }
 
@@ -67,7 +72,6 @@ class HomePageService
             ->scopeQuery(function ($query) {
                 return $query->withMainVariation();
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'status' => Status::ACTIVE,
                 'country_id' => 13, // Russia
@@ -85,7 +89,6 @@ class HomePageService
             ->scopeQuery(function ($query) {
                 return $query->withMainVariation()->fromCovid(true);
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
@@ -100,82 +103,64 @@ class HomePageService
     public function getBrands()
     {
         return $this->brandRepository
+            ->resetCriteria()
+            ->pushCriteria(BrandHomePageCriteria::class)
             ->orderBy('position')
-            ->with('products')
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
             ])
-            ->map(function ($brand) {
-                $brand->productCount = count($brand->products);
-
-                return $brand->only('id', 'name', 'slug', 'productCount');
-            });
+            ;
     }
 
     public function getBanners()
     {
         return $this->bannerRepository
+            ->resetCriteria()
+            ->pushCriteria(BannerHomePageCriteria::class)
             ->orderBy('position')
             ->findWhere([
                 'is_enabled' => true,
                 'page' => 'home-page'
             ])
-            ->map(function ($banner) {
-                return $banner->only('url', 'images');
-            });
+            ;
     }
 
     public function getPublications()
     {
         return $this->publicationRepository
+            ->resetCriteria()
+            ->pushCriteria(PublicationHomePageCriteria::class)
             ->orderBy('published_at', 'desc')
             ->findWhere([
                 'is_enabled' => true
             ])
             ->take(4)
-            ->map(function ($publication) {
-                return $publication->only('id', 'name', 'source', 'url', 'logo', 'published_at');
-            });
+            ;
     }
 
     public function getNews()
     {
         return $this->newsRepository
+            ->resetCriteria()
+            ->pushCriteria(NewsHomePageCriteria::class)
             ->orderBy('published_at', 'desc')
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE
             ])
             ->take(4)
-            ->map(function ($news) {
-                return $news->only('id', 'short_description', 'name', 'slug', 'image', 'published_at', 'view_num');
-            });
+            ;
     }
 
     protected function transformProduct($product)
     {
-
         if ($product->productReviews) {
-            dd(
-                count($product->productReviews)
-            );
-            $product->productReviewCount = count($product->productReviews->ratings);
 
-//            $rating = $product->productReviews
-//                ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
-//
-//            $product->rating = !is_null($rating) ? floor($rating) : 0;
+            $rating = Arr::pluck($product->productReviews[0]->ratings ?? [], 'rate');
+            $product->rating = !empty($rating) ? round(array_sum($rating) / count($rating), 1) : 0;
         }
 
-        $product->productAnswerCount = count($product->productAnswers);
-
         return $product;
-
-//        return $product->only(
-//            'id', 'name', 'article', 'image', 'slug', 'group_id',
-//            'brand', 'stockType', 'category', 'images', 'productReviews',
-//            'rating', 'productReviewCount', 'productAnswerCount'
-//        );
     }
 }
