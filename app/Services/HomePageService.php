@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\Status;
+use App\Repositories\Criteria\ProductHomePageCriteria;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\News\Repositories\NewsRepository;
@@ -37,19 +38,26 @@ class HomePageService
     public function getProductsHot()
     {
         return $this->productRepository
+            ->resetCriteria()
+            ->pushCriteria(ProductHomePageCriteria::class)
             ->scopeQuery(function ($query) {
-                return $query->hot(true)->fromCovid(false)->withMainVariation();
+                return $query
+                    ->hot(true)
+                    ->fromCovid(false)
+                    ->withMainVariation()
+                    ;
             })
-            ->with(['brand', 'stockType', 'category', 'images', 'productReviews', 'productAnswers'])
             ->findWhere([
                 'is_in_home' => true,
                 'status' => Status::ACTIVE,
                 ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
+
             ->take(20)
-            ->map(function ($product) {
-                return $this->transformProduct($product);
-            });
+//            ->map(function ($product) {
+//                return $this->transformProduct($product);
+//            })
+            ;
     }
 
 
@@ -148,35 +156,26 @@ class HomePageService
     protected function transformProduct($product)
     {
 
-        $product->brand = $product->brand->only('name');
-
-        if ($product->stockType) {
-            $product->stockType = $product->stockType->only('value');
-        }
-
-        $product->category = $product->category->only('name');
-        $product->images = $product->images->map(function ($image) {
-            return [
-                'image' => $image->image
-            ];
-        });
-
         if ($product->productReviews) {
-            $product->productReviews = $product->productReviews->only('ratings');
-            $product->productReviewCount = count($product->productReviews);
+            dd(
+                count($product->productReviews)
+            );
+            $product->productReviewCount = count($product->productReviews->ratings);
 
-            $rating = $product->productReviews
-                ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
-
-            $product->rating = !is_null($rating) ? floor($rating) : 0;
+//            $rating = $product->productReviews
+//                ->avg(fn(ProductReview $productReview) => $productReview->ratings_avg);
+//
+//            $product->rating = !is_null($rating) ? floor($rating) : 0;
         }
 
         $product->productAnswerCount = count($product->productAnswers);
 
-        return $product->only(
-            'id', 'name', 'article', 'image', 'slug', 'group_id',
-            'brand', 'stockType', 'category', 'images', 'productReviews',
-            'rating', 'productReviewCount', 'productAnswerCount'
-        );
+        return $product;
+
+//        return $product->only(
+//            'id', 'name', 'article', 'image', 'slug', 'group_id',
+//            'brand', 'stockType', 'category', 'images', 'productReviews',
+//            'rating', 'productReviewCount', 'productAnswerCount'
+//        );
     }
 }

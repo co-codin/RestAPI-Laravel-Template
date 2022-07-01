@@ -13,6 +13,6 @@ class HomePageController extends Controller
 
     public function index()
     {
-        return HomePageResource::collection($this->homePageService->all());
+        return HomePageResource::collection($this->homePageService->getProductsHot());
     }
 }
