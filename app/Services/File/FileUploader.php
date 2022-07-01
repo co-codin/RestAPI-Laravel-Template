@@ -9,7 +9,7 @@ class FileUploader
 {
     protected string $dir;
 
-    protected string $disk = "public";
+    protected string $disk = "s3";
 
     public function __construct()
     {
