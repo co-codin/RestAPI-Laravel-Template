@@ -56,12 +56,49 @@ class ProductPageCriteria implements CriteriaInterface
                         ;
                 }
             ])
-//            ->with([
-//                'productReviews' => function ($query) {
-//                    $query->addSelect('product_id', 'ratings');
-//                }
-//            ])
-//
+            ->with([
+                'productReviews' => function ($query) {
+                    $query
+                        ->addSelect(
+                            'id', 'ratings', 'experience', 'advantages', 'comment',
+                            'disadvantages', 'first_name', 'last_name', 'is_confirmed',
+                            'like', 'dislike', 'created_at', 'client_id'
+                        )
+//                        ->with([
+//                            'client' => function ($query) {
+//                                $query->addSelect('first_name', 'last_name', 'avatar');
+//                            }
+//                        ])
+                        ;
+                }
+            ])
+            ->with([
+                'productQuestions' => function ($query) {
+                    $query
+                        ->addSelect(
+                            'id', 'text', 'date', 'first_name', 'last_name',
+                        )
+                        ->with([
+                            'productAnswers' => function ($query) {
+                                $query->addSelect(
+                                    'id', 'text', 'first_name', 'last_name',
+                                    'person', 'like', 'dislike', 'date'
+                                );
+                            }
+                        ])
+                        ->with([
+                            'client' => function ($query) {
+                                $query->addSelect('first_name', 'last_name', 'avatar');
+                            }
+                        ])
+                        ;
+                }
+            ])
+            ->with([
+                'productVariations' => function ($query) {
+                    $query->addSelect('id', 'name', 'price', 'previous_price');
+                }
+            ])
 
             ->withCount('productReviews AS productReviewCount')
             ->withCount('productQuestions AS productQuestionCount')
