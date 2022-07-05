@@ -1,0 +1,11 @@
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
+type ProductFilter {
+    data: [Product!]!
+    meta: ProductFilterMeta
+}
+
+type ProductFilterMeta {
+    total: Int
+    aggregations: Mixed
+}

@@ -14,4 +14,13 @@ class ContactSortRequest extends BaseFormRequest
             'contacts.*.position' => 'required|distinct|integer|min:0',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'contacts' => 'Контакты',
+            'contacts.*.id' => 'ID контакта',
+            'contacts.*.position' => 'Позиция контакта',
+        ];
+    }
 }
