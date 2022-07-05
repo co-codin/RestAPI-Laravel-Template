@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Criteria;
 
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -20,7 +21,7 @@ class ProductPageCriteria implements CriteriaInterface
             ->with('seo')
             ->with([
                 'brand' => function ($query) {
-                    $query->addSelect('id', 'name');
+                    $query->addSelect('id', 'name', 'image', 'status');
                 }])
             ->with([
                 'stockType' => function ($query) {
@@ -39,16 +40,22 @@ class ProductPageCriteria implements CriteriaInterface
             ])
             ->with([
                 'properties' => function ($query) {
-                    $query->addSelect();
+                    $query->select('name', 'description');
                 }
             ])
-
-
-//            ->with([
-//                'category' => function ($query) {
-//                    $query->addSelect('id', 'name');
-//                }
-//            ])
+            ->with([
+                'category' => function ($query) {
+                    $query
+                        ->addSelect('id', 'name', 'slug', 'review_ratings')
+                        ->with('seoCategoryProducts')
+                        ->with([
+                            'ancestors' => function ($query) {
+                                $query->addSelect('id', 'name', 'slug', '_lft');
+                            }
+                        ])
+                        ;
+                }
+            ])
 //            ->with([
 //                'productReviews' => function ($query) {
 //                    $query->addSelect('product_id', 'ratings');
