@@ -11,8 +11,13 @@ class ProductPageCriteria implements CriteriaInterface
     {
         return $model
             ->select([
-                'id', 'name', 'article', 'image', 'slug', 'group_id', 'brand_id', 'stock_type_id',
+                'id', 'name', 'article', 'booklet', 'short_description',
+                'full_description', 'image', 'has_test_drive', 'group_id',
+                'documents',  'brand_id', 'stock_type_id', 'country_id',
+                'slug', 'video', 'status', 'warranty', 'warranty_info',
+                'is_arbitrary_warranty', 'arbitrary_warranty_info',
             ])
+            ->with('seo')
             ->with([
                 'brand' => function ($query) {
                     $query->addSelect('id', 'name');
@@ -23,22 +28,38 @@ class ProductPageCriteria implements CriteriaInterface
                 }
             ])
             ->with([
-                'category' => function ($query) {
-                    $query->addSelect('id', 'name');
+                'country' => function ($query) {
+                    $query->addSelect('id', 'value');
                 }
             ])
             ->with([
                 'images' => function ($query) {
-                    $query->addSelect('imageable_id', 'image');
+                    $query->addSelect('imageable_id', 'image', 'caption');
                 }
             ])
             ->with([
-                'productReviews' => function ($query) {
-                    $query->addSelect('product_id', 'ratings');
+                'properties' => function ($query) {
+                    $query->addSelect();
                 }
             ])
-            ->withCount('productAnswers AS productAnswerCount')
+
+
+//            ->with([
+//                'category' => function ($query) {
+//                    $query->addSelect('id', 'name');
+//                }
+//            ])
+//            ->with([
+//                'productReviews' => function ($query) {
+//                    $query->addSelect('product_id', 'ratings');
+//                }
+//            ])
+//
+
             ->withCount('productReviews AS productReviewCount')
+            ->withCount('productQuestions AS productQuestionCount')
+            ->withCount('productAnswers AS productAnswerCount')
+
             ;
     }
 }
