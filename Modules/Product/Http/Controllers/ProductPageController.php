@@ -4,19 +4,31 @@ namespace Modules\Product\Http\Controllers;
 
 use App\Repositories\Criteria\ProductPageCriteria;
 use Illuminate\Routing\Controller;
+use Modules\Product\Http\Resources\ProductPageResource;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductPageController extends Controller
 {
     public function __construct(
         protected ProductRepository $productRepository
-    ){}
+    ){
+        $this->productRepository
+            ->resetCriteria()
+            ->pushCriteria(ProductPageCriteria::class);
+    }
 
      public function show(int $product)
      {
         $product = $this->productRepository
-            ->resetCriteria()
-            ->pushCriteria(ProductPageCriteria::class)
+            ->scopeQuery(function ($query) {
+                return $query
+                    ->visible()
+                    ->hasActiveVariation()
+                    ->withMainVariation()
+                    ;
+            })
             ->find($product);
+
+        return new ProductPageResource($product);
      }
 }
