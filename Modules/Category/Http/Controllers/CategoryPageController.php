@@ -33,8 +33,42 @@ class CategoryPageController extends Controller
         return CategoryPageResource::collection($categories);
     }
 
-    public function show(int $category)
+    public function show(string $category)
     {
+        $category = $this->categoryRepository
+            ->scopeQuery(function ($query) {
+                return $query->addSelect(
+                    'id', 'name', 'slug', 'image',
+                    'full_description',
 
+                );
+            })
+            ->with([
+                'ancestors' => function ($query) {
+                    $query->addSelect('id', 'name', 'slug', '_lft');
+                }
+            ])
+            ->with([
+                'descendants' => function ($query) {
+                    $query->addSelect('id');
+                }
+            ])
+            ->with([
+                'children' => function ($query) {
+                    $query->addSelect('id', 'name', 'slug', 'image', 'status', '_lft');
+                }
+            ])
+            ->with(['seo' => function ($query) {
+                $query->addSelect('seoable_id', 'title', 'description', 'h1', 'is_enabled');
+            }])
+            ->with(['brands' => function ($query) {
+                $query->addSelect('id', 'name', 'slug');
+            }])
+
+            ->findByField('slug', $category)
+
+            ;
+
+        return new CategoryPageResource($category);
     }
 }
