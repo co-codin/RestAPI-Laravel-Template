@@ -37,6 +37,21 @@ class ProductHomePageCriteria implements CriteriaInterface
                     $query->addSelect('product_id', 'ratings');
                 }
             ])
+            ->with([
+                'productVariations' => function ($query) {
+                    $query
+                        ->addSelect(
+                            'id', 'name', 'price', 'previous_price', 'is_price_visible',
+                            'currency_id'
+                        )
+                        ->with([
+                            'currency' => function ($query) {
+                                $query->addSelect('id', 'rate');
+                            }
+                        ])
+                    ;
+                }
+            ])
             ->withCount('productAnswers AS productAnswerCount')
             ->withCount('productReviews AS productReviewCount')
             ;
