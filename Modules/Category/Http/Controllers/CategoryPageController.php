@@ -12,7 +12,9 @@ class CategoryPageController extends Controller
 {
     public function __construct(
         protected CategoryRepository $categoryRepository
-    ) {}
+    ) {
+        $this->categoryRepository->resetCriteria();
+    }
 
     public function index()
     {
@@ -38,22 +40,22 @@ class CategoryPageController extends Controller
         $category = $this->categoryRepository
             ->scopeQuery(function ($query) use ($category) {
                 return $query
-                    ->addSelect('id', 'name', 'slug', 'image', 'full_description')
+                    ->addSelect('id', 'name', 'slug', 'image', 'full_description', 'parent_id', '_lft', '_rgt')
                 ;
             })
             ->with([
                 'ancestors' => function ($query) {
-                    $query->addSelect('id', 'name', 'slug', '_lft');
+                    $query->addSelect('id', 'parent_id', 'name', 'slug', '_lft', '_rgt');
                 }
             ])
             ->with([
                 'descendants' => function ($query) {
-                    $query->addSelect('id');
+                    $query->addSelect('id', 'parent_id', '_lft', '_rgt');
                 }
             ])
             ->with([
                 'children' => function ($query) {
-                    $query->addSelect('id', 'name', 'slug', 'image', 'status', '_lft');
+                    $query->addSelect('id', 'name', 'slug', 'image', 'status', '_lft', 'parent_id', '_lft', '_rgt');
                 }
             ])
             ->with(['seo' => function ($query) {
@@ -66,9 +68,9 @@ class CategoryPageController extends Controller
                     }]);
                 }
             ])
-            ->findByField('slug', $category);
+            ->findByField('slug', $category)
+            ->first();
 
-        $category = $category[0];
 
         $cls = new CategoryBrandsField;
         $category->brands = $cls($category);
