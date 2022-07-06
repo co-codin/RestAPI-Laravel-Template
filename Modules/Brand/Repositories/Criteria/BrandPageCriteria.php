@@ -10,7 +10,12 @@ class BrandPageCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return $model
-            ->select()
+            ->select(
+                'id', 'name', 'slug', 'image', 'short_description', 'full_description'
+            )
+            ->with(['seo' => function ($query) {
+                $query->addSelect('seoable_id', 'title', 'h1', 'description', 'is_enabled');
+            }])
             ;
     }
 }
