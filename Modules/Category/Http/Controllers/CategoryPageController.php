@@ -21,8 +21,9 @@ class CategoryPageController extends Controller
                 return $query
                     ->addSelect('id', 'name', 'image', 'slug', 'parent_id')
                     ->withCount('products AS productCount')
-                    ->orderBy('name','asc');
+                    ;
             })
+            ->orderBy('name','asc')
             ->findWhere([
                 'status' => Status::ACTIVE,
             ])
