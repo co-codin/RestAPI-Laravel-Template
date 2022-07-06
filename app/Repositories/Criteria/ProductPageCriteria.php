@@ -12,9 +12,10 @@ class ProductPageCriteria implements CriteriaInterface
     {
         return $model
             ->select([
-                'id', 'name', 'article', 'booklet', 'short_description',
+                'id',
+                'name', 'article', 'booklet', 'short_description', 'stock_type_id',
                 'full_description', 'image', 'has_test_drive', 'group_id',
-                'documents',  'brand_id', 'stock_type_id', 'country_id',
+                'documents',  'brand_id', 'country_id',
                 'slug', 'video', 'status', 'warranty', 'warranty_info',
                 'is_arbitrary_warranty', 'arbitrary_warranty_info', 'benefits',
             ])
