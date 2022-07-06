@@ -110,12 +110,9 @@ class ProductPageCriteria implements CriteriaInterface
                     ;
                 }
             ])
-
-
             ->withCount('productReviews AS productReviewCount')
             ->withCount('productQuestions AS productQuestionCount')
             ->withCount('productAnswers AS productAnswerCount')
-
             ;
     }
 }
