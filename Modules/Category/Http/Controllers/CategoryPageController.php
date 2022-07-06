@@ -4,11 +4,8 @@ namespace Modules\Category\Http\Controllers;
 
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Modules\Category\Http\Resources\CategoryPageResource;
-use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
-use Modules\Category\Repositories\Criteria\CategoryPageCriteria;
 use Modules\Category\Services\CategoryBrandsField;
 
 class CategoryPageController extends Controller
@@ -42,8 +39,6 @@ class CategoryPageController extends Controller
             ->scopeQuery(function ($query) use ($category) {
                 return $query
                     ->addSelect('id', 'name', 'slug', 'image', 'full_description')
-                    ->where('slug', '=', $category)
-                    ->first()
                 ;
             })
             ->with([
@@ -70,7 +65,13 @@ class CategoryPageController extends Controller
                         $query->addSelect('id', 'key');
                     }]);
                 }
-            ]);
+            ])
+            ->findByField('slug', $category);
+
+        $category = $category[0];
+
+        $cls = new CategoryBrandsField;
+        $category->brands = $cls($category);
 
         return new CategoryPageResource($category);
     }
