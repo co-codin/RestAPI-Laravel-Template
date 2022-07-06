@@ -4,9 +4,12 @@ namespace Modules\Category\Http\Controllers;
 
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Category\Http\Resources\CategoryPageResource;
+use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Category\Repositories\Criteria\CategoryPageCriteria;
+use Modules\Category\Services\CategoryBrandsField;
 
 class CategoryPageController extends Controller
 {
@@ -36,12 +39,12 @@ class CategoryPageController extends Controller
     public function show(string $category)
     {
         $category = $this->categoryRepository
-            ->scopeQuery(function ($query) {
-                return $query->addSelect(
-                    'id', 'name', 'slug', 'image',
-                    'full_description',
-
-                );
+            ->scopeQuery(function ($query) use ($category) {
+                return $query
+                    ->addSelect('id', 'name', 'slug', 'image', 'full_description')
+                    ->where('slug', '=', $category)
+                    ->first()
+                ;
             })
             ->with([
                 'ancestors' => function ($query) {
@@ -61,13 +64,13 @@ class CategoryPageController extends Controller
             ->with(['seo' => function ($query) {
                 $query->addSelect('seoable_id', 'title', 'description', 'h1', 'is_enabled');
             }])
-            ->with(['brands' => function ($query) {
-                $query->addSelect('id', 'name', 'slug');
-            }])
-
-            ->findByField('slug', $category)
-
-            ;
+            ->with([
+                'filters' => function ($query) {
+                    $query->with(['property' => function ($query) {
+                        $query->addSelect('id', 'key');
+                    }]);
+                }
+            ]);
 
         return new CategoryPageResource($category);
     }
