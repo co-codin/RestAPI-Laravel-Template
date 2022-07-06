@@ -6,6 +6,7 @@ use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use Modules\Brand\Http\Resources\BrandPageResource;
 use Modules\Brand\Repositories\BrandRepository;
+use Modules\Brand\Repositories\Criteria\BrandPageCriteria;
 
 class BrandPageController extends Controller
 {
@@ -35,6 +36,11 @@ class BrandPageController extends Controller
 
     public function show(string $brand)
     {
+        $brand = $this->brandRepository
+            ->pushCriteria(BrandPageCriteria::class)
+            ->findByField('slug', $brand)
+            ->first();
 
+        return new BrandPageResource($brand);
     }
 }
