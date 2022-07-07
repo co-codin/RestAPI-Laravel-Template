@@ -16,7 +16,7 @@ class ContactPageController extends Controller
 
     public function index()
     {
-        $brands = $this->contactRepository
+        $contacts = $this->contactRepository
             ->scopeQuery(function ($query) {
                 return $query
                     ->addSelect('id', 'first_name', 'last_name', 'job_position', 'email', 'phone', 'image')
@@ -28,6 +28,6 @@ class ContactPageController extends Controller
             ])
             ->all();
 
-        return ContactPageResource::collection($brands);
+        return ContactPageResource::collection($contacts);
     }
 }
