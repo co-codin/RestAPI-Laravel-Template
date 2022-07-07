@@ -10,6 +10,13 @@ class CasePageCriteria implements CriteriaInterface
 {
     public function apply($model, RepositoryInterface $repository)
     {
+        return $model
+            ->addSelect(
+                'id', 'name', 'slug', 'full_description', 'published_at', 'summary', 'note'
+            )
+            ->with(['images' => function ($query) {
 
+            }])
+            ;
     }
 }
