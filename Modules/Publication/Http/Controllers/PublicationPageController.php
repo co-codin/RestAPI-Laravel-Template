@@ -19,7 +19,7 @@ class PublicationPageController extends Controller
         $brands = $this->publicationRepository
             ->scopeQuery(function ($query) {
                 return $query
-                    ->addSelect('id', 'name', 'slug')
+                    ->addSelect('id', 'name', 'source', 'logo', 'url', 'published_at')
                     ;
             })
             ->orderBy('published_at', 'desc')
