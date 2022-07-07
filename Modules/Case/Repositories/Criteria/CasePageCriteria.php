@@ -12,10 +12,19 @@ class CasePageCriteria implements CriteriaInterface
     {
         return $model
             ->addSelect(
-                'id', 'name', 'slug', 'full_description', 'published_at', 'summary', 'note'
+                'id', 'name', 'slug', 'full_description', 'published_at', 'summary', 'note', 'images'
             )
-            ->with(['images' => function ($query) {
-
+            ->with(['products' => function ($query) {
+                $query
+                    ->withMainVariation()
+                    ->addSelect(
+                        'id', 'name', 'article', 'image', 'slug', 'group_id', 'stock_type_id'
+                    )->with([
+                        'stockType' => function ($query) {
+                            $query->addSelect('id', 'value');
+                        }
+                    ])
+                ;
             }])
             ;
     }

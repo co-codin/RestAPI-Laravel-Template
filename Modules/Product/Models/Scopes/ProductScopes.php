@@ -27,12 +27,14 @@ trait ProductScopes
             ->where('is_enabled', true)
             ->leftJoin('currencies', 'currency_id', 'currencies.id')
             ->orderByRaw('rate * price ASC')
-            ->with('currency')
             ->take(1),
         ])
             ->with([
-                'mainVariation', 'mainVariation.currency'
-            ]);
+                'mainVariation',
+            ])
+        ->with(['mainVariation.currency' => function ($query) {
+            $query->addSelect('id', 'rate');
+        }]);
     }
 
     public function scopeHot(Builder $query, bool $hot)
