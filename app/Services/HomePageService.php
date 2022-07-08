@@ -59,9 +59,6 @@ class HomePageService
                 ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
-            ->map(function ($product) {
-                return $this->transformProduct($product);
-            })
             ;
     }
 
@@ -78,9 +75,7 @@ class HomePageService
                 ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
-            ->map(function ($product) {
-                return $this->transformProduct($product);
-            });
+            ;
     }
 
     public function getProductsCovid()
@@ -95,9 +90,7 @@ class HomePageService
                 ['group_id', '!=', ProductGroup::IMPOSSIBLE],
             ])
             ->take(20)
-            ->map(function ($product) {
-                return $this->transformProduct($product);
-            });
+            ;
     }
 
     public function getBrands()
@@ -151,16 +144,5 @@ class HomePageService
             ])
             ->take(4)
             ;
-    }
-
-    protected function transformProduct($product)
-    {
-        if ($product->productReviews) {
-
-            $rating = Arr::pluck($product->productReviews[0]->ratings ?? [], 'rate');
-            $product->rating = !empty($rating) ? round(array_sum($rating) / count($rating), 1) : 0;
-        }
-
-        return $product;
     }
 }
