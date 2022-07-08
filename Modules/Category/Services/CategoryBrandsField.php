@@ -12,7 +12,7 @@ use Modules\Product\Models\Product;
 
 class CategoryBrandsField
 {
-    public function __invoke($category)
+    public function __invoke(Category $category)
     {
         return Brand::query()
             ->selectRaw('brands.*, COUNT(*) as categoryProductCount')

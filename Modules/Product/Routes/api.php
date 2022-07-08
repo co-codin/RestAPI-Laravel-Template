@@ -7,12 +7,9 @@ use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductFilterController;
 use Modules\Product\Http\Controllers\ProductQuestionController;
 use Modules\Product\Http\Middleware\ProductAnswerRateMiddleware;
-use Modules\Product\Http\Controllers\ProductPageController;
 
 Route::post('/products/filter', [ProductFilterController::class, 'index'])
     ->name('products.filter');
-
-Route::get('/products/{product}/page', [ProductPageController::class, 'show'])->name('product.page');
 
 Route::resource('products', ProductController::class)->only(['index', 'show']);
 
