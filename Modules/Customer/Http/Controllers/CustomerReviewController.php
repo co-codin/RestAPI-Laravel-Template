@@ -10,12 +10,12 @@ use Modules\Customer\Repositories\CustomerReviewRepository;
 class CustomerReviewController extends Controller
 {
     public function __construct(
-        private CustomerReviewRepository $repository
+        private CustomerReviewRepository $customerReviewRepository
     ) {}
 
     public function index()
     {
-        $customerReviews = $this->repository->jsonPaginate();
+        $customerReviews = $this->customerReviewRepository->jsonPaginate();
 
         return CustomerReviewResource::collection($customerReviews);
     }
