@@ -82,4 +82,14 @@ return [
     'sypex' => [
         'url' => env('SYPEX_URL'),
     ],
+
+    'smscru' => [
+        'login'  => env('SMSCRU_LOGIN'),
+        'secret' => env('SMSCRU_SECRET'),
+        'sender' => 'Medeq',
+        'extra'  => [
+            // any other API parameters
+            // 'tinyurl' => 1
+        ],
+    ],
 ];

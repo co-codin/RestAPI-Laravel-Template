@@ -28,25 +28,25 @@ type Product {
     rating: Float
     documents: Documents
     brand: Brand! @belongsTo
-    productVariations: [ProductVariation!]! @hasMany
+    productVariations: [ProductVariation!]! @with(relation: "productVariations")
     productCategories: [ProductCategory!]! @hasMany
-    mainVariation: ProductVariation @belongsTo
-    category: Category @belongsTo
-    categories: [Category!] @belongsToMany
-    properties: [Property!]! @belongsToMany
+    mainVariation: ProductVariation @with(relation: "mainVariation")
+    category: Category @with(relation: "category")
+    categories: [Category!] @with(relation: "categories")
+    properties: [Property!]! @with(relation: "properties")
     images: [Image!] @morphMany
     seo: Seo @morphOne
     stockType: FieldValue @belongsTo
-    productReviews: [ProductReview!]  @hasMany(relation: "productReviews", scopes: ["published"])
+    productReviews: [ProductReview!]  @with(relation: "productReviews", scopes: ["published"])
     productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
-    productQuestions: [ProductQuestion!]  @hasMany(relation: "productQuestions", scopes: ["published"])
-    productQuestionCount: Int! @count(relation: "productQuestions", scopes: ["published"])
-    productAnswers: [ProductAnswer!]  @hasMany(relation: "productAnswers")
-    productAnswerCount: Int @count(relation: "productAnswers")
-    analogs: [Product!]  @belongsToMany(relation: "analogs")
-    analogsCount: Int! @count(relation: "analogs")
-    activeAnalogs: [Product!]  @belongsToMany(relation: "activeAnalogs")
-    activeAnalogsCount: Int! @count(relation: "activeAnalogs")
+    productQuestions: [ProductQuestion!]  @with(relation: "productQuestions", scopes: ["published"])
+    productQuestionCount: Int! @withCount(relation: "productQuestions", scopes: ["published"])
+    productAnswers: [ProductAnswer!]  @with(relation: "productAnswers")
+    productAnswerCount: Int @withCount(relation: "productAnswers")
+    analogs: [Product!]  @with(relation: "analogs")
+    analogsCount: Int! @withCount(relation: "analogs")
+    activeAnalogs: [Product!]  @with(relation: "activeAnalogs")
+    activeAnalogsCount: Int! @withCount(relation: "activeAnalogs")
     country: FieldValue @belongsTo
 }
 

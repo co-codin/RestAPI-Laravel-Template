@@ -45,6 +45,11 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+
+        'client-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'clients',
+        ],
     ],
 
     /*
@@ -68,6 +73,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => \Modules\User\Models\User::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => \Modules\Client\Models\Client::class,
         ],
     ],
 
