@@ -32,9 +32,9 @@ trait ProductScopes
             ->with([
                 'mainVariation',
             ])
-        ->with(['mainVariation.currency' => function ($query) {
-            $query->addSelect('id', 'rate');
-        }]);
+            ->with(['mainVariation.currency' => function ($query) {
+                $query->addSelect('id', 'rate');
+            }]);
     }
 
     public function scopeHot(Builder $query, bool $hot)

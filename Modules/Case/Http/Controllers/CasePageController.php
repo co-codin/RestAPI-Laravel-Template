@@ -4,6 +4,7 @@ namespace Modules\Case\Http\Controllers;
 
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
 use Modules\Case\Http\Resources\CasePageResource;
 use Modules\Case\Repositories\CaseRepository;
 use Modules\Case\Repositories\Criteria\CasePageCriteria;
@@ -41,7 +42,8 @@ class CasePageController extends Controller
         $case = $this->caseRepository
             ->pushCriteria(CasePageCriteria::class)
             ->findByField('slug', $case)
-            ->first();
+            ->first()
+        ;
 
         return new CasePageResource($case);
     }
