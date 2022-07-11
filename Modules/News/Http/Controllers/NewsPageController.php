@@ -2,6 +2,7 @@
 
 namespace Modules\News\Http\Controllers;
 
+use App\Helpers\TextFormatHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\News\Http\Resources\NewsPageResource;
