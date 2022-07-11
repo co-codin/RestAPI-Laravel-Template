@@ -99,7 +99,12 @@ class CityPageController extends Controller
     {
         $city = $this->cityRepository
             ->scopeQuery(function ($query) {
-                return $query->addSelect('id', 'federal_district');
+                return $query
+                    ->addSelect('id', 'name', 'slug', 'coordinate', 'federal_district')
+                    ->with(['orderPoints' => function ($query) {
+                        $query->select('city_id', 'id', 'address', 'short_address', 'phone', 'coordinate');
+                    }])
+                    ;
             })
             ->findByField('slug', $city)
             ->first()
