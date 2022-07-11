@@ -3,10 +3,7 @@
 namespace Modules\Geo\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Modules\Geo\Http\Requests\CityPageRequest;
 use Modules\Geo\Http\Resources\CityPageResource;
-use Modules\Geo\Http\Resources\CityResource;
-use Modules\Geo\Models\City;
 use Modules\Geo\Repositories\CityRepository;
 
 class CityPageController extends Controller
@@ -55,10 +52,16 @@ class CityPageController extends Controller
         return CityPageResource::collection($cities);
     }
 
-    public function show(int $city)
+    public function show(string $city)
     {
-        $city = $this->cityRepository->find($city);
+        $city = $this->cityRepository
+            ->scopeQuery(function ($query) {
+                return $query->addSelect('id', 'federal_district');
+            })
+            ->findByField('slug', $city)
+            ->first()
+            ;
 
-        return new CityResource($city);
+        return new CityPageResource($city);
     }
 }
