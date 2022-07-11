@@ -23,6 +23,10 @@ class City extends Model
         'federal_district' => 'integer',
     ];
 
+    protected $appends = [
+        'federal_district_name'
+    ];
+
     public function sluggable(): array
     {
         return [
