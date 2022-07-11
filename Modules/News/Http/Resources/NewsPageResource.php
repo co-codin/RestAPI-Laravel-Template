@@ -9,8 +9,13 @@ class NewsPageResource extends BaseJsonResource
 {
     public function toArray($request): array
     {
-        return array_merge(parent::toArray($request), [
-            'formatted_full_description' => TextFormatHelper::replaceExternalLinks($this->full_description),
-        ]);
+        $resource = parent::toArray($request);
+        
+        if ($this->full_description) {
+            array_merge($resource, [
+                'formatted_full_description' => TextFormatHelper::replaceExternalLinks($this->full_description),
+            ]);
+        }
+        return $resource;
     }
 }
