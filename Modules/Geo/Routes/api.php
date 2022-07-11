@@ -10,7 +10,7 @@ Route::get('/detect-city', [GeoController::class, 'detectCity'])->name('geo.dete
 
 
 Route::group(['prefix' => 'page'], function () {
-    Route::get('/cities_with_order_point', [CityPageController::class, 'citiesWithOrderPoint']);
+    Route::get('/cities', [CityPageController::class, 'index']);
 });
 
 

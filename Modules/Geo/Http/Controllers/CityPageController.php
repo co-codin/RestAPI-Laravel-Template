@@ -17,13 +17,9 @@ class CityPageController extends Controller
         $this->cityRepository->resetCriteria();
     }
 
-    public function citiesWithOrderPoint(CityPageRequest $cityPageRequest)
+    public function index()
     {
-        $name = $cityPageRequest->validated('name');
-
-        dd(
-            $name
-        );
+        $name = request()->get('name');
 
         $cities = $this->cityRepository
             ->scopeQuery(function ($query) {
@@ -33,9 +29,12 @@ class CityPageController extends Controller
                     ->withCount('orderPoints AS orderPointCount')
                     ;
             })
+            ->findWhere([
+                ['name', 'LIkE', "%{$name}%"]
+            ])
             ->all();
 
-        return CityPageResource::collection($cities);
+            return CityPageResource::collection($cities);
     }
 
     public function show(int $city)
