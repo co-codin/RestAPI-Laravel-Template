@@ -11,6 +11,7 @@ Route::get('/detect-city', [GeoController::class, 'detectCity'])->name('geo.dete
 
 Route::group(['prefix' => 'page'], function () {
     Route::get('/cities', [CityPageController::class, 'index']);
+    Route::get('/cities_with_sold_product', [CityPageController::class, 'citiesWithSoldProduct']);
 });
 
 

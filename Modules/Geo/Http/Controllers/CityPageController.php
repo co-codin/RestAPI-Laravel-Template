@@ -37,6 +37,24 @@ class CityPageController extends Controller
             return CityPageResource::collection($cities);
     }
 
+    public function citiesWithSoldProduct()
+    {
+        $cities = $this->cityRepository
+            ->scopeQuery(function ($query) {
+                return $query
+                    ->addSelect('id', 'name', 'slug', 'federal_district')
+                    ->withSoldProducts()
+                    ;
+            })
+            ->findWhere([
+                ['federal_district', '!=', null]
+            ])
+            ->all()
+            ;
+
+        return CityPageResource::collection($cities);
+    }
+
     public function show(int $city)
     {
         $city = $this->cityRepository->find($city);
