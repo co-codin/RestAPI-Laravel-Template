@@ -64,6 +64,10 @@ class News extends Model
         ];
     }
 
+    protected $appends = [
+        'formatted_full_description'
+    ];
+
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoable');

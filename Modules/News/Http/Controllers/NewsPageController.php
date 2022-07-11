@@ -34,8 +34,23 @@ class NewsPageController extends Controller
         return NewsPageResource::collection($news);
     }
 
-    public function show()
+    public function show(string $news)
     {
+        $brand = $this->newsRepository
+            ->scopeQuery(function ($query) {
+                return $query
+                    ->addSelect(
+                        'id', 'name', 'slug', 'view_num', 'published_at', 'short_description',
+                        'full_description', 'sources',
+                    )
+                    ->with(['seo' => function ($query) {
+                        $query->addSelect('seoable_id', 'is_enabled', 'title', 'h1', 'description');
+                    }])
+                    ;
+            })
+            ->findByField('slug', $news)
+            ->first();
 
+        return new NewsPageResource($brand);
     }
 }
