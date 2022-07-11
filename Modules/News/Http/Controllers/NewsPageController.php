@@ -3,6 +3,7 @@
 namespace Modules\News\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\News\Http\Resources\NewsPageResource;
 use Modules\News\Repositories\NewsRepository;
 
@@ -44,7 +45,9 @@ class NewsPageController extends Controller
                         'full_description', 'sources',
                     )
                     ->with(['seo' => function ($query) {
-                        $query->addSelect('seoable_id', 'is_enabled', 'title', 'h1', 'description');
+                        $query->addSelect(
+                            'seoable_id', 'is_enabled', 'title', 'h1', 'description',
+                        );
                     }])
                     ;
             })
