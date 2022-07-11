@@ -14,6 +14,7 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/cities_with_sold_product', [CityPageController::class, 'citiesWithSoldProduct']);
 
     Route::get('/cities/{city}', [CityPageController::class, 'show']);
+    Route::get('/cities/{city}/with_sold_product', [CityPageController::class, 'cityWithSoldProduct']);
 });
 
 

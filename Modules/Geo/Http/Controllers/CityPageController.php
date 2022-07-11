@@ -64,4 +64,47 @@ class CityPageController extends Controller
 
         return new CityPageResource($city);
     }
+
+    public function cityWithSoldProduct(string $city)
+    {
+        $city = $this->cityRepository
+            ->scopeQuery(function ($query) {
+                return $query
+                    ->addSelect('id', 'name', 'slug', 'federal_district')
+                    ->with(['soldProducts' => function ($query) {
+                        $query
+                            ->addSelect('city_id', 'name', 'product_id')
+                            ->with(['product' => function ($query) {
+                                $query
+                                    ->addSelect(
+                                        'id', 'status', 'name', 'slug', 'image', 'brand_id',
+                                    )
+                                    ->with(['brand' => function ($query) {
+                                        $query->addSelect('id', 'name');
+                                    }])
+                                ;
+                            }])
+                        ;
+                    }])
+                    ;
+            })
+            ->findByField('slug', $city)
+            ->first()
+        ;
+
+        return new CityPageResource($city);
+    }
+
+    public function cityWithOrderPoint(string $city)
+    {
+        $city = $this->cityRepository
+            ->scopeQuery(function ($query) {
+                return $query->addSelect('id', 'federal_district');
+            })
+            ->findByField('slug', $city)
+            ->first()
+        ;
+
+        return new CityPageResource($city);
+    }
 }
