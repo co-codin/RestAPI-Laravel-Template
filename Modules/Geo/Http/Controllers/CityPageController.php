@@ -21,7 +21,7 @@ class CityPageController extends Controller
         $cities = $this->cityRepository
             ->scopeQuery(function ($query) {
                 return $query
-                    ->addSelect('id', 'name', 'slug')
+                    ->addSelect('id', 'name', 'slug', 'federal_district')
                     ->withOrderPoints()
                     ->withCount('orderPoints AS orderPointCount')
                     ;
