@@ -8,6 +8,7 @@ use Modules\Category\Http\Resources\CategoryPageResource;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Category\Repositories\Criteria\CategoryPageCriteria;
 use Modules\Category\Services\CategoryBrandsField;
+use Modules\Product\Models\ProductCategory;
 
 class CategoryPageController extends Controller
 {
@@ -48,5 +49,53 @@ class CategoryPageController extends Controller
         $category->brands = $cls($category);
 
         return new CategoryPageResource($category);
+    }
+
+    public function getRootCategoriesByProductIds()
+    {
+        $productIds = request()->get('ids');
+
+
+        $categories = ProductCategory::query()
+            ->with([
+                'category' => fn($query) => $query->select('id', '_lft', '_rgt'),
+                'category.ancestors' => fn($query) => $query->select('id', 'name', '_lft', '_rgt')->whereNull('parent_id'),
+            ])
+            ->whereIn('product_id', $productIds)
+            ->where('is_main', true)
+            ->get()
+            ->map(fn($productCategory) => $productCategory->category->ancestors->first())
+            ->groupBy('id')
+            ->map(function($group) {
+                $category = $group->first();
+                $category->count = $group->count();
+                return $category;
+            })
+            ->values();
+
+        return CategoryPageResource::collection($categories);
+    }
+
+    public function getCategoriesByProductIds()
+    {
+        $productIds = request()->get('ids');
+
+        $categories = ProductCategory::query()
+            ->with([
+                'category' => fn($query) => $query->select('id', 'name'),
+            ])
+            ->whereIn('product_id', $productIds)
+            ->where('is_main', true)
+            ->get()
+            ->map(fn($productCategory) => $productCategory->category)
+            ->groupBy('id')
+            ->map(function($group) {
+                $category = $group->first();
+                $category->count = $group->count();
+                return $category;
+            })
+            ->values();
+
+        return CategoryPageResource::collection($categories);
     }
 }
