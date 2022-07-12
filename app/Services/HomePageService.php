@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Enums\Status;
-use App\Repositories\Criteria\ProductHomePageCriteria;
-use Illuminate\Support\Arr;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Banner\Repositories\Criteria\BannerHomePageCriteria;
 use Modules\Brand\Repositories\BrandRepository;
@@ -12,6 +10,7 @@ use Modules\Brand\Repositories\Criteria\BrandHomePageCriteria;
 use Modules\News\Repositories\Criteria\NewsHomePageCriteria;
 use Modules\News\Repositories\NewsRepository;
 use Modules\Product\Enums\ProductGroup;
+use Modules\Product\Repositories\Criteria\ProductHomePageCriteria;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Publication\Repositories\Criteria\PublicationHomePageCriteria;
 use Modules\Publication\Repositories\PublicationRepository;
