@@ -4,6 +4,7 @@ namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Category\Models\Category;
+use Modules\Product\Http\Resources\ProductComparePageResource;
 use Modules\Product\Repositories\Criteria\ProductComparePageCriteria;
 use Modules\Product\Repositories\ProductRepository;
 
@@ -11,8 +12,7 @@ class ProductComparePageController extends Controller
 {
     public function __construct(
         protected ProductRepository $productRepository
-    )
-    {
+    ) {
         $this->productRepository
             ->resetCriteria()
             ->pushCriteria(ProductComparePageCriteria::class);
@@ -23,7 +23,7 @@ class ProductComparePageController extends Controller
         $productIds = request()->get('ids');
         $categoryId = request()->get('category_id');
 
-        return $this->productRepository
+        $products = $this->productRepository
             ->scopeQuery(function ($query) use ($categoryId) {
                 $query = $query
                         ->withPrice()
@@ -46,7 +46,16 @@ class ProductComparePageController extends Controller
                     return $query;
             })
             ->findWhereIn('id', $productIds)
-            ->all()
+            ->map(function ($product) {
+                $product->properties = $product->properties->map(function($property) {
+                    return array_merge($property->toArray(), [
+                        'fieldValues' => $property->pivot->fieldValues->toArray()
+                    ]);
+                });
+                return $product;
+            })
             ;
+
+        return ProductComparePageResource::collection($products);
     }
 }

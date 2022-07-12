@@ -29,6 +29,12 @@ class ProductPageController extends Controller
             })
             ->find($product);
 
+         $product->properties = $product->properties->map(function($property) {
+             return array_merge($property->toArray(), [
+                 'fieldValues' => $property->pivot->fieldValues->toArray()
+             ]);
+         });
+
         return new ProductPageResource($product);
      }
 }

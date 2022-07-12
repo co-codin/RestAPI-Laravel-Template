@@ -22,7 +22,9 @@ class ProductComparePageCriteria implements CriteriaInterface
             }])
             ->with([
                 'properties' => function ($query) {
-                    $query->addSelect('name', 'description');
+                    $query
+                        ->addSelect('name', 'description')
+                    ;
                 }
             ])
             ->with([
