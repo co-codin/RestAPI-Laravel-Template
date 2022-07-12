@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Criteria;
+namespace Modules\Product\Repositories\Criteria;
 
 use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Contracts\CriteriaInterface;

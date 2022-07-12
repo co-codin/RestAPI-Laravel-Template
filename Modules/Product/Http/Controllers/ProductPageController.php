@@ -2,9 +2,9 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use App\Repositories\Criteria\ProductPageCriteria;
 use Illuminate\Routing\Controller;
 use Modules\Product\Http\Resources\ProductPageResource;
+use Modules\Product\Repositories\Criteria\ProductPageCriteria;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductPageController extends Controller
