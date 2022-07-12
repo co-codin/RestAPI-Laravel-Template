@@ -1,3 +1,0 @@
-type ProductVariationPropertyPivot {
-    fieldValues: [FieldValue!]
-}

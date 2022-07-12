@@ -1,7 +1,0 @@
-type Currency {
-    id: ID!
-    name: String!
-    iso_code: String!
-    rate: Float!
-    is_main: Boolean!
-}

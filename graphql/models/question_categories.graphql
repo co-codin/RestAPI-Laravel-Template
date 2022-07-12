@@ -1,8 +1,0 @@
-type QuestionCategory {
-    id: ID!
-    name: String!
-    slug: String!
-    status: Boolean!
-    position: Int
-    questions: [Question!] @hasMany
-}

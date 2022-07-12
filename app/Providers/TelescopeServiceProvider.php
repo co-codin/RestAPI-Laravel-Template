@@ -84,10 +84,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
         $route = request()->route();
 
-//        if(optional($route)->getName() == 'graphql') {
-//            return false;
-//        }
-
         return in_array(request()->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])
             || ($entry->content['response_status'] ?? null) == 404;
     }

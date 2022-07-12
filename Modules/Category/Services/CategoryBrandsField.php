@@ -7,8 +7,6 @@ namespace Modules\Category\Services;
 use App\Enums\Status;
 use Illuminate\Database\Query\Builder;
 use Modules\Brand\Models\Brand;
-use Modules\Category\Models\Category;
-use Modules\Product\Models\Product;
 
 class CategoryBrandsField
 {
