@@ -9,11 +9,13 @@ use Modules\Product\Http\Controllers\ProductQuestionController;
 use Modules\Product\Http\Middleware\ProductAnswerRateMiddleware;
 use Modules\Product\Http\Controllers\ProductPageController;
 use Modules\Product\Http\Controllers\ProductComparePageController;
+use Modules\Product\Http\Controllers\ProductFavoritePageController;
 
 Route::post('/products/filter', [ProductFilterController::class, 'index'])
     ->name('products.filter');
 
 Route::get('/products/compare/page', [ProductComparePageController::class, 'index']);
+Route::get('/products/favorite/page', [ProductFavoritePageController::class, 'index']);
 
 Route::get('/products/{product}/page', [ProductPageController::class, 'show']);
 
