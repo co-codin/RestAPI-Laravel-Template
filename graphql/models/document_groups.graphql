@@ -1,4 +1,0 @@
-type DocumentGroup {
-    id: ID!
-    name: String!
-}

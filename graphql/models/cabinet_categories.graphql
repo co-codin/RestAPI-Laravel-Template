@@ -1,6 +1,0 @@
-type CabinetCategoryPivot {
-    name: String
-    count: Int
-    price: Float
-    position: Int
-}

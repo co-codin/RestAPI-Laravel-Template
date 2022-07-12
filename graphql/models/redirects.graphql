@@ -1,7 +1,0 @@
-type Redirect {
-    id: ID!
-    source: String!
-    destination: String!
-    code: Int!
-    assigned_by_id: Int
-}

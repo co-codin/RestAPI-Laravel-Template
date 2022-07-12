@@ -1,8 +1,0 @@
-type Image {
-    id: ID!
-    image: String!
-    imageable_type: String!
-    imageable_id: Int!
-    caption: String
-    position: Int
-}
