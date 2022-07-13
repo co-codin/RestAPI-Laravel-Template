@@ -4,6 +4,7 @@ namespace Modules\Role\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Role\Database\factories\RoleFactory;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
@@ -18,5 +19,10 @@ class Role extends SpatieRole
             'role_id',
             'permission_id'
         )->withPivot(['level']);
+    }
+
+    protected static function newFactory()
+    {
+        return RoleFactory::new();
     }
 }

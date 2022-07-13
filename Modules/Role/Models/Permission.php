@@ -4,13 +4,12 @@ namespace Modules\Role\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Role\Database\factories\PermissionFactory;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {
     use HasFactory;
-
-    protected $fillable = [];
 
     public function roles(): BelongsToMany
     {
@@ -20,5 +19,10 @@ class Permission extends SpatiePermission
             'permission_id',
             'role_id'
         )->withPivot(['level']);
+    }
+
+    protected static function newFactory()
+    {
+        return PermissionFactory::new();
     }
 }
