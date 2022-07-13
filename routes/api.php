@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\FieldValueController;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,5 @@ Route::resource('document-groups', DocumentGroupController::class)
     ->only(['index']);
 
 Route::get('/enums', [EnumController::class, 'index']);
+
+Route::get('/download', [DownloadFileController::class, 'download']);
