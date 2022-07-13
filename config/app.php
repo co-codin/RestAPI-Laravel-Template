@@ -186,6 +186,8 @@ return [
         App\Providers\ValidationExtensionServiceProvider::class,
 
         NotificationChannels\SmscRu\SmscRuServiceProvider::class,
+
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
