@@ -26,5 +26,6 @@
     "Case": true,
     "Banner": true,
     "Contact": true,
-    "Client": true
+    "Client": true,
+    "Role": true
 }
