@@ -4,6 +4,7 @@ namespace Modules\Role\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Role\Console\SyncPermissions;
 use Modules\Role\Models\Permission;
 use Modules\Role\Models\Role;
 use Modules\Role\Policies\PermissionPolicy;
@@ -37,6 +38,7 @@ class RoleServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->registerPolicies();
+        $this->registerCommands();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,6 +106,13 @@ class RoleServiceProvider extends ServiceProvider
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
+    }
+
+    public function registerCommands()
+    {
+        $this->commands([
+            SyncPermissions::class,
+        ]);
     }
 
     /**
