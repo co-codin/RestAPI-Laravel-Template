@@ -2,11 +2,20 @@
 
 namespace Modules\Role\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Role\Models\Permission;
+use Modules\Role\Models\Role;
+use Modules\Role\Policies\PermissionPolicy;
+use Modules\Role\Policies\RolePolicy;
 
 class RoleServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Role::class => RolePolicy::class,
+        Permission::class => PermissionPolicy::class,
+    ];
+
     /**
      * @var string $moduleName
      */
@@ -27,6 +36,7 @@ class RoleServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -86,6 +96,13 @@ class RoleServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+        }
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 
