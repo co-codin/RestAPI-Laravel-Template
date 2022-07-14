@@ -4,30 +4,54 @@
 namespace Tests\Feature\Modules\Role\Admin\Role;
 
 
-use Modules\Redirect\Models\Redirect;
+use Modules\Role\Enums\PermissionLevel;
+use Modules\Role\Models\Permission;
+use Modules\Role\Models\Role;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    public function test_authenticated_can_create_redirect()
+    public function test_authenticated_can_create_role()
     {
-        $this->authenticateUser();
+        $this->authenticateAdmin();
 
-        $redirectData = Redirect::factory()->raw();
+        $roleData = Role::factory()->raw();
 
-        $response = $this->json('POST', route('admin.redirects.store'), $redirectData);
+        $response = $this->json('POST', route('admin.roles.store'), array_merge($roleData, [
+            'permissions' => [
+                [
+                    'id' => $firstPermission = Permission::factory()->create()->id,
+                    'level' => PermissionLevel::getRandomValue()
+                ],
+                [
+                    'id' => $secondPermission = Permission::factory()->create()->id,
+                    'level' => PermissionLevel::getRandomValue()
+                ]
+            ]
+        ]));
 
         $response->assertCreated();
         $response->assertJsonStructure([
             'data' => [
-                'destination',
-                'source',
-                'code',
+                'name',
+                'guard_name',
+                'key',
             ]
         ]);
-        $this->assertDatabaseHas('redirects', [
-            'destination' => $redirectData['destination'],
-            'source' => $redirectData['source'],
+
+        $this->assertDatabaseHas('roles', [
+            'name' => $roleData['name'],
+            'guard_name' => $roleData['guard_name'],
+        ]);
+
+        $this->assertDatabaseHas('role_has_permissions', [
+            'permission_id' => $firstPermission,
+            'role_id' => $response->json()['data']['id'],
+        ]);
+
+        $this->assertDatabaseHas('role_has_permissions', [
+            'permission_id' => $secondPermission,
+            'role_id' => $response->json()['data']['id'],
         ]);
     }
 }
