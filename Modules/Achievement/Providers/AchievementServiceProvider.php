@@ -2,7 +2,10 @@
 
 namespace Modules\Achievement\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Achievement\Models\Achievement;
+use Modules\Achievement\Policies\AchievementPolicy;
 
 class AchievementServiceProvider extends ServiceProvider
 {
@@ -10,11 +13,16 @@ class AchievementServiceProvider extends ServiceProvider
 
     protected $moduleNameLower = 'achievement';
 
+    protected $policies = [
+        Achievement::class => AchievementPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -46,5 +54,12 @@ class AchievementServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 }

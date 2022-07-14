@@ -9,6 +9,7 @@ use Modules\Achievement\Http\Requests\AchievementSortRequest;
 use Modules\Achievement\Http\Requests\AchievementCreateRequest;
 use Modules\Achievement\Http\Requests\AchievementUpdateRequest;
 use Modules\Achievement\Http\Resources\AchievementResource;
+use Modules\Achievement\Models\Achievement;
 use Modules\Achievement\Repositories\AchievementRepository;
 use Modules\Achievement\Services\AchievementStorage;
 
@@ -19,6 +20,7 @@ class AchievementController extends Controller
         protected AchievementRepository $achievementRepository
     ){
         $this->achievementRepository->popCriteria(IsEnabledCriteria::class);
+        $this->authorizeResource(Achievement::class, 'achievement');
     }
 
     public function store(AchievementCreateRequest $request)
