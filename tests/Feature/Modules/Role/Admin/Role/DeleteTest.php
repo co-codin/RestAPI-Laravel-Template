@@ -3,22 +3,23 @@
 
 namespace Tests\Feature\Modules\Role\Admin\Role;
 
-
-use Modules\Redirect\Models\Redirect;
+use Modules\Role\Models\Role;
 use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    public function test_authenticated_can_delete_redirect()
+    public function test_authenticated_can_delete_role()
     {
-        $this->authenticateUser();
+        $this->authenticateAdmin();
 
-        $redirect = Redirect::factory()->create();
+        $role = Role::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.redirects.destroy', $redirect));
+        $response = $this->json('DELETE', route('admin.roles.destroy', $role));
 
         $response->assertNoContent();
 
-        $this->assertDeleted($redirect);
+        $this->assertDatabaseMissing('roles', [
+            'id' => $role->id
+        ]);
     }
 }

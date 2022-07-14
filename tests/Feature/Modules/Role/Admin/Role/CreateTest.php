@@ -15,9 +15,7 @@ class CreateTest extends TestCase
     {
         $this->authenticateAdmin();
 
-        $roleData = Role::factory()->raw();
-
-        $response = $this->json('POST', route('admin.roles.store'), array_merge($roleData, [
+        $roleData = array_merge(Role::factory()->raw(), [
             'permissions' => [
                 [
                     'id' => $firstPermission = Permission::factory()->create()->id,
@@ -28,7 +26,9 @@ class CreateTest extends TestCase
                     'level' => PermissionLevel::getRandomValue()
                 ]
             ]
-        ]));
+        ]);
+
+        $response = $this->json('POST', route('admin.roles.store'), $roleData);
 
         $response->assertCreated();
         $response->assertJsonStructure([

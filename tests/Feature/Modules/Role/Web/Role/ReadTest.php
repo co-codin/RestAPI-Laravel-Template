@@ -64,7 +64,7 @@ class ReadTest extends TestCase
     {
         $role = Role::factory()->create();
 
-        $response = $this->json('GET', route('roles.role', $role));
+        $response = $this->json('GET', route('roles.show', $role));
 
         $response->assertOk();
         $response->assertJsonStructure([

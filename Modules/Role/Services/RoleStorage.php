@@ -33,10 +33,10 @@ class RoleStorage
             throw new \LogicException('Не удалось изменить данные Роли');
         }
 
-        if ($dto->toArray()['permissions']) {
+        if ($dto->permissions) {
             $role->permissions()->detach();
 
-            foreach ($dto->toArray()['permissions'] as $permission) {
+            foreach ($dto->permissions as $permission) {
                 $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
             }
 

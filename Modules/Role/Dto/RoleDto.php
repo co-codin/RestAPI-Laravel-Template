@@ -21,7 +21,7 @@ class RoleDto extends BaseDto
         return new self([
             'name' => $validated['name'],
             'guard_name' => 'api',
-            'permissions' => $validated['permissions'],
+            'permissions' => $validated['permissions'] ?? [],
         ]);
     }
 }

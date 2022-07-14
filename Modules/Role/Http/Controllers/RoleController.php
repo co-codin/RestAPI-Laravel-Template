@@ -23,10 +23,8 @@ class RoleController extends Controller
         return RoleResource::collection($roles);
     }
 
-    public function show(int $role)
+    public function show(Role $role)
     {
-        $role = $this->roleRepository->find($role);
-
         return new RoleResource($role);
     }
 }

@@ -16,12 +16,12 @@ class RoleController extends Controller
     public function __construct(
         protected RoleStorage $roleStorage,
         protected RoleRepository $roleRepository
-    ) {
-        $this->authorizeResource(Role::class, 'role');
-    }
+    ) {}
 
     public function store(RoleCreateRequest $request)
     {
+        $this->authorize('create', Role::class);
+
         $role = $this->roleStorage->store(RoleDto::fromFormRequest($request));
 
         return new RoleResource($role);
@@ -31,6 +31,8 @@ class RoleController extends Controller
     {
         $role = $this->roleRepository->find($role);
 
+        $this->authorize('update', $role);
+
         $role = $this->roleStorage->update($role, RoleDto::fromFormRequest($request));
 
         return new RoleResource($role);
@@ -39,6 +41,8 @@ class RoleController extends Controller
     public function destroy(int $role)
     {
         $role = $this->roleRepository->find($role);
+
+        $this->authorize('delete', $role);
 
         $this->roleStorage->delete($role);
 

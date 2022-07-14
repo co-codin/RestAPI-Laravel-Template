@@ -4,24 +4,24 @@
 namespace Tests\Feature\Modules\Role\Admin\Role;
 
 
-use Modules\Redirect\Models\Redirect;
+use Modules\Role\Models\Role;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function test_authenticated_can_update_redirect()
+    public function test_authenticated_can_update_role()
     {
-        $this->authenticateUser();
+        $this->authenticateAdmin();
 
-        $redirect = Redirect::factory()->create();
+        $role = Role::factory()->create();
 
-        $response = $this->json('PATCH', route('admin.redirects.update', $redirect), [
-            'source' => $newName = 'new name',
+        $response = $this->json('PATCH', route('admin.roles.update', $role), [
+            'name' => $newName = 'new name',
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('redirects', [
-            'source' => $newName,
+        $this->assertDatabaseHas('roles', [
+            'name' => $newName,
         ]);
     }
 }
