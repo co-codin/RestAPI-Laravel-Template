@@ -9,25 +9,28 @@ use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->authenticateAdmin();
+    }
+
     public function test_user_can_view_roles()
     {
         Role::factory()->count($count = 5)->create();
 
         $response = $this->json('GET', route('roles.index'));
 
-        dd(
-            $response->json()
-        );
-
         $response->assertOk();
-        $this->assertEquals($count, count(($response['data'])));
+        $this->assertEquals($count + 1, count(($response['data'])));
         $response->assertJsonStructure([
             'data' => [
                 [
                     "id",
-                    "source",
-                    "destination",
-                    "code",
+                    "name",
+                    "guard_name",
+                    "key",
                     "created_at",
                     "updated_at",
                 ]
@@ -57,19 +60,19 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_redirect()
+    public function test_user_can_view_single_role()
     {
-        $redirect = Redirect::factory()->create();
+        $role = Role::factory()->create();
 
-        $response = $this->json('GET', route('redirects.show', $redirect));
+        $response = $this->json('GET', route('roles.role', $role));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "source",
-                "destination",
-                "code",
+                "name",
+                "guard_name",
+                "key",
                 "created_at",
                 "updated_at",
             ]
