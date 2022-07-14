@@ -4,16 +4,18 @@
 namespace Tests\Feature\Modules\Role\Web\Permission;
 
 
-use Modules\Redirect\Models\Redirect;
+use Modules\Role\Models\Permission;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_redirects()
+    public function test_user_can_view_permissions()
     {
-        Redirect::factory()->count($count = 5)->create();
+        $this->authenticateAdmin();
 
-        $response = $this->json('GET', route('redirects.index'));
+        Permission::factory()->count($count = 5)->create();
+
+        $response = $this->json('GET', route('permissions.index'));
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));
@@ -21,9 +23,9 @@ class ReadTest extends TestCase
             'data' => [
                 [
                     "id",
-                    "source",
-                    "destination",
-                    "code",
+                    "name",
+                    "description",
+                    "guard_name",
                     "created_at",
                     "updated_at",
                 ]
@@ -53,19 +55,21 @@ class ReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_redirect()
+    public function test_user_can_view_single_permissions()
     {
-        $redirect = Redirect::factory()->create();
+        $this->authenticateAdmin();
 
-        $response = $this->json('GET', route('redirects.show', $redirect));
+        $permission =  Permission::factory()->create();
+
+        $response = $this->json('GET', route('permissions.show', $permission));
 
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
                 "id",
-                "source",
-                "destination",
-                "code",
+                "name",
+                "description",
+                "guard_name",
                 "created_at",
                 "updated_at",
             ]

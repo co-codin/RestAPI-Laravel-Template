@@ -4,16 +4,15 @@
 namespace Tests\Feature\Modules\Role\Admin\Permission;
 
 
-use Modules\Redirect\Models\Redirect;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    public function test_authenticated_can_create_redirect()
+    public function test_authenticated_can_create_permission()
     {
-        $this->authenticateUser();
+        $this->authenticateAdmin();
 
-        $redirectData = Redirect::factory()->raw();
+        $permissionData = Redirect::factory()->raw();
 
         $response = $this->json('POST', route('admin.redirects.store'), $redirectData);
 
