@@ -38,7 +38,7 @@ class CategoryCreateRequest extends BaseFormRequest
             'image' => [
                 'required_unless:parent_id,null',
                 'nullable',
-                'image',
+                'string',
             ],
             'assigned_by_id' => 'sometimes|nullable|integer',
             'attach_default_filters' => 'sometimes|nullable|boolean',

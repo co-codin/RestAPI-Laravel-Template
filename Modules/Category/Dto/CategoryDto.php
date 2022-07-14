@@ -26,7 +26,7 @@ class CategoryDto extends BaseDto
 
     public $is_image_changed;
 
-    public ?UploadedFile $image;
+    public UploadedFile|string|null $image;
 
     public ?int $assigned_by_id;
 

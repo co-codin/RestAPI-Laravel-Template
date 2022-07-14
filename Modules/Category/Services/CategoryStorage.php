@@ -4,7 +4,6 @@
 namespace Modules\Category\Services;
 
 
-use App\Services\File\ImageUploader;
 use Modules\Category\Dto\CategoryDto;
 use Modules\Category\Events\CategorySaved;
 use Modules\Category\Models\Category;
@@ -14,17 +13,12 @@ use Modules\Filter\Services\FilterStorage;
 class CategoryStorage
 {
     public function __construct(
-        protected ImageUploader $imageUploader,
         protected FilterRepository $filterRepository
     ) {}
 
     public function store(CategoryDto $categoryDto)
     {
         $attributes = $categoryDto->toArray();
-
-        if ($categoryDto->image) {
-            $attributes['image'] = $this->imageUploader->upload($categoryDto->image);
-        }
 
         // default value of review criteria
         $attributes['review_ratings'] = [
@@ -45,12 +39,6 @@ class CategoryStorage
     public function update(Category $category, CategoryDto $categoryDto)
     {
         $attributes = $categoryDto->toArray();
-
-        if ($categoryDto->is_image_changed) {
-            $attributes['image'] = !$categoryDto->image
-                ? null
-                : $this->imageUploader->upload($categoryDto->image);
-        }
 
         if (!$category->update($attributes)) {
             throw new \LogicException('can not update category');
