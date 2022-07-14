@@ -17248,17 +17248,6 @@
      
 }
 
-    namespace Nuwave\Lighthouse { 
-            /**
-     * The main entrypoint to GraphQL execution.
-     *
-     */ 
-        class GraphQL {
-         
-    }
-     
-}
-
     namespace Nwidart\Modules\Facades { 
             /**
      * 
@@ -18446,6 +18435,39 @@
         public static function hasValidSignatureWhileIgnoring($ignoreQuery = [], $absolute = true)
         {
                         return \Illuminate\Http\Request::hasValidSignatureWhileIgnoring($ignoreQuery, $absolute);
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Routing { 
+            /**
+     * 
+     *
+     */ 
+        class Route {
+                    /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $roles
+         * @static 
+         */ 
+        public static function role($roles = [])
+        {
+                        return \Illuminate\Routing\Route::role($roles);
+        }
+                    /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $permissions
+         * @static 
+         */ 
+        public static function permission($permissions = [])
+        {
+                        return \Illuminate\Routing\Route::permission($permissions);
         }
          
     }
@@ -22361,7 +22383,6 @@ namespace  {
             class Horizon extends \Laravel\Horizon\Horizon {}
             class Octane extends \Laravel\Octane\Facades\Octane {}
             class Bitrix24 extends \Medeq\Bitrix24\Facades\Bitrix24 {}
-            class graphql extends \Nuwave\Lighthouse\GraphQL {}
             class Module extends \Nwidart\Modules\Facades\Module {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
