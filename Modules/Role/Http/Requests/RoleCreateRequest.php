@@ -8,11 +8,6 @@ use Modules\Role\Enums\PermissionLevel;
 
 class RoleCreateRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
