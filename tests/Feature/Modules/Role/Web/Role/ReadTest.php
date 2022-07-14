@@ -1,19 +1,23 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Redirect\Web;
+namespace Tests\Feature\Modules\Role\Web\Role;
 
 
-use Modules\Redirect\Models\Redirect;
+use Modules\Role\Models\Role;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
-    public function test_user_can_view_redirects()
+    public function test_user_can_view_roles()
     {
-        Redirect::factory()->count($count = 5)->create();
+        Role::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('redirects.index'));
+        $response = $this->json('GET', route('roles.index'));
+
+        dd(
+            $response->json()
+        );
 
         $response->assertOk();
         $this->assertEquals($count, count(($response['data'])));

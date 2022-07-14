@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Feature\Modules\Redirect\Admin;
+namespace Tests\Feature\Modules\Role\Admin\Permission;
 
 
 use Modules\Redirect\Models\Redirect;
