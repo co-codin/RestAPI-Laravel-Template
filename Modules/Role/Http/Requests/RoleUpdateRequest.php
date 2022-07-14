@@ -3,6 +3,8 @@
 namespace Modules\Role\Http\Requests;
 
 use App\Http\Requests\BaseFormRequest;
+use BenSampo\Enum\Rules\EnumValue;
+use Modules\Role\Enums\PermissionLevel;
 
 class RoleUpdateRequest extends BaseFormRequest
 {
@@ -15,9 +17,14 @@ class RoleUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string|max:255',
+            'key' => 'sometimes|required|string|max:255|regex:/[A-Z0-9_-]+/',
             'guard_name' => 'sometimes|nullable|string|max:255',
-            'role_ids' => 'nullable|array'
+            'permissions' => 'sometimes|required|array',
+            'permissions.*.id' => 'required|exists:permissions,id',
+            'permissions.*.level' => [
+                'required',
+                new EnumValue(PermissionLevel::class),
+            ],
         ];
     }
 
@@ -25,7 +32,6 @@ class RoleUpdateRequest extends BaseFormRequest
     {
         return [
             'name' => 'Название роли',
-            'description' => 'Название роли на русском языке',
             'guard_name' => 'guard_name',
         ];
     }

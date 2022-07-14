@@ -2,6 +2,7 @@
 
 namespace Modules\Role\Services;
 
+use Illuminate\Support\Arr;
 use Modules\Role\Dto\RoleDto;
 use Modules\Role\Models\Role;
 
@@ -9,13 +10,36 @@ class RoleStorage
 {
     public function store(RoleDto $dto)
     {
-        return Role::query()->create($dto->toArray());
+        $role = new Role(Arr::only($dto->toArray(),
+            ['name', 'key', 'guard_name']
+        ));
+
+        if (!$role->save()) {
+            throw new \LogicException('Не удалось сохранить Роль');
+        }
+
+        foreach ($dto->toArray()['permissions'] as $permission) {
+            $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
+        }
+
+        return $role;
     }
 
     public function update(Role $role, RoleDto $dto)
     {
-        if (!$role->update($dto->toArray())) {
-            throw new \LogicException('can not update role');
+        if (!$role->update(Arr::only($dto->toArray(),
+            ['name', 'key', 'guard_name']
+        ))) {
+            throw new \LogicException('Не удалось изменить данные Роли');
+        }
+
+        if ($dto->toArray()['permissions']) {
+            $role->permissions()->detach();
+
+            foreach ($dto->toArray()['permissions'] as $permission) {
+                $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
+            }
+
         }
 
         return $role;
