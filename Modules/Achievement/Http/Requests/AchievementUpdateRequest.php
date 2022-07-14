@@ -6,6 +6,11 @@ use App\Http\Requests\BaseFormRequest;
 
 class AchievementUpdateRequest extends BaseFormRequest
 {
+    public function authorize()
+    {
+        return true;
+    }
+
     public function rules()
     {
         return [
