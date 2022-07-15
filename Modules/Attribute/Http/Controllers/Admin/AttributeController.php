@@ -7,6 +7,7 @@ use Modules\Attribute\Dto\AttributeDto;
 use Modules\Attribute\Http\Requests\Admin\AttributeCreateRequest;
 use Modules\Attribute\Http\Requests\Admin\AttributeUpdateRequest;
 use Modules\Attribute\Http\Resources\AttributeResource;
+use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Repositories\AttributeRepository;
 use Modules\Attribute\Services\AttributeStorage;
 
@@ -15,7 +16,9 @@ class AttributeController extends Controller
     public function __construct(
         protected AttributeRepository $attributeRepository,
         protected AttributeStorage $attributeStorage
-    ){}
+    ){
+        $this->authorizeResource(Attribute::class, 'attribute');
+    }
 
     public function store(AttributeCreateRequest $request)
     {
