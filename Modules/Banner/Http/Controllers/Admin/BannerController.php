@@ -2,19 +2,21 @@
 
 namespace Modules\Banner\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Modules\Banner\Http\Requests\BannerCreateRequest;
 use Modules\Banner\Http\Requests\BannersSortRequest;
 use Modules\Banner\Http\Requests\BannerUpdateRequest;
 use Modules\Banner\Http\Resources\BannerResource;
-use Modules\Banner\Repositories\BannerRepository;
+use Modules\Banner\Models\Banner;
 use Modules\Banner\Services\BannerStorage;
 
-class BannerController
+class BannerController extends Controller
 {
     public function __construct(
-        protected BannerStorage    $bannerStorage,
-        protected BannerRepository $bannerRepository
-    ) {}
+        protected BannerStorage    $bannerStorage
+    ) {
+        $this->authorizeResource(Banner::class, 'banner');
+    }
 
     public function store(BannerCreateRequest $request)
     {
@@ -23,20 +25,16 @@ class BannerController
         );
     }
 
-    public function update(int $banner, BannerUpdateRequest $request)
+    public function update(Banner $banner, BannerUpdateRequest $request)
     {
-        $bannerModel = $this->bannerRepository->find($banner);
-
-        $bannerModel = $this->bannerStorage->update($bannerModel, $request->validated());
+        $bannerModel = $this->bannerStorage->update($banner, $request->validated());
 
         return new BannerResource($bannerModel);
     }
 
-    public function destroy(int $banner)
+    public function destroy(Banner $banner)
     {
-        $bannerModel = $this->bannerRepository->find($banner);
-
-        $this->bannerStorage->delete($bannerModel);
+        $this->bannerStorage->delete($banner);
 
         return response()->noContent();
     }

@@ -2,10 +2,17 @@
 
 namespace Modules\Brand\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Brand\Models\Brand;
+use Modules\Brand\Policies\BrandPolicy;
 
 class BrandServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        Brand::class => BrandPolicy::class,
+    ];
+
     protected $moduleName = 'Brand';
 
     protected $moduleNameLower = 'brand';
@@ -15,6 +22,7 @@ class BrandServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -46,5 +54,12 @@ class BrandServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 }

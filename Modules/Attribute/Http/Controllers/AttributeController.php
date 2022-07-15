@@ -22,10 +22,8 @@ class AttributeController extends Controller
         return AttributeResource::collection($attributes);
     }
 
-    public function show(int $attribute)
+    public function show(Attribute $attribute)
     {
-        $attribute = $this->attributeRepository->find($attribute);
-
         return new AttributeResource($attribute);
     }
 }

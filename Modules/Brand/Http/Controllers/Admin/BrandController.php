@@ -9,15 +9,16 @@ use Modules\Brand\Dto\BrandDto;
 use Modules\Brand\Http\Requests\BrandCreateRequest;
 use Modules\Brand\Http\Requests\BrandUpdateRequest;
 use Modules\Brand\Http\Resources\BrandResource;
-use Modules\Brand\Repositories\BrandRepository;
+use Modules\Brand\Models\Brand;
 use Modules\Brand\Services\BrandStorage;
 
 class BrandController extends Controller
 {
     public function __construct(
-        protected BrandStorage $brandStorage,
-        protected BrandRepository $brandRepository
-    ) {}
+        protected BrandStorage $brandStorage
+    ) {
+        $this->authorizeResource(Brand::class, 'brand');
+    }
 
     public function store(BrandCreateRequest $request)
     {
@@ -32,20 +33,16 @@ class BrandController extends Controller
         return new BrandResource($brand);
     }
 
-    public function update(int $brand, BrandUpdateRequest $request)
+    public function update(Brand $brand, BrandUpdateRequest $request)
     {
-        $brandModel = $this->brandRepository->find($brand);
+        $brand = $this->brandStorage->update($brand, BrandDto::fromFormRequest($request));
 
-        $brandModel = $this->brandStorage->update($brandModel, BrandDto::fromFormRequest($request));
-
-        return new BrandResource($brandModel);
+        return new BrandResource($brand);
     }
 
-    public function destroy(int $brand)
+    public function destroy(Brand $brand)
     {
-        $brandModel = $this->brandRepository->find($brand);
-
-        $this->brandStorage->delete($brandModel);
+        $this->brandStorage->delete($brand);
 
         return response()->noContent();
     }
