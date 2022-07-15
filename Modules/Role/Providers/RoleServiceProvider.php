@@ -12,7 +12,7 @@ use Modules\Role\Policies\RolePolicy;
 
 class RoleServiceProvider extends ServiceProvider
 {
-    protected $policies = [
+    protected array $policies = [
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
     ];

@@ -2,8 +2,8 @@
 
 namespace Modules\Achievement\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\Criteria\IsEnabledCriteria;
-use Illuminate\Routing\Controller;
 use Modules\Achievement\Dto\AchievementDto;
 use Modules\Achievement\Http\Requests\AchievementSortRequest;
 use Modules\Achievement\Http\Requests\AchievementCreateRequest;
