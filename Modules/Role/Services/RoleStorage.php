@@ -18,8 +18,10 @@ class RoleStorage
             throw new \LogicException('Не удалось сохранить Роль');
         }
 
-        foreach ($dto->toArray()['permissions'] as $permission) {
-            $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
+        if ($dto->permissions) {
+            foreach ($dto->permissions as $permission) {
+                $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
+            }
         }
 
         return $role;

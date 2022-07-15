@@ -14,7 +14,7 @@ class RoleCreateRequest extends BaseFormRequest
             'name' => 'required|string|max:255',
             'key' => 'required|string|max:255|regex:/[A-Z0-9_-]+/',
             'guard_name' => 'sometimes|nullable|string|max:255',
-            'permissions' => 'required|array',
+            'permissions' => 'sometimes|required|array',
             'permissions.*.id' => 'required|exists:permissions,id',
             'permissions.*.level' => [
                 'required',
