@@ -4,6 +4,8 @@ namespace Modules\Banner\Policies;
 
 use App\Policies\BasePolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Modules\Banner\Enums\BannerPermission;
+use Modules\Banner\Models\Banner;
 use Modules\User\Models\User;
 
 class BannerPolicy extends BasePolicy
@@ -12,26 +14,26 @@ class BannerPolicy extends BasePolicy
 
     public function viewAny(User $user): bool
     {
-        return $this->isAdmin($user);
+        return $user->can(BannerPermission::VIEW_BANNERS);
     }
 
-    public function view(User $user, Role $role): bool
+    public function view(User $user, Banner $banner): bool
     {
-        return $this->isAdmin($user);
+        return $user->can(BannerPermission::VIEW_BANNERS);
     }
 
     public function create(User $user): bool
     {
-        return $this->isAdmin($user);
+        return $user->can(BannerPermission::CREATE_BANNERS);
     }
 
-    public function update(User $user, Role $role): bool
+    public function update(User $user, Banner $banner): bool
     {
-        return $this->isAdmin($user);
+        return $user->can(BannerPermission::EDIT_BANNERS);
     }
 
-    public function delete(User $user, Role $role): bool
+    public function delete(User $user, Banner $banner): bool
     {
-        return $this->isAdmin($user);
+        return $user->can(BannerPermission::DELETE_BANNERS);
     }
 }
