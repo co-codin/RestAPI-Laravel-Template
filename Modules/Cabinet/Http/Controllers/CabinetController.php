@@ -2,15 +2,18 @@
 
 namespace Modules\Cabinet\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Cabinet\Http\Resources\CabinetResource;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Cabinet\Repositories\CabinetRepository;
 
 class CabinetController extends Controller
 {
     public function __construct(
         protected CabinetRepository $cabinetRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Cabinet::class, 'cabinet');
+    }
 
     public function index()
     {
@@ -19,10 +22,8 @@ class CabinetController extends Controller
         return CabinetResource::collection($cabinets);
     }
 
-    public function show(int $cabinet)
+    public function show(Cabinet $cabinet)
     {
-        $cabinet = $this->cabinetRepository->find($cabinet);
-
         return new CabinetResource($cabinet);
     }
 }
