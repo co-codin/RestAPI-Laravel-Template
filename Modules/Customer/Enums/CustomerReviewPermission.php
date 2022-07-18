@@ -6,18 +6,18 @@ use App\Enums\BaseEnum;
 
 class CustomerReviewPermission extends BaseEnum
 {
-    const CREATE_CUSTOMERS = 'create customers';
-    const VIEW_CUSTOMERS = 'view customers';
-    const EDIT_CUSTOMERS = 'edit customers';
-    const DELETE_CUSTOMERS = 'delete customers';
+    const CREATE_CUSTOMERS = 'create customer reviews';
+    const VIEW_CUSTOMERS = 'view customer reviews';
+    const EDIT_CUSTOMERS = 'edit customer reviews';
+    const DELETE_CUSTOMERS = 'delete customer reviews';
 
     public static function descriptions() : array
     {
         return [
-            static::CREATE_CUSTOMERS => 'Создание потребителей',
-            static::VIEW_CUSTOMERS => 'Просмотр потребителей',
-            static::EDIT_CUSTOMERS => 'Редактирование потребителей',
-            static::DELETE_CUSTOMERS => 'Удаление потребителей',
+            static::CREATE_CUSTOMERS => 'Создание отзывов',
+            static::VIEW_CUSTOMERS => 'Просмотр отзывов',
+            static::EDIT_CUSTOMERS => 'Редактирование отзывов',
+            static::DELETE_CUSTOMERS => 'Удаление отзывов',
         ];
     }
 }
