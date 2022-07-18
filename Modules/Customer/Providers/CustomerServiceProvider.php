@@ -2,18 +2,26 @@
 
 namespace Modules\Customer\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Customer\Models\CustomerReview;
+use Modules\Customer\Policies\CustomerReviewPolicy;
 
 class CustomerServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Customer';
     protected string $moduleNameLower = 'customer';
 
+    protected array $policies = [
+        CustomerReview::class => CustomerReviewPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -40,6 +48,13 @@ class CustomerServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 
     public function registerTranslations()

@@ -10,8 +10,10 @@ use Modules\Customer\Repositories\CustomerReviewRepository;
 class CustomerReviewController extends Controller
 {
     public function __construct(
-        private CustomerReviewRepository $customerReviewRepository
-    ) {}
+        protected CustomerReviewRepository $customerReviewRepository
+    ) {
+        $this->authorizeResource(CustomerReview::class, 'customer_review');
+    }
 
     public function index()
     {
