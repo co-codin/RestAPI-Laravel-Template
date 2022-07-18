@@ -2,21 +2,22 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Dto\QuestionDto;
 use Modules\Faq\Http\Requests\QuestionCreateRequest;
 use Modules\Faq\Http\Requests\QuestionSortRequest;
 use Modules\Faq\Http\Requests\QuestionUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionResource;
-use Modules\Faq\Repositories\QuestionRepository;
+use Modules\Faq\Models\Question;
 use Modules\Faq\Services\QuestionStorage;
 
 class QuestionController extends Controller
 {
     public function __construct(
-        protected QuestionRepository $questionRepository,
         protected QuestionStorage $questionStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Question::class, 'question');
+    }
 
     public function store(QuestionCreateRequest $request)
     {
@@ -25,20 +26,16 @@ class QuestionController extends Controller
         return new QuestionResource($questionModel);
     }
 
-    public function update(int $question, QuestionUpdateRequest $request)
+    public function update(Question $question, QuestionUpdateRequest $request)
     {
-        $questionModel = $this->questionRepository->find($question);
+        $question = $this->questionStorage->update($question, (new QuestionDto($request->validated()))->only(...$request->keys()));
 
-        $questionModel = $this->questionStorage->update($questionModel, (new QuestionDto($request->validated()))->only(...$request->keys()));
-
-        return new QuestionResource($questionModel);
+        return new QuestionResource($question);
     }
 
-    public function destroy(int $question)
+    public function destroy(Question $question)
     {
-        $questionModel = $this->questionRepository->find($question);
-
-        $this->questionStorage->delete($questionModel);
+        $this->questionStorage->delete($question);
 
         return response()->noContent();
     }

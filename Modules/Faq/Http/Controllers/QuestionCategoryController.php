@@ -2,18 +2,23 @@
 
 namespace Modules\Faq\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
+use Modules\Faq\Models\QuestionCategory;
 use Modules\Faq\Repositories\QuestionCategoryRepository;
 
 class QuestionCategoryController extends Controller
 {
     public function __construct(
         protected QuestionCategoryRepository $questionCategoryRepository
-    ) {}
+    ) {
+        $this->authorizeResource(QuestionCategory::class, 'question_category');
+    }
 
     public function all()
     {
+        $this->authorize('viewAny', QuestionCategory::class);
+
         $questionCategories = $this->questionCategoryRepository->all();
 
         return QuestionCategoryResource::collection($questionCategories);
@@ -26,10 +31,8 @@ class QuestionCategoryController extends Controller
         return QuestionCategoryResource::collection($questionCategories);
     }
 
-    public function show(int $question_category)
+    public function show(QuestionCategory $question_category)
     {
-        $questionCategory = $this->questionCategoryRepository->find($question_category);
-
-        return new QuestionCategoryResource($questionCategory);
+        return new QuestionCategoryResource($question_category);
     }
 }
