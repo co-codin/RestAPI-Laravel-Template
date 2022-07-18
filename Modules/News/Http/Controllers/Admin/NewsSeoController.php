@@ -5,7 +5,7 @@ namespace Modules\News\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use Modules\News\Repositories\NewsRepository;
+use Modules\News\Models\News;
 use Modules\Seo\Dto\SeoDto;
 use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
 use Modules\Seo\Http\Resources\SeoResource;
@@ -15,15 +15,14 @@ class NewsSeoController extends Controller
 {
     public function __construct(
         protected SeoStorage $seoStorage,
-        protected NewsRepository $newsRepository,
     ) {}
 
-    public function update(SeoUpdateRequest $request, int $news)
+    public function update(SeoUpdateRequest $request, News $news)
     {
-        $brand = $this->newsRepository->skipCriteria()->find($news);
+        $this->authorize('update', $news);
 
         $seo = $this->seoStorage->update(
-            $brand->seo(),
+            $news->seo(),
             new SeoDto($request->validated())
         );
 

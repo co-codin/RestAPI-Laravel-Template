@@ -9,15 +9,16 @@ use Modules\News\Dto\NewsDto;
 use Modules\News\Http\Requests\NewsCreateRequest;
 use Modules\News\Http\Requests\NewsUpdateRequest;
 use Modules\News\Http\Resources\NewsResource;
-use Modules\News\Repositories\NewsRepository;
+use Modules\News\Models\News;
 use Modules\News\Services\NewsStorage;
 
 class NewsController extends Controller
 {
     public function __construct(
-        protected NewsRepository $newsRepository,
         protected NewsStorage $newsStorage
-    ) {}
+    ) {
+        $this->authorizeResource(News::class, 'news');
+    }
 
     public function store(NewsCreateRequest $request)
     {
@@ -32,20 +33,16 @@ class NewsController extends Controller
         return new NewsResource($news);
     }
 
-    public function update(int $news, NewsUpdateRequest $request)
+    public function update(News $news, NewsUpdateRequest $request)
     {
-        $newsModel = $this->newsRepository->find($news);
+        $news = $this->newsStorage->update($news, NewsDto::fromFormRequest($request));
 
-        $newsModel = $this->newsStorage->update($newsModel, NewsDto::fromFormRequest($request));
-
-        return new NewsResource($newsModel);
+        return new NewsResource($news);
     }
 
-    public function destroy(int $news)
+    public function destroy(News $news)
     {
-        $newsModel = $this->newsRepository->find($news);
-
-        $this->newsStorage->delete($newsModel);
+        $this->newsStorage->delete($news);
 
         return response()->noContent();
     }
