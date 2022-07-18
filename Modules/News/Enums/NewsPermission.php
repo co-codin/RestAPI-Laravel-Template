@@ -6,18 +6,18 @@ use App\Enums\BaseEnum;
 
 class NewsPermission extends BaseEnum
 {
-    const CREATE_NEWS = 'create brands';
-    const VIEW_NEWS = 'view brands';
-    const EDIT_NEWS = 'edit brands';
-    const DELETE_NEWS = 'delete brands';
+    const CREATE_NEWS = 'create news';
+    const VIEW_NEWS = 'view news';
+    const EDIT_NEWS = 'edit news';
+    const DELETE_NEWS = 'delete news';
 
     public static function descriptions() : array
     {
         return [
-            static::CREATE_BRANDS => 'Создание производителей',
-            static::VIEW_BRANDS => 'Просмотр производителей',
-            static::EDIT_BRANDS => 'Редактирование производителей',
-            static::DELETE_BRANDS => 'Удаление производителей',
+            static::CREATE_NEWS => 'Создание новостей',
+            static::VIEW_NEWS => 'Просмотр новостей',
+            static::EDIT_NEWS => 'Редактирование новостей',
+            static::DELETE_NEWS => 'Удаление новостей',
         ];
     }
 }

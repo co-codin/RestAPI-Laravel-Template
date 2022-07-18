@@ -3,12 +3,18 @@
 namespace Modules\News\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\News\Models\News;
+use Modules\News\Policies\NewsPolicy;
 
 class NewsServiceProvider extends ServiceProvider
 {
     protected $moduleName = 'News';
 
     protected $moduleNameLower = 'news';
+
+    protected array $policies = [
+        News::class => NewsPolicy::class,
+    ];
 
     public function boot()
     {
