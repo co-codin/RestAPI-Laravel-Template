@@ -15,9 +15,10 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 class ProductAnswerController extends Controller
 {
     public function __construct(
-        private ProductAnswerRepository $repository,
         private ProductAnswerStorage $storage
-    ) {}
+    ) {
+        $this->authorizeResource(ProductAnswer::class, 'product_answer');
+    }
 
     /**
      * @throws UnknownProperties
@@ -38,11 +39,11 @@ class ProductAnswerController extends Controller
      */
     public function update(
         ProductAnswerRequest $request,
-        int $productAnswerId
+        ProductAnswer $product_answer
     ): ProductAnswerResource
     {
         $answer = $this->storage->update(
-            $this->repository->find($productAnswerId),
+            $product_answer,
             ProductAnswerDto::fromFormRequest($request)
         );
 
@@ -52,11 +53,9 @@ class ProductAnswerController extends Controller
     /**
      * @throws \Exception
      */
-    public function destroy(int $productAnswerId): Response
+    public function destroy(ProductAnswer $product_answer): Response
     {
-        $this->storage->delete(
-            $this->repository->find($productAnswerId)
-        );
+        $this->storage->delete($product_answer);
 
         return \response()->noContent();
     }

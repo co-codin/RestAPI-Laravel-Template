@@ -2,14 +2,13 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
 use Modules\Faq\Http\Requests\QuestionCategorySortRequest;
 use Modules\Faq\Http\Requests\QuestionCategoryUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
 use Modules\Faq\Models\QuestionCategory;
-use Modules\Faq\Repositories\QuestionCategoryRepository;
 use Modules\Faq\Services\QuestionCategoryStorage;
 
 class QuestionCategoryController extends Controller
