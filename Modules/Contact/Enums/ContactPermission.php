@@ -6,18 +6,20 @@ use App\Enums\BaseEnum;
 
 class ContactPermission extends BaseEnum
 {
-    const CREATE_BRANDS = 'create contacts';
-    const VIEW_BRANDS = 'view contacts';
-    const EDIT_BRANDS = 'edit contacts';
-    const DELETE_BRANDS = 'delete contacts';
+    const CREATE_CONTACTS = 'create contacts';
+    const VIEW_CONTACTS = 'view contacts';
+    const EDIT_CONTACTS = 'edit contacts';
+    const DELETE_CONTACTS = 'delete contacts';
+    const SORT_CONTACTS = 'sort contacts';
 
     public static function descriptions() : array
     {
         return [
-            static::CREATE_BRANDS => 'Создание производителей',
-            static::VIEW_BRANDS => 'Просмотр производителей',
-            static::EDIT_BRANDS => 'Редактирование производителей',
-            static::DELETE_BRANDS => 'Удаление производителей',
+            static::CREATE_CONTACTS => 'Создание контактов',
+            static::VIEW_CONTACTS => 'Просмотр контактов',
+            static::EDIT_CONTACTS => 'Редактирование контактов',
+            static::DELETE_CONTACTS => 'Удаление контактов',
+            static::SORT_CONTACTS => 'Сортировка контактов',
         ];
     }
 }

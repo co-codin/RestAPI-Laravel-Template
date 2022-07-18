@@ -2,10 +2,17 @@
 
 namespace Modules\Contact\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Contact\Models\Contact;
+use Modules\Contact\Policies\ContactPolicy;
 
 class ContactServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        Contact::class => ContactPolicy::class,
+    ];
+
     /**
      * @var string $moduleName
      */
@@ -26,6 +33,7 @@ class ContactServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -85,6 +93,13 @@ class ContactServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+        }
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 
