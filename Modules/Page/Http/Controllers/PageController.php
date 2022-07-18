@@ -2,20 +2,23 @@
 
 namespace Modules\Page\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Page\Http\Resources\PageResource;
+use Modules\Page\Models\Page;
 use Modules\Page\Repositories\PageRepository;
 
 class PageController extends Controller
 {
     public function __construct(
         protected PageRepository $pageRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Page::class, 'page');
+    }
 
     public function all()
     {
+        $this->authorize('viewAny', Page::class);
+
         $pages = $this->pageRepository->all();
 
         return PageResource::collection($pages);
@@ -28,10 +31,8 @@ class PageController extends Controller
         return PageResource::collection($pages);
     }
 
-    public function show(int $page)
+    public function show(Page $page)
     {
-        $page = $this->pageRepository->find($page);
-
         return new PageResource($page);
     }
 }
