@@ -33,19 +33,4 @@ class CabinetPolicy extends BasePolicy
     {
         return $user->can(CabinetPermission::DELETE_CABINETS);
     }
-
-    public function updateCategory(User $user, Cabinet $cabinet)
-    {
-
-    }
-
-    public function updateDocument(User $user, Cabinet $cabinet)
-    {
-
-    }
-
-    public function updateSeo(User $user, Cabinet $cabinet)
-    {
-
-    }
 }
