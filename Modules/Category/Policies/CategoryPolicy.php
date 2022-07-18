@@ -3,12 +3,15 @@
 namespace Modules\Category\Policies;
 
 use App\Policies\BasePolicy;
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Modules\Category\Enums\CategoryPermission;
 use Modules\Category\Models\Category;
 use Modules\User\Models\User;
 
 class CategoryPolicy extends BasePolicy
 {
+    use HandlesAuthorization;
+
     public function viewAny(User $user): bool
     {
         return $user->can(CategoryPermission::VIEW_CATEGORIES);

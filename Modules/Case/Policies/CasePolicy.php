@@ -3,12 +3,15 @@
 namespace Modules\Case\Policies;
 
 use App\Policies\BasePolicy;
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Modules\Case\Enums\CasePermission;
 use Modules\Case\Models\CaseModel;
 use Modules\User\Models\User;
 
 class CasePolicy extends BasePolicy
 {
+    use HandlesAuthorization;
+
     public function viewAny(User $user): bool
     {
         return $user->can(CasePermission::VIEW_CASES);

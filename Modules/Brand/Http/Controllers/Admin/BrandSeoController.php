@@ -19,7 +19,7 @@ class BrandSeoController extends Controller
 
     public function update(SeoUpdateRequest $request, Brand $brand)
     {
-        $this->authorize('updateSeo', $brand);
+        $this->authorize('update', $brand);
 
         $seo = $this->seoStorage->update(
             $brand->seo(),

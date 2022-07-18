@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\Brand\Enums;
+namespace Modules\Contact\Enums;
 
 use App\Enums\BaseEnum;
 
-class BrandPermission extends BaseEnum
+class ContactPermission extends BaseEnum
 {
-    const CREATE_BRANDS = 'create brands';
-    const VIEW_BRANDS = 'view brands';
-    const EDIT_BRANDS = 'edit brands';
-    const DELETE_BRANDS = 'delete brands';
+    const CREATE_BRANDS = 'create contacts';
+    const VIEW_BRANDS = 'view contacts';
+    const EDIT_BRANDS = 'edit contacts';
+    const DELETE_BRANDS = 'delete contacts';
 
     public static function descriptions() : array
     {

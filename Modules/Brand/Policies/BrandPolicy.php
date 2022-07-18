@@ -36,9 +36,4 @@ class BrandPolicy extends BasePolicy
     {
         return $user->can(BrandPermission::DELETE_BRANDS);
     }
-
-    public function updateSeo(User $user, Brand $brand)
-    {
-        return $user->can(BrandPermission::UPDATE_BRAND_SEO);
-    }
 }
