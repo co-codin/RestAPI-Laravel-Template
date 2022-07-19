@@ -15,7 +15,7 @@ class RoleController extends Controller
     public function __construct(
         protected RoleStorage $roleStorage
     ) {
-        $this->authorizeResource(Role::class, 'role');
+//        $this->authorizeResource(Role::class, 'role');
     }
 
     public function store(RoleCreateRequest $request)
