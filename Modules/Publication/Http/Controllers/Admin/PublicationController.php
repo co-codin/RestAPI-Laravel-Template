@@ -2,21 +2,21 @@
 
 namespace Modules\Publication\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\IsEnabledCriteria;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Publication\Dto\PublicationDto;
 use Modules\Publication\Http\Requests\PublicationCreateRequest;
 use Modules\Publication\Http\Requests\PublicationUpdateRequest;
 use Modules\Publication\Http\Resources\PublicationResource;
-use Modules\Publication\Repositories\PublicationRepository;
+use Modules\Publication\Models\Publication;
 use Modules\Publication\Services\PublicationStorage;
 
 class PublicationController extends Controller
 {
     public function __construct(
-        protected PublicationRepository $publicationRepository,
         protected PublicationStorage $publicationStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Publication::class, 'publication');
+    }
 
     public function store(PublicationCreateRequest $request)
     {
@@ -31,19 +31,15 @@ class PublicationController extends Controller
         return new PublicationResource($publication);
     }
 
-    public function update(int $publication, PublicationUpdateRequest $request)
+    public function update(Publication $publication, PublicationUpdateRequest $request)
     {
-        $publication = $this->publicationRepository->find($publication);
-
         $publication = $this->publicationStorage->update($publication, (new PublicationDto($request->validated()))->only(...$request->keys()));
 
         return new PublicationResource($publication);
     }
 
-    public function destroy(int $publication)
+    public function destroy(Publication $publication)
     {
-        $publication = $this->publicationRepository->find($publication);
-
         $this->publicationStorage->delete($publication);
 
         return response()->noContent();
