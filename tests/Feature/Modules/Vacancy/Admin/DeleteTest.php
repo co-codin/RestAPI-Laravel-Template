@@ -38,7 +38,7 @@ class DeleteTest extends TestCase
     {
         $vacancy = Vacancy::factory()->create();
 
-        $response = $this->json('DELETE', route('admin.vacancies.destroy', $vacancy));
+        $response = $this->deleteJson(route('admin.vacancies.destroy', $vacancy));
 
         $response->assertNoContent();
 
