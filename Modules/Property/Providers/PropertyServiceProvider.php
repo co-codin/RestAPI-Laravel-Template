@@ -2,7 +2,10 @@
 
 namespace Modules\Property\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Property\Models\Property;
+use Modules\Property\Policies\PropertyPolicy;
 
 class PropertyServiceProvider extends ServiceProvider
 {
@@ -21,11 +24,17 @@ class PropertyServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    protected array $policies = [
+        Property::class => PropertyPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -88,11 +97,13 @@ class PropertyServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     public function provides()
     {
         return [];

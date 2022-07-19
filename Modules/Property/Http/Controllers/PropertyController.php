@@ -5,13 +5,16 @@ namespace Modules\Property\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Property\Http\Resources\PropertyResource;
+use Modules\Property\Models\Property;
 use Modules\Property\Repositories\PropertyRepository;
 
 class PropertyController extends Controller
 {
     public function __construct(
         protected PropertyRepository $propertyRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Property::class, 'property');
+    }
 
     public function index()
     {
@@ -22,15 +25,15 @@ class PropertyController extends Controller
 
     public function all()
     {
+        $this->authorize('viewAny', Property::class);
+
         $properties = $this->propertyRepository->all();
 
         return PropertyResource::collection($properties);
     }
 
-    public function show(int $property)
+    public function show(Property $property)
     {
-        $property = $this->propertyRepository->find($property);
-
         return new PropertyResource($property);
     }
 }
