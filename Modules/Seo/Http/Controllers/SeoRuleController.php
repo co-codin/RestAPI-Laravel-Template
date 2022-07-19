@@ -2,17 +2,18 @@
 
 namespace Modules\Seo\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Seo\Http\Resources\SeoRuleResource;
+use Modules\Seo\Models\SeoRule;
 use Modules\Seo\Repositories\SeoRuleRepository;
 
 class SeoRuleController extends Controller
 {
     public function __construct(
         protected SeoRuleRepository $seoRuleRepository
-    ) {}
+    ) {
+        $this->authorizeResource(SeoRule::class, 'seo_rule');
+    }
 
     public function index()
     {

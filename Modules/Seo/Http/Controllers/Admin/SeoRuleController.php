@@ -2,20 +2,21 @@
 
 namespace Modules\Seo\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Seo\Dto\SeoRuleDto;
 use Modules\Seo\Http\Requests\Admin\SeoRuleCreateRequest;
 use Modules\Seo\Http\Requests\Admin\SeoRuleUpdateRequest;
 use Modules\Seo\Http\Resources\SeoRuleResource;
-use Modules\Seo\Repositories\SeoRuleRepository;
+use Modules\Seo\Models\SeoRule;
 use Modules\Seo\Services\SeoRuleStorage;
 
 class SeoRuleController extends Controller
 {
     public function __construct(
-        protected SeoRuleRepository $seoRuleRepository,
         protected SeoRuleStorage $seoRuleStorage
-    ) {}
+    ) {
+        $this->authorizeResource(SeoRule::class, 'seo_rule');
+    }
 
     public function store(SeoRuleCreateRequest $request)
     {
@@ -30,20 +31,16 @@ class SeoRuleController extends Controller
         return new SeoRuleResource($seoRule);
     }
 
-    public function update(int $seo_rule, SeoRuleUpdateRequest $request)
+    public function update(SeoRule $seo_rule, SeoRuleUpdateRequest $request)
     {
-        $seoRuleModel = $this->seoRuleRepository->find($seo_rule);
+        $seo_rule = $this->seoRuleStorage->update($seo_rule, (new SeoRuleDto($request->validated()))->only(...$request->keys()));
 
-        $seoRuleModel = $this->seoRuleStorage->update($seoRuleModel, (new SeoRuleDto($request->validated()))->only(...$request->keys()));
-
-        return new SeoRuleResource($seoRuleModel);
+        return new SeoRuleResource($seo_rule);
     }
 
-    public function destroy(int $seo_rule)
+    public function destroy(SeoRule $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->find($seo_rule);
-
-        $this->seoRuleStorage->delete($seoRule);
+        $this->seoRuleStorage->delete($seo_rule);
 
         return response()->noContent();
     }
