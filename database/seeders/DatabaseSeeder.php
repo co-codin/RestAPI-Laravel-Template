@@ -19,6 +19,7 @@ use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 use Modules\Property\Database\Seeders\PropertyDatabaseSeeder;
 use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
+use Modules\Role\Database\Seeders\RolesTableSeeder;
 use Modules\Seo\Database\Seeders\CanonicalDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
 use Modules\User\Database\Seeders\UserDatabaseSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        $this->call(RolesTableSeeder::class);
         $this->call(UserDatabaseSeeder::class);
         $this->call(AchievementDatabaseSeeder::class);
         $this->call(BrandDatabaseSeeder::class);
