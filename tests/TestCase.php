@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Modules\Role\Enums\DefaultRole;
 use Modules\Role\Models\Role;
@@ -16,6 +17,7 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Artisan::call('permission:cache-reset');
         Storage::fake();
         Storage::fake('public');
     }

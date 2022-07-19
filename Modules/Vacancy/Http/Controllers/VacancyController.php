@@ -24,8 +24,6 @@ class VacancyController extends Controller
 
     public function show(Vacancy $vacancy)
     {
-        $vacancy = $this->vacancyRepository->find($vacancy);
-
         return new VacancyResource($vacancy);
     }
 }

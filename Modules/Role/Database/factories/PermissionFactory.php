@@ -22,7 +22,6 @@ class PermissionFactory extends Factory
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->sentence(4),
-            'guard_name' => 'api'
         ];
     }
 }
