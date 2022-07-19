@@ -36,4 +36,14 @@ class ProductQuestionPolicy extends BasePolicy
     {
         return $user->can(ProductQuestionPermission::DELETE_PRODUCT_QUESTIONS);
     }
+
+    public function approve(User $user, ProductQuestion $product_question): bool
+    {
+        return $user->can(ProductQuestionPermission::APPROVE_PRODUCT_QUESTIONS);
+    }
+
+    public function reject(User $user, ProductQuestion $product_question): bool
+    {
+        return $user->can(ProductQuestionPermission::REJECT_PRODUCT_QUESTIONS);
+    }
 }

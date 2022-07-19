@@ -6,13 +6,16 @@ namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Product\Http\Resources\ProductResource;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
     public function __construct(
         protected ProductRepository $productRepository
-    ){}
+    ){
+        $this->authorizeResource(Product::class, 'product');
+    }
 
     public function index()
     {
@@ -21,10 +24,8 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function show(int $product)
+    public function show(Product $product)
     {
-        $product = $this->productRepository->find($product);
-
         return new ProductResource($product);
     }
 }

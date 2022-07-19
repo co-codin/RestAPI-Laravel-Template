@@ -10,7 +10,7 @@ class ClientPayerUpdateRequest extends BaseFormRequest
 {
     public function authorize(): bool
     {
-        return $this->route('payer')->client_id === auth('client-api')->id();
+        return $this->route('payer')->client_id === auth('client')->id();
     }
 
     public function rules(): array

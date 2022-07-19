@@ -20,7 +20,7 @@ class ClientEmailUpdateController extends Controller
         $this->clientVerificationService->send(
             $request->validated()['email'],
             VerifyType::fromValue(VerifyType::EMAIL),
-            auth('client-api')->user()
+            auth('client')->user()
         );
 
         return response()->json();
@@ -28,7 +28,7 @@ class ClientEmailUpdateController extends Controller
 
     public function verify(ClientEmailVerifyCodeRequest $request)
     {
-        $client = auth('client-api')->user();
+        $client = auth('client')->user();
 
         if (!$client->update(['email' => $request->validated()['email']])) {
             throw new \Exception("Ошибка авторизации, попробуйте позже или обратитесь в поддержку", 401);

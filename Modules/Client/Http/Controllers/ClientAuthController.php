@@ -8,7 +8,7 @@ class ClientAuthController extends Controller
 {
     public function logout()
     {
-        auth('client-api')->logout();
+        auth('client')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
