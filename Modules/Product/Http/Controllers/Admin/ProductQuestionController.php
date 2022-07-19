@@ -12,7 +12,6 @@ use Modules\Product\Http\Requests\Admin\ProductQuestionCreateRequest;
 use Modules\Product\Http\Resources\ProductQuestionResource;
 use Modules\Product\Models\ProductQuestion;
 use Modules\Product\Services\Qna\ProductQuestionStorage;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductQuestionController extends Controller
 {
