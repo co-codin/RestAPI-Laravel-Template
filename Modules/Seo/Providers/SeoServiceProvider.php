@@ -2,7 +2,12 @@
 
 namespace Modules\Seo\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Seo\Models\Canonical;
+use Modules\Seo\Models\SeoRule;
+use Modules\Seo\Policies\CanonicalPolicy;
+use Modules\Seo\Policies\SeoRulePolicy;
 
 class SeoServiceProvider extends ServiceProvider
 {
@@ -10,10 +15,16 @@ class SeoServiceProvider extends ServiceProvider
 
     protected $moduleNameLower = 'seo';
 
+    protected array $policies = [
+        SeoRule::class => SeoRulePolicy::class,
+        Canonical::class => CanonicalPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
+        $this->registerPolicies();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
@@ -46,5 +57,12 @@ class SeoServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 }
