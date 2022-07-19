@@ -6,13 +6,16 @@ namespace Modules\Redirect\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Redirect\Http\Resources\RedirectResource;
+use Modules\Redirect\Models\Redirect;
 use Modules\Redirect\Repositories\RedirectRepository;
 
 class RedirectController extends Controller
 {
     public function __construct(
         protected RedirectRepository $redirectRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Redirect::class, 'redirect');
+    }
 
     public function index()
     {
@@ -21,10 +24,8 @@ class RedirectController extends Controller
         return RedirectResource::collection($redirects);
     }
 
-    public function show(int $redirect)
+    public function show(Redirect $redirect)
     {
-        $redirect = $this->redirectRepository->find($redirect);
-
         return new RedirectResource($redirect);
     }
 }
