@@ -20,6 +20,7 @@ class RoleDto extends BaseDto
         $validated = $request->validated();
         return new self([
             'name' => $validated['name'],
+            'key' => $validated['key'],
             'guard_name' => 'api',
             'permissions' => $validated['permissions'] ?? [],
         ]);
