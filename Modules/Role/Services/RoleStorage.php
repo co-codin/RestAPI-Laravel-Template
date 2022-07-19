@@ -30,7 +30,7 @@ class RoleStorage
     public function update(Role $role, RoleDto $dto)
     {
         if (!$role->update(Arr::only($dto->toArray(),
-            ['name', 'key', 'guard_name']
+            ['name', 'key']
         ))) {
             throw new \LogicException('Не удалось изменить данные Роли');
         }
