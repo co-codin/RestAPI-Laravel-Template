@@ -22,14 +22,14 @@ class ClientPayerController extends Controller
 
     public function index()
     {
-        $clientPayers = $this->clientPayerRepository->findByField('client_id', auth('client-api')->id());
+        $clientPayers = $this->clientPayerRepository->findByField('client_id', auth('client')->id());
 
         return ClientPayerResource::collection($clientPayers);
     }
 
     public function store(ClientPayerCreateRequest $request)
     {
-        $payer = $this->clientPayerStorage->store(auth('client-api')->user(), ClientPayerDto::fromFormRequest($request));
+        $payer = $this->clientPayerStorage->store(auth('client')->user(), ClientPayerDto::fromFormRequest($request));
 
         return new ClientPayerResource($payer);
     }
@@ -43,7 +43,7 @@ class ClientPayerController extends Controller
 
     public function destroy(ClientPayer $payer): ?bool
     {
-        abort_if($payer->client_id !== auth('client-api')->id(), 403);
+        abort_if($payer->client_id !== auth('client')->id(), 403);
 
         return $this->clientPayerStorage->destroy($payer);
     }

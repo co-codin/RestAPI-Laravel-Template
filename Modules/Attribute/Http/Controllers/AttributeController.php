@@ -4,13 +4,16 @@ namespace Modules\Attribute\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Attribute\Http\Resources\AttributeResource;
+use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Repositories\AttributeRepository;
 
 class AttributeController extends Controller
 {
     public function __construct(
         protected AttributeRepository $attributeRepository
-    ){}
+    ){
+        $this->authorizeResource(Attribute::class, 'attribute');
+    }
 
     public function index()
     {
@@ -19,10 +22,8 @@ class AttributeController extends Controller
         return AttributeResource::collection($attributes);
     }
 
-    public function show(int $attribute)
+    public function show(Attribute $attribute)
     {
-        $attribute = $this->attributeRepository->find($attribute);
-
         return new AttributeResource($attribute);
     }
 }

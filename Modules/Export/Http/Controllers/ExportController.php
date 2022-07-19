@@ -4,15 +4,18 @@
 namespace Modules\Export\Http\Controllers;
 
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Export\Http\Resources\ExportResource;
+use Modules\Export\Models\Export;
 use Modules\Export\Repositories\ExportRepository;
 
 class ExportController extends Controller
 {
     public function __construct(
         protected ExportRepository $exportRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Export::class, 'export');
+    }
 
     public function index()
     {
@@ -21,10 +24,8 @@ class ExportController extends Controller
         return ExportResource::collection($exports);
     }
 
-    public function show(int $export)
+    public function show(Export $export)
     {
-        $export = $this->exportRepository->find($export);
-
         return new ExportResource($export);
     }
 }

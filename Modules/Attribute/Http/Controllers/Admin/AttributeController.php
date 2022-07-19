@@ -7,15 +7,16 @@ use Modules\Attribute\Dto\AttributeDto;
 use Modules\Attribute\Http\Requests\Admin\AttributeCreateRequest;
 use Modules\Attribute\Http\Requests\Admin\AttributeUpdateRequest;
 use Modules\Attribute\Http\Resources\AttributeResource;
-use Modules\Attribute\Repositories\AttributeRepository;
+use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Services\AttributeStorage;
 
 class AttributeController extends Controller
 {
     public function __construct(
-        protected AttributeRepository $attributeRepository,
         protected AttributeStorage $attributeStorage
-    ){}
+    ){
+        $this->authorizeResource(Attribute::class, 'attribute');
+    }
 
     public function store(AttributeCreateRequest $request)
     {
@@ -30,20 +31,16 @@ class AttributeController extends Controller
         return new AttributeResource($attribute);
     }
 
-    public function update(int $attribute, AttributeUpdateRequest $request)
+    public function update(Attribute $attribute, AttributeUpdateRequest $request)
     {
-        $attributeModel = $this->attributeRepository->find($attribute);
-
-        $this->attributeStorage->update($attributeModel, AttributeDto::fromFormRequest($request));
+        $this->attributeStorage->update($attribute, AttributeDto::fromFormRequest($request));
 
         return new AttributeResource($attributeModel);
     }
 
-    public function destroy(int $attribute)
+    public function destroy(Attribute $attribute)
     {
-        $attributeModel = $this->attributeRepository->find($attribute);
-
-        $this->attributeStorage->delete($attributeModel);
+        $this->attributeStorage->delete($attribute);
 
         return response()->noContent();
     }

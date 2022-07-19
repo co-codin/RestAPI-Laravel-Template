@@ -15,7 +15,7 @@ class ClientAvatarUpdateController extends Controller
     public function update(ClientUploadImageRequest $request)
     {
         $path = $this->service->store(
-            auth('client-api')->user(),
+            auth('client')->user(),
             $request->validated()['image'],
             $request->validated()['crop'],
         );
@@ -28,7 +28,7 @@ class ClientAvatarUpdateController extends Controller
     public function destroy()
     {
         $this->service->destroy(
-            auth('client-api')->user()
+            auth('client')->user()
         );
 
         return response()->noContent();

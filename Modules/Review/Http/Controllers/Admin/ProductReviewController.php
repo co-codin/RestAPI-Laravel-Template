@@ -10,21 +10,17 @@ use Modules\Review\Http\Requests\ProductReviewApproveRequest;
 use Modules\Review\Http\Requests\Admin\ProductReviewCreateRequest as ProductReviewCreateAdminRequest;
 use Modules\Review\Http\Requests\ProductReviewUpdateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
-use Modules\Review\Repositories\ProductReviewRepository;
+use Modules\Review\Models\ProductReview;
 use Modules\Review\Services\ProductReviewStorage;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductReviewController extends Controller
 {
     public function __construct(
-        private ProductReviewRepository $repository,
-        private ProductReviewStorage $storage
-    ) {}
+        protected ProductReviewStorage $productReviewStorage
+    ) {
+        $this->authorizeResource(ProductReview::class, 'product_review');
+    }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function store(
         ProductReviewCreateAdminRequest $request,
         ProductReviewStorage $storage,
@@ -37,54 +33,41 @@ class ProductReviewController extends Controller
         return new ProductReviewResource($productReview);
     }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function update(
         ProductReviewUpdateRequest $request,
-        int $productReviewId
+        ProductReview $product_review
     ): ProductReviewResource
     {
-        $productReview = $this->storage->update(
-            $this->repository->find($productReviewId),
+        $productReview = $this->productReviewStorage->update(
+            $product_review,
             ProductReviewDto::fromFormRequest($request)
         );
 
         return new ProductReviewResource($productReview);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function destroy(int $productReviewId): Response
+    public function destroy(ProductReview $product_review): Response
     {
-        $this->storage->delete(
-            $this->repository->find($productReviewId)
-        );
+        $this->productReviewStorage->delete($product_review);
 
-        return \response()->noContent();
+        return response()->noContent();
     }
 
-
-    /**
-     * @throws \Exception
-     */
     public function approve(
         ProductReviewApproveRequest $request,
-        int $productReviewId
+        ProductReview $product_review
     ): Response
     {
-        $productReview = $this->repository->find($productReviewId);
+        $this->authorize('approve', $product_review);
 
-        $this->storage->changeStatus(
-            $productReview,
+        $this->productReviewStorage->changeStatus(
+            $product_review,
             ProductReviewStatus::fromValue(ProductReviewStatus::APPROVED)
         );
 
-        if ($productReview?->client?->email) {
-            $this->storage->notifyApproveOrReject(
-                $productReview,
+        if ($product_review?->client?->email) {
+            $this->productReviewStorage->notifyApproveOrReject(
+                $product_review,
                 $request->validated()['comment']
             );
         }
@@ -92,26 +75,23 @@ class ProductReviewController extends Controller
         return \response()->noContent();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function reject(
         ProductReviewApproveRequest $request,
-        int $productReviewId
+        ProductReview $product_review
     ): Response
     {
-        $productReview = $this->repository->find($productReviewId);
+        $this->authorize('reject', $product_review);
 
-        $this->storage->changeStatus(
-            $this->repository->find($productReviewId),
+        $this->productReviewStorage->changeStatus(
+            $product_review,
             ProductReviewStatus::fromValue(ProductReviewStatus::REJECTED)
         );
 
-        $this->storage->notifyApproveOrReject(
-            $productReview,
+        $this->productReviewStorage->notifyApproveOrReject(
+            $product_review,
             $request->validated()['comment']
         );
 
-        return \response()->noContent();
+        return response()->noContent();
     }
 }

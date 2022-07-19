@@ -8,26 +8,17 @@ use Modules\Seo\Dto\CanonicalDto;
 use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
-use Modules\Seo\Repositories\CanonicalRepository;
+use Modules\Seo\Models\Canonical;
 use Modules\Seo\Services\Admin\CanonicalStorage;
 
-/**
- * Class CanonicalController
- * @package Modules\Seo\Http\Controllers\Admin
- */
 class CanonicalController extends Controller
 {
     public function __construct(
-        private CanonicalRepository $repository,
-        private CanonicalStorage $storage
-    ) {}
+        protected CanonicalStorage $canonicalStorage
+    ) {
+        $this->authorizeResource(Canonical::class, 'canonical');
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param CanonicalCreateRequest $request
-     * @return CanonicalResource
-     * @throws \Exception
-     */
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
         $canonicalDto = CanonicalDto::fromFormRequest($request);
@@ -36,23 +27,14 @@ class CanonicalController extends Controller
             $canonicalDto->assigned_by_id = auth('sanctum')->id();
         }
 
-        $canonical = $this->storage->store($canonicalDto);
+        $canonical = $this->canonicalStorage->store($canonicalDto);
 
         return new CanonicalResource($canonical);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param CanonicalUpdateRequest $request
-     * @param int $id
-     * @return CanonicalResource
-     * @throws \Exception
-     */
-    public function update(CanonicalUpdateRequest $request, int $id): CanonicalResource
+    public function update(CanonicalUpdateRequest $request, Canonical $canonical): CanonicalResource
     {
-        $canonical = $this->repository->find($id);
-
-        $canonical = $this->storage->update(
+        $canonical = $this->canonicalStorage->update(
             $canonical,
             CanonicalDto::create($request->validated())->only(...$request->keys())
         );
@@ -60,16 +42,9 @@ class CanonicalController extends Controller
         return new CanonicalResource($canonical);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     * @throws \Exception
-     */
-    public function destroy(int $id): Response
+    public function destroy(Canonical $canonical): Response
     {
-        $canonical = $this->repository->find($id);
-        $this->storage->delete($canonical);
+        $this->canonicalStorage->delete($canonical);
 
         return response()->noContent();
     }

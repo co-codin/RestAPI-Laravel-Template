@@ -5,6 +5,7 @@ namespace Modules\Category\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Seo\Dto\SeoDto;
 use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
@@ -18,9 +19,10 @@ class CategorySeoController extends Controller
         protected CategoryRepository $categoryRepository,
     ) {}
 
-    public function update(SeoUpdateRequest $request, int $category)
+    public function update(SeoUpdateRequest $request, Category $category)
     {
-        $category = $this->categoryRepository->skipCriteria()->find($category);
+        $this->authorize('update', $category);
+
         $relation = $request->input('type') == 2
             ? $category->seoCategoryProducts()
             : $category->seo();

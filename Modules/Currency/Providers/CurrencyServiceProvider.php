@@ -2,11 +2,17 @@
 
 namespace Modules\Currency\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Currency\Models\Currency;
+use Modules\Currency\Policies\CurrencyPolicy;
 
 class CurrencyServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        Currency::class => CurrencyPolicy::class,
+    ];
+
     /**
      * @var string $moduleName
      */
@@ -86,6 +92,13 @@ class CurrencyServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+        }
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 

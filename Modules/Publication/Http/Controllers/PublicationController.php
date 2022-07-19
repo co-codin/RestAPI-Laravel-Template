@@ -2,17 +2,18 @@
 
 namespace Modules\Publication\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Publication\Http\Resources\PublicationResource;
+use Modules\Publication\Models\Publication;
 use Modules\Publication\Repositories\PublicationRepository;
 
 class PublicationController extends Controller
 {
     public function __construct(
         protected PublicationRepository $publicationRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Publication::class, 'publication');
+    }
 
     public function index()
     {
@@ -21,10 +22,8 @@ class PublicationController extends Controller
         return PublicationResource::collection($publications);
     }
 
-    public function show(int $publication)
+    public function show(Publication $publication)
     {
-        $publication = $this->publicationRepository->find($publication);
-
         return new PublicationResource($publication);
     }
 }

@@ -10,7 +10,6 @@ final class RolePermission extends BaseEnum
     const VIEW_ROLES = 'view roles';
     const EDIT_ROLES = 'edit roles';
     const DELETE_ROLES = 'delete roles';
-    const HANDLE_EXCEPTIONS = 'handle exceptions';
 
     public static function descriptions() : array
     {
@@ -19,7 +18,6 @@ final class RolePermission extends BaseEnum
             static::VIEW_ROLES => 'Просмотр ролей',
             static::EDIT_ROLES => 'Редактирование ролей',
             static::DELETE_ROLES => 'Удаление ролей',
-            static::HANDLE_EXCEPTIONS => 'Обработка исключительных ситуаций',
         ];
     }
 }

@@ -2,19 +2,22 @@
 
 namespace Modules\Export\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Export\Console\ExportAllFeedsCommand;
 use Modules\Export\Console\ExportFeedCommand;
-use Modules\Export\Console\GenerateFacebookMarket;
-use Modules\Export\Console\GenerateGoogleMarket;
-use Modules\Export\Console\GenerateTiuMarket;
-use Modules\Export\Console\GenerateYandexMarket;
+use Modules\Export\Models\Export;
+use Modules\Export\Policies\ExportPolicy;
 
 class ExportServiceProvider extends ServiceProvider
 {
     protected $moduleName = 'Export';
 
     protected $moduleNameLower = 'export';
+
+    protected array $policies = [
+        Export::class => ExportPolicy::class,
+    ];
 
     public function boot()
     {
@@ -92,11 +95,13 @@ class ExportServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     public function provides()
     {
         return [];

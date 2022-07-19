@@ -6,13 +6,16 @@ namespace Modules\Currency\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Currency\Http\Resources\CurrencyResource;
+use Modules\Currency\Models\Currency;
 use Modules\Currency\Repositories\CurrencyRepository;
 
 class CurrencyController extends Controller
 {
     public function __construct(
         protected CurrencyRepository $currencyRepository
-    ){}
+    ){
+        $this->authorizeResource(Currency::class, 'currency');
+    }
 
     public function index()
     {
@@ -21,16 +24,14 @@ class CurrencyController extends Controller
         return CurrencyResource::collection($currencies);
     }
 
-    public function show(int $currency)
+    public function show(Currency $currency)
     {
-        $currency = $this->currencyRepository->find($currency);
-
         return new CurrencyResource($currency);
     }
 
-    public function rate(int $currency)
+    public function rate(Currency $currency)
     {
-        $currency = $this->currencyRepository->find($currency);
+        $this->authorize('view', $currency);
 
         return $currency->rate;
     }

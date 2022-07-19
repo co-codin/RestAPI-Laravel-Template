@@ -2,8 +2,10 @@
 
 namespace Modules\Review\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Review\Models\ProductReview;
+use Modules\Review\Policies\ProductReviewPolicy;
 
 class ReviewServiceProvider extends ServiceProvider
 {
@@ -17,16 +19,16 @@ class ReviewServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'review';
 
-    /**
-     * Boot the application events.
-     *
-     * @return void
-     */
+    protected array $policies = [
+        ProductReview::class => ProductReviewPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -70,7 +72,7 @@ class ReviewServiceProvider extends ServiceProvider
             $sourcePath => $viewPath
         ], ['views', $this->moduleNameLower . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
     }
 
     /**
@@ -89,24 +91,15 @@ class ReviewServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }

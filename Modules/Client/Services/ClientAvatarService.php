@@ -24,7 +24,7 @@ class ClientAvatarService
 
         $this->rebuildImage($fileName, $crop);
 
-        $updated = auth('client-api')->user()->update([
+        $updated = auth('client')->user()->update([
             'avatar' => $path = Storage::url($this->getUploadDir() . $fileName)
         ]);
 

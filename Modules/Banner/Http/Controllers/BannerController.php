@@ -2,15 +2,18 @@
 
 namespace Modules\Banner\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Banner\Http\Resources\BannerResource;
+use Modules\Banner\Models\Banner;
 use Modules\Banner\Repositories\BannerRepository;
 
 class BannerController extends Controller
 {
     public function __construct(
         protected BannerRepository $bannerRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Banner::class, 'banner');
+    }
 
     public function index()
     {
@@ -19,10 +22,8 @@ class BannerController extends Controller
         return BannerResource::collection($banners);
     }
 
-    public function show(int $banner)
+    public function show(Banner $banner)
     {
-        $bannerModel = $this->bannerRepository->find($banner);
-
-        return new BannerResource($bannerModel);
+        return new BannerResource($banner);
     }
 }

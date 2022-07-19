@@ -2,10 +2,17 @@
 
 namespace Modules\Banner\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Banner\Models\Banner;
+use Modules\Banner\Policies\BannerPolicy;
 
 class BannerServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        Banner::class => BannerPolicy::class,
+    ];
+
     protected $moduleName = 'Banner';
 
     protected $moduleNameLower = 'banner';
@@ -15,6 +22,7 @@ class BannerServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -52,5 +60,12 @@ class BannerServiceProvider extends ServiceProvider
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 }

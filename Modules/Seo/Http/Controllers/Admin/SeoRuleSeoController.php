@@ -4,27 +4,25 @@
 namespace Modules\Seo\Http\Controllers\Admin;
 
 
-use Modules\Brand\Repositories\BrandRepository;
+use App\Http\Controllers\Controller;
 use Modules\Seo\Dto\SeoDto;
 use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
 use Modules\Seo\Http\Resources\SeoResource;
-use Modules\Seo\Repositories\SeoRuleRepository;
+use Modules\Seo\Models\SeoRule;
 use Modules\Seo\Services\SeoStorage;
-use Illuminate\Routing\Controller;
 
 class SeoRuleSeoController extends Controller
 {
     public function __construct(
         protected SeoStorage $seoStorage,
-        protected SeoRuleRepository $seoRuleRepository,
     ) {}
 
-    public function update(SeoUpdateRequest $request, int $seo_rule)
+    public function update(SeoUpdateRequest $request, SeoRule $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->skipCriteria()->find($seo_rule);
+        $this->authorize('update', $seo_rule);
 
         $seo = $this->seoStorage->update(
-            $seoRule->seo(),
+            $seo_rule->seo(),
             new SeoDto($request->validated())
         );
 

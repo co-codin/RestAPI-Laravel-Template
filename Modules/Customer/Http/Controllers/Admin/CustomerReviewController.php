@@ -8,15 +8,16 @@ use Modules\Customer\Dto\CustomerReviewDto;
 use Modules\Customer\Http\Requests\Admin\CustomerReviewCreateRequest;
 use Modules\Customer\Http\Requests\Admin\CustomerReviewUpdateRequest;
 use Modules\Customer\Http\Resources\CustomerReviewResource;
-use Modules\Customer\Repositories\CustomerReviewRepository;
+use Modules\Customer\Models\CustomerReview;
 use Modules\Customer\Services\Admin\CustomerReviewStorage;
 
 class CustomerReviewController extends Controller
 {
     public function __construct(
-        private CustomerReviewRepository $repository,
-        private CustomerReviewStorage $storage
-    ) {}
+        protected CustomerReviewStorage $storage
+    ) {
+        $this->authorizeResource(CustomerReview::class, 'customer_review');
+    }
 
     public function store(CustomerReviewCreateRequest $request): CustomerReviewResource
     {
@@ -27,22 +28,19 @@ class CustomerReviewController extends Controller
         return new CustomerReviewResource($customerReview);
     }
 
-    public function update(CustomerReviewUpdateRequest $request, int $id): CustomerReviewResource
+    public function update(CustomerReviewUpdateRequest $request, CustomerReview $customer_review): CustomerReviewResource
     {
-        $customerReview = $this->repository->find($id);
-
         $this->storage->update(
-            $customerReview,
+            $customer_review,
             CustomerReviewDto::fromFormRequest($request)
         );
 
-        return new CustomerReviewResource($customerReview);
+        return new CustomerReviewResource($customer_review);
     }
 
-    public function destroy(int $id): Response
+    public function destroy(CustomerReview $customer_review): Response
     {
-        $customerReview = $this->repository->find($id);
-        $this->storage->delete($customerReview);
+        $this->storage->delete($customer_review);
 
         return response()->noContent();
     }

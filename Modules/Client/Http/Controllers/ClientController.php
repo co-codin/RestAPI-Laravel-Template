@@ -10,7 +10,7 @@ class ClientController extends Controller
 {
     public function show()
     {
-        return auth('client-api')->user();
+        return auth('client')->user();
     }
 
     public function update(ClientUpdateRequest $request): void
@@ -21,7 +21,7 @@ class ClientController extends Controller
     public function activity(ClientActivityStoreRequest $request): void
     {
         activity()
-            ->causedBy(auth('client-api')->user())
+            ->causedBy(auth('client')->user())
             ->withProperties($request->validated()['data'])
             ->log($request->validated()['action']);
     }

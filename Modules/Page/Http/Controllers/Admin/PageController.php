@@ -7,15 +7,16 @@ use Modules\Page\Dto\PageDto;
 use Modules\Page\Http\Requests\PageCreateRequest;
 use Modules\Page\Http\Requests\PageUpdateRequest;
 use Modules\Page\Http\Resources\PageResource;
-use Modules\Page\Repositories\PageRepository;
+use Modules\Page\Models\Page;
 use Modules\Page\Services\PageStorage;
 
 class PageController extends Controller
 {
     public function __construct(
-        protected PageRepository $pageRepository,
         protected PageStorage $pageStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Page::class, 'page');
+    }
 
     public function store(PageCreateRequest $request)
     {
@@ -30,20 +31,16 @@ class PageController extends Controller
         return new PageResource($pageModel);
     }
 
-    public function update(int $page, PageUpdateRequest $request)
+    public function update(Page $page, PageUpdateRequest $request)
     {
-        $pageModel = $this->pageRepository->find($page);
+        $page = $this->pageStorage->update($page, PageDto::fromFormRequest($request));
 
-        $pageModel = $this->pageStorage->update($pageModel, PageDto::fromFormRequest($request));
-
-        return new PageResource($pageModel);
+        return new PageResource($page);
     }
 
-    public function destroy(int $page)
+    public function destroy(Page $page)
     {
-        $pageModel = $this->pageRepository->find($page);
-
-        $this->pageStorage->delete($pageModel);
+        $this->pageStorage->delete($page);
 
         return response()->noContent();
     }

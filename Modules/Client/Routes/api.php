@@ -16,7 +16,7 @@ Route::prefix('clients')->group(function() {
     Route::post('send-code', [PhoneVerificationController::class, 'sendCode']);
     Route::post('verify', [PhoneVerificationController::class, 'verifyCode']);
 
-    Route::middleware('auth:client-api')->group(function () {
+    Route::middleware('auth:client')->group(function () {
         // обновление данных клиента
         Route::match(['put', 'patch'], 'update', [ClientController::class, 'update']);
         Route::get('show', [ClientController::class, 'show']);

@@ -7,15 +7,16 @@ use Modules\Vacancy\Dto\VacancyDto;
 use Modules\Vacancy\Http\Requests\VacancyCreateRequest;
 use Modules\Vacancy\Http\Requests\VacancyUpdateRequest;
 use Modules\Vacancy\Http\Resources\VacancyResource;
-use Modules\Vacancy\Repositories\VacancyRepository;
+use Modules\Vacancy\Models\Vacancy;
 use Modules\Vacancy\Services\VacancyStorage;
 
 class VacancyController extends Controller
 {
     public function __construct(
-        protected VacancyRepository $vacancyRepository,
         protected VacancyStorage $vacancyStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Vacancy::class, 'vacancy');
+    }
 
     public function store(VacancyCreateRequest $request)
     {
@@ -24,20 +25,16 @@ class VacancyController extends Controller
         return new VacancyResource($vacancy);
     }
 
-    public function update(int $vacancy, VacancyUpdateRequest $request)
+    public function update(Vacancy $vacancy, VacancyUpdateRequest $request)
     {
-        $vacancyModel = $this->vacancyRepository->find($vacancy);
+        $vacancy = $this->vacancyStorage->update($vacancy, VacancyDto::fromFormRequest($request));
 
-        $vacancyModel = $this->vacancyStorage->update($vacancyModel, VacancyDto::fromFormRequest($request));
-
-        return new VacancyResource($vacancyModel);
+        return new VacancyResource($vacancy);
     }
 
-    public function destroy(int $vacancy)
+    public function destroy(Vacancy $vacancy)
     {
-        $vacancyModel = $this->vacancyRepository->find($vacancy);
-
-        $this->vacancyStorage->delete($vacancyModel);
+        $this->vacancyStorage->delete($vacancy);
 
         return response()->noContent();
     }

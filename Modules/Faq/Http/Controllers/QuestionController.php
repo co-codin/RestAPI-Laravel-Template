@@ -2,15 +2,18 @@
 
 namespace Modules\Faq\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Http\Resources\QuestionResource;
+use Modules\Faq\Models\Question;
 use Modules\Faq\Repositories\QuestionRepository;
 
 class QuestionController extends Controller
 {
     public function __construct(
         protected QuestionRepository $questionRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Question::class, 'question');
+    }
 
     public function index()
     {
@@ -19,10 +22,8 @@ class QuestionController extends Controller
         return QuestionResource::collection($questions);
     }
 
-    public function show(int $question)
+    public function show(Question $question)
     {
-        $question = $this->questionRepository->find($question);
-
         return new QuestionResource($question);
     }
 }

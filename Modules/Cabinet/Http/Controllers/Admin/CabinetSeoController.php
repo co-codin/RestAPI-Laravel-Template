@@ -2,8 +2,8 @@
 
 namespace Modules\Cabinet\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
-use Modules\Cabinet\Repositories\CabinetRepository;
+use App\Http\Controllers\Controller;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Seo\Dto\SeoDto;
 use Modules\Seo\Http\Requests\Admin\SeoUpdateRequest;
 use Modules\Seo\Http\Resources\SeoResource;
@@ -13,12 +13,11 @@ class CabinetSeoController extends Controller
 {
     public function __construct(
         protected SeoStorage $seoStorage,
-        protected CabinetRepository $cabinetRepository,
     ) {}
 
-    public function update(SeoUpdateRequest $request, int $cabinet)
+    public function update(SeoUpdateRequest $request, Cabinet $cabinet)
     {
-        $cabinet = $this->cabinetRepository->skipCriteria()->find($cabinet);
+        $this->authorize('update', $cabinet);
 
         $seo = $this->seoStorage->update(
             $cabinet->seo(),

@@ -2,11 +2,17 @@
 
 namespace Modules\Case\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Case\Models\CaseModel;
+use Modules\Case\Policies\CasePolicy;
 
 class CaseServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        CaseModel::class => CasePolicy::class,
+    ];
+
     /**
      * @var string $moduleName
      */
@@ -27,6 +33,7 @@ class CaseServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -86,6 +93,13 @@ class CaseServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+        }
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 

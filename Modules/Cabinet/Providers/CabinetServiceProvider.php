@@ -2,11 +2,16 @@
 
 namespace Modules\Cabinet\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Cabinet\Models\Cabinet;
+use Modules\Cabinet\Policies\CabinetPolicy;
 
 class CabinetServiceProvider extends ServiceProvider
 {
+    protected array $policies = [
+        Cabinet::class => CabinetPolicy::class,
+    ];
     /**
      * @var string $moduleName
      */
@@ -26,6 +31,7 @@ class CabinetServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerConfig();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -68,6 +74,13 @@ class CabinetServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+        }
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 

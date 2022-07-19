@@ -4,14 +4,16 @@ namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Category\Http\Resources\CategoryResource;
+use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
-use Modules\Geo\Models\City;
 
 class CategoryController extends Controller
 {
     public function __construct(
         protected CategoryRepository $categoryRepository
-    ) {}
+    ) {
+        $this->authorizeResource(Category::class, 'category');
+    }
 
     public function all()
     {
@@ -27,10 +29,8 @@ class CategoryController extends Controller
         return CategoryResource::collection($categories);
     }
 
-    public function show(int $category)
+    public function show(Category $category)
     {
-        $category = $this->categoryRepository->find($category);
-
         return new CategoryResource($category);
     }
 }

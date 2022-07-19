@@ -10,15 +10,17 @@ use Modules\Filter\Http\Requests\FilterCreateRequest;
 use Modules\Filter\Http\Requests\FilterSortRequest;
 use Modules\Filter\Http\Requests\FilterUpdateRequest;
 use Modules\Filter\Http\Resources\FilterResource;
+use Modules\Filter\Models\Filter;
 use Modules\Filter\Repositories\FilterRepository;
 use Modules\Filter\Services\FilterStorage;
 
 class FilterController extends Controller
 {
     public function __construct(
-        protected FilterRepository $filterRepository,
         protected FilterStorage $filterStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Filter::class, 'filter');
+    }
 
     public function store(FilterCreateRequest $request)
     {
@@ -27,20 +29,16 @@ class FilterController extends Controller
         return new FilterResource($filter);
     }
 
-    public function update(int $filter, FilterUpdateRequest $request)
+    public function update(Filter $filter, FilterUpdateRequest $request)
     {
-        $filterModel = $this->filterRepository->find($filter);
+        $filter = $this->filterStorage->update($filter, FilterDto::fromFormRequest($request));
 
-        $filterModel = $this->filterStorage->update($filterModel, FilterDto::fromFormRequest($request));
-
-        return new FilterResource($filterModel);
+        return new FilterResource($filter);
     }
 
-    public function destroy(int $filter)
+    public function destroy(Filter $filter)
     {
-        $filterModel = $this->filterRepository->find($filter);
-
-        $this->filterStorage->delete($filterModel);
+        $this->filterStorage->delete($filter);
 
         return response()->noContent();
     }

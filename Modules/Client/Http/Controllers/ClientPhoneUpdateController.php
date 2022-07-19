@@ -27,7 +27,7 @@ class ClientPhoneUpdateController extends Controller
         $this->clientVerificationService->send(
             $request->validated()['phone'],
             VerifyType::fromValue($verifyType),
-            auth('client-api')->user()
+            auth('client')->user()
         );
 
         return response()->json([
@@ -38,7 +38,7 @@ class ClientPhoneUpdateController extends Controller
     public function verifyCode(ClientPhoneVerifyCodeRequest $request)
     {
         $phone = $request->validated()['phone'];
-        $client = auth('client-api')->user();
+        $client = auth('client')->user();
 
         $this->clientVerificationService->setVerifiedAt($client);
 

@@ -9,15 +9,16 @@ use Modules\Currency\Dto\CurrencyDto;
 use Modules\Currency\Http\Requests\CurrencyCreateRequest;
 use Modules\Currency\Http\Requests\CurrencyUpdateRequest;
 use Modules\Currency\Http\Resources\CurrencyResource;
-use Modules\Currency\Repositories\CurrencyRepository;
+use Modules\Currency\Models\Currency;
 use Modules\Currency\Services\CurrencyStorage;
 
 class CurrencyController extends Controller
 {
     public function __construct(
-        protected CurrencyRepository $currencyRepository,
         protected CurrencyStorage $currencyStorage
-    ){}
+    ){
+        $this->authorizeResource(Currency::class, 'currency');
+    }
 
     public function store(CurrencyCreateRequest $request)
     {
@@ -26,20 +27,16 @@ class CurrencyController extends Controller
         return new CurrencyResource($currency);
     }
 
-    public function update(int $currency, CurrencyUpdateRequest $request)
+    public function update(Currency $currency, CurrencyUpdateRequest $request)
     {
-        $currencyModel = $this->currencyRepository->find($currency);
+        $currency = $this->currencyStorage->update($currency, CurrencyDto::fromFormRequest($request));
 
-        $currencyModel = $this->currencyStorage->update($currencyModel, CurrencyDto::fromFormRequest($request));
-
-        return new CurrencyResource($currencyModel);
+        return new CurrencyResource($currency);
     }
 
-    public function destroy(int $currency)
+    public function destroy(Currency $currency)
     {
-        $currencyModel = $this->currencyRepository->find($currency);
-
-        $this->currencyStorage->delete($currencyModel);
+        $this->currencyStorage->delete($currency);
 
         return response()->noContent();
     }

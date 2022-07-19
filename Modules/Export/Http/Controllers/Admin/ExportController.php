@@ -2,23 +2,24 @@
 
 namespace Modules\Export\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Routing\Controller;
 use Modules\Export\Dto\ExportDto;
 use Modules\Export\Http\Requests\ExportCreateRequest;
 use Modules\Export\Http\Requests\ExportUpdateRequest;
 use Modules\Export\Http\Resources\ExportResource;
-use Modules\Export\Repositories\ExportRepository;
+use Modules\Export\Models\Export;
 use Modules\Export\Services\ExportService;
 use Modules\Export\Services\ExportStorage;
 
 class ExportController extends Controller
 {
     public function __construct(
-        protected ExportRepository $exportRepository,
         protected ExportStorage $exportStorage,
         protected ExportService $exportService
-    ) {}
+    ) {
+        $this->authorizeResource(Export::class, 'export');
+    }
 
     public function store(ExportCreateRequest $request)
     {
@@ -33,33 +34,29 @@ class ExportController extends Controller
         return new ExportResource($export);
     }
 
-    public function update(int $export, ExportUpdateRequest $request)
+    public function update(Export $export, ExportUpdateRequest $request)
     {
-        $exportModel = $this->exportRepository->find($export);
+        $export = $this->exportStorage->update($export, ExportDto::fromFormRequest($request));
 
-        $exportModel = $this->exportStorage->update($exportModel, ExportDto::fromFormRequest($request));
-
-        return new ExportResource($exportModel);
+        return new ExportResource($export);
     }
 
-    public function destroy(int $export)
+    public function destroy(Export $export)
     {
-        $exportModel = $this->exportRepository->find($export);
-
-        $this->exportStorage->delete($exportModel);
+        $this->exportStorage->delete($export);
 
         return response()->noContent();
     }
 
-    public function export(int $export)
+    public function export(Export $export)
     {
-        $exportModel = $this->exportRepository->find($export);
+        $this->authorize('export', $export);
 
-        $generator = $this->exportService->getGenerator($exportModel);
+        $generator = $this->exportService->getGenerator($export);
 
-        $generator->generate($exportModel);
+        $generator->generate($export);
 
-        $exportModel->exported_at = Carbon::now();
-        $exportModel->save();
+        $export->exported_at = Carbon::now();
+        $export->save();
     }
 }

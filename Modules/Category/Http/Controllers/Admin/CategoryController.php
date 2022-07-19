@@ -7,15 +7,16 @@ use Modules\Category\Dto\CategoryDto;
 use Modules\Category\Http\Requests\CategoryCreateRequest;
 use Modules\Category\Http\Requests\CategoryUpdateRequest;
 use Modules\Category\Http\Resources\CategoryResource;
-use Modules\Category\Repositories\CategoryRepository;
+use Modules\Category\Models\Category;
 use Modules\Category\Services\CategoryStorage;
 
 class CategoryController extends Controller
 {
     public function __construct(
-        protected CategoryRepository $categoryRepository,
         protected CategoryStorage $categoryStorage
-    ) {}
+    ) {
+        $this->authorizeResource(Category::class, 'category');
+    }
 
     public function store(CategoryCreateRequest $request)
     {
@@ -30,22 +31,18 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function update(int $category, CategoryUpdateRequest $request)
+    public function update(Category $category, CategoryUpdateRequest $request)
     {
-        $categoryModel = $this->categoryRepository->find($category);
-
-        $categoryModel = $this->categoryStorage->update(
-            $categoryModel, CategoryDto::fromFormRequest($request)
+        $category = $this->categoryStorage->update(
+            $category, CategoryDto::fromFormRequest($request)
         );
 
-        return new CategoryResource($categoryModel);
+        return new CategoryResource($category);
     }
 
-    public function destroy(int $category)
+    public function destroy(Category $category)
     {
-        $categoryModel = $this->categoryRepository->find($category);
-
-        $this->categoryStorage->delete($categoryModel);
+        $this->categoryStorage->delete($category);
 
         return response()->noContent();
     }

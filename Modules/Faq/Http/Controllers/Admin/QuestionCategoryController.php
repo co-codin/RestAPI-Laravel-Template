@@ -2,21 +2,22 @@
 
 namespace Modules\Faq\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Dto\QuestionCategoryDto;
 use Modules\Faq\Http\Requests\QuestionCategoryCreateRequest;
 use Modules\Faq\Http\Requests\QuestionCategorySortRequest;
 use Modules\Faq\Http\Requests\QuestionCategoryUpdateRequest;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
-use Modules\Faq\Repositories\QuestionCategoryRepository;
+use Modules\Faq\Models\QuestionCategory;
 use Modules\Faq\Services\QuestionCategoryStorage;
 
 class QuestionCategoryController extends Controller
 {
     public function __construct(
-        protected QuestionCategoryRepository $questionCategoryRepository,
         protected QuestionCategoryStorage $questionCategoryStorage
-    ) {}
+    ) {
+        $this->authorizeResource(QuestionCategory::class, 'question_category');
+    }
 
     public function store(QuestionCategoryCreateRequest $request)
     {
@@ -25,20 +26,16 @@ class QuestionCategoryController extends Controller
         return new QuestionCategoryResource($questionCategoryModel);
     }
 
-    public function update(int $question_category, QuestionCategoryUpdateRequest $request)
+    public function update(QuestionCategory $question_category, QuestionCategoryUpdateRequest $request)
     {
-        $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
+        $question_category = $this->questionCategoryStorage->update($question_category, QuestionCategoryDto::fromFormRequest($request));
 
-        $questionCategoryModel = $this->questionCategoryStorage->update($questionCategoryModel, QuestionCategoryDto::fromFormRequest($request));
-
-        return new QuestionCategoryResource($questionCategoryModel);
+        return new QuestionCategoryResource($question_category);
     }
 
-    public function destroy(int $question_category)
+    public function destroy(QuestionCategory $question_category)
     {
-        $questionCategoryModel = $this->questionCategoryRepository->find($question_category);
-
-        $this->questionCategoryStorage->delete($questionCategoryModel);
+        $this->questionCategoryStorage->delete($question_category);
 
         return response()->noContent();
     }
