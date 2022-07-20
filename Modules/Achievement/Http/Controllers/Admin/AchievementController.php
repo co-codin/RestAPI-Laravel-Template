@@ -20,11 +20,12 @@ class AchievementController extends Controller
         protected AchievementRepository $achievementRepository
     ){
         $this->achievementRepository->popCriteria(IsEnabledCriteria::class);
-        $this->authorizeResource(Achievement::class, 'achievement');
     }
 
     public function store(AchievementCreateRequest $request)
     {
+        $this->authorize('create', Achievement::class);
+
         $achievement = $this->achievementStorage->store(AchievementDto::fromFormRequest($request));
 
         return new AchievementResource($achievement);
@@ -33,6 +34,8 @@ class AchievementController extends Controller
     public function update(int $achievement, AchievementUpdateRequest $request)
     {
         $achievementModel = $this->achievementRepository->find($achievement);
+
+        $this->authorize('update', $achievementModel);
 
         $achievementModel = $this->achievementStorage->update($achievementModel, AchievementDto::fromFormRequest($request));
 
@@ -43,6 +46,8 @@ class AchievementController extends Controller
     {
         $achievementModel = $this->achievementRepository->find($achievement);
 
+        $this->authorize('delete', $achievementModel);
+
         $this->achievementStorage->delete($achievementModel);
 
         return response()->noContent();
@@ -50,6 +55,8 @@ class AchievementController extends Controller
 
     public function sort(AchievementSortRequest $request)
     {
+        $this->authorize('update', Achievement::class);
+
         $this->achievementStorage->sort($request->input('achievements'));
 
         return response()->noContent();
