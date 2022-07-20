@@ -3,11 +3,36 @@
 
 namespace Tests\Feature\Modules\Attribute\Web;
 
+use Modules\Attribute\Enums\AttributePermission;
 use Modules\Attribute\Models\Attribute;
+use Modules\Role\Models\Permission;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
+
+        $permission = Permission::factory()->create([
+            'name' => AttributePermission::VIEW_ATTRIBUTES
+        ]);
+
+        $user->givePermissionTo($permission->name);
+
+        $response = $this->json('POST', route('auth.login'), [
+            'email' => 'admin@medeq.ru',
+            'password' => 'admin1',
+        ]);
+
+        $this->withToken($response->json('token'));
+    }
+
     public function test_user_can_view_attributes()
     {
         Attribute::factory()->count($count = 5)->create();

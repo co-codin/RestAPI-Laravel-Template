@@ -11,19 +11,23 @@ class AttributeController extends Controller
 {
     public function __construct(
         protected AttributeRepository $attributeRepository
-    ){
-        $this->authorizeResource(Attribute::class, 'attribute');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Attribute::class);
+
         $attributes = $this->attributeRepository->jsonPaginate();
 
         return AttributeResource::collection($attributes);
     }
 
-    public function show(Attribute $attribute)
+    public function show(int $attribute)
     {
+        $attribute = $this->attributeRepository->find($attribute);
+
+        $this->authorize('viewAny', $attribute);
+
         return new AttributeResource($attribute);
     }
 }
