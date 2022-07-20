@@ -12,19 +12,23 @@ class ContactController extends Controller
 {
     public function __construct(
         protected ContactRepository $contactRepository
-    ) {
-        $this->authorizeResource(Contact::class, 'contact');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Contact::class);
+
         $contacts = $this->contactRepository->jsonPaginate();
 
         return ContactResource::collection($contacts);
     }
 
-    public function show(Contact $contact)
+    public function show(int $contact)
     {
+        $contact = $this->contactRepository->find($contact);
+
+        $this->authorize('view', $contact);
+
         return new ContactResource($contact);
     }
 }

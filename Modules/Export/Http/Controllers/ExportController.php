@@ -13,19 +13,23 @@ class ExportController extends Controller
 {
     public function __construct(
         protected ExportRepository $exportRepository
-    ) {
-        $this->authorizeResource(Export::class, 'export');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Export::class);
+
         $exports = $this->exportRepository->jsonPaginate();
 
         return ExportResource::collection($exports);
     }
 
-    public function show(Export $export)
+    public function show(int $export)
     {
+        $export = $this->exportRepository->find($export);
+
+        $this->authorize('view', $export);
+
         return new ExportResource($export);
     }
 }

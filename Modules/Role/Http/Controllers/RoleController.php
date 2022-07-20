@@ -12,19 +12,23 @@ class RoleController extends Controller
 {
     public function __construct(
         protected RoleRepository $roleRepository
-    ) {
-//        $this->authorizeResource(Role::class, 'role');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Role::class);
+
         $roles = $this->roleRepository->jsonPaginate();
 
         return RoleResource::collection($roles);
     }
 
-    public function show(Role $role)
+    public function show(int $role)
     {
+        $role = $this->roleRepository->find($role);
+
+        $this->authorize('view', $role);
+
         return new RoleResource($role);
     }
 }

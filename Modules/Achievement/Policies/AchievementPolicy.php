@@ -33,7 +33,7 @@ class AchievementPolicy
         return $user->can(AchievementPermission::DELETE_ACHIEVEMENTS);
     }
 
-    public function sort(User $user, Achievement $achievement): bool
+    public function sort(User $user): bool
     {
         return $user->can(AchievementPermission::SORT_ACHIEVEMENTS);
     }

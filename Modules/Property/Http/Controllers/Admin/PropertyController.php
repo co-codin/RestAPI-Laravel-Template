@@ -10,18 +10,20 @@ use Modules\Property\Http\Requests\PropertyCreateRequest;
 use Modules\Property\Http\Requests\PropertyUpdateRequest;
 use Modules\Property\Http\Resources\PropertyResource;
 use Modules\Property\Models\Property;
+use Modules\Property\Repositories\PropertyRepository;
 use Modules\Property\Services\PropertyStorage;
 
 class PropertyController extends Controller
 {
     public function __construct(
         protected PropertyStorage $propertyStorage,
-    ) {
-        $this->authorizeResource(Property::class, 'property');
-    }
+        protected PropertyRepository $propertyRepository
+    ) {}
 
     public function store(PropertyCreateRequest $request)
     {
+        $this->authorize('create', Property::class);
+
         $propertyDto = PropertyDto::fromFormRequest($request);
 
         if (!$propertyDto->assigned_by_id) {
@@ -33,15 +35,23 @@ class PropertyController extends Controller
         return new PropertyResource($property);
     }
 
-    public function update(Property $property, PropertyUpdateRequest $request)
+    public function update(int $property, PropertyUpdateRequest $request)
     {
+        $property = $this->propertyRepository->find($property);
+
+        $this->authorize('update', $property);
+
         $property = $this->propertyStorage->update($property, PropertyDto::fromFormRequest($request));
 
         return new PropertyResource($property);
     }
 
-    public function destroy(Property $property)
+    public function destroy(int $property)
     {
+        $property = $this->propertyRepository->find($property);
+
+        $this->authorize('delete', $property);
+
         $this->propertyStorage->delete($property);
 
         return response()->noContent();

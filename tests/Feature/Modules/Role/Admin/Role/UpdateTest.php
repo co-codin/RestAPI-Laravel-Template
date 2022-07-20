@@ -17,6 +17,7 @@ class UpdateTest extends TestCase
 
         $response = $this->json('PATCH', route('admin.roles.update', $role), [
             'name' => $newName = 'new name',
+            'key' => 'new-key'
         ]);
 
         $response->assertOk();

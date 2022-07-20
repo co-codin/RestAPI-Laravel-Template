@@ -11,9 +11,7 @@ class QuestionCategoryController extends Controller
 {
     public function __construct(
         protected QuestionCategoryRepository $questionCategoryRepository
-    ) {
-        $this->authorizeResource(QuestionCategory::class, 'question_category');
-    }
+    ) {}
 
     public function all()
     {
@@ -26,13 +24,19 @@ class QuestionCategoryController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', QuestionCategory::class);
+
         $questionCategories = $this->questionCategoryRepository->jsonPaginate();
 
         return QuestionCategoryResource::collection($questionCategories);
     }
 
-    public function show(QuestionCategory $question_category)
+    public function show(int $question_category)
     {
+        $question_category = $this->questionCategoryRepository->find($question_category);
+
+        $this->authorize('view', $question_category);
+
         return new QuestionCategoryResource($question_category);
     }
 }

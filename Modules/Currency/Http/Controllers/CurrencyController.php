@@ -13,24 +13,30 @@ class CurrencyController extends Controller
 {
     public function __construct(
         protected CurrencyRepository $currencyRepository
-    ){
-        $this->authorizeResource(Currency::class, 'currency');
-    }
+    ){}
 
     public function index()
     {
+        $this->authorize('viewAny', Currency::class);
+
         $currencies = $this->currencyRepository->jsonPaginate();
 
         return CurrencyResource::collection($currencies);
     }
 
-    public function show(Currency $currency)
+    public function show(int $currency)
     {
+        $currency = $this->currencyRepository->find($currency);
+
+        $this->authorize('view', $currency);
+
         return new CurrencyResource($currency);
     }
 
-    public function rate(Currency $currency)
+    public function rate(int $currency)
     {
+        $currency = $this->currencyRepository->find($currency);
+
         $this->authorize('view', $currency);
 
         return $currency->rate;

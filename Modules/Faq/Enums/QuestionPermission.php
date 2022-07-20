@@ -10,6 +10,7 @@ class QuestionPermission extends BaseEnum
     const VIEW_QUESTIONS = 'view questions';
     const EDIT_QUESTIONS = 'edit questions';
     const DELETE_QUESTIONS = 'delete questions';
+    const SORT_QUESTIONS = 'sort questions';
 
     public static function descriptions() : array
     {
@@ -18,6 +19,7 @@ class QuestionPermission extends BaseEnum
             static::VIEW_QUESTIONS => 'Просмотр вопросов',
             static::EDIT_QUESTIONS => 'Редактирование вопросов',
             static::DELETE_QUESTIONS => 'Удаление вопросов',
+            static::SORT_QUESTIONS => 'Сортировка вопросов',
         ];
     }
 }

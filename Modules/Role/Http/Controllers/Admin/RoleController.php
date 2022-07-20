@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Role\Dto\RoleDto;
 use Modules\Role\Http\Requests\RoleCreateRequest;
 use Modules\Role\Http\Requests\RoleUpdateRequest;
+use Modules\Role\Models\Role;
 use Modules\Role\Repositories\RoleRepository;
 use Modules\Role\Services\RoleStorage;
 use Modules\Role\Http\Resources\RoleResource;
@@ -15,12 +16,12 @@ class RoleController extends Controller
     public function __construct(
         protected RoleStorage $roleStorage,
         protected RoleRepository $roleRepository
-    ) {
-//        $this->authorizeResource(Role::class, 'role');
-    }
+    ) {}
 
     public function store(RoleCreateRequest $request)
     {
+        $this->authorize('create', Role::class);
+
         $role = $this->roleStorage->store(RoleDto::fromFormRequest($request));
 
         return new RoleResource($role);

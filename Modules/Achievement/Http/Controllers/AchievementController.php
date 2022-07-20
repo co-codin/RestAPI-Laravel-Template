@@ -14,11 +14,12 @@ class AchievementController extends Controller
     public function __construct(
         protected AchievementRepository $achievementRepository
     ) {
-        $this->authorizeResource(Achievement::class, 'achievement');
     }
 
     public function index()
     {
+        $this->authorize('viewAny', Achievement::class);
+
         $achievements = $this->achievementRepository->jsonPaginate();
 
         return AchievementResource::collection($achievements);
@@ -27,6 +28,8 @@ class AchievementController extends Controller
     public function show(int $achievement)
     {
         $achievement = $this->achievementRepository->find($achievement);
+
+        $this->authorize('view', $achievement);
 
         return new AchievementResource($achievement);
     }

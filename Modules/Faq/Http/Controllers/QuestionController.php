@@ -11,19 +11,23 @@ class QuestionController extends Controller
 {
     public function __construct(
         protected QuestionRepository $questionRepository
-    ) {
-        $this->authorizeResource(Question::class, 'question');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Question::class);
+
         $questions = $this->questionRepository->jsonPaginate();
 
         return QuestionResource::collection($questions);
     }
 
-    public function show(Question $question)
+    public function show(int $question)
     {
+        $question = $this->questionRepository->find($question);
+
+        $this->authorize('view', $question);
+
         return new QuestionResource($question);
     }
 }

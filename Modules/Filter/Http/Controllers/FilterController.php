@@ -13,19 +13,23 @@ class FilterController extends Controller
 {
     public function __construct(
         protected FilterRepository $filterRepository
-    ) {
-        $this->authorizeResource(Filter::class, 'filter');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Filter::class);
+
         $filters = $this->filterRepository->jsonPaginate();
 
         return FilterResource::collection($filters);
     }
 
-    public function show(Filter $filter)
+    public function show(int $filter)
     {
+        $filter = $this->filterRepository->find($filter);
+
+        $this->authorize('view', $filter);
+
         return new FilterResource($filter);
     }
 }

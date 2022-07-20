@@ -11,19 +11,23 @@ class CanonicalController extends Controller
 {
     public function __construct(
         protected CanonicalRepository $canonicalRepository
-    ) {
-        $this->authorizeResource(Canonical::class, 'canonical');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Canonical::class);
+
         $canonicals = $this->canonicalRepository->jsonPaginate();
 
         return CanonicalResource::collection($canonicals);
     }
 
-    public function show(Canonical $canonical)
+    public function show(int $canonical)
     {
+        $canonical = $this->canonicalRepository->find($canonical);
+
+        $this->authorize('view', $canonical);
+
         return new CanonicalResource($canonical);
     }
 }

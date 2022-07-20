@@ -11,19 +11,23 @@ class CustomerReviewController extends Controller
 {
     public function __construct(
         protected CustomerReviewRepository $customerReviewRepository
-    ) {
-        $this->authorizeResource(CustomerReview::class, 'customer_review');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', CustomerReview::class);
+
         $customerReviews = $this->customerReviewRepository->jsonPaginate();
 
         return CustomerReviewResource::collection($customerReviews);
     }
 
-    public function show(CustomerReview $customerReview)
+    public function show(int $customerReview)
     {
+        $customerReview = $this->customerReviewRepository->find($customerReview);
+
+        $this->authorize('view', $customerReview);
+
         return new CustomerReviewResource($customerReview);
     }
 }

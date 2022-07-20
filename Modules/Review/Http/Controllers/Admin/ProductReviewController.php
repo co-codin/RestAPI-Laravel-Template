@@ -11,21 +11,23 @@ use Modules\Review\Http\Requests\Admin\ProductReviewCreateRequest as ProductRevi
 use Modules\Review\Http\Requests\ProductReviewUpdateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
 use Modules\Review\Models\ProductReview;
+use Modules\Review\Repositories\ProductReviewRepository;
 use Modules\Review\Services\ProductReviewStorage;
 
 class ProductReviewController extends Controller
 {
     public function __construct(
-        protected ProductReviewStorage $productReviewStorage
-    ) {
-        $this->authorizeResource(ProductReview::class, 'product_review');
-    }
+        protected ProductReviewStorage $productReviewStorage,
+        protected ProductReviewRepository $productReviewRepository
+    ) {}
 
     public function store(
         ProductReviewCreateAdminRequest $request,
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
+        $this->authorize('viewAny', ProductReview::class);
+
         $productReview = $storage->store(
             ProductReviewDto::fromFormRequest($request)
         );
@@ -35,9 +37,13 @@ class ProductReviewController extends Controller
 
     public function update(
         ProductReviewUpdateRequest $request,
-        ProductReview $product_review
+        int $product_review
     ): ProductReviewResource
     {
+        $product_review = $this->productReviewRepository->find($product_review);
+
+        $this->authorize('update', $product_review);
+
         $productReview = $this->productReviewStorage->update(
             $product_review,
             ProductReviewDto::fromFormRequest($request)
@@ -46,8 +52,12 @@ class ProductReviewController extends Controller
         return new ProductReviewResource($productReview);
     }
 
-    public function destroy(ProductReview $product_review): Response
+    public function destroy(int $product_review): Response
     {
+        $product_review = $this->productReviewRepository->find($product_review);
+
+        $this->authorize('delete', $product_review);
+
         $this->productReviewStorage->delete($product_review);
 
         return response()->noContent();
@@ -55,9 +65,11 @@ class ProductReviewController extends Controller
 
     public function approve(
         ProductReviewApproveRequest $request,
-        ProductReview $product_review
+        int $product_review
     ): Response
     {
+        $product_review = $this->productReviewRepository->find($product_review);
+
         $this->authorize('approve', $product_review);
 
         $this->productReviewStorage->changeStatus(
@@ -77,9 +89,11 @@ class ProductReviewController extends Controller
 
     public function reject(
         ProductReviewApproveRequest $request,
-        ProductReview $product_review
+        int $product_review
     ): Response
     {
+        $product_review = $this->productReviewRepository->find($product_review);
+
         $this->authorize('reject', $product_review);
 
         $this->productReviewStorage->changeStatus(

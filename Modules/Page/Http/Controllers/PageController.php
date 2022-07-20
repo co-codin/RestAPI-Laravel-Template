@@ -11,9 +11,7 @@ class PageController extends Controller
 {
     public function __construct(
         protected PageRepository $pageRepository
-    ) {
-        $this->authorizeResource(Page::class, 'page');
-    }
+    ) {}
 
     public function all()
     {
@@ -26,13 +24,19 @@ class PageController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Page::class);
+
         $pages = $this->pageRepository->jsonPaginate();
 
         return PageResource::collection($pages);
     }
 
-    public function show(Page $page)
+    public function show(int $page)
     {
+        $page = $this->pageRepository->find($page);
+
+        $this->authorize('view', $page);
+
         return new PageResource($page);
     }
 }
