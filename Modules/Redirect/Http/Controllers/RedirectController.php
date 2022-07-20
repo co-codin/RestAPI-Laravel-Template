@@ -13,19 +13,23 @@ class RedirectController extends Controller
 {
     public function __construct(
         protected RedirectRepository $redirectRepository
-    ) {
-        $this->authorizeResource(Redirect::class, 'redirect');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Redirect::class);
+
         $redirects = $this->redirectRepository->jsonPaginate();
 
         return RedirectResource::collection($redirects);
     }
 
-    public function show(Redirect $redirect)
+    public function show(int $redirect)
     {
+        $redirect = $this->redirectRepository->find($redirect);
+
+        $this->authorize('view', $redirect);
+
         return new RedirectResource($redirect);
     }
 }

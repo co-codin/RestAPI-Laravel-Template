@@ -9,18 +9,20 @@ use Modules\Seo\Http\Requests\Admin\CanonicalUpdateRequest;
 use Modules\Seo\Http\Resources\CanonicalResource;
 use Modules\Seo\Http\Requests\Admin\CanonicalCreateRequest;
 use Modules\Seo\Models\Canonical;
+use Modules\Seo\Repositories\CanonicalRepository;
 use Modules\Seo\Services\Admin\CanonicalStorage;
 
 class CanonicalController extends Controller
 {
     public function __construct(
-        protected CanonicalStorage $canonicalStorage
-    ) {
-        $this->authorizeResource(Canonical::class, 'canonical');
-    }
+        protected CanonicalStorage $canonicalStorage,
+        protected CanonicalRepository $canonicalRepository
+    ) {}
 
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
+        $this->authorize('viewAny', Canonical::class);
+
         $canonicalDto = CanonicalDto::fromFormRequest($request);
 
         if (!$canonicalDto->assigned_by_id) {
@@ -32,8 +34,12 @@ class CanonicalController extends Controller
         return new CanonicalResource($canonical);
     }
 
-    public function update(CanonicalUpdateRequest $request, Canonical $canonical): CanonicalResource
+    public function update(CanonicalUpdateRequest $request, int $canonical): CanonicalResource
     {
+        $canonical = $this->canonicalRepository->find($canonical);
+
+        $this->authorize('update', $canonical);
+
         $canonical = $this->canonicalStorage->update(
             $canonical,
             CanonicalDto::create($request->validated())->only(...$request->keys())
@@ -42,8 +48,12 @@ class CanonicalController extends Controller
         return new CanonicalResource($canonical);
     }
 
-    public function destroy(Canonical $canonical): Response
+    public function destroy(int $canonical): Response
     {
+        $canonical = $this->canonicalRepository->find($canonical);
+
+        $this->authorize('delete', $canonical);
+
         $this->canonicalStorage->delete($canonical);
 
         return response()->noContent();

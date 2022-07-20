@@ -11,19 +11,23 @@ class PublicationController extends Controller
 {
     public function __construct(
         protected PublicationRepository $publicationRepository
-    ) {
-        $this->authorizeResource(Publication::class, 'publication');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Publication::class);
+
         $publications = $this->publicationRepository->jsonPaginate();
 
         return PublicationResource::collection($publications);
     }
 
-    public function show(Publication $publication)
+    public function show(int $publication)
     {
+        $publication = $this->publicationRepository->find($publication);
+
+        $this->authorize('view', $publication);
+
         return new PublicationResource($publication);
     }
 }

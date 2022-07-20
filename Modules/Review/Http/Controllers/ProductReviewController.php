@@ -27,8 +27,10 @@ class ProductReviewController extends Controller
         );
     }
 
-    public function show(ProductReview $product_review): ProductReviewResource
+    public function show(int $product_review): ProductReviewResource
     {
+        $product_review = $this->productReviewRepository->find($product_review);
+
         $this->authorize('view', $product_review);
 
         return new ProductReviewResource($product_review);

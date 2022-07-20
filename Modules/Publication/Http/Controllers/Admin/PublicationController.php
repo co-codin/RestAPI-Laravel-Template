@@ -8,18 +8,20 @@ use Modules\Publication\Http\Requests\PublicationCreateRequest;
 use Modules\Publication\Http\Requests\PublicationUpdateRequest;
 use Modules\Publication\Http\Resources\PublicationResource;
 use Modules\Publication\Models\Publication;
+use Modules\Publication\Repositories\PublicationRepository;
 use Modules\Publication\Services\PublicationStorage;
 
 class PublicationController extends Controller
 {
     public function __construct(
-        protected PublicationStorage $publicationStorage
-    ) {
-        $this->authorizeResource(Publication::class, 'publication');
-    }
+        protected PublicationStorage $publicationStorage,
+        protected PublicationRepository $publicationRepository
+    ) {}
 
     public function store(PublicationCreateRequest $request)
     {
+        $this->authorize('create', Publication::class);
+
         $publicationDto = PublicationDto::fromFormRequest($request);
 
         if (!$publicationDto->assigned_by_id) {
@@ -31,15 +33,23 @@ class PublicationController extends Controller
         return new PublicationResource($publication);
     }
 
-    public function update(Publication $publication, PublicationUpdateRequest $request)
+    public function update(int $publication, PublicationUpdateRequest $request)
     {
+        $publication = $this->publicationRepository->find($publication);
+
+        $this->authorize('update', $publication);
+
         $publication = $this->publicationStorage->update($publication, (new PublicationDto($request->validated()))->only(...$request->keys()));
 
         return new PublicationResource($publication);
     }
 
-    public function destroy(Publication $publication)
+    public function destroy(int $publication)
     {
+        $publication = $this->publicationRepository->find($publication);
+
+        $this->authorize('delete', $publication);
+
         $this->publicationStorage->delete($publication);
 
         return response()->noContent();

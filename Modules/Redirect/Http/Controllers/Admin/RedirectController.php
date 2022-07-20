@@ -16,13 +16,14 @@ use Modules\Redirect\Services\RedirectStorage;
 class RedirectController extends Controller
 {
     public function __construct(
-        protected RedirectStorage $redirectStorage
-    ) {
-        $this->authorizeResource(Redirect::class, 'redirect');
-    }
+        protected RedirectStorage $redirectStorage,
+        protected RedirectRepository $redirectRepository
+    ) {}
 
     public function store(RedirectCreateRequest $request)
     {
+        $this->authorize('create', Redirect::class);
+
         $redirectDto = RedirectDto::fromFormRequest($request);
 
         if (!$redirectDto->assigned_by_id) {
@@ -34,15 +35,23 @@ class RedirectController extends Controller
         return new RedirectResource($redirectModel);
     }
 
-    public function update(Redirect $redirect, RedirectUpdateRequest $request)
+    public function update(int $redirect, RedirectUpdateRequest $request)
     {
+        $redirect = $this->redirectRepository->find($redirect);
+
+        $this->authorize('update', $redirect);
+
         $redirect = $this->redirectStorage->update($redirect, (new RedirectDto($request->validated()))->only(...$request->keys()));
 
         return new RedirectResource($redirect);
     }
 
-    public function destroy(Redirect $redirect)
+    public function destroy(int $redirect)
     {
+        $redirect = $this->redirectRepository->find($redirect);
+
+        $this->authorize('delete', $redirect);
+
         $this->redirectStorage->delete($redirect);
 
         return response()->noContent();
