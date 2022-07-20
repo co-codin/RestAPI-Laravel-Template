@@ -17,27 +17,36 @@ use Modules\Filter\Services\FilterStorage;
 class FilterController extends Controller
 {
     public function __construct(
-        protected FilterStorage $filterStorage
-    ) {
-        $this->authorizeResource(Filter::class, 'filter');
-    }
+        protected FilterStorage $filterStorage,
+        protected FilterRepository $filterRepository
+    ) {}
 
     public function store(FilterCreateRequest $request)
     {
+        $this->authorize('create', Filter::class);
+
         $filter = $this->filterStorage->store(FilterDto::fromFormRequest($request));
 
         return new FilterResource($filter);
     }
 
-    public function update(Filter $filter, FilterUpdateRequest $request)
+    public function update(int $filter, FilterUpdateRequest $request)
     {
+        $filter = $this->filterRepository->find($filter);
+
+        $this->authorize('update', $filter);
+
         $filter = $this->filterStorage->update($filter, FilterDto::fromFormRequest($request));
 
         return new FilterResource($filter);
     }
 
-    public function destroy(Filter $filter)
+    public function destroy(int $filter)
     {
+        $filter = $this->filterRepository->find($filter);
+
+        $this->authorize('delete', $filter);
+
         $this->filterStorage->delete($filter);
 
         return response()->noContent();
@@ -45,6 +54,8 @@ class FilterController extends Controller
 
     public function sort(FilterSortRequest $request)
     {
+        $this->authorize('sort', Filter::class);
+
         $this->filterStorage->sort($request->input('filters'));
 
         return response()->noContent();

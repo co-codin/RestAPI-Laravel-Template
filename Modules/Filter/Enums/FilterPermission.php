@@ -10,6 +10,7 @@ class FilterPermission extends BaseEnum
     const VIEW_FILTERS = 'view filters';
     const EDIT_FILTERS = 'edit filters';
     const DELETE_FILTERS = 'delete filters';
+    const SORT_FILTERS = 'sort filters';
 
     public static function descriptions() : array
     {
@@ -18,6 +19,7 @@ class FilterPermission extends BaseEnum
             static::VIEW_FILTERS => 'Просмотр фильтров',
             static::EDIT_FILTERS => 'Редактирование фильтров',
             static::DELETE_FILTERS => 'Удаление фильтров',
+            static::SORT_FILTERS => 'Сортировка фильтров',
         ];
     }
 }

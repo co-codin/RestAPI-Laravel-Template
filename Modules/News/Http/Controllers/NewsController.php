@@ -11,19 +11,23 @@ class NewsController extends Controller
 {
     public function __construct(
         protected NewsRepository $newsRepository
-    ) {
-        $this->authorizeResource(News::class, 'news');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', News::class);
+
         $news = $this->newsRepository->jsonPaginate();
 
         return NewsResource::collection($news);
     }
 
-    public function show(News $news)
+    public function show(int $news)
     {
+        $news = $this->newsRepository->find($news);
+
+        $this->authorize('view', $news);
+
         return new NewsResource($news);
     }
 }

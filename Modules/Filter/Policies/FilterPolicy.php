@@ -36,4 +36,9 @@ class FilterPolicy extends BasePolicy
     {
         return $user->can(FilterPermission::DELETE_FILTERS);
     }
+
+    public function sort(User $user): bool
+    {
+        return $user->can(FilterPermission::SORT_FILTERS);
+    }
 }
