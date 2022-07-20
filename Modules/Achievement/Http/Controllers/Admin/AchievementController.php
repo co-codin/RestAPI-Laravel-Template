@@ -55,7 +55,7 @@ class AchievementController extends Controller
 
     public function sort(AchievementSortRequest $request)
     {
-        $this->authorize('update', Achievement::class);
+        $this->authorize('sort', Achievement::class);
 
         $this->achievementStorage->sort($request->input('achievements'));
 
