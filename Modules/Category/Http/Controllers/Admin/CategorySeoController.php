@@ -19,8 +19,10 @@ class CategorySeoController extends Controller
         protected CategoryRepository $categoryRepository,
     ) {}
 
-    public function update(SeoUpdateRequest $request, Category $category)
+    public function update(SeoUpdateRequest $request, int $category)
     {
+        $category = $this->categoryRepository->find($category);
+
         $this->authorize('update', $category);
 
         $relation = $request->input('type') == 2

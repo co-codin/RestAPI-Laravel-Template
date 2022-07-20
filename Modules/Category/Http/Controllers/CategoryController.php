@@ -11,12 +11,12 @@ class CategoryController extends Controller
 {
     public function __construct(
         protected CategoryRepository $categoryRepository
-    ) {
-        $this->authorizeResource(Category::class, 'category');
-    }
+    ) {}
 
     public function all()
     {
+        $this->authorize('viewAny', Category::class);
+
         $categories = $this->categoryRepository->all();
 
         return CategoryResource::collection($categories);
@@ -24,13 +24,19 @@ class CategoryController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
+
         $categories = $this->categoryRepository->jsonPaginate();
 
         return CategoryResource::collection($categories);
     }
 
-    public function show(Category $category)
+    public function show(int $category)
     {
+        $category = $this->categoryRepository->find($category);
+
+        $this->authorize('view', $category);
+
         return new CategoryResource($category);
     }
 }
