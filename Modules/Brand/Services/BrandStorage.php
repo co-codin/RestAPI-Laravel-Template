@@ -16,7 +16,7 @@ class BrandStorage
 
         $brand = Brand::query()->create($attributes);
 
-        event(new BrandSaved($brand));
+//        event(new BrandSaved($brand));
 
         return $brand;
     }

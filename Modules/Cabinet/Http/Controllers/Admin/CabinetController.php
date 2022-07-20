@@ -14,13 +14,14 @@ use Modules\Cabinet\Services\CabinetStorage;
 class CabinetController extends Controller
 {
     public function __construct(
-        protected CabinetStorage $cabinetStorage
-    ) {
-        $this->authorizeResource(Cabinet::class, 'cabinet');
-    }
+        protected CabinetStorage $cabinetStorage,
+        protected CabinetRepository $cabinetRepository
+    ) {}
 
     public function store(CabinetCreateRequest $cabinetCreateRequest)
     {
+        $this->authorize('create', Cabinet::class);
+
         $cabinetDto = CabinetDto::fromFormRequest($cabinetCreateRequest);
 
         $cabinet = $this->cabinetStorage->store($cabinetDto);
@@ -28,15 +29,23 @@ class CabinetController extends Controller
         return new CabinetResource($cabinet);
     }
 
-    public function update(Cabinet $cabinet, CabinetUpdateRequest $cabinetUpdateRequest)
+    public function update(int $cabinet, CabinetUpdateRequest $cabinetUpdateRequest)
     {
+        $cabinet = $this->cabinetRepository->find($cabinet);
+
+        $this->authorize('update', $cabinet);
+
         $cabinet = $this->cabinetStorage->update($cabinet, CabinetDto::fromFormRequest($cabinetUpdateRequest));
 
         return new CabinetResource($cabinet);
     }
 
-    public function destroy(Cabinet $cabinet)
+    public function destroy(int $cabinet)
     {
+        $cabinet = $this->cabinetRepository->find($cabinet);
+
+        $this->authorize('update', $cabinet);
+
         $this->cabinetStorage->destroy($cabinet);
 
         return response()->noContent();

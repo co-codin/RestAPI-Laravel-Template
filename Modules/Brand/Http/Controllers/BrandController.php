@@ -11,19 +11,23 @@ class BrandController extends Controller
 {
     public function __construct(
         protected BrandRepository $brandRepository
-    ) {
-        $this->authorizeResource(Brand::class, 'brand');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Brand::class);
+
         $brands = $this->brandRepository->jsonPaginate();
 
         return BrandResource::collection($brands);
     }
 
-    public function show(Brand $brand)
+    public function show(int $brand)
     {
+        $brand = $this->brandRepository->find($brand);
+
+        $this->authorize('viewAny', Brand::class);
+
         return new BrandResource($brand);
     }
 }
