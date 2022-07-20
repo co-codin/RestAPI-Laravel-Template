@@ -24,7 +24,7 @@ class SeoRuleController extends Controller
 
     public function show(int $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->find($seo_rule);
+        $seo_rule = $this->seoRuleRepository->find($seo_rule);
 
         $this->authorize('view', $seoRule);
 

@@ -35,9 +35,9 @@ class SeoRuleController extends Controller
 
     public function update(int $seo_rule, SeoRuleUpdateRequest $request)
     {
-        $seoRule = $this->seoRuleRepository->find($seo_rule);
+        $seo_rule = $this->seoRuleRepository->find($seo_rule);
 
-        $this->authorize('update', $seoRule);
+        $this->authorize('update', $seo_rule);
 
         $seo_rule = $this->seoRuleStorage->update($seo_rule, (new SeoRuleDto($request->validated()))->only(...$request->keys()));
 
@@ -46,9 +46,9 @@ class SeoRuleController extends Controller
 
     public function destroy(int $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->find($seo_rule);
+        $seo_rule = $this->seoRuleRepository->find($seo_rule);
 
-        $this->authorize('delete', $seoRule);
+        $this->authorize('delete', $seo_rule);
 
         $this->seoRuleStorage->delete($seo_rule);
 
