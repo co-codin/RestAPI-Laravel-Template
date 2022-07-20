@@ -15,12 +15,11 @@ class ProductConfiguratorController extends Controller
         protected ProductRepository $productRepository
     ) {}
 
-    /**
-     * @throws \Throwable
-     */
     public function update(ProductConfiguratorUpdateRequest $request, int $productId): ProductResource
     {
         $product = $this->productRepository->find($productId);
+
+        $this->authorize('update', $product);
 
         $this->productConfiguratorStorage->update($product, $request->input('variations'));
 

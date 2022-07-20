@@ -21,6 +21,8 @@ class ProductPropertyController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
+        $this->authorize('update', $productModel);
+
         $this->productPropertyStorage->update($productModel, $request->validated()['properties']);
 
         event(new ProductSaved($productModel));
