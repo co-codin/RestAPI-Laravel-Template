@@ -12,12 +12,12 @@ class PropertyController extends Controller
 {
     public function __construct(
         protected PropertyRepository $propertyRepository
-    ) {
-        $this->authorizeResource(Property::class, 'property');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Property::class);
+
         $properties = $this->propertyRepository->jsonPaginate();
 
         return PropertyResource::collection($properties);
@@ -32,8 +32,12 @@ class PropertyController extends Controller
         return PropertyResource::collection($properties);
     }
 
-    public function show(Property $property)
+    public function show(int $property)
     {
+        $property = $this->propertyRepository->find($property);
+
+        $this->authorize('view', $property);
+
         return new PropertyResource($property);
     }
 }
