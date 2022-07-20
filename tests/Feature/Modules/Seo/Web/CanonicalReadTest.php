@@ -3,12 +3,37 @@
 
 namespace Tests\Feature\Modules\Seo\Web;
 
+use Modules\Role\Models\Permission;
+use Modules\Seo\Enums\CanonicalPermission;
 use Modules\Seo\Models\Canonical;
+use Modules\User\Models\User;
 use Tests\TestCase;
 use function route;
 
 class CanonicalReadTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
+
+        $permission = Permission::factory()->create([
+            'name' => CanonicalPermission::VIEW_CANONICALS
+        ]);
+
+        $user->givePermissionTo($permission->name);
+
+        $response = $this->json('POST', route('auth.login'), [
+            'email' => 'admin@medeq.ru',
+            'password' => 'admin1',
+        ]);
+
+        $this->withToken($response->json('token'));
+    }
+
     public function test_user_can_view_canonicals()
     {
         Canonical::factory()->count($count = 5)->create();
@@ -54,7 +79,7 @@ class CanonicalReadTest extends TestCase
         ]);
     }
 
-    public function test_user_can_view_single_canonical()
+    public function test_user_can_view_a_single_canonical()
     {
         $canonical = Canonical::factory()->create();
 

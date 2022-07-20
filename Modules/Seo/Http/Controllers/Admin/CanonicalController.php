@@ -21,7 +21,7 @@ class CanonicalController extends Controller
 
     public function store(CanonicalCreateRequest $request): CanonicalResource
     {
-        $this->authorize('viewAny', Canonical::class);
+        $this->authorize('create', Canonical::class);
 
         $canonicalDto = CanonicalDto::fromFormRequest($request);
 
