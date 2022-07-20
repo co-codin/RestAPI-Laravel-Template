@@ -15,34 +15,31 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 class ProductAnswerController extends Controller
 {
     public function __construct(
-        private ProductAnswerStorage $storage
-    ) {
-        $this->authorizeResource(ProductAnswer::class, 'product_answer');
-    }
+        protected ProductAnswerStorage $productAnswerStorage,
+        protected ProductAnswerRepository $productAnswerRepository
+    ) {}
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
-    public function store(ProductAnswerRequest $request): ProductAnswerResource
+    public function store(ProductAnswerRequest $request)
     {
-        $answer = $this->storage->store(
+        $this->authorize('create', ProductAnswer::class);
+
+        $answer = $this->productAnswerStorage->store(
             ProductAnswerDto::fromFormRequest($request)
         );
 
         return new ProductAnswerResource($answer);
     }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function update(
         ProductAnswerRequest $request,
-        ProductAnswer $product_answer
+        int $product_answer
     ): ProductAnswerResource
     {
-        $answer = $this->storage->update(
+        $product_answer = $this->productAnswerRepository->find($product_answer);
+
+        $this->authorize('update', $product_answer);
+
+        $answer = $this->productAnswerStorage->update(
             $product_answer,
             ProductAnswerDto::fromFormRequest($request)
         );
@@ -50,20 +47,17 @@ class ProductAnswerController extends Controller
         return new ProductAnswerResource($answer);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function destroy(ProductAnswer $product_answer): Response
+    public function destroy(int $product_answer): Response
     {
-        $this->storage->delete($product_answer);
+        $product_answer = $this->productAnswerRepository->find($product_answer);
 
-        return \response()->noContent();
+        $this->authorize('delete', $product_answer);
+
+        $this->productAnswerStorage->delete($product_answer);
+
+        return response()->noContent();
     }
 
-    /**
-     * Get all added unique question repliers
-     * @return array
-     */
     public function persons()
     {
         return ProductAnswer::query()

@@ -12,20 +12,24 @@ use Modules\Product\Repositories\ProductAnswerRepository;
 class ProductAnswerController extends Controller
 {
     public function __construct(
-        private ProductAnswerRepository $repository
-    ) {
-        $this->authorizeResource(ProductAnswer::class, 'product_answer');
-    }
+        protected ProductAnswerRepository $productAnswerRepository
+    ) {}
 
-    public function index(): AnonymousResourceCollection
+    public function index()
     {
+        $this->authorize('viewAny', ProductAnswer::class);
+
         return ProductAnswerResource::collection(
-            $this->repository->jsonPaginate()
+            $this->productAnswerRepository->jsonPaginate()
         );
     }
 
-    public function show(ProductAnswer $product_answer): ProductAnswerResource
+    public function show(int $product_answer): ProductAnswerResource
     {
+        $product_answer = $this->productAnswerRepository->find($product_answer);
+
+        $this->authorize('view', $product_answer);
+
         return new ProductAnswerResource($product_answer);
     }
 }
