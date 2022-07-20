@@ -41,7 +41,6 @@ class CreateTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'name' => $roleData['name'],
-            'guard_name' => $roleData['guard_name'],
         ]);
 
         $this->assertDatabaseHas('role_has_permissions', [
