@@ -36,4 +36,9 @@ class QuestionPolicy extends BasePolicy
     {
         return $user->can(QuestionPermission::DELETE_QUESTIONS);
     }
+
+    public function sort(User $user): bool
+    {
+        return $user->can(QuestionPermission::SORT_QUESTIONS);
+    }
 }
