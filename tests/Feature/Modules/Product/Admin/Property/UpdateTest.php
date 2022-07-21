@@ -5,8 +5,11 @@ namespace Tests\Feature\Modules\Product\Admin\Property;
 
 use App\Enums\Status;
 use Illuminate\Http\UploadedFile;
+use Modules\Product\Enums\ProductPermission;
 use Modules\Product\Models\Product;
 use Modules\Property\Models\Property;
+use Modules\Role\Models\Permission;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -32,7 +35,22 @@ class UpdateTest extends TestCase
 
     public function test_authenticated_can_update_property_in_product()
     {
-        $this->authenticateUser();
+        $user = User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
+
+        $permission = Permission::factory()->create([
+            'name' => ProductPermission::EDIT_PRODUCTS
+        ]);
+
+        $user->givePermissionTo($permission->name);
+
+        $response = $this->json('POST', route('auth.login'), [
+            'email' => 'admin@medeq.ru',
+            'password' => 'admin1',
+        ]);
+
+        $this->withToken($response->json('token'));
 
         $product = Product::factory()->create();
 
