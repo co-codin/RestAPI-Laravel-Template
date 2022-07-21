@@ -1,0 +1,21 @@
+extend type Query {
+    cities(
+        where: _ @whereConditions(columns: ["id", "name", "slug", "status", "federal_district"])
+        orderBy: _ @orderBy(columns: ["id", "name", "slug"])
+        sortBySoldProductCount: Boolean @scope(name: "sortBySoldProducts")
+        withOrderPoints: Boolean @scope(name: "withOrderPoints")
+    ): [City!]!
+    @paginate(scopes: ["active"])
+    @orderBy(column: "id", direction: "ASC")
+
+    allCities(
+        where: _ @whereConditions(columns: ["id",  "name", "slug", "status", "federal_district"])
+        withSoldProducts: Boolean @scope(name: "withSoldProducts")
+        withOrderPoints: Boolean @scope(name: "withOrderPoints")
+        orderBy: _ @orderBy(columns: ["id", "name", "slug"])
+    ): [City!]!
+    @all(scopes: ["active"])
+    @orderBy(column: "id", direction: "ASC")
+
+    city(id: ID @eq, slug: String @eq): City @find(scopes: ["active"])
+}

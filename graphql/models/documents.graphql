@@ -1,0 +1,10 @@
+type Document {
+    id: ID!
+    documentable_type: String!
+    documentable_id: Int!
+    document_group_id: Int!
+    name: String!
+    type: Int!
+    file: String!
+    documentGroup: DocumentGroup @belongsTo
+}

@@ -1,0 +1,10 @@
+type Question {
+    question_category_id: Int!
+    id: ID!
+    question: String!
+    slug: String!
+    answer: String!
+    status: Boolean!
+    position: Int
+    question_category: QuestionCategory! @belongsTo
+}

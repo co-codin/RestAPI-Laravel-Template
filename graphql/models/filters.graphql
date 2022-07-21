@@ -1,0 +1,38 @@
+type Filter {
+    id: ID!
+    name: String!
+    slug: String!
+    type: Int!
+    is_system: Boolean
+    facet: FilterFacet
+    category_id: Int!
+    is_enabled: Boolean!
+    is_default: Boolean!
+    is_hide_links_from_code: Boolean!
+    description: String
+    position: Int
+    unit: String
+    options: FilterOptions
+    property: Property @belongsTo
+    category: Category! @belongsTo
+}
+
+type FilterOptions {
+    seoPrefix: String
+    seoTagLabel: String
+    seoTagLabels: [FilterSeoTagLabel!]
+}
+
+type FilterSeoTagLabel {
+    key: String!
+    value: String!
+}
+
+scalar FacetValue @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+
+type FilterFacet {
+    name: String
+    property_id: Int
+    path: String
+    value: FacetValue
+}

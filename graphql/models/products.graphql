@@ -1,0 +1,68 @@
+scalar MixedPrice @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+scalar Documents @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+
+type Product {
+    id: ID!
+    article: Int
+    name: String!
+    slug: String!
+    brand_id: Int
+    status: Int!
+    image: String
+    is_in_home: Boolean!
+    warranty: Int
+    warranty_info: String
+    is_arbitrary_warranty: Boolean!
+    arbitrary_warranty_info: String
+    short_description: String
+    full_description: String
+    assigned_by_id: Int
+    has_test_drive: Boolean!
+    booklet: String
+    video: String
+    benefits: ProductBenefits
+    is_manually_analogs: Boolean!
+    country_id: Int
+    price: MixedPrice
+    group_id: Int
+    rating: Float
+    documents: Documents
+    brand: Brand! @belongsTo
+    productVariations: [ProductVariation!]! @with(relation: "productVariations")
+    productCategories: [ProductCategory!]! @hasMany
+    mainVariation: ProductVariation @with(relation: "mainVariation")
+    category: Category @with(relation: "category")
+    categories: [Category!] @with(relation: "categories")
+    properties: [Property!]! @with(relation: "properties")
+    images: [Image!] @morphMany
+    seo: Seo @morphOne
+    stockType: FieldValue @belongsTo
+    productReviews: [ProductReview!]  @with(relation: "productReviews", scopes: ["published"])
+    productReviewCount: Int! @count(relation: "productReviews", scopes: ["published"])
+    productQuestions: [ProductQuestion!]  @with(relation: "productQuestions", scopes: ["published"])
+    productQuestionCount: Int! @withCount(relation: "productQuestions", scopes: ["published"])
+    productAnswers: [ProductAnswer!]  @with(relation: "productAnswers")
+    productAnswerCount: Int @withCount(relation: "productAnswers")
+    analogs: [Product!]  @with(relation: "analogs")
+    analogsCount: Int! @withCount(relation: "analogs")
+    activeAnalogs: [Product!]  @with(relation: "activeAnalogs")
+    activeAnalogsCount: Int! @withCount(relation: "activeAnalogs")
+    country: FieldValue @belongsTo
+}
+
+
+type ProductBenefits {
+    benefit: String
+    chips: [ProductBenefitChip]
+    information: [ProductBenefitInformation]
+}
+
+type ProductBenefitChip {
+    value: String
+    description: String
+}
+
+type ProductBenefitInformation {
+    icon: String
+    description: String
+}

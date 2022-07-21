@@ -1,0 +1,15 @@
+type CustomerReview {
+    id: ID!
+    company_name: String
+    position: String!
+    author: String!
+    type: Int!
+    type_name: String!
+    video: String
+    review_file: String
+    is_in_home: Boolean!
+    comment: String
+    logo: String
+    product_id: Int
+    product: Product @belongsTo
+}

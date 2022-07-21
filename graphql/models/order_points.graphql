@@ -1,0 +1,22 @@
+type OrderPoint {
+    id: ID!
+    name: String
+    city_id: Int!
+    address: String!
+    coordinate: Coordinate!
+    embed_map_url: String
+    phone: String
+    email: String
+    info: String
+    timetable: String
+    type: Int!
+    status: Int!
+    short_address: String
+
+    city: City @belongsTo
+}
+
+type Coordinate {
+    lat: Float!
+    long: Float!
+}

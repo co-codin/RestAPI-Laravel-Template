@@ -1,0 +1,44 @@
+extend type Query {
+    categories(
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "product_name",
+            "full_description", "status",
+            "is_in_home", "image", "parent_id", "assigned_by_id",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "product_name",
+            "full_description",
+            "is_in_home", "image", "parent_id", "assigned_by_id",
+        ])
+    ): [Category!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+
+    allCategories(
+        where: _ @whereConditions(columns: [
+            "id", "name", "slug", "product_name",
+            "full_description", "status",
+            "is_in_home", "image", "parent_id", "assigned_by_id"
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "slug", "product_name",
+            "full_description",
+            "is_in_home", "image", "parent_id", "assigned_by_id"
+        ])
+    ): [Category!]!
+    @all
+    @orderBy(column: "id", direction: "ASC")
+
+
+    category(id: ID @eq, slug: String @eq): Category @find(scopes: ["visible"])
+
+    getRootCategoriesByProductIds(
+        productIds: [Int!]!
+    ): [Category!]!
+    @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getRootCategories")
+
+    getCategoriesByProductIds(
+        productIds: [Int!]!
+    ): [Category!]!
+    @field(resolver: "\\Modules\\Category\\Services\\CategoryBuilder@getCategoriesByProductIds")
+}

@@ -1,0 +1,13 @@
+type Vacancy {
+    id: ID!
+    name: String!
+    slug: String!
+    short_description: String!
+    status: Int!
+    experience: String
+    timetable: String
+    occupation: String
+    duty: String
+    requirement: String
+    condition: String
+}
