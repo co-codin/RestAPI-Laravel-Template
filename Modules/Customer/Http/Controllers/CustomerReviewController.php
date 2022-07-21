@@ -15,8 +15,6 @@ class CustomerReviewController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', CustomerReview::class);
-
         $customerReviews = $this->customerReviewRepository->jsonPaginate();
 
         return CustomerReviewResource::collection($customerReviews);
@@ -25,8 +23,6 @@ class CustomerReviewController extends Controller
     public function show(int $customerReview)
     {
         $customerReview = $this->customerReviewRepository->find($customerReview);
-
-        $this->authorize('view', $customerReview);
 
         return new CustomerReviewResource($customerReview);
     }

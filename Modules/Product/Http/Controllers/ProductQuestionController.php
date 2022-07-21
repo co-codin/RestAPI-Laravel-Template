@@ -16,8 +16,6 @@ class ProductQuestionController extends Controller
 
     public function index(): AnonymousResourceCollection
     {
-        $this->authorize('viewAny', ProductQuestion::class);
-
         return ProductQuestionResource::collection(
             $this->productQuestionRepository->jsonPaginate()
         );
@@ -26,8 +24,6 @@ class ProductQuestionController extends Controller
     public function show(int $product_question): ProductQuestionResource
     {
         $product_question = $this->productQuestionRepository($product_question);
-
-        $this->authorize('view', $product_question);
 
         return new ProductQuestionResource($product_question);
     }

@@ -15,8 +15,6 @@ class PublicationController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Publication::class);
-
         $publications = $this->publicationRepository->jsonPaginate();
 
         return PublicationResource::collection($publications);
@@ -25,8 +23,6 @@ class PublicationController extends Controller
     public function show(int $publication)
     {
         $publication = $this->publicationRepository->find($publication);
-
-        $this->authorize('view', $publication);
 
         return new PublicationResource($publication);
     }

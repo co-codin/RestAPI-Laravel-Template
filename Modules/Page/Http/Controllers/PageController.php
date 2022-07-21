@@ -15,8 +15,6 @@ class PageController extends Controller
 
     public function all()
     {
-        $this->authorize('viewAny', Page::class);
-
         $pages = $this->pageRepository->all();
 
         return PageResource::collection($pages);
@@ -24,8 +22,6 @@ class PageController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Page::class);
-
         $pages = $this->pageRepository->jsonPaginate();
 
         return PageResource::collection($pages);
@@ -34,8 +30,6 @@ class PageController extends Controller
     public function show(int $page)
     {
         $page = $this->pageRepository->find($page);
-
-        $this->authorize('view', $page);
 
         return new PageResource($page);
     }

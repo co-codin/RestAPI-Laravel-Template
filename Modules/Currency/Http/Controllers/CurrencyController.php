@@ -17,8 +17,6 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Currency::class);
-
         $currencies = $this->currencyRepository->jsonPaginate();
 
         return CurrencyResource::collection($currencies);
@@ -27,8 +25,6 @@ class CurrencyController extends Controller
     public function show(int $currency)
     {
         $currency = $this->currencyRepository->find($currency);
-
-        $this->authorize('view', $currency);
 
         return new CurrencyResource($currency);
     }

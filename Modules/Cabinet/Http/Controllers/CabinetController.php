@@ -15,8 +15,6 @@ class CabinetController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Cabinet::class);
-
         $cabinets = $this->cabinetRepository->jsonPaginate();
 
         return CabinetResource::collection($cabinets);
@@ -25,8 +23,6 @@ class CabinetController extends Controller
     public function show(int $cabinet)
     {
         $cabinet = $this->cabinetRepository->find($cabinet);
-
-        $this->authorize('view', $cabinet);
 
         return new CabinetResource($cabinet);
     }

@@ -17,8 +17,6 @@ class FilterController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Filter::class);
-
         $filters = $this->filterRepository->jsonPaginate();
 
         return FilterResource::collection($filters);
@@ -27,8 +25,6 @@ class FilterController extends Controller
     public function show(int $filter)
     {
         $filter = $this->filterRepository->find($filter);
-
-        $this->authorize('view', $filter);
 
         return new FilterResource($filter);
     }

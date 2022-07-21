@@ -15,8 +15,6 @@ class CategoryController extends Controller
 
     public function all()
     {
-        $this->authorize('viewAny', Category::class);
-
         $categories = $this->categoryRepository->all();
 
         return CategoryResource::collection($categories);
@@ -24,8 +22,6 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Category::class);
-
         $categories = $this->categoryRepository->jsonPaginate();
 
         return CategoryResource::collection($categories);
@@ -34,8 +30,6 @@ class CategoryController extends Controller
     public function show(int $category)
     {
         $category = $this->categoryRepository->find($category);
-
-        $this->authorize('view', $category);
 
         return new CategoryResource($category);
     }

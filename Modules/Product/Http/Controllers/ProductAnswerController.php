@@ -17,8 +17,6 @@ class ProductAnswerController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', ProductAnswer::class);
-
         return ProductAnswerResource::collection(
             $this->productAnswerRepository->jsonPaginate()
         );
@@ -27,8 +25,6 @@ class ProductAnswerController extends Controller
     public function show(int $product_answer): ProductAnswerResource
     {
         $product_answer = $this->productAnswerRepository->find($product_answer);
-
-        $this->authorize('view', $product_answer);
 
         return new ProductAnswerResource($product_answer);
     }

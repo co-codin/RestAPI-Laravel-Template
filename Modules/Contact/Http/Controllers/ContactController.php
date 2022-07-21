@@ -16,8 +16,6 @@ class ContactController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Contact::class);
-
         $contacts = $this->contactRepository->jsonPaginate();
 
         return ContactResource::collection($contacts);
@@ -26,8 +24,6 @@ class ContactController extends Controller
     public function show(int $contact)
     {
         $contact = $this->contactRepository->find($contact);
-
-        $this->authorize('view', $contact);
 
         return new ContactResource($contact);
     }

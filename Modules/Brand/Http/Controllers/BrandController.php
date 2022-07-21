@@ -15,8 +15,6 @@ class BrandController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Brand::class);
-
         $brands = $this->brandRepository->jsonPaginate();
 
         return BrandResource::collection($brands);
@@ -25,8 +23,6 @@ class BrandController extends Controller
     public function show(int $brand)
     {
         $brand = $this->brandRepository->find($brand);
-
-        $this->authorize('viewAny', Brand::class);
 
         return new BrandResource($brand);
     }

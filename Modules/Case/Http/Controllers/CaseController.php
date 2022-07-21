@@ -15,8 +15,6 @@ class CaseController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', CaseModel::class);
-
         $cases = $this->caseRepository->jsonPaginate();
 
         return CaseResource::collection($cases);
@@ -25,8 +23,6 @@ class CaseController extends Controller
     public function show(int $case)
     {
         $case = $this->caseRepository->find($case);
-
-        $this->authorize('view', $case);
 
         return new CaseResource($case);
     }

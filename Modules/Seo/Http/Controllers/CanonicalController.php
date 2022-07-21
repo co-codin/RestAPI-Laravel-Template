@@ -15,8 +15,6 @@ class CanonicalController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Canonical::class);
-
         $canonicals = $this->canonicalRepository->jsonPaginate();
 
         return CanonicalResource::collection($canonicals);
@@ -25,8 +23,6 @@ class CanonicalController extends Controller
     public function show(int $canonical)
     {
         $canonical = $this->canonicalRepository->find($canonical);
-
-        $this->authorize('view', $canonical);
 
         return new CanonicalResource($canonical);
     }

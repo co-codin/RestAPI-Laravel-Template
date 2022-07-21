@@ -11,9 +11,7 @@ class VacancyController extends Controller
 {
     public function __construct(
         protected VacancyRepository $vacancyRepository
-    ) {
-        $this->authorizeResource(Vacancy::class, 'vacancy');
-    }
+    ) {}
 
     public function index()
     {

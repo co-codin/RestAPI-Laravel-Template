@@ -17,8 +17,6 @@ class ExportController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Export::class);
-
         $exports = $this->exportRepository->jsonPaginate();
 
         return ExportResource::collection($exports);
@@ -27,8 +25,6 @@ class ExportController extends Controller
     public function show(int $export)
     {
         $export = $this->exportRepository->find($export);
-
-        $this->authorize('view', $export);
 
         return new ExportResource($export);
     }
