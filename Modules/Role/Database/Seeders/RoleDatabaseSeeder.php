@@ -14,6 +14,7 @@ class RoleDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
     }
 }
