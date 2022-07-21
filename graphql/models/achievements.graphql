@@ -1,0 +1,7 @@
+type Achievement {
+    id: ID!
+    name: String!
+    image: String!
+    is_enabled: Boolean!
+    position: Int
+}

@@ -1,0 +1,6 @@
+type Attribute {
+    id: ID!
+    name: String!
+    is_default: Boolean!
+    assigned_by_id: Int
+}

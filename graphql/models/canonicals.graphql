@@ -1,0 +1,7 @@
+type Canonical {
+    id: ID!
+    url: String!
+    canonical: String!
+    assigned_by_id: Int
+    seo: Seo @morphOne
+}
