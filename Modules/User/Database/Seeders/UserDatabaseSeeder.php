@@ -9,11 +9,6 @@ use Modules\User\Models\User;
 
 class UserDatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Model::unguard();
@@ -22,8 +17,6 @@ class UserDatabaseSeeder extends Seeder
             'email' => 'admin@medeq.ru'
         ]);
 
-        $user->roles()->sync(Role::find(1)); // admin role
-
-        // $this->call("OthersTableSeeder");
+        $user->assignRole(Role::find(1));
     }
 }

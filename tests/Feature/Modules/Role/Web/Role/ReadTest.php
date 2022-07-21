@@ -20,7 +20,7 @@ class ReadTest extends TestCase
     {
         Role::factory()->count($count = 5)->create();
 
-        $response = $this->json('GET', route('roles.index'));
+        $response = $this->json('GET', route('admin.roles.index'));
 
         $response->assertOk();
         $this->assertEquals($count + 1, count(($response['data'])));
