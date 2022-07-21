@@ -16,8 +16,6 @@ class PropertyController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Property::class);
-
         $properties = $this->propertyRepository->jsonPaginate();
 
         return PropertyResource::collection($properties);
@@ -25,8 +23,6 @@ class PropertyController extends Controller
 
     public function all()
     {
-        $this->authorize('viewAny', Property::class);
-
         $properties = $this->propertyRepository->all();
 
         return PropertyResource::collection($properties);

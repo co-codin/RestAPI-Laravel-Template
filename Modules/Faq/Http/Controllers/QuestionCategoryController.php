@@ -15,8 +15,6 @@ class QuestionCategoryController extends Controller
 
     public function all()
     {
-        $this->authorize('viewAny', QuestionCategory::class);
-
         $questionCategories = $this->questionCategoryRepository->all();
 
         return QuestionCategoryResource::collection($questionCategories);
@@ -24,8 +22,6 @@ class QuestionCategoryController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', QuestionCategory::class);
-
         $questionCategories = $this->questionCategoryRepository->jsonPaginate();
 
         return QuestionCategoryResource::collection($questionCategories);

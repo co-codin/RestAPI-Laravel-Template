@@ -15,8 +15,6 @@ class SeoRuleController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', SeoRule::class);
-
         $seoRules = $this->seoRuleRepository->jsonPaginate();
 
         return SeoRuleResource::collection($seoRules);
@@ -26,8 +24,6 @@ class SeoRuleController extends Controller
     {
         $seo_rule = $this->seoRuleRepository->find($seo_rule);
 
-        $this->authorize('view', $seoRule);
-
-        return new SeoRuleResource($seoRule);
+        return new SeoRuleResource($seo_rule);
     }
 }

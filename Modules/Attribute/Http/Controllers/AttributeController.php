@@ -15,8 +15,6 @@ class AttributeController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Attribute::class);
-
         $attributes = $this->attributeRepository->jsonPaginate();
 
         return AttributeResource::collection($attributes);
@@ -25,8 +23,6 @@ class AttributeController extends Controller
     public function show(int $attribute)
     {
         $attribute = $this->attributeRepository->find($attribute);
-
-        $this->authorize('viewAny', $attribute);
 
         return new AttributeResource($attribute);
     }

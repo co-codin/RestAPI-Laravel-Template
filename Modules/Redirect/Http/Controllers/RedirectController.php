@@ -17,8 +17,6 @@ class RedirectController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Redirect::class);
-
         $redirects = $this->redirectRepository->jsonPaginate();
 
         return RedirectResource::collection($redirects);
@@ -27,8 +25,6 @@ class RedirectController extends Controller
     public function show(int $redirect)
     {
         $redirect = $this->redirectRepository->find($redirect);
-
-        $this->authorize('view', $redirect);
 
         return new RedirectResource($redirect);
     }

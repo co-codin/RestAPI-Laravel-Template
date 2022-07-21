@@ -15,8 +15,6 @@ class NewsController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', News::class);
-
         $news = $this->newsRepository->jsonPaginate();
 
         return NewsResource::collection($news);
@@ -25,8 +23,6 @@ class NewsController extends Controller
     public function show(int $news)
     {
         $news = $this->newsRepository->find($news);
-
-        $this->authorize('view', $news);
 
         return new NewsResource($news);
     }
