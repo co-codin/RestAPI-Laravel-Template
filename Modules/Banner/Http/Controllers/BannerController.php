@@ -11,19 +11,23 @@ class BannerController extends Controller
 {
     public function __construct(
         protected BannerRepository $bannerRepository
-    ) {
-        $this->authorizeResource(Banner::class, 'banner');
-    }
+    ) {}
 
     public function index()
     {
+        $this->authorize('viewAny', Banner::class);
+
         $banners = $this->bannerRepository->jsonPaginate();
 
         return BannerResource::collection($banners);
     }
 
-    public function show(Banner $banner)
+    public function show(int $banner)
     {
+        $banner = $this->bannerRepository->find($banner);
+
+        $this->authorize('view', $banner);
+
         return new BannerResource($banner);
     }
 }
