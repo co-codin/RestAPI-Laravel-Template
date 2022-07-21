@@ -24,7 +24,7 @@ class CaseModelFactory extends Factory
         return [
             'city_id' => City::factory(),
             'name' => $this->faker->word,
-            'slug' => $this->faker->unique()->word,
+            'slug' => $this->faker->unique()->slug(),
             'short_description' => $this->faker->sentence,
             'full_description' => $this->faker->sentence,
             'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',

@@ -12,7 +12,7 @@ class CityFactory extends Factory
     {
         return [
             'name' => $this->faker->city,
-            'slug' => $this->faker->unique()->word(),
+            'slug' => $this->faker->unique()->slug(),
             'status' => 1,
             'is_default' => 2,
             'coordinate' => [
