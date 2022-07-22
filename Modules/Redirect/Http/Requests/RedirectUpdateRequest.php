@@ -21,6 +21,7 @@ class RedirectUpdateRequest extends BaseFormRequest
             'destination' => 'sometimes|required|string|max:255',
             'code' => [
                 'sometimes',
+                'required',
                 'integer',
                 'digits:3',
                 new EnumValue(RedirectCode::class, false),

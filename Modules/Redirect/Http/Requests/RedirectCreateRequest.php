@@ -16,7 +16,7 @@ class RedirectCreateRequest extends BaseFormRequest
             'source' => 'required|string|max:255|unique:redirects,source',
             'destination' => 'required|string|max:255',
             'code' => [
-                'sometimes',
+                'required',
                 'integer',
                 'digits:3',
                 new EnumValue(RedirectCode::class, false),
