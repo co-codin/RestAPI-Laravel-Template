@@ -19,7 +19,7 @@ class PhoneVerificationController extends Controller
     {
         $phone = $request->validated()['phone'];
 
-        $verifyType = $request->validated()['verify_type'];
+        $verifyType = (int) $request->validated()['verify_type'];
 
         $client = Client::wherePhone($phone)->first()
             ?? throw new \Exception('Пользователь не найден');
