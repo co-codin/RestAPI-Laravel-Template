@@ -29,6 +29,10 @@ class UserRequestCriteria implements CriteriaInterface
                 ])),
                 AllowedFilter::trashed(),
             ])
+            ->allowedIncludes([
+                'roles',
+                'roles.permissions',
+            ])
             ->allowedSorts([
                 'id',
                 'name',

@@ -47,6 +47,17 @@ class RoleStorage
         return $role;
     }
 
+    public function updatePermissions(Role $role, array $permissions)
+    {
+        $role->permissions()->detach();
+
+        $permissions = array_filter($permissions, fn($permission) => $permission['level']);
+
+        foreach ($permissions as $permission) {
+            $role->permissions()->attach($permission['id']);
+        }
+    }
+
     public function delete(Role $role)
     {
         if (!$role->delete()) {

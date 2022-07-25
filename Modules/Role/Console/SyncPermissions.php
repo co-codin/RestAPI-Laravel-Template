@@ -28,20 +28,30 @@ class SyncPermissions extends Command
             ->name('/Permission.php$/')
             ->files();
 
+        $availablePermissions = [];
+
         $permissions = collect($permissionFiles)
             ->map(function(SplFileInfo $file) {
                 return "\\" . ucfirst(str_replace("/", "\\", str_replace(base_path() . "/", "", $file->getPath()))) . "\\" . $file->getBasename('.' . $file->getExtension());
             })
             ->filter(fn(string $class) => is_subclass_of($class, PermissionEnum::class))
-            ->map(fn($class) => $class::descriptions())
-            ->collapse()
-            ->each(function($description, $name) {
-                Permission::updateOrCreate(
-                    ['name' => $name],
-                    ['description' => $description, 'guard_name' => 'api']
-                );
+            ->each(function($enumClass) use(&$availablePermissions) {
+                foreach($enumClass::descriptions() as $value => $text) {
+                    $availablePermissions[] = $value;
+                    Permission::query()
+                        ->updateOrCreate(
+                            ['name' => $value],
+                            [
+                                'description' => $text,
+                                'guard_name' => 'api',
+                                'module' => method_exists($enumClass, 'module') ? $enumClass::module() : null
+                            ]
+                        );
+                }
             });
 
-        Permission::whereNotIn('name', $permissions->keys())->delete();
+        Permission::query()
+            ->whereNotIn('name', $availablePermissions)
+            ->delete();
     }
 }

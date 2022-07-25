@@ -12,6 +12,11 @@ final class RolePermission implements PermissionEnum
     const EDIT_ROLES = 'edit roles';
     const DELETE_ROLES = 'delete roles';
 
+    public static function module(): string
+    {
+        return 'Роли';
+    }
+
     public static function descriptions() : array
     {
         return [

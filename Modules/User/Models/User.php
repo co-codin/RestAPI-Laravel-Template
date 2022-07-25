@@ -10,7 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Role\Models\Role;
 use Modules\User\Database\factories\UserFactory;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Class User
@@ -38,17 +37,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected $appends = [
-        'role'
-    ];
-
-    protected function role(): Attribute
-    {
-        return new Attribute(
-            get: fn($value) => $this->roles->first(),
-        );
-    }
 
     protected static function newFactory()
     {

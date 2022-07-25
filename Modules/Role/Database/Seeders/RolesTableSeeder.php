@@ -9,19 +9,19 @@ use Modules\Role\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    protected $roles = [
+        'Администратор' => '*',
+        'Продакт' => '*',
+    ];
+
     public function run()
     {
-        $rolesAndPermissions = [
-            'Администратор' => '*',
-            'Директор' => '*',
-        ];
+        $this->seedRoles();
+    }
 
-        foreach ($rolesAndPermissions as $name => $permissions)
+    protected function seedRoles()
+    {
+        foreach ($this->roles as $name => $permissions)
         {
             $role = Role::firstOrCreate([
                 'name' => $name,

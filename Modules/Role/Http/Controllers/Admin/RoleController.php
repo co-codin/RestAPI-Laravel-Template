@@ -3,9 +3,11 @@
 namespace Modules\Role\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Modules\Role\Dto\RoleDto;
 use Modules\Role\Http\Requests\RoleCreateRequest;
+use Modules\Role\Http\Requests\RolePermissionRequest;
 use Modules\Role\Http\Requests\RoleUpdateRequest;
 use Modules\Role\Models\Role;
 use Modules\Role\Repositories\RoleRepository;
@@ -14,6 +16,8 @@ use Modules\Role\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
+    use ValidatesRequests;
+
     public function __construct(
         protected RoleStorage $roleStorage,
         protected RoleRepository $roleRepository
@@ -55,6 +59,15 @@ class RoleController extends Controller
         $role = $this->roleStorage->update($role, RoleDto::fromFormRequest($request));
 
         return new RoleResource($role);
+    }
+
+    public function updatePermissions(RolePermissionRequest $request, int $role)
+    {
+        $role = $this->roleRepository->find($role);
+
+        $this->roleStorage->updatePermissions($role, $request->input('permissions'));
+
+        return response()->noContent();
     }
 
     public function destroy(int $role)
