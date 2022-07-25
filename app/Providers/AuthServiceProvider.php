@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Modules\Role\Enums\DefaultRole;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::before(function ($user) {
+            return $user->hasRole(DefaultRole::ADMIN);
+        });
     }
 }
