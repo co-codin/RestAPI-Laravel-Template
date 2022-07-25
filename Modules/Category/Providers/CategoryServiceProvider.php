@@ -2,8 +2,11 @@
 
 namespace Modules\Category\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Category\Console\ExportCategoriesWithNoImage;
+use Modules\Category\Models\Category;
+use Modules\Category\Policies\CategoryPolicy;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -11,11 +14,16 @@ class CategoryServiceProvider extends ServiceProvider
 
     protected $moduleNameLower = 'category';
 
+    protected array $policies = [
+        Category::class => CategoryPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->registerCommands();
     }
@@ -49,6 +57,14 @@ class CategoryServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
     }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     protected function registerCommands()
     {
         $this->commands([

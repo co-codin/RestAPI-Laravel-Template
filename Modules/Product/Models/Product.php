@@ -96,6 +96,10 @@ class Product extends Model
         'group_id' => 'integer',
     ];
 
+    protected $appends = [
+        'rating'
+    ];
+
     protected static function boot()
     {
         parent::boot();

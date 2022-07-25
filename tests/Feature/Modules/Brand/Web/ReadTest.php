@@ -3,11 +3,36 @@
 
 namespace Tests\Feature\Modules\Brand\Web;
 
+use Modules\Brand\Enums\BrandPermission;
 use Modules\Brand\Models\Brand;
+use Modules\Role\Models\Permission;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class ReadTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create([
+            'email' => 'admin@medeq.ru'
+        ]);
+
+        $permission = Permission::factory()->create([
+            'name' => BrandPermission::VIEW_BRANDS
+        ]);
+
+        $user->givePermissionTo($permission->name);
+
+        $response = $this->json('POST', route('auth.login'), [
+            'email' => 'admin@medeq.ru',
+            'password' => 'admin1',
+        ]);
+
+        $this->withToken($response->json('token'));
+    }
+
     public function test_user_can_view_brands()
     {
         Brand::factory()->count($count = 5)->create();

@@ -2,8 +2,9 @@
 
 namespace Modules\Cabinet\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Cabinet\Http\Resources\CabinetResource;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Cabinet\Repositories\CabinetRepository;
 
 class CabinetController extends Controller

@@ -4,8 +4,8 @@ namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Category\Http\Resources\CategoryResource;
+use Modules\Category\Models\Category;
 use Modules\Category\Repositories\CategoryRepository;
-use Modules\Geo\Models\City;
 
 class CategoryController extends Controller
 {

@@ -4,8 +4,9 @@
 namespace Modules\Export\Http\Controllers;
 
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Export\Http\Resources\ExportResource;
+use Modules\Export\Models\Export;
 use Modules\Export\Repositories\ExportRepository;
 
 class ExportController extends Controller

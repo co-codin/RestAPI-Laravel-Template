@@ -9,6 +9,7 @@ use Modules\Product\Dto\ProductDto;
 use Modules\Product\Http\Requests\Admin\ProductCreateRequest;
 use Modules\Product\Http\Requests\Admin\ProductUpdateRequest;
 use Modules\Product\Http\Resources\ProductResource;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Services\ProductStorage;
 
@@ -21,6 +22,8 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         $productDto = ProductDto::fromFormRequest($request);
 
         if (!$productDto->assigned_by_id) {
@@ -34,18 +37,22 @@ class ProductController extends Controller
 
     public function update(int $product, ProductUpdateRequest $request)
     {
-        $productModel = $this->productRepository->find($product);
+        $product = $this->productRepository->find($product);
 
-        $productModel = $this->productStorage->update($productModel, ProductDto::fromFormRequest($request));
+        $this->authorize('update', $product);
 
-        return new ProductResource($productModel);
+        $product = $this->productStorage->update($product, ProductDto::fromFormRequest($request));
+
+        return new ProductResource($product);
     }
 
     public function destroy(int $product)
     {
-        $productModel = $this->productRepository->find($product);
+        $product = $this->productRepository->find($product);
 
-        $this->productStorage->delete($productModel);
+        $this->authorize('delete', $product);
+
+        $this->productStorage->delete($product);
 
         return response()->noContent();
     }

@@ -8,34 +8,30 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Modules\Review\Dto\ProductReviewDto;
 use Modules\Review\Http\Requests\ProductReviewCreateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
+use Modules\Review\Models\ProductReview;
 use Modules\Review\Repositories\ProductReviewRepository;
 use Modules\Review\Services\ProductReviewStorage;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductReviewController extends Controller
 {
     public function __construct(
-        private ProductReviewRepository $repository
+        protected ProductReviewRepository $productReviewRepository
     ) {}
 
     public function index(): AnonymousResourceCollection
     {
         return ProductReviewResource::collection(
-            $this->repository->jsonPaginate()
+            $this->productReviewRepository->jsonPaginate()
         );
     }
 
-    public function show(int $productReviewId): ProductReviewResource
+    public function show(int $product_review): ProductReviewResource
     {
-        return new ProductReviewResource(
-            $this->repository->find($productReviewId)
-        );
+        $product_review = $this->productReviewRepository->find($product_review);
+
+        return new ProductReviewResource($product_review);
     }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function store(
         ProductReviewCreateRequest $request,
         ProductReviewStorage $storage,

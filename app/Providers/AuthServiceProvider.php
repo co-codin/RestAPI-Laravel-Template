@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\FieldValue;
+use App\Policies\FieldValuePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Modules\Role\Enums\DefaultRole;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -12,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        FieldValue::class => FieldValuePolicy::class,
     ];
 
     /**

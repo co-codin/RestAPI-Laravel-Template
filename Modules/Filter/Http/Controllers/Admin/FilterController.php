@@ -10,18 +10,21 @@ use Modules\Filter\Http\Requests\FilterCreateRequest;
 use Modules\Filter\Http\Requests\FilterSortRequest;
 use Modules\Filter\Http\Requests\FilterUpdateRequest;
 use Modules\Filter\Http\Resources\FilterResource;
+use Modules\Filter\Models\Filter;
 use Modules\Filter\Repositories\FilterRepository;
 use Modules\Filter\Services\FilterStorage;
 
 class FilterController extends Controller
 {
     public function __construct(
-        protected FilterRepository $filterRepository,
-        protected FilterStorage $filterStorage
+        protected FilterStorage $filterStorage,
+        protected FilterRepository $filterRepository
     ) {}
 
     public function store(FilterCreateRequest $request)
     {
+        $this->authorize('create', Filter::class);
+
         $filter = $this->filterStorage->store(FilterDto::fromFormRequest($request));
 
         return new FilterResource($filter);
@@ -29,24 +32,30 @@ class FilterController extends Controller
 
     public function update(int $filter, FilterUpdateRequest $request)
     {
-        $filterModel = $this->filterRepository->find($filter);
+        $filter = $this->filterRepository->find($filter);
 
-        $filterModel = $this->filterStorage->update($filterModel, FilterDto::fromFormRequest($request));
+        $this->authorize('update', $filter);
 
-        return new FilterResource($filterModel);
+        $filter = $this->filterStorage->update($filter, FilterDto::fromFormRequest($request));
+
+        return new FilterResource($filter);
     }
 
     public function destroy(int $filter)
     {
-        $filterModel = $this->filterRepository->find($filter);
+        $filter = $this->filterRepository->find($filter);
 
-        $this->filterStorage->delete($filterModel);
+        $this->authorize('delete', $filter);
+
+        $this->filterStorage->delete($filter);
 
         return response()->noContent();
     }
 
     public function sort(FilterSortRequest $request)
     {
+        $this->authorize('sort', Filter::class);
+
         $this->filterStorage->sort($request->input('filters'));
 
         return response()->noContent();

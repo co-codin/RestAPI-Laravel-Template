@@ -2,8 +2,9 @@
 
 namespace Modules\Faq\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Http\Resources\QuestionCategoryResource;
+use Modules\Faq\Models\QuestionCategory;
 use Modules\Faq\Repositories\QuestionCategoryRepository;
 
 class QuestionCategoryController extends Controller
@@ -28,8 +29,10 @@ class QuestionCategoryController extends Controller
 
     public function show(int $question_category)
     {
-        $questionCategory = $this->questionCategoryRepository->find($question_category);
+        $question_category = $this->questionCategoryRepository->find($question_category);
 
-        return new QuestionCategoryResource($questionCategory);
+        $this->authorize('view', $question_category);
+
+        return new QuestionCategoryResource($question_category);
     }
 }

@@ -4,10 +4,12 @@ namespace Modules\Case\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Case\Dto\CaseDto;
 use Modules\Case\Http\Requests\CaseCreateRequest;
 use Modules\Case\Http\Requests\CaseUpdateRequest;
 use Modules\Case\Http\Resources\CaseResource;
+use Modules\Case\Models\CaseModel;
 use Modules\Case\Repositories\CaseRepository;
 use Modules\Case\Services\CaseStorage;
 
@@ -20,27 +22,31 @@ class CaseController extends Controller
 
     public function store(CaseCreateRequest $request)
     {
-        $caseDto = CaseDto::fromFormRequest($request);
+        $this->authorize('create', Cabinet::class);
 
-        $case = $this->caseStorage->store($caseDto);
+        $case = $this->caseStorage->store(CaseDto::fromFormRequest($request));
 
         return new CaseResource($case);
     }
 
     public function update(int $case, CaseUpdateRequest $request)
     {
-        $caseModel = $this->caseRepository->find($case);
+        $case = $this->caseRepository->find($case);
 
-        $caseModel = $this->caseStorage->update($caseModel, CaseDto::fromFormRequest($request));
+        $this->authorize('update', $case);
 
-        return new CaseResource($caseModel);
+        $case = $this->caseStorage->update($case, CaseDto::fromFormRequest($request));
+
+        return new CaseResource($case);
     }
 
     public function destroy(int $case)
     {
-        $caseModel = $this->caseRepository->find($case);
+        $case = $this->caseRepository->find($case);
 
-        $this->caseStorage->delete($caseModel);
+        $this->authorize('delete', $case);
+
+        $this->caseStorage->delete($case);
 
         return response()->noContent();
     }

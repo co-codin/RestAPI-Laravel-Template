@@ -6,6 +6,7 @@ namespace Modules\Redirect\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Redirect\Http\Resources\RedirectResource;
+use Modules\Redirect\Models\Redirect;
 use Modules\Redirect\Repositories\RedirectRepository;
 
 class RedirectController extends Controller

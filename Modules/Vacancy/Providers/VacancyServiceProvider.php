@@ -2,8 +2,10 @@
 
 namespace Modules\Vacancy\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Vacancy\Models\Vacancy;
+use Modules\Vacancy\Policies\VacancyPolicy;
 
 class VacancyServiceProvider extends ServiceProvider
 {
@@ -22,11 +24,17 @@ class VacancyServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    protected array $policies = [
+        Vacancy::class => VacancyPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -70,7 +78,7 @@ class VacancyServiceProvider extends ServiceProvider
             $sourcePath => $viewPath
         ], ['views', $this->moduleNameLower . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->loadViewsFrom($sourcePath, $this->moduleNameLower);
     }
 
     /**
@@ -99,14 +107,10 @@ class VacancyServiceProvider extends ServiceProvider
         return [];
     }
 
-    private function getPublishableViewPaths(): array
+    public function registerPolicies()
     {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
-        return $paths;
     }
 }

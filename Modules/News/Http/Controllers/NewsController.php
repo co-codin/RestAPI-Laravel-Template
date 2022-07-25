@@ -2,8 +2,9 @@
 
 namespace Modules\News\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\News\Http\Resources\NewsResource;
+use Modules\News\Models\News;
 use Modules\News\Repositories\NewsRepository;
 
 class NewsController extends Controller

@@ -6,6 +6,7 @@ namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Product\Http\Resources\ProductResource;
+use Modules\Product\Models\Product;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductController extends Controller

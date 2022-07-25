@@ -2,7 +2,10 @@
 
 namespace Modules\Publication\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Publication\Models\Publication;
+use Modules\Publication\Policies\PublicationPolicy;
 
 class PublicationServiceProvider extends ServiceProvider
 {
@@ -21,11 +24,17 @@ class PublicationServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    protected array $policies = [
+        Publication::class => PublicationPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -88,11 +97,13 @@ class PublicationServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     public function provides()
     {
         return [];

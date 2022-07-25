@@ -2,8 +2,9 @@
 
 namespace Modules\Faq\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Faq\Http\Resources\QuestionResource;
+use Modules\Faq\Models\Question;
 use Modules\Faq\Repositories\QuestionRepository;
 
 class QuestionController extends Controller

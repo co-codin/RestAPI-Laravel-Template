@@ -22,6 +22,8 @@ class ProductSeoController extends Controller
     {
         $product = $this->productRepository->skipCriteria()->find($product);
 
+        $this->authorize('update', $product);
+
         $seo = $this->seoStorage->update(
             $product->seo(),
             new SeoDto($request->validated())

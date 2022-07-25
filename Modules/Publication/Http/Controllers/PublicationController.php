@@ -2,10 +2,9 @@
 
 namespace Modules\Publication\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Publication\Http\Resources\PublicationResource;
+use Modules\Publication\Models\Publication;
 use Modules\Publication\Repositories\PublicationRepository;
 
 class PublicationController extends Controller

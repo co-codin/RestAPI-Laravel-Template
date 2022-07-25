@@ -6,16 +6,15 @@ use App\Concerns\IsActive;
 use App\Enums\Status;
 use App\Helpers\TextFormatHelper;
 use Cviebrock\EloquentSluggable\Sluggable;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use GraphQL\Type\Definition\ResolveInfo;
 use Modules\News\Database\factories\NewsFactory;
 use Modules\Seo\Models\Seo;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -85,6 +84,7 @@ class News extends Model
     {
         return News::query()->select(array_keys($resolveInfo->getFieldSelection(1)['data']));
     }
+
 
     public function scopeActive(Builder $query): Builder
     {

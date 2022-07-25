@@ -9,18 +9,21 @@ use Modules\News\Dto\NewsDto;
 use Modules\News\Http\Requests\NewsCreateRequest;
 use Modules\News\Http\Requests\NewsUpdateRequest;
 use Modules\News\Http\Resources\NewsResource;
+use Modules\News\Models\News;
 use Modules\News\Repositories\NewsRepository;
 use Modules\News\Services\NewsStorage;
 
 class NewsController extends Controller
 {
     public function __construct(
-        protected NewsRepository $newsRepository,
-        protected NewsStorage $newsStorage
+        protected NewsStorage $newsStorage,
+        protected NewsRepository $newsRepository
     ) {}
 
     public function store(NewsCreateRequest $request)
     {
+        $this->authorize('create', News::class);
+
         $newsDto = NewsDto::fromFormRequest($request);
 
         if (!$newsDto->assigned_by_id) {
@@ -34,18 +37,22 @@ class NewsController extends Controller
 
     public function update(int $news, NewsUpdateRequest $request)
     {
-        $newsModel = $this->newsRepository->find($news);
+        $news = $this->newsRepository->find($news);
 
-        $newsModel = $this->newsStorage->update($newsModel, NewsDto::fromFormRequest($request));
+        $this->authorize('update', $news);
 
-        return new NewsResource($newsModel);
+        $news = $this->newsStorage->update($news, NewsDto::fromFormRequest($request));
+
+        return new NewsResource($news);
     }
 
     public function destroy(int $news)
     {
-        $newsModel = $this->newsRepository->find($news);
+        $news = $this->newsRepository->find($news);
 
-        $this->newsStorage->delete($newsModel);
+        $this->authorize('delete', $news);
+
+        $this->newsStorage->delete($news);
 
         return response()->noContent();
     }

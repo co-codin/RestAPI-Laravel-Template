@@ -2,7 +2,10 @@
 
 namespace Modules\Page\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Page\Models\Page;
+use Modules\Page\Policies\PagePolicy;
 
 class PageServiceProvider extends ServiceProvider
 {
@@ -16,6 +19,10 @@ class PageServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'page';
 
+    protected array $policies = [
+        Page::class => PagePolicy::class,
+    ];
+
     /**
      * Boot the application events.
      *
@@ -26,6 +33,7 @@ class PageServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPolicies();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -88,6 +96,13 @@ class PageServiceProvider extends ServiceProvider
         }
     }
 
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     /**
      * Get the services provided by the provider.
      *
@@ -96,16 +111,5 @@ class PageServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }

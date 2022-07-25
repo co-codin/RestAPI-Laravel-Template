@@ -5,6 +5,7 @@ namespace Modules\Contact\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Contact\Http\Resources\ContactResource;
+use Modules\Contact\Models\Contact;
 use Modules\Contact\Repositories\ContactRepository;
 
 class ContactController extends Controller

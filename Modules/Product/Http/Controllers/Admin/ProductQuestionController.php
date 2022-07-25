@@ -10,100 +10,94 @@ use Modules\Product\Http\Requests\Admin\ProductQuestionApproveOrRejectRequest;
 use Modules\Product\Http\Requests\Admin\ProductQuestionUpdateRequest;
 use Modules\Product\Http\Requests\Admin\ProductQuestionCreateRequest;
 use Modules\Product\Http\Resources\ProductQuestionResource;
+use Modules\Product\Models\ProductQuestion;
 use Modules\Product\Repositories\ProductQuestionRepository;
 use Modules\Product\Services\Qna\ProductQuestionStorage;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductQuestionController extends Controller
 {
     public function __construct(
-        private ProductQuestionRepository $repository,
-        private ProductQuestionStorage $storage
+        protected ProductQuestionStorage $productQuestionStorage,
+        protected ProductQuestionRepository $productQuestionRepository,
     ) {}
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function store(
         ProductQuestionCreateRequest $request,
     ): ProductQuestionResource
     {
-        $productQuestion = $this->storage->store(ProductQuestionDto::fromFormRequest($request));
+        $this->authorize('create', ProductQuestion::class);
+
+        $productQuestion = $this->productQuestionStorage->store(ProductQuestionDto::fromFormRequest($request));
 
         return new ProductQuestionResource($productQuestion);
     }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function update(
         ProductQuestionUpdateRequest $request,
-        int $productQuestionId
+        int $product_question
     ): ProductQuestionResource
     {
-        $productQuestion = $this->storage->update(
-            $this->repository->find($productQuestionId),
+        $product_question = $this->productQuestionRepository($product_question);
+
+        $this->authorize('update', $product_question);
+
+        $product_question = $this->productQuestionStorage->update(
+            $product_question,
             ProductQuestionDto::fromFormRequest($request)
         );
 
-        return new ProductQuestionResource($productQuestion);
+        return new ProductQuestionResource($product_question);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function destroy(int $productQuestionId): Response
+    public function destroy(int $product_question): Response
     {
-        $this->storage->delete(
-            $this->repository->find($productQuestionId)
-        );
+        $product_question = $this->productQuestionRepository($product_question);
+
+        $this->authorize('delete', $product_question);
+
+        $this->productQuestionStorage->delete($product_question);
 
         return \response()->noContent();
     }
 
-
-    /**
-     * @throws \Exception
-     */
     public function approve(
         ProductQuestionApproveOrRejectRequest $request,
-        int $productQuestionId
+        int $product_question
     ): Response
     {
-        $productQuestion = $this->repository->find($productQuestionId);
+        $product_question = $this->productQuestionRepository($product_question);
 
-        $this->storage->changeStatus(
-            $productQuestion,
+        $this->authorize('approve', $product_question);
+
+        $this->productQuestionStorage->changeStatus(
+            $product_question,
             ProductQuestionStatus::fromValue(ProductQuestionStatus::APPROVED)
         );
 
-        $this->storage->notifyApproveOrReject(
-            $productQuestion,
+        $this->productQuestionStorage->notifyApproveOrReject(
+            $product_question,
             $request->validated()['comment']
         );
 
         return \response()->noContent();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function reject(
         ProductQuestionApproveOrRejectRequest $request,
-        int $productQuestionId
+        int $product_question
     ): Response
     {
-        $productQuestion = $this->repository->find($productQuestionId);
+        $product_question = $this->productQuestionRepository($product_question);
 
-        $this->storage->changeStatus(
-            $this->repository->find($productQuestionId),
+        $this->authorize('reject', $product_question);
+
+        $this->productQuestionStorage->changeStatus(
+            $product_question,
             ProductQuestionStatus::fromValue(ProductQuestionStatus::REJECTED)
         );
 
-        $this->storage->notifyApproveOrReject(
-            $productQuestion,
+        $this->productQuestionStorage->notifyApproveOrReject(
+            $product_question,
             $request->validated()['comment']
         );
 

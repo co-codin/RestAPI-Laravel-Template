@@ -9,18 +9,21 @@ use Modules\Redirect\Dto\RedirectDto;
 use Modules\Redirect\Http\Requests\RedirectCreateRequest;
 use Modules\Redirect\Http\Requests\RedirectUpdateRequest;
 use Modules\Redirect\Http\Resources\RedirectResource;
+use Modules\Redirect\Models\Redirect;
 use Modules\Redirect\Repositories\RedirectRepository;
 use Modules\Redirect\Services\RedirectStorage;
 
 class RedirectController extends Controller
 {
     public function __construct(
-        protected RedirectRepository $redirectRepository,
-        protected RedirectStorage $redirectStorage
+        protected RedirectStorage $redirectStorage,
+        protected RedirectRepository $redirectRepository
     ) {}
 
     public function store(RedirectCreateRequest $request)
     {
+        $this->authorize('create', Redirect::class);
+
         $redirectDto = RedirectDto::fromFormRequest($request);
 
         if (!$redirectDto->assigned_by_id) {
@@ -34,18 +37,22 @@ class RedirectController extends Controller
 
     public function update(int $redirect, RedirectUpdateRequest $request)
     {
-        $redirectModel = $this->redirectRepository->find($redirect);
+        $redirect = $this->redirectRepository->find($redirect);
 
-        $redirectModel = $this->redirectStorage->update($redirectModel, (new RedirectDto($request->validated()))->only(...$request->keys()));
+        $this->authorize('update', $redirect);
 
-        return new RedirectResource($redirectModel);
+        $redirect = $this->redirectStorage->update($redirect, (new RedirectDto($request->validated()))->only(...$request->keys()));
+
+        return new RedirectResource($redirect);
     }
 
     public function destroy(int $redirect)
     {
-        $redirectModel = $this->redirectRepository->find($redirect);
+        $redirect = $this->redirectRepository->find($redirect);
 
-        $this->redirectStorage->delete($redirectModel);
+        $this->authorize('delete', $redirect);
+
+        $this->redirectStorage->delete($redirect);
 
         return response()->noContent();
     }

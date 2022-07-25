@@ -2,10 +2,9 @@
 
 namespace Modules\Seo\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Seo\Http\Resources\SeoRuleResource;
+use Modules\Seo\Models\SeoRule;
 use Modules\Seo\Repositories\SeoRuleRepository;
 
 class SeoRuleController extends Controller
@@ -23,8 +22,8 @@ class SeoRuleController extends Controller
 
     public function show(int $seo_rule)
     {
-        $seoRule = $this->seoRuleRepository->find($seo_rule);
+        $seo_rule = $this->seoRuleRepository->find($seo_rule);
 
-        return new SeoRuleResource($seoRule);
+        return new SeoRuleResource($seo_rule);
     }
 }

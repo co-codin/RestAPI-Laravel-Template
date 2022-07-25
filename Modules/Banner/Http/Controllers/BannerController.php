@@ -2,8 +2,9 @@
 
 namespace Modules\Banner\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Banner\Http\Resources\BannerResource;
+use Modules\Banner\Models\Banner;
 use Modules\Banner\Repositories\BannerRepository;
 
 class BannerController extends Controller
@@ -21,8 +22,8 @@ class BannerController extends Controller
 
     public function show(int $banner)
     {
-        $bannerModel = $this->bannerRepository->find($banner);
+        $banner = $this->bannerRepository->find($banner);
 
-        return new BannerResource($bannerModel);
+        return new BannerResource($banner);
     }
 }

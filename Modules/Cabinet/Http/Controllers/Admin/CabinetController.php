@@ -7,6 +7,7 @@ use Modules\Cabinet\Dto\CabinetDto;
 use Modules\Cabinet\Http\Requests\CabinetCreateRequest;
 use Modules\Cabinet\Http\Requests\CabinetUpdateRequest;
 use Modules\Cabinet\Http\Resources\CabinetResource;
+use Modules\Cabinet\Models\Cabinet;
 use Modules\Cabinet\Repositories\CabinetRepository;
 use Modules\Cabinet\Services\CabinetStorage;
 
@@ -19,6 +20,8 @@ class CabinetController extends Controller
 
     public function store(CabinetCreateRequest $cabinetCreateRequest)
     {
+        $this->authorize('create', Cabinet::class);
+
         $cabinetDto = CabinetDto::fromFormRequest($cabinetCreateRequest);
 
         $cabinet = $this->cabinetStorage->store($cabinetDto);
@@ -28,18 +31,22 @@ class CabinetController extends Controller
 
     public function update(int $cabinet, CabinetUpdateRequest $cabinetUpdateRequest)
     {
-        $cabinetModel = $this->cabinetRepository->find($cabinet);
+        $cabinet = $this->cabinetRepository->find($cabinet);
 
-        $cabinetModel = $this->cabinetStorage->update($cabinetModel, CabinetDto::fromFormRequest($cabinetUpdateRequest));
+        $this->authorize('update', $cabinet);
 
-        return new CabinetResource($cabinetModel);
+        $cabinet = $this->cabinetStorage->update($cabinet, CabinetDto::fromFormRequest($cabinetUpdateRequest));
+
+        return new CabinetResource($cabinet);
     }
 
     public function destroy(int $cabinet)
     {
-        $cabinetModel = $this->cabinetRepository->find($cabinet);
+        $cabinet = $this->cabinetRepository->find($cabinet);
 
-        $this->cabinetStorage->destroy($cabinetModel);
+        $this->authorize('update', $cabinet);
+
+        $this->cabinetStorage->destroy($cabinet);
 
         return response()->noContent();
     }

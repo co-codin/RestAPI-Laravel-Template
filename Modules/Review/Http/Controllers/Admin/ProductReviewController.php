@@ -10,26 +10,24 @@ use Modules\Review\Http\Requests\ProductReviewApproveRequest;
 use Modules\Review\Http\Requests\Admin\ProductReviewCreateRequest as ProductReviewCreateAdminRequest;
 use Modules\Review\Http\Requests\ProductReviewUpdateRequest;
 use Modules\Review\Http\Resources\ProductReviewResource;
+use Modules\Review\Models\ProductReview;
 use Modules\Review\Repositories\ProductReviewRepository;
 use Modules\Review\Services\ProductReviewStorage;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductReviewController extends Controller
 {
     public function __construct(
-        private ProductReviewRepository $repository,
-        private ProductReviewStorage $storage
+        protected ProductReviewStorage $productReviewStorage,
+        protected ProductReviewRepository $productReviewRepository
     ) {}
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function store(
         ProductReviewCreateAdminRequest $request,
         ProductReviewStorage $storage,
     ): ProductReviewResource
     {
+        $this->authorize('viewAny', ProductReview::class);
+
         $productReview = $storage->store(
             ProductReviewDto::fromFormRequest($request)
         );
@@ -37,54 +35,51 @@ class ProductReviewController extends Controller
         return new ProductReviewResource($productReview);
     }
 
-    /**
-     * @throws UnknownProperties
-     * @throws \Exception
-     */
     public function update(
         ProductReviewUpdateRequest $request,
-        int $productReviewId
+        int $product_review
     ): ProductReviewResource
     {
-        $productReview = $this->storage->update(
-            $this->repository->find($productReviewId),
+        $product_review = $this->productReviewRepository->find($product_review);
+
+        $this->authorize('update', $product_review);
+
+        $productReview = $this->productReviewStorage->update(
+            $product_review,
             ProductReviewDto::fromFormRequest($request)
         );
 
         return new ProductReviewResource($productReview);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function destroy(int $productReviewId): Response
+    public function destroy(int $product_review): Response
     {
-        $this->storage->delete(
-            $this->repository->find($productReviewId)
-        );
+        $product_review = $this->productReviewRepository->find($product_review);
 
-        return \response()->noContent();
+        $this->authorize('delete', $product_review);
+
+        $this->productReviewStorage->delete($product_review);
+
+        return response()->noContent();
     }
 
-
-    /**
-     * @throws \Exception
-     */
     public function approve(
         ProductReviewApproveRequest $request,
-        int $productReviewId
+        int $product_review
     ): Response
     {
-        $productReview = $this->repository->find($productReviewId);
+        $product_review = $this->productReviewRepository->find($product_review);
 
-        $this->storage->changeStatus(
-            $productReview,
+        $this->authorize('approve', $product_review);
+
+        $this->productReviewStorage->changeStatus(
+            $product_review,
             ProductReviewStatus::fromValue(ProductReviewStatus::APPROVED)
         );
 
-        if ($productReview?->client?->email) {
-            $this->storage->notifyApproveOrReject(
-                $productReview,
+        if ($product_review?->client?->email) {
+            $this->productReviewStorage->notifyApproveOrReject(
+                $product_review,
                 $request->validated()['comment']
             );
         }
@@ -92,26 +87,25 @@ class ProductReviewController extends Controller
         return \response()->noContent();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function reject(
         ProductReviewApproveRequest $request,
-        int $productReviewId
+        int $product_review
     ): Response
     {
-        $productReview = $this->repository->find($productReviewId);
+        $product_review = $this->productReviewRepository->find($product_review);
 
-        $this->storage->changeStatus(
-            $this->repository->find($productReviewId),
+        $this->authorize('reject', $product_review);
+
+        $this->productReviewStorage->changeStatus(
+            $product_review,
             ProductReviewStatus::fromValue(ProductReviewStatus::REJECTED)
         );
 
-        $this->storage->notifyApproveOrReject(
-            $productReview,
+        $this->productReviewStorage->notifyApproveOrReject(
+            $product_review,
             $request->validated()['comment']
         );
 
-        return \response()->noContent();
+        return response()->noContent();
     }
 }

@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
+
     public function test_authenticated_can_update_product_variation_property()
     {
         $this->authenticateUser();

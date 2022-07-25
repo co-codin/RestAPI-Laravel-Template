@@ -3,6 +3,7 @@
 namespace Modules\Brand\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Brand\Models\Brand;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Brand\Http\Resources\BrandResource;
 
@@ -21,8 +22,8 @@ class BrandController extends Controller
 
     public function show(int $brand)
     {
-        $brandModel = $this->brandRepository->find($brand);
+        $brand = $this->brandRepository->find($brand);
 
-        return new BrandResource($brandModel);
+        return new BrandResource($brand);
     }
 }

@@ -35,6 +35,7 @@ class QuestionRequestCriteria implements CriteriaInterface
             ])
             ->allowedSorts('id', 'question_category_id', 'question', 'status', 'position', 'slug',
                 'answer', 'created_at', 'updated_at', 'deleted_at')
-            ->allowedIncludes('questionCategory');
+            ->allowedIncludes('questionCategory')
+            ;
     }
 }

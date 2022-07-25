@@ -7,18 +7,21 @@ use Modules\Page\Dto\PageDto;
 use Modules\Page\Http\Requests\PageCreateRequest;
 use Modules\Page\Http\Requests\PageUpdateRequest;
 use Modules\Page\Http\Resources\PageResource;
+use Modules\Page\Models\Page;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Page\Services\PageStorage;
 
 class PageController extends Controller
 {
     public function __construct(
-        protected PageRepository $pageRepository,
-        protected PageStorage $pageStorage
+        protected PageStorage $pageStorage,
+        protected PageRepository $pageRepository
     ) {}
 
     public function store(PageCreateRequest $request)
     {
+        $this->authorize('create', Page::class);
+
         $pageDto = PageDto::fromFormRequest($request);
 
         if (!$pageDto->assigned_by_id) {
@@ -32,18 +35,22 @@ class PageController extends Controller
 
     public function update(int $page, PageUpdateRequest $request)
     {
-        $pageModel = $this->pageRepository->find($page);
+        $page = $this->pageRepository->find($page);
 
-        $pageModel = $this->pageStorage->update($pageModel, PageDto::fromFormRequest($request));
+        $this->authorize('update', $page);
 
-        return new PageResource($pageModel);
+        $page = $this->pageStorage->update($page, PageDto::fromFormRequest($request));
+
+        return new PageResource($page);
     }
 
     public function destroy(int $page)
     {
-        $pageModel = $this->pageRepository->find($page);
+        $page = $this->pageRepository->find($page);
 
-        $this->pageStorage->delete($pageModel);
+        $this->authorize('delete', $page);
+
+        $this->pageStorage->delete($page);
 
         return response()->noContent();
     }

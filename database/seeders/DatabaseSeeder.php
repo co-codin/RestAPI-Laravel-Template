@@ -19,14 +19,20 @@ use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 use Modules\Property\Database\Seeders\PropertyDatabaseSeeder;
 use Modules\Publication\Database\Seeders\PublicationDatabaseSeeder;
 use Modules\Redirect\Database\Seeders\RedirectDatabaseSeeder;
+use Modules\Role\Database\Seeders\RoleDatabaseSeeder;
 use Modules\Seo\Database\Seeders\CanonicalDatabaseSeeder;
 use Modules\Seo\Database\Seeders\SeoDatabaseSeeder;
+use Modules\User\Database\Seeders\UserDatabaseSeeder;
 use Modules\Vacancy\Database\Seeders\VacancyDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        activity()->disableLogging();
+
+        $this->call(RoleDatabaseSeeder::class);
+        $this->call(UserDatabaseSeeder::class);
         $this->call(AchievementDatabaseSeeder::class);
         $this->call(BrandDatabaseSeeder::class);
         $this->call(CategoryDatabaseSeeder::class);

@@ -44,6 +44,10 @@ class CustomerReview extends Model
         'id',
     ];
 
+    protected $appends = [
+        'type_name',
+    ];
+
     public function getTypeNameAttribute()
     {
         return CustomerType::getDescription($this->type);

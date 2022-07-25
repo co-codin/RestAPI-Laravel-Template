@@ -7,18 +7,21 @@ use Modules\Attribute\Dto\AttributeDto;
 use Modules\Attribute\Http\Requests\Admin\AttributeCreateRequest;
 use Modules\Attribute\Http\Requests\Admin\AttributeUpdateRequest;
 use Modules\Attribute\Http\Resources\AttributeResource;
+use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Repositories\AttributeRepository;
 use Modules\Attribute\Services\AttributeStorage;
 
 class AttributeController extends Controller
 {
     public function __construct(
-        protected AttributeRepository $attributeRepository,
-        protected AttributeStorage $attributeStorage
-    ){}
+        protected AttributeStorage $attributeStorage,
+        protected AttributeRepository $attributeRepository
+    ) {}
 
     public function store(AttributeCreateRequest $request)
     {
+        $this->authorize('create', Attribute::class);
+
         $attributeDto = AttributeDto::fromFormRequest($request);
 
         if (!$attributeDto->assigned_by_id) {
@@ -32,18 +35,22 @@ class AttributeController extends Controller
 
     public function update(int $attribute, AttributeUpdateRequest $request)
     {
-        $attributeModel = $this->attributeRepository->find($attribute);
+        $attribute = $this->attributeRepository->find($attribute);
 
-        $this->attributeStorage->update($attributeModel, AttributeDto::fromFormRequest($request));
+        $this->authorize('update', $attribute);
 
-        return new AttributeResource($attributeModel);
+        $this->attributeStorage->update($attribute, AttributeDto::fromFormRequest($request));
+
+        return new AttributeResource($attribute);
     }
 
     public function destroy(int $attribute)
     {
-        $attributeModel = $this->attributeRepository->find($attribute);
+        $attribute = $this->attributeRepository->find($attribute);
 
-        $this->attributeStorage->delete($attributeModel);
+        $this->authorize('delete', $attribute);
+
+        $this->attributeStorage->delete($attribute);
 
         return response()->noContent();
     }

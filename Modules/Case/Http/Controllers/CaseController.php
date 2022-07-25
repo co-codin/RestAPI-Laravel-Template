@@ -4,6 +4,7 @@ namespace Modules\Case\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Case\Http\Resources\CaseResource;
+use Modules\Case\Models\CaseModel;
 use Modules\Case\Repositories\CaseRepository;
 
 class CaseController extends Controller
