@@ -2,9 +2,9 @@
 
 namespace Modules\Filter\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class FilterPermission extends BaseEnum
+class FilterPermission implements PermissionEnum
 {
     const CREATE_FILTERS = 'create filters';
     const VIEW_FILTERS = 'view filters';

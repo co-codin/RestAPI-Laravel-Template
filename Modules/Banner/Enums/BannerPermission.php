@@ -3,9 +3,9 @@
 namespace Modules\Banner\Enums;
 
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class BannerPermission extends BaseEnum
+class BannerPermission implements PermissionEnum
 {
     const CREATE_BANNERS = 'create banners';
     const VIEW_BANNERS = 'view banners';

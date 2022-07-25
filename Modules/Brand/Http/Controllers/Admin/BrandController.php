@@ -39,7 +39,7 @@ class BrandController extends Controller
     {
         $brand = $this->brandRepository->find($brand);
 
-        $this->authorize('create', $brand);
+        $this->authorize('update', $brand);
 
         $brand = $this->brandStorage->update($brand, BrandDto::fromFormRequest($request));
 

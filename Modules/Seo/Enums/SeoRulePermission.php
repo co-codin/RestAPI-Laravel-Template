@@ -2,9 +2,9 @@
 
 namespace Modules\Seo\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class SeoRulePermission extends BaseEnum
+class SeoRulePermission implements PermissionEnum
 {
     const CREATE_SEO_RULES = 'create seo rules';
     const VIEW_SEO_RULES = 'view seo rules';

@@ -30,14 +30,10 @@ class SyncPermissions extends Command
 
         $permissions = collect($permissionFiles)
             ->map(function(SplFileInfo $file) {
-                return str_replace("/", "\\", str_replace(base_path(), "", $file->getPath())) . "\\" . $file->getBasename('.' . $file->getExtension());
+                return "\\" . ucfirst(str_replace("/", "\\", str_replace(base_path() . "/", "", $file->getPath()))) . "\\" . $file->getBasename('.' . $file->getExtension());
             })
-            ->filter(function(string $class) {
-                return is_subclass_of($class, PermissionEnum::class);
-            })
-            ->map(function($class) {
-                return $class::descriptions();
-            })
+            ->filter(fn(string $class) => is_subclass_of($class, PermissionEnum::class))
+            ->map(fn($class) => $class::descriptions())
             ->collapse()
             ->each(function($description, $name) {
                 Permission::updateOrCreate(

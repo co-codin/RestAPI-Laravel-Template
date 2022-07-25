@@ -2,9 +2,9 @@
 
 namespace Modules\Redirect\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class RedirectPermission extends BaseEnum
+class RedirectPermission implements PermissionEnum
 {
     const CREATE_REDIRECTS = 'create redirects';
     const VIEW_REDIRECTS = 'view redirects';

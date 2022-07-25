@@ -2,9 +2,9 @@
 
 namespace Modules\Review\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class ProductReviewPermission extends BaseEnum
+class ProductReviewPermission implements PermissionEnum
 {
     const CREATE_PRODUCT_REVIEWS = 'create product reviews';
     const VIEW_PRODUCT_REVIEWS = 'view product reviews';

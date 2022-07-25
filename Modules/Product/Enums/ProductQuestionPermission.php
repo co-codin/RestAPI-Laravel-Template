@@ -2,9 +2,9 @@
 
 namespace Modules\Product\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class ProductQuestionPermission extends BaseEnum
+class ProductQuestionPermission implements PermissionEnum
 {
     const CREATE_PRODUCT_QUESTIONS = 'create product questions';
     const VIEW_PRODUCT_QUESTIONS = 'view product questions';

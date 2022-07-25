@@ -2,9 +2,9 @@
 
 namespace Modules\Page\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class PagePermission extends BaseEnum
+class PagePermission implements PermissionEnum
 {
     const CREATE_PAGES = 'create pages';
     const VIEW_PAGES = 'view pages';

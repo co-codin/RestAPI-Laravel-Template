@@ -2,26 +2,23 @@
 
 namespace Modules\User\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Laravel\Passport\Passport;
+use Modules\User\Models\User;
+use Modules\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string $moduleName
-     */
     protected $moduleName = 'User';
 
-    /**
-     * @var string $moduleNameLower
-     */
     protected $moduleNameLower = 'user';
 
-    /**
-     * Boot the application events.
-     *
-     * @return void
-     */
+    protected array $policies = [
+        User::class => UserPolicy::class,
+    ];
+
     public function boot()
     {
         $this->registerTranslations();
@@ -30,21 +27,11 @@ class UserServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
-    /**
-     * Register config.
-     *
-     * @return void
-     */
     protected function registerConfig()
     {
         $this->publishes([
@@ -55,11 +42,6 @@ class UserServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Register views.
-     *
-     * @return void
-     */
     public function registerViews()
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
@@ -73,11 +55,6 @@ class UserServiceProvider extends ServiceProvider
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
 
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
     public function registerTranslations()
     {
         $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
@@ -89,11 +66,6 @@ class UserServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
     public function provides()
     {
         return [];
@@ -108,5 +80,12 @@ class UserServiceProvider extends ServiceProvider
             }
         }
         return $paths;
+    }
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
     }
 }

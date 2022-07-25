@@ -2,9 +2,9 @@
 
 namespace Modules\Brand\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class BrandPermission extends BaseEnum
+class BrandPermission implements PermissionEnum
 {
     const CREATE_BRANDS = 'create brands';
     const VIEW_BRANDS = 'view brands';

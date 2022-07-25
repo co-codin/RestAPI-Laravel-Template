@@ -2,9 +2,10 @@
 
 namespace Modules\News\Enums;
 
-use App\Enums\BaseEnum;
 
-class NewsPermission extends BaseEnum
+use Modules\Role\Contracts\PermissionEnum;
+
+class NewsPermission implements PermissionEnum
 {
     const CREATE_NEWS = 'create news';
     const VIEW_NEWS = 'view news';
