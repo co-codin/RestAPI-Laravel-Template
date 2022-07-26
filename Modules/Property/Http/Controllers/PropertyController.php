@@ -32,8 +32,6 @@ class PropertyController extends Controller
     {
         $property = $this->propertyRepository->find($property);
 
-        $this->authorize('view', $property);
-
         return new PropertyResource($property);
     }
 }
