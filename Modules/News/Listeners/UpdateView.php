@@ -3,10 +3,14 @@
 namespace Modules\News\Listeners;
 
 
+use Modules\News\Events\NewsViewed;
+
 class UpdateView
 {
-    public function handle($event)
+    public function handle(NewsViewed $event)
     {
-        $event->news_single?->increment('view_num');
+        $event->news_single
+            ?->disableLogging()
+            ->increment('view_num');
     }
 }
