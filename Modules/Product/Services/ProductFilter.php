@@ -253,6 +253,11 @@ class ProductFilter
                                     $prefix . "{$field}.value" => $value,
                                 ],
                             ],
+//                            [
+//                                "match" => [
+//                                    $prefix . "{$field}.name" => $filter['name'],
+//                                ]
+//                            ],
                         ],
                     ],
                 ],
