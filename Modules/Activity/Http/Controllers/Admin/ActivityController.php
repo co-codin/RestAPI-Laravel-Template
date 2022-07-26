@@ -2,9 +2,9 @@
 
 namespace Modules\Activity\Http\Controllers\Admin;
 
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Modules\Activity\Http\Resources\ActivityResource;
+use Modules\Activity\Models\Activity;
 use Modules\Activity\Repositories\ActivityRepository;
 
 class ActivityController extends Controller
@@ -13,8 +13,10 @@ class ActivityController extends Controller
         private ActivityRepository $repository
     ) {}
 
-    public function index(): AnonymousResourceCollection
+    public function index()
     {
+        $this->authorize('viewAny', Activity::class);
+
         $activities = $this->repository->jsonPaginate();
 
         return ActivityResource::collection($activities);

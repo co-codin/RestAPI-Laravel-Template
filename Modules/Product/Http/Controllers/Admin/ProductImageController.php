@@ -21,7 +21,7 @@ class ProductImageController extends Controller
     {
         $productModel = $this->productRepository->find($product);
 
-        $this->productImageStorage->update($productModel, $request->input('images'));
+        $this->productImageStorage->update($productModel, $request->input('images', []));
 
         return new ProductResource($productModel);
     }

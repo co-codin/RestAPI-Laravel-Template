@@ -2,12 +2,27 @@
 
 namespace Modules\Activity\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Activity\Models\Activity;
+use Modules\Activity\Policies\ActivityPolicy;
 
 class ActivityServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Activity';
+
     protected string $moduleNameLower = 'activity';
+
+    protected array $policies = [
+        Activity::class => ActivityPolicy::class,
+    ];
+
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
 
     public function boot()
     {
@@ -45,15 +60,5 @@ class ActivityServiceProvider extends ServiceProvider
     public function registerTranslations()
     {
         $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [];
     }
 }

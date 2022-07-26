@@ -297,4 +297,12 @@ class Product extends Model
     {
         return $this->belongsTo(FieldValue::class);
     }
+
+    public function subject()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->brand->name,
+        ];
+    }
 }

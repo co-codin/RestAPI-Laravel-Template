@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Modules\Category\Models\Category;
+use Modules\Product\Enums\Availability;
 use Modules\Product\Models\Product;
 use Modules\Property\Database\Seeders\PropertiesTableSeeder;
 use Modules\Property\Models\Property;
@@ -24,6 +25,12 @@ class ProductsTableSeeder extends Seeder
 //            ->hasProductVariations(2)
             ->create(['brand_id' => 1])
             ->each(function (Product $product) {
+                $product->productVariations()->create([
+                    'name' => $product->brand->name . ' ' . $product->name,
+                    'availability' => Availability::UNDER_THE_ORDER,
+                    'condition_id' => 61,
+                ]);
+
                 $category = Category::query()->select('id')->inRandomOrder()->whereNotNull('parent_id')->first();
 
                 $product->categories()->attach($category->id, ['is_main' => true]);

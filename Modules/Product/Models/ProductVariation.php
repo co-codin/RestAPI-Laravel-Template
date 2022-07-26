@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Modules\Activity\Models\Activity;
 use Modules\Currency\Models\Currency;
 use Modules\Product\Database\factories\ProductVariationFactory;
 use Modules\Product\Models\Pivots\ProductVariationPropertyPivot;
@@ -72,6 +73,12 @@ class ProductVariation extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function tapActivity(Activity $activity)
+    {
+        $activity->parent_subject_type = get_class($this->product);
+        $activity->parent_subject_id = $this->product->getKey();
     }
 
     public function product()
