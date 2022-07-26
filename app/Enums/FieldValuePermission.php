@@ -16,11 +16,16 @@ final class FieldValuePermission implements PermissionEnum
 
     const DELETE_FIELD_VALUES = 'delete field values';
 
+    public static function module(): string
+    {
+        return 'Значения характеристик';
+    }
+
     public static function descriptions(): array
     {
         return [
             self::VIEW_FIELD_VALUES => 'Просмотр значений характеристик',
-            self::CREATE_FIELD_VALUES => 'Создание значений характеристик',
+            self::CREATE_FIELD_VALUES => 'Добавление значений характеристик',
             self::EDIT_FIELD_VALUES => 'Редактирование значений характеристик',
             self::DELETE_FIELD_VALUES => 'Удаление значений характеристик',
         ];

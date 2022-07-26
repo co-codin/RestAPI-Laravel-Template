@@ -12,10 +12,15 @@ class ContactPermission implements PermissionEnum
     const DELETE_CONTACTS = 'delete contacts';
     const SORT_CONTACTS = 'sort contacts';
 
+    public static function module(): string
+    {
+        return 'Контакты';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_CONTACTS => 'Создание контактов',
+            static::CREATE_CONTACTS => 'Добавление контактов',
             static::VIEW_CONTACTS => 'Просмотр контактов',
             static::EDIT_CONTACTS => 'Редактирование контактов',
             static::DELETE_CONTACTS => 'Удаление контактов',

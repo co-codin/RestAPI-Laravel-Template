@@ -20,7 +20,7 @@ final class RolePermission implements PermissionEnum
     public static function descriptions() : array
     {
         return [
-            static::CREATE_ROLES => 'Создание ролей',
+            static::CREATE_ROLES => 'Добавление ролей',
             static::VIEW_ROLES => 'Просмотр ролей',
             static::EDIT_ROLES => 'Редактирование ролей',
             static::DELETE_ROLES => 'Удаление ролей',

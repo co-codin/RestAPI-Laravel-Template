@@ -12,10 +12,15 @@ class NewsPermission implements PermissionEnum
     const EDIT_NEWS = 'edit news';
     const DELETE_NEWS = 'delete news';
 
+    public static function module(): string
+    {
+        return 'Новости';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_NEWS => 'Создание новостей',
+            static::CREATE_NEWS => 'Добавление новостей',
             static::VIEW_NEWS => 'Просмотр новостей',
             static::EDIT_NEWS => 'Редактирование новостей',
             static::DELETE_NEWS => 'Удаление новостей',

@@ -11,10 +11,15 @@ class RedirectPermission implements PermissionEnum
     const EDIT_REDIRECTS = 'edit redirects';
     const DELETE_REDIRECTS = 'delete redirects';
 
+    public static function module(): string
+    {
+        return 'Редиректы';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_REDIRECTS => 'Создание редиректов',
+            static::CREATE_REDIRECTS => 'Добавление редиректов',
             static::VIEW_REDIRECTS => 'Просмотр редиректов',
             static::EDIT_REDIRECTS => 'Редактирование редиректов',
             static::DELETE_REDIRECTS => 'Удаление редиректов',

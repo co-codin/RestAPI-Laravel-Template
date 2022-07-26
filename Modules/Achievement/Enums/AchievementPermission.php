@@ -12,10 +12,15 @@ final class AchievementPermission implements PermissionEnum
     const DELETE_ACHIEVEMENTS = 'delete achievements';
     const SORT_ACHIEVEMENTS = 'sort achievements';
 
+    public static function module(): string
+    {
+        return 'Достижения';
+    }
+
     public static function descriptions() : array
     {
         return [
-            self::CREATE_ACHIEVEMENTS => 'Создание достижений',
+            self::CREATE_ACHIEVEMENTS => 'Добавление достижений',
             self::VIEW_ACHIEVEMENTS => 'Просмотр достижений',
             self::EDIT_ACHIEVEMENTS => 'Редактирование достижений',
             self::DELETE_ACHIEVEMENTS => 'Удаление достижений',

@@ -12,10 +12,15 @@ class QuestionCategoryPermission implements PermissionEnum
     const DELETE_QUESTION_CATEGORIES = 'delete question categories';
     const SORT_QUESTION_CATEGORIES = 'sort question categories';
 
+    public static function module(): string
+    {
+        return 'Категории вопросов';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_QUESTION_CATEGORIES => 'Создание категорий вопросов',
+            static::CREATE_QUESTION_CATEGORIES => 'Добавление категорий вопросов',
             static::VIEW_QUESTION_CATEGORIES => 'Просмотр категорий вопросов',
             static::EDIT_QUESTION_CATEGORIES => 'Редактирование категорий вопросов',
             static::DELETE_QUESTION_CATEGORIES => 'Удаление категорий вопросов',

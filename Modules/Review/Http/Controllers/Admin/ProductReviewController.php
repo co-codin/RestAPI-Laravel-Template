@@ -70,7 +70,7 @@ class ProductReviewController extends Controller
     {
         $product_review = $this->productReviewRepository->find($product_review);
 
-        $this->authorize('approve', $product_review);
+        $this->authorize('update', $product_review);
 
         $this->productReviewStorage->changeStatus(
             $product_review,
@@ -94,7 +94,7 @@ class ProductReviewController extends Controller
     {
         $product_review = $this->productReviewRepository->find($product_review);
 
-        $this->authorize('reject', $product_review);
+        $this->authorize('update', $product_review);
 
         $this->productReviewStorage->changeStatus(
             $product_review,

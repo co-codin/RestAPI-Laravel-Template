@@ -11,13 +11,18 @@ class CanonicalPermission implements PermissionEnum
     const EDIT_CANONICALS = 'edit canonicals';
     const DELETE_CANONICALS = 'delete canonicals';
 
+    public static function module(): string
+    {
+        return 'Канонические адреса';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_CANONICALS => 'Создание канонических',
-            static::VIEW_CANONICALS => 'Просмотр канонических',
-            static::EDIT_CANONICALS => 'Редактирование канонических',
-            static::DELETE_CANONICALS => 'Удаление канонических',
+            static::CREATE_CANONICALS => 'Добавление канонических ссылок',
+            static::VIEW_CANONICALS => 'Просмотр канонических ссылок',
+            static::EDIT_CANONICALS => 'Редактирование канонических ссылок',
+            static::DELETE_CANONICALS => 'Удаление канонических ссылок',
         ];
     }
 }

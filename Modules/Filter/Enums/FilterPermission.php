@@ -12,10 +12,15 @@ class FilterPermission implements PermissionEnum
     const DELETE_FILTERS = 'delete filters';
     const SORT_FILTERS = 'sort filters';
 
+    public static function module(): string
+    {
+        return 'Фильтры';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_FILTERS => 'Создание фильтров',
+            static::CREATE_FILTERS => 'Добавление фильтров',
             static::VIEW_FILTERS => 'Просмотр фильтров',
             static::EDIT_FILTERS => 'Редактирование фильтров',
             static::DELETE_FILTERS => 'Удаление фильтров',
