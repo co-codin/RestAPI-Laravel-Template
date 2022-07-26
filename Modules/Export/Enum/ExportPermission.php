@@ -2,9 +2,9 @@
 
 namespace Modules\Export\Enum;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class ExportPermission extends BaseEnum
+class ExportPermission implements PermissionEnum
 {
     const CREATE_EXPORTS = 'create exports';
     const VIEW_EXPORTS = 'view exports';

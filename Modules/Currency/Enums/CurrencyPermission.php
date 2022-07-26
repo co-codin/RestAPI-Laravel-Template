@@ -2,9 +2,10 @@
 
 namespace Modules\Currency\Enums;
 
-use App\Enums\BaseEnum;
 
-class CurrencyPermission extends BaseEnum
+use Modules\Role\Contracts\PermissionEnum;
+
+class CurrencyPermission implements PermissionEnum
 {
     const CREATE_CURRENCIES = 'create currencies';
     const VIEW_CURRENCIES = 'view currencies';

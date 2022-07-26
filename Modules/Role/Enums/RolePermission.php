@@ -2,9 +2,10 @@
 
 namespace Modules\Role\Enums;
 
-use App\Enums\BaseEnum;
 
-final class RolePermission extends BaseEnum
+use Modules\Role\Contracts\PermissionEnum;
+
+final class RolePermission implements PermissionEnum
 {
     const CREATE_ROLES = 'create roles';
     const VIEW_ROLES = 'view roles';

@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         Product::factory()
-            ->count(500)
+            ->count(100)
 //            ->hasProductVariations(2)
             ->create(['brand_id' => 1])
             ->each(function (Product $product) {

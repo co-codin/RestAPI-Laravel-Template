@@ -1,0 +1,34 @@
+type Category {
+    id: ID!
+    name: String!
+    slug: String!
+    product_name: String
+    full_description: String
+    status: Int!
+    _lft: Int
+    _rgt: Int
+    is_in_home: Boolean!
+    image: String
+    parent_id: Int
+    assigned_by_id: Int
+    review_ratings: [ReviewRatings!]
+    parent: Category @belongsTo
+    ancestors: [Category] @belongsToMany
+    descendants: [Category]
+    children: [Category] @belongsTo
+    productCount: Int! @count(relation: "products")
+    products: [Product] @belongsToMany
+    filters: [Filter!] @hasMany
+    productCategories: [ProductCategory!] @hasMany
+    properties: [Property!] @belongsToMany
+    seo: Seo @morphOne
+    seoCategoryProducts: Seo @morphOne
+    count: Int
+    pivot: CabinetCategoryPivot
+    brands: [Brand!] @field(resolver: "\\Modules\\Category\\Services\\CategoryBrandsField")
+    hotProducts: [Product!] @field(resolver: "\\Modules\\Category\\Services\\CategoryHotProductsField")
+}
+
+type ReviewRatings {
+    name: String!
+}

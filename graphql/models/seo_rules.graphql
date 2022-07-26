@@ -1,0 +1,8 @@
+type SeoRule {
+    id: ID!
+    name: String!
+    url: String!
+    text: String
+    assigned_by_id: Int
+    seo: Seo @morphOne
+}

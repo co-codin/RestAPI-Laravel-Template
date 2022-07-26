@@ -182,6 +182,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
 
+        \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
+        \Nuwave\Lighthouse\Defer\DeferServiceProvider::class,
+
         \App\Providers\SpatieQueryBuilderServiceProvider::class,
         App\Providers\ValidationExtensionServiceProvider::class,
 

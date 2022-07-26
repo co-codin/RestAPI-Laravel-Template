@@ -2,9 +2,10 @@
 
 namespace Modules\Category\Enums;
 
-use App\Enums\BaseEnum;
 
-class CategoryPermission extends BaseEnum
+use Modules\Role\Contracts\PermissionEnum;
+
+class CategoryPermission implements PermissionEnum
 {
     const CREATE_CATEGORIES = 'create categories';
     const VIEW_CATEGORIES = 'view categories';

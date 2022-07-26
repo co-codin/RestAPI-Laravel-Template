@@ -2,9 +2,9 @@
 
 namespace Modules\Contact\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class ContactPermission extends BaseEnum
+class ContactPermission implements PermissionEnum
 {
     const CREATE_CONTACTS = 'create contacts';
     const VIEW_CONTACTS = 'view contacts';

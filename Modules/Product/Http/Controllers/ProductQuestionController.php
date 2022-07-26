@@ -23,7 +23,7 @@ class ProductQuestionController extends Controller
 
     public function show(int $product_question): ProductQuestionResource
     {
-        $product_question = $this->productQuestionRepository($product_question);
+        $product_question = $this->productQuestionRepository->find($product_question);
 
         return new ProductQuestionResource($product_question);
     }

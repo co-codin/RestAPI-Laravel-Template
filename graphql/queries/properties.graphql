@@ -1,0 +1,17 @@
+extend type Query {
+    properties(
+        hasCategories: _ @whereHasConditions(columns: ["id"])
+        where: _ @whereConditions(columns: [
+            "id", "name", "type", "is_hidden_from_product",
+            "is_hidden_from_comparison", "is_boolean", "assigned_by_id",
+        ])
+        orderBy: _ @orderBy(columns: [
+            "id", "name", "type", "is_hidden_from_product", "is_boolean",
+            "is_hidden_from_comparison", "assigned_by_id",
+        ])
+    ): [Property!]!
+    @paginate
+    @orderBy(column: "id", direction: "ASC")
+
+    property(id: ID @eq): Property @find
+}

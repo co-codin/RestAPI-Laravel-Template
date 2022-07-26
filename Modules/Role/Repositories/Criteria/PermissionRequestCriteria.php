@@ -21,7 +21,7 @@ class PermissionRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('name'),
                 AllowedFilter::partial('description'),
             ])
-            ->allowedSorts(['name', 'id'])
+            ->allowedSorts(['name', 'id', 'description'])
             ->allowedIncludes(['roles'])
             ;
     }

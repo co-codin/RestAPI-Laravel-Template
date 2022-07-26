@@ -2,9 +2,9 @@
 
 namespace Modules\Seo\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class CanonicalPermission extends BaseEnum
+class CanonicalPermission implements PermissionEnum
 {
     const CREATE_CANONICALS = 'create canonicals';
     const VIEW_CANONICALS = 'view canonicals';

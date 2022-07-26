@@ -2,9 +2,9 @@
 
 namespace Modules\Cabinet\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class CabinetPermission extends BaseEnum
+class CabinetPermission implements PermissionEnum
 {
     const CREATE_CABINETS = 'create cabinets';
     const VIEW_CABINETS = 'view cabinets';

@@ -2,9 +2,10 @@
 
 namespace Modules\Property\Enums;
 
-use App\Enums\BaseEnum;
 
-class PropertyPermission extends BaseEnum
+use Modules\Role\Contracts\PermissionEnum;
+
+class PropertyPermission implements PermissionEnum
 {
     const CREATE_PROPERTIES = 'create properties';
     const VIEW_PROPERTIES = 'view properties';

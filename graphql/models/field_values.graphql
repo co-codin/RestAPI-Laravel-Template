@@ -1,0 +1,5 @@
+type FieldValue {
+    id: ID!
+    value: String!
+    slug: String
+}

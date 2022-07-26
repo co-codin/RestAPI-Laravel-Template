@@ -2,9 +2,9 @@
 
 namespace Modules\Faq\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class QuestionPermission extends BaseEnum
+class QuestionPermission implements PermissionEnum
 {
     const CREATE_QUESTIONS = 'create questions';
     const VIEW_QUESTIONS = 'view questions';

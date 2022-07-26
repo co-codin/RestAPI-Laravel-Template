@@ -19,6 +19,13 @@ class PermissionController extends Controller
         return PermissionResource::collection($roles);
     }
 
+    public function all()
+    {
+        $roles = $this->permissionRepository->all();
+
+        return PermissionResource::collection($roles);
+    }
+
     public function show(int $permission)
     {
         $permission = $this->permissionRepository->find($permission);

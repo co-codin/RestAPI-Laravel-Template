@@ -2,9 +2,9 @@
 
 namespace Modules\Case\Enums;
 
-use App\Enums\BaseEnum;
+use Modules\Role\Contracts\PermissionEnum;
 
-class CasePermission extends BaseEnum
+class CasePermission implements PermissionEnum
 {
     const CREATE_CASES = 'create cases';
     const VIEW_CASES = 'view cases';
