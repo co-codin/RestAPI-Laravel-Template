@@ -16,6 +16,7 @@ class ProductPropertyStorage
                 ->keyBy('id')
                 ->map(fn($item) => Arr::only($item, [
                     'field_value_ids',
+                    'position',
                     'is_important',
                     'important_position',
                     'important_value',

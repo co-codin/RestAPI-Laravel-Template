@@ -20,6 +20,7 @@ class ProductPropertyUpdateRequest extends BaseFormRequest
             'properties.*.important_position' => 'nullable|integer',
             'properties.*.important_value' => 'nullable|string|max:255',
             'properties.*.is_in_variations' => 'nullable|boolean|max:255',
+            'properties.*.position' => 'nullable|integer',
         ];
     }
 }
