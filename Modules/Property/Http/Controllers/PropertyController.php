@@ -5,7 +5,6 @@ namespace Modules\Property\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Property\Http\Resources\PropertyResource;
-use Modules\Property\Models\Property;
 use Modules\Property\Repositories\PropertyRepository;
 
 class PropertyController extends Controller
