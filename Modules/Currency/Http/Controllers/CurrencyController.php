@@ -6,7 +6,6 @@ namespace Modules\Currency\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Currency\Http\Resources\CurrencyResource;
-use Modules\Currency\Models\Currency;
 use Modules\Currency\Repositories\CurrencyRepository;
 
 class CurrencyController extends Controller
