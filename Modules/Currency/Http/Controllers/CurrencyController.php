@@ -33,8 +33,6 @@ class CurrencyController extends Controller
     {
         $currency = $this->currencyRepository->find($currency);
 
-        $this->authorize('view', $currency);
-
         return $currency->rate;
     }
 }
