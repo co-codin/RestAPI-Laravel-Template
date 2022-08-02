@@ -8,17 +8,12 @@ use BenSampo\Enum\Rules\EnumValue;
 
 class CaseCreateRequest extends BaseFormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            'city_id' => 'required|integer|exists:cities,id',
             'name' => 'required|string|max:255',
-            'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug',
+            'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:case_models,slug',
+            'city_id' => 'required|integer|exists:cities,id',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
             'summary' => 'required|string|max:255',
@@ -28,10 +23,6 @@ class CaseCreateRequest extends BaseFormRequest
                 new EnumValue(Status::class, false),
             ],
             'published_at' => 'required|string|max:255',
-            'image' => 'required|string',
-            'images' => 'nullable|array',
-            'images.*.image' => 'required|string|max:255',
-            'images.*.caption' => 'required|string|max:255',
         ];
     }
 
@@ -39,11 +30,8 @@ class CaseCreateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата поставки',
-            'summary' => 'Что сделано?',
+            'summary' => 'Второй заголовок',
             'note' => 'Заметка',
-            'images' => 'Галерея',
-            'images.*.image' => 'Изображение',
-            'images.*.caption' => 'Подпись к изображению',
         ];
     }
 }

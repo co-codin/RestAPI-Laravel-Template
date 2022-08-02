@@ -22,8 +22,7 @@ class CreateCaseModelsTable extends Migration
             $table->text('full_description');
             $table->string('summary');
             $table->string('note')->nullable();
-            $table->string('image');
-            $table->json('images')->nullable();
+            $table->string('image')->nullable();
             $table->string('published_at');
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();

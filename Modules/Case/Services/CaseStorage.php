@@ -4,6 +4,7 @@
 namespace Modules\Case\Services;
 
 
+use Illuminate\Support\Arr;
 use Modules\Case\Dto\CaseDto;
 use Modules\Case\Models\CaseModel;
 use Modules\Case\Repositories\CaseRepository;
@@ -18,20 +19,18 @@ class CaseStorage
     {
         $attributes = $caseDto->toArray();
 
-        $case = CaseModel::query()->create($attributes);
-
-        return $case;
+        return CaseModel::query()->create($attributes);
     }
 
     public function update(CaseModel $caseModel, CaseDto $caseDto)
     {
         $attributes = $caseDto->toArray();
 
+        $caseModel->products()->detach();
+
         if ($caseDto->products) {
-            $caseModel->products()->sync(collect($caseDto->products)
-                ->keyBy('id')
-                ->map(fn($item) => \Arr::except($item, 'id'))
-                ->toArray());
+            $caseModel->products()
+                ->attach(Arr::pluck($caseDto->products, 'id'));
         }
 
         if (!$caseModel->update($attributes)) {
