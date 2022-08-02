@@ -26,11 +26,9 @@ class CaseStorage
     {
         $attributes = $caseDto->toArray();
 
-        $caseModel->products()->detach();
-
         if ($caseDto->products) {
             $caseModel->products()
-                ->attach(Arr::pluck($caseDto->products, 'id'));
+                ->sync(Arr::pluck($caseDto->products, 'id'));
         }
 
         if (!$caseModel->update($attributes)) {
