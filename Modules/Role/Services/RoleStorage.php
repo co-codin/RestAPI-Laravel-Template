@@ -61,6 +61,8 @@ class RoleStorage
         foreach ($permissions as $permission) {
             $role->permissions()->attach($permission['id']);
         }
+
+        $this->clearCache();
     }
 
     public function delete(Role $role)
