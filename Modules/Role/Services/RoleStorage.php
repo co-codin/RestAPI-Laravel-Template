@@ -5,6 +5,7 @@ namespace Modules\Role\Services;
 use Illuminate\Support\Arr;
 use Modules\Role\Dto\RoleDto;
 use Modules\Role\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleStorage
 {
@@ -23,6 +24,8 @@ class RoleStorage
                 $role->permissions()->attach($permission['id'], ['level' => $permission['level']]);
             }
         }
+
+        $this->clearCache();
 
         return $role;
     }
@@ -44,6 +47,8 @@ class RoleStorage
 
         }
 
+        $this->clearCache();
+
         return $role;
     }
 
@@ -63,5 +68,12 @@ class RoleStorage
         if (!$role->delete()) {
             throw new \LogicException('can not delete role');
         }
+
+        $this->clearCache();
+    }
+
+    protected function clearCache(): void
+    {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }
