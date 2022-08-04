@@ -11,7 +11,7 @@ class RoleDto extends BaseDto
 
     public ?string $key;
 
-    public ?string $guard_name;
+    public ?string $guard_name = 'api';
 
     public ?array $permissions;
 
