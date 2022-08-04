@@ -267,6 +267,11 @@ class Product extends Model
         ]);
     }
 
+    public function scopeOrderByGroup($query)
+    {
+        $query->orderBy('group_id');
+    }
+
     public function scopeWithMainVariation($query)
     {
         $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
