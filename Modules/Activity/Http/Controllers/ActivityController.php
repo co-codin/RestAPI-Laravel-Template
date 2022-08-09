@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Activity\Http\Controllers\Admin;
+namespace Modules\Activity\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Activity\Http\Resources\ActivityResource;
