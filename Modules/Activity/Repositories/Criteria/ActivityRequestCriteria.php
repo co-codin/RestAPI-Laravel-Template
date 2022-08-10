@@ -15,7 +15,7 @@ class ActivityRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('-id')
             ->allowedFields(array_merge(
-                static::allowedActivityFields(),
+                static::allowedActivityFields('activities'),
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),

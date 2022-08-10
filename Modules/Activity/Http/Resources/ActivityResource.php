@@ -21,7 +21,7 @@ class ActivityResource extends BaseJsonResource
         return array_merge(parent::toArray($request), [
             'subject_type' => $this->whenRequested('subject_type', function() {
                 $subjectType = explode('\\', $this->subject_type);
-                $subjectType = Str::lower(array_pop($subjectType));
+                $subjectType = array_pop($subjectType);
                 return SubjectType::getDescription($subjectType);
             }),
             'event' => $this->whenRequested('event', function() {

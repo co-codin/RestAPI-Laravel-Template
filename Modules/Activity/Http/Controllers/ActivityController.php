@@ -15,7 +15,7 @@ class ActivityController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Activity::class);
+//        $this->authorize('viewAny', Activity::class);
 
         $activities = $this->activityRepository->jsonPaginate();
 
