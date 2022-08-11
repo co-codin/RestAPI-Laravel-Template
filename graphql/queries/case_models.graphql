@@ -1,7 +1,7 @@
 extend type Query {
     all_case_models(
         where: _ @whereConditions(columns: ["id", "name", "status", "published_at"])
-        orderBy: _ @orderBy(columns: ["id", "name", "status", "published_at"])
+        orderBy: _ @orderBy(columns: ["id", "name", "status", "published_at", "released_year", "released_quarter"])
     ): [CaseModel!]!
     @all
     @orderBy(column: "id", direction: "ASC")
