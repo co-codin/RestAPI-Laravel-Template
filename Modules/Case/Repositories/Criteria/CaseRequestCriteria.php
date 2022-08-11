@@ -42,7 +42,7 @@ class CaseRequestCriteria implements CriteriaInterface
                 'id', 'name', 'slug', 'image', 'images', 'city_id', 'status', 'short_description', 'full_description',
                 'summary', 'note', 'published_at', 'created_at', 'updated_at', 'released_year', 'released_quarter',
             )
-            ->allowedIncludes('city', 'products')
+            ->allowedIncludes('city', 'products', 'seo', 'images')
             ;
     }
 }
