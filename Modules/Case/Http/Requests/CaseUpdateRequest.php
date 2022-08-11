@@ -35,8 +35,8 @@ class CaseUpdateRequest extends BaseFormRequest
             'images.*.caption' => 'required|string|max:255',
             'products' => 'sometimes|required|array',
             'products.*.id' => 'required|integer|distinct|exists:products,id',
-            'released_year' => 'sometimes|required|int',
-            'released_quarter' => 'sometimes|required|int',
+            'released_year' => 'sometimes|required|int|max:4',
+            'released_quarter' => 'sometimes|required|int|max:1',
         ];
     }
 
