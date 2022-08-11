@@ -11,6 +11,16 @@ class ProductPropertyStorage
 {
     public function update(Product $product, array $properties)
     {
+        activity()
+            ->performedOn($product)
+            ->event('updated')
+            ->withProperties([
+                'type' => 'property',
+                'old' => $product->properties,
+                'new' => $properties,
+            ])
+        ;
+
         $product->properties()->sync(
             collect($properties)
                 ->keyBy('id')
