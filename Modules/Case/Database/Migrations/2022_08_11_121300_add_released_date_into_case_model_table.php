@@ -14,8 +14,8 @@ class AddReleasedDateIntoCaseModelTable extends Migration
     public function up()
     {
         Schema::table('case_models', function (Blueprint $table) {
-            $table->tinyInteger('released_year')->nullable()->after('status');
-            $table->tinyInteger('released_quarter')->nullable()->after('released_year');
+            $table->unsignedInteger('released_year')->nullable()->after('status');
+            $table->unsignedInteger('released_quarter')->nullable()->after('released_year');
         });
     }
 

@@ -18,7 +18,7 @@ class CaseUpdateRequest extends BaseFormRequest
         return [
             'city_id' => 'sometimes|required|integer|exists:cities,id',
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:cases,slug,' . $this->route('case_model'),
+            'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:case_models,slug,' . $this->route('case_model'),
             'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
             'summary' => 'sometimes|required|string|max:255',
@@ -35,7 +35,7 @@ class CaseUpdateRequest extends BaseFormRequest
             'images.*.caption' => 'required|string|max:255',
             'products' => 'sometimes|required|array',
             'products.*.id' => 'required|integer|distinct|exists:products,id',
-            'released_year' => 'sometimes|required|int|digits:4',
+            'released_year' => 'sometimes|required|int|max:2100|min:2000',
             'released_quarter' => 'sometimes|required|int|max:4|min:1',
         ];
     }
