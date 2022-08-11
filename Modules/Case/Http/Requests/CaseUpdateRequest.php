@@ -30,8 +30,13 @@ class CaseUpdateRequest extends BaseFormRequest
             ],
             'published_at' => 'sometimes|required|string|max:255',
             'image' => 'sometimes|required|string',
+            'images' => 'sometimes|nullable|array',
+            'images.*.image' => 'required|string|max:255',
+            'images.*.caption' => 'required|string|max:255',
             'products' => 'sometimes|required|array',
             'products.*.id' => 'required|integer|distinct|exists:products,id',
+            'released_year' => 'sometimes|required|int|max:2100|min:2000',
+            'released_quarter' => 'sometimes|required|int|max:4|min:1',
         ];
     }
 
@@ -39,8 +44,13 @@ class CaseUpdateRequest extends BaseFormRequest
     {
         return [
             'published_at' => 'Дата поставки',
-            'summary' => 'Второй заголовок',
+            'summary' => 'Что сделано?',
             'note' => 'Заметка',
+            'images' => 'Галерея',
+            'images.*.image' => 'Изображение',
+            'images.*.caption' => 'Подпись к изображению',
+            'released_year' => 'Год реализации',
+            'released_quarter' => 'Квартал реализации',
         ];
     }
 }

@@ -30,4 +30,8 @@ class CaseDto extends BaseDto
     public ?int $status = Status::INACTIVE;
 
     public ?array $products;
+
+    public ?int $released_year;
+
+    public ?int $released_quarter;
 }

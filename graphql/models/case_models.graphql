@@ -4,7 +4,7 @@ type CaseModel {
     id: ID!
     name: String!
     slug: String!
-    image: String
+    image: String!
     short_description: String!
     full_description: String!
     summary: String!
@@ -13,7 +13,13 @@ type CaseModel {
     city: City  @belongsTo
     status: Int!
     published_at: String!
-    images: [Image!] @morphMany
-    products: [Product!] @belongsToMany(relation: "products", scopes: ["active", "orderByGroup"])
-    seo: Seo @morphOne
+    images: [CaseGalleryImage]
+    products: [Product!] @belongsToMany
+    released_year: Int
+    released_quarter: Int
+}
+
+type CaseGalleryImage {
+    image: String!
+    caption: String!
 }
