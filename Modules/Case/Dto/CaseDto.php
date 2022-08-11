@@ -29,4 +29,8 @@ class CaseDto extends BaseDto
     public ?int $status;
 
     public ?array $products;
+
+    public ?int $released_year;
+
+    public ?int $released_quarter;
 }

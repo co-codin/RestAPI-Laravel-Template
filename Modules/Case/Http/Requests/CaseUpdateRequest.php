@@ -35,6 +35,8 @@ class CaseUpdateRequest extends BaseFormRequest
             'images.*.caption' => 'required|string|max:255',
             'products' => 'sometimes|required|array',
             'products.*.id' => 'required|integer|distinct|exists:products,id',
+            'released_year' => 'sometimes|required|int',
+            'released_quarter' => 'sometimes|required|int',
         ];
     }
 
@@ -47,6 +49,8 @@ class CaseUpdateRequest extends BaseFormRequest
             'images' => 'Галерея',
             'images.*.image' => 'Изображение',
             'images.*.caption' => 'Подпись к изображению',
+            'released_year' => 'Год реализации',
+            'released_quarter' => 'Квартал реализации',
         ];
     }
 }
