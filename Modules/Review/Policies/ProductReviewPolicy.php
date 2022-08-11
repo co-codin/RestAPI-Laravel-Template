@@ -36,14 +36,4 @@ class ProductReviewPolicy extends BasePolicy
     {
         return $user->can(ProductReviewPermission::DELETE_PRODUCT_REVIEWS);
     }
-
-    public function approve(User $user, ProductReview $product_review): bool
-    {
-        return $user->can(ProductReviewPermission::APPROVE_PRODUCT_REVIEWS);
-    }
-
-    public function reject(User $user, ProductReview $product_review): bool
-    {
-        return $user->can(ProductReviewPermission::REJECT_PRODUCT_REVIEWS);
-    }
 }

@@ -12,10 +12,15 @@ class AttributePermission implements PermissionEnum
     const DELETE_ATTRIBUTES = 'delete attributes';
     const SORT_ATTRIBUTES = 'sort attributes';
 
+    public static function module(): string
+    {
+        return 'Атрибуты';
+    }
+
     public static function descriptions() : array
     {
         return [
-            self::CREATE_ATTRIBUTES => 'Создание атрибутов',
+            self::CREATE_ATTRIBUTES => 'Добавление атрибутов',
             self::VIEW_ATTRIBUTES => 'Просмотр атрибутов',
             self::EDIT_ATTRIBUTES => 'Редактирование атрибутов',
             self::DELETE_ATTRIBUTES => 'Удаление атрибутов',

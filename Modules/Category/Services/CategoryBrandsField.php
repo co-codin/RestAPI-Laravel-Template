@@ -7,10 +7,11 @@ namespace Modules\Category\Services;
 use App\Enums\Status;
 use Illuminate\Database\Query\Builder;
 use Modules\Brand\Models\Brand;
+use Modules\Category\Models\Category;
 
 class CategoryBrandsField
 {
-    public function __invoke($category)
+    public function __invoke(Category $category)
     {
         return Brand::query()
             ->selectRaw('brands.*, COUNT(*) as categoryProductCount')

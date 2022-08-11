@@ -12,10 +12,15 @@ class CategoryPermission implements PermissionEnum
     const EDIT_CATEGORIES = 'edit categories';
     const DELETE_CATEGORIES = 'delete categories';
 
+    public static function module(): string
+    {
+        return 'Категории';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_CATEGORIES => 'Создание категорий',
+            static::CREATE_CATEGORIES => 'Добавление категорий',
             static::VIEW_CATEGORIES => 'Просмотр категорий',
             static::EDIT_CATEGORIES => 'Редактирование категорий',
             static::DELETE_CATEGORIES => 'Удаление категорий',

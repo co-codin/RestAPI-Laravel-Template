@@ -9,6 +9,7 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Google_Service_Drive;
 use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Jenssegers\Date\Date;
 

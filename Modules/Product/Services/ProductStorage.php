@@ -20,12 +20,7 @@ class ProductStorage
 
         $product = Product::query()->create($attributes);
 
-        $product->categories()->sync(
-            collect($productDto->categories)
-                ->keyBy('id')
-                ->map(fn($item) => Arr::except($item, 'id'))
-                ->toArray()
-        );
+        $this->syncCategories($product, $productDto->categories);
 
         $product->productVariations()->create([
             'name' => $product->brand->name . ' ' . $product->name,
@@ -47,12 +42,7 @@ class ProductStorage
         }
 
         if ($productDto->categories) {
-            $product->categories()->sync(
-                collect($productDto->categories)
-                    ->keyBy('id')
-                    ->map(fn($item) => Arr::except($item, 'id'))
-                    ->toArray()
-            );
+            $this->syncCategories($product, $productDto->categories);
         }
 
         if (!$product->update($attributes)) {
@@ -82,5 +72,22 @@ class ProductStorage
         })->toArray();
 
         return $attributes;
+    }
+
+    protected function syncCategories(Product $product, array $categories)
+    {
+        $product->categories()->sync(
+            collect($categories)
+                ->keyBy('id')
+                ->map(fn($item) => Arr::except($item, 'id'))
+                ->toArray()
+        );
+
+        activity()
+            ->on($product)
+            ->withProperties([
+                'categories' => $categories,
+            ])
+            ->log('updated categories');
     }
 }

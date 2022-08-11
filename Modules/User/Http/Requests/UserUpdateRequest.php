@@ -14,7 +14,8 @@ class UserUpdateRequest extends BaseFormRequest
             'role_id' => [
                 'sometimes',
                 'required',
-                'integer',
+                'array',
+                'min:1',
                 'exists:roles,id',
             ],
             'name' => [

@@ -19,11 +19,11 @@ class FieldValueRequestCriteria implements CriteriaInterface
     {
         return QueryBuilder::for($model)
             ->allowedFields([
-                'field-values.id',
-                'field-values.value',
-                'field-values.slug',
-                'field-values.created_at',
-                'field-values.updated_at',
+                'id',
+                'value',
+                'slug',
+                'created_at',
+                'updated_at',
             ])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([

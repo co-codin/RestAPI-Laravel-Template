@@ -14,7 +14,7 @@ class PermissionRequestCriteria implements CriteriaInterface
         return QueryBuilder::for($model)
             ->defaultSort('id')
             ->allowedFields([
-                'id', 'name', 'description', 'guard_name'
+                'id', 'name', 'description', 'guard_name', 'module',
             ])
             ->allowedFilters([
                 AllowedFilter::exact('id'),

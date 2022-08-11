@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Modules\Activity\Models\Activity;
 use Modules\Seo\Database\factories\SeoFactory;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -52,6 +53,12 @@ class Seo extends Model
                 'updated_at',
             ])
             ->logOnlyDirty();
+    }
+
+    public function tapActivity(Activity $activity)
+    {
+        $activity->parent_subject_type = $this->seoable_type;
+        $activity->parent_subject_id = $this->seoable_id;
     }
 
     protected static function newFactory()

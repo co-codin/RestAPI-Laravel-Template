@@ -26,6 +26,7 @@
         "imangazaliev/didom": "^1.18",
         "jenssegers/date": "^4.0",
         "kalnoy/nestedset": "^6.0",
+        "laravel-notification-channels/smsc-ru": "^3.3",
         "laravel/framework": "^9.0",
         "laravel/horizon": "^5.7",
         "laravel/octane": "^1.2",
@@ -35,12 +36,10 @@
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "^3.0",
         "medeq/bitrix24": "dev-master",
-        "medeq/smsc-ru": "dev-master",
         "mll-lab/graphql-php-scalars": "^5.4",
         "mll-lab/laravel-graphql-playground": "^2.6",
         "nuwave/lighthouse": "^5.57",
         "nwidart/laravel-modules": "^8.2",
-        "predis/predis": "^2.0",
         "prettus/l5-repository": "^2.7",
         "propaganistas/laravel-phone": "^4.3",
         "sentry/sentry-laravel": "^2.8",
@@ -57,15 +56,14 @@
         "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
         "brianium/paratest": "^6.2",
+        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.6",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.3.3",
-        "spatie/laravel-ignition": "^1.0",
         "spatie/laravel-ray": "^1.17"
     },
     "config": {

@@ -2,29 +2,66 @@
 
 namespace Modules\Activity\Repositories\Criteria;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Modules\Activity\Http\Builders\ActivityBuilder;
+use App\Http\Filters\LiveFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
-/**
- * Class ActivityRequestCriteria.
- *
- * @package Modules\Activity\Repositories\Criteria;
- */
 class ActivityRequestCriteria implements CriteriaInterface
 {
-    /**
-     * Apply criteria in query repository
-     *
-     * @param string|Builder|Model $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
     public function apply($model, RepositoryInterface $repository)
     {
-        return (new ActivityBuilder())->builder($model);
+        return QueryBuilder::for($model)
+            ->defaultSort('-id')
+            ->allowedFields(array_merge(
+                static::allowedActivityFields('activities'),
+            ))
+            ->allowedFilters([
+                AllowedFilter::exact('id'),
+                AllowedFilter::custom('live', new LiveFilter([
+                    'id' => '=',
+                ])),
+            ])
+            ->allowedIncludes([
+                'causer',
+                'subject',
+                'parentSubject',
+            ])
+            ->allowedSorts([
+                'id',
+                'log_name',
+                'description',
+                'subject_type',
+                'subject_id',
+                'event',
+                'causer_type',
+                'causer_id',
+                'created_at',
+                'updated_at',
+            ]);
+    }
+
+    public static function allowedActivityFields($prefix = null): array
+    {
+        $fields = [
+            'id',
+            'log_name',
+            'description',
+            'subject_type',
+            'subject_id',
+            'event',
+            'causer_type',
+            'causer_id',
+            'properties',
+            'created_at',
+            'updated_at',
+        ];
+
+        if(!$prefix) {
+            return $fields;
+        }
+
+        return array_map(fn($field) => $prefix . "." . $field, $fields);
     }
 }

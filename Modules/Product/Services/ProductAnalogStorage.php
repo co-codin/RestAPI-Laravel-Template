@@ -18,6 +18,16 @@ class ProductAnalogStorage
                 ];
             });
 
+        activity()
+            ->performedOn($product)
+            ->event('updated')
+            ->withProperties([
+                'type' => 'property',
+                'old' => $product->analogs,
+                'new' => $productAnalogsForSync,
+            ])
+        ;
+
         $product->analogs()->sync($productAnalogsForSync);
 
         if (!$product->update(['is_manually_analogs' => \Arr::get($validated, 'is_manually_analogs')])) {

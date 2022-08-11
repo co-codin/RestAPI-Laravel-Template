@@ -6,7 +6,6 @@ namespace Modules\Currency\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Currency\Http\Resources\CurrencyResource;
-use Modules\Currency\Models\Currency;
 use Modules\Currency\Repositories\CurrencyRepository;
 
 class CurrencyController extends Controller
@@ -32,8 +31,6 @@ class CurrencyController extends Controller
     public function rate(int $currency)
     {
         $currency = $this->currencyRepository->find($currency);
-
-        $this->authorize('view', $currency);
 
         return $currency->rate;
     }

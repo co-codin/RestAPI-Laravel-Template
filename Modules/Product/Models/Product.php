@@ -15,9 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\factories\ProductFactory;
@@ -25,7 +23,6 @@ use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Enums\ProductQuestionStatus;
 use Modules\Product\Models\Pivots\ProductAnalogPivot;
 use Modules\Product\Models\Pivots\ProductPropertyPivot;
-use Modules\Product\Models\Scopes\ProductScopes;
 use Modules\Property\Models\Property;
 use Modules\Review\Enums\ProductReviewStatus;
 use Modules\Review\Models\ProductReview;
@@ -81,11 +78,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Product extends Model
 {
-    use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity, ProductScopes;
+    use HasFactory, IsActive, SoftDeletes, Searchable, LogsActivity;
 
     protected $guarded = ['id', 'article'];
-
-    const COVID_PROPERTY_ID = 259;
 
     protected $casts = [
 //        'type' => 'integer',
@@ -224,8 +219,14 @@ class Product extends Model
             ->belongsToMany(Property::class, 'product_property')
             ->using(ProductPropertyPivot::class)
             ->withPivot([
-                'field_value_ids', 'value', 'pretty_key', 'pretty_value',
-                'is_important', 'important_position', 'important_value',
+                'field_value_ids',
+                'position',
+                'value',
+                'pretty_key',
+                'pretty_value',
+                'is_important',
+                'important_position',
+                'important_value',
                 'is_in_variations',
             ]);
     }
@@ -256,6 +257,37 @@ class Product extends Model
         return $value ? $value / 10000 : null;
     }
 
+    public function scopeWithPrice($query)
+    {
+        $query->addSelect(['price' => ProductVariation::selectRaw('rate * price')
+            ->whereColumn('product_id', 'products.id')
+            ->join('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ]);
+    }
+
+    public function scopeOrderByGroup($query)
+    {
+        $query->orderBy('group_id');
+    }
+
+    public function scopeWithMainVariation($query)
+    {
+        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+            ->whereColumn('product_id', 'products.id')
+            ->where('is_enabled', true)
+            ->leftJoin('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ])->with('mainVariation');
+    }
+
+    public function scopeHasActiveVariation(Builder $query)
+    {
+        return $query->havingRaw('main_variation_id is not null');
+    }
+
     public function stockType()
     {
         return $this->belongsTo(FieldValue::class);
@@ -269,5 +301,13 @@ class Product extends Model
     public function country()
     {
         return $this->belongsTo(FieldValue::class);
+    }
+
+    public function subject()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->brand->name,
+        ];
     }
 }

@@ -67,7 +67,7 @@ class ProductQuestionController extends Controller
     {
         $product_question = $this->productQuestionRepository($product_question);
 
-        $this->authorize('approve', $product_question);
+        $this->authorize('update', $product_question);
 
         $this->productQuestionStorage->changeStatus(
             $product_question,
@@ -89,7 +89,7 @@ class ProductQuestionController extends Controller
     {
         $product_question = $this->productQuestionRepository($product_question);
 
-        $this->authorize('reject', $product_question);
+        $this->authorize('update', $product_question);
 
         $this->productQuestionStorage->changeStatus(
             $product_question,

@@ -3,6 +3,7 @@
 namespace Modules\Case\Dto;
 
 use App\Dto\BaseDto;
+use App\Enums\Status;
 
 class CaseDto extends BaseDto
 {
@@ -26,7 +27,7 @@ class CaseDto extends BaseDto
 
     public ?string $published_at;
 
-    public ?int $status;
+    public ?int $status = Status::INACTIVE;
 
     public ?array $products;
 

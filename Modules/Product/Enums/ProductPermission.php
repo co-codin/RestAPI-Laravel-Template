@@ -11,10 +11,15 @@ class ProductPermission implements PermissionEnum
     const EDIT_PRODUCTS = 'edit products';
     const DELETE_PRODUCTS = 'delete products';
 
+    public static function module(): string
+    {
+        return 'Товары';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_PRODUCTS => 'Создание товаров',
+            static::CREATE_PRODUCTS => 'Добавление товаров',
             static::VIEW_PRODUCTS => 'Просмотр товаров',
             static::EDIT_PRODUCTS => 'Редактирование товаров',
             static::DELETE_PRODUCTS => 'Удаление товаров',

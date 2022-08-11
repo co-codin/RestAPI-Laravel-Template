@@ -4,6 +4,7 @@ namespace Modules\Activity\Models;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection as SupportCollection;
 use Modules\Customer\Models\CustomerReview;
@@ -18,6 +19,8 @@ use Spatie\Activitylog\Models\Activity as SpatieActivity;
  * @property string|null $subject_type
  * @property string|null $event
  * @property int|null $subject_id
+ * @property string|null $parent_subject_type
+ * @property int|null $parent_subject_id
  * @property string|null $causer_type
  * @property int|null $causer_id
  * @property SupportCollection|null $properties
@@ -31,5 +34,8 @@ use Spatie\Activitylog\Models\Activity as SpatieActivity;
  */
 class Activity extends SpatieActivity
 {
-
+    public function parentSubject(): MorphTo
+    {
+        return $this->morphTo()->withTrashed();
+    }
 }

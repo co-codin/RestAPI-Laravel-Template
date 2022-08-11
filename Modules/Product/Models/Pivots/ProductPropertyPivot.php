@@ -31,6 +31,7 @@ class ProductPropertyPivot extends Pivot
 
     protected $casts = [
         'field_value_ids' => 'json',
+        'position' => 'integer',
         'value' => 'json',
         'is_important' => 'boolean',
         'is_in_variations' => 'boolean',

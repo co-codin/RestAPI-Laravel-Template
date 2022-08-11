@@ -12,10 +12,15 @@ class QuestionPermission implements PermissionEnum
     const DELETE_QUESTIONS = 'delete questions';
     const SORT_QUESTIONS = 'sort questions';
 
+    public static function module(): string
+    {
+        return 'Вопросы и ответы';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_QUESTIONS => 'Создание вопросов',
+            static::CREATE_QUESTIONS => 'Добавление вопросов',
             static::VIEW_QUESTIONS => 'Просмотр вопросов',
             static::EDIT_QUESTIONS => 'Редактирование вопросов',
             static::DELETE_QUESTIONS => 'Удаление вопросов',

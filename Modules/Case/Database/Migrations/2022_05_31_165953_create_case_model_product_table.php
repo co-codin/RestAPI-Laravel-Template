@@ -27,6 +27,6 @@ class CreateCaseModelProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('case_product');
+        Schema::dropIfExists('case_model_product');
     }
 }

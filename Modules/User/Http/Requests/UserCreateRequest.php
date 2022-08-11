@@ -13,7 +13,8 @@ class UserCreateRequest extends BaseFormRequest
         return [
             'role_id' => [
                 'required',
-                'integer',
+                'array',
+                'min:1',
                 'exists:roles,id',
             ],
             'name' => [

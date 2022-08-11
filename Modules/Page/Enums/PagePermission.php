@@ -11,10 +11,15 @@ class PagePermission implements PermissionEnum
     const EDIT_PAGES = 'edit pages';
     const DELETE_PAGES = 'delete pages';
 
+    public static function module(): string
+    {
+        return 'Страницы';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_PAGES => 'Создание страниц',
+            static::CREATE_PAGES => 'Добавление страниц',
             static::VIEW_PAGES => 'Просмотр страниц',
             static::EDIT_PAGES => 'Редактирование страниц',
             static::DELETE_PAGES => 'Удаление страниц',

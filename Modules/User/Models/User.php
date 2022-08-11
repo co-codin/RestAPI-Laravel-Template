@@ -2,6 +2,7 @@
 
 namespace Modules\User\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -10,7 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Role\Models\Role;
 use Modules\User\Database\factories\UserFactory;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Class User
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, HasApiTokens, HasFactory;
+    use Notifiable, HasRoles, HasApiTokens, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -38,17 +38,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected $appends = [
-        'role'
-    ];
-
-    protected function role(): Attribute
-    {
-        return new Attribute(
-            get: fn($value) => $this->roles->first(),
-        );
-    }
 
     protected static function newFactory()
     {

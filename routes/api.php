@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\FieldValueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentGroupController;
-use App\Http\Controllers\HomePageController;
+use Nwidart\Modules\Facades\Module;
+
 
 Route::resource('field-values', FieldValueController::class)
     ->only(['index', 'show']);
@@ -15,4 +17,4 @@ Route::resource('document-groups', DocumentGroupController::class)
 
 Route::get('/enums', [EnumController::class, 'index']);
 
-Route::get('/page/home', [HomePageController::class, 'index']);
+Route::get('/download', [DownloadFileController::class, 'download']);

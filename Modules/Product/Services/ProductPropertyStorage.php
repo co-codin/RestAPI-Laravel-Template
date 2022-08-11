@@ -11,11 +11,22 @@ class ProductPropertyStorage
 {
     public function update(Product $product, array $properties)
     {
+        activity()
+            ->performedOn($product)
+            ->event('updated')
+            ->withProperties([
+                'type' => 'property',
+                'old' => $product->properties,
+                'new' => $properties,
+            ])
+        ;
+
         $product->properties()->sync(
             collect($properties)
                 ->keyBy('id')
                 ->map(fn($item) => Arr::only($item, [
                     'field_value_ids',
+                    'position',
                     'is_important',
                     'important_position',
                     'important_value',

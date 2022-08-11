@@ -57,6 +57,7 @@ class ProductRequestCriteria implements CriteriaInterface
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('brand_id'),
                 AllowedFilter::exact('status'),
+                AllowedFilter::exact('group_id'),
                 AllowedFilter::exact('image'),
                 AllowedFilter::exact('is_in_home'),
                 AllowedFilter::exact('warranty'),

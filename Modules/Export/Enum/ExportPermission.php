@@ -12,14 +12,19 @@ class ExportPermission implements PermissionEnum
     const DELETE_EXPORTS = 'delete exports';
     const EXPORT_EXPORTS = 'export exports';
 
+    public static function module(): string
+    {
+        return 'Экспорт товаров';
+    }
+
     public static function descriptions() : array
     {
         return [
-            static::CREATE_EXPORTS => 'Создание экспортов',
-            static::VIEW_EXPORTS => 'Просмотр экспортов',
-            static::EDIT_EXPORTS => 'Редактирование экспортов',
-            static::DELETE_EXPORTS => 'Удаление экспортов',
-            static::EXPORT_EXPORTS => 'Экспорт экспортов',
+            static::CREATE_EXPORTS => 'Добавление фидов',
+            static::VIEW_EXPORTS => 'Просмотр фидов',
+            static::EDIT_EXPORTS => 'Редактирование фидов',
+            static::DELETE_EXPORTS => 'Удаление фидов',
+            static::EXPORT_EXPORTS => 'Ручная генерация фидов',
         ];
     }
 }

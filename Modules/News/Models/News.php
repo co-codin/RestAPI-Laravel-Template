@@ -85,7 +85,6 @@ class News extends Model
         return News::query()->select(array_keys($resolveInfo->getFieldSelection(1)['data']));
     }
 
-
     public function scopeActive(Builder $query): Builder
     {
         return $query->whereIn('status', [Status::ACTIVE, Status::ONLY_URL]);
@@ -99,5 +98,13 @@ class News extends Model
     protected static function newFactory()
     {
         return NewsFactory::new();
+    }
+
+    public function subject(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
     }
 }
