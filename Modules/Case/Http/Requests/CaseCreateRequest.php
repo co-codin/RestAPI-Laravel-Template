@@ -32,8 +32,8 @@ class CaseCreateRequest extends BaseFormRequest
             'images' => 'nullable|array',
             'images.*.image' => 'required|string|max:255',
             'images.*.caption' => 'required|string|max:255',
-            'released_year' => 'required|int|max:4',
-            'released_quarter' => 'required|int|max:1',
+            'released_year' => 'required|int|digits:4',
+            'released_quarter' => 'required|int|max:4|min:1',
         ];
     }
 
