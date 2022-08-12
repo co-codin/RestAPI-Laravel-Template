@@ -12,7 +12,6 @@ type CaseModel {
     city_id: Int!
     city: City  @belongsTo
     status: Int!
-    published_at: String!
     images: [CaseGalleryImage]
     products: [Product!] @belongsToMany
     released_year: Int
