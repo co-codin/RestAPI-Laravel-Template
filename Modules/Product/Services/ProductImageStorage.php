@@ -18,6 +18,16 @@ class ProductImageStorage
 
     public function update(Product $product, array $images = [])
     {
+        activity()
+            ->performedOn($product)
+            ->event('updated')
+            ->withProperties([
+                'type' => 'image',
+                'old' => $product->analogs,
+                'new' => $images,
+            ])
+        ;
+
         DB::beginTransaction();
 
         $this->product = $product;
