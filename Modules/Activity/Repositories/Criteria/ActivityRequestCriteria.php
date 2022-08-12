@@ -21,7 +21,6 @@ class ActivityRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('id'),
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
-                    'subject_id' => '='
                 ])),
             ])
             ->allowedIncludes([
