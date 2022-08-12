@@ -20,7 +20,6 @@ return [
         SubjectType::NEWS => 'Новость',
         SubjectType::FILTER => 'Фильтр',
         SubjectType::CASE_MODEL => 'Кейс',
-        SubjectType::CABINET => 'Кабинет',
-        SubjectType::IMAGE => 'Картинка',
+        SubjectType::CABINET => 'Кабинет'
     ],
 ];

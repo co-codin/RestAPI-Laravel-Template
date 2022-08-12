@@ -25,6 +25,4 @@ class SubjectType extends BaseEnum
     const CASE_MODEL = 'CaseModel';
 
     const CABINET = 'Cabinet';
-
-    const IMAGE = 'Image';
 }
