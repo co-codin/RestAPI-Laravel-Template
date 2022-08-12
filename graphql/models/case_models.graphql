@@ -16,6 +16,7 @@ type CaseModel {
     products: [Product!] @belongsToMany
     released_year: Int
     released_quarter: Int
+    seo: Seo @morphOne
 }
 
 type CaseGalleryImage {
