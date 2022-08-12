@@ -19,6 +19,11 @@ class ActivityRequestCriteria implements CriteriaInterface
             ))
             ->allowedFilters([
                 AllowedFilter::exact('id'),
+                AllowedFilter::exact('subject_id'),
+                AllowedFilter::exact('event'),
+                AllowedFilter::partial('subject_type'),
+                AllowedFilter::partial('causer.name'),
+
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',
                 ])),
