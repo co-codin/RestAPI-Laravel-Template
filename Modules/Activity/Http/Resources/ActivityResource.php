@@ -25,7 +25,7 @@ class ActivityResource extends BaseJsonResource
                 return SubjectType::getDescription($subjectType);
             }),
             'event' => $this->whenRequested('event', function() {
-                return ActivityAction::getDescription($this->event);
+                return ActivityAction::getDescription($this->description);
             }),
             'causer_type' => $this->whenRequested('causer_type', function() {
                 $causerType = explode('\\', $this->causer_type);
