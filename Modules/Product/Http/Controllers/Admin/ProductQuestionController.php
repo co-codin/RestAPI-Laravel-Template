@@ -37,7 +37,7 @@ class ProductQuestionController extends Controller
         int $product_question
     ): ProductQuestionResource
     {
-        $product_question = $this->productQuestionRepository($product_question);
+        $product_question = $this->productQuestionRepository->find($product_question);
 
         $this->authorize('update', $product_question);
 
@@ -51,7 +51,7 @@ class ProductQuestionController extends Controller
 
     public function destroy(int $product_question): Response
     {
-        $product_question = $this->productQuestionRepository($product_question);
+        $product_question = $this->productQuestionRepository->find($product_question);
 
         $this->authorize('delete', $product_question);
 
@@ -65,7 +65,7 @@ class ProductQuestionController extends Controller
         int $product_question
     ): Response
     {
-        $product_question = $this->productQuestionRepository($product_question);
+        $product_question = $this->productQuestionRepository->find($product_question);
 
         $this->authorize('update', $product_question);
 
@@ -87,7 +87,7 @@ class ProductQuestionController extends Controller
         int $product_question
     ): Response
     {
-        $product_question = $this->productQuestionRepository($product_question);
+        $product_question = $this->productQuestionRepository->find($product_question);
 
         $this->authorize('update', $product_question);
 
