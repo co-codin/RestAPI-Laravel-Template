@@ -88,6 +88,6 @@ class ProductStorage
             ->withProperties([
                 'categories' => $categories,
             ])
-            ->log('updated categories');
+            ->event('updated');
     }
 }
