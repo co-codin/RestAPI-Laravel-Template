@@ -86,7 +86,9 @@ class ProductStorage
         activity()
             ->on($product)
             ->withProperties([
-                'categories' => $categories,
+                'type' => 'category',
+                'old' => $product->categories,
+                'new' => $categories,
             ])
             ->event('updated');
     }

@@ -11,4 +11,6 @@ class ActivityAction extends BaseEnum
     const UPDATED = 'updated';
 
     const CREATED = 'created';
+
+    const UPDATE_CATEGORIES = 'updated categories';
 }

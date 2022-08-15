@@ -8,6 +8,7 @@ return [
         ActivityAction::CREATED => 'Создание',
         ActivityAction::UPDATED => 'Редактирование',
         ActivityAction::DELETED => 'Удаление',
+        ActivityAction::UPDATE_CATEGORIES => 'Редактирование',
     ],
 
     SubjectType::class => [
@@ -20,6 +21,8 @@ return [
         SubjectType::NEWS => 'Новость',
         SubjectType::FILTER => 'Фильтр',
         SubjectType::CASE_MODEL => 'Кейс',
-        SubjectType::CABINET => 'Кабинет'
+        SubjectType::CABINET => 'Кабинет',
+        SubjectType::IMAGE => 'Картинка',
+        SubjectType::PRODUCT_VARIATION => 'Вариация товара',
     ],
 ];
