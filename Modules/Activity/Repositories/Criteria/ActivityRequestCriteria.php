@@ -3,6 +3,7 @@
 namespace Modules\Activity\Repositories\Criteria;
 
 use App\Http\Filters\LiveFilter;
+use Modules\Activity\Http\Filters\SubjectTypeFilter;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -21,8 +22,9 @@ class ActivityRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('subject_id'),
                 AllowedFilter::exact('event'),
-                AllowedFilter::partial('subject_type'),
                 AllowedFilter::partial('causer_id'),
+
+                AllowedFilter::custom('subject_type', new SubjectTypeFilter),
 
                 AllowedFilter::custom('live', new LiveFilter([
                     'id' => '=',

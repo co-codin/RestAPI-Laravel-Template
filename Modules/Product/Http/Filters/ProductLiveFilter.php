@@ -46,8 +46,4 @@ class ProductLiveFilter implements Filter
             });
         });
     }
-
-    protected function f() {
-
-    }
 }
