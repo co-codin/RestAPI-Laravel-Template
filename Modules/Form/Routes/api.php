@@ -4,6 +4,7 @@ use App\Http\Middleware\ClientFormAuth;
 use Modules\Form\Http\Controllers\FormController;
 
 Route::prefix('form')->group(function () {
+    Route::post('/vacancy/send', [FormController::class, 'vacancy']);
     Route::post('/{formName}/send', function (string $formName) {
         $actionName = Str::camel($formName);
         $controller = App::make(FormController::class);

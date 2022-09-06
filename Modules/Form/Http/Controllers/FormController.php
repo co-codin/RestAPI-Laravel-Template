@@ -4,6 +4,7 @@ namespace Modules\Form\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Form\Http\Requests\FormsRequest;
 use Modules\Form\Mail\SubscribeNotify;
 use Modules\Form\Services\FormPreparerService;
@@ -50,5 +51,11 @@ class FormController extends Controller
         return response()->json(
             $request->getForm()->response()
         );
+    }
+
+    public function vacancy(
+        Request $request,
+    ) {
+        var_dump($request->all());
     }
 }
