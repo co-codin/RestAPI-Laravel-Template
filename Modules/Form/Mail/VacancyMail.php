@@ -10,9 +10,9 @@ class VacancyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $data;
+    public array $data;
 
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         $this->data = $data;
     }
@@ -20,6 +20,7 @@ class VacancyMail extends Mailable
     public function build()
     {
         $mail = $this
+            ->from('admin@medeq.ru', 'Medeq')
             ->view('form::mail.vacancy-mail')
             ->subject('Вакансия');
 
