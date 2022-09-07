@@ -5,8 +5,10 @@ namespace Modules\Form\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Modules\Form\Http\Requests\FormsRequest;
 use Modules\Form\Mail\SubscribeNotify;
+use Modules\Form\Mail\VacancyMail;
 use Modules\Form\Services\FormPreparerService;
 use Modules\Form\Services\FormSendService;
 
@@ -53,9 +55,9 @@ class FormController extends Controller
         );
     }
 
-    public function vacancy(
-        Request $request,
-    ) {
-        var_dump($request->all());
+    public function vacancy(Request $request) {
+        $email = 'y.cui@medeq.ru';
+
+        Mail::to($email)->send(new VacancyMail($request->all()));
     }
 }
