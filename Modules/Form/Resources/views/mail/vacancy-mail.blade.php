@@ -1,0 +1,1 @@
+<div>{{$data['about']}}</div>
