@@ -56,7 +56,7 @@ class FormController extends Controller
     }
 
     public function vacancy(Request $request) {
-        $email = 'hr.info@medeq.ru';
+        $email = 'y.cui@medeq.ru';
 
         Mail::to($email)->send(new VacancyMail($request->all()));
     }
