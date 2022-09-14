@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Modules\Form\Http\Requests\FormsRequest;
+use Modules\Form\Http\Requests\VacancyFormRequest;
 use Modules\Form\Mail\SubscribeNotify;
 use Modules\Form\Mail\VacancyMail;
 use Modules\Form\Services\FormPreparerService;
@@ -55,9 +56,10 @@ class FormController extends Controller
         );
     }
 
-    public function vacancy(Request $request) {
+    public function vacancy(VacancyFormRequest $request)
+    {
         $email = 'hr.info@medeq.ru';
 
-        Mail::to($email)->send(new VacancyMail($request->all()));
+        Mail::to($email)->send(new VacancyMail($request->validated()));
     }
 }
