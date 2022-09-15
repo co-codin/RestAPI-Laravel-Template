@@ -22,7 +22,7 @@ class VacancyMail extends Mailable
         $mail = $this
             ->from('admin@medeq.ru', 'Medeq')
             ->view('form::mail.vacancy-mail')
-            ->subject('Вакансия');
+            ->subject('Новый отклик на вакансию');
 
         foreach ($this->data['files'] as $file) {
             $mail->attach($file->getRealPath(), [
