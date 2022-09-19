@@ -21,6 +21,7 @@ class CaseCreateRequest extends BaseFormRequest
             'slug' => 'required|max:255|regex:/^[a-z0-9_\-]*$/|unique:case_models,slug',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
+            'body' => 'required|string',
             'summary' => 'required|string|max:255',
             'note' => 'nullable|string|max:255',
             'status' => [

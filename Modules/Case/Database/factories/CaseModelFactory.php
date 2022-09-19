@@ -27,6 +27,7 @@ class CaseModelFactory extends Factory
             'slug' => $this->faker->unique()->slug(),
             'short_description' => $this->faker->sentence,
             'full_description' => $this->faker->sentence,
+            'body' => $this->faker->text,
             'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',
             'published_at' => $this->faker->word,
             'status' => Status::getRandomValue(),

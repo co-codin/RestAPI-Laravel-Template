@@ -17,6 +17,8 @@ class CaseDto extends BaseDto
 
     public ?string $full_description;
 
+    public ?string $body;
+
     public ?string $summary;
 
     public ?string $note;

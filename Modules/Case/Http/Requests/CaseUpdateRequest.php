@@ -21,6 +21,7 @@ class CaseUpdateRequest extends BaseFormRequest
             'slug' => 'sometimes|required|string|max:255|regex:/^[a-z0-9_\-]*$/|unique:case_models,slug,' . $this->route('case_model'),
             'short_description' => 'sometimes|required|string',
             'full_description' => 'sometimes|required|string',
+            'body' => 'sometimes|required|string',
             'summary' => 'sometimes|required|string|max:255',
             'note' => 'sometimes|nullable|string|max:255',
             'status' => [

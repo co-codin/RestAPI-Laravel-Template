@@ -11,6 +11,20 @@ use Modules\Geo\Models\City;
 use Modules\Product\Models\Product;
 use Modules\Seo\Models\Seo;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $summary
+ * @property string|null $note
+ * @property string|null $image
+ * @property int $status
+ * @property string $released_year
+ * @property string $released_quarter
+ * @property string|null $body
+ * @property string|null $full_description
+ * @property string|null $short_description
+ */
 class CaseModel extends Model
 {
     use HasFactory, IsActive;

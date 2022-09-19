@@ -18,7 +18,7 @@ class CaseRequestCriteria implements CriteriaInterface
             ->allowedFields([
                 'id', 'name', 'slug', 'image', 'images', 'city_id', 'status', 'short_description',
                 'full_description', 'summary', 'note', 'published_at', 'created_at', 'updated_at',
-                'released_year', 'released_quarter',
+                'released_year', 'released_quarter', 'body',
             ])
             ->allowedFilters([
                 AllowedFilter::custom('live', new LiveFilter([
@@ -31,6 +31,7 @@ class CaseRequestCriteria implements CriteriaInterface
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::partial('summary'),
+                AllowedFilter::partial('body'),
                 AllowedFilter::partial('note'),
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('image'),
