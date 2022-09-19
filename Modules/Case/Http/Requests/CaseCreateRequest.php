@@ -28,7 +28,6 @@ class CaseCreateRequest extends BaseFormRequest
                 'required',
                 new EnumValue(Status::class, false),
             ],
-            'published_at' => 'required|string|max:255',
             'image' => 'required|string',
             'images' => 'nullable|array',
             'images.*.image' => 'required|string|max:255',
@@ -41,7 +40,6 @@ class CaseCreateRequest extends BaseFormRequest
     public function attributes()
     {
         return [
-            'published_at' => 'Дата поставки',
             'summary' => 'Что сделано?',
             'note' => 'Заметка',
             'images' => 'Галерея',

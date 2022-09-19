@@ -22,7 +22,7 @@ class CasePageController extends Controller
         $contacts = $this->caseRepository
             ->scopeQuery(function ($query) {
                 return $query
-                    ->addSelect('id', 'name', 'slug', 'image', 'city_id', 'short_description', 'published_at')
+                    ->addSelect('id', 'name', 'slug', 'image', 'city_id', 'short_description')
                     ;
             })
             ->with(['city' => function ($query) {

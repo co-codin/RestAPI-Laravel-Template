@@ -27,8 +27,6 @@ class CaseDto extends BaseDto
 
     public ?array $images;
 
-    public ?string $published_at;
-
     public ?int $status = Status::INACTIVE;
 
     public ?array $products;

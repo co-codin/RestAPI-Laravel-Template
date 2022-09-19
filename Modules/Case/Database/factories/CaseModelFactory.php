@@ -29,7 +29,6 @@ class CaseModelFactory extends Factory
             'full_description' => $this->faker->sentence,
             'body' => $this->faker->text,
             'image' => '/uploads/test/cases/' . $this->faker->randomElement([1, 2]) . '.jpg',
-            'published_at' => $this->faker->word,
             'status' => Status::getRandomValue(),
             'summary' => $this->faker->sentence,
         ];
