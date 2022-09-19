@@ -13,7 +13,7 @@ class AddBodyColumnToCasesTable extends Migration
      */
     public function up()
     {
-        Schema::table('cases', function (Blueprint $table) {
+        Schema::table('case_models', function (Blueprint $table) {
             $table->text('body')->nullable()->after('full_description');
         });
     }
@@ -25,7 +25,7 @@ class AddBodyColumnToCasesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cases', function (Blueprint $table) {
+        Schema::table('case_models', function (Blueprint $table) {
             $table->dropColumn('body');
         });
     }
