@@ -8,54 +8,13 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 class ProductListCriteria implements CriteriaInterface
 {
-    //        id
-//                name
-//                article
-//                image
-//                slug
-//                group_id
-//                stockType {
-//            value
-//                }
-//                category {
-//            name
-//                }
-//                brand {
-//            name
-//                }
-//                mainVariation {
-//            id
-//                    price
-//                    previous_price
-//                    is_price_visible
-//                    currency_id
-//                    stock_type
-//                    currency {
-//                rate
-//                    }
-//                }
-//                images {
-//            image
-//                }
-//                productReviews {
-//            ratings {
-//                name
-//                        rate
-//                    }
-//                }
-//                rating
-//                productReviewCount
-//                productAnswerCount
-//            }
-
-
     public function apply($model, RepositoryInterface $repository)
     {
         return $model
             ->select([
                 'id', 'name', 'article', 'image', 'slug', 'group_id', 'brand_id', 'stock_type_id'
             ])
-            ->withMainVariation()
+            ->joinMainVariation()
             ->with([
                 'brand' => function ($query) {
                     $query->addSelect('id', 'name');
@@ -68,6 +27,14 @@ class ProductListCriteria implements CriteriaInterface
                 },
                 'stockType' => function ($query) {
                     $query->addSelect('id', 'value');
+                },
+                'mainVariation' => function($query) {
+                    $query->addSelect([
+                        'id', 'price', 'previous_price', 'is_price_visible', 'currency_id',
+                    ]);
+                },
+                'mainVariation.currency' => function ($query) {
+                    $query->addSelect(['id', 'rate']);
                 }
             ])
             ->where('status', Status::ACTIVE);

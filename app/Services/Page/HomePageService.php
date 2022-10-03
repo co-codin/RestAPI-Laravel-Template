@@ -5,6 +5,7 @@ namespace App\Services\Page;
 use Modules\Banner\Enums\BannerPage;
 use Modules\Banner\Http\Resources\BannerResource;
 use Modules\Banner\Repositories\BannerRepository;
+use Modules\Brand\Http\Resources\BrandResource;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\News\Http\Resources\NewsResource;
 use Modules\News\Repositories\NewsRepository;
@@ -32,6 +33,7 @@ class HomePageService
             'covid_products' => $this->covidProducts(),
             'made_in_russia_products' => $this->madeInRussiaProducts(),
             'publications' => $this->publications(),
+            'brands' => $this->brands()
         ];
     }
 
@@ -76,5 +78,12 @@ class HomePageService
         $products = $this->productRepository->getHomeCountryProducts(13);
 
         return ProductResource::collection($products);
+    }
+
+    public function brands()
+    {
+        $brands = $this->brandRepository->getHomeBrands();
+
+        return BrandResource::collection($brands);
     }
 }

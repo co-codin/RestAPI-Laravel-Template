@@ -280,7 +280,18 @@ class Product extends Model
             ->leftJoin('currencies', 'currency_id', 'currencies.id')
             ->orderByRaw('rate * price ASC')
             ->take(1),
-        ])->with('mainVariation');
+        ])->with('mainVariation', 'mainVariation.currency');
+    }
+
+    public function scopeJoinMainVariation($query)
+    {
+        $query->addSelect(['main_variation_id' => ProductVariation::select('product_variations.id')
+            ->whereColumn('product_id', 'products.id')
+            ->where('is_enabled', true)
+            ->leftJoin('currencies', 'currency_id', 'currencies.id')
+            ->orderByRaw('rate * price ASC')
+            ->take(1),
+        ]);
     }
 
     public function scopeHasActiveVariation(Builder $query)
