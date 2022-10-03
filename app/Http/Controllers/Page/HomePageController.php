@@ -15,7 +15,7 @@ class HomePageController
     {
         return Cache::remember(
             'page-home-data',
-            now()->addDay(),
+            now()->addDay(1),
             fn() => $this->homePageService->getData()
         );
     }

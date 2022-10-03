@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\EntryType;
 use Illuminate\Support\Collection;
