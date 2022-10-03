@@ -47,7 +47,7 @@ class ProductResource extends BaseJsonResource
             'country' => new FieldValueResource($this->whenLoaded('country')),
         ]);
 
-        if ($this->relationLoaded('productReviews')) {
+        if ($this->whenLoaded('productReviews')) {
             $attributes = array_merge(
                 $attributes,
                 ['rating' => $this->rating]
