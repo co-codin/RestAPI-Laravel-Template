@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Page;
 
 use App\Services\Page\HomePageService;
+use Illuminate\Support\Facades\Cache;
 
 class HomePageController
 {
@@ -12,29 +13,10 @@ class HomePageController
 
     public function index()
     {
-        return $this->homePageService->getData();
-        // banners
-//        banners(
-//            where: {
-//                AND: [{ column: IS_ENABLED, operator: EQ, value: true }, { column: PAGE, operator: EQ, value: "home-page" }]
-//            }
-//            orderBy: [{ column: POSITION, order: ASC }]
-//        ) {
-//        data {
-//            url
-//                images {
-//                desktop
-//                    tablet
-//                    mobile
-//                }
-//            }
-//        }
-
-        // hot
-        // covid
-        // brands
-        // made in russia
-        // publications
-        // news
+        return Cache::remember(
+            'page-home-data',
+            now()->addDay(),
+            fn() => $this->homePageService->getData()
+        );
     }
 }
