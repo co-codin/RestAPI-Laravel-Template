@@ -26,12 +26,12 @@ class HomePageService
     public function getData(): array
     {
         return [
+            'hot_products' => $this->hotProducts(),
             'banners' => $this->banners(),
             'news' => $this->news(),
-            'publications' => $this->publications(),
-            'hot_products' => $this->hotProducts(),
             'covid_products' => $this->covidProducts(),
             'made_in_russia_products' => $this->madeInRussiaProducts(),
+            'publications' => $this->publications(),
         ];
     }
 
@@ -73,7 +73,7 @@ class HomePageService
 
     public function madeInRussiaProducts()
     {
-        $products = $this->productRepository->getHomeMadeInRussiaProducts();
+        $products = $this->productRepository->getHomeCountryProducts(13);
 
         return ProductResource::collection($products);
     }

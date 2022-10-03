@@ -6,15 +6,21 @@ namespace Modules\Product\Repositories;
 
 use App\Enums\Status;
 use App\Repositories\BaseRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
+use Modules\Product\Repositories\Criteria\ProductHotCriteria;
+use Modules\Product\Repositories\Criteria\ProductListCriteria;
 use Modules\Product\Repositories\Criteria\ProductRequestCriteria;
 use Modules\Search\Collections\FilteredCollection;
 use Modules\Search\Contracts\IndexableRepository;
 use Modules\Search\Repositories\IndexableRepositoryTrait;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository extends BaseRepository implements IndexableRepository
@@ -132,93 +138,44 @@ class ProductRepository extends BaseRepository implements IndexableRepository
         });
     }
 
-//
-//productsHot: products(
-//where: {
-//AND: [
-//{ column: IS_IN_HOME, operator: EQ, value: true }
-//{ column: STATUS, operator: EQ, value: 1 }
-//{ column: GROUP_ID, operator: NEQ, value: 4 }
-//]
-//}
-//first: 20
-//            withMainVariation: true
-//            fromCovid: false
-//            hot: true
-//        ) {
-//    data {
-//        id
-//                name
-//                article
-//                image
-//                slug
-//                group_id
-//                stockType {
-//            value
-//                }
-//                category {
-//            name
-//                }
-//                brand {
-//            name
-//                }
-//                mainVariation {
-//            id
-//                    price
-//                    previous_price
-//                    is_price_visible
-//                    currency_id
-//                    stock_type
-//                    currency {
-//                rate
-//                    }
-//                }
-//                images {
-//            image
-//                }
-//                productReviews {
-//            ratings {
-//                name
-//                        rate
-//                    }
-//                }
-//                rating
-//                productReviewCount
-//                productAnswerCount
-//            }
-//        }
-
-
     public function getHomeHotProducts()
     {
-        return $this->resetCriteria()->scopeQuery(function ($query) {
-            return $query->where('is_in_home', true)
-                ->where('status', Status::ACTIVE)
-                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
-                ->withMainvariation()
-                ->take(20);
-        })->get();
+        return $this->resetCriteria()
+            ->pushCriteria(new ProductListCriteria)
+            ->pushCriteria(new ProductHotCriteria)
+            ->scopeQuery(fn($query) => $query->where('is_in_home', true)->take(20))
+            ->get();
     }
 
-    public function getHomeMadeInRussiaProducts()
+    public function getHomeCountryProducts(int $country)
     {
-        return $this->resetCriteria()->scopeQuery(function ($query) {
-            return $query->where('is_in_home', true)
-                ->where('status', Status::ACTIVE)
-                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
-                ->withMainvariation()
-                ->take(20);
-        })->get();
+        return $this->resetCriteria()
+            ->pushCriteria(new ProductListCriteria)
+            ->scopeQuery(function ($query) use($country) {
+                return $query->where('is_in_home', true)
+                    ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
+                    ->where('country_id', $country)
+                    ->take(20);
+            })
+            ->get();
     }
 
     public function getHomeCovidProducts()
     {
-        return $this->resetCriteria()->scopeQuery(function ($query) {
-            return $query->where('is_in_home', true)
-                ->where('status', Status::ACTIVE)
-                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
-                ->withMainvariation()
-                ->take(20);
-        })->get();
+        return $this->resetCriteria()
+            ->pushCriteria(new ProductListCriteria)
+            ->scopeQuery(function ($query) {
+                return $query->where('is_in_home', true)
+                    ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                            ->from('product_property as pp')
+                            ->whereColumn('pp.product_id', 'products.id')
+                            ->where('pp.property_id', 259)
+                            ->whereJsonContains('pp.field_value_ids', 1);
+                    })
+                    ->take(20);
+            })
+            ->get();
     }
 }
