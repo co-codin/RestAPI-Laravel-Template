@@ -7,6 +7,7 @@ namespace Modules\Product\Repositories;
 use App\Enums\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Arr;
+use Modules\Product\Enums\ProductGroup;
 use Modules\Product\Http\Resources\ProductResource;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
@@ -129,5 +130,95 @@ class ProductRepository extends BaseRepository implements IndexableRepository
                 },
             ]);
         });
+    }
+
+//
+//productsHot: products(
+//where: {
+//AND: [
+//{ column: IS_IN_HOME, operator: EQ, value: true }
+//{ column: STATUS, operator: EQ, value: 1 }
+//{ column: GROUP_ID, operator: NEQ, value: 4 }
+//]
+//}
+//first: 20
+//            withMainVariation: true
+//            fromCovid: false
+//            hot: true
+//        ) {
+//    data {
+//        id
+//                name
+//                article
+//                image
+//                slug
+//                group_id
+//                stockType {
+//            value
+//                }
+//                category {
+//            name
+//                }
+//                brand {
+//            name
+//                }
+//                mainVariation {
+//            id
+//                    price
+//                    previous_price
+//                    is_price_visible
+//                    currency_id
+//                    stock_type
+//                    currency {
+//                rate
+//                    }
+//                }
+//                images {
+//            image
+//                }
+//                productReviews {
+//            ratings {
+//                name
+//                        rate
+//                    }
+//                }
+//                rating
+//                productReviewCount
+//                productAnswerCount
+//            }
+//        }
+
+
+    public function getHomeHotProducts()
+    {
+        return $this->resetCriteria()->scopeQuery(function ($query) {
+            return $query->where('is_in_home', true)
+                ->where('status', Status::ACTIVE)
+                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
+                ->withMainvariation()
+                ->take(20);
+        })->get();
+    }
+
+    public function getHomeMadeInRussiaProducts()
+    {
+        return $this->resetCriteria()->scopeQuery(function ($query) {
+            return $query->where('is_in_home', true)
+                ->where('status', Status::ACTIVE)
+                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
+                ->withMainvariation()
+                ->take(20);
+        })->get();
+    }
+
+    public function getHomeCovidProducts()
+    {
+        return $this->resetCriteria()->scopeQuery(function ($query) {
+            return $query->where('is_in_home', true)
+                ->where('status', Status::ACTIVE)
+                ->where('group_id', '!=', ProductGroup::IMPOSSIBLE)
+                ->withMainvariation()
+                ->take(20);
+        })->get();
     }
 }

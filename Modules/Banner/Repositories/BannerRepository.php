@@ -17,4 +17,15 @@ class BannerRepository extends BaseRepository
     {
         $this->pushCriteria(BannerRequestCriteria::class);
     }
+
+    public function getBannersByPage(string $page)
+    {
+        return $this->resetCriteria()
+            ->scopeQuery(function($query) use ($page) {
+                return $query->where('page', $page)
+                    ->where('is_enabled', true)
+                    ->orderBy('position');
+            })
+            ->get(['url', 'images']);
+    }
 }

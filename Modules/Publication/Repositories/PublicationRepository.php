@@ -20,4 +20,15 @@ class PublicationRepository extends BaseRepository
     {
         $this->pushCriteria(PublicationRequestCriteria::class);
     }
+
+    public function getHomePublications()
+    {
+        return $this->resetCriteria()
+            ->scopeQuery(function($query) {
+                return $query->where('is_enabled', true)
+                    ->orderByDesc('published_at')
+                    ->take(4);
+            })
+            ->get(['name', 'source', 'url', 'logo', 'published_at']);
+    }
 }
