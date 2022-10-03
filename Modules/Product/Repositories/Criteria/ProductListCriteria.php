@@ -37,6 +37,10 @@ class ProductListCriteria implements CriteriaInterface
                     $query->addSelect(['id', 'rate']);
                 }
             ])
+            ->withCount([
+                'productReviews',
+                'productAnswers'
+            ])
             ->where('status', Status::ACTIVE);
     }
 }
